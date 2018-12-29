@@ -31,6 +31,8 @@ namespace Emperia
 		public bool slightKnockback = false;
 		public bool ancientPelt = false;
 		public bool sporeFriend = false;
+		public bool yetiMount = false;
+		public int yetiCooldown = 30;
 		public int sporeCount = 0;
 		public int sporeBuffCount = 0;
 		public int OathCooldown = 720;
@@ -39,6 +41,7 @@ namespace Emperia
 		int SporeHealCooldown = 60;
         public override void ResetEffects()
         {
+			yetiMount = false;
 			slightKnockback = false;
 			sporeFriend = false;
 			rougeRage = false;
@@ -95,7 +98,21 @@ namespace Emperia
 					}
 				}
 			}
-			
+			if (yetiMount)
+			{
+				yetiCooldown--;
+				for (int npcFinder = 0; npcFinder <200; ++npcFinder)
+				{
+				
+					if (player.Distance(Main.npc[npcFinder].Center) < 256 && yetiCooldown <= 0)
+					{
+						yetiCooldown = 30;
+						Vector2 direction = Main.npc[npcFinder].Center - player.Center - new Vector2(0, 16);
+						direction.Normalize();
+						Projectile.NewProjectile(player.Center.X, player.Center.Y + 16, direction.X * 7f, direction.Y * 7f, ProjectileID.SnowBallFriendly, 25, 1, Main.myPlayer, 0, 0);  
+					}
+			    }
+			}
         }
 		public override void UpdateBiomes()
 		{

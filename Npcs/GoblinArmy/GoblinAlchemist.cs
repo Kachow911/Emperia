@@ -129,6 +129,13 @@ namespace Emperia.Npcs.GoblinArmy
             move = toMove;
             this.counter = counter;
 		}
+		public override float SpawnChance(NPCSpawnInfo spawnInfo)
+		{
+			int x = spawnInfo.spawnTileX;
+			int y = spawnInfo.spawnTileY;
+			int tile = Main.tile[x, y].type;
+			return (Main.hardMode && Main.invasionType == 1) ? 0.2f : 0;
+		}
 		
 
        
@@ -148,7 +155,10 @@ namespace Emperia.Npcs.GoblinArmy
         }*/
 		public override void NPCLoot()
 		{
-			
+			if (Main.rand.Next(10) == 0)
+				{
+					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("AlchemistFlask"));
+				}
 		}
         
     }

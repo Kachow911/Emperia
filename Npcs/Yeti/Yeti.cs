@@ -42,7 +42,7 @@ namespace Emperia.Npcs.Yeti
             npc.defense = 12;
             npc.knockBackResist = 0f;
             npc.width = 55;
-            npc.height = 64;
+            npc.height = 62;
             npc.value = Item.buyPrice(0, 8, 0, 0);
             npc.npcSlots = 1f;
             npc.boss = true;
@@ -285,6 +285,10 @@ namespace Emperia.Npcs.Yeti
 				if (Main.rand.Next(2) == 0)
 				{
 					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("MammothineClub"));
+				}
+				if (Main.rand.Next(2) == 0)
+				{
+					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("HuntersSpear"));
 				}
 				if (Main.rand.Next(2) == 0)
 				{

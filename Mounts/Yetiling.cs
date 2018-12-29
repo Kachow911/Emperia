@@ -31,7 +31,7 @@ namespace Emperia.Mounts
 			mountData.playerYOffsets = array;
 			mountData.xOffset = 11;
 			mountData.bodyFrame = 3;
-			mountData.yOffset = 16;
+			mountData.yOffset = 8;
 			mountData.playerHeadOffset = 22;
 			mountData.standingFrameCount = 4;
 			mountData.standingFrameDelay = 12;

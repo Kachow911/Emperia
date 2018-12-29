@@ -17,6 +17,8 @@ namespace Emperia.Buffs
 		{
 			player.mount.SetMount(mod.MountType<Mounts.Yetiling>(), player);
 			player.buffTime[buffIndex] = 10;
+			MyPlayer modPlayer = player.GetModPlayer<MyPlayer>(mod);
+			modPlayer.yetiMount = true;
 		}
 	}
 }

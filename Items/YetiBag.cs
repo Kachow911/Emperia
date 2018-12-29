@@ -38,6 +38,10 @@ namespace Emperia.Items
 			}
 			if (Main.rand.Next(4) != 0)
 			{
+				player.QuickSpawnItem(mod.ItemType("HuntersSpear"));
+			}
+			if (Main.rand.Next(4) != 0)
+			{
 				player.QuickSpawnItem(mod.ItemType("BigGameHunter"));
 			}
 			if (Main.rand.Next(4) != 0)
