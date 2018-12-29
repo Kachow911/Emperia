@@ -100,7 +100,18 @@ namespace Emperia.Projectiles
 				{
 					projectile.frameCounter = 0;
 					projectile.frame = (projectile.frame + 1) % 3;
-				} 
+				}
+				
+				if ((double) offset.X > 0.0)
+				{
+					projectile.spriteDirection = -1;
+					projectile.rotation = (float) Math.Atan2((double)offset.Y, (double)offset.X);
+				}
+				else
+				{
+					projectile.spriteDirection = 1;
+					projectile.rotation = (float) Math.Atan2(-(double)offset.Y, -(double)offset.X);
+				}
 			}
         }
 
