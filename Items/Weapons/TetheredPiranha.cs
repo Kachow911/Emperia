@@ -12,11 +12,12 @@ namespace Emperia.Items.Weapons
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Tethered Piranha");
-			Tooltip.SetDefault("yeah");
+			Tooltip.SetDefault("Latches onto enemies dealing rapid damage");
 		}
 		public override void SetDefaults()
 		{
-			item.damage = 13;
+			item.damage = 15;
+            item.crit = 4;
 			item.melee = true;
 			item.width = 22;
 			item.height = 22;
