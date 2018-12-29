@@ -24,6 +24,7 @@ namespace Emperia.Projectiles
             projectile.friendly = true;
             projectile.melee = true;
             projectile.penetrate = -1;
+            projectile.timeLeft = 1000;
 			Main.projFrames[projectile.type] = 3;
         }
 
@@ -45,7 +46,8 @@ namespace Emperia.Projectiles
 
         public override void AI()
         {
-            Vector2 playerCenter = Main.player[projectile.owner].MountedCenter;
+            Player player = Main.player[projectile.owner];
+            Vector2 playerCenter = player.MountedCenter;
             if ((double) projectile.velocity.X < 0.0)
             {
                 projectile.spriteDirection = -1;
@@ -62,26 +64,33 @@ namespace Emperia.Projectiles
 			{
 				returning = true;
 			}
+
+            if (player.releaseUseItem && projectile.timeLeft <= 990)
+            {
+                returning = true;
+                returntimer = 0;
+            }
 			
 			if (returning)
 			{
 				projectile.tileCollide = false;
 				Vector2 returnVelocity = playerCenter - projectile.position;
 				returnVelocity.Normalize();
-				returnVelocity *= 8f;
+				returnVelocity *= 12f;
 				projectile.velocity = returnVelocity;
 				
-				if (Vector2.Distance(playerCenter, projectile.position) <= 5f)
+				if (Vector2.Distance(playerCenter, projectile.position) <= 10f || Vector2.Distance(playerCenter, projectile.position) >= 5000f)
 				{
 					projectile.Kill();
 				}
 			}
 			
-			if (latched && !returning)
+			if (latched && returntimer > 0)
 			{
 				if (!npc.active)
 				{
 					returning = true;
+                    returntimer = 0;
 				}
 				projectile.rotation = (float) Math.Atan2(-(double)offset.Y, -(double)offset.X);
 				projectile.frameCounter++;
