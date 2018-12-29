@@ -1,0 +1,3 @@
+author = Kachow &amp; The Dev Team
+version = 0.1
+displayName = Emperia
