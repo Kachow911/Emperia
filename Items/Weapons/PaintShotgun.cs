@@ -27,7 +27,6 @@ namespace Emperia.Items.Weapons
             item.useStyle = 5;  
             item.noMelee = true; 
             item.knockBack = 1.3f; 
-            item.UseSound = SoundID.Item11; 
             item.value = Item.buyPrice(0, 10, 0, 0);
             item.rare = 6;   
             item.autoReuse = false;  
@@ -44,6 +43,7 @@ namespace Emperia.Items.Weapons
 				Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(15)); 
 				Projectile.NewProjectile(position.X, position.Y, perturbedSpeed.X * 2, perturbedSpeed.Y * 2, type, damage, knockBack, player.whoAmI);
 			}
+			Main.PlaySound(SoundID.Item5, player.position);
 			return false; 
 		}
 		public override Vector2? HoldoutOffset()
