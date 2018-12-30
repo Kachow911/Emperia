@@ -31,7 +31,7 @@ namespace Emperia.Items.Weapons.Forest
             item.value = 1000;
             item.rare = 3;
             item.autoReuse = false;
-            item.shootSpeed = 10f;
+            item.shootSpeed = 8f;
 			item.UseSound = SoundID.Item5; 
         }
 		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
