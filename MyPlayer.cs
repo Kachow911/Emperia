@@ -184,9 +184,11 @@ namespace Emperia
 			{
 				target.AddBuff(mod.BuffType("FatesDemise"), 720);
 			}
-			if (defenseInsignia && damage > 150)
+			if (defenseInsignia && damage > 50)
 			{
-				if (Main.rand.Next(12) == 0)
+				int increasedChance = 4 + ((damage - 50) % 25);
+				if (increasedChance > 12) increasedChance = 12;
+				if (Main.rand.Next(100 / increasedChance) == 0)
 				{
 					Item.NewItem((int)target.position.X, (int)target.position.Y, target.width, target.height, mod.ItemType("ProtectiveEnergy"));
 				}

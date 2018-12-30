@@ -7,13 +7,13 @@ using Terraria.ModLoader.IO;
 using Terraria.Utilities;
 using Emperia;
 
-namespace ExampleMod.Items
+namespace Emperia
 {
 	public class ExampleInstancedGlobalItem : GlobalItem
 	{
 		public override bool UseItem(Item item, Player player)
         {
-			if (item.type == 28 || item.type == 188 || item.type == 499 || item.type == 3544)
+			if (item.type == 28 || item.type == 188 || item.type == 499 || item.type == 3544 || item.type == 226 || item.type == 227 || item.type == 3001)
 			{
 				MyPlayer modPlayer = player.GetModPlayer<MyPlayer>(mod);
 				if (modPlayer.vitalityCrystal)
