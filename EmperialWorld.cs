@@ -66,19 +66,38 @@ namespace Emperia
 		public override void ModifyWorldGenTasks(List<GenPass> tasks, ref float totalWeight)
 		{
 			int genIndex = tasks.FindIndex(genpass => genpass.Name.Equals("Final Cleanup"));
-			tasks.Insert(genIndex + 1, new PassLegacy("Twilight Forest", delegate (GenerationProgress progress)
+			tasks.Insert(genIndex + 1, new PassLegacy("Volcanic Spreading", delegate (GenerationProgress progress)
 			{
 		
-				progress.Message = "Abyss Generating";
-                int XTILE = Main.spawnTileX;
-                int yAxis = Main.maxTilesY / 2;
-				MakeCircle(XTILE, yAxis, 75, mod.TileType("AphoticStone"));
-				KillCircle(XTILE, yAxis, 50);
-				for (int i = 0; i < 5; i++)
+				progress.Message = "Volcano Spreading";
+				int volcanoBiomeLength = Main.rand.Next(240, 320);
+				int xSpawn = 0;
+				if (Terraria.Main.dungeonX > Main.maxTilesX / 2)
 				{
-					int xSpawn = Main.spawnTileX + Main.rand.Next(-100, 100);
-					int ySpawn = Main.maxTilesY / 12;
-					MakeCircle(xSpawn, xSpawn, 10, mod.TileType("Aetherium"));
+					xSpawn = WorldGen.genRand.Next((Main.maxTilesX / 2) - 500, (Main.maxTilesX / 2) -100);
+				}
+				else 
+				{
+					xSpawn = WorldGen.genRand.Next((Main.maxTilesX / 2) + 100, (Main.maxTilesX / 2) + 500);
+				}
+				int yAxis = Main.spawnTileY;
+				for (int y = 0; y < Main.maxTilesY; y++)
+				{
+					for (int i = xSpawn - volcanoBiomeLength / 2; i < xSpawn + volcanoBiomeLength / 2; i++)
+					{
+						if (Main.tile[i, y] != null)
+						{
+							if (Main.tile[i, y].active())
+							{
+								if (Main.tile[i, y].type == TileID.Trees)
+									WorldGen.KillTile(i, y);
+								if (Main.tile[i, y- 1] == null && Main.rand.NextBool(10))
+									Main.tile[i, y].type = TileID.Lavafall;
+									
+								Main.tile[i, y].type = (ushort)mod.TileType("VolcanoTile");
+							}
+						}
+					}
 				}
 				
 				
