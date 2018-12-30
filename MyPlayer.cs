@@ -20,7 +20,7 @@ namespace Emperia
 {
     public class MyPlayer : ModPlayer
     {
-	
+		public bool ZoneVolcano = false;
 		public bool rougeRage = false;
 		public bool vermillionValor = false;
 		public bool deathTalisman = false;
@@ -41,6 +41,7 @@ namespace Emperia
 		int SporeHealCooldown = 60;
         public override void ResetEffects()
         {
+			ZoneVolcano = false;
 			yetiMount = false;
 			slightKnockback = false;
 			sporeFriend = false;
@@ -53,6 +54,10 @@ namespace Emperia
 			ancientPelt = false;
 			sporeBuffCount = 0;
         }
+		public override void UpdateBiomes()
+		{
+			ZoneVolcano = EmperialWorld.VolcanoTiles > 100;
+		}
 		public override void CatchFish(Item fishingRod, Item bait, int power, int liquidType, int poolSize, int worldLayer, int questFish, ref int caughtType, ref bool junk)
 		{
 			if (Main.hardMode && player.ZoneSkyHeight)
@@ -114,10 +119,8 @@ namespace Emperia
 			    }
 			}
         }
-		public override void UpdateBiomes()
-		{
-			
-		}
+		
+		
 		public override void UpdateBiomeVisuals()
 		{
 

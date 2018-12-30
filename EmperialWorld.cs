@@ -14,7 +14,7 @@ namespace Emperia
     public class EmperialWorld : ModWorld
     {
 	
-		
+		public static int VolcanoTiles = 0;
 		public override void Initialize()
 		{
 			
@@ -27,7 +27,7 @@ namespace Emperia
 		}
 		public override void TileCountsAvailable(int[] tileCounts)
 		{
-			
+			VolcanoTiles = tileCounts[mod.TileType("VolcanoTile")];
 		}
 		public void MakeCircle(int X, int Y, int radius, int TileType)
 		{
