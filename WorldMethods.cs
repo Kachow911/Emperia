@@ -25,6 +25,35 @@ namespace Emperia
                 WorldMethods.TileRunner(X + DistX, Y + DistY, (double)strength, 1, type, true, 0f, 0f, true, true);
             }
         }
+		 public static void MainVolcano(int X, int Y, int length, int height, ushort type2, float slope, float sloperight)
+        {
+            float trueslope = 1 / slope;
+            float truesloperight = 1 / sloperight;
+            int Xstray = length / 2;
+            for (int level = 0; level <= height; level++)
+            {
+                Main.tile[X, (int)(Y + level - (slope / 2))].active(true);
+                Main.tile[X, (int)(Y + level - (slope / 2))].type = type2;
+                for (int I = X - (int)((length + (level * trueslope)) + (Math.Sqrt(level) * 3)); I < X + (int)((length + (level * truesloperight)) + (Math.Sqrt(level) * 3)); I++)
+                {
+                    //		if (Main.tile[(int)I, (int)(Y + level)].type != replacetile || replace)
+                    //	{
+						if (level >= 22)
+						{
+							WorldGen.KillWall((int)I, (int)(Y + level));
+							WorldGen.PlaceWall((int)I, (int)(Y + level), 1);
+						}
+                    Main.tile[(int)I, (int)(Y + level)].active(true);
+                    Main.tile[(int)I, (int)(Y + level)].type = type2;
+					if (Main.rand.Next(50) == 1)
+					{
+						WorldMethods.CragSpike((int)I, (int)((Y + level) - Main.rand.Next(5,15)), 1, 30, type2, (float)Main.rand.Next(2, 6), (float)Main.rand.Next(2, 6));
+					}
+                    //}
+                }
+            }
+        }
+		
         public static void CragSpike(int X, int Y, int length, int height, ushort type2, float slope, float sloperight)
         {
             float trueslope = 1 / slope;
@@ -72,7 +101,7 @@ namespace Emperia
         {
             if (initialdig)
             {
-                WorldGen.digTunnel(X, Y, 0, 0, strength * 4, strength * 4, false);
+                WorldGen.digTunnel(X, Y, 0, 0, strength, strength, false);
             }
             for (int rotation2 = 0; rotation2 < 350; rotation2++)
             {

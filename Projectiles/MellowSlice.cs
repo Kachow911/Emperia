@@ -45,7 +45,7 @@ namespace Emperia.Projectiles
 			if (projectile.frameCounter >= 3)
 			{
 				projectile.frameCounter = 0;
-				projectile.frame = (projectile.frame + 1) % 5;
+				projectile.frame = (projectile.frame + 1) % 9;
 			} 
 			float num1 = Main.MouseWorld.X;
 			float num2 = Main.MouseWorld.Y;
