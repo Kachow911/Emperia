@@ -32,7 +32,7 @@ namespace Emperia.Items.Sets.PreHardmode.Marble
 			item.autoReuse = true;
 
 			item.shoot = mod.ProjectileType("MarbleEnergy");
-			item.shootSpeed = 6f;
+			item.shootSpeed = 5f;
 			item.mana = 5;
 		}
 

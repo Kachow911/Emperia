@@ -22,10 +22,9 @@ namespace Emperia.Projectiles
             projectile.friendly = true;      //make that the projectile will not damage you
             projectile.magic = true;         // 
             projectile.tileCollide = true;   //make that the projectile will be destroed if it hits the terrain
-            projectile.penetrate = 1;      //how many npc will penetrate
-            projectile.timeLeft = 200;   //how many time projectile projectile has before disepire
+            projectile.penetrate = 3;      //how many npc will penetrate
+            projectile.timeLeft = 100;   //how many time projectile projectile has before disepire
             projectile.light = 0.75f;    // projectile light
-            projectile.extraUpdates = 1;
             projectile.ignoreWater = true;
 			projectile.alpha = 255;
         }

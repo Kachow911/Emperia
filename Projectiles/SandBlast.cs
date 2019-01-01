@@ -17,13 +17,12 @@ namespace Emperia.Projectiles
         public override void SetDefaults()
         {  //projectile name
             projectile.width = 20;       //projectile width
-            projectile.height = 28;  //projectile height
+            projectile.height = 20;  //projectile height
             projectile.friendly = true;      //make that the projectile will not damage you
             projectile.magic = true;         // 
             projectile.tileCollide = true;   //make that the projectile will be destroed if it hits the terrain
-            projectile.penetrate = -1;      //how many npc will penetrate
+            projectile.penetrate = 2;      //how many npc will penetrate
             projectile.timeLeft = 120;
-            projectile.extraUpdates = 1;
             projectile.ignoreWater = true;
 			projectile.alpha = 255;
         }

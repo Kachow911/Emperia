@@ -13,7 +13,7 @@ namespace Emperia.Items.Sets.PreHardmode.Marble   //where is located
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Marble Sword");
-			Tooltip.SetDefault("Killing an enemy regenerates you 10 life");
+			Tooltip.SetDefault("Killing an enemy restores 5 life");
 		}
         public override void SetDefaults()
         {    //Sword name
@@ -34,11 +34,11 @@ namespace Emperia.Items.Sets.PreHardmode.Marble   //where is located
         }
 		public override void OnHitNPC (Player player, NPC target, int damage, float knockback, bool crit)
 		{
-			if (target.life <= 0)
+			if (target.life <= 0 && target.lifeMax >= 70)
 			{
 				int num622 = Dust.NewDust(new Vector2(target.position.X + target.width / 2, target.position.Y + target.height / 2), 1, 1, 15, 0f, 0f, 74, new Color(53f, 67f, 253f), 1.3f);
-				player.statLife += 10;
-				player.HealEffect(10);
+				player.statLife += 5;
+				player.HealEffect(5);
 			}
 		}
         public override void AddRecipes()  //How to craft this sword
