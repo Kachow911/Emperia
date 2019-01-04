@@ -31,6 +31,7 @@ namespace Emperia
 		public bool slightKnockback = false;
 		public bool ancientPelt = false;
 		public bool sporeFriend = false;
+		public bool goblinSet = false;
 		public bool yetiMount = false;
 		public int yetiCooldown = 30;
 		public int sporeCount = 0;
@@ -51,6 +52,7 @@ namespace Emperia
 			forbiddenOath = false;
 			vitalityCrystal = false;
 			defenseInsignia = false;
+			goblinSet = false;
 			ancientPelt = false;
 			sporeBuffCount = 0;
         }
@@ -206,6 +208,7 @@ namespace Emperia
 				player.AddBuff(mod.BuffType("Spored"), 2);
 				
 			}
+			if (goblinSet) player.AddBuff(mod.BuffType("GoblinsCelerity"), 180);
 		}
 		public override void OnHitNPCWithProj (Projectile projectile, NPC target, int damage, float knockback, bool crit)
 		{
