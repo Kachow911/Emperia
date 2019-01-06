@@ -74,25 +74,12 @@ namespace Emperia.Npcs.GoblinArmy
 
         public override void AI()
 		{
-			
 			if (npc.velocity.X < 0)
 				npc.spriteDirection = -1;
 			else if (npc.velocity.X > 0)
 				npc.spriteDirection = 1;
 			npc.TargetClosest(true);
 			Player player = Main.player[npc.target];
-			if (!player.active || player.dead)
-			{
-				move = Move.Walk;
-				npc.TargetClosest(false);
-				npc.velocity.Y = 25;
-				npc.noTileCollide = true;
-				if (npc.timeLeft > 10)
-				{
-					npc.timeLeft = 10;
-				}
-			}
-			
 			if (!init)
 			{
 				move = Move.Walk;
@@ -115,6 +102,7 @@ namespace Emperia.Npcs.GoblinArmy
 			}
 			if (move == Move.Shoot)
 			{
+				Main.PlaySound(SoundID.Item14, player.position);
 				counter--;
 				if (player.Center.X > npc.Center.X)
 					npc.spriteDirection = 1;
@@ -123,12 +111,21 @@ namespace Emperia.Npcs.GoblinArmy
 				npc.velocity = Vector2.Zero;
 				if (counter <= 0)
 				{
-					
 					SetMove(Move.Walk, 600);
 					Vector2 placePosition = npc.Center + new Vector2(0, -npc.height / 2);
 					Vector2 direction = Main.player[npc.target].Center + new Vector2(0, -125) - placePosition;
 					direction.Normalize();
-					Projectile.NewProjectile(npc.Center.X, npc.Center.Y - npc.height/2, direction.X * 7f, direction.Y * 7f, mod.ProjectileType("GoblinBomb"), npc.damage, 1, Main.myPlayer, 0, 0);
+					for (int index = 0; index < 10; ++index)
+						Dust.NewDust(placePosition, npc.width, npc.height, 31, 0.0f, 0.0f, 100, new Color(), 1.5f);
+					for (int index1 = 0; index1 < 10; ++index1)
+					{
+						int index2 = Dust.NewDust(placePosition, npc.width, npc.height, 6, 0.0f, 0.0f, 100, new Color(), 2.5f);
+						Main.dust[index2].noGravity = true;
+						Main.dust[index2].velocity *= 3f;
+						int index3 = Dust.NewDust(placePosition, npc.width, npc.height, 6, 0.0f, 0.0f, 100, new Color(), 1.5f);
+						Main.dust[index3].velocity *= 2f;
+					}
+					Projectile.NewProjectile(npc.Center.X, npc.Center.Y - npc.height/2, direction.X * 13f, direction.Y * 7f, mod.ProjectileType("GoblinBomb"), npc.damage, 1, Main.myPlayer, 0, 0);
 					
 				}
 			}
