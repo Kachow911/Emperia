@@ -32,6 +32,13 @@ namespace Emperia.Items
 			recipe.AddTile(TileID.SkyMill);  
 			recipe.SetResult(ItemID.LuckyHorseshoe);
 			recipe.AddRecipe();
+			recipe = new ModRecipe(mod);
+			recipe.AddIngredient(ItemID.WorkBench, 1);
+			recipe.AddIngredient(null, "Prism", 2);
+			recipe.AddIngredient(ItemID.BottledWater, 1);
+			recipe.AddTile(TileID.WorkBenches);  
+			recipe.SetResult(ItemID.AlchemyTable);
+			recipe.AddRecipe();
 		}
 	}
 }
