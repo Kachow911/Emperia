@@ -129,16 +129,16 @@ namespace Emperia
             return true;
         }
              public override void ModifyWorldGenTasks(List<GenPass> tasks, ref float totalWeight)
-        {
-            int ShiniesIndex = tasks.FindIndex(genpass => genpass.Name.Equals("Shinies"));
-            if (ShiniesIndex == -1)
-            {
+             { 
+                 int ShiniesIndex = tasks.FindIndex(genpass => genpass.Name.Equals("Final Cleanup"));
+                 if (ShiniesIndex == -1)
+                 {
                 // Shinies pass removed by some other mod.
                 return;
-            }
+                }
             tasks.Insert(ShiniesIndex + 1, new PassLegacy("Volcano", delegate (GenerationProgress progress)
             {
-				int vLength = WorldGen.genRand.Next(260, 340);
+				int vLength = WorldGen.genRand.Next(400, 450);
 				int xSpawn = 0;
 				int yAxis = Main.spawnTileY;
                 if (Terraria.Main.dungeonX > Main.maxTilesX / 2) //rightside dungeon
@@ -149,33 +149,60 @@ namespace Emperia
 				{
 					xSpawn = WorldGen.genRand.Next(Main.spawnTileX + 100, Main.spawnTileX + 400);
 				}
-				for (int y = 0; y < Main.maxTilesY / 2; y++)
+				for (int y = 0; y < yAxis + 200; y++)
 				{
 					for (int x = xSpawn - vLength / 2; x <= xSpawn + vLength / 2; x++)
 					{
 						WorldGen.KillWall(x, y);
 						if (Main.tile[x, y] != null && Main.tile[x, y].active())
 						{
-							
-							Main.tile[x, y].type = (ushort)mod.TileType("VolcanoTile");
+                            if (Main.tile[x, y].type == TileID.Trees)
+                                WorldGen.KillTile(x, y);
+                            else
+							    Main.tile[x, y].type = (ushort)mod.TileType("VolcanoTile");
 							if (Framing.GetTileSafely(x,y-1).type==0 && Main.rand.NextBool(3))
 							{
 								Main.tile[x, y-1].liquid = 255;
 								Main.tile[x, y-1].lava(true);
 							}
-							if (Main.rand.Next(500) == 6)
-							{
-								MakeCircle(x, y, 2, mod.TileType("MoltenOre"));
-							}
+							//if (Main.rand.Next(500) == 6)
+							//{
+								//MakeCircle(x, y, 2, mod.TileType("MoltenOre"));
+							//}
 							if (Framing.GetTileSafely(x,y-1).type==0 && Framing.GetTileSafely(x + 1,y-1).type==0 && Main.rand.Next(10) == 0)
 							{
 								int chest = WorldGen.PlaceChest(x, y, (ushort)mod.TileType("VolcanoChest"), false, 2);
 							}
 						}
-						
-					}	
+                        else if (y > yAxis + 20)
+                        {
+                            Main.tile[x, y].active(true);
+                            Main.tile[x, y].type = (ushort) mod.TileType("VolcanoTile");
+                        }
+                        
+
+                    }	
 				}
-				/*int chests = 0;
+                for (int LiquidX = -110; LiquidX < 110; LiquidX++)
+                {
+                    for (int LiquidY = -20; LiquidY < 150; LiquidY++)
+                    {
+                        Tile tile = Main.tile[xSpawn + LiquidX, yAxis + LiquidY];
+                        if (tile.liquid > 0)
+                        {
+                            tile.lava(true);
+                        }
+                    }
+                }
+                WorldMethods.MainVolcano(xSpawn, (int)(yAxis - Main.rand.Next(70, 90)), 3, 100, (ushort)mod.TileType("VolcanoTile"), (float)(Main.rand.Next(400, 600) / 100), (float)(Main.rand.Next(400, 600) / 100));
+                for (int j = yAxis - 100; j < yAxis + 20; j++)
+                {
+                    WorldGen.digTunnel(xSpawn, j, 0, 0, 8, (int)(5 + (Math.Sqrt((j + 100) - yAxis) / 1.5f)), false);
+
+                }
+                //giant gaping hole you see at the bottom.
+                WorldMethods.RoundHole(xSpawn, yAxis + 30, 17, 7, 10, true);
+                /*int chests = 0;
 				while (chests <= 4)
 				{
 					int success = WorldGen.PlaceChest(xSpawn + Main.rand.Next(-100, 100), yAxis + Main.rand.Next(-20, 300), (ushort)mod.TileType("VolcanoChest"), false, 2);
@@ -195,10 +222,10 @@ namespace Emperia
 						chests++;
 					}
 				}*/
-		
-				
-				
-				
+
+
+
+
             }));
 				
 			
