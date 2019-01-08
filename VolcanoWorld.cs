@@ -183,7 +183,7 @@ namespace Emperia
 
                     }	
 				}
-                for (int LiquidX = -110; LiquidX < 110; LiquidX++)
+                for (int LiquidX = -vLength / 2; LiquidX < vLength / 2; LiquidX++)
                 {
                     for (int LiquidY = -20; LiquidY < 150; LiquidY++)
                     {

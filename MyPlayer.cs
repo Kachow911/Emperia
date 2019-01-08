@@ -21,6 +21,7 @@ namespace Emperia
     public class MyPlayer : ModPlayer
     {
 		public bool ZoneVolcano = false;
+		public bool cursedDash = false;
 		public bool rougeRage = false;
 		public bool vermillionValor = false;
 		public bool deathTalisman = false;
@@ -31,9 +32,17 @@ namespace Emperia
 		public bool slightKnockback = false;
 		public bool ancientPelt = false;
 		public bool sporeFriend = false;
+		private bool dashActive = false;
 		public bool goblinSet = false;
 		public bool yetiMount = false;
+		bool clickedLeft = false;
+		bool clickedRight = false;
+		List<int> hitEnemies = new List<int>();
 		public int yetiCooldown = 30;
+		private int leftPresses = 0;
+		private int rightPresses = 0;
+		private int dashDelay = 0;
+		private int pressTime = 0;
 		public int sporeCount = 0;
 		public int sporeBuffCount = 0;
 		public int OathCooldown = 720;
@@ -42,6 +51,7 @@ namespace Emperia
 		int SporeHealCooldown = 60;
         public override void ResetEffects()
         {
+			cursedDash = false;
 			ZoneVolcano = false;
 			yetiMount = false;
 			slightKnockback = false;
@@ -72,6 +82,72 @@ namespace Emperia
 		}
         public override void PostUpdate()
         {
+			
+			dashDelay--;
+			if (dashDelay >= 70)
+			{
+				player.velocity.X *= .99f;
+				int dust = Dust.NewDust(player.position, player.width, player.height, 75, 0f, 0f, 91, new Color(2, 249, 2), 1.5f);
+				Main.dust[dust].velocity = Vector2.Zero;
+				Main.dust[dust].noGravity = true;
+				//if (dashDelay % 3 == 0)
+				{
+					for (int i = 0; i < 200; i++)
+					{
+						if (player.Hitbox.Intersects(Main.npc[i].Hitbox) && !hitEnemies.Contains(i))
+						{
+							hitEnemies.Add(i);
+							Main.npc[i].StrikeNPC(60, 0f, 0, false, false, false);
+							Main.npc[i].AddBuff(BuffID.CursedInferno, 120);
+						}
+					}
+				}
+			}				
+			if (player.releaseLeft && clickedLeft)
+			{
+				pressTime = 15;
+				leftPresses++;
+			}
+			if (player.releaseRight && clickedRight)
+			{
+				pressTime = 15;
+				rightPresses++;
+			}
+			if (leftPresses >= 2 && dashDelay <= 0 && cursedDash)
+			{
+				hitEnemies = new List<int>();
+				player.velocity.X = -16f;
+				dashDelay = 100;
+				for (int i = 0; i < 50; ++i) //Create dust after teleport
+				{
+					int dust = Dust.NewDust(player.position, player.width, player.height, 75);
+					int dust1 = Dust.NewDust(player.position, player.width, player.height, 75);
+					Main.dust[dust1].scale = 0.8f;
+					Main.dust[dust1].velocity *= 2f;
+					Main.dust[dust1].noGravity = true;
+				}
+			}
+			if (rightPresses >= 2 && dashDelay <= 0 && cursedDash)
+			{
+				hitEnemies = new List<int>();
+				player.velocity.X = 16f;
+				dashDelay = 100;
+				for (int i = 0; i < 50; ++i) //Create dust after teleport
+				{
+					int dust = Dust.NewDust(player.position, player.width, player.height, 75);
+					int dust1 = Dust.NewDust(player.position, player.width, player.height, 75);
+					Main.dust[dust1].scale = 0.8f;
+					Main.dust[dust1].velocity *= 2f;
+					Main.dust[dust1].noGravity = true;
+				}
+		
+			}
+			pressTime--;
+			if (pressTime <= 0)
+			{
+				leftPresses = 0;
+				rightPresses = 0;
+			}
 			if (forbiddenOath && player.statLife <= (player.statLifeMax2 / 5))
 			{
 				OathCooldown--;
@@ -120,6 +196,11 @@ namespace Emperia
 					}
 			    }
 			}
+			clickedLeft = false;
+			clickedRight = false;
+			dashDelay--;
+			if (player.controlLeft) clickedLeft = true;
+			if (player.controlRight) clickedRight = true;
         }
 		
 		
@@ -134,6 +215,10 @@ namespace Emperia
 		public override bool PreKill(double damage, int hitDirection, bool pvp, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource)
         {
 			return true;
+		}
+		public override bool PreHurt(bool pvp, bool quiet, ref int damage, ref int hitDirection, ref bool crit, ref bool customDamage, ref bool playSound, ref bool genGore,ref PlayerDeathReason damageSource)		
+        {
+			return dashDelay >= 70;
 		}
 		public override void PreUpdate()
 		{
@@ -244,10 +329,7 @@ namespace Emperia
 				player.AddBuff(mod.BuffType("Spored"), 2);
 			}
 		}
-		public override bool PreHurt(bool pvp,bool quiet,ref int damage,ref int hitDirection,ref bool crit,ref bool customDamage,ref bool playSound,ref bool genGore,ref PlayerDeathReason damageSource)
-		{
-			return true;
-		}
+		
 		public override void ModifyHitNPCWithProj (Projectile projectile, NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
 		{
 			if (slightKnockback)
