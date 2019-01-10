@@ -35,6 +35,7 @@ namespace Emperia
 		private bool dashActive = false;
 		public bool goblinSet = false;
 		public bool yetiMount = false;
+		bool changedVelocity;
 		bool clickedLeft = false;
 		bool clickedRight = false;
 		List<int> hitEnemies = new List<int>();
@@ -99,6 +100,11 @@ namespace Emperia
 							hitEnemies.Add(i);
 							Main.npc[i].StrikeNPC(60, 0f, 0, false, false, false);
 							Main.npc[i].AddBuff(BuffID.CursedInferno, 120);
+							if (!changedVelocity)
+							{
+								changedVelocity = true;
+								player.velocity.X = -1  * player.velocity.X;
+							}
 						}
 					}
 				}
@@ -115,6 +121,7 @@ namespace Emperia
 			}
 			if (leftPresses >= 2 && dashDelay <= 0 && cursedDash)
 			{
+				changedVelocity = false;
 				hitEnemies = new List<int>();
 				player.velocity.X = -16f;
 				dashDelay = 100;
@@ -129,6 +136,7 @@ namespace Emperia
 			}
 			if (rightPresses >= 2 && dashDelay <= 0 && cursedDash)
 			{
+				changedVelocity = false;
 				hitEnemies = new List<int>();
 				player.velocity.X = 16f;
 				dashDelay = 100;
@@ -218,7 +226,7 @@ namespace Emperia
 		}
 		public override bool PreHurt(bool pvp, bool quiet, ref int damage, ref int hitDirection, ref bool crit, ref bool customDamage, ref bool playSound, ref bool genGore,ref PlayerDeathReason damageSource)		
         {
-			return dashDelay >= 70;
+			return dashDelay <= 70;
 		}
 		public override void PreUpdate()
 		{

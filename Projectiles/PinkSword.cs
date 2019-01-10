@@ -20,8 +20,8 @@ namespace Emperia.Projectiles
             projectile.height = 28;  //projectile height
             projectile.friendly = true;      //make that the projectile will not damage you
             projectile.melee = true;         // 
-            projectile.tileCollide = true;   //make that the projectile will be destroed if it hits the terrain
-            projectile.penetrate = 2;      //how many npc will penetrate
+            projectile.tileCollide = false;   //make that the projectile will be destroed if it hits the terrain
+            projectile.penetrate = 3;      //how many npc will penetrate
             projectile.timeLeft = 400;   //how many time this projectile has before disepire
             projectile.light = 0.75f;    // projectile light
             projectile.extraUpdates = 1;
@@ -37,6 +37,23 @@ namespace Emperia.Projectiles
 					Main.dust[num250].noGravity = true;
 					Main.dust[num250].velocity *= 0f;
 			}
+			Player player = Main.player[projectile.owner];
+			if (projectile.Center.Y > player.Center.Y - player.height / 2)
+			{
+				projectile.tileCollide = true;
+			}
+        }
+		public override void Kill(int timeLeft)
+        {
+			 Main.PlaySound(SoundID.Item, projectile.Center, 21); 
+			for (int i = 0; i < 20; i++)
+			 {
+				int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 58);
+				int dust1 = Dust.NewDust(projectile.position, projectile.width, projectile.height, 58);
+				Main.dust[dust1].scale = 0.8f;
+				Main.dust[dust1].velocity = projectile.velocity;
+			 }
+		
         }
     }
 }

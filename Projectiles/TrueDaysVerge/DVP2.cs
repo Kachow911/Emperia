@@ -38,7 +38,7 @@ float maxHome = 200f;
 			{
 				int type = 0;
 				if (Main.rand.Next(2) == 0)
-					type = 52;
+					type = 58;
 				else
 					type = 176;
 				int num250 = Dust.NewDust(new Vector2(projectile.position.X - projectile.velocity.X, projectile.position.Y - projectile.velocity.Y), projectile.width, projectile.height, type, (float)(projectile.direction * 2), 0f, 150, new Color(53f, 67f, 253f), 1.3f);
