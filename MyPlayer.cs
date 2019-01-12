@@ -230,17 +230,23 @@ namespace Emperia
 		}
 		public override void PreUpdate()
 		{
-			SporeHealCooldown--;
-			if (SporeHealCooldown <= 0)
 			{
-				if (sporeBuffCount > 0 && player.active && !player.dead)
 				{
-					if (sporeBuffCount > 6)
-						sporeBuffCount = 6;
-					player.statLife += sporeBuffCount;
-					player.HealEffect(sporeBuffCount);
+					{
+						SporeHealCooldown--;
+						if (SporeHealCooldown <= 0)
+						{
+							if (sporeBuffCount > 0 && player.active && !player.dead)
+							{
+								if (sporeBuffCount > 6)
+									sporeBuffCount = 6;
+								player.statLife += sporeBuffCount;
+								player.HealEffect(sporeBuffCount);
+							}
+							SporeHealCooldown = 120;
+						}
+					}
 				}
-				SporeHealCooldown = 120;
 			}
 		}
 		
