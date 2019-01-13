@@ -19,10 +19,10 @@ public class RetinalBane : ModItem
 	{
 		item.damage = 60;
 		item.melee = true;
-		item.defense = 5;
+		item.defense = 4;
 		item.width = 38;
 		item.height = 44;
-		item.value = 50000;
+		item.value = 180000;
 		item.expert = true;
 		item.accessory = true;
 	}

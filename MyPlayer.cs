@@ -30,11 +30,14 @@ namespace Emperia
 		public bool defenseInsignia = false;
 		public bool isMellowProjectile = false;
 		public bool slightKnockback = false;
-		public bool ancientPelt = false;
+        public bool sharkMinion = false;
+        public bool ancientPelt = false;
 		public bool sporeFriend = false;
 		private bool dashActive = false;
 		public bool goblinSet = false;
-		public bool yetiMount = false;
+        public bool aquaticSet = false;
+        public bool yetiMount = false;
+        bool placedPlant = false;
 		bool changedVelocity;
 		bool clickedLeft = false;
 		bool clickedRight = false;
@@ -52,6 +55,7 @@ namespace Emperia
 		int SporeHealCooldown = 60;
         public override void ResetEffects()
         {
+            sharkMinion = false;
 			cursedDash = false;
 			ZoneVolcano = false;
 			yetiMount = false;
@@ -65,7 +69,8 @@ namespace Emperia
 			defenseInsignia = false;
 			goblinSet = false;
 			ancientPelt = false;
-			sporeBuffCount = 0;
+            aquaticSet = false;
+            sporeBuffCount = 0;
         }
 		public override void UpdateBiomes()
 		{
@@ -83,11 +88,30 @@ namespace Emperia
 		}
         public override void PostUpdate()
         {
-			
+			if (aquaticSet)
+            {
+                 for (int i = (int) player.position.X / 16 - 25; i < (int)player.position.X / 16 + 25; i++)
+                 {
+                      for (int j = (int)player.position.Y / 16 - 25; j < (int)player.position.Y / 16 + 25; j++)
+                      {
+                          if (!Main.tile[i, j - 1].active() && Main.tile[i, j].active() && Main.rand.NextBool(5000) && !(Main.tile[i, j].type == TileID.Trees))
+                          {
+                            int egg = Main.rand.Next(3);
+                            int type;
+                            if (egg == 0) type = mod.ProjectileType("plant1");
+                            else if (egg == 1) type = mod.ProjectileType("plant2");
+                            else type = mod.ProjectileType("plant3");
+                            Projectile.NewProjectile(i * 16 , j * 16 - 8, 0, 0, type, 0, 1, Main.myPlayer, 0, 0);
+                           }
+
+                       }
+                    }
+                }
+            
 			dashDelay--;
 			if (dashDelay >= 70)
 			{
-				player.velocity.X *= .99f;
+				player.velocity.X *= .95f;
 				int dust = Dust.NewDust(player.position, player.width, player.height, 75, 0f, 0f, 91, new Color(2, 249, 2), 1.5f);
 				Main.dust[dust].velocity = Vector2.Zero;
 				Main.dust[dust].noGravity = true;
@@ -103,7 +127,7 @@ namespace Emperia
 							if (!changedVelocity)
 							{
 								changedVelocity = true;
-								player.velocity.X = -1  * player.velocity.X;
+								player.velocity.X = (-1  * player.velocity.X) / 2;
 							}
 						}
 					}
