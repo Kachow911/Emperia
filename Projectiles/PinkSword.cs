@@ -45,15 +45,32 @@ namespace Emperia.Projectiles
         }
 		public override void Kill(int timeLeft)
         {
-			 Main.PlaySound(SoundID.Item, projectile.Center, 21); 
-			for (int i = 0; i < 20; i++)
-			 {
-				int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 58);
-				int dust1 = Dust.NewDust(projectile.position, projectile.width, projectile.height, 58);
-				Main.dust[dust1].scale = 0.8f;
-				Main.dust[dust1].velocity = projectile.velocity;
-			 }
+			 Main.PlaySound(SoundID.Item10, projectile.position);
+            for (int index1 = 4; index1 < 31; ++index1)
+            {
+              float num1 = (float) (projectile.oldVelocity.X * (30.0 / (double) index1));
+              float num2 = (float) (projectile.oldVelocity.Y * (30.0 / (double) index1));
+              int index2 = Dust.NewDust(new Vector2((float) projectile.oldPosition.X - num1, (float) projectile.oldPosition.Y - num2), 8, 8, 58, (float) projectile.oldVelocity.X, (float) projectile.oldVelocity.Y, 100, Color.Pink, 1.8f);
+              Main.dust[index2].noGravity = true;
+              Dust dust1 = Main.dust[index2];
+              dust1.velocity = dust1.velocity * 0.5f;
+              int index3 = Dust.NewDust(new Vector2((float) projectile.oldPosition.X - num1, (float) projectile.oldPosition.Y - num2), 8, 8, 58, (float) projectile.oldVelocity.X, (float) projectile.oldVelocity.Y, 100, Color.Pink, 1.4f);
+              Dust dust2 = Main.dust[index3];
+              dust2.velocity = dust2.velocity * 0.5f;
+            }
+		
 		
         }
+		public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
+		{
+			Texture2D texture2D3 = Main.projectileTexture[projectile.type];
+			int num156 = Main.projectileTexture[projectile.type].Height / Main.projFrames[projectile.type];
+			int y3 = num156 * projectile.frame;
+			Microsoft.Xna.Framework.Rectangle rectangle = new Microsoft.Xna.Framework.Rectangle(0, y3, texture2D3.Width, num156);
+			Vector2 origin2 = rectangle.Size() / 2f;
+			Main.spriteBatch.Draw(Main.projectileTexture[projectile.type], projectile.position - (7 * projectile.velocity) + projectile.Size / 2f - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), lightColor, projectile.rotation, origin2, projectile.scale, SpriteEffects.None, 0f);
+			Main.spriteBatch.Draw(mod.GetTexture("Glowmasks/PinkSword"), projectile.position - (7 * projectile.velocity) + projectile.Size / 2f - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), Color.White, projectile.rotation, origin2, projectile.scale, SpriteEffects.None, 0f);
+			return false;
+		}
     }
 }

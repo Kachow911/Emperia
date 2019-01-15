@@ -42,19 +42,19 @@ namespace Emperia.Items.Weapons //where is located
 			float damageFactor;
 			for (int i = 0; i <= Main.rand.Next(2); i++)
 			{
-				Vector2 placePosition = player.Center + new Vector2(Main.rand.Next(-200, 200), -400);
+				Vector2 placePosition = player.Center + new Vector2((Main.MouseWorld.X - player.Center.X) / 2, -470);
 				Vector2 direction = Main.MouseWorld - placePosition;
 				direction.Normalize();
 				if (Main.rand.NextBool(2))
 				{
 					type1 = mod.ProjectileType("BlueSword");
-					speedFactor = 11.5f;
+					speedFactor = 5.5f;
 					damageFactor = 1f;
 				}
 				else
 				{
 					type1 = mod.ProjectileType("PinkSword");
-					speedFactor = 10.8f;
+					speedFactor = 5f;
 					damageFactor = 1.2f;
 				}
 				Projectile.NewProjectile(placePosition.X, player.Center.Y - 400, direction.X * speedFactor, direction.Y * speedFactor, type1, damage, 1, Main.myPlayer, 0, 0);
