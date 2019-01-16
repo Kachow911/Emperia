@@ -96,6 +96,22 @@ namespace Emperia
 		}
 		public override void NPCLoot(NPC npc)  
         {
+			if (!Main.expertMode && npc.type == NPCID.SkeletronHead)
+			{
+				int x = Main.rand.Next(3);
+				if (x == 0)
+				{
+					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("Skelebow")); 
+				}
+				else if (x == 1)
+				{
+					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("NecromanticFlame")); 
+				}
+				else if (x == 2)
+				{
+					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("BoneWhip")); 
+				}
+			}
 			if (Main.expertMode)
 			{
 				if (Main.rand.Next(150) == 0) 

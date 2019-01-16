@@ -1,10 +1,17 @@
-using System;
-using System.Collections.Generic;
-using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.DataStructures;
+using System;
+using Terraria.ID;
+using System.Diagnostics;
+using Microsoft.Xna.Framework;
+using Terraria.ModLoader;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using System.Collections.Generic;
+using System;
+
  
 namespace Emperia.Items.Weapons        
 {
@@ -13,7 +20,7 @@ namespace Emperia.Items.Weapons
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Spore Combustor");
-			Tooltip.SetDefault("Uses gel for ammo\nInflicts Spore Storm, which steals a small amount of life from all afflicted enemies every 2 seconds\nIts spores are more potent at closer ranges");
+			Tooltip.SetDefault("Uses gel for ammo\nInflicts Spore Storm for 10-30 seconds depending on range\nSteals a small amount of life from all afflicted enemies every 2 seconds");
 		}
         public override void SetDefaults()
         {  
@@ -50,6 +57,27 @@ namespace Emperia.Items.Weapons
 			recipe.AddTile(TileID.MythrilAnvil);  
 			recipe.SetResult(this);
 			recipe.AddRecipe();
+		}
+		public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float  scale, int whoAmI) 	
+		{
+			Texture2D texture;
+			texture = Main.itemTexture[item.type];
+			spriteBatch.Draw
+			(
+				mod.GetTexture("Glowmasks/SporeCombustorGM"),
+				new Vector2
+				(
+					item.position.X - Main.screenPosition.X + item.width * 0.5f,
+					item.position.Y - Main.screenPosition.Y + item.height - texture.Height * 0.5f + 2f
+				),
+				new Rectangle(0, 0, texture.Width, texture.Height),
+				Color.White,
+				rotation,
+				texture.Size() * 0.5f,
+				scale, 
+				SpriteEffects.None, 
+				0f
+			);
 		}
     }
 }

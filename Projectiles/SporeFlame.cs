@@ -33,7 +33,7 @@ namespace Emperia.Projectiles       //We need this to basically indicate the fol
             {
                 projectile.timeLeft = 100;
             }
-            if (projectile.ai[0] > 3f)  //this defines where the flames starts
+            if (projectile.ai[0] > 2f)  //this defines where the flames starts
             {
                 if (Main.rand.Next(3) == 0)     //this defines how many dust to spawn
                 {

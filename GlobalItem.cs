@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using Terraria.Utilities;
@@ -23,6 +24,25 @@ namespace Emperia
 				}
 			}
 			return false;
+		}
+		public override void OpenVanillaBag(string context, Player player, int arg)
+		{
+			if (context == "bossBag" && arg == ItemID.SkeletronBossBag)
+			{
+				int x = Main.rand.Next(3);
+				if (x == 0)
+				{
+					Item.NewItem((int)player.position.X, (int)player.position.Y, player.width, player.height, mod.ItemType("Skelebow")); 
+				}
+				else if (x == 1)
+				{
+					Item.NewItem((int)player.position.X, (int)player.position.Y, player.width, player.height, mod.ItemType("NecromanticFlame")); 
+				}
+				else if (x == 2)
+				{
+					Item.NewItem((int)player.position.X, (int)player.position.Y, player.width, player.height, mod.ItemType("BoneWhip")); 
+				}
+			}
 		}
 	}
 }
