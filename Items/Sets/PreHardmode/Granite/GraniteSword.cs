@@ -10,7 +10,7 @@ namespace Emperia.Items.Sets.PreHardmode.Granite   //where is located
 {
     public class GraniteSword : ModItem
     {
-		private int explodeRadius = 50;
+		private int explodeRadius = 64;
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Granite Sword");
@@ -30,7 +30,8 @@ namespace Emperia.Items.Sets.PreHardmode.Granite   //where is located
             item.rare = 2;
 			item.scale = 1f;
             item.autoReuse = false;   //if it's capable of autoswing.    
-			item.UseSound = SoundID.Item1; 
+			item.UseSound = SoundID.Item1;
+			item.crit = 6;			
         }
 		public override void OnHitNPC (Player player, NPC target, int damage, float knockback, bool crit)
 		{
@@ -44,7 +45,7 @@ namespace Emperia.Items.Sets.PreHardmode.Granite   //where is located
 				}
 				 for (int i = 0; i < 360; i += 5)
 				{
-					Vector2 vec = Vector2.Transform(new Vector2(-8, 0), Matrix.CreateRotationZ(MathHelper.ToRadians(i)));
+					Vector2 vec = Vector2.Transform(new Vector2(-6, 0), Matrix.CreateRotationZ(MathHelper.ToRadians(i)));
 					vec.Normalize();
 					int num622 = Dust.NewDust(new Vector2(target.position.X, target.position.Y), target.width, target.height, 15, 0f, 0f, 74, new Color(53f, 67f, 253f), 1.1f);
 					Main.dust[num622].velocity += (vec *1.2f);

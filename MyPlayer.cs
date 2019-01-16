@@ -32,11 +32,14 @@ namespace Emperia
 		public bool slightKnockback = false;
         public bool sharkMinion = false;
         public bool ancientPelt = false;
+		public bool eruptionBottle = false;
 		public bool sporeFriend = false;
 		private bool dashActive = false;
 		public bool goblinSet = false;
         public bool aquaticSet = false;
         public bool yetiMount = false;
+		public int dayVergeProjTime = 0;
+		bool canJump = false;
         bool placedPlant = false;
 		bool changedVelocity;
 		bool clickedLeft = false;
@@ -55,6 +58,7 @@ namespace Emperia
 		int SporeHealCooldown = 60;
         public override void ResetEffects()
         {
+			eruptionBottle = false;
             sharkMinion = false;
 			cursedDash = false;
 			ZoneVolcano = false;
@@ -88,6 +92,26 @@ namespace Emperia
 		}
         public override void PostUpdate()
         {
+			
+			if (eruptionBottle)
+			{
+				if (player.velocity.Y == 0 && player.releaseJump)
+				{
+					canJump = true;
+				}
+				if (player.controlJump && canJump && player.velocity.Y != 0)
+				{
+					for (int i = 0; i < 50; ++i) //Create dust after teleport
+					{
+						int dust = Dust.NewDust(player.position, player.width, player.height, 6);
+						int dust1 = Dust.NewDust(player.position, player.width, player.height,6);
+						Main.dust[dust1].scale = 0.8f;
+						Main.dust[dust1].velocity *= 1.5f;
+					}
+					player.velocity.Y = -17f;
+					canJump = false;
+				}
+			}
 			if (aquaticSet)
             {
                  for (int i = (int) player.position.X / 16 - 25; i < (int)player.position.X / 16 + 25; i++)
@@ -119,7 +143,7 @@ namespace Emperia
 				{
 					for (int i = 0; i < 200; i++)
 					{
-						if (player.Hitbox.Intersects(Main.npc[i].Hitbox) && !hitEnemies.Contains(i))
+						if (player.Hitbox.Intersects(Main.npc[i].Hitbox) && !hitEnemies.Contains(i) && Main.npc[i].life > 1)
 						{
 							hitEnemies.Add(i);
 							Main.npc[i].StrikeNPC(60, 0f, 0, false, false, false);
@@ -127,7 +151,8 @@ namespace Emperia
 							if (!changedVelocity)
 							{
 								changedVelocity = true;
-								player.velocity.X = (-1  * player.velocity.X) / 2;
+								player.velocity.X = (-3  * player.velocity.X) / 4;
+								player.velocity.Y -= 5;
 							}
 						}
 					}
@@ -147,7 +172,7 @@ namespace Emperia
 			{
 				changedVelocity = false;
 				hitEnemies = new List<int>();
-				player.velocity.X = -16f;
+				player.velocity.X = -19f;
 				dashDelay = 100;
 				for (int i = 0; i < 50; ++i) //Create dust after teleport
 				{
@@ -162,7 +187,7 @@ namespace Emperia
 			{
 				changedVelocity = false;
 				hitEnemies = new List<int>();
-				player.velocity.X = 16f;
+				player.velocity.X = 19f;
 				dashDelay = 100;
 				for (int i = 0; i < 50; ++i) //Create dust after teleport
 				{
@@ -180,7 +205,7 @@ namespace Emperia
 				leftPresses = 0;
 				rightPresses = 0;
 			}
-			if (forbiddenOath && player.statLife <= (player.statLifeMax2 / 5))
+			if (forbiddenOath && player.statLife <= (int) ((float) player.statLifeMax2 * .4f))
 			{
 				OathCooldown--;
 			}

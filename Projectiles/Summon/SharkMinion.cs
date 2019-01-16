@@ -56,7 +56,16 @@ namespace Emperia.Projectiles.Summon
                 projectile.spriteDirection = -1;
                 projectile.rotation = MathHelper.ToRadians(180 + MathHelper.ToDegrees(projectile.rotation));
             }
-            else projectile.spriteDirection = 1;
+			else projectile.spriteDirection = 1;
+			if (projectile.velocity.Length() > 7f)
+			{
+				Color rgb = new Color(83, 66, 180);
+				int index2 = Dust.NewDust(new Vector2((float)(projectile.position.X + 4.0), (float)(projectile.position.Y + 4.0)), projectile.width - 8, projectile.height - 8, 76, (float)(projectile.velocity.X * 0.200000002980232), (float)(projectile.velocity.Y * 0.200000002980232), 0, rgb, 0.9f);
+				Main.dust[index2].position = projectile.Center;
+				Main.dust[index2].noGravity = true;
+				Main.dust[index2].velocity = projectile.velocity * 0.5f;
+			}
+           
             bool flag64 = projectile.type == mod.ProjectileType("SharkMinion");
 			
 			MyPlayer modPlayer = player.GetModPlayer<MyPlayer>(mod);
@@ -70,6 +79,19 @@ namespace Emperia.Projectiles.Summon
 
 			}
 		}
+		public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
+        {
+			
+				Vector2 drawOrigin = new Vector2(Main.projectileTexture[projectile.type].Width * 0.5f, projectile.height * 0.5f);
+				for(int k = 0; k < projectile.oldPos.Length; k++)
+				{
+					Vector2 drawPos = projectile.oldPos[k] - Main.screenPosition + drawOrigin + new Vector2(0f, projectile.gfxOffY);
+					Color color = projectile.GetAlpha(lightColor) * ((float)(projectile.oldPos.Length - k) / (float)projectile.oldPos.Length);
+					spriteBatch.Draw(Main.projectileTexture[projectile.type], drawPos, null, color, projectile.rotation, drawOrigin, projectile.scale, SpriteEffects.None, 0f);
+				}
+			
+			return true;
+        }
 
 	}
 }

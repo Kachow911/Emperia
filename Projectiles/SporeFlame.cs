@@ -29,9 +29,9 @@ namespace Emperia.Projectiles       //We need this to basically indicate the fol
         public override void AI()
         {
             
-            if (projectile.timeLeft > 125)
+            if (projectile.timeLeft > 100)
             {
-                projectile.timeLeft = 125;
+                projectile.timeLeft = 100;
             }
             if (projectile.ai[0] > 3f)  //this defines where the flames starts
             {

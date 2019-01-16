@@ -32,12 +32,13 @@ namespace Emperia.Items.Weapons.Forest
             item.rare = 3;
             item.autoReuse = false;
             item.shootSpeed = 8f;
-			item.UseSound = SoundID.Item5; 
+			//item.UseSound = SoundID.Item5; 
         }
 		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
 		{
 			if (!(player.altFunctionUse == 2))
 			{
+				Main.PlaySound(SoundID.Item5, player.Center);
 				int numberProjectiles = notchedArrows; 
 				for (int i = 0; i < numberProjectiles; i++)
 				{
@@ -54,10 +55,18 @@ namespace Emperia.Items.Weapons.Forest
 		}
 		public override bool AltFunctionUse(Player player)
 		{
-			Color rgb = new Color(0, 255, 0);
-			int index2 = Dust.NewDust(player.position, player.width, player.height, 76, (float) 0, (float) 0, 0, rgb, 0.5f);
+			
 			if (notchedArrows < 5)
+			{
+				Main.PlaySound(SoundID.Item5, player.Center);
+				Color rgb = new Color(0, 255, 0);
+				int index2 = Dust.NewDust(player.position, player.width, player.height, 76, (float) 0, (float) 0, 0, rgb, 0.5f);
 				notchedArrows++;
+			}
+			else
+			{
+				Main.PlaySound(SoundID.MaxMana, player.Center);
+			}
 			return true;
 		}
 		public override bool UseItem(Player player)
@@ -67,6 +76,10 @@ namespace Emperia.Items.Weapons.Forest
 				return false;
 			}
 			return true;
+		}
+		public override bool ConsumeAmmo(Player player)
+		{
+			return notchedArrows < 5;
 		}
         /*public override void AddRecipes()
     {

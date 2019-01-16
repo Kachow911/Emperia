@@ -16,8 +16,8 @@ namespace Emperia.Projectiles
 		}
         public override void SetDefaults()
         {  //projectile name
-            projectile.width = 20;       //projectile width
-            projectile.height = 28;  //projectile height
+            projectile.width = 38;       //projectile width
+            projectile.height = 38;  //projectile height
             projectile.friendly = true;      //make that the projectile will not damage you
             projectile.melee = true;         // 
             projectile.tileCollide = false;   //make that the projectile will be destroed if it hits the terrain
@@ -33,7 +33,7 @@ namespace Emperia.Projectiles
 			projectile.alpha = 100 + (int) (Math.Cos(projectile.timeLeft) * 100);
 			if(Main.rand.Next(2) == 0)
 			{
-            int num250 = Dust.NewDust(new Vector2(projectile.position.X - projectile.velocity.X, projectile.position.Y - projectile.velocity.Y), projectile.width, projectile.height, 66, (float)(projectile.direction * 2), 0f, 150, new Color(53f, 67f, 253f), 1.3f);
+            int num250 = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, 66, (float)(projectile.direction * 2), 0f, 150, new Color(53f, 67f, 253f), 1.3f);
 					Main.dust[num250].noGravity = true;
 					Main.dust[num250].velocity *= 0f;
 			}

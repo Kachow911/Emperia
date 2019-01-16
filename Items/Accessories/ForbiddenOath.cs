@@ -14,7 +14,7 @@ namespace Emperia.Items.Accessories
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Forbidden Oath");
-			Tooltip.SetDefault("While under 25% HP you will recieve boosts of healing");
+			Tooltip.SetDefault("While under 40% HP you will recieve boosts of healing");
 		}
         public override void SetDefaults()
         {
