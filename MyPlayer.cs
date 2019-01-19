@@ -22,6 +22,7 @@ namespace Emperia
     {
 		public bool ZoneVolcano = false;
 		public bool cursedDash = false;
+		public bool lunarDash = false;
 		public bool rougeRage = false;
 		public bool vermillionValor = false;
 		public bool deathTalisman = false;
@@ -172,34 +173,80 @@ namespace Emperia
 				pressTime = 15;
 				rightPresses++;
 			}
-			if (leftPresses >= 2 && dashDelay <= 0 && cursedDash)
+			if (leftPresses >= 2 && dashDelay <= 0 && (cursedDash || lunarDash))
 			{
-				changedVelocity = false;
-				hitEnemies = new List<int>();
-				player.velocity.X = -19f;
-				dashDelay = 100;
-				for (int i = 0; i < 50; ++i) //Create dust after teleport
+				if (!lunarDash)
 				{
-					int dust = Dust.NewDust(player.position, player.width, player.height, 75);
-					int dust1 = Dust.NewDust(player.position, player.width, player.height, 75);
-					Main.dust[dust1].scale = 0.8f;
-					Main.dust[dust1].velocity *= 2f;
-					Main.dust[dust1].noGravity = true;
+					changedVelocity = false;
+					hitEnemies = new List<int>();
+					player.velocity.X = -19f;
+					dashDelay = 100;
+					for (int i = 0; i < 50; ++i) //Create dust after teleport
+					{
+						int dust = Dust.NewDust(player.position, player.width, player.height, 75);
+						int dust1 = Dust.NewDust(player.position, player.width, player.height, 75);
+						Main.dust[dust1].scale = 0.8f;
+						Main.dust[dust1].velocity *= 2f;
+						Main.dust[dust1].noGravity = true;
+					}
+				}
+				else
+				{
+					Color rgb = new Color(0, 0, 0);
+					hitEnemies = new List<int>();
+					player.velocity.X = -22f;
+					dashDelay = 100;
+					for (int i = 0; i < 50; ++i) //Create dust after teleport
+					{
+						int ex = Main.rand.Next(4);
+						if (ex == 0) rgb = new Color(254, 126, 229);
+						else if (ex == 1) rgb = new Color(254, 105, 47);
+						else if (ex == 2) rgb = new Color(0, 242, 170);
+						else if (ex == 3) rgb = new Color(104, 214, 255);
+						int index3 = Dust.NewDust(player.position, 8, 8, 76, 0, 0, 0, rgb, 1.1f);
+						int index4 = Dust.NewDust(player.position, 8, 8, 76, (float)player.velocity.X, (float)player.velocity.Y, 0, rgb, 1.1f);
+						Main.dust[index4].scale = 0.8f;
+						Main.dust[index4].velocity *= 2f;
+						Main.dust[index4].noGravity = true;
+					}
 				}
 			}
-			if (rightPresses >= 2 && dashDelay <= 0 && cursedDash)
+			if (rightPresses >= 2 && dashDelay <= 0 && (cursedDash || lunarDash))
 			{
-				changedVelocity = false;
-				hitEnemies = new List<int>();
-				player.velocity.X = 19f;
-				dashDelay = 100;
-				for (int i = 0; i < 50; ++i) //Create dust after teleport
+				if (!lunarDash)
 				{
-					int dust = Dust.NewDust(player.position, player.width, player.height, 75);
-					int dust1 = Dust.NewDust(player.position, player.width, player.height, 75);
-					Main.dust[dust1].scale = 0.8f;
-					Main.dust[dust1].velocity *= 2f;
-					Main.dust[dust1].noGravity = true;
+					changedVelocity = false;
+					hitEnemies = new List<int>();
+					player.velocity.X = 19f;
+					dashDelay = 100;
+					for (int i = 0; i < 50; ++i) //Create dust after teleport
+					{
+						int dust = Dust.NewDust(player.position, player.width, player.height, 75);
+						int dust1 = Dust.NewDust(player.position, player.width, player.height, 75);
+						Main.dust[dust1].scale = 0.8f;
+						Main.dust[dust1].velocity *= 2f;
+						Main.dust[dust1].noGravity = true;
+					}
+				}
+				else
+				{
+					Color rgb = new Color(0, 0, 0);
+					hitEnemies = new List<int>();
+					player.velocity.X = 20f;
+					dashDelay = 100;
+					for (int i = 0; i < 50; ++i) //Create dust after teleport
+					{
+						int ex = Main.rand.Next(4);
+						if (ex == 0) rgb = new Color(254, 126, 229);
+						else if (ex == 1) rgb = new Color(254, 105, 47);
+						else if (ex == 2) rgb = new Color(0, 242, 170);
+						else if (ex == 3) rgb = new Color(104, 214, 255);
+						int index3 = Dust.NewDust(player.position, 8, 8, 76, 0, 0, 0, rgb, 1.1f);
+						int index4 = Dust.NewDust(player.position, 8, 8, 76, (float)player.velocity.X, (float)player.velocity.Y, 0, rgb, 1.1f);
+						Main.dust[index4].scale = 0.8f;
+						Main.dust[index4].velocity *= 2f;
+						Main.dust[index4].noGravity = true;
+					}
 				}
 		
 			}

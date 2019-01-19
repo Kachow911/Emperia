@@ -101,7 +101,7 @@ namespace Emperia.Projectiles.Skeleton
                     num1 = Main.player[projectile.owner].MountedCenter.X - vector2.X;
                     num2 = Main.player[projectile.owner].MountedCenter.Y - vector2.Y;
                     Microsoft.Xna.Framework.Color color = Lighting.GetColor((int)vector2.X / 16, (int)((double)vector2.Y / 16.0));
-                    Main.spriteBatch.Draw(mod.GetTexture("Projectiles/Skeleton/Chain"), new Vector2(vector2.X - Main.screenPosition.X, vector2.Y - Main.screenPosition.Y), new Microsoft.Xna.Framework.Rectangle?(new Microsoft.Xna.Framework.Rectangle(0, 0, 12, 6)), Color.White, rotation, new Vector2((float)12 * 0.5f, (float)6 * 0.5f), 1.5f, SpriteEffects.None, 0.0f);
+                    Main.spriteBatch.Draw(mod.GetTexture("Projectiles/Skeleton/Chain"), new Vector2(vector2.X - Main.screenPosition.X, vector2.Y - Main.screenPosition.Y), new Microsoft.Xna.Framework.Rectangle?(new Microsoft.Xna.Framework.Rectangle(0, 0, 18, 14)), Color.White, rotation, new Vector2((float)18 * 0.5f, (float)14 * 0.5f), 1.5f, SpriteEffects.None, 0.0f);
                 }
             }
             return true;
