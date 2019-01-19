@@ -21,7 +21,7 @@ namespace Emperia.Items.Accessories
             item.width = 30;
             item.height = 28;
             item.rare = 4;
-            item.value = Item.sellPrice(0, 1, 50, 0);
+            item.value = 199800;
             item.accessory = true;
         }
         public override void UpdateAccessory(Player player, bool hideVisual)

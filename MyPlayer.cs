@@ -38,7 +38,9 @@ namespace Emperia
 		public bool goblinSet = false;
         public bool aquaticSet = false;
         public bool yetiMount = false;
-		public int dayVergeProjTime = 0;
+        public bool frostGauntlet = false;
+        public bool renewedLife = false;
+        public int dayVergeProjTime = 0;
 		bool canJump = false;
         bool placedPlant = false;
 		bool changedVelocity;
@@ -58,7 +60,9 @@ namespace Emperia
 		int SporeHealCooldown = 60;
         public override void ResetEffects()
         {
-			eruptionBottle = false;
+            renewedLife = false;
+            frostGauntlet = false;
+            eruptionBottle = false;
             sharkMinion = false;
 			cursedDash = false;
 			ZoneVolcano = false;
@@ -319,10 +323,42 @@ namespace Emperia
 			{
 				knockback *= 1.1f;
 			}
+            if (item.type == mod.ItemType("LifesFate") && renewedLife)
+            {
+                damage = (int) ((float) damage * 1.2f);
+            }
 		}
 		public override void OnHitNPC (Item item, NPC target, int damage, float knockback, bool crit)
 		{
-			if (crit && rougeRage)
+            if (frostGauntlet)
+            {
+                if (target.life <= 0)
+                {
+                    for (int i = 0; i < Main.rand.Next(2, 4); i++)
+                    {
+                        Vector2 perturbedSpeed = new Vector2(0, 4).RotatedByRandom(MathHelper.ToRadians(360));
+                        int p = Projectile.NewProjectile(target.Center.X, target.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, mod.ProjectileType("IceShard2"), 20, 1, Main.myPlayer, 0, 0);
+                    }
+                }
+                else
+                {
+                    if (Main.rand.NextBool(10) && !target.boss)
+                    {
+                        target.AddBuff(mod.BuffType("Frozen"), 120);
+                    }
+                }
+            }
+            if (crit && item.type == mod.ItemType("LifesFate"))
+            {
+                player.AddBuff(mod.BuffType("LifesFateBuff"), Main.rand.Next(840, 960));
+            }
+            if (item.type == mod.ItemType("LifesFate") && renewedLife)
+            {
+                int x = Main.rand.Next(1, 3);
+                player.statLife += x;
+                player.HealEffect(x);
+            }
+            if (crit && rougeRage)
 			{
 				damage = damage += (damage / 10);
 			}
@@ -360,7 +396,25 @@ namespace Emperia
 		}
 		public override void OnHitNPCWithProj (Projectile projectile, NPC target, int damage, float knockback, bool crit)
 		{
-			if (crit && rougeRage)
+            if (frostGauntlet)
+            {
+                if (target.life <= 0)
+                {
+                    for (int i = 0; i < Main.rand.Next(2, 4); i++)
+                    {
+                        Vector2 perturbedSpeed = new Vector2(0, 6).RotatedByRandom(MathHelper.ToRadians(360));
+                        int p = Projectile.NewProjectile(target.Center.X, target.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, mod.ProjectileType("IceShard2"), 20, 1, Main.myPlayer, 0, 0);
+                    }
+                }
+                else
+                {
+                    if (Main.rand.NextBool(10) && !target.boss)
+                    {
+                        target.AddBuff(mod.BuffType("Frozen"), 120);
+                    }
+                }
+            }
+            if (crit && rougeRage)
 			{
 				damage = damage += (damage / 10);
 			}

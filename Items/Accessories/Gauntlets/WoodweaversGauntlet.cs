@@ -7,7 +7,7 @@ using Terraria.ID;
 using Emperia;
 using Terraria.ModLoader;
 
-namespace Emperia.Items.Accessories
+namespace Emperia.Items.Accessories.Gauntlets
 {
     public class WoodweaversGauntlet : ModItem
     {

@@ -13,7 +13,7 @@ namespace Emperia.Tiles
 			Main.tileFrameImportant[Type] = true;
 			TileObjectData.addTile(Type);
 			Main.tileCut[Type] = true;
-			TileObjectData.newTile.CopyFrom(TileObjectData.Style1x2);
+			TileObjectData.newTile.CopyFrom(TileObjectData.Style1x1);
 			Main.tileSolid[Type] = false;
 			Main.tileMergeDirt[Type] = true;
 			Main.tileBlockLight[Type] = true;
@@ -22,7 +22,7 @@ namespace Emperia.Tiles
 			drop = mod.ItemType("VitalityCrystal");
 			TileObjectData.newTile.CoordinateHeights = new int[]
 			{
-				20,
+				16,
 				16
 			}; 
 		}
