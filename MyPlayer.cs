@@ -377,24 +377,6 @@ namespace Emperia
 		}
 		public override void OnHitNPC (Item item, NPC target, int damage, float knockback, bool crit)
 		{
-			if (crit && target.life <= 0 && deathTalisman)
-			{
-				int damage1 = 0;
-				if (target.lifeMax > 3000)
-				{
-					damage1 = 300;
-				}
-				else
-				{
-					damage1 = target.lifeMax / 10;
-				}
-				//for (int i = 0; i < 5; i++)
-				//{
-					Vector2 perturbedSpeed = new Vector2(0, 5).RotatedByRandom(MathHelper.ToRadians(360));
-					Projectile.NewProjectile(target.Center.X, target.Center.Y, 0, 0, mod.ProjectileType("FateFlame"), damage1, 1, Main.myPlayer, 0, 0);
-					
-				//}
-			}
             if (frostGauntlet)
             {
                 if (target.life <= 0)
@@ -461,24 +443,7 @@ namespace Emperia
 		}
 		public override void OnHitNPCWithProj (Projectile projectile, NPC target, int damage, float knockback, bool crit)
 		{
-			if (crit && target.life <= 0 && deathTalisman)
-			{
-				int damage1 = 0;
-				if (target.lifeMax > 3000)
-				{
-					damage1 = 300;
-				}
-				else
-				{
-					damage1 = target.lifeMax / 10;
-				}
-				//for (int i = 0; i < 5; i++)
-				//{
-					Vector2 perturbedSpeed = new Vector2(0, 5).RotatedByRandom(MathHelper.ToRadians(360));
-					Projectile.NewProjectile(target.Center.X, target.Center.Y, 0, 0, mod.ProjectileType("FateFlame"), damage1, 1, Main.myPlayer, 0, 0);
-					
-				//}
-			}
+			
             if (frostGauntlet)
             {
                 if (target.life <= 0)
