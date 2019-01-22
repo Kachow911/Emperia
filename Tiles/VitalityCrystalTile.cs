@@ -12,6 +12,7 @@ namespace Emperia.Tiles
 		{
 			Main.tileFrameImportant[Type] = true;
 			TileObjectData.addTile(Type);
+            Main.tileSpelunker[Type] = true;
 			Main.tileCut[Type] = true;
 			TileObjectData.newTile.CopyFrom(TileObjectData.Style1x1);
 			Main.tileSolid[Type] = false;

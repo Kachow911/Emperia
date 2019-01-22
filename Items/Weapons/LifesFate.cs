@@ -19,13 +19,13 @@ namespace Emperia.Items.Weapons
         public override void SetDefaults()
         {
             item.damage = 69;
-            item.useTime = 23;
-            item.useAnimation = 23;
+            item.useTime = 38;
+            item.useAnimation = 38;
             item.melee = true;            
             item.width = 32;              
             item.height = 32;             
             item.useStyle = 1;        
-            item.knockBack = 3.5f;
+            item.knockBack = 4f;
             item.value = 258000;
             item.crit = 6;
             item.rare = 3;
@@ -42,10 +42,7 @@ namespace Emperia.Items.Weapons
 
             }
         }
-        public override Color? GetAlpha(Color lightColor)
-        {
-            return Color.White;
-        }
+       
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);

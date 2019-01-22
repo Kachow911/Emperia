@@ -31,6 +31,7 @@ namespace Emperia
 		public bool defenseInsignia = false;
 		public bool isMellowProjectile = false;
 		public bool slightKnockback = false;
+        public bool doubleKnockback = false;
         public bool sharkMinion = false;
         public bool ancientPelt = false;
 		public bool eruptionBottle = false;
@@ -40,6 +41,7 @@ namespace Emperia
         public bool aquaticSet = false;
         public bool yetiMount = false;
         public bool frostGauntlet = false;
+        public bool meteorGauntlet = false;
         public bool renewedLife = false;
         public int dayVergeProjTime = 0;
 		bool canJump = false;
@@ -59,8 +61,11 @@ namespace Emperia
 		private int peltCounter = 120;
 		private int peltRadius = 256;
 		int SporeHealCooldown = 60;
+        int incDefTime = 0;
         public override void ResetEffects()
         {
+            meteorGauntlet = false;
+            doubleKnockback = false;
             renewedLife = false;
             frostGauntlet = false;
             eruptionBottle = false;
@@ -97,7 +102,11 @@ namespace Emperia
 		}
         public override void PostUpdate()
         {
-			
+			if (incDefTime > 0)
+            {
+                player.statDefense += 5;
+                incDefTime--;
+            }
 			if (eruptionBottle)
 			{
 				if (player.velocity.Y == 0 && player.releaseJump)
@@ -374,27 +383,28 @@ namespace Emperia
             {
                 damage = (int) ((float) damage * 1.2f);
             }
-		}
+            if (doubleKnockback)
+            {
+                knockback *= 2f;
+            }
+        }
 		public override void OnHitNPC (Item item, NPC target, int damage, float knockback, bool crit)
 		{
-			if (crit && target.life <= 0 && deathTalisman)
-			{
-				int damage1 = 0;
-				if (target.lifeMax > 3000)
-				{
-					damage1 = 300;
-				}
-				else
-				{
-					damage1 = target.lifeMax / 10;
-				}
-				//for (int i = 0; i < 5; i++)
-				//{
-					Vector2 perturbedSpeed = new Vector2(0, 5).RotatedByRandom(MathHelper.ToRadians(360));
-					Projectile.NewProjectile(target.Center.X, target.Center.Y, 0, 0, mod.ProjectileType("FateFlame"), damage1, 1, Main.myPlayer, 0, 0);
-					
-				//}
-			}
+            if (meteorGauntlet)
+            {
+                target.AddBuff(BuffID.OnFire, 120);
+                if (Main.rand.Next(3) == 0)
+                {
+                    Vector2 placePosition = target.Center + new Vector2(Main.rand.Next(-100, 100), -500);
+                    Vector2 direction = target.Center - placePosition;
+                    int p = Projectile.NewProjectile(placePosition.X, placePosition.Y, direction.X * 12f, direction.Y * 12f, ProjectileID.Meteor1, 30, 1, Main.myPlayer, 0, 0);
+                    Main.projectile[p].friendly = true;
+                    Main.projectile[p].hostile = false;
+                    Main.projectile[p].scale = 0.7f;
+                }
+            }
+            if (doubleKnockback)
+                incDefTime = 180;
             if (frostGauntlet)
             {
                 if (target.life <= 0)
@@ -461,24 +471,21 @@ namespace Emperia
 		}
 		public override void OnHitNPCWithProj (Projectile projectile, NPC target, int damage, float knockback, bool crit)
 		{
-			if (crit && target.life <= 0 && deathTalisman)
-			{
-				int damage1 = 0;
-				if (target.lifeMax > 3000)
-				{
-					damage1 = 300;
-				}
-				else
-				{
-					damage1 = target.lifeMax / 10;
-				}
-				//for (int i = 0; i < 5; i++)
-				//{
-					Vector2 perturbedSpeed = new Vector2(0, 5).RotatedByRandom(MathHelper.ToRadians(360));
-					Projectile.NewProjectile(target.Center.X, target.Center.Y, 0, 0, mod.ProjectileType("FateFlame"), damage1, 1, Main.myPlayer, 0, 0);
-					
-				//}
-			}
+            if (meteorGauntlet)
+            {
+                target.AddBuff(BuffID.OnFire, 120);
+                if (Main.rand.Next(3) == 0)
+                {
+                    Vector2 placePosition = target.Center + new Vector2(Main.rand.Next(-100, 100), -500);
+                    Vector2 direction = target.Center - placePosition;
+                    int p = Projectile.NewProjectile(placePosition.X, placePosition.Y, direction.X * 12f, direction.Y * 12f, ProjectileID.Meteor1, 30, 1, Main.myPlayer, 0, 0);
+                    Main.projectile[p].friendly = true;
+                    Main.projectile[p].hostile = false;
+                    Main.projectile[p].scale = 0.7f;
+                }
+            }
+            if (doubleKnockback)
+                incDefTime = 180;
             if (frostGauntlet)
             {
                 if (target.life <= 0)
@@ -536,6 +543,10 @@ namespace Emperia
 			{
 				knockback *= 1.1f;
 			}
-		}
+            if (doubleKnockback)
+            {
+                knockback *= 2f;
+            }
+        }
     }
 }
