@@ -40,7 +40,25 @@ namespace Emperia
 			ItemID.TitaniumBar
 			});
 			RecipeGroup.RegisterGroup("Emperia:AdBar", group2);
-		}
+            RecipeGroup group3 = new RecipeGroup(() => Lang.misc[37] + "Any Iron Bar", new int[]
+            {
+            ItemID.IronBar,
+            ItemID.LeadBar
+            });
+            RecipeGroup.RegisterGroup("Emperia:AnyIronBar", group2);
+            RecipeGroup group4 = new RecipeGroup(() => Lang.misc[37] + "Any Silver Bar", new int[]
+            {
+            ItemID.SilverBar,
+            ItemID.TungstenBar
+            });
+            RecipeGroup.RegisterGroup("Emperia:AnySilverBar", group2);
+            RecipeGroup group5 = new RecipeGroup(() => Lang.misc[37] + "Any Gold Bar", new int[]
+            {
+            ItemID.GoldBar,
+            ItemID.PlatinumBar
+            });
+            RecipeGroup.RegisterGroup("Emperia:AnyGoldBar", group2);
+        }
 		public override void UpdateMusic(ref int music)
 		{
 			Player player = Main.LocalPlayer;

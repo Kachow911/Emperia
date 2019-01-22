@@ -40,7 +40,7 @@ namespace Emperia.Projectiles
 				npc = target;
 				offset = projectile.position - npc.position;
 				latched = true;
-				returntimer = 60;
+				returntimer = 45;
 			}
         }
 
