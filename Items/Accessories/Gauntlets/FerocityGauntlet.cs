@@ -31,7 +31,7 @@ namespace Emperia.Items.Accessories.Gauntlets
 		public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(null, "MetalluryGauntlet", 1);
+            recipe.AddIngredient(null, "MetallurgyGauntlet", 1);
             recipe.AddIngredient(null, "EnchantedGauntlet", 1);
             recipe.AddIngredient(null, "SpeedGauntlet", 1);
             recipe.AddRecipeGroup("Emperia:AnyIronBar", 4);
