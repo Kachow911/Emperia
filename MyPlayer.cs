@@ -42,6 +42,8 @@ namespace Emperia
         public bool yetiMount = false;
         public bool frostGauntlet = false;
         public bool meteorGauntlet = false;
+		public bool ferocityGauntlet = false;
+		public bool thermalGauntlet = false;
         public bool renewedLife = false;
         public int dayVergeProjTime = 0;
 		bool canJump = false;
@@ -62,8 +64,12 @@ namespace Emperia
 		private int peltRadius = 256;
 		int SporeHealCooldown = 60;
         int incDefTime = 0;
+		int ferocityTime = 0;
         public override void ResetEffects()
         {
+			lunarDash = false;
+			thermalGauntlet = false;
+			ferocityGauntlet = false;
             meteorGauntlet = false;
             doubleKnockback = false;
             renewedLife = false;
@@ -342,6 +348,16 @@ namespace Emperia
 			{
 				{
 					{
+						if (ferocityTime > 0)
+						{
+							player.statDefense += 5;
+							player.thrownDamage += 0.05f;
+							player.meleeDamage += 0.05f;
+							player.minionDamage += 0.05f;
+							player.magicDamage += 0.05f;
+							player.rangedDamage += 0.05f;
+							player.moveSpeed += 0.20f;
+						}
 						SporeHealCooldown--;
 						if (SporeHealCooldown <= 0)
 						{
@@ -372,6 +388,15 @@ namespace Emperia
 				if (Main.projectile[i].type == mod.ProjectileType("Needle"))
 					Main.projectile[i].Kill();
 			}
+			if (thermalGauntlet)
+            {
+                Vector2 placePosition = player.Center + new Vector2(Main.rand.Next(-100, 100), -500);
+                Vector2 direction = player.Center - placePosition;
+                int p = Projectile.NewProjectile(placePosition.X, placePosition.Y, direction.X * 12f, direction.Y * 12f, ProjectileID.Meteor1, 60, 1, Main.myPlayer, 0, 0);
+                Main.projectile[p].friendly = true;
+                Main.projectile[p].hostile = false;
+                Main.projectile[p].scale = 0.7f;
+            }
 		}
 		public override void ModifyHitNPC (Item item, NPC target, ref int damage, ref float knockback, ref bool crit)
 		{
@@ -387,9 +412,15 @@ namespace Emperia
             {
                 knockback *= 2f;
             }
+			if (ferocityGauntlet && Main.rand.Next(10) == 0)
+				damage *= 2;
         }
 		public override void OnHitNPC (Item item, NPC target, int damage, float knockback, bool crit)
 		{
+			if (ferocityGauntlet)
+			{
+				ferocityTime = 180;
+			}
 			if (crit && target.life <= 0 && deathTalisman)
 			{
 				int damage1 = 0;
@@ -423,6 +454,30 @@ namespace Emperia
             }
             if (doubleKnockback)
                 incDefTime = 180;
+			if (thermalGauntlet)
+			{
+				if (target.life <= 0)
+                {
+                    for (int i = 0; i < Main.rand.Next(3, 6); i++)
+                    {
+						int type = 0;
+						int x = Main.rand.Next(2);
+						if (x == 0) type = mod.ProjectileType("ThermalBoltCold");
+						if (x == 1) type = mod.ProjectileType("ThermalBoltHot");
+                        Vector2 perturbedSpeed = new Vector2(0, 4).RotatedByRandom(MathHelper.ToRadians(360));
+                        int p = Projectile.NewProjectile(target.Center.X, target.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, type, 20, 1, Main.myPlayer, 0, 0);
+                    }
+                }
+                else
+                {
+					target.AddBuff(BuffID.OnFire, 180);
+					target.AddBuff(BuffID.Frostburn, 180);
+                    if (Main.rand.NextBool(7) && !target.boss)
+                    {
+                        target.AddBuff(mod.BuffType("Frozen"), 120);
+                    }
+                }
+			}
             if (frostGauntlet)
             {
                 if (target.life <= 0)
@@ -489,6 +544,10 @@ namespace Emperia
 		}
 		public override void OnHitNPCWithProj (Projectile projectile, NPC target, int damage, float knockback, bool crit)
 		{
+			if (ferocityGauntlet)
+			{
+				ferocityTime = 180;
+			}
 			if (crit && target.life <= 0 && deathTalisman)
 			{
 				int damage1 = 0;
@@ -540,6 +599,30 @@ namespace Emperia
                     }
                 }
             }
+			if (thermalGauntlet)
+			{
+				if (target.life <= 0)
+                {
+                    for (int i = 0; i < Main.rand.Next(3, 6); i++)
+                    {
+						int type = 0;
+						int x = Main.rand.Next(2);
+						if (x == 0) type = mod.ProjectileType("ThermalBoltCold");
+						if (x == 1) type = mod.ProjectileType("ThermalBoltHot");
+                        Vector2 perturbedSpeed = new Vector2(0, 4).RotatedByRandom(MathHelper.ToRadians(360));
+                        int p = Projectile.NewProjectile(target.Center.X, target.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, type, 20, 1, Main.myPlayer, 0, 0);
+                    }
+                }
+                else
+                {
+					target.AddBuff(BuffID.OnFire, 180);
+					target.AddBuff(BuffID.Frostburn, 180);
+                    if (Main.rand.NextBool(7) && !target.boss)
+                    {
+                        target.AddBuff(mod.BuffType("Frozen"), 120);
+                    }
+                }
+			}
             if (crit && rougeRage)
 			{
 				damage = damage += (damage / 10);
@@ -583,6 +666,8 @@ namespace Emperia
             {
                 knockback *= 2f;
             }
+			if (ferocityGauntlet && Main.rand.Next(10) == 0)
+				damage *= 2;
         }
     }
 }
