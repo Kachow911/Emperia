@@ -11,14 +11,15 @@ namespace Emperia.Projectiles
     public class WaveProj : ModProjectile
     {
 		private int explodeRadius = 100;
+        int timer = 0;
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Wave");
 		}
         public override void SetDefaults()
         {  //projectile name
-            projectile.width = 8;       //projectile width
-            projectile.height = 8;  //projectile height
+            projectile.width = 32;       //projectile width
+            projectile.height = 32;  //projectile height
             projectile.friendly = true;      //make that the projectile will not damage you
             projectile.magic = true;         // 
             projectile.tileCollide = true;   //make that the projectile will be destroed if it hits the terrain
@@ -30,15 +31,14 @@ namespace Emperia.Projectiles
 			projectile.scale = 4f;
         }
         public override void AI()           //projectile make that the projectile will face the corect way
-        {                                                           
+        {
+            timer += 8;
 			int dust = Dust.NewDust(projectile.position, 8, 8, 76, 0f, 0f, 91, new Color(83, 66, 180), 1f);
-            Main.dust[dust].position += projectile.velocity.RotatedBy(1.57);
-            Main.dust[dust].noGravity = true;
-            Main.dust[dust].velocity = projectile.velocity.RotatedBy(0.5);
             int dust1 = Dust.NewDust(projectile.position, 8, 8, 76, 0f, 0f, 91, new Color(83, 66, 180), 1f);
-            Main.dust[dust].position += projectile.velocity.RotatedBy(-1.57);
-            Main.dust[dust1].noGravity = true;
-            Main.dust[dust1].velocity = projectile.velocity.RotatedBy(-0.5);
+            Main.dust[dust].position += new Vector2(0f, 20f * (float)Math.Cos(MathHelper.ToRadians(timer))).RotatedBy(projectile.rotation);
+            Main.dust[dust1].position += new Vector2(0f, -20f * (float)Math.Cos(MathHelper.ToRadians(timer))).RotatedBy(projectile.rotation);
+            Main.dust[dust].velocity = Vector2.Zero;
+            Main.dust[dust1].velocity = Vector2.Zero;
             /*int dust2 = Dust.NewDust(projectile.position, projectile.width, projectile.height, 66, 0f, 0f, 91, new Color(83, 66, 180), 1.5f);
             Main.dust[dust2].velocity = projectile.velocity;
             Main.dust[dust2].noGravity = true;*/
