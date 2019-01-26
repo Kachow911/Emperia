@@ -28,15 +28,13 @@ namespace Emperia.Projectiles
             projectile.light = 0.75f;    // projectile light
             projectile.ignoreWater = true;
 			projectile.alpha = 255;
-			projectile.scale = 4f;
+			projectile.scale = 1f;
         }
         public override void AI()           //projectile make that the projectile will face the corect way
         {
             timer += 8;
-			int dust = Dust.NewDust(projectile.position, 8, 8, 76, 0f, 0f, 91, new Color(83, 66, 180), 1f);
-            int dust1 = Dust.NewDust(projectile.position, 8, 8, 76, 0f, 0f, 91, new Color(83, 66, 180), 1f);
-            Main.dust[dust].position += new Vector2(0f, 20f * (float)Math.Cos(MathHelper.ToRadians(timer))).RotatedBy(projectile.rotation);
-            Main.dust[dust1].position += new Vector2(0f, -20f * (float)Math.Cos(MathHelper.ToRadians(timer))).RotatedBy(projectile.rotation);
+			int dust = Dust.NewDust(projectile.position + new Vector2(10f * (float)Math.Cos(MathHelper.ToRadians(timer)), 0f).RotatedBy(projectile.rotation + 1.57), 8, 8, 76, 0f, 0f, 91, new Color(83, 66, 180), 1f);
+            int dust1 = Dust.NewDust(projectile.position + new Vector2(10f * (float)Math.Cos(MathHelper.ToRadians(timer)), 0f).RotatedBy(projectile.rotation - 1.57), 8, 8, 76, 0f, 0f, 91, new Color(83, 66, 180), 1f);
             Main.dust[dust].velocity = Vector2.Zero;
             Main.dust[dust1].velocity = Vector2.Zero;
             /*int dust2 = Dust.NewDust(projectile.position, projectile.width, projectile.height, 66, 0f, 0f, 91, new Color(83, 66, 180), 1.5f);
