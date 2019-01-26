@@ -27,6 +27,7 @@ namespace Emperia.Items.Accessories.Gauntlets
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
 			player.GetModPlayer<MyPlayer>(mod).doubleKnockback = true;
+			player.GetModPlayer<MyPlayer>(mod).ferocityGauntlet = true;
         }
 		public override void AddRecipes()
         {
@@ -34,10 +35,10 @@ namespace Emperia.Items.Accessories.Gauntlets
             recipe.AddIngredient(null, "MetallurgyGauntlet", 1);
             recipe.AddIngredient(null, "EnchantedGauntlet", 1);
             recipe.AddIngredient(null, "SpeedGauntlet", 1);
-            recipe.AddRecipeGroup("Emperia:AnyIronBar", 4);
-            recipe.AddRecipeGroup("Emperia:AnySilverBar", 4);
-            recipe.AddRecipeGroup("Emperia:AnyGoldBar", 4);
-            recipe.AddTile(TileID.Anvils);
+            recipe.AddRecipeGroup("Emperia:AdBar", 10);
+			recipe.AddIngredient(ItemID.SoulofNight, 5);
+			recipe.AddIngredient(ItemID.SoulofLight, 5);
+            recipe.AddTile(TileID.MythrilAnvil);
             recipe.SetResult(this);
             recipe.AddRecipe();
 			
