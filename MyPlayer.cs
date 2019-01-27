@@ -163,7 +163,7 @@ namespace Emperia
 				{
 					for (int i = 0; i < 200; i++)
 					{
-						if (player.Hitbox.Intersects(Main.npc[i].Hitbox) && !hitEnemies.Contains(i) && Main.npc[i].life > 1)
+						if (player.Hitbox.Intersects(Main.npc[i].Hitbox) && !hitEnemies.Contains(i) && Main.npc[i].life > 0)
 						{
 							hitEnemies.Add(i);
 							Main.npc[i].StrikeNPC(60, 0f, 0, false, false, false);
