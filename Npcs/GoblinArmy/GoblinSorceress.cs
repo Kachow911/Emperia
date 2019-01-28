@@ -16,9 +16,9 @@ namespace Emperia.Npcs.GoblinArmy
 		   Shoot
         }
 
-        private int counter { get { return (int)npc.ai[0]; } set { npc.ai[0] = value; } }
+        private int counter;
 
-        private Move move { get { return (Move)npc.ai[1]; } set { npc.ai[1] = (int)value; } }
+        private Move move;
         private Move prevMove;
         private Vector2 targetPosition;
 		
@@ -30,7 +30,7 @@ namespace Emperia.Npcs.GoblinArmy
 		}
         public override void SetDefaults()
         {
-            npc.lifeMax = 250;
+            npc.lifeMax = 275;
             npc.damage = 30;
             npc.defense = 5;
             npc.knockBackResist = 0f;
@@ -58,19 +58,13 @@ namespace Emperia.Npcs.GoblinArmy
 			}
 			else if (move == Move.Shoot)
 			{
-				npc.frameCounter += 0.2f;
+				npc.frameCounter += 0.1f;
 				npc.frameCounter %= 3; 
-				int frame = (int)npc.frameCounter + 8; 
+				int frame = (int)npc.frameCounter + 5; 
 				npc.frame.Y = frame * frameHeight; 
 			}
 			
 		}
-
-        public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
-        {
-            npc.lifeMax = 2250;
-            npc.damage = 55;
-        }
 
         public override void AI()
 		{
@@ -97,7 +91,7 @@ namespace Emperia.Npcs.GoblinArmy
 					npc.velocity.X = -2f;
 				if (counter <= 0)
 				{
-					SetMove(Move.Shoot, 15);
+					SetMove(Move.Shoot, 30);
 				}
 			}
 			if (move == Move.Shoot)
@@ -107,22 +101,36 @@ namespace Emperia.Npcs.GoblinArmy
 					npc.spriteDirection = 1;
 				else
 					npc.spriteDirection = -1;
-				npc.velocity = Vector2.Zero;
-				if (counter <= 0)
+				npc.velocity.X = 0;
+				int xOff = 0;
+				if (npc.spriteDirection == 1) xOff = -5;
+				else xOff = 5;
+				Vector2 placePosition = npc.Center + new Vector2(-xOff, -npc.height / 2);
+				for (int index1 = 0; index1 < 3; ++index1)
 				{
+					Vector2 vel = new Vector2(2, 0).RotatedByRandom(MathHelper.ToRadians(360));
+					int index2 = Dust.NewDust(placePosition + vel, npc.width, npc.height, DustID.Shadowflame, 0.0f, 0.0f, 100, new Color(), 0.8f);
+					
+				}
+				if (counter <= 0)
+				{	
 					SetMove(Move.Walk, 250);
-					Vector2 placePosition = npc.Center + new Vector2(0, -npc.height / 2);
-					Vector2 direction = Main.player[npc.target].Center + new Vector2(0, -125) - placePosition;
-                    direction.Normalize();
-					for (int index1 = 0; index1 < 10; ++index1)
+					if (Main.rand.Next(5) == 0)
 					{
-						int index2 = Dust.NewDust(placePosition, npc.width, npc.height, 6, 0.0f, 0.0f, 100, new Color(), 2.5f);
-						Main.dust[index2].noGravity = true;
-						Main.dust[index2].velocity *= 3f;
-						int index3 = Dust.NewDust(placePosition, npc.width, npc.height, 6, 0.0f, 0.0f, 100, new Color(), 1.5f);
-						Main.dust[index3].velocity *= 2f;
+						for (int i = -1; i <= 1; i++)
+						{
+							Vector2 placePosition1 = new Vector2(player.Center.X + 100 * i, player.Center.Y - 600);
+							Vector2 direction1 = player.Center - placePosition1;
+							direction1.Normalize();
+							Projectile.NewProjectile(placePosition1.X, placePosition1.Y, direction1.X * 10f, direction1.Y * 10f, mod.ProjectileType("ShadowBoltHostile"), 10, 1, Main.myPlayer, 0, 0);
+						}
 					}
-					int p = Projectile.NewProjectile(npc.Center.X, npc.Center.Y - npc.height/2, direction.X * 13f, direction.Y * 7f, mod.ProjectileType("GoblinBomb"), npc.damage, 1, Main.myPlayer, 0, 0);
+					else
+					{
+						Vector2 direction = Main.player[npc.target].Center - placePosition;
+						direction.Normalize();
+						int p = Projectile.NewProjectile(placePosition.X, placePosition.Y, direction.X * 8f, direction.Y * 8f, mod.ProjectileType("ShadowBoltHostile"), 22, 1, Main.myPlayer, 0, 0);
+					}
 					
 				}
 			}

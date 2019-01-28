@@ -89,7 +89,7 @@ namespace Emperia.Projectiles
 				if (timer % 60 == 0)
 				{
 					rotVector.Normalize();
-					Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, rotVector.X * 12f, rotVector.Y * 12f, mod.ProjectileType("HrP2"), 20, 1, Main.myPlayer, 0, 0);
+					Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, rotVector.X * 14f, rotVector.Y * 14f, mod.ProjectileType("HrP2"), 20, 1, Main.myPlayer, 0, 0);
 				}
 				if ((double) Main.MouseWorld.X > projectile.position.X)
 				{

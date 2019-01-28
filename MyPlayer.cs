@@ -385,7 +385,7 @@ namespace Emperia
 		{
 			for (int i = 0; i < Main.projectile.Length; i++)
             {
-				if (Main.projectile[i].type == mod.ProjectileType("Needle"))
+				if (Main.projectile[i].type == mod.ProjectileType("Needle") || Main.projectile[i].type == mod.ProjectileType("HauntedRevolver"))
 					Main.projectile[i].Kill();
 			}
 			if (thermalGauntlet)

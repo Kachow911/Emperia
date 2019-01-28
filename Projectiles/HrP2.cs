@@ -21,13 +21,22 @@ namespace Emperia.Projectiles
             projectile.height = 8;  //projectile height
             projectile.friendly = true;      //make that the projectile will not damage you
             projectile.magic = true;         // 
-            projectile.tileCollide = false;   //make that the projectile will be destroed if it hits the terrain
+            projectile.tileCollide = true;   //make that the projectile will be destroed if it hits the terrain
             projectile.penetrate = 1;      //how many npc will penetrate
-            projectile.timeLeft = 100;   //how many time projectile projectile has before disepire
+            projectile.timeLeft = 80;   //how many time projectile projectile has before disepire
             projectile.light = 0.75f;    // projectile light
             projectile.ignoreWater = true;
 			projectile.alpha = 255;
         }
+		public override bool OnTileCollide(Vector2 oldVelocity)
+		{
+			projectile.tileCollide = false;
+			if (projectile.timeLeft > 30)
+				projectile.timeLeft = 30;
+			projectile.velocity = oldVelocity;
+			return false;
+			
+		}
         public override void AI()           //projectile make that the projectile will face the corect way
         {                                                           
 			int dust = Dust.NewDust(projectile.position + projectile.velocity, projectile.width, projectile.height, 15, 0f, 0f);
