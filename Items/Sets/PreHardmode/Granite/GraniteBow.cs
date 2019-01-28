@@ -22,23 +22,24 @@ namespace Emperia.Items.Sets.PreHardmode.Granite
             item.ranged = true;
             item.width = 69;
             item.height = 40;
-            item.useTime = 30;
-            item.useAnimation = 30;
+            item.useTime = 29;
+            item.useAnimation = 29;
             item.useStyle = 5;
             item.shoot = 3;
             item.useAmmo = ItemID.WoodenArrow;
             item.knockBack = 1;
-            item.value = 1000;
+            item.value = 22500;
             item.rare = 2;
             item.autoReuse = false;
-            item.shootSpeed = 15f;
+            item.shootSpeed = 8f;
 			item.UseSound = SoundID.Item5; 
         }
 		
 		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
 		{
-			if (counter == 2)
+			if (counter == 3)
 			{
+                damage = (int) (damage * 1.2);
 				Projectile.NewProjectile(position.X, position.Y, speedX, speedY, mod.ProjectileType("GraniteArrow"), damage, knockBack, player.whoAmI);
 				counter = 0;
 				return false;

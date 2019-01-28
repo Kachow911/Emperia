@@ -27,11 +27,11 @@ namespace Emperia.Items.Weapons
             item.useStyle = 5;  
             item.noMelee = true; 
             item.knockBack = 1.3f; 
-            item.value = Item.buyPrice(0, 10, 0, 0);
+            item.value = 255000;
             item.rare = 6;   
             item.autoReuse = false;  
             item.shoot = mod.ProjectileType("PaintBall");   
-            item.shootSpeed = 8f; 
+            item.shootSpeed = 6f; 
 			item.crit = 12;
         }
  
@@ -40,7 +40,7 @@ namespace Emperia.Items.Weapons
 			int numberProjectiles = 3; 
 			for (int i = 0; i < numberProjectiles; i++)
 			{
-				Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(15)); 
+				Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(5)); 
 				Projectile.NewProjectile(position.X, position.Y, perturbedSpeed.X * 2, perturbedSpeed.Y * 2, type, damage, knockBack, player.whoAmI);
 			}
 			Main.PlaySound(SoundID.Item5, player.position);

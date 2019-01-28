@@ -41,9 +41,9 @@ namespace Emperia.Projectiles
 
 			for (int i = 0; i < 30; ++i)
 			{
-			  int index2 = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, 15, 0.0f, 0.0f, 15, new Color(53f, 67f, 253f), 3f);
+			  int index2 = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, 15, 0.0f, 0.0f, 15, new Color(53f, 67f, 253f), 2f);
 			  Main.dust[index2].noGravity = true;
-			  Main.dust[index2].velocity *= 3f;
+			  Main.dust[index2].velocity *= 2.7f;
 			}
 		}
 		
@@ -56,7 +56,7 @@ namespace Emperia.Projectiles
 		{
 			if (Main.rand.Next(3) == 0)
 			{
-				Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, 15, 0.0f, 0.0f, 15, new Color(53f, 67f, 253f), 1.2f);
+				Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, 15, 0.0f, 0.0f, 15, new Color(53f, 67f, 253f), 0.8f);
 			}
 		}
 		

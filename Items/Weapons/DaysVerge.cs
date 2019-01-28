@@ -95,6 +95,7 @@ namespace Emperia.Items.Weapons //where is located
 			{
 				
 				int dust = Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, 234);
+                Main.dust[dust].noGravity = true;
 			}
 		}
 		public override void AddRecipes()  //How to craft this sword
