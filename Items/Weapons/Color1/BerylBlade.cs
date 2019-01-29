@@ -45,15 +45,18 @@ namespace Emperia.Items.Weapons.Color1   //where is located
 
         }
 		 public override void MeleeEffects(Player player, Rectangle hitbox)
-		{
+		 {
 			if (Main.rand.Next(5) == 0)
 			{
 				int dust = Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, 61);
 			}
-		}
+		 }
 		 public override void OnHitNPC(Player player, NPC target, int damage, float knockback, bool crit)
-		{
-			player.AddBuff(mod.BuffType("BerylBrutalism"), Main.rand.Next(360, 600));
-		}
+		 {
+            if (target.boss)
+                player.AddBuff(mod.BuffType("BerylBrutalism"), Main.rand.Next(360, 600)) + 300;
+            else
+                player.AddBuff(mod.BuffType("BerylBrutalism"), Main.rand.Next(360, 600));
+		 }
     }
 }

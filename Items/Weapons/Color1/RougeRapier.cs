@@ -54,7 +54,10 @@ namespace Emperia.Items.Weapons.Color1   //where is located
 		}
 		 public override void OnHitNPC(Player player, NPC target, int damage, float knockback, bool crit)
 		{
-			player.AddBuff(mod.BuffType("RougeRage"), Main.rand.Next(360, 600));
-		}
+            if (target.boss)
+			    player.AddBuff(mod.BuffType("RougeRage"), Main.rand.Next(360, 600)) + 300;
+            else
+                player.AddBuff(mod.BuffType("RougeRage"), Main.rand.Next(360, 600));
+        }
     }
 }

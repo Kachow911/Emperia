@@ -62,7 +62,10 @@ namespace Emperia.Items.Weapons.Color1   //where is located
 		}
 		 public override void OnHitNPC(Player player, NPC target, int damage, float knockback, bool crit)
 		{
-			player.AddBuff(mod.BuffType("IndigoIntensity"), Main.rand.Next(420, 600));
+            if (target.boss)
+                player.AddBuff(mod.BuffType("IndigoIntensity"), Main.rand.Next(420, 600)) + 300;
+            else
+                player.AddBuff(mod.BuffType("IndigoIntensity"), Main.rand.Next(420, 600));
 		}
 		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type1, ref int damage, ref float knockBack)
 		{

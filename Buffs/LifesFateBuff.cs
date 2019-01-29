@@ -28,6 +28,10 @@ namespace Emperia.Buffs
         {
 			MyPlayer p = player.GetModPlayer<MyPlayer>(mod);
 			p.renewedLife = true;
+            if (Main.rand.Next(2) == 0)
+            {
+                int dust = Dust.NewDust(new Vector2(player.Center.X, player.Center.Y), 20, 20, 183);
+            }
         }
     }
 }
