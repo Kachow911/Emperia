@@ -28,6 +28,7 @@ namespace Emperia.Items.Accessories.Gauntlets
         {
 			player.GetModPlayer<MyPlayer>(mod).doubleKnockback = true;
 			player.GetModPlayer<MyPlayer>(mod).ferocityGauntlet = true;
+			player.statManaMax2 += 40;
         }
 		public override void AddRecipes()
         {

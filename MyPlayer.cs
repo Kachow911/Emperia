@@ -44,6 +44,7 @@ namespace Emperia
         public bool meteorGauntlet = false;
 		public bool ferocityGauntlet = false;
 		public bool thermalGauntlet = false;
+		public bool floralGauntlet = false;
         public bool renewedLife = false;
         public int dayVergeProjTime = 0;
 		bool canJump = false;
@@ -67,6 +68,7 @@ namespace Emperia
 		int ferocityTime = 0;
         public override void ResetEffects()
         {
+			floralGauntlet = false;
 			lunarDash = false;
 			thermalGauntlet = false;
 			ferocityGauntlet = false;
@@ -417,6 +419,11 @@ namespace Emperia
         }
 		public override void OnHitNPC (Item item, NPC target, int damage, float knockback, bool crit)
 		{
+			if (ferocityGauntlet && Main.rand.Next(20) == 0)
+			{
+				player.statLife += damage;
+				player.HealEffect(damage);
+			}
 			if (ferocityGauntlet)
 			{
 				ferocityTime = 180;
@@ -544,6 +551,11 @@ namespace Emperia
 		}
 		public override void OnHitNPCWithProj (Projectile projectile, NPC target, int damage, float knockback, bool crit)
 		{
+			if (ferocityGauntlet && Main.rand.Next(20) == 0)
+			{
+				player.statLife += damage;
+				player.HealEffect(damage);
+			}
 			if (ferocityGauntlet)
 			{
 				ferocityTime = 180;
