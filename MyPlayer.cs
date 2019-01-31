@@ -45,6 +45,7 @@ namespace Emperia
 		public bool ferocityGauntlet = false;
 		public bool thermalGauntlet = false;
 		public bool floralGauntlet = false;
+		public bool terraGauntlet = false;
         public bool renewedLife = false;
         public int dayVergeProjTime = 0;
 		bool canJump = false;
@@ -53,6 +54,7 @@ namespace Emperia
 		bool clickedLeft = false;
 		bool clickedRight = false;
 		List<int> hitEnemies = new List<int>();
+		private int terraTime = 0;
 		public int yetiCooldown = 30;
 		private int leftPresses = 0;
 		private int rightPresses = 0;
@@ -68,6 +70,7 @@ namespace Emperia
 		int ferocityTime = 0;
         public override void ResetEffects()
         {
+			terraGauntlet = false;
 			floralGauntlet = false;
 			lunarDash = false;
 			thermalGauntlet = false;
@@ -350,6 +353,16 @@ namespace Emperia
 			{
 				{
 					{
+						if (terraTime > 0)
+						{
+							player.statDefense += 15;
+							player.thrownDamage += 0.08f;
+							player.meleeDamage += 0.08f;
+							player.minionDamage += 0.08f;
+							player.magicDamage += 0.08f;
+							player.rangedDamage += 0.08f;
+							player.moveSpeed += 0.25f;
+						}
 						if (ferocityTime > 0)
 						{
 							player.statDefense += 5;
@@ -385,6 +398,8 @@ namespace Emperia
         }
 		public override void Hurt(bool pvp, bool quiet, double damage, int hitDirection, bool crit)
 		{
+			if (terraGauntlet)
+				terraTime = 180;
 			for (int i = 0; i < Main.projectile.Length; i++)
             {
 				if (Main.projectile[i].type == mod.ProjectileType("Needle") || Main.projectile[i].type == mod.ProjectileType("HauntedRevolver"))
@@ -414,12 +429,20 @@ namespace Emperia
             {
                 knockback *= 2f;
             }
-			if (ferocityGauntlet && Main.rand.Next(10) == 0)
+			if ((ferocityGauntlet || terraGauntlet) && Main.rand.Next(10) == 0)
 				damage *= 2;
         }
 		public override void OnHitNPC (Item item, NPC target, int damage, float knockback, bool crit)
 		{
-			if (ferocityGauntlet && Main.rand.Next(20) == 0)
+			if (target.life <= 0 && terraGauntlet)
+            {
+                for (int i = 0; i < Main.rand.Next(3, 6); i++)
+			    {
+                    Vector2 perturbedSpeed = new Vector2(0, 4).RotatedByRandom(MathHelper.ToRadians(360));
+                    int p = Projectile.NewProjectile(target.Center.X, target.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, mod.ProjectileType("TerraBoltHost"), 75, 1, Main.myPlayer, 0, 0);
+               }
+            }
+			if (floralGauntlet && Main.rand.Next(20) == 0)
 			{
 				player.statLife += damage;
 				player.HealEffect(damage);
@@ -484,6 +507,13 @@ namespace Emperia
                         target.AddBuff(mod.BuffType("Frozen"), 120);
                     }
                 }
+			}
+			if (terraGauntlet)
+			{
+				target.AddBuff(BuffID.OnFire, 180);
+				target.AddBuff(BuffID.Frostburn, 180);
+				target.AddBuff(BuffID.ShadowFlame, 180);
+				
 			}
             if (frostGauntlet)
             {
@@ -551,11 +581,26 @@ namespace Emperia
 		}
 		public override void OnHitNPCWithProj (Projectile projectile, NPC target, int damage, float knockback, bool crit)
 		{
-			if (ferocityGauntlet && Main.rand.Next(20) == 0)
+			if (terraGauntlet)
+			{
+				target.AddBuff(BuffID.OnFire, 180);
+				target.AddBuff(BuffID.Frostburn, 180);
+				target.AddBuff(BuffID.ShadowFlame, 180);
+				
+			}
+			if (floralGauntlet && Main.rand.Next(20) == 0)
 			{
 				player.statLife += damage;
 				player.HealEffect(damage);
 			}
+			if (target.life <= 0 && terraGauntlet)
+            {
+                for (int i = 0; i < Main.rand.Next(3, 6); i++)
+			    {
+                    Vector2 perturbedSpeed = new Vector2(0, 4).RotatedByRandom(MathHelper.ToRadians(360));
+                    int p = Projectile.NewProjectile(target.Center.X, target.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, mod.ProjectileType("TerraBoltHost"), 75, 1, Main.myPlayer, 0, 0);
+               }
+            }
 			if (ferocityGauntlet)
 			{
 				ferocityTime = 180;
@@ -678,7 +723,7 @@ namespace Emperia
             {
                 knockback *= 2f;
             }
-			if (ferocityGauntlet && Main.rand.Next(10) == 0)
+			if ((ferocityGauntlet || terraGauntlet) && Main.rand.Next(10) == 0)
 				damage *= 2;
         }
     }

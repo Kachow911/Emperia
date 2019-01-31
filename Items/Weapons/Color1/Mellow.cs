@@ -62,7 +62,7 @@ namespace Emperia.Items.Weapons.Color1   //where is located
 		 public override void OnHitNPC(Player player, NPC target, int damage, float knockback, bool crit)
 		{
             if (target.boss)
-			    player.AddBuff(mod.BuffType("LimeLegerity"), Main.rand.Next(420, 600)) + 300;
+			    player.AddBuff(mod.BuffType("LimeLegerity"), Main.rand.Next(420, 600) + 300);
             else
                 player.AddBuff(mod.BuffType("LimeLegerity"), Main.rand.Next(420, 600));
         }

@@ -34,7 +34,7 @@ namespace Emperia.Items.Accessories.Gauntlets
 				player.magicDamage += 0.10f;
 				player.rangedDamage += 0.10f;
 				player.moveSpeed += 0.25f;
-				player.wingTimeMax *= 1.1f;
+				player.wingTimeMax = (int) (player.wingTimeMax * 1.1f);
 			}
         }
     }
