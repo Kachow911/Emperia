@@ -40,7 +40,7 @@ namespace Emperia.Projectiles
 			}
 			for (int i = 0; i < Main.npc.Length; i++)
             {
-				if (projectile.Distance(Main.npc[i].Center) < explodeRadius && projectile.timeLeft % 30 == 0)
+				if (projectile.Distance(Main.npc[i].Center) < explodeRadius && projectile.timeLeft % 30 == 0 && !npc.townNPC)
                     Main.npc[i].StrikeNPC(32, 0f, 0, false, false, false);
 			}
 			

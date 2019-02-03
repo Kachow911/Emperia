@@ -28,10 +28,10 @@ namespace Emperia.Items.Weapons.Forest
             item.shoot = 3;
             item.useAmmo = ItemID.WoodenArrow;
             item.knockBack = 1;
-            item.value = 1000;
+            item.value = 45000;
             item.rare = 3;
             item.autoReuse = false;
-            item.shootSpeed = 8f;
+            item.shootSpeed = 7f;
 			//item.UseSound = SoundID.Item5; 
         }
 		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)

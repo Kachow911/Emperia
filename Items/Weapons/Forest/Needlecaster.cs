@@ -26,7 +26,7 @@ namespace Emperia.Items.Weapons.Forest
 			item.useAnimation = 12;
 			item.useStyle = 5;
 			item.knockBack = 3;
-			item.value = 5000;
+			item.value =  45000;
 			item.rare = 2;
 			item.UseSound = SoundID.Item20;
 			item.autoReuse = true;

@@ -25,7 +25,7 @@ namespace Emperia.Projectiles
             projectile.magic = true;         // 
             projectile.tileCollide = true;   //make that the projectile will be destroed if it hits the terrain
             projectile.penetrate = 1;      //how many projectile will penetrate
-            projectile.timeLeft = 540;   //how many time projectile projectile has before disepire
+            projectile.timeLeft = 510;   //how many time projectile projectile has before disepire
             projectile.light = 0.75f;    // projectile light
             projectile.extraUpdates = 1;
             projectile.ignoreWater = true;
@@ -37,6 +37,22 @@ namespace Emperia.Projectiles
 			projectile.velocity += Vector2.Normalize((Main.MouseWorld - projectile.Center) * speed);
             projectile.velocity.X = MathHelper.Clamp(projectile.velocity.X, -speedMax, speedMax);
             projectile.velocity.Y = MathHelper.Clamp(projectile.velocity.Y, -speedMax, speedMax);
+        }
+		public override void Kill(int timeLeft)
+        {
+            for (int index1 = 4; index1 < 8; ++index1)
+            {
+              float num1 = (float) (projectile.oldVelocity.X * (30.0 / (double) index1));
+              float num2 = (float) (projectile.oldVelocity.Y * (30.0 / (double) index1));
+              int index2 = Dust.NewDust(new Vector2((float) projectile.oldPosition.X - num1, (float) projectile.oldPosition.Y - num2), 8, 8, 3, (float) projectile.oldVelocity.X, (float) projectile.oldVelocity.Y, 100, Color.LightBlue, 1.8f);
+              Main.dust[index2].noGravity = true;
+              Dust dust1 = Main.dust[index2];
+              dust1.velocity = dust1.velocity * 0.5f;
+              int index3 = Dust.NewDust(new Vector2((float) projectile.oldPosition.X - num1, (float) projectile.oldPosition.Y - num2), 8, 8, 3, (float) projectile.oldVelocity.X, (float) projectile.oldVelocity.Y, 100, Color.LightBlue, 1.4f);
+              Dust dust2 = Main.dust[index3];
+              dust2.velocity = dust2.velocity * 0.5f;
+            }
+		
         }
     }
 }
