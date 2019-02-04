@@ -24,7 +24,6 @@ namespace Emperia.Projectiles
             projectile.penetrate = 2;      //how many npc will penetrate
             projectile.timeLeft = 400;   //how many time projectile projectile has before disepire
             projectile.light = 0.75f;    // projectile light
-            projectile.extraUpdates = 1;
             projectile.ignoreWater = true;
         }
         public override void AI()           //projectile make that the projectile will face the corect way

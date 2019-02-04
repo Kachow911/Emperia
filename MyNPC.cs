@@ -8,6 +8,7 @@ namespace Emperia
     public class MyNPC: GlobalNPC
     {
 		public bool vermillionVenom = false;
+        public bool moreDamage = false;
 		public bool indigoInfirmary = false;
 		public bool burningNight = false;
 		public bool fatesDemise = false;
@@ -20,6 +21,7 @@ namespace Emperia
 			burningNight = false;
 			fatesDemise = false;
 			sporeStorm = false;
+            moreDamage = false;
         } 
 		public override bool InstancePerEntity {get{return true;}}
 		
@@ -184,5 +186,19 @@ namespace Emperia
 				damage = (int)(damage * 0.9f);
 			}
 		}
+        public override void ModifyHitByProjectile(NPC npc, Projectile projectile, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
+        {
+            if (moreDamage)
+            {
+                damage = (int) (1.1 * damage);
+            }
+        }
+        public override void ModifyHitByItem(NPC npc, Player player, Item item, ref int damage, ref float knockback, ref bool crit)
+        {
+            if (moreDamage)
+            {
+                damage = (int)(1.1 * damage);
+            }
+        }
     }
 }

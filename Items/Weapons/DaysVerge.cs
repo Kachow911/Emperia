@@ -50,13 +50,13 @@ namespace Emperia.Items.Weapons //where is located
 				if (Main.rand.NextBool(2))
 				{
 					type1 = mod.ProjectileType("BlueSword");
-					speedFactor = 6.7f;
+					speedFactor = 7.5f;
 					damageFactor = 1f;
 				}
 				else
 				{
 					type1 = mod.ProjectileType("PinkSword");
-					speedFactor = 5.5f;
+					speedFactor = 6.2f;
 					damageFactor = 1.2f;
 				}
 				int p = Projectile.NewProjectile(placePosition.X, placePosition.Y, direction.X * speedFactor, direction.Y * speedFactor, type1, damage, 1, Main.myPlayer, 0, 0);
