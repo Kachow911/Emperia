@@ -16,6 +16,8 @@ namespace Emperia.Projectiles
 		public override void SetDefaults()
 		{
 			projectile.CloneDefaults(ProjectileID.PainterPaintball);
+			projectile.ranged = false;
+			projectile.thrown = true;
 			projectile.friendly = true;
 			projectile.hostile = false;
 			projectile.timeLeft = 200;

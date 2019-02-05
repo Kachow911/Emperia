@@ -7,12 +7,12 @@ using Terraria.ModLoader;
 
 namespace Emperia.Items.Weapons.FrousForest
 {
-	public class LeafKunai : ModItem
+	public class SpineVine : ModItem
     {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Leaf Kunai");
-			Tooltip.SetDefault("Pierces enemies with a chance of poisioning them");
+			DisplayName.SetDefault("Spine Vine");
+			Tooltip.SetDefault("Sticks in enemies and poisons them");
 		}
 
 
@@ -28,11 +28,11 @@ namespace Emperia.Items.Weapons.FrousForest
             item.noMelee = true;
             item.consumable = true;
             item.maxStack = 999;
-            item.shoot = mod.ProjectileType("LeafKunaiProj");
-            item.useAnimation = 25;
-            item.useTime = 25;
-            item.shootSpeed = 8.0f;
-            item.damage = 16;
+            item.shoot = mod.ProjectileType("SpineVineProj");
+            item.useAnimation = 36;
+            item.useTime = 36;
+            item.shootSpeed = 6.0f;
+            item.damage = 24;
             item.knockBack = 3.5f;
 			item.value = Item.sellPrice(0, 0, 1, 50);
             item.crit = 4;
@@ -41,15 +41,5 @@ namespace Emperia.Items.Weapons.FrousForest
             item.maxStack = 999;
             item.consumable = true;
         }
-		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
-		{
-			int numberProjectiles = 2; 
-			for (int i = 0; i < numberProjectiles; i++)
-			{
-				Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedBy(MathHelper.ToRadians(-3 + 6 * i)); 
-				Projectile.NewProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, type, damage, knockBack, player.whoAmI);
-			}
-			return false; 
-		}
     }
 }
