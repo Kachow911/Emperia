@@ -9,13 +9,18 @@ namespace Emperia
     {
 		public bool vermillionVenom = false;
         public bool moreDamage = false;
+        public bool cuttingLeaves = false;
 		public bool indigoInfirmary = false;
 		public bool burningNight = false;
 		public bool fatesDemise = false;
 		public bool sporeStorm = false;
+        public int spineCount = 0;
 		int InfirmaryTimer = 30;
+        int poisonTimer = 30;
         public override void ResetEffects(NPC npc)
         {
+            cuttingLeaves = false;
+            //spineCount = 0;
             vermillionVenom = false;
 			indigoInfirmary = false;
 			burningNight = false;
@@ -55,6 +60,14 @@ namespace Emperia
 				npc.lifeRegen = -5;
 				damage = 4;
 			}
+            Main.NewText(spineCount);
+            npc.StrikeNPCNoInteraction(spineCount, 0, 0, false, false, false);
+            if (spineCount > 0)
+            {
+                npc.lifeRegen = -25;
+                
+                damage = spineCount * 2;
+            }
         }
 		
 		public override void AI(NPC npc)
@@ -93,6 +106,7 @@ namespace Emperia
 				else
 					modPlayer.sporeBuffCount += 1;
 			}
+            
 			
 			
 		}

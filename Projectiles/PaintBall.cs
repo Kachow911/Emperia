@@ -28,7 +28,7 @@ namespace Emperia.Projectiles
             timer++;
 			projectile.ai[1] ++;
 			int x1 = Main.rand.Next(7);
-			if (!init)
+			if (!init && timer > 2)
 			{
 				
 				if (x1 == 0)
@@ -63,7 +63,7 @@ namespace Emperia.Projectiles
                 
                 init = true;
 			}
-            if (timer > 10)
+            if (timer > 2)
             {
                 int index2 = Dust.NewDust(new Vector2((float)(projectile.position.X + 4.0), (float)(projectile.position.Y + 4.0)), projectile.width - 8, projectile.height - 8, 76, (float)(projectile.velocity.X * 0.200000002980232), (float)(projectile.velocity.Y * 0.200000002980232), 0, rgb, 0.9f);
                 Main.dust[index2].position = projectile.Center;

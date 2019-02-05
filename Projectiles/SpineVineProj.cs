@@ -12,14 +12,19 @@ namespace Emperia.Projectiles
 		bool init = false;
 		Color rgb;
 		int timer = 0;
-		public override void SetStaticDefaults()
+        bool latched = false;
+
+        NPC npc;
+        Vector2 offset;
+        float rot;
+        public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Spine Vine");
 		}
         public override void SetDefaults()
         {  //projectile name
-            projectile.width = 16;       //projectile width
-            projectile.height = 16;  //projectile height
+            projectile.width = 30;       //projectile width
+            projectile.height = 32;  //projectile height
             projectile.friendly = true;      //make that the projectile will not damage you
             projectile.melee = true;         // 
             projectile.tileCollide = true;   //make that the projectile will be destroed if it hits the terrain
@@ -32,7 +37,7 @@ namespace Emperia.Projectiles
         public override void AI()           //this make that the projectile will face the corect way
         {                                                           // |
             timer++;
-			if (timer % 5 ==0 )
+			if (timer % 5 ==0 && !latched)
 			{
 				projectile.velocity.Y += 0.2f;
 			}
@@ -66,7 +71,6 @@ namespace Emperia.Projectiles
                 }
                 init = true;
 			}
-
             int index2 = Dust.NewDust(new Vector2((float)(projectile.position.X + 4.0), (float)(projectile.position.Y + 4.0)), projectile.width - 8, projectile.height - 8, 76, (float)(projectile.velocity.X * 0.200000002980232), (float)(projectile.velocity.Y * 0.200000002980232), 0, rgb, 0.7f);
             Main.dust[index2].position += projectile.velocity.RotatedBy(1.570796, new Vector2());
             Main.dust[index2].noGravity = true;
@@ -75,10 +79,33 @@ namespace Emperia.Projectiles
             Main.dust[index5].position += projectile.velocity.RotatedBy(1.570796, new Vector2());
             Main.dust[index5].noGravity = true;
             Main.dust[index5].velocity = projectile.velocity.RotatedBy(-1.570796, new Vector2()) * 0.33f + projectile.velocity / 4f;
+            if (latched)
+            {
+                if (!npc.active)
+                {
+                    projectile.timeLeft = 0;
+                }
+                projectile.velocity = Vector2.Zero;
+                projectile.position = npc.position + offset;
+                projectile.rotation = rot;
+                npc.GetGlobalNPC<MyNPC>(mod).spineCount += 1;
+               // npc.StrikeNPCNoInteraction(2 * npc.GetGlobalNPC<MyNPC>(mod).spineCount, 0, 0, false, false, false);
+            }
         }
 		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
-			target.AddBuff(BuffID.Poisoned, 240);
+            if (!latched)
+            {
+                rot = projectile.rotation;
+                npc = target;
+                offset = projectile.position - npc.position;
+                latched = true;
+                projectile.timeLeft = 240;
+                projectile.damage = 0;
+                projectile.knockBack = 0f;
+            }
+            //target.AddBuff(BuffID.Poisoned, 240);
 		}
+       
     }
 }
