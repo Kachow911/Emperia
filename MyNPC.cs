@@ -16,7 +16,7 @@ namespace Emperia
 		public bool sporeStorm = false;
         public int spineCount = 0;
 		int InfirmaryTimer = 30;
-        int poisonTimer = 30;
+        int poisonTimer = 0;
         public override void ResetEffects(NPC npc)
         {
             cuttingLeaves = false;
@@ -60,18 +60,22 @@ namespace Emperia
 				npc.lifeRegen = -5;
 				damage = 4;
 			}
-            Main.NewText(spineCount);
-            npc.StrikeNPCNoInteraction(spineCount, 0, 0, false, false, false);
-            if (spineCount > 0)
-            {
-                npc.lifeRegen = -25;
-                
-                damage = spineCount * 2;
-            }
+            
         }
 		
 		public override void AI(NPC npc)
 		{
+			poisonTimer++;
+			if (spineCount > 0 && poisonTimer % 25 == 0)
+			{
+				//Main.NewText(spineCount);
+				npc.life -= spineCount;
+				//npc.StrikeNPCNoInteraction(spineCount, 0, 0, false, false, false);
+				Color color2 = CombatText.DamagedHostile;
+				CombatText.NewText(new Rectangle((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height), color2, spineCount, false, false);
+				
+				npc.HitEffect(0, 10);
+			}
 			InfirmaryTimer--;
 			if (InfirmaryTimer <= 0)
 			{
@@ -106,7 +110,7 @@ namespace Emperia
 				else
 					modPlayer.sporeBuffCount += 1;
 			}
-            
+            spineCount = 0;
 			
 			
 		}

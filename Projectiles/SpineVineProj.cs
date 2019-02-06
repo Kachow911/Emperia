@@ -100,9 +100,10 @@ namespace Emperia.Projectiles
                 npc = target;
                 offset = projectile.position - npc.position;
                 latched = true;
-                projectile.timeLeft = 240;
+                projectile.timeLeft = 480;
                 projectile.damage = 0;
                 projectile.knockBack = 0f;
+				projectile.tileCollide = false;
             }
             //target.AddBuff(BuffID.Poisoned, 240);
 		}
