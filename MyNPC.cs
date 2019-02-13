@@ -14,6 +14,7 @@ namespace Emperia
 		public bool burningNight = false;
 		public bool fatesDemise = false;
 		public bool sporeStorm = false;
+        public bool scoriaExplosion = false;
         public int spineCount = 0;
 		int InfirmaryTimer = 30;
         int poisonTimer = 0;
@@ -116,6 +117,39 @@ namespace Emperia
 		}
 		public override void NPCLoot(NPC npc)  
         {
+            if (scoriaExplosion)
+            {
+                int expDamage = npc.lifeMax / 5;
+                if (expDamage > 50)
+                {
+                    expDamage = 50;
+                }
+
+                for (int num621 = 0; num621 < 20; num621++)
+                {
+                    int num622 = Dust.NewDust(new Vector2(npc.position.X, npc.position.Y), npc.width, npc.height, 258, 0f, 0f, 100, default(Color));
+                    Main.dust[num622].velocity *= 3f;
+                    if (Main.rand.Next(2) == 0)
+                    {
+                        Main.dust[num622].scale = 0.5f;
+                        Main.dust[num622].fadeIn = 1f + (float)Main.rand.Next(10) * 0.1f;
+                    }
+                }
+                for (int num623 = 0; num623 < 35; num623++)
+                {
+                    int num624 = Dust.NewDust(new Vector2(npc.position.X, npc.position.Y), npc.width, npc.height, 258, 0f, 0f, 100, default(Color));
+                    Main.dust[num624].noGravity = true;
+                    Main.dust[num624].velocity *= 5f;
+                    num624 = Dust.NewDust(new Vector2(npc.position.X, npc.position.Y), npc.width, npc.height, 258, 0f, 0f, 100, default(Color));
+                    Main.dust[num624].velocity *= 2f;
+                }
+                Main.PlaySound(2, (int)npc.position.X, (int)npc.position.Y, 14);
+                for (int i = 0; i < Main.npc.Length; i++)
+                {
+                    if (npc.Distance(Main.npc[i].Center) < 64 && !Main.npc[i].townNPC)
+                        Main.npc[i].StrikeNPC(expDamage, 0f, 0, false, false, false);
+                }
+            }
 			if (!Main.expertMode && npc.type == NPCID.SkeletronHead)
 			{
 				int x = Main.rand.Next(3);
