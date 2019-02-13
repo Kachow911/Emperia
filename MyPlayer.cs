@@ -47,6 +47,7 @@ namespace Emperia
 		public bool floralGauntlet = false;
 		public bool terraGauntlet = false;
         public bool renewedLife = false;
+		public bool breakingPoint = false;
         public int dayVergeProjTime = 0;
 		bool canJump = false;
         bool placedPlant = false;
@@ -70,6 +71,7 @@ namespace Emperia
 		int ferocityTime = 0;
         public override void ResetEffects()
         {
+			breakingPoint = false;
 			terraGauntlet = false;
 			floralGauntlet = false;
 			lunarDash = false;
@@ -469,6 +471,10 @@ namespace Emperia
 					
 				//}
 			}
+			if (breakingPoint)
+			{
+				target.AddBuff(BuffID.OnFire,240);
+			}
             if (meteorGauntlet)
             {
                 target.AddBuff(BuffID.OnFire, 120);
@@ -581,6 +587,10 @@ namespace Emperia
 		}
 		public override void OnHitNPCWithProj (Projectile projectile, NPC target, int damage, float knockback, bool crit)
 		{
+			if (breakingPoint)
+			{
+				target.AddBuff(BuffID.OnFire,240);
+			}
 			if (terraGauntlet)
 			{
 				target.AddBuff(BuffID.OnFire, 180);

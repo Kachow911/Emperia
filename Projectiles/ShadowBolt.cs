@@ -11,6 +11,7 @@ namespace Emperia.Projectiles
     public class ShadowBolt : ModProjectile
     {
 		private int explodeRadius = 32;
+		int timer = 0;
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Shadow Bolt");
@@ -29,11 +30,24 @@ namespace Emperia.Projectiles
 			projectile.alpha = 255;
         }
         public override void AI()           //projectile make that the projectile will face the corect way
-        {                                                           
+        {       
+			timer++;		
 			int dust = Dust.NewDust(projectile.position + projectile.velocity, projectile.width, projectile.height, DustID.Shadowflame, 0f, 0f);
 			Main.dust[dust].scale = 1.5f;
 			Main.dust[dust].velocity *= 0f;
-
+			if (timer % 15 == 0)
+			{
+					float count = 25.0f;
+                    for (int k = 0; (double)k < (double)count; k++)
+                    {
+                        Vector2 vector2 = (Vector2.UnitX * 0.0f + -Vector2.UnitY.RotatedBy((double)k * (6.22 / (double)count), new Vector2()) * new Vector2(2.0f, 8.0f)).RotatedBy((double)projectile.velocity.ToRotation(), new Vector2());
+                        int dust1 = Dust.NewDust(projectile.Center - new Vector2(0.0f, 4.0f), 0, 0, DustID.Shadowflame, 0.0f, 0.0f, 0, new Color(), 1.0f);
+                        Main.dust[dust].scale = 1.25f;
+                        Main.dust[dust].noGravity = true;
+                        Main.dust[dust].position = projectile.Center + vector2;
+                        Main.dust[dust].velocity = projectile.velocity * 0.0f + vector2.SafeNormalize(Vector2.UnitY) * 1.0f;
+                    }
+			}
         }
 		public override void Kill(int timeLeft)
         {

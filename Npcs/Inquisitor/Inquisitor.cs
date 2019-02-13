@@ -29,6 +29,8 @@ namespace Emperia.Npcs.Inquisitor
 
         private bool phaseStart;
         private bool phaseEnd;
+		
+		private bool spawnedMasks = false;
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("The Inquisitor");
@@ -85,7 +87,11 @@ namespace Emperia.Npcs.Inquisitor
 				npc.timeLeft = 10;
 			}
 			
-		
+			if (!spawnedMasks)
+			{
+				int n = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, mod.NPCType("AgonyMask"), ai0: npc.whoAmI, ai1: 1);
+				spawnedMasks = true;
+			}
             if (npc.ai[3] == 0 && npc.life <= npc.lifeMax * .9)
             {
 				SetMove(Move.Hover, 240);

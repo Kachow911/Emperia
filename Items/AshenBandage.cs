@@ -31,7 +31,7 @@ namespace Emperia.Items
 
         public override bool CanUseItem(Player player)
         {
-            return true;
+            return !player.HasBuff(BuffID.PotionSickness);
         }
 
         public override bool UseItem(Player player)
