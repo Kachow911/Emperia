@@ -17,7 +17,7 @@ namespace Emperia.Items.Sets.PreHardmode.Scoria //where is located
         }
         public override void SetDefaults()
         {   //Sword name
-            item.damage = 19;            //Sword damage
+            item.damage = 28;            //Sword damage
             item.melee = true;            //if it's melee
             item.width = 16;              //Sword width
             item.height = 16;             //Sword height

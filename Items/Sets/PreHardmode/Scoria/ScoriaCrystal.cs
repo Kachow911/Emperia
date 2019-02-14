@@ -20,7 +20,7 @@ namespace Emperia.Items.Sets.PreHardmode.Scoria
 		public override void SetDefaults()
 		{
 
-			item.damage = 18;
+			item.damage = 26;
 			item.noMelee = true;
 			item.noUseGraphic = false;
 			item.magic = true;

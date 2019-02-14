@@ -31,6 +31,7 @@ namespace Emperia.Buffs
             if (Main.rand.Next(2) == 0)
             {
                 int dust = Dust.NewDust(new Vector2(player.Center.X, player.Center.Y), 20, 20, 183);
+				Main.dust[dust].velocity = Vector2.Zero;
             }
         }
     }
