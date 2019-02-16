@@ -45,15 +45,7 @@ namespace Emperia.Items.Sets.PreHardmode.Scoria
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Scoria Crystal");
-            Tooltip.SetDefault("Shoots blasts of scorch");
-		}
-		public override void AddRecipes()
-		{
-			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(null, "PolishedSandstone", 12);
-			recipe.AddTile(TileID.Anvils);
-			recipe.SetResult(this);
-			recipe.AddRecipe();
+            Tooltip.SetDefault("Shoots scorch blasts");
 		}
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {

@@ -84,7 +84,6 @@ namespace Emperia
             eruptionBottle = false;
             sharkMinion = false;
 			cursedDash = false;
-			ZoneVolcano = false;
 			yetiMount = false;
 			slightKnockback = false;
 			sporeFriend = false;
@@ -115,6 +114,7 @@ namespace Emperia
 		}
         public override void PostUpdate()
         {
+			
 			if (incDefTime > 0)
             {
                 player.statDefense += 5;

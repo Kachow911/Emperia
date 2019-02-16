@@ -12,7 +12,7 @@ namespace Emperia.Items.Sets.PreHardmode.Scoria
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Scoria Bow");
-			Tooltip.SetDefault("Arrowa fired using the bow explode, no matter the type");
+			Tooltip.SetDefault("Arrows fired using the bow explode, no matter the type");
 		}
         public override void SetDefaults()
         {
