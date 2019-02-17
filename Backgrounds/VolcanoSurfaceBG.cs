@@ -33,20 +33,11 @@ namespace Emperia.Backgrounds
 				}
 			}
 		}
-
-		public override int ChooseFarTexture()
-		{
-			return mod.GetBackgroundSlot("Backgrounds/FarBG");
-		}
-
-		public override int ChooseMiddleTexture()
-		{
-			return mod.GetBackgroundSlot("Backgrounds/MidBG");
-		}
-
 		public override int ChooseCloseTexture(ref float scale, ref double parallax, ref float a, ref float b)
 		{
-			return mod.GetBackgroundSlot("Backgrounds/FarBG");
+            b -= 750;
+            scale = 0.9f;
+            return mod.GetBackgroundSlot("Backgrounds/VolcanoBG");
 		}
 	}
 }

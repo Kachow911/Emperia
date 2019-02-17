@@ -17,14 +17,16 @@ namespace Emperia
 {
 	class Emperia : Mod
 	{
-		public Emperia()
+        internal static Emperia instance;
+        public Emperia()
 		{
 			Properties = new ModProperties()
 			{
 				Autoload = true,
 				AutoloadGores = true,
-				AutoloadSounds = true
-			};
+				AutoloadSounds = true,
+                AutoloadBackgrounds = true
+            };
 		}
 		public override void AddRecipeGroups()
 		{
@@ -68,5 +70,10 @@ namespace Emperia
 			}
 			
 		}
-	}
+        public override void Load()
+        {
+            instance = this;
+            
+        }
+    }
 }

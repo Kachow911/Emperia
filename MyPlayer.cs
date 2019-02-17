@@ -102,7 +102,11 @@ namespace Emperia
 		{
 			ZoneVolcano = EmperialWorld.VolcanoTiles > 100;
 		}
-		public override void CatchFish(Item fishingRod, Item bait, int power, int liquidType, int poolSize, int worldLayer, int questFish, ref int caughtType, ref bool junk)
+        public override void UpdateBiomeVisuals()
+        {
+          
+        }
+        public override void CatchFish(Item fishingRod, Item bait, int power, int liquidType, int poolSize, int worldLayer, int questFish, ref int caughtType, ref bool junk)
 		{
 			if (Main.hardMode && player.ZoneSkyHeight)
 			{
@@ -332,12 +336,7 @@ namespace Emperia
 			if (player.controlLeft) clickedLeft = true;
 			if (player.controlRight) clickedRight = true;
         }
-		
-		
-		public override void UpdateBiomeVisuals()
-		{
-
-		}
+	
 		public override void ProcessTriggers(TriggersSet triggersSet)
         {
 
