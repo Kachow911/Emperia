@@ -33,6 +33,7 @@ namespace Emperia
 		public bool slightKnockback = false;
         public bool doubleKnockback = false;
         public bool sharkMinion = false;
+		public bool EmberTyrant = false;
         public bool ancientPelt = false;
 		public bool eruptionBottle = false;
 		public bool sporeFriend = false;
@@ -71,6 +72,7 @@ namespace Emperia
 		int ferocityTime = 0;
         public override void ResetEffects()
         {
+			EmberTyrant = false;
 			breakingPoint = false;
 			terraGauntlet = false;
 			floralGauntlet = false;
@@ -100,12 +102,12 @@ namespace Emperia
         }
 		public override void UpdateBiomes()
 		{
-			ZoneVolcano = EmperialWorld.VolcanoTiles > 100;
+			ZoneVolcano = EmperialWorld.VolcanoTiles > 250;
 		}
         public override void UpdateBiomeVisuals()
-        {
-          
-        }
+		{
+			player.ManageSpecialBiomeVisuals("Emperia:Volcano", ZoneVolcano);
+		}
         public override void CatchFish(Item fishingRod, Item bait, int power, int liquidType, int poolSize, int worldLayer, int questFish, ref int caughtType, ref bool junk)
 		{
 			if (Main.hardMode && player.ZoneSkyHeight)
@@ -445,8 +447,11 @@ namespace Emperia
             }
 			if (floralGauntlet && Main.rand.Next(20) == 0)
 			{
-				player.statLife += damage;
-				player.HealEffect(damage);
+				int lifeToHeal = damage;
+				if (lifeToHeal > 25)
+					lifeToHeal = 25;
+				player.statLife += lifeToHeal;
+				player.HealEffect(lifeToHeal);
 			}
 			if (ferocityGauntlet)
 			{
@@ -599,8 +604,11 @@ namespace Emperia
 			}
 			if (floralGauntlet && Main.rand.Next(20) == 0)
 			{
-				player.statLife += damage;
-				player.HealEffect(damage);
+				int lifeToHeal = damage;
+				if (lifeToHeal > 25)
+					lifeToHeal = 25;
+				player.statLife += lifeToHeal;
+				player.HealEffect(lifeToHeal);
 			}
 			if (target.life <= 0 && terraGauntlet)
             {

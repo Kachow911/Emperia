@@ -202,26 +202,15 @@ namespace Emperia
                 }
                 //giant gaping hole you see at the bottom.
                 WorldMethods.RoundHole(xSpawn, yAxis + 30, 17, 7, 10, true);
-                /*int chests = 0;
+                int chests = 0;
 				while (chests <= 4)
 				{
 					int success = WorldGen.PlaceChest(xSpawn + Main.rand.Next(-100, 100), yAxis + Main.rand.Next(-20, 300), (ushort)mod.TileType("VolcanoChest"), false, 2);
 					if (success > -1)
 					{
-						string[] lootTable = { "Hellraiser", "Eruption", "MoltenHook", };
-						/*Main.chest[success].item[0].SetDefaults(mod.ItemType(lootTable[chests]), false);
-						int[] lootTable2 = { mod.ItemType("MoltenChunk"), ItemID.ObsidianSkinPotion};
-						Main.chest[success].item[1].SetDefaults(lootTable2[Main.rand.Next(4)], false);
-						Main.chest[success].item[1].stack = WorldGen.genRand.Next(3, 8);
-						Main.chest[success].item[2].SetDefaults(lootTable2[Main.rand.Next(4)], false);
-						Main.chest[success].item[2].stack = WorldGen.genRand.Next(3, 8);
-						Main.chest[success].item[3].SetDefaults(lootTable2[Main.rand.Next(4)], false);
-						Main.chest[success].item[3].stack = WorldGen.genRand.Next(3, 8);
-						Main.chest[success].item[4].SetDefaults(lootTable2[Main.rand.Next(4)], false);
-						Main.chest[success].item[4].stack = WorldGen.genRand.Next(1, 2);
 						chests++;
 					}
-				}*/
+				}
 
 
 
@@ -230,6 +219,49 @@ namespace Emperia
 				
 			
         }
+		public override void PostWorldGen()
+		{
+			{
+				for (int i = 1; i < Main.rand.Next(4, 6); i++)
+				{
+					int[] itemsToPlaceInGlassChestsSecondary = new int[] { mod.ItemType("AshenBandage"), mod.ItemType("AshenStrips"), ItemID.SilverCoin, ItemID.Bottle, ItemID.Rope };
+					int itemsToPlaceInGlassChestsSecondaryChoice = 0;
+					for (int chestIndex = 0; chestIndex < 1000; chestIndex++)
+					{
+						Chest chest = Main.chest[chestIndex];
+						if (chest != null && Main.tile[chest.x, chest.y].type == mod.TileType("VolcanoChest"))
+						{
+							for (int inventoryIndex = 0; inventoryIndex < 40; inventoryIndex++)
+							{
+								if (chest.item[inventoryIndex].type == 0)
+								{
+									chest.item[inventoryIndex].SetDefaults(itemsToPlaceInGlassChestsSecondary[itemsToPlaceInGlassChestsSecondaryChoice]); //the error is at this line
+									chest.item[inventoryIndex].stack = Main.rand.Next(4, 10);
+									itemsToPlaceInGlassChestsSecondaryChoice = (itemsToPlaceInGlassChestsSecondaryChoice + 1) % itemsToPlaceInGlassChestsSecondary.Length;
+									break;
+								}
+							}
+						}
+					}
+				}
+			}
+			int[] itemsToPlaceInGlassChests = new int[] { mod.ItemType("Eruption"), mod.ItemType("Hellraiser") };
+			int itemsToPlaceInGlassChestsChoice = 0;
+			for (int chestIndex = 0; chestIndex < 1000; chestIndex++)
+			{
+				Chest chest = Main.chest[chestIndex];
+				if (chest != null && Main.tile[chest.x, chest.y].type/*.frameX == 47 * 36*/ == mod.TileType("VolcanoChest")) // if glass chest
+				{
+					for (int inventoryIndex = 0; inventoryIndex < 40; inventoryIndex++)
+					{
+						itemsToPlaceInGlassChestsChoice = Main.rand.Next(itemsToPlaceInGlassChests.Length);
+						chest.item[0].SetDefaults(itemsToPlaceInGlassChests[itemsToPlaceInGlassChestsChoice]);
+						//itemsToPlaceInGlassChestsChoice = (itemsToPlaceInGlassChestsChoice + 1) % itemsToPlaceInGlassChests.Length;
+						break;
+					}
+				}
+			}
+		}
 		public void MakeCircle(int X, int Y, int radius, int TileType)
 		{
 			

@@ -73,7 +73,11 @@ namespace Emperia
         public override void Load()
         {
             instance = this;
-            
+            if (!Main.dedServ)
+			{
+				Filters.Scene["Emperia:Volcano"] = new Filter(new VolcanoScreenShaderData("FilterMiniTower").UseColor(0.8f, 0.2f, 0.1f).UseOpacity(0.5f), EffectPriority.VeryHigh);
+				SkyManager.Instance["Emperia:Volcano"] = new VolcanoSky();
+			}
         }
     }
 }
