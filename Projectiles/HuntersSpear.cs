@@ -21,7 +21,7 @@ namespace Emperia.Projectiles
 			projectile.aiStyle = 1;
 			projectile.friendly = true;
 			projectile.penetrate = 2;
-			projectile.magic = true;
+			projectile.thrown = true;
 			projectile.ignoreWater = true;
 			aiType = ProjectileID.JavelinFriendly;
 		}

@@ -16,7 +16,7 @@ namespace Emperia.Projectiles
             //projectile.aiStyle = 1;
             projectile.friendly = true;
             projectile.penetrate = 1;
-            projectile.thrown = true;
+            projectile.melee = true;
             projectile.timeLeft = 360;
         }
 

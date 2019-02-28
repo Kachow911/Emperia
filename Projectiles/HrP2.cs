@@ -20,7 +20,7 @@ namespace Emperia.Projectiles
             projectile.width = 8;       //projectile width
             projectile.height = 8;  //projectile height
             projectile.friendly = true;      //make that the projectile will not damage you
-            projectile.magic = true;         // 
+            projectile.ranged = true;         // 
             projectile.tileCollide = true;   //make that the projectile will be destroed if it hits the terrain
             projectile.penetrate = 1;      //how many npc will penetrate
             projectile.timeLeft = 80;   //how many time projectile projectile has before disepire

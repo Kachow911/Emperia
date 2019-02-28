@@ -24,6 +24,7 @@ namespace Emperia.Projectiles
 			projectile.alpha = 255;
 			aiType = ProjectileID.Bullet;
 			projectile.tileCollide = true;
+			projectile.magic = true;
 		}
 
 		public override void AI()

@@ -5,7 +5,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace Emperia.Items.Weapons.FrousForest
+namespace Emperia.Items.Sets.PreHardmode.FrousForest
 {
 	public class SpineVine : ModItem
     {

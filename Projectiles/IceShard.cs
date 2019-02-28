@@ -15,7 +15,7 @@ namespace Emperia.Projectiles
 			projectile.CloneDefaults(ProjectileID.PainterPaintball);
 			projectile.friendly = true;
 			projectile.penetrate = -1;
-			projectile.melee = true;
+			projectile.magic = true;
 			projectile.timeLeft = 225;
 			projectile.alpha = 0;
 		}

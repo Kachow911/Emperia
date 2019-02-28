@@ -16,7 +16,7 @@ namespace Emperia.Projectiles
 
 			projectile.friendly = true;
 			projectile.penetrate = 1;
-			projectile.thrown = true;
+			projectile.magic = true;
 
 		}
 		

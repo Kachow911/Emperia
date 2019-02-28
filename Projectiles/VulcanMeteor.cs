@@ -26,6 +26,7 @@ namespace Emperia.Projectiles
 			projectile.height = 24;
 			aiType = ProjectileID.Bullet;
 			projectile.tileCollide = true;
+			projectile.melee = true;
 		}
 
 		public override void AI()
