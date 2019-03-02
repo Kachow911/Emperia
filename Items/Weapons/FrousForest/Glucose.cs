@@ -25,7 +25,7 @@ namespace Emperia.Items.Weapons.FrousForest   //where is located
             item.useTime = 32;          //how fast 
             item.useAnimation = 32;     
             item.useStyle = 1;        //Style is how this item is used, 1 is the style of the sword
-            item.knockBack = 3f;      //Sword knockback
+            item.knockBack = 0f;      //Sword knockback
             item.value = 204000;        
             item.rare = 2;
 			item.scale = 1f;
@@ -40,16 +40,18 @@ namespace Emperia.Items.Weapons.FrousForest   //where is located
 		}
 		public override void OnHitNPC(Player player, NPC target, int damage, float knockback, bool crit)
 		{
-			if (target.life <= 0)
+		    for (int i = 0; i < 8; i++)
 			{
-				for (int i = 0; i < 12; i++)
-				{
 				
-					Vector2 perturbedSpeed = new Vector2(0, 3).RotatedBy(MathHelper.ToRadians(90 + 30 * i));
-					Projectile.NewProjectile(target.Center.X, target.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, mod.ProjectileType("FireBall"), damage / 3, 1, Main.myPlayer, 0, 0);
-				
-				}
-			}
+				Vector2 placePosition = target.Center + new Vector2(0, 128).RotatedBy(MathHelper.ToRadians(45 * i));
+                Vector2 speed = (target.Center + 4 * target.velocity) - placePosition;
+                speed.Normalize();
+				int p = Projectile.NewProjectile(placePosition.X, placePosition.Y, speed.X * 10f, speed.Y * 10f, mod.ProjectileType("VineLeaf2"), 10, 2f, Main.myPlayer, 0, 0);
+                Main.projectile[p].penetrate = 1;
+                Main.projectile[p].tileCollide = false;
+                Main.projectile[p].velocity = new Vector2(speed.X * 5f, speed.Y * 5f);
+                Main.projectile[p].usesLocalNPCImmunity = false;
+            }
 		}
     }
 }
