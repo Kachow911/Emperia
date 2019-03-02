@@ -6,7 +6,7 @@ using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace Emperia.Items.Weapons.FrousForest   //where is located
+namespace Emperia.Items.Sets.PreHardmode.FrousForest   //where is located
 {
     public class Glucose : ModItem
     {

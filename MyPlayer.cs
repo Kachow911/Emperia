@@ -49,6 +49,9 @@ namespace Emperia
 		public bool terraGauntlet = false;
         public bool renewedLife = false;
 		public bool breakingPoint = false;
+		public bool forestSetMelee = false;
+		public bool forestSetRanged = false;
+		public bool forestSetMage = false;
         public int dayVergeProjTime = 0;
 		bool canJump = false;
         bool placedPlant = false;
@@ -67,9 +70,11 @@ namespace Emperia
 		public int OathCooldown = 720;
 		private int peltCounter = 120;
 		private int peltRadius = 256;
+		private int forestSetMeleeCooldown = 60;
 		int SporeHealCooldown = 60;
         int incDefTime = 0;
 		int ferocityTime = 0;
+		private int primalRageTime = 0;
         public override void ResetEffects()
         {
 			EmberTyrant = false;
@@ -98,6 +103,9 @@ namespace Emperia
 			goblinSet = false;
 			ancientPelt = false;
             aquaticSet = false;
+			forestSetMelee = false;
+			forestSetRanged = false;
+			forestSetMage = false;
             sporeBuffCount = 0;
         }
 		public override void UpdateBiomes()
@@ -120,7 +128,39 @@ namespace Emperia
 		}
         public override void PostUpdate()
         {
-			
+			if (forestSetMage && primalRageTime >= 0)
+			{
+				primalRageTime--;
+				player.manaRegen += 5;
+			}
+			if (forestSetMelee)
+			{
+				bool doWave = false;
+				forestSetMeleeCooldown--;
+				for (int i = 0; i < 200; i++)
+				{
+					if (player.Distance(Main.npc[i].Center) < 64 && forestSetMeleeCooldown <= 0 && !Main.npc[i].boss && !Main.npc[i].townNPC)
+					{
+						forestSetMeleeCooldown = 120;
+						Vector2 direction = player.Center - Main.npc[i].Center;
+						direction.Normalize();
+						Main.npc[i].velocity = (-direction) * 8f;
+						doWave = true;
+						Main.npc[i].StrikeNPC(10, 0f, 0, false, false, false);
+					}
+				}
+				if (doWave)
+				{
+					for (int j = 0; j < 90; j++)
+					{
+						Vector2 perturbedSpeed = new Vector2(0, 3).RotatedBy(MathHelper.ToRadians(4 * j));
+						Color rgb = new Color(50,205,50);
+						int index3 = Dust.NewDust(player.Center, 8, 8, 63, (float)0, (float)0, 0, rgb, 1.1f);
+						Main.dust[index3].velocity = perturbedSpeed;
+					}
+					doWave = false;
+				}
+			}
 			if (incDefTime > 0)
             {
                 player.statDefense += 5;
@@ -591,6 +631,10 @@ namespace Emperia
 		}
 		public override void OnHitNPCWithProj (Projectile projectile, NPC target, int damage, float knockback, bool crit)
 		{
+			if (projectile.magic && forestSetMage && Main.rand.Next(10))
+			{
+				primalRageTime = 600;
+			}
 			if (breakingPoint)
 			{
 				target.AddBuff(BuffID.OnFire,240);

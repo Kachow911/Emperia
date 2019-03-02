@@ -7,11 +7,11 @@ using Terraria.ModLoader;
 
 namespace Emperia.Projectiles
 {
-	public class ScorchBlast : ModProjectile
+	public class VulcanMeteor: ModProjectile
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Scorch Blast");
+			DisplayName.SetDefault("Vulcan Meteor");
 		}
 
 		public override void SetDefaults()
@@ -22,13 +22,17 @@ namespace Emperia.Projectiles
 			projectile.aiStyle = 1;
 			projectile.timeLeft = 240;
 			projectile.alpha = 255;
+			projectile.width = 26;
+			projectile.height = 24;
 			aiType = ProjectileID.Bullet;
 			projectile.tileCollide = true;
-			projectile.magic = true;
+			projectile.melee = true;
 		}
 
 		public override void AI()
 		{
+			projectile.velocity.X *= .98f;
+			projectile.velocity.Y += .15f;
 			for (int i = 0; i < 10; i++)
 			{
 				int num = Dust.NewDust(projectile.Center, 26, 26, 258, 0f, 0f, 0, default(Color), 1f);

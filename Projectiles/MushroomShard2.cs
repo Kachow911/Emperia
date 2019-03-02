@@ -26,6 +26,7 @@ namespace Emperia.Projectiles
             projectile.light = 0.75f;    // projectile light
             projectile.extraUpdates = 1;
             projectile.ignoreWater = true;
+			projectile.thrown = true;
         }
         public override void AI()           //projectile make that the projectile will face the corect way
         {                       

@@ -5,7 +5,7 @@ using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using Terraria.ModLoader;
 
-namespace Emperia.Items.Weapons.FrousForest
+namespace Emperia.Items.Sets.PreHardmode.FrousForest
 {
     public class Woodvine : ModItem
     {
