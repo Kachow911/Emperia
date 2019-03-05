@@ -63,5 +63,13 @@ namespace Emperia
 			return true;
 			
 		}
+        public override bool ConsumeItem(Item item, Player player)
+        {
+            if (item.thrown && player.GetModPlayer<MyPlayer>(mod).forestSetThrown)
+            {
+                return (Main.rand.Next(3) != 0);
+            }
+            return true;
+        }
 	}
 }

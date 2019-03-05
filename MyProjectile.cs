@@ -1,8 +1,21 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.IO;
+using System.Threading.Tasks;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.DataStructures;
+using Terraria.Graphics.Shaders;
+using Terraria.ModLoader.IO;
+using Terraria.GameInput;
 using Emperia;
+using Emperia.Projectiles;
+
 namespace Emperia
 {
     public class MyProjectile: GlobalProjectile
@@ -12,7 +25,21 @@ namespace Emperia
 			get { return true; }
 		}
 		public bool scoriaExplosion = false;
-		public override void Kill(Projectile projectile, int timeLeft)
+        public override void ModifyHitNPC(Projectile projectile,NPC target,ref int damage,ref float knockback,ref bool crit,ref int hitDirection)
+        {
+            Player player = Main.player[projectile.owner];
+            if (player.GetModPlayer<MyPlayer>(mod).forestSetThrown && projectile.thrown)
+            {
+                if (Main.rand.Next(4) == 0)
+                {
+                    damage += target.defense;
+                    CombatText.NewText(new Rectangle((int)target.position.X, (int)target.position.Y - 20, target.width, target.height), Color.White, "Defense Ignored!", false, false);
+                }
+            }
+        }
+
+
+        public override void Kill(Projectile projectile, int timeLeft)
 		{
 			if (scoriaExplosion)
 			{
