@@ -631,7 +631,7 @@ namespace Emperia
 		}
 		public override void OnHitNPCWithProj (Projectile projectile, NPC target, int damage, float knockback, bool crit)
 		{
-			if (projectile.magic && forestSetMage && Main.rand.Next(10))
+			if (projectile.magic && forestSetMage && Main.rand.Next(10) == 0)
 			{
 				primalRageTime = 600;
 			}
