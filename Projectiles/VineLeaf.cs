@@ -9,9 +9,9 @@ namespace Emperia.Projectiles
 {
     public class VineLeaf : ModProjectile
     {
-		bool init = false;
+		private bool init = false;
 		Color rgb;
-		int timer = 0;
+		private int timer = 0;
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Vine Leaf");
@@ -22,6 +22,7 @@ namespace Emperia.Projectiles
             projectile.height = 14;  //projectile height
             projectile.friendly = true;      //make that the projectile will not damage you
             projectile.melee = true;         // 
+			projectile.aiStyle = 0;
             projectile.tileCollide = true;   //make that the projectile will be destroed if it hits the terrain
             projectile.penetrate = 3;      //how many npc will penetrate
             projectile.timeLeft = 2000;   //how many time this projectile has before disepire
@@ -30,16 +31,15 @@ namespace Emperia.Projectiles
             projectile.ignoreWater = true;
         }
         public override void AI()           //this make that the projectile will face the corect way
-        {                                                           // |
-			if (projectile.velocity.X > 0)
+        {
+            projectile.rotation = (float)Math.Atan2((double)projectile.velocity.Y, (double)projectile.velocity.X);// |
+            if (projectile.velocity.X > 0)
 			{
-				projectile.spriteDirection = 1;
-				projectile.rotation = (float)Math.Atan2((double)projectile.velocity.Y, (double)projectile.velocity.X);
+				projectile.spriteDirection = 1;	
 			}
 			else if (projectile.velocity.X < 0)
 			{
 				projectile.spriteDirection = -1;
-				projectile.rotation = (float)Math.Atan2((double)projectile.velocity.Y, (double)projectile.velocity.X);
 			}
 			
 			if (!init)

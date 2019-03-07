@@ -52,6 +52,7 @@ namespace Emperia
 		public bool forestSetMelee = false;
 		public bool forestSetRanged = false;
 		public bool forestSetMage = false;
+        public bool forestSetThrown = false;
         public int dayVergeProjTime = 0;
 		bool canJump = false;
         bool placedPlant = false;
@@ -106,6 +107,7 @@ namespace Emperia
 			forestSetMelee = false;
 			forestSetRanged = false;
 			forestSetMage = false;
+            forestSetThrown = false;
             sporeBuffCount = 0;
         }
 		public override void UpdateBiomes()
@@ -131,7 +133,9 @@ namespace Emperia
 			if (forestSetMage && primalRageTime >= 0)
 			{
 				primalRageTime--;
-				player.manaRegen += 5;
+                if (primalRageTime % 5 == 0)
+                    player.statMana += 2;
+                
 			}
 			if (forestSetMelee)
 			{

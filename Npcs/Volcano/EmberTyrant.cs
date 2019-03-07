@@ -14,7 +14,8 @@ namespace Emperia.Npcs.Volcano
         {
             Hover,
 			Go,
-			BigShoot
+			Slam,
+            BigShoot
         }
 
         private Move move { get { return (Move)npc.ai[0]; } set { npc.ai[0] = (int)value; } }
@@ -99,18 +100,45 @@ namespace Emperia.Npcs.Volcano
 				}
 				if (counter <= 0)
 				{
-					if (Main.rand.NextBool(2))
-						SetMove(Move.Go, 0);
-					else
-						SetMove(Move.BigShoot, 120);
+                    //if (Main.rand.NextBool(2))
+                   // {
+                        SetMove(Move.Go, 0);
+                        targetPosition = player.Center + new Vector2(0, -450);
+                   // }
+                  //  else
+                       // SetMove(Move.BigShoot, 120);
 				}
 			}
 			if (move == Move.Go)
 			{
-				
-				if (npc.Distance(player.Center) < 64)
-					SetMove(Move.Hover, 300);
+                npc.noTileCollide = true;
+                SmoothMoveToPosition(targetPosition, 2f, 6f);
+				if (npc.Distance(targetPosition) < 32)
+                {
+                    SetMove(Move.Slam, 0);
+                    npc.velocity.Y = 12;
+                    
+                }
+					
 			}
+            if (move == Move.Slam)
+            {
+                npc.velocity.X = 0;
+                npc.noTileCollide = false;
+                if (npc.velocity.Y == 0)
+                {
+                    for (int i = 0; i < 50; ++i) 
+                    {
+                        int dust = Dust.NewDust(npc.position, npc.width, npc.height, 258);
+                        int dust1 = Dust.NewDust(npc.position, npc.width, npc.height, 258);
+                        Main.dust[dust1].scale = 1.5f;
+                        Main.dust[dust1].velocity *= 1.5f;
+                        int dust2 = Dust.NewDust(npc.position, npc.width, npc.height, 258);
+                        Main.dust[dust2].scale = 1.5f;
+                    }
+                    SetMove(Move.Hover, 300);
+                }
+            }
         }
         private void SetMove(Move move, int counter)
         {
@@ -122,6 +150,26 @@ namespace Emperia.Npcs.Volcano
         private bool IsInPhaseTwo()
         {
             return npc.life <= npc.lifeMax * .5;    //50% hp
+        }
+        private void SmoothMoveToPosition(Vector2 toPosition, float addSpeed, float maxSpeed, float slowRange = 64, float slowBy = .95f)
+        {
+            if (Math.Abs((toPosition - npc.Center).Length()) >= slowRange)
+            {
+                npc.velocity += Vector2.Normalize((toPosition - npc.Center) * addSpeed);
+                npc.velocity.X = MathHelper.Clamp(npc.velocity.X, -maxSpeed, maxSpeed);
+                npc.velocity.Y = MathHelper.Clamp(npc.velocity.Y, -maxSpeed, maxSpeed);
+            }
+            else
+            {
+                npc.velocity *= slowBy;
+            }
+        }
+        public override void NPCLoot()
+        {
+            if (Main.rand.Next(10) == 0)
+            {
+                Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("EmberTyrantStaff"));
+            }
         }
     }
 }
