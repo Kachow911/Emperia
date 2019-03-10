@@ -53,6 +53,7 @@ namespace Emperia
 		public bool forestSetRanged = false;
 		public bool forestSetMage = false;
         public bool forestSetThrown = false;
+        public bool forestSetSummon = false;
         public int dayVergeProjTime = 0;
 		bool canJump = false;
         bool placedPlant = false;
@@ -78,6 +79,7 @@ namespace Emperia
 		private int primalRageTime = 0;
         public override void ResetEffects()
         {
+
 			EmberTyrant = false;
 			breakingPoint = false;
 			terraGauntlet = false;
@@ -108,6 +110,7 @@ namespace Emperia
 			forestSetRanged = false;
 			forestSetMage = false;
             forestSetThrown = false;
+            forestSetSummon = false;
             sporeBuffCount = 0;
         }
 		public override void UpdateBiomes()

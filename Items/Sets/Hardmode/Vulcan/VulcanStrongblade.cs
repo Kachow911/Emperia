@@ -26,7 +26,7 @@ namespace Emperia.Items.Sets.Hardmode.Vulcan   //where is located
             item.useStyle = 1;        //Style is how this item is used, 1 is the style of the sword
             item.knockBack = 4f;      //Sword knockback
             item.value = 100;        
-            item.rare = 4;
+            item.rare = 5;
 			item.scale = 1f;
 			item.UseSound = SoundID.Item18;
 			item.shoot = mod.ProjectileType("VulcanMeteor");
