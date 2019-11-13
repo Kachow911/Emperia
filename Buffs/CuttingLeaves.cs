@@ -19,7 +19,7 @@ namespace Emperia.Buffs
 
         public override void Update(NPC npc, ref int buffIndex)
         {
-            npc.GetGlobalNPC<MyNPC>(mod).cuttingLeaves = true;
+            npc.GetGlobalNPC<MyNPC>().cuttingLeaves = true;
         }
         
 
