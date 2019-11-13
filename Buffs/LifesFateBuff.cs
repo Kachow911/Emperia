@@ -26,7 +26,7 @@ namespace Emperia.Buffs
 
         public override void Update(Player player, ref int buffIndex)
         {
-			MyPlayer p = player.GetModPlayer<MyPlayer>(mod);
+			MyPlayer p = player.GetModPlayer<MyPlayer>();
 			p.renewedLife = true;
             if (Main.rand.Next(2) == 0)
             {
