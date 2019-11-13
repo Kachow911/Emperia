@@ -34,7 +34,7 @@ public class TrueleafHeadRanged : ModItem
     public override void UpdateArmorSet(Player player)
     {
         player.setBonus = "Ranged attacks sometimes send out additional damaging leaves";
-		player.GetModPlayer<MyPlayer>(mod).forestSetRanged = true;
+		player.GetModPlayer<MyPlayer>().forestSetRanged = true;
     }
     
     public override void UpdateEquip(Player player)
