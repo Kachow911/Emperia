@@ -19,7 +19,7 @@ namespace Emperia
         {
 			if (item.type == 28 || item.type == 188 || item.type == 499 || item.type == 3544 || item.type == 226 || item.type == 227 || item.type == 3001 || item.type == mod.ItemType("AshenBandage"))
 			{
-				MyPlayer modPlayer = player.GetModPlayer<MyPlayer>(mod);
+				MyPlayer modPlayer = player.GetModPlayer<MyPlayer>();
 				if (modPlayer.vitalityCrystal)
 				{
 					player.statLife += 25;
