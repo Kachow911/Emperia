@@ -19,10 +19,10 @@ namespace Emperia.Items.Weapons.Color1   //where is located
         {
             item.damage = 45;
             item.melee = true;
-            item.width = 46;
-            item.height = 46;
+            item.width = 42;
+            item.height = 50;
             item.useTime = 13;
-            item.useAnimation = 10;     
+            item.useAnimation = 13;     
             item.useStyle = 1;
             item.knockBack = 1.5f;  
             item.value = 232500;        
