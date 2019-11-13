@@ -8,7 +8,7 @@ namespace Emperia.Backgrounds
 	{
         public override bool ChooseBgStyle()
         {
-            return !Main.gameMenu && (Main.player[Main.myPlayer].GetModPlayer<MyPlayer>(mod).ZoneVolcano);
+            return !Main.gameMenu && (Main.player[Main.myPlayer].GetModPlayer<MyPlayer>().ZoneVolcano);
         }
 
         public override void ModifyFarFades(float[] fades, float transitionSpeed)
