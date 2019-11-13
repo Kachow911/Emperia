@@ -58,7 +58,7 @@ namespace Emperia.Projectiles
         }
 		public override void Kill(int timeLeft) 
 		{
-			MyPlayer modPlayer = Main.player[projectile.owner].GetModPlayer<MyPlayer>(mod);
+			MyPlayer modPlayer = Main.player[projectile.owner].GetModPlayer<MyPlayer>();
 			modPlayer.sporeCount--;
 			for (int i = 0; i < Main.npc.Length; i++)
             {
