@@ -26,7 +26,7 @@ namespace Emperia.Buffs
 
         public override void Update(Player player, ref int buffIndex)
         {
-			MyPlayer p = player.GetModPlayer<MyPlayer>(mod);
+			MyPlayer p = player.GetModPlayer<MyPlayer>();
 			
 			player.meleeDamage *= 1.08f;
 			player.lifeRegen += 1; //1 hp is added every 2 seconds in MyPlayer.cs
