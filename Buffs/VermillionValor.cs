@@ -17,7 +17,7 @@ namespace Emperia.Buffs
         public override void SetDefaults()
         {
 			DisplayName.SetDefault("Vermillion Valor");
-			Description.SetDefault("Defense increased by 4\n2% increased crit chance\nCrits deal 13% increased damage");
+			Description.SetDefault("13% increased critical hit damage and defense increased by 4");
             Main.buffNoSave[Type] = true;
             //Main.buffNoTimeDisplay[Type] = true;
 
@@ -29,10 +29,6 @@ namespace Emperia.Buffs
 			MyPlayer p = player.GetModPlayer<MyPlayer>(mod);
 			p.vermillionValor = true;
 			player.statDefense += 4;
-			player.meleeCrit += 2;
-			player.rangedCrit += 2;
-			player.magicCrit += 2;
-			player.thrownCrit += 2;
 			if (Main.rand.Next(2) == 0)
 			{
 				int dust = Dust.NewDust(new Vector2(player.Center.X, player.Center.Y), 20, 20, 158);
