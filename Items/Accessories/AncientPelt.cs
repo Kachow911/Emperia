@@ -33,7 +33,7 @@ public class AncientPelt : ModItem
 			player.rangedDamage += 0.05f;
 			player.thrownDamage += 0.05f;
 		}
-		MyPlayer modPlayer = player.GetModPlayer<MyPlayer>(mod);
+		MyPlayer modPlayer = player.GetModPlayer<MyPlayer>();
 		modPlayer.ancientPelt = true;
 		
 	}
