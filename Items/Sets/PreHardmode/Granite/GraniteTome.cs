@@ -13,34 +13,57 @@ using System;
 
 namespace Emperia.Items.Sets.PreHardmode.Granite
 {
+	
 	public class GraniteTome : ModItem
 	{
+		int count = 0;
 		public override void SetDefaults()
 		{
 
-			item.damage = 19;
+			item.damage = 18;
 			item.magic = true;
 			item.width = 22;
 			item.height = 24;
-			item.useTime = 32;
-			item.useAnimation = 32;
+			item.useTime = 44;
+			item.useAnimation = 44;
 			item.useStyle = 5;
-			item.knockBack = 3;
+			item.knockBack = 1.2f;
 			item.value = 5000;
 			item.rare = 2;
 			item.UseSound = SoundID.Item20;
 			item.autoReuse = true;
-
 			item.shoot = mod.ProjectileType("GraniteEnergyRock");
 			item.shootSpeed = 8f;
-			item.mana = 8;
+			item.mana = 12;
 		}
 
     public override void SetStaticDefaults()
     {
       DisplayName.SetDefault("Granite Spellbook");
-	  Tooltip.SetDefault("Shoots an explosive energy-filled chunk of granite");
+	  Tooltip.SetDefault("Cycles between firing 3 different granite chunks, each one more powerful than the last");
     }
+	public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+	{
+		if (count == 0)
+		{
+			type = mod.ProjectileType("GraniteRock1");
+			damage = 18;
+		}
+		if (count == 1)
+		{
+			type = mod.ProjectileType("GraniteRock2");
+			damage = 37;
+		}
+		if (count == 2)
+		{
+			type = mod.ProjectileType("GraniteRock3");
+			damage = 62;
+		}
+		count++;
+		if (count > 2) count = 0;
+		return true;
+		
+	}
 	public override void AddRecipes()
     {
         ModRecipe recipe = new ModRecipe(mod);

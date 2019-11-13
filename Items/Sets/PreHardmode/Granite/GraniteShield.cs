@@ -10,7 +10,7 @@ namespace Emperia.Items.Sets.PreHardmode.Granite
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Granite Shield");
-			Tooltip.SetDefault("Made of real rock\n Increased invinicility frames duration");
+			Tooltip.SetDefault("Increased invinicility frames duration\n'Made of real rock'");
 		}
 		public override void SetDefaults()
 		{
@@ -29,7 +29,7 @@ namespace Emperia.Items.Sets.PreHardmode.Granite
 		public override void AddRecipes()
 		{
 			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(null, "GraniteBar", 6); 	
+			recipe.AddIngredient(null, "GraniteBar", 8); 	
 			recipe.SetResult(this);
 			recipe.AddRecipe();
 		}

@@ -67,6 +67,7 @@ namespace Emperia.Npcs.Volcano
 
         public override void AI()
         {
+			npc.dontTakeDamage = false;
             Player player = Main.player[npc.target];
 			npc.TargetClosest(true);
 			if (!init)
@@ -100,20 +101,21 @@ namespace Emperia.Npcs.Volcano
 				}
 				if (counter <= 0)
 				{
-                    //if (Main.rand.NextBool(2))
-                   // {
+                    if (Main.rand.NextBool(2))
+                   {
                         SetMove(Move.Go, 0);
                         targetPosition = player.Center + new Vector2(0, -450);
-                   // }
-                  //  else
-                       // SetMove(Move.BigShoot, 120);
+                   }
+                   else
+                      SetMove(Move.BigShoot, 300);
 				}
 			}
 			if (move == Move.Go)
 			{
+				counter++;
                 npc.noTileCollide = true;
                 SmoothMoveToPosition(targetPosition, 2f, 6f);
-				if (npc.Distance(targetPosition) < 32)
+				if (npc.Distance(targetPosition) < 32 || counter > 80)
                 {
                     SetMove(Move.Slam, 0);
                     npc.velocity.Y = 12;
@@ -125,7 +127,7 @@ namespace Emperia.Npcs.Volcano
             {
                 npc.velocity.X = 0;
                 npc.noTileCollide = false;
-                if (npc.velocity.Y == 0)
+                if (npc.velocity.Y <= 0)
                 {
                     for (int i = 0; i < 50; ++i) 
                     {
@@ -139,6 +141,34 @@ namespace Emperia.Npcs.Volcano
                     SetMove(Move.Hover, 300);
                 }
             }
+			if (move == Move.BigShoot)
+			{
+				if (counter == 300)
+				{
+					int n = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, mod.NPCType("EmberTyrantHead"), ai0: npc.whoAmI);
+					npc.ai[3]++;
+				}
+				counter--;
+				npc.velocity = Vector2.Zero;
+                npc.noTileCollide = false;
+				npc.dontTakeDamage = true;
+				if (npc.ai[3] <= 0)
+				{
+					SetMove(Move.Hover, 300);
+				}
+				if (counter <= 0)
+				{
+					for (int i = 0; i < 360; i += 36)
+					{
+					Vector2 vec = Vector2.Transform(new Vector2(-1, 0), Matrix.CreateRotationZ(MathHelper.ToRadians(i)));
+					vec.Normalize();
+					int num622 = Dust.NewDust(new Vector2(npc.position.X, npc.position.Y), npc.width, npc.height, 258, 0f, 0f, 158, new Color(53f, 67f, 253f), 1f);
+					Main.dust[num622].velocity += (vec *2f);
+					Main.dust[num622].noGravity = true;
+					}
+					SetMove(Move.Hover, 300);
+				}
+			}
         }
         private void SetMove(Move move, int counter)
         {

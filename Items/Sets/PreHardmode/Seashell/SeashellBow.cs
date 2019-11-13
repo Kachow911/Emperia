@@ -43,5 +43,19 @@ namespace Emperia.Items.Sets.PreHardmode.Seashell
             recipe.AddRecipe();
 
         }
+		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+		{
+			if (player.altFunctionUse == 2)
+			{
+				type = mod.ProjectileType("SeashellArrow");
+				speedX /= 2;
+				speedY /= 2;
+			}
+			return true;  
+		}
+		public override bool AltFunctionUse(Player player)
+		{
+			return true;
+		}
     }
 }

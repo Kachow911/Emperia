@@ -43,12 +43,11 @@ namespace Emperia.Items.Sets.PreHardmode.Granite   //where is located
 					if (target.Distance(Main.npc[i].Center) < explodeRadius)
 						Main.npc[i].StrikeNPC((int) (damage * 1.85), 0f, 0, false, false, false);
 				}
-				 for (int i = 0; i < 360; i += 5)
+				for (int i = 0; i < 30; ++i)
 				{
-					Vector2 vec = Vector2.Transform(new Vector2(-6, 0), Matrix.CreateRotationZ(MathHelper.ToRadians(i)));
-					vec.Normalize();
-					int num622 = Dust.NewDust(new Vector2(target.position.X, target.position.Y), target.width, target.height, 15, 0f, 0f, 74, new Color(53f, 67f, 253f), 1.1f);
-					Main.dust[num622].velocity += (vec *1.2f);
+					int index2 = Dust.NewDust(new Vector2(target.position.X, target.position.Y), target.width, target.height, 15, 0.0f, 0.0f, 15, new Color(53f, 67f, 253f), 2f);
+					Main.dust[index2].noGravity = true;
+					Main.dust[index2].velocity *= 2.7f;
 				}
 			}
 		}

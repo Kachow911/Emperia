@@ -15,7 +15,7 @@ namespace Emperia.Items.Sets.PreHardmode.Granite
 			item.width = 8;
 			item.height = 8;
 			item.maxStack = 999;
-			item.value = 14000;
+			item.value = 18000;
 			item.rare = 1;
 
         }
@@ -30,17 +30,13 @@ namespace Emperia.Items.Sets.PreHardmode.Granite
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(ItemID.GoldBar, 1);
 			recipe.AddIngredient(ItemID.Granite, 10);
+			recipe.AddIngredient(ItemID.DemoniteOre, 2);
 			recipe.AddTile(TileID.Furnaces);  
 			recipe.SetResult(this);
 			recipe.AddRecipe();
-			recipe = new ModRecipe(mod);
-			recipe.AddIngredient(ItemID.PlatinumBar, 1);
-			recipe.AddIngredient(ItemID.Granite, 10);
-			recipe.AddTile(TileID.Furnaces);  
-			recipe.SetResult(this);
-			recipe.AddRecipe();
+			
+		
         }
     }
 }
