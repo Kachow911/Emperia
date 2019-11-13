@@ -28,7 +28,7 @@ namespace Emperia
         public override void ModifyHitNPC(Projectile projectile,NPC target,ref int damage,ref float knockback,ref bool crit,ref int hitDirection)
         {
             Player player = Main.player[projectile.owner];
-            if (player.GetModPlayer<MyPlayer>(mod).forestSetThrown && projectile.thrown)
+            if (player.GetModPlayer<MyPlayer>().forestSetThrown && projectile.thrown)
             {
                 if (Main.rand.Next(4) == 0)
                 {
