@@ -68,7 +68,7 @@ namespace Emperia.Projectiles.Summon
            
             bool flag64 = projectile.type == mod.ProjectileType("SharkMinion");
 			
-			MyPlayer modPlayer = player.GetModPlayer<MyPlayer>(mod);
+			MyPlayer modPlayer = player.GetModPlayer<MyPlayer>();
 			if (flag64)
 			{
 				if (player.dead)
