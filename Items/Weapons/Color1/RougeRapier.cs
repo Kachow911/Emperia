@@ -13,7 +13,7 @@ namespace Emperia.Items.Weapons.Color1   //where is located
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Rouge Rapier");
-			Tooltip.SetDefault("Striking an enemy will increase critical hit damage for a short time");
+			Tooltip.SetDefault("Striking an enemy will increase critical hit damage for a short time\nStriking a boss increases the duration");
 		}
         public override void SetDefaults()
         {    //Sword name
@@ -26,7 +26,7 @@ namespace Emperia.Items.Weapons.Color1   //where is located
             item.useStyle = 1;        //Style is how this item is used, 1 is the style of the sword
             item.knockBack = 2.75f;  
 			item.crit = 8;			//Sword knockback
-            item.value = 100;        
+            item.value = 48000;        
             item.rare = 3;
 			item.UseSound = SoundID.Item1;
 			item.scale = 1f;
