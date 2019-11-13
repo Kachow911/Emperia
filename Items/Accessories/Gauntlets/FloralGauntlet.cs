@@ -26,7 +26,7 @@ namespace Emperia.Items.Accessories.Gauntlets
         }
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-			player.GetModPlayer<MyPlayer>(mod).floralGauntlet = true;
+			player.GetModPlayer<MyPlayer>().floralGauntlet = true;
 			player.thrownDamage += 0.08f;
 			player.meleeDamage += 0.08f;
 			player.minionDamage += 0.08f;
