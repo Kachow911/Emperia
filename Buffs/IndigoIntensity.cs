@@ -17,7 +17,7 @@ namespace Emperia.Buffs
         public override void SetDefaults()
         {
 			DisplayName.SetDefault("Indigo Intensity");
-			Description.SetDefault("Melee damage increased by 8%, Increased Armor penetration by 1 and Increased Life regen");
+			Description.SetDefault("8% increased melee damage and life regeneration increased by 1.5");
             Main.buffNoSave[Type] = true;
             //Main.buffNoTimeDisplay[Type] = true;
 
@@ -29,8 +29,7 @@ namespace Emperia.Buffs
 			MyPlayer p = player.GetModPlayer<MyPlayer>(mod);
 			
 			player.meleeDamage *= 1.08f;
-			player.armorPenetration += 1;
-			player.lifeRegen += 2;
+			player.lifeRegen += 1; //1 hp is added every 2 seconds in MyPlayer.cs
 			if (Main.rand.Next(2) == 0)
 			{
 				int dust = Dust.NewDust(new Vector2(player.Center.X, player.Center.Y), 20, 20, 21);
