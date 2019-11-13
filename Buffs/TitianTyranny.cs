@@ -17,7 +17,7 @@ namespace Emperia.Buffs
         public override void SetDefaults()
         {
 			DisplayName.SetDefault("Titian Tyranny");
-			Description.SetDefault("Defense increased by 2");
+			Description.SetDefault("Defense increased by 3");
             Main.buffNoSave[Type] = true;
             //Main.buffNoTimeDisplay[Type] = true;
 
@@ -26,7 +26,7 @@ namespace Emperia.Buffs
 
         public override void Update(Player player, ref int buffIndex)
         {
-            player.statDefense += 2;
+            player.statDefense += 3;
         }
     }
 }
