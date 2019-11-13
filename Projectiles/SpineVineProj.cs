@@ -88,8 +88,8 @@ namespace Emperia.Projectiles
                 projectile.velocity = Vector2.Zero;
                 projectile.position = npc.position + offset;
                 projectile.rotation = rot;
-                npc.GetGlobalNPC<MyNPC>(mod).spineCount += 1;
-               // npc.StrikeNPCNoInteraction(2 * npc.GetGlobalNPC<MyNPC>(mod).spineCount, 0, 0, false, false, false);
+                npc.GetGlobalNPC<MyNPC>().spineCount += 1;
+               // npc.StrikeNPCNoInteraction(2 * npc.GetGlobalNPC<MyNPC>().spineCount, 0, 0, false, false, false);
             }
         }
 		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
