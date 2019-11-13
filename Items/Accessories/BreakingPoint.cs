@@ -29,7 +29,7 @@ namespace Emperia.Items.Accessories
 			player.buffImmune[BuffID.Frostburn] = true;
 			player.buffImmune[BuffID.Frozen] = true;
 			player.buffImmune[BuffID.Chilled] = true;
-			MyPlayer modPlayer = player.GetModPlayer<MyPlayer>(mod);
+			MyPlayer modPlayer = player.GetModPlayer<MyPlayer>();
 			modPlayer.breakingPoint = true;
 			if (player.statLife <= player.statLifeMax2 / 2)
             {
