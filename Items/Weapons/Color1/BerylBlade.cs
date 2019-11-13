@@ -13,19 +13,19 @@ namespace Emperia.Items.Weapons.Color1   //where is located
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Beryl Blade");
-			Tooltip.SetDefault("Striking an enemy will increase melee speed for a short time");
+			Tooltip.SetDefault("Striking an enemy will increase melee speed for a short time\nStriking a boss increases the duration");
 		}
         public override void SetDefaults()
         {    //Sword name
-            item.damage = 79;            //Sword damage
+            item.damage = 59;            //Sword damage
             item.melee = true;            //if it's melee
-            item.width = 32;              //Sword width
-            item.height = 32;             //Sword height
+            item.width = 42;              //Sword width
+            item.height = 42;             //Sword height
             item.useTime = 36;          //how fast 
             item.useAnimation = 36;     
             item.useStyle = 1;        //Style is how this item is used, 1 is the style of the sword
-            item.knockBack = 3.5f;  
-            item.value = 100;        
+            item.knockBack = 3;  
+            item.value = 48000;        
             item.rare = 3;
 			item.scale = 1f;
             item.autoReuse = true;
@@ -38,7 +38,7 @@ namespace Emperia.Items.Weapons.Color1   //where is located
             ModRecipe recipe = new ModRecipe(mod);      
             recipe.AddIngredient(null, "Prism", 1); 
 			recipe.AddIngredient(ItemID.Emerald, 8); 
-			recipe.AddIngredient(ItemID.LimeKelp, 1); 
+			recipe.AddIngredient(ItemID.GreenMushroom, 1); 
             recipe.AddTile(TileID.Anvils); 			//you need 1 DirtBlock  //at work bench
             recipe.SetResult(this);
             recipe.AddRecipe();
