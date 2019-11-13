@@ -49,7 +49,7 @@ namespace Emperia
 		}
 		public override bool Shoot(Item item, Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockback)
 		{
-			if (item.ranged && player.GetModPlayer<MyPlayer>(mod).forestSetRanged)
+			if (item.ranged && player.GetModPlayer<MyPlayer>().forestSetRanged)
 			{
 				forestSetShots--;
 				if (forestSetShots == 0)
@@ -65,7 +65,7 @@ namespace Emperia
 		}
         public override bool ConsumeItem(Item item, Player player)
         {
-            if (item.thrown && player.GetModPlayer<MyPlayer>(mod).forestSetThrown)
+            if (item.thrown && player.GetModPlayer<MyPlayer>().forestSetThrown)
             {
                 return (Main.rand.Next(3) != 0);
             }
