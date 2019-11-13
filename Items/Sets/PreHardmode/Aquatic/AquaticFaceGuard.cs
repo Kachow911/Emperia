@@ -34,7 +34,7 @@ public class AquaticFaceGuard : ModItem
     public override void UpdateArmorSet(Player player)
     {
         player.setBonus = "Aquatic Plants grow on tiles near you\nStanding next to these plants increases damage and life regen\nPlants explode after 20 seconds";
-		 player.GetModPlayer<MyPlayer>(mod).aquaticSet = true;
+		 player.GetModPlayer<MyPlayer>().aquaticSet = true;
     }
     
     public override void UpdateEquip(Player player)
