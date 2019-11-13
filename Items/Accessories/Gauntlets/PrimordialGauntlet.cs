@@ -29,8 +29,8 @@ namespace Emperia.Items.Accessories.Gauntlets
 			player.statLifeMax2 += 100;
 			player.statDefense += 10;
 			player.statManaMax2 += 100;
-			player.GetModPlayer<MyPlayer>(mod).floralGauntlet = true;
-			player.GetModPlayer<MyPlayer>(mod).terraGauntlet = true;
+			player.GetModPlayer<MyPlayer>().floralGauntlet = true;
+			player.GetModPlayer<MyPlayer>().terraGauntlet = true;
         }
     }
 }
