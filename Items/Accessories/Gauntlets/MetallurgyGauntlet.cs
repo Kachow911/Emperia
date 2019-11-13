@@ -26,7 +26,7 @@ namespace Emperia.Items.Accessories.Gauntlets
         }
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-			player.GetModPlayer<MyPlayer>(mod).doubleKnockback = true;
+			player.GetModPlayer<MyPlayer>().doubleKnockback = true;
         }
 		public override void AddRecipes()
         {
