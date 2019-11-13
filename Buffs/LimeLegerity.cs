@@ -26,7 +26,7 @@ namespace Emperia.Buffs
 
         public override void Update(Player player, ref int buffIndex)
         {
-			MyPlayer p = player.GetModPlayer<MyPlayer>(mod);
+			MyPlayer p = player.GetModPlayer<MyPlayer>();
 			
 			player.moveSpeed *= 1.15f;
 			player.meleeSpeed *= 1.10f;
