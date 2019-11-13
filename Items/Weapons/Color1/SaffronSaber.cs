@@ -13,20 +13,20 @@ namespace Emperia.Items.Weapons.Color1  //where is located
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Saffron Sabre");
-			Tooltip.SetDefault("Striking an enemy will increase movement speed for a short time");
+			Tooltip.SetDefault("Striking an enemy will increase movement speed for a short time\nStriking a boss increases the duration");
 		}
         public override void SetDefaults()
         {     //Sword name
-            item.damage = 41;            //Sword damage
+            item.damage = 34;            //Sword damage
             item.melee = true;            //if it's melee
-            item.width = 32;              //Sword width
-            item.height = 32;             //Sword height
+            item.width = 36;              //Sword width
+            item.height = 40;             //Sword height
             item.useTime = 17;          //how fast 
             item.useAnimation = 17;     
             item.useStyle = 1;        //Style is how this item is used, 1 is the style of the sword
-            item.knockBack = 1.5f;  
+            item.knockBack = 2.25f;  
 			item.crit = 4;			//Sword knockback
-            item.value = 100;        
+            item.value = 48000;        
             item.rare = 3;
 			item.scale = 1f;
 			item.UseSound = SoundID.Item1;
