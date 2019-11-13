@@ -39,7 +39,7 @@ namespace Emperia.Items.Sets.PreHardmode.Scoria //where is located
         }
         public override void OnHitNPC(Player player, NPC target, int damage, float knockback, bool crit)
         {
-            target.GetGlobalNPC<MyNPC>(mod).scoriaExplosion = true;
+            target.GetGlobalNPC<MyNPC>().scoriaExplosion = true;
         }
     }
 }
