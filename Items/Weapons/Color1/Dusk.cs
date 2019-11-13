@@ -19,8 +19,8 @@ namespace Emperia.Items.Weapons.Color1
         {   //Sword name
             item.damage = 126;
             item.melee = true;
-            item.width = 32;
-            item.height = 32;
+            item.width = 48;
+            item.height = 62;
             item.useTime = 33;
             item.useAnimation = 33;     
             item.useStyle = 1;
