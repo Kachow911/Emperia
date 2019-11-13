@@ -65,7 +65,7 @@ namespace Emperia.Items.Weapons.Color1   //where is located
         }
 		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type1, ref int damage, ref float knockBack)
 		{
-			MyPlayer p = player.GetModPlayer<MyPlayer>(mod);
+			MyPlayer p = player.GetModPlayer<MyPlayer>();
 			if (p.isMellowProjectile)
 				return false;
 			//Projectile.NewProjectile(Main.MouseWorld.X, Main.MouseWorld.Y, 0f, 0f, mod.ProjectileType("MellowSlice"), 28, knockBack, player.whoAmI, 0f, 0f);
