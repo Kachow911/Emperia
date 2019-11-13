@@ -11,8 +11,8 @@ namespace Emperia.Items
 		}
 		public override void SetDefaults()
 		{
-			item.width = 20;
-			item.height = 20;
+			item.width = 24;
+			item.height = 22;
 			item.maxStack = 999;
 			item.value = 52000;
 			item.rare = 4;
