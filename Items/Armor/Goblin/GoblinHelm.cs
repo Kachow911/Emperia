@@ -34,7 +34,7 @@ public class GoblinHelm : ModItem
     public override void UpdateArmorSet(Player player)
     {
         player.setBonus = "Striking an enemy with a melee weapon will grant you the 'Goblins celerity' buff for a short time\nGoblins Celerity increases your movement and melee speed";
-		 player.GetModPlayer<MyPlayer>(mod).goblinSet = true;
+		 player.GetModPlayer<MyPlayer>().goblinSet = true;
     }
     
     public override void UpdateEquip(Player player)
