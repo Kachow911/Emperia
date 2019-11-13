@@ -22,8 +22,8 @@ namespace Emperia.Items
 		{
 			ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddIngredient(ItemID.Glass, 8);
+			recipe.AddIngredient(ItemID.HellstoneBar, 2);
 			recipe.AddIngredient(ItemID.Diamond, 1);
-			recipe.AddIngredient(ItemID.HellstoneBar, 1);
 			recipe.AddTile(TileID.Furnaces);  
 			recipe.SetResult(this);
 			recipe.AddRecipe();
