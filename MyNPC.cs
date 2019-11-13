@@ -105,7 +105,7 @@ namespace Emperia
 			if (sporeStorm && !(npc.type == 488))
 			{
 				Player player = Main.player[npc.target];
-				MyPlayer modPlayer = player.GetModPlayer<MyPlayer>(mod);
+				MyPlayer modPlayer = player.GetModPlayer<MyPlayer>();
 				if (npc.boss)
 					modPlayer.sporeBuffCount += 2;
 				else
