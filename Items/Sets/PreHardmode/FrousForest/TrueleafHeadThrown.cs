@@ -34,7 +34,7 @@ public class TrueleafHeadThrown : ModItem
     public override void UpdateArmorSet(Player player)
     {
         player.setBonus = "33% chance to not consume throwing items\nThrowing weapons have a chance to ignore enemy defense";
-		player.GetModPlayer<MyPlayer>(mod).forestSetThrown = true;
+		player.GetModPlayer<MyPlayer>().forestSetThrown = true;
     }
     
     public override void UpdateEquip(Player player)
