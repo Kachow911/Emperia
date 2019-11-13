@@ -26,7 +26,7 @@ namespace Emperia.Items.Accessories
         }
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-			player.GetModPlayer<MyPlayer>(mod).vitalityCrystal = true;
+			player.GetModPlayer<MyPlayer>().vitalityCrystal = true;
 		
         }
 		
