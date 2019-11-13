@@ -27,7 +27,7 @@ namespace Emperia.Items.Accessories.Gauntlets
         }
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-			player.GetModPlayer<MyPlayer>(mod).meteorGauntlet = true;
+			player.GetModPlayer<MyPlayer>().meteorGauntlet = true;
         }
 		public override void AddRecipes()
         {
