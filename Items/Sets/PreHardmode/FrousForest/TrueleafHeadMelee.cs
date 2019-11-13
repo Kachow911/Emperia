@@ -34,7 +34,7 @@ public class TrueleafHeadMelee : ModItem
     public override void UpdateArmorSet(Player player)
     {
         player.setBonus = "Waves of primal energy damage and knockback close enemies";
-		player.GetModPlayer<MyPlayer>(mod).forestSetMelee = true;
+		player.GetModPlayer<MyPlayer>().forestSetMelee = true;
     }
     
     public override void UpdateEquip(Player player)
