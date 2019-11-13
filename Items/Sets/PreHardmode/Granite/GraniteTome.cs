@@ -54,13 +54,13 @@ namespace Emperia.Items.Sets.PreHardmode.Granite
 		{
 			type = mod.ProjectileType("GraniteRock2");
 			damage = 31;
-			knockback = 2.5f;
+			knockBack = 2.5f;
 		}
 		if (count == 2)
 		{
 			type = mod.ProjectileType("GraniteRock3");
 			damage = 51;
-			knockback = 3.25f;
+			knockBack = 3.25f;
 		}
 		count++;
 		if (count > 2) count = 0;
