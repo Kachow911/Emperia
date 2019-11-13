@@ -13,19 +13,19 @@ namespace Emperia.Items.Weapons.Color1   //where is located
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Titian Talwar");
-			Tooltip.SetDefault("Striking an enemy will increase defense for a short time");
+			Tooltip.SetDefault("Striking an enemy will increase defense for a short time\nStriking a boss increases the duration");
 		}
         public override void SetDefaults()
         {   //Sword name
-            item.damage = 87;            //Sword damage
+            item.damage = 56;            //Sword damage
             item.melee = true;            //if it's melee
-            item.width = 32;              //Sword width
-            item.height = 32;             //Sword height
+            item.width = 42;              //Sword width
+            item.height = 50;             //Sword height
             item.useTime = 33;          //how fast 
             item.useAnimation = 33;     
             item.useStyle = 1;        //Style is how this item is used, 1 is the style of the sword
-            item.knockBack = 7;  
-            item.value = 100;        
+            item.knockBack = 3.5f;  
+            item.value = 48000;        
             item.rare = 3;
 			item.UseSound = SoundID.Item1;
 			item.scale = 1f;
