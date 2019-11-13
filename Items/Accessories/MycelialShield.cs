@@ -27,7 +27,7 @@ public class MycelialShield : ModItem
 	
 	public override void UpdateAccessory(Player player, bool hideVisual)
 	{
-		MyPlayer modPlayer = player.GetModPlayer<MyPlayer>(mod);
+		MyPlayer modPlayer = player.GetModPlayer<MyPlayer>();
 		modPlayer.sporeFriend = true;
 		player.lifeRegen += 2;
 		
