@@ -24,7 +24,6 @@ public class SeashellHamaxe : ModItem
         item.useTurn = true;
         item.axe = 11;
 		item.hammer = 55;
-		item.scale = 1.25f;
         item.useStyle = 1;
         item.knockBack = 2f;
         item.value = 1770;

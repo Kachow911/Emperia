@@ -41,7 +41,7 @@ namespace Emperia.Items.Sets.PreHardmode.Granite   //where is located
 				for (int i = 0; i < Main.npc.Length; i++)
 				{
 					if (target.Distance(Main.npc[i].Center) < explodeRadius)
-						Main.npc[i].StrikeNPC((int) (damage * 1.85), 0f, 0, false, false, false);
+						Main.npc[i].StrikeNPC((int) (damage * 1.28), 0f, 0, false, false, false);
 				}
 				for (int i = 0; i < 30; ++i)
 				{

@@ -34,7 +34,7 @@ public class GranitePickaxe : ModItem
     public override void AddRecipes()
     {
         ModRecipe recipe = new ModRecipe(mod);
-        recipe.AddIngredient(null, "GraniteBar", 7);
+        recipe.AddIngredient(null, "GraniteBar", 6);
         recipe.AddTile(TileID.Anvils);
         recipe.SetResult(this);
         recipe.AddRecipe();

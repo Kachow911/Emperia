@@ -27,8 +27,9 @@ namespace Emperia.Items.Sets.PreHardmode.Granite
 			item.useTime = 44;
 			item.useAnimation = 44;
 			item.useStyle = 5;
-			item.knockBack = 1.2f;
+			item.knockBack = 2f;
 			item.value = 5000;
+			item.noMelee = true;
 			item.rare = 2;
 			item.UseSound = SoundID.Item20;
 			item.autoReuse = true;
@@ -52,12 +53,14 @@ namespace Emperia.Items.Sets.PreHardmode.Granite
 		if (count == 1)
 		{
 			type = mod.ProjectileType("GraniteRock2");
-			damage = 37;
+			damage = 31;
+			knockback = 2.5f;
 		}
 		if (count == 2)
 		{
 			type = mod.ProjectileType("GraniteRock3");
-			damage = 62;
+			damage = 51;
+			knockback = 3.25f;
 		}
 		count++;
 		if (count > 2) count = 0;
@@ -67,7 +70,7 @@ namespace Emperia.Items.Sets.PreHardmode.Granite
 	public override void AddRecipes()
     {
         ModRecipe recipe = new ModRecipe(mod);
-        recipe.AddIngredient(null, "GraniteBar", 9);
+        recipe.AddIngredient(null, "GraniteBar", 8);
         recipe.AddTile(TileID.Anvils);
         recipe.SetResult(this);
         recipe.AddRecipe();
