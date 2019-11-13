@@ -18,7 +18,7 @@ namespace Emperia.Items
 			item.height = 24;
 			item.rare = 9;
 			item.expert = true;
-			bossBagNPC = mod.NPCType("Mushor");
+			BossBagNPC = mod.NPCType("Mushor");
 		}
 
 		public override bool CanRightClick()
