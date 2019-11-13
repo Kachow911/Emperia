@@ -34,7 +34,7 @@ public class TrueleafHeadMage : ModItem
     public override void UpdateArmorSet(Player player)
     {
         player.setBonus = "Hitiing an enemy with a magic weapon has a chance to send you into a primal rage\n Primal rage yields greatly increased mana regeneration";
-		player.GetModPlayer<MyPlayer>(mod).forestSetMage = true;
+		player.GetModPlayer<MyPlayer>().forestSetMage = true;
     }
     
     public override void UpdateEquip(Player player)
