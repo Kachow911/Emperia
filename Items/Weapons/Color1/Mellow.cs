@@ -13,17 +13,17 @@ namespace Emperia.Items.Weapons.Color1   //where is located
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Mellow");
-			Tooltip.SetDefault("Slicing an enemy will increase movement and melee speed for a short time\nStriking a boss increases the duration\nShooting an enemy will decrease their defense as your mph rises");
+			Tooltip.SetDefault("Slicing an enemy will increase movement and melee speed for a short time\nStriking a boss increases the duration\nShooting an enemy will decrease their defense as your MPH rises");
 		}
         public override void SetDefaults()
-        {   //Sword name
-            item.damage = 45;            //Sword damage
-            item.melee = true;            //if it's melee
-            item.width = 46;              //Sword width
-            item.height = 46;             //Sword height
-            item.useTime = 13;          //how fast 
+        {
+            item.damage = 45;
+            item.melee = true;
+            item.width = 46;
+            item.height = 46;
+            item.useTime = 13;
             item.useAnimation = 10;     
-            item.useStyle = 1;        //Style is how this item is used, 1 is the style of the sword
+            item.useStyle = 1;
             item.knockBack = 1.5f;  
             item.value = 232500;        
             item.rare = 5;
@@ -31,11 +31,11 @@ namespace Emperia.Items.Weapons.Color1   //where is located
 			item.shoot = mod.ProjectileType("MellowSlice");
 			item.shootSpeed = 12f;
 			item.scale = 1f;
-            item.autoReuse = true;   //if it's capable of autoswing.
-            item.useTurn = true;             //projectile speed                 
+            item.autoReuse = true;
+            item.useTurn = true;               
         }
 		
-        public override void AddRecipes()  //How to craft this sword
+        public override void AddRecipes()
         {
 			ModRecipe recipe = new ModRecipe(mod);      
             recipe.AddIngredient(null, "BerylBlade", 1); 
