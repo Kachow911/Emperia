@@ -39,7 +39,7 @@ namespace Emperia.Projectiles
 		public override void AI()
 		{
 			Player player = Main.player[projectile.owner];
-			MyPlayer p = player.GetModPlayer<MyPlayer>(mod);
+			MyPlayer p = player.GetModPlayer<MyPlayer>();
 			p.isMellowProjectile = true;
 			projectile.frameCounter++;
 			if (projectile.frameCounter >= 3)
@@ -63,7 +63,7 @@ namespace Emperia.Projectiles
 		public override void Kill(int timeLeft)
         {
 			Player player = Main.player[projectile.owner];
-			MyPlayer p = player.GetModPlayer<MyPlayer>(mod);
+			MyPlayer p = player.GetModPlayer<MyPlayer>();
 			p.isMellowProjectile = false;
 		}
 		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
