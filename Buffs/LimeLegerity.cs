@@ -17,7 +17,7 @@ namespace Emperia.Buffs
         public override void SetDefaults()
         {
 			DisplayName.SetDefault("Lime Legerity");
-			Description.SetDefault("15% increased movement speed and 10% increased melee speed");
+			Description.SetDefault("20% increased movement speed and 10% increased melee speed");
             Main.buffNoSave[Type] = true;
             //Main.buffNoTimeDisplay[Type] = true;
 
@@ -28,7 +28,7 @@ namespace Emperia.Buffs
         {
 			MyPlayer p = player.GetModPlayer<MyPlayer>();
 			
-			player.moveSpeed *= 1.15f;
+			player.moveSpeed *= 1.20f;
 			player.meleeSpeed *= 1.10f;
 			if (Main.rand.Next(2) == 0)
 			{
