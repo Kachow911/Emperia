@@ -17,7 +17,7 @@ namespace Emperia.Buffs
         public override void SetDefaults()
         {
 			DisplayName.SetDefault("Saffron Sadism");
-			Description.SetDefault("10% increased movement speed");
+			Description.SetDefault("15% increased movement speed");
             Main.buffNoSave[Type] = true;
             //Main.buffNoTimeDisplay[Type] = true;
 
@@ -26,7 +26,7 @@ namespace Emperia.Buffs
 
         public override void Update(Player player, ref int buffIndex)
         {
-            player.moveSpeed += 0.10f;
+            player.moveSpeed += 0.15f;
         }
     }
 }
