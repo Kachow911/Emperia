@@ -1,6 +1,7 @@
 using Terraria;
 using Terraria.ModLoader;
 using Terraria.ID;
+using Emperia.NPCs.Yeti;
 
 namespace Emperia.Items
 {
@@ -19,7 +20,7 @@ namespace Emperia.Items
 			item.rare = 9;
 			item.expert = true;
 		}
-		public override int BossBagNPC => NPCType<PuritySpirit>(Yeti);
+		public override int BossBagNPC => NPCType<Yeti>();
 
 		public override bool CanRightClick()
 		{

@@ -1,6 +1,7 @@
 using Terraria;
 using Terraria.ModLoader;
 using Terraria.ID;
+using Emperia.NPCs.Mushor;
 
 namespace Emperia.Items
 {
@@ -18,9 +19,8 @@ namespace Emperia.Items
 			item.height = 24;
 			item.rare = 9;
 			item.expert = true;
-			BossBagNPC = mod.NPCType("Mushor");
 		}
-		public override int BossBagNPC => NPCType<PuritySpirit>(Mushor);
+		public override int BossBagNPC => NPCType<Mushor>();
 		public override bool CanRightClick()
 		{
 			return true;
