@@ -38,7 +38,7 @@ namespace Emperia.Items.Sets.PreHardmode.Seashell
             ModRecipe recipe = new ModRecipe(mod);      
             recipe.AddIngredient(ItemID.Seashell, 3);
             recipe.AddIngredient(ItemID.FishingSeaweed, 2); 			
-            recipe.AddTile(TileID.WorkBenches); 			//you need 1 DirtBlock  //at work bench
+            recipe.AddTile(TileID.Anvils);
             recipe.SetResult(this);
             recipe.AddRecipe();
 
