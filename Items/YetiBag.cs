@@ -1,7 +1,7 @@
 using Terraria;
 using Terraria.ModLoader;
 using Terraria.ID;
-using Emperia.NPCs.Yeti;
+using Emperia.Npcs.Yeti;
 
 namespace Emperia.Items
 {

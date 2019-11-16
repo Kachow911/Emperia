@@ -1,7 +1,7 @@
 using Terraria;
 using Terraria.ModLoader;
 using Terraria.ID;
-using Emperia.NPCs.Mushor;
+using Emperia.Npcs.Mushor;
 
 namespace Emperia.Items
 {
