@@ -18,7 +18,7 @@ namespace Emperia.Items.Sets.PreHardmode.Granite   //where is located
 		}
         public override void SetDefaults()
         {    //Sword name
-            item.damage = 21;           
+            item.damage = 23;           
             item.melee = true;            //if it's melee
             item.width = 16;              //Sword width
             item.height = 16;             //Sword height
