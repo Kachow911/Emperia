@@ -15,7 +15,7 @@ namespace Emperia.Buffs
 
 		public override void Update(Player player, ref int buffIndex)
 		{
-			player.mount.SetMount(mod.MountType<Mounts.Yetiling>, player);
+			player.mount.SetMount(MountType<Mounts.Yetiling>(), player);
 			player.buffTime[buffIndex] = 10;
 			MyPlayer modPlayer = player.GetModPlayer<MyPlayer>(mod);
 			modPlayer.yetiMount = true;
