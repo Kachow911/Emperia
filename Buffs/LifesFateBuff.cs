@@ -17,7 +17,7 @@ namespace Emperia.Buffs
         public override void SetDefaults()
         {
 			DisplayName.SetDefault("Renewed Life");
-			Description.SetDefault("Life's Fate damage increased by 20%, sword strikes will steal life\n'You are overflowing with life'");
+			Description.SetDefault("Life's Fate damage increased by 15%, sword strikes will steal life\n'You are overflowing with life'");
             Main.buffNoSave[Type] = true;
             //Main.buffNoTimeDisplay[Type] = true;
 
