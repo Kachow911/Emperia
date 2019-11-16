@@ -20,8 +20,8 @@ public class RetinalBane : ModItem
 		item.damage = 60;
 		item.melee = true;
 		item.defense = 4;
-		item.width = 38;
-		item.height = 44;
+		item.width = 30;
+		item.height = 38;
 		item.value = 180000;
 		item.expert = true;
 		item.accessory = true;
