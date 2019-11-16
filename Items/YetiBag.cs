@@ -18,8 +18,8 @@ namespace Emperia.Items
 			item.height = 24;
 			item.rare = 9;
 			item.expert = true;
-			bossBagNPC = mod.NPCType("Yeti");
 		}
+		public override int BossBagNPC => NPCType<PuritySpirit>(Yeti);
 
 		public override bool CanRightClick()
 		{

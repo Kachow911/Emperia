@@ -32,17 +32,7 @@ namespace Emperia.Projectiles
             projectile.rotation = (float)Math.Atan2((double)projectile.velocity.Y, (double)projectile.velocity.X) + 1.57f;
 		
 		}
-		public override bool CanUseItem(Player player)       //this make that you can shoot only 1 boomerang at once
-        {
-            for (int i = 0; i < 250; ++i)
-            {
-                if (Main.projectile[i].active && Main.projectile[i].owner == Main.myPlayer && Main.projectile[i].type == item.shoot)
-                {
-                    return false;
-                }
-            }
-            return true;
-        }
+		
 	
         
     }

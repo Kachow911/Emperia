@@ -20,7 +20,7 @@ namespace Emperia.Items
 			item.expert = true;
 			BossBagNPC = mod.NPCType("Mushor");
 		}
-
+		public override int BossBagNPC => NPCType<PuritySpirit>(Mushor);
 		public override bool CanRightClick()
 		{
 			return true;

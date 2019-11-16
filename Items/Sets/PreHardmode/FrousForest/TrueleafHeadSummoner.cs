@@ -34,7 +34,7 @@ public class TrueleafHeadSummoner : ModItem
     public override void UpdateArmorSet(Player player)
     {
         player.setBonus = "Minions hit for one additional tick of damage every time";
-		player.GetModPlayer<MyPlayer>(mod).forestSetSummon = true;
+		player.GetModPlayer<MyPlayer>().forestSetSummon = true;
     }
     
     public override void UpdateEquip(Player player)
