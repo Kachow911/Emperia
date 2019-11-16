@@ -26,7 +26,7 @@ namespace Emperia.Items.Sets.PreHardmode.Seashell  //where is located
             item.useAnimation = 28;     
             item.useStyle = 5;    
             item.mana = 5;			//Style is how this item is used, 1 is the style of the sword
-            item.knockBack = 3.5;      //Sword knockback
+            item.knockBack = 3.5f;      //Sword knockback
             item.value = 16500;        
             item.rare = 1;
 			item.shoot = mod.ProjectileType("Cerith"); 
