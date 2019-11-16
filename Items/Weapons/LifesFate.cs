@@ -18,14 +18,14 @@ namespace Emperia.Items.Weapons
 
         public override void SetDefaults()
         {
-            item.damage = 69;
-            item.useTime = 38;
-            item.useAnimation = 38;
+            item.damage = 61;
+            item.useTime = 36;
+            item.useAnimation = 36;
             item.melee = true;            
             item.width = 32;              
             item.height = 32;             
             item.useStyle = 1;        
-            item.knockBack = 4f;
+            item.knockBack = 3.75f;
             item.value = 258000;
             item.crit = 6;
             item.rare = 3;
