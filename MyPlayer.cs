@@ -473,7 +473,7 @@ namespace Emperia
 			}
             if (item.type == mod.ItemType("LifesFate") && renewedLife)
             {
-                damage = (int) ((float) damage * 1.2f);
+                damage = (int) ((float) damage * 1.15f);
             }
             if (doubleKnockback)
             {
