@@ -22,7 +22,7 @@ namespace Emperia.Projectiles
             projectile.magic = true;         // 
             projectile.tileCollide = true;   //make that the projectile will be destroed if it hits the terrain
             projectile.penetrate = 1;      //how many npc will penetrate
-            projectile.timeLeft = 180;   //how many time projectile projectile has before disepire
+            projectile.timeLeft = 150;   //how many time projectile projectile has before disepire
             projectile.extraUpdates = 1;
             projectile.ignoreWater = true;
 			
@@ -32,7 +32,14 @@ namespace Emperia.Projectiles
             projectile.rotation = (float)Math.Atan2((double)projectile.velocity.Y, (double)projectile.velocity.X) + 1.57f;
 		
 		}
-		
+		public override void Kill(int timeLeft)
+		{
+			for (int i = 0; i < 5; i++)
+			{
+				int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 7);
+				Vector2 vel = new Vector2(0, -1).RotatedBy(Main.rand.NextFloat() * 6.283f) * 3.5f;
+			}
+		}
 	
         
     }

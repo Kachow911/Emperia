@@ -17,20 +17,21 @@ namespace Emperia.Items.Sets.PreHardmode.Seashell  //where is located
 		}
         public override void SetDefaults()
         {    //Sword name
-            item.damage = 17;            //Sword damage
+            item.damage = 19;            //Sword damage
             item.magic = true;
             item.noMelee = true;          //if it's melee
             item.width = 32;              //Sword width
             item.height = 32;             //Sword height  //Item Description
-            item.useTime = 28;          //how fast 
-            item.useAnimation = 28;     
+            item.useTime = 26;          //how fast 
+            item.useAnimation = 26;     
             item.useStyle = 5;    
             item.mana = 5;			//Style is how this item is used, 1 is the style of the sword
-            item.knockBack = 3.5f;      //Sword knockback
+			item.UseSound = SoundID.Item39;
+            item.knockBack = 4f;      //Sword knockback
             item.value = 16500;        
             item.rare = 1;
 			item.shoot = mod.ProjectileType("Cerith"); 
-			item.shootSpeed = 6f;
+			item.shootSpeed = 5f;
             item.autoReuse = false;   //if it's capable of autoswing.
             item.useTurn = true;             //projectile speed                 
         }

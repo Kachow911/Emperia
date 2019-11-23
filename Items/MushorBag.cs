@@ -1,7 +1,7 @@
 using Terraria;
 using Terraria.ModLoader;
 using Terraria.ID;
-using Emperia.Npcs.Mushor;
+using Emperia.Npcds.Mushor;
 
 namespace Emperia.Items
 {
@@ -20,7 +20,7 @@ namespace Emperia.Items
 			item.rare = 9;
 			item.expert = true;
 		}
-		public override int BossBagNPC => NPCType<Mushor>();
+		public override int BossBagNPC => mod.NPCType("Mushor");
 		public override bool CanRightClick()
 		{
 			return true;

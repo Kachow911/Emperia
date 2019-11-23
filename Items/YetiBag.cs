@@ -20,7 +20,7 @@ namespace Emperia.Items
 			item.rare = 9;
 			item.expert = true;
 		}
-		public override int BossBagNPC => NPCType<Yeti>();
+		public override int BossBagNPC => mod.NPCType("Yeti");
 
 		public override bool CanRightClick()
 		{
