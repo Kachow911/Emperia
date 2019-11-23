@@ -21,8 +21,8 @@ namespace Emperia.Items.Weapons.Color1   //where is located
             item.melee = true;            //if it's melee
             item.width = 34;              //Sword width
             item.height = 40;             //Sword height
-            item.useTime = 25;          //how fast 
-            item.useAnimation = 25;     
+            item.useTime = 24;          //how fast 
+            item.useAnimation = 24;     
             item.useStyle = 1;        //Style is how this item is used, 1 is the style of the sword
             item.knockBack = 2f;  
             item.value = 48000;        

@@ -24,8 +24,8 @@ namespace Emperia.Items.Weapons.Color1  //where is located
             item.useTime = 18;          //how fast 
             item.useAnimation = 18;     
             item.useStyle = 1;        //Style is how this item is used, 1 is the style of the sword
-            item.knockBack = 2.1f;  
-			item.crit = 4;			//Sword knockback
+            item.knockBack = 2f;  
+			item.crit = 2;			//Sword knockback
             item.value = 48000;        
             item.rare = 3;
 			item.scale = 1f;

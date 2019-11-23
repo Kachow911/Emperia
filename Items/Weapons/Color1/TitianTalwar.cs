@@ -17,14 +17,14 @@ namespace Emperia.Items.Weapons.Color1   //where is located
 		}
         public override void SetDefaults()
         {   //Sword name
-            item.damage = 54;            //Sword damage
+            item.damage = 52;            //Sword damage
             item.melee = true;            //if it's melee
             item.width = 42;              //Sword width
             item.height = 50;             //Sword height
-            item.useTime = 34;          //how fast 
-            item.useAnimation = 34;     
+            item.useTime = 33;          //how fast 
+            item.useAnimation = 33;     
             item.useStyle = 1;        //Style is how this item is used, 1 is the style of the sword
-            item.knockBack = 3.25f;  
+            item.knockBack = 2.65f;  
             item.value = 48000;        
             item.rare = 3;
 			item.UseSound = SoundID.Item1;
