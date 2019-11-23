@@ -37,7 +37,7 @@ public class SeashellHamaxe : ModItem
        ModRecipe recipe = new ModRecipe(mod);      
             recipe.AddIngredient(ItemID.Seashell, 2);
             recipe.AddIngredient(ItemID.FishingSeaweed, 1); 			
-            recipe.AddTile(TileID.WorkBenches); 			//you need 1 DirtBlock  //at work bench
+            recipe.AddTile(TileID.Anvils);
             recipe.SetResult(this);
             recipe.AddRecipe();
     }

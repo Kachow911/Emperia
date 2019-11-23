@@ -15,14 +15,14 @@ public class GranitePickaxe : ModItem
 		}
     public override void SetDefaults()
     {
-        item.damage = 10;
+        item.damage = 8;
         item.melee = true;
         item.width = 46;
         item.height = 46;
-        item.useTime = 19;
-        item.useAnimation = 19;
+        item.useTime = 17;
+        item.useAnimation = 17;
         item.useTurn = true;
-        item.pick = 55;
+        item.pick = 59;
         item.useStyle = 1;
         item.knockBack = 2f;
         item.value = 1770;
