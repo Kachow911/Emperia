@@ -182,14 +182,14 @@ namespace Emperia
 			}
 			if(npc.type == 82 && !Main.expertMode)
 			{
-				if (Main.rand.Next(20) == 0) 
+				if (Main.rand.Next(50) == 0) 
 				{
 					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("DeathTalisman")); 
 				}
 			}
 			if(npc.type == 82 && Main.expertMode)
 			{
-				if (Main.rand.Next(16) == 0) 
+				if (Main.rand.Next(40) == 0) 
 				{
 					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("DeathTalisman")); 
 				}
