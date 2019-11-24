@@ -16,24 +16,24 @@ namespace Emperia.Items.Sets.PreHardmode.Seashell  //where is located
 			Tooltip.SetDefault("Shoots magic ceriths");
 		}
         public override void SetDefaults()
-        {    //Sword name
-            item.damage = 19;            //Sword damage
+        {
+            item.damage = 21;
             item.magic = true;
-            item.noMelee = true;          //if it's melee
-            item.width = 32;              //Sword width
-            item.height = 32;             //Sword height  //Item Description
-            item.useTime = 26;          //how fast 
+            item.noMelee = true;
+            item.width = 32;
+            item.height = 32;
+            item.useTime = 26;
             item.useAnimation = 26;     
             item.useStyle = 5;    
-            item.mana = 5;			//Style is how this item is used, 1 is the style of the sword
-			item.UseSound = SoundID.Item39;
-            item.knockBack = 4f;      //Sword knockback
+            item.mana = 5;
+	    item.UseSound = SoundID.Item39;
+            item.knockBack = 4f;
             item.value = 16500;        
             item.rare = 1;
-			item.shoot = mod.ProjectileType("Cerith"); 
-			item.shootSpeed = 5f;
-            item.autoReuse = false;   //if it's capable of autoswing.
-            item.useTurn = true;             //projectile speed                 
+	    item.shoot = mod.ProjectileType("Cerith"); 
+	    item.shootSpeed = 5f;
+            item.autoReuse = false;
+            item.useTurn = true;        
         }
 		public override bool CanUseItem(Player player)       //this make that you can shoot only 1 boomerang at once
         {
