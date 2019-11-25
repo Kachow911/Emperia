@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Terraria;
@@ -13,19 +13,19 @@ public class Shroomflask : ModItem
 	public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Shroomy Flask");
-			Tooltip.SetDefault("Creates a potent field of mushroom gas on enemy hits\n Summons a pack of floating mushrooms from the ground on tile hits");
+			Tooltip.SetDefault("Explodes into a potent cloud of mushroom gas on enemy hits\nSummons spores that rise from the ground on tile hits\nDirect hits will return a little mana");
 		}
 	public override void SetDefaults()
 	{
 		item.width = 28;  
-		item.damage = 22;  
+		item.damage = 24;  
 		item.mana = 20;//Keep this reasonable please.
 		item.magic = true;  
 		item.noMelee = true;
 		item.noUseGraphic = true;
-		item.useAnimation = 32;
+		item.useAnimation = 45;
 		item.useStyle = 1;
-		item.useTime = 32;
+		item.useTime = 45;
 		item.knockBack = 0f;  //Ranges from 1 to 9.
 		item.UseSound = SoundID.Item106;
 		item.autoReuse = false;  //Dictates whether the weapon can be "auto-fired".
