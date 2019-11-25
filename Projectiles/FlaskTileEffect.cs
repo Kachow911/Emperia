@@ -24,7 +24,7 @@ namespace Emperia.Projectiles
             projectile.tileCollide = false;   
             projectile.penetrate = 1;      //how many npc will penetrate
             projectile.timeLeft = 900;   //how many time projectile projectile has before disepire
-            projectile.light = 0.75f;    // projectile light
+            projectile.light = 0.5f;    // projectile light
             projectile.extraUpdates = 1;
             projectile.ignoreWater = true;
 			projectile.alpha = 255;
@@ -38,9 +38,9 @@ namespace Emperia.Projectiles
 			if (projectile.timeLeft % 100 == 0)
 			{
 				if (Main.rand.NextBool(4))
-					Projectile.NewProjectile(projectile.Center.X + Main.rand.Next(-20, 20), projectile.Center.Y + 10, 0, -1, mod.ProjectileType("BigShroom2"), 46, 1f, projectile.owner, 0f, 0f);
+					Projectile.NewProjectile(projectile.Center.X + Main.rand.Next(-20, 20), projectile.Center.Y + 10, 0, -1, mod.ProjectileType("BigShroom2"), 48, 2f, projectile.owner, 0f, 0f);
 				else
-					Projectile.NewProjectile(projectile.Center.X + Main.rand.Next(-20, 20), projectile.Center.Y + 10, 0, -1, mod.ProjectileType("EnchantedMushroom"), 23, 0.5f, projectile.owner, 0f, 0f);
+					Projectile.NewProjectile(projectile.Center.X + Main.rand.Next(-20, 20), projectile.Center.Y + 10, 0, -1, mod.ProjectileType("EnchantedMushroom"), 24, 1.5f, projectile.owner, 0f, 0f);
 			}
 		}
 		public override void Kill(int timeLeft)

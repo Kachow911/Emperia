@@ -24,7 +24,7 @@ namespace Emperia.Projectiles
             projectile.tileCollide = false;   //make that the projectile will be destroed if it hits the terrain
             projectile.penetrate = -1;      //how many npc will penetrate
             projectile.timeLeft = 180;   //how many time projectile projectile has before disepire
-            projectile.light = 0.75f;    // projectile light
+            projectile.light = 0.2f;    // projectile light
             projectile.extraUpdates = 1;
             projectile.ignoreWater = true;
 			projectile.alpha = 0;

@@ -23,8 +23,8 @@ namespace Emperia.Projectiles
             projectile.magic = true;         
             projectile.tileCollide = false;   
             projectile.penetrate = 1;      //how many npc will penetrate
-            projectile.timeLeft = 300;   //how many time projectile projectile has before disepire
-            projectile.light = 0.75f;    // projectile light
+            projectile.timeLeft = 120;   //how many time projectile projectile has before disepire
+            projectile.light = 0.5f;    // projectile light
             projectile.extraUpdates = 1;
             projectile.ignoreWater = true;
 			projectile.alpha = 255;
@@ -40,8 +40,8 @@ namespace Emperia.Projectiles
 			}
 			for (int i = 0; i < Main.npc.Length; i++)
             {
-				if (projectile.Distance(Main.npc[i].Center) < explodeRadius && projectile.timeLeft % 30 == 0 && !Main.npc[i].townNPC)
-                    Main.npc[i].StrikeNPC(32, 0f, 0, false, false, false);
+				if (projectile.Distance(Main.npc[i].Center) < explodeRadius && projectile.timeLeft % 24 == 0 && !Main.npc[i].townNPC)
+                    Main.npc[i].StrikeNPC(24, 0f, 0, false, false, false);
 			}
 			
 		}
