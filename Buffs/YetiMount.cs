@@ -1,5 +1,6 @@
 using Terraria;
 using Terraria.ModLoader;
+using static Terraria.ModLoader.ModContent;
 
 namespace Emperia.Buffs
 {
@@ -17,7 +18,7 @@ namespace Emperia.Buffs
 		{
 			player.mount.SetMount(MountType<Mounts.Yetiling>(), player);
 			player.buffTime[buffIndex] = 10;
-			MyPlayer modPlayer = player.GetModPlayer<MyPlayer>(mod);
+			MyPlayer modPlayer = player.GetModPlayer<MyPlayer>();
 			modPlayer.yetiMount = true;
 		}
 	}

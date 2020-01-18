@@ -40,6 +40,12 @@ public class GraniteHelm : ModItem
 		{
 			int num622 = Dust.NewDust(new Vector2(player.position.X + player.width / 2, player.position.Y + player.height / 2),1, 1, 15, 0f, 0f, 74, new Color(53f, 67f, 253f), 0.8f);
 		}
+		player.armorEffectDrawShadow = true;
+		player.armorEffectDrawShadowSubtle = true;
+		player.armorEffectDrawOutlines = true;
+		MyPlayer modPlayer = player.GetModPlayer<MyPlayer>();
+		modPlayer.graniteSet = true;
+		
     }
     
     public override void UpdateEquip(Player player)

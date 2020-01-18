@@ -54,6 +54,7 @@ namespace Emperia
 		public bool forestSetMage = false;
         public bool forestSetThrown = false;
         public bool forestSetSummon = false;
+		public bool graniteSet = false;
         public int dayVergeProjTime = 0;
 		bool canJump = false;
         bool placedPlant = false;
@@ -63,6 +64,7 @@ namespace Emperia
 		List<int> hitEnemies = new List<int>();
 		private int terraTime = 0;
 		public int yetiCooldown = 30;
+		public int graniteTime = 0;
 		private int leftPresses = 0;
 		private int rightPresses = 0;
 		private int dashDelay = 0;
@@ -111,6 +113,8 @@ namespace Emperia
 			forestSetMage = false;
             forestSetThrown = false;
             forestSetSummon = false;
+			graniteSet = false;
+			
             sporeBuffCount = 0;
         }
 		public override void UpdateBiomes()
@@ -133,6 +137,8 @@ namespace Emperia
 		}
         public override void PostUpdate()
         {
+			if (graniteSet && graniteTime <= 1800)
+				graniteTime++;
 			if (forestSetMage && primalRageTime >= 0)
 			{
 				primalRageTime--;
@@ -448,6 +454,7 @@ namespace Emperia
         }
 		public override void Hurt(bool pvp, bool quiet, double damage, int hitDirection, bool crit)
 		{
+			graniteTime = 0;
 			if (terraGauntlet)
 				terraTime = 180;
 			for (int i = 0; i < Main.projectile.Length; i++)

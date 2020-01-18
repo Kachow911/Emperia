@@ -29,22 +29,45 @@ namespace Emperia.Projectiles
 		
 		public override void Kill(int timeLeft)
 		{
+			Player player = Main.player[projectile.owner];
 			Main.PlaySound(2, (int)projectile.position.X, (int)projectile.position.Y, 10);
 			projectile.position.X -= (float) (projectile.width * 3);
 			projectile.position.Y -= (float) (projectile.height * 3);
-			projectile.width *= 6;
-			projectile.height *= 6;
-			
-			projectile.localAI[1] = -1f;
-			projectile.maxPenetrate = 0;
-			projectile.Damage();
-
-			for (int i = 0; i < 30; ++i)
+			MyPlayer modPlayer = player.GetModPlayer<MyPlayer>();
+			if (modPlayer.graniteSet && modPlayer.graniteTime >= 1800)
 			{
-			  int index2 = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, 15, 0.0f, 0.0f, 15, new Color(53f, 67f, 253f), 2f);
-			  Main.dust[index2].noGravity = true;
-			  Main.dust[index2].velocity *= 2.7f;
+				projectile.width *= 12;
+				projectile.height *= 12;
+				projectile.localAI[1] = -1f;
+				projectile.maxPenetrate = 0;
+				projectile.damage *= 2;
+				projectile.Damage();
+
+				for (int i = 0; i < 60; ++i)
+				{
+					int index2 = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, 15, 0.0f, 0.0f, 15, new Color(53f, 67f, 253f), 2f);
+					Main.dust[index2].noGravity = true;
+					Main.dust[index2].velocity *= 4.0f;
+				}
+				modPlayer.graniteTime = 0;
 			}
+			else
+			{
+				projectile.width *= 6;
+				projectile.height *= 6;
+			
+				projectile.localAI[1] = -1f;
+				projectile.maxPenetrate = 0;
+				projectile.Damage();
+
+				for (int i = 0; i < 30; ++i)
+				{
+					int index2 = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, 15, 0.0f, 0.0f, 15, new Color(53f, 67f, 253f), 2f);
+					Main.dust[index2].noGravity = true;
+					Main.dust[index2].velocity *= 2.7f;
+				}
+			}
+			
 		}
 		
 		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)

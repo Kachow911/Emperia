@@ -3,6 +3,7 @@ using Terraria;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
 
+
 namespace Emperia.Items.Sets.Hardmode.Chasm
 {
 	[AutoloadEquip(EquipType.Head)]

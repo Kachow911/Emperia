@@ -37,17 +37,39 @@ namespace Emperia.Items.Sets.PreHardmode.Granite   //where is located
 		{
 			if (crit)
 			{
-				Main.PlaySound(2, (int)target.position.X, (int)target.position.Y, 10);
-				for (int i = 0; i < Main.npc.Length; i++)
+				explodeRadius = 64;
+				MyPlayer modPlayer = player.GetModPlayer<MyPlayer>();
+				if (modPlayer.graniteSet && modPlayer.graniteTime >= 1800)
 				{
-					if (target.Distance(Main.npc[i].Center) < explodeRadius)
-						Main.npc[i].StrikeNPC((int) (damage * 1.28), 0f, 0, false, false, false);
+					explodeRadius *= 2;
+					Main.PlaySound(2, (int)target.position.X, (int)target.position.Y, 10);
+					for (int i = 0; i < Main.npc.Length; i++)
+					{
+						if (target.Distance(Main.npc[i].Center) < explodeRadius)
+							Main.npc[i].StrikeNPC((int) (damage * 2.56), 0f, 0, false, false, false);
+					}
+					for (int i = 0; i < 30; ++i)
+					{
+						int index2 = Dust.NewDust(new Vector2(target.position.X, target.position.Y), target.width, target.height, 15, 0.0f, 0.0f, 15, new Color(53f, 67f, 253f), 2f);
+						Main.dust[index2].noGravity = true;
+						Main.dust[index2].velocity *= 4.0f;
+					}
+					modPlayer.graniteTime = 0;
 				}
-				for (int i = 0; i < 30; ++i)
+				else
 				{
-					int index2 = Dust.NewDust(new Vector2(target.position.X, target.position.Y), target.width, target.height, 15, 0.0f, 0.0f, 15, new Color(53f, 67f, 253f), 2f);
-					Main.dust[index2].noGravity = true;
-					Main.dust[index2].velocity *= 2.7f;
+					Main.PlaySound(2, (int)target.position.X, (int)target.position.Y, 10);
+					for (int i = 0; i < Main.npc.Length; i++)
+					{
+						if (target.Distance(Main.npc[i].Center) < explodeRadius)
+							Main.npc[i].StrikeNPC((int) (damage * 1.28), 0f, 0, false, false, false);
+					}
+					for (int i = 0; i < 30; ++i)
+					{
+						int index2 = Dust.NewDust(new Vector2(target.position.X, target.position.Y), target.width, target.height, 15, 0.0f, 0.0f, 15, new Color(53f, 67f, 253f), 2f);
+						Main.dust[index2].noGravity = true;
+						Main.dust[index2].velocity *= 2.7f;
+					}
 				}
 			}
 		}
