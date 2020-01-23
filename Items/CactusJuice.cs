@@ -10,7 +10,7 @@ namespace Emperia.Items
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Cactus Juice");
-            Tooltip.SetDefault("Gives swiftness");
+            Tooltip.SetDefault("Gives swiftness\n1 minute duration");
         }
 
         public override void SetDefaults()
@@ -26,9 +26,7 @@ namespace Emperia.Items
             item.consumable = true;
             item.rare = 1;
             item.value = 1750;
-            item.buffType = BuffID.Swiftness;
-            item.buffTime = 3600;
-        	item.healLife = 50;
+            item.healLife = 50;
             item.potion = true;
 
         }
@@ -38,11 +36,16 @@ namespace Emperia.Items
 			healValue = 50;
 		}
 
+        public override bool UseItem(Player player)
+        {
+            player.AddBuff(BuffID.Swiftness, 3600);
+            return false;
+        }
         public override void AddRecipes()
 		{
 			ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddIngredient(ItemID.BottledWater);
-			recipe.AddIngredient(ItemID.Cactus, 4);
+			recipe.AddIngredient(ItemID.Cactus, 3);
 			recipe.AddIngredient(ItemID.Mushroom); 
 			recipe.AddTile(TileID.Bottles);
 			recipe.SetResult(this);
