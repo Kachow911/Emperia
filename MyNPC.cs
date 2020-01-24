@@ -208,6 +208,13 @@ namespace Emperia
 						 Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("ForbiddenOath")); 
 					 }
 				}
+			if(npc.type == 58)
+			{
+				if (Main.rand.Next(25) == 0) 
+				{
+					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("TetheredPiranha")); 
+				}
+			}
 			if (fatesDemise)
 			{
 				
