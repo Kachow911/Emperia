@@ -20,7 +20,7 @@ namespace Emperia.Items.Sets.PreHardmode.Granite
             item.damage = 15;
             item.noMelee = true;
             item.ranged = true;
-            item.width = 69;
+            item.width = 30;
             item.height = 40;
             item.useTime = 29;
             item.useAnimation = 29;
