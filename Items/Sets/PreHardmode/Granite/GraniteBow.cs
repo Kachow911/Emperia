@@ -48,6 +48,11 @@ namespace Emperia.Items.Sets.PreHardmode.Granite
 			return true;
 		}
 		
+		public override bool ConsumeAmmo(Player player)
+		{
+			return !(counter == 3);
+		}
+
 		public override Vector2? HoldoutOffset()
 		{
 			return new Vector2(-5, 0);
