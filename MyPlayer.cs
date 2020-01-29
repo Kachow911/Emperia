@@ -79,6 +79,9 @@ namespace Emperia
         int incDefTime = 0;
 		int ferocityTime = 0;
 		private int primalRageTime = 0;
+		public int vileTimer = 0;
+		private bool waxwingActive = false;
+		public int eschargo = -5;
         public override void ResetEffects()
         {
 
@@ -127,11 +130,28 @@ namespace Emperia
 		}
         public override void CatchFish(Item fishingRod, Item bait, int power, int liquidType, int poolSize, int worldLayer, int questFish, ref int caughtType, ref bool junk)
 		{
-			if (Main.hardMode && player.ZoneSkyHeight)
-			{
-				if (Main.rand.Next(7) == 0)
+			int skyHeight = 0;
+			if ((Main.maxTilesX / 4200f) == 1) {
+				skyHeight = 3030; //386'
+			}
+			else if ((Main.maxTilesX / 4200f) == 1.5) {
+				skyHeight = 4214; //536'
+			}
+			else {
+				skyHeight = 5558; //704'
+			}
+			if (junk)
 				{
-					caughtType = mod.ItemType("Glidefin");
+					return;
+				}
+			if (Main.hardMode && (skyHeight >= player.position.Y) && liquidType == 0)
+			{
+				int icarusChance = Convert.ToInt32(12 - power / 30); //(15 - power / 20); more basic but less fair with low power, 10 / 50 to make more common
+				//string chanceText = icarusChance.ToString();
+				//Main.NewText(chanceText, 255, 240, 20, false);
+				if (Main.rand.NextBool(icarusChance))
+				{
+					caughtType = mod.ItemType("Icarusfish");
 				}
 			}
 		}
@@ -390,6 +410,33 @@ namespace Emperia
 			dashDelay--;
 			if (player.controlLeft) clickedLeft = true;
 			if (player.controlRight) clickedRight = true;
+			if (vileTimer > 0) 
+			{
+				vileTimer--;
+				if (vileTimer == 0) 
+				{
+			        player.statLife += 130;
+           			player.HealEffect(130);
+					Main.PlaySound(SoundID.Item4, player.Center);
+				}
+			}
+			if (player.HasBuff(mod.BuffType("Waxwing"))) {
+				if ((player.controlJump) && (player.wingTimeMax > 0) && (player.velocity.Y != 0) && (!player.mount.Active))
+            	{
+					string airTimer = player.wingTime.ToString();
+					Main.NewText(airTimer, 255, 240, 20, false);
+                	player.allDamage *= 10f;
+					waxwingActive = true;
+            	}
+			}
+			if (eschargo >= 0)
+			{
+				eschargo++;
+			}
+			if (eschargo > 600)
+			{
+				eschargo = -5;
+			}
         }
 	
 		public override void ProcessTriggers(TriggersSet triggersSet)
@@ -800,6 +847,25 @@ namespace Emperia
             }
 			if ((ferocityGauntlet || terraGauntlet) && Main.rand.Next(10) == 0)
 				damage *= 2;
+        }
+		public override void PostUpdateRunSpeeds()
+		{
+			/*
+            if (waxwingActive)
+			{
+				waxwingBoost = player.velocity.X;
+                player.velocity.X -= (player.velocity.X / 4);
+            }
+			*/
+        }
+		public override void PreUpdateMovement()
+		{/*
+            if (waxwingActive)
+			{
+                player.velocity.X = (waxwingBoost + (waxwingBoost / 4));
+				waxwingActive = false;
+            }
+			*/
         }
     }
 }
