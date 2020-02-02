@@ -12,18 +12,18 @@ namespace Emperia.Items.Weapons
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Tethered Piranha");
-			Tooltip.SetDefault("Latches onto enemies dealing rapid damage");
+			Tooltip.SetDefault("Latches onto enemies, dealing rapid damage");
 		}
 		public override void SetDefaults()
 		{
-			item.damage = 15;
+			item.damage = 16;
             item.crit = 4;
 			item.melee = true;
 			item.width = 22;
 			item.height = 22;
-			item.useTime = 45;
-			item.useAnimation = 45;
-			item.useStyle = 1;
+			item.useTime = 26;
+			item.useAnimation = 26;
+			item.useStyle = 5;
 			item.knockBack = 1;
 			item.value = 1000;
 			item.rare = 2;
@@ -31,7 +31,8 @@ namespace Emperia.Items.Weapons
 			item.noUseGraphic = true;
 			item.noMelee = true;
 			item.shoot = mod.ProjectileType("PiranhaProjectile");
-            item.shootSpeed = 10f;
+            item.shootSpeed = 10.5f;
+			item.channel = true;
         }
 		
 		public override bool CanUseItem(Player player)
