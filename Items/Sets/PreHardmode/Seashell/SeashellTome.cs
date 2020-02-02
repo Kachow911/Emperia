@@ -6,36 +6,36 @@ using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace Emperia.Items.Sets.PreHardmode.Seashell  //where is located
+namespace Emperia.Items.Sets.PreHardmode.Seashell
 {
     public class SeashellTome : ModItem
     {
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Lexiconch");
-			Tooltip.SetDefault("Shoots magic ceriths");
+			Tooltip.SetDefault("Fires a powerful magic cerith, but only one can be airborne at a time");
 		}
         public override void SetDefaults()
         {
-            item.damage = 21;
+            item.damage = 23;
             item.magic = true;
             item.noMelee = true;
             item.width = 32;
             item.height = 32;
-            item.useTime = 26;
-            item.useAnimation = 26;     
+            item.useTime = 20;
+            item.useAnimation = 20;     
             item.useStyle = 5;    
-            item.mana = 5;
-	    item.UseSound = SoundID.Item39;
-            item.knockBack = 4f;
+            item.mana = 6;
+	        item.UseSound = SoundID.Item39;
+            item.knockBack = 3.25f;
             item.value = 16500;        
             item.rare = 1;
-	    item.shoot = mod.ProjectileType("Cerith"); 
-	    item.shootSpeed = 5f;
-            item.autoReuse = false;
+	        item.shoot = mod.ProjectileType("Cerith"); 
+	        item.shootSpeed = 4f;
+            item.autoReuse = true;
             item.useTurn = true;        
         }
-		public override bool CanUseItem(Player player)       //this make that you can shoot only 1 boomerang at once
+		public override bool CanUseItem(Player player)
         {
             for (int i = 0; i < 250; ++i)
             {
