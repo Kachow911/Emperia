@@ -11,15 +11,15 @@ namespace Emperia.Projectiles
     {
         bool latched;
         bool returning;
-		int returntimer = 45;
+		int returntimer = 30; //player.yoyoString should increase it to 36
 		
 		NPC npc;
 		Vector2 offset;
 
         public override void SetDefaults()
         {
-            projectile.width = 22;
-            projectile.height = 22;
+            projectile.width = 18;
+            projectile.height = 18;
             projectile.alpha = 0;
             projectile.friendly = true;
             projectile.melee = true;
@@ -40,7 +40,7 @@ namespace Emperia.Projectiles
 				npc = target;
 				offset = projectile.position - npc.position;
 				latched = true;
-				returntimer = 45;
+				returntimer = 36;
 			}
         }
 
