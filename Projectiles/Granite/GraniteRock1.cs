@@ -16,14 +16,14 @@ namespace Emperia.Projectiles.Granite
 		}
         public override void SetDefaults()
         {  //projectile name
-            projectile.width = 16;       //projectile width
-            projectile.height = 16;  //projectile height
+            projectile.width = 14;       //projectile width
+            projectile.height = 14;  //projectile height
             projectile.friendly = true;      //make that the projectile will not damage you
             projectile.magic = true;         // 
             projectile.tileCollide = true;   //make that the projectile will be destroed if it hits the terrain
             projectile.penetrate = 1;      //how many npc will penetrate
             projectile.timeLeft = 2000;   //how many time this projectile has before disepire
-            projectile.light = 0.75f;    // projectile light
+            projectile.light = 0.1f;
             projectile.extraUpdates = 1;
             projectile.ignoreWater = true;
         }
@@ -40,6 +40,7 @@ namespace Emperia.Projectiles.Granite
 		
 		public override void Kill(int timeLeft)
         {
+			Main.PlaySound(SoundID.Dig, projectile.Center); 
 			/*
         	 for (int i = 0; i < 360; i += 36)
 				{
