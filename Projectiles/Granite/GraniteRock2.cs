@@ -21,7 +21,7 @@ namespace Emperia.Projectiles.Granite
             projectile.friendly = true;      //make that the projectile will not damage you
             projectile.magic = true;         // 
             projectile.tileCollide = true;   //make that the projectile will be destroed if it hits the terrain
-            projectile.penetrate = -1;      //how many npc will penetrate
+            projectile.penetrate = 1;      //how many npc will penetrate
             projectile.timeLeft = 2000;   //how many time this projectile has before disepire
             projectile.light = 0.75f;    // projectile light
             projectile.extraUpdates = 1;
@@ -32,8 +32,9 @@ namespace Emperia.Projectiles.Granite
             projectile.rotation = (float)Math.Atan2((double)projectile.velocity.Y, (double)projectile.velocity.X) + 1.57f;
 			if (Main.rand.Next(2) == 0)
 			{
-				int num622 = Dust.NewDust(new Vector2(projectile.position.X + projectile.width / 2, projectile.position.Y + projectile.height / 2), 1, 1, 240, 0f, 0f, 74, new Color(53f, 67f, 253f), 1.3f);
+				int num622 = Dust.NewDust(new Vector2(projectile.Center.X, projectile.Center.Y), 1, 1, 240, 0f, 0f, 74, new Color(53f, 67f, 253f), 1.3f);
 				Main.dust[num622].velocity += projectile.velocity * 0.2f;
+				Main.dust[num622].noGravity = true;
 			}
         }
 		

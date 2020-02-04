@@ -69,7 +69,11 @@ namespace Emperia.Projectiles
 		
 		public override void Kill(int timeLeft)
         {
-
+			for (int i = 0; i < Main.npc.Length; i++)
+            {
+				if (projectile.Distance(Main.npc[i].Center) < 32)
+                    Main.npc[i].StrikeNPC(projectile.damage, 0f, 0, false, false, false);
+			}
         	 for (int i = 0; i < 360; i += 36)
 				{
 				Vector2 vec = Vector2.Transform(new Vector2(-1, 0), Matrix.CreateRotationZ(MathHelper.ToRadians(i)));

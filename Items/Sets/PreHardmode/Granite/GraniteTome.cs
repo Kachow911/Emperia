@@ -20,7 +20,7 @@ namespace Emperia.Items.Sets.PreHardmode.Granite
 		public override void SetDefaults()
 		{
 
-			item.damage = 18;
+			item.damage = 37;
 			item.magic = true;
 			item.width = 22;
 			item.height = 24;
@@ -28,13 +28,13 @@ namespace Emperia.Items.Sets.PreHardmode.Granite
 			item.useAnimation = 44;
 			item.useStyle = 5;
 			item.knockBack = 2f;
-			item.value = 5000;
+			item.value = 22500;
 			item.noMelee = true;
 			item.rare = 2;
 			item.UseSound = SoundID.Item20;
-			item.autoReuse = true;
+			item.autoReuse = false;
 			item.shoot = mod.ProjectileType("GraniteEnergyRock");
-			item.shootSpeed = 8f;
+			item.shootSpeed = 5f;
 			item.mana = 12;
 		}
 
@@ -48,19 +48,23 @@ namespace Emperia.Items.Sets.PreHardmode.Granite
 		if (count == 0)
 		{
 			type = mod.ProjectileType("GraniteRock1");
-			damage = 18;
+			damage = 18; 
 		}
 		if (count == 1)
 		{
 			type = mod.ProjectileType("GraniteRock2");
 			damage = 31;
 			knockBack = 2.5f;
+			speedX *= .6f;
+			speedY *= .6f;
 		}
 		if (count == 2)
 		{
 			type = mod.ProjectileType("GraniteRock3");
 			damage = 51;
 			knockBack = 3.25f;
+			speedX *= .4f;
+			speedY *= .4f;
 		}
 		count++;
 		if (count > 2) count = 0;
