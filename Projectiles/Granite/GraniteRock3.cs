@@ -16,8 +16,8 @@ namespace Emperia.Projectiles.Granite
 		}
         public override void SetDefaults()
         {  //projectile name
-            projectile.width = 30;       //projectile width
-            projectile.height = 30;  //projectile height
+            projectile.width = 24;       //projectile width
+            projectile.height = 24;  //projectile height
             projectile.friendly = true;      //make that the projectile will not damage you
             projectile.magic = true;         // 
             projectile.tileCollide = true;   //make that the projectile will be destroed if it hits the terrain

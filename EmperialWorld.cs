@@ -64,9 +64,30 @@ namespace Emperia
 		}
 		public override void ModifyWorldGenTasks(List<GenPass> tasks, ref float totalWeight)
 		{
+		
 		}
+		public override void PostWorldGen()
+        {   //mostly copied from examplemod
+            for (int chestIndex = 0; chestIndex < 1000; chestIndex++)
+            {
+                Chest chest = Main.chest[chestIndex];
+                if (chest != null && Main.tile[chest.x, chest.y].type == TileID.Containers && Main.tile[chest.x, chest.y].frameX == 50 * 36) //2 * 36 == locked dungeon chest
+                {
+                    for (int inventoryIndex = 0; inventoryIndex < 40; inventoryIndex++)
+                    {
+                        if (chest.item[inventoryIndex].type == 0)
+                        {   //first empty inventory slot
+                            chest.item[inventoryIndex].SetDefaults(mod.ItemType("GraniteBar"));
+							chest.item[inventoryIndex].stack = WorldGen.genRand.Next(8, 12);
+                            break;
+                        }
+                    }
+                }
+            }
+		}
+		}
+
 
        
     }
-
-}	
+	
