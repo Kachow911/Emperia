@@ -535,6 +535,14 @@ namespace Emperia
             }
 			if ((ferocityGauntlet || terraGauntlet) && Main.rand.Next(10) == 0)
 				damage *= 2;
+			if (crit && rougeRage)
+			{
+				damage = damage += (damage / 10);
+			}
+			if (crit && vermillionValor)
+			{
+				damage = damage += ((damage * 13) / 100);
+			}
         }
 		public override void OnHitNPC (Item item, NPC target, int damage, float knockback, bool crit)
 		{
@@ -654,14 +662,6 @@ namespace Emperia
                 player.statLife += x;
                 player.HealEffect(x);
             }
-            if (crit && rougeRage)
-			{
-				damage = damage += (damage / 10);
-			}
-			if (crit && vermillionValor)
-			{
-				damage = damage += ((damage * 13) / 100);
-			}
 			if (crit && deathTalisman)
 			{
 				target.AddBuff(mod.BuffType("FatesDemise"), 720);
@@ -802,14 +802,6 @@ namespace Emperia
                     }
                 }
 			}
-            if (crit && rougeRage)
-			{
-				damage = damage += (damage / 10);
-			}
-			if (crit && vermillionValor)
-			{
-				damage = damage += ((damage * 13) / 100);
-			}
 			if (crit && deathTalisman)
 			{
 				target.AddBuff(mod.BuffType("FatesDemise"), 720);
@@ -847,6 +839,14 @@ namespace Emperia
             }
 			if ((ferocityGauntlet || terraGauntlet) && Main.rand.Next(10) == 0)
 				damage *= 2;
+			if (crit && rougeRage)
+			{
+				damage = damage += (damage / 10);
+			}
+			if (crit && vermillionValor)
+			{
+				damage = damage += ((damage * 13) / 100);
+			}
         }
 		public override void PostUpdateRunSpeeds()
 		{
