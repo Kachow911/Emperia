@@ -17,12 +17,12 @@ namespace Emperia.Items.Sets.PreHardmode.Granite
 		}
         public override void SetDefaults()
         {
-            item.damage = 15;
+            item.damage = 16;
             item.noMelee = true;
             item.ranged = true;
             item.width = 30;
             item.height = 40;
-            item.useTime = 29;
+            item.useTime = 28;
             item.useAnimation = 29;
             item.useStyle = 5;
             item.shoot = 3;
