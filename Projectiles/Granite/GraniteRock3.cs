@@ -48,19 +48,47 @@ namespace Emperia.Projectiles.Granite
 			hitNPC = target;
 		}
 		
+		public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection) {
+			Player player = Main.player[projectile.owner];
+			MyPlayer modPlayer = player.GetModPlayer<MyPlayer>();
+			if (modPlayer.graniteSet && modPlayer.graniteTime >= 1800)
+            {
+				damage = (int) ((float) damage * 1.5f);
+			}
+		}
 		public override void Kill(int timeLeft)
         {
-			Main.PlaySound(SoundID.Item14, projectile.Center);  
-			for (int i = 0; i < 30; ++i)
+			Main.PlaySound(SoundID.Item14, projectile.Center);
+			Player player = Main.player[projectile.owner];
+			MyPlayer modPlayer = player.GetModPlayer<MyPlayer>();
+			if (modPlayer.graniteSet && modPlayer.graniteTime >= 1800)
 			{
-				int index2 = Dust.NewDust(new Vector2(projectile.Center.X, projectile.Center.Y), projectile.width, projectile.height, 15, 0.0f, 0.0f, 15, new Color(53f, 67f, 253f), 1.5f);
-				Main.dust[index2].noGravity = true;
-				Main.dust[index2].velocity *= 2f;
+				for (int i = 0; i < Main.npc.Length; i++)
+            	{
+                	if (projectile.Distance(Main.npc[i].Center) < 90 && Main.npc[i] != hitNPC)
+                    	Main.npc[i].StrikeNPC(projectile.damage + projectile.damage / 2, 0f, 0, false, false, false);
+            	}
+				for (int i = 0; i < 45; ++i)
+				{
+					int index2 = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, 15, 0.0f, 0.0f, 15, new Color(53f, 67f, 253f), 2f);
+					Main.dust[index2].noGravity = true;
+					Main.dust[index2].velocity *= 3.25f;
+				}
+				modPlayer.graniteTime = 0;
 			}
-			for (int i = 0; i < Main.npc.Length; i++)
-            {
-				if (projectile.Distance(Main.npc[i].Center) < 60 && Main.npc[i] != hitNPC)
-                    Main.npc[i].StrikeNPC(projectile.damage, 0f, 0, false, false, false);
+			else
+			{
+				for (int i = 0; i < Main.npc.Length; i++)
+            	{
+					if (projectile.Distance(Main.npc[i].Center) < 60 && Main.npc[i] != hitNPC)
+                    	Main.npc[i].StrikeNPC(projectile.damage, 0f, 0, false, false, false);
+				}	
+				for (int i = 0; i < 30; ++i)
+				{
+					int index2 = Dust.NewDust(new Vector2(projectile.Center.X, projectile.Center.Y), projectile.width, projectile.height, 15, 0.0f, 0.0f, 15, new Color(53f, 67f, 253f), 1.5f);
+					Main.dust[index2].noGravity = true;
+					Main.dust[index2].velocity *= 2f;
+				}
 			}
 		}
 		
