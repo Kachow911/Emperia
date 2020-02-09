@@ -15,15 +15,15 @@ public class GraniteLeggings : ModItem
     public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Granite Greaves");
-			Tooltip.SetDefault("+6% movement speed");
+			Tooltip.SetDefault("6% increased movement speed");
 		}
     public override void SetDefaults()
     {
         item.width = 18;
         item.height = 18;
-        item.value = 57500;
-        item.rare = 3;
-        item.defense = 5; //15
+        item.value = 175000;
+        item.rare = 2;
+        item.defense = 7;
     }
 
     public override void UpdateEquip(Player player)
@@ -35,6 +35,7 @@ public class GraniteLeggings : ModItem
     {
         ModRecipe recipe = new ModRecipe(mod);
         recipe.AddIngredient(null, "GraniteBar", 10);
+        recipe.AddRecipeGroup("Emperia:EvilHide", 7);
         recipe.AddTile(TileID.Anvils);
         recipe.SetResult(this);
         recipe.AddRecipe();

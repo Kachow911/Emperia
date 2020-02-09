@@ -10,7 +10,6 @@ namespace Emperia.Items.Sets.PreHardmode.Granite   //where is located
 {
     public class GraniteSword : ModItem
     {
-		private int explodeRadius = 64;
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Granite Sword");
@@ -31,28 +30,41 @@ namespace Emperia.Items.Sets.PreHardmode.Granite   //where is located
 			item.scale = 1f;
             item.autoReuse = false;   //if it's capable of autoswing.    
 			item.UseSound = SoundID.Item1;
-			item.crit = 6;			
+			item.crit = 4;			
+        }
+		public override void ModifyHitNPC (Player player, NPC target, ref int damage, ref float knockback, ref bool crit)
+		{
+			if (crit)
+			{
+				MyPlayer modPlayer = player.GetModPlayer<MyPlayer>();
+				if (modPlayer.graniteSet && modPlayer.graniteTime >= 1800)
+                {
+					damage = (int) ((float) damage * 1.875f);
+				}
+				else
+				{
+	                damage = (int) ((float) damage * 1.25f);				
+				}
+			}
         }
 		public override void OnHitNPC (Player player, NPC target, int damage, float knockback, bool crit)
 		{
 			if (crit)
 			{
-				explodeRadius = 64;
 				MyPlayer modPlayer = player.GetModPlayer<MyPlayer>();
 				if (modPlayer.graniteSet && modPlayer.graniteTime >= 1800)
 				{
-					explodeRadius *= 2;
 					Main.PlaySound(2, (int)target.position.X, (int)target.position.Y, 10);
 					for (int i = 0; i < Main.npc.Length; i++)
 					{
-						if (target.Distance(Main.npc[i].Center) < explodeRadius)
-							Main.npc[i].StrikeNPC((int) (damage * 2.56), 0f, 0, false, false, false);
+						if (target.Distance(Main.npc[i].Center) < 114 && Main.npc[i] != target)
+							Main.npc[i].StrikeNPC((int) (damage), 0f, 0, false, false, false);
 					}
-					for (int i = 0; i < 30; ++i)
+					for (int i = 0; i < 45; ++i)
 					{
 						int index2 = Dust.NewDust(new Vector2(target.position.X, target.position.Y), target.width, target.height, 15, 0.0f, 0.0f, 15, new Color(53f, 67f, 253f), 2f);
 						Main.dust[index2].noGravity = true;
-						Main.dust[index2].velocity *= 4.0f;
+						Main.dust[index2].velocity *= 4.5f;
 					}
 					modPlayer.graniteTime = 0;
 				}
@@ -61,14 +73,14 @@ namespace Emperia.Items.Sets.PreHardmode.Granite   //where is located
 					Main.PlaySound(2, (int)target.position.X, (int)target.position.Y, 10);
 					for (int i = 0; i < Main.npc.Length; i++)
 					{
-						if (target.Distance(Main.npc[i].Center) < explodeRadius)
-							Main.npc[i].StrikeNPC((int) (damage * 1.28), 0f, 0, false, false, false);
+						if (target.Distance(Main.npc[i].Center) < 76 && Main.npc[i] != target)
+							Main.npc[i].StrikeNPC((int) (damage), 0f, 0, false, false, false);
 					}
 					for (int i = 0; i < 30; ++i)
 					{
-						int index2 = Dust.NewDust(new Vector2(target.position.X, target.position.Y), target.width, target.height, 15, 0.0f, 0.0f, 15, new Color(53f, 67f, 253f), 2f);
+						int index2 = Dust.NewDust(new Vector2(target.position.X, target.position.Y), target.width, target.height, 15, 0.0f, 0.0f, 15, new Color(53f, 67f, 253f), 1.5f);
 						Main.dust[index2].noGravity = true;
-						Main.dust[index2].velocity *= 2.7f;
+						Main.dust[index2].velocity *= 3f;
 					}
 				}
 			}

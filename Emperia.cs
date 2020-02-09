@@ -31,36 +31,49 @@ namespace Emperia
 		}
 		public override void AddRecipeGroups()
 		{
-			RecipeGroup group = new RecipeGroup(() => Lang.misc[37] + "Any Palladium Bar", new int[]
+			RecipeGroup group = new RecipeGroup(() => Lang.misc[37] + " Palladium Bar", new int[]
 			{
 			ItemID.PalladiumBar,
 			ItemID.CobaltBar
 			});
 			RecipeGroup.RegisterGroup("Emperia:PalBar", group);
-			RecipeGroup group2 = new RecipeGroup(() => Lang.misc[37] + "Any Adamantite Bar", new int[]
+			RecipeGroup group2 = new RecipeGroup(() => Lang.misc[37] + " Adamantite Bar", new int[]
 			{
 			ItemID.AdamantiteBar,
 			ItemID.TitaniumBar
 			});
 			RecipeGroup.RegisterGroup("Emperia:AdBar", group2);
-            RecipeGroup group3 = new RecipeGroup(() => Lang.misc[37] + "Any Iron Bar", new int[]
+            RecipeGroup group3 = new RecipeGroup(() => Lang.misc[37] + " Iron Bar", new int[]
             {
             ItemID.IronBar,
             ItemID.LeadBar
             });
             RecipeGroup.RegisterGroup("Emperia:AnyIronBar", group2);
-            RecipeGroup group4 = new RecipeGroup(() => Lang.misc[37] + "Any Silver Bar", new int[]
+            RecipeGroup group4 = new RecipeGroup(() => Lang.misc[37] + " Silver Bar", new int[]
             {
             ItemID.SilverBar,
             ItemID.TungstenBar
             });
             RecipeGroup.RegisterGroup("Emperia:AnySilverBar", group2);
-            RecipeGroup group5 = new RecipeGroup(() => Lang.misc[37] + "Any Gold Bar", new int[]
+            RecipeGroup group5 = new RecipeGroup(() => Lang.misc[37] + " Gold Bar", new int[]
             {
             ItemID.GoldBar,
             ItemID.PlatinumBar
             });
             RecipeGroup.RegisterGroup("Emperia:AnyGoldBar", group2);
+			RecipeGroup group6 = new RecipeGroup(() => Lang.misc[37] + " Evil Ore", new int[]
+            {
+            ItemID.DemoniteOre,
+            ItemID.CrimtaneOre
+            });
+            RecipeGroup.RegisterGroup("Emperia:EvilOre", group6);
+			RecipeGroup group7 = new RecipeGroup(() => Lang.misc[37] + " Evil Hide", new int[]
+            {
+            ItemID.ShadowScale,
+            ItemID.TissueSample
+            });
+            RecipeGroup.RegisterGroup("Emperia:EvilHide", group7);
+
         }
 		public override void UpdateMusic(ref int music)
 		{
