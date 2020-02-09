@@ -21,8 +21,8 @@ namespace Emperia.Items.Weapons //where is located
         {    //Sword name
             item.damage = 29;            //Sword damage
             item.melee = true;            //if it's melee
-            item.width = 200;              //Sword width
-            item.height = 200;             //Sword height
+            item.width = 32;              //Sword width
+            item.height = 32;             //Sword height
             item.useTime = 38;          //how fast 
             item.useAnimation = 38;     
             item.useStyle = 1;        //Style is how this item is used, 1 is the style of the sword
