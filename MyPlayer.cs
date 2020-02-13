@@ -130,21 +130,11 @@ namespace Emperia
 		}
         public override void CatchFish(Item fishingRod, Item bait, int power, int liquidType, int poolSize, int worldLayer, int questFish, ref int caughtType, ref bool junk)
 		{
-			int skyHeight = 0;
-			if ((Main.maxTilesX / 4200f) == 1) {
-				skyHeight = 3030; //386'
-			}
-			else if ((Main.maxTilesX / 4200f) == 1.5) {
-				skyHeight = 4214; //536'
-			}
-			else {
-				skyHeight = 5558; //704'
-			}
 			if (junk)
 				{
 					return;
 				}
-			if (Main.hardMode && (skyHeight >= player.position.Y) && liquidType == 0)
+			if (Main.hardMode && worldLayer == 0 && liquidType == 0)
 			{
 				int icarusChance = Convert.ToInt32(12 - power / 30); //(15 - power / 20); more basic but less fair with low power, 10 / 50 to make more common
 				//string chanceText = icarusChance.ToString();
