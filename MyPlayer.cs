@@ -415,7 +415,6 @@ namespace Emperia
             	{
 					string airTimer = player.wingTime.ToString();
 					Main.NewText(airTimer, 255, 240, 20, false);
-                	player.allDamage *= 10f;
 					waxwingActive = true;
             	}
 			}
@@ -838,24 +837,14 @@ namespace Emperia
 				damage = damage += ((damage * 13) / 100);
 			}
         }
-		public override void PostUpdateRunSpeeds()
-		{
-			/*
-            if (waxwingActive)
-			{
-				waxwingBoost = player.velocity.X;
-                player.velocity.X -= (player.velocity.X / 4);
-            }
-			*/
-        }
 		public override void PreUpdateMovement()
-		{/*
+		{
             if (waxwingActive)
 			{
-                player.velocity.X = (waxwingBoost + (waxwingBoost / 4));
+                player.velocity.Y *= 1.25f;
+				Main.NewText("what", 255, 240, 20, false);
 				waxwingActive = false;
             }
-			*/
         }
     }
 }
