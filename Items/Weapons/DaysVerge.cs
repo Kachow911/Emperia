@@ -7,7 +7,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Emperia.Projectiles;
 
-namespace Emperia.Items.Weapons //where is located
+namespace Emperia.Items.Weapons
 {
     public class DaysVerge : ModItem
     {
@@ -18,87 +18,87 @@ namespace Emperia.Items.Weapons //where is located
 			Tooltip.SetDefault("Calls divine swords from the heavens\nStriking a foe with the blade will summon an additional sword to smite them");
 		}
         public override void SetDefaults()
-        {    //Sword name
-            item.damage = 29;            //Sword damage
-            item.melee = true;            //if it's melee
-            item.width = 32;              //Sword width
-            item.height = 32;             //Sword height
-            item.useTime = 38;          //how fast 
+        {
+            item.damage = 26;
+            item.melee = true;
+            item.width = 36;
+            item.height = 36;
+            item.useTime = 38;
             item.useAnimation = 38;     
-            item.useStyle = 1;        //Style is how this item is used, 1 is the style of the sword
-            item.knockBack = 7.5f;      //Sword knockback
+            item.useStyle = 1;
+            item.knockBack = 7.5f;
             item.value = 204000;        
             item.rare = 3;
 			item.scale = 1f;
 			item.UseSound = SoundID.Item18;
 			item.shoot = mod.ProjectileType("BlueSword");
-			item.shootSpeed = 8f;
-            item.autoReuse = true;   //if it's capable of autoswing.
-            item.useTurn = true;             //projectile speed                 
+			item.shootSpeed = 20f;
+            item.useTurn = true;          
         }
-		 public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type1, ref int damage, ref float knockBack)
+		bool canSummon = true;
+		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type1, ref int damage, ref float knockBack)
 		{
 			
 			float speedFactor;
-			float damageFactor;
-			
-			for (int i = 0; i <= Main.rand.Next(2); i++)
+			int damageFactor;
+		
+			Vector2 placePosition = player.Center + new Vector2((Main.MouseWorld.X - player.Center.X) / 2 + Main.rand.Next(-100, 100), -580);
+			Vector2 direction = Main.MouseWorld - placePosition;
+			direction.Normalize();
+			if (Main.rand.NextBool(2))
 			{
-				Vector2 placePosition = player.Center + new Vector2((Main.MouseWorld.X - player.Center.X) / 2 + Main.rand.Next(-100, 100), -500 - 50 * i);
-				Vector2 direction = Main.MouseWorld - placePosition;
-				direction.Normalize();
-				if (Main.rand.NextBool(2))
-				{
-					type1 = mod.ProjectileType("BlueSword");
-					speedFactor = 7.5f;
-					damageFactor = 1f;
-				}
-				else
-				{
-					type1 = mod.ProjectileType("PinkSword");
-					speedFactor = 6.2f;
-					damageFactor = 1.2f;
-				}
-				int p = Projectile.NewProjectile(placePosition.X, placePosition.Y, direction.X * speedFactor, direction.Y * speedFactor, type1, damage, 1, Main.myPlayer, 0, 0);
-				Main.PlaySound(SoundID.Item9, Main.projectile[p].position);
-
+				type1 = mod.ProjectileType("BlueSword");
+				speedFactor = 24f;
+				damageFactor = 2;
 			}
+			else
+			{
+				type1 = mod.ProjectileType("PinkSword");
+				speedFactor = 9.5f;
+				damageFactor = 2;
+			}
+			int p = Projectile.NewProjectile(placePosition.X, placePosition.Y, direction.X * speedFactor, direction.Y * speedFactor, type1, damage * damageFactor, 1, Main.myPlayer, 0, 0);
+			Main.PlaySound(SoundID.Item9, Main.projectile[p].position);
+			canSummon = true;
 			return false;
 		  }
-		 public override void OnHitNPC (Player player, NPC target, int damage, float knockback, bool crit)
+		public override void OnHitNPC (Player player, NPC target, int damage, float knockback, bool crit)
 		{
 			float speedFactor;
-			float damageFactor;
+			int damageFactor;
 			int type1;
-				Vector2 placePosition = player.Center + new Vector2((Main.MouseWorld.X - player.Center.X) / 2 + Main.rand.Next(-100, 100), -500);
+			if (canSummon)
+			{
+				Vector2 placePosition = player.Center + new Vector2((Main.MouseWorld.X - player.Center.X) / 2 + Main.rand.Next(-100, 100), -580);
 				Vector2 direction = Main.MouseWorld - placePosition;
 				direction.Normalize();
 				if (Main.rand.NextBool(2))
 				{
 					type1 = mod.ProjectileType("BlueSword");
-					speedFactor = 5f;
-					damageFactor = 1.1f;
+					speedFactor = 24f;
+					damageFactor = 2;
 				}
 				else
 				{
 					type1 = mod.ProjectileType("PinkSword");
-					speedFactor = 4.5f;
-					damageFactor = 1.25f;
+					speedFactor = 9.5f;
+					damageFactor = 2;
 				}
-				int p = Projectile.NewProjectile(placePosition.X, placePosition.Y, direction.X * speedFactor, direction.Y * speedFactor, type1, damage, 1, Main.myPlayer, 0, 0);
+				int p = Projectile.NewProjectile(placePosition.X, placePosition.Y, direction.X * speedFactor, direction.Y * speedFactor, type1, damage * damageFactor, 1, Main.myPlayer, 0, 0);
 				Main.PlaySound(SoundID.Item9, Main.projectile[p].position);
-			
+				canSummon = false;
+			target.immune[item.owner] = 5;
+			}	
 		}
 		public override void MeleeEffects(Player player, Rectangle hitbox)
 		{
 			if (Main.rand.Next(5) == 0)
 			{
-				
 				int dust = Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, 234);
                 Main.dust[dust].noGravity = true;
 			}
 		}
-		public override void AddRecipes()  //How to craft this sword
+		public override void AddRecipes()
         {
 			ModRecipe recipe = new ModRecipe(mod);      
             recipe.AddIngredient(null, "FireBlade", 1); 
