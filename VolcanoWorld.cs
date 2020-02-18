@@ -136,7 +136,7 @@ namespace Emperia
                 // Shinies pass removed by some other mod.
                 return;
                 }
-            tasks.Insert(ShiniesIndex + 1, new PassLegacy("Volcano", delegate (GenerationProgress progress)
+            /*tasks.Insert(ShiniesIndex + 1, new PassLegacy("Volcano", delegate (GenerationProgress progress)
             {
 				int vLength = WorldGen.genRand.Next(400, 450);
 				int xSpawn = 0;
@@ -215,7 +215,7 @@ namespace Emperia
 
 
 
-            }));
+            })); */
 				
 			
         }

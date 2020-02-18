@@ -1,5 +1,6 @@
 using System.IO;
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
@@ -7,6 +8,10 @@ using Terraria.ModLoader;
 using Terraria.World.Generation;
 using Microsoft.Xna.Framework;
 using Terraria.GameContent.Generation;
+using Terraria.ModLoader.IO;
+using System.Reflection;
+using Terraria.Utilities;
+using System.Runtime.Serialization.Formatters.Binary;
 using Emperia;
 
 namespace Emperia
@@ -64,7 +69,63 @@ namespace Emperia
 		}
 		public override void ModifyWorldGenTasks(List<GenPass> tasks, ref float totalWeight)
 		{
-		
+			
+			int ShiniesIndex = tasks.FindIndex(genpass => genpass.Name.Equals("Final Cleanup"));
+			if (ShiniesIndex == -1)
+			{
+				// Shinies pass removed by some other mod.
+				return;
+			}
+			tasks.Insert(ShiniesIndex + 1, new PassLegacy("Volcano", delegate (GenerationProgress progress)
+            {
+				int yTile = Main.spawnTileY;
+				int xTile = WorldGen.genRand.Next(Main.spawnTileX - 400, Main.spawnTileX + 400);
+				for (int xAdd = -150; xAdd < 10; xAdd++)
+				{
+					for (int yAdd = -20; yAdd < 100; yAdd++)
+					{
+						
+						if (Main.tile[xTile + xAdd, yTile + yAdd] != null)
+						{
+							if (Main.tile[xTile + xAdd, yTile + yAdd].active())
+							{
+								int[] TileArray = { 0, 53, 116, 112, 234 }; // dirt & grass
+								if (TileArray.Contains(Main.tile[xTile + xAdd, yTile + yAdd].type))
+								{
+									Main.tile[xTile + xAdd, yTile + yAdd].type = (ushort)mod.TileType("TwilightGrass");
+								}
+								int[] TileArray3 = { 5, 323 }; // tree
+								if (TileArray3.Contains(Main.tile[xTile + xAdd, yTile + yAdd].type))
+								{
+									WorldGen.KillTile(xTile + xAdd, yTile + yAdd);
+									//if (Main.tile[xTile + xAdd, yTile + yAdd + 1].type == mod.TileType("TwilightGrass"))
+									//Main.tile[xTile + xAdd, yTile + yAdd].type = (ushort)mod.TileType("TFWood");
+
+								}
+								int[] TileArray8 = { 2 }; // dirt & grass
+								if (TileArray8.Contains(Main.tile[xTile + xAdd, yTile + yAdd].type))
+								{
+									Main.tile[xTile + xAdd, yTile + yAdd].type = (ushort)mod.TileType("TwilightGrass");
+									WorldGen.PlaceObject(xTile + xAdd, yTile + yAdd - 1, mod.TileType("TwilightTreeSap"));
+									if (Main.rand.Next(15) == 0)
+									{
+										
+										WorldGen.GrowTree(xTile + xAdd, yTile + yAdd - 1);
+									}
+									
+								}
+								int[] TileArray2 = { 1, 151, 161 }; // stones
+								if (TileArray2.Contains(Main.tile[xTile + xAdd, yTile + yAdd].type))
+								{
+									Main.tile[xTile + xAdd, yTile + yAdd].type = (ushort)mod.TileType("TFWood");
+								}
+								
+							}
+						}
+					}
+				}
+			}));
+
 		}
 		public override void PostWorldGen()
         {   //mostly copied from examplemod
@@ -90,4 +151,5 @@ namespace Emperia
 
        
     }
+	
 	

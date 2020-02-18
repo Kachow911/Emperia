@@ -35,10 +35,7 @@ namespace Emperia.Tiles
             style = 0;
             return mod.TileType("TwilightTreeSap");       
         }
-		public override bool CanExplode(int i, int j)
-		{
-			return true;
-		}
+		
 		
 		
 		public override void KillTile(int i, int j, ref bool fail, ref bool effectOnly, ref bool noItem)
