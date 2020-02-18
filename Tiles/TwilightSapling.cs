@@ -9,7 +9,7 @@ using Terraria.ObjectData;
 
 namespace Emperia.Tiles
 {
-	public class TwilightTreeSap : ModTile
+	public class TwilightSapling : ModTile
 	{
 		public override void SetDefaults()
 		{
@@ -31,6 +31,7 @@ namespace Emperia.Tiles
 			TileObjectData.newTile.LavaDeath = true;
 			TileObjectData.newTile.RandomStyleRange = 3;
 			TileObjectData.addTile(Type);
+			TileObjectData.newTile.StyleMultiplier = 3;
 			sapling = true;
 			ModTranslation name = CreateMapEntryName();
 			name.SetDefault("Sapling");

@@ -1,19 +1,14 @@
 using Microsoft.Xna.Framework.Graphics;
 using Terraria.ModLoader;
+using static Terraria.ModLoader.ModContent;
 
 namespace Emperia.Tiles
 {
 	public class TwilightTree : ModTree
 	{
-		private Mod mod
-		{
-			get
-			{
-				return ModLoader.GetMod("Emperia");
-			}
-		}
+		private Mod mod => ModLoader.GetMod("Emperia");
 
-		
+
 		public override int DropWood()
 		{
 			return mod.ItemType("DaysVerge");
@@ -44,5 +39,6 @@ namespace Emperia.Tiles
 		{
 			return mod.GetTexture("Tiles/TwilightTree_Branches");
 		}
+		
 	}
 }

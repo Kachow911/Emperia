@@ -18,7 +18,7 @@ namespace Emperia.Tiles
 			mineResist = 3f;
 			Main.tileBrick[Type] = true;
             drop = ItemID.DirtBlock;
-			//SetModTree(new TwilightTree());
+			SetModTree(new TwilightTree());
 			dustType = 72;
       
 			minPick = 100;

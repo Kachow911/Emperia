@@ -76,44 +76,56 @@ namespace Emperia
 				// Shinies pass removed by some other mod.
 				return;
 			}
-			tasks.Insert(ShiniesIndex + 1, new PassLegacy("Volcano", delegate (GenerationProgress progress)
+			tasks.Insert(ShiniesIndex + 1, new PassLegacy("TwilightForest", delegate (GenerationProgress progress)
             {
 				int yTile = Main.spawnTileY;
 				int xTile = WorldGen.genRand.Next(Main.spawnTileX - 400, Main.spawnTileX + 400);
-				for (int xAdd = -150; xAdd < 10; xAdd++)
+				for (int xAdd = -150; xAdd < 150; xAdd++)
 				{
-					for (int yAdd = -20; yAdd < 100; yAdd++)
+					for (int yAdd = -50; yAdd < 100; yAdd++)
 					{
 						
 						if (Main.tile[xTile + xAdd, yTile + yAdd] != null)
 						{
 							if (Main.tile[xTile + xAdd, yTile + yAdd].active())
 							{
-								int[] TileArray = { 0, 53, 116, 112, 234 }; // dirt & grass
+								int[] TileArray = { 0, 53, 116, 112, 234, 2, 147 }; // dirt & grass
 								if (TileArray.Contains(Main.tile[xTile + xAdd, yTile + yAdd].type))
 								{
 									Main.tile[xTile + xAdd, yTile + yAdd].type = (ushort)mod.TileType("TwilightGrass");
+								
 								}
-								int[] TileArray3 = { 5, 323 }; // tree
-								if (TileArray3.Contains(Main.tile[xTile + xAdd, yTile + yAdd].type))
+								int[] TileArrayR = { 3, 27 }; // dirt & grass
+								if (TileArrayR.Contains(Main.tile[xTile + xAdd, yTile + yAdd].type))
 								{
-									WorldGen.KillTile(xTile + xAdd, yTile + yAdd);
-									//if (Main.tile[xTile + xAdd, yTile + yAdd + 1].type == mod.TileType("TwilightGrass"))
-									//Main.tile[xTile + xAdd, yTile + yAdd].type = (ushort)mod.TileType("TFWood");
+									Main.tile[xTile + xAdd, yTile + yAdd].type = (ushort)mod.TileType("TwilightFlora1");
 
 								}
-								int[] TileArray8 = { 2 }; // dirt & grass
-								if (TileArray8.Contains(Main.tile[xTile + xAdd, yTile + yAdd].type))
+
+								/*int[] TileArray3 = { 5, 323 }; // tree
+								if (TileArray3.Contains(Main.tile[xTile + xAdd, yTile + yAdd].type))
+								{
+									//WorldGen.KillTile(xTile + xAdd, yTile + yAdd);
+									if (Main.tile[xTile + xAdd, yTile + yAdd + 1].type == mod.TileType("TwilightGrass"))
+                                    {
+										WorldGen.PlaceObject(xTile + xAdd, yTile + yAdd, mod.TileType("TwilightTreeSap"));
+										WorldGen.GrowTree(xTile + xAdd, yTile + yAdd);
+									}
+									//Main.tile[xTile + xAdd, yTile + yAdd].type = (ushort)mod.TileType("TFWood");
+
+								}*/
+								/*int[] TileArray8 = { 2 }; //grass
+								if (Main.tile[xTile + xAdd, yTile + yAdd].type == 2)
 								{
 									Main.tile[xTile + xAdd, yTile + yAdd].type = (ushort)mod.TileType("TwilightGrass");
-									WorldGen.PlaceObject(xTile + xAdd, yTile + yAdd - 1, mod.TileType("TwilightTreeSap"));
-									if (Main.rand.Next(15) == 0)
+									
+									if (Main.rand.Next(5) == 0)
 									{
-										
+										WorldGen.PlaceObject(xTile + xAdd, yTile + yAdd - 1, mod.TileType("TwilightTreeSap"));
 										WorldGen.GrowTree(xTile + xAdd, yTile + yAdd - 1);
 									}
 									
-								}
+								}*/
 								int[] TileArray2 = { 1, 151, 161 }; // stones
 								if (TileArray2.Contains(Main.tile[xTile + xAdd, yTile + yAdd].type))
 								{
@@ -122,6 +134,7 @@ namespace Emperia
 								
 							}
 						}
+						
 					}
 				}
 			}));
