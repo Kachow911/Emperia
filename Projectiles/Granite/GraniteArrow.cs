@@ -6,7 +6,7 @@ using Terraria.ModLoader;
 using System.Collections.Generic;
 using System;
 
-namespace Emperia.Projectiles
+namespace Emperia.Projectiles.Granite
 {
 	public class GraniteArrow : ModProjectile
 	{

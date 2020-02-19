@@ -3,7 +3,7 @@ using Terraria;
 using Terraria.Localization;
 using Terraria.ModLoader;
 
-namespace Emperia.Projectiles
+namespace Emperia.Projectiles.Mushroom
 {
     public class Shroomerang : ModProjectile
     {

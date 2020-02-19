@@ -5,10 +5,10 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace Emperia.Projectiles
+namespace Emperia.Projectiles.Mushroom
 {
 
-    public class MushroomShard1 : ModProjectile
+    public class MushroomShard2 : ModProjectile
     {
 		private int explodeRadius = 30;
 		public override void SetStaticDefaults()
@@ -29,7 +29,7 @@ namespace Emperia.Projectiles
 			projectile.thrown = true;
         }
         public override void AI()           //projectile make that the projectile will face the corect way
-        {                 
+        {                       
 			if (projectile.timeLeft > 20)
 			{
 				projectile.velocity.Y *= 1.02f;
@@ -40,7 +40,7 @@ namespace Emperia.Projectiles
 			{
 				projectile.velocity.Y *= .9f;
 				projectile.velocity.X *= .9f;
-			}
+			}	// |
             //projectile.rotation = (float)Math.Atan2((double)projectile.velocity.Y, (double)projectile.velocity.X) + 1.57f;
 			projectile.rotation++;
 		}

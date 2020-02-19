@@ -11,7 +11,7 @@ using Terraria;
 using Terraria.ID;
 using Emperia;
 
-namespace Emperia.Projectiles
+namespace Emperia.Projectiles.Mushroom
 {
     public class HelpfulSpore : ModProjectile
     {
