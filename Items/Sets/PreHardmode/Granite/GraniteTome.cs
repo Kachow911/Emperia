@@ -32,7 +32,7 @@ namespace Emperia.Items.Sets.PreHardmode.Granite
 			item.rare = 2;
 			item.UseSound = SoundID.Item20;
 			item.autoReuse = false;
-			item.shoot = mod.ProjectileType("GraniteEnergyRock");
+			item.shoot = mod.ProjectileType("GraniteRock1");
 			item.shootSpeed = 6f;
 			item.mana = 12;
 		}
