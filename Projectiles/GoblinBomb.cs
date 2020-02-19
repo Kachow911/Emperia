@@ -34,15 +34,14 @@ namespace Emperia.Projectiles
 				projectile.frameCounter = 0;
 				projectile.frame = (projectile.frame + 1) % 6;
 			} 
-			projectile.velocity.Y += .25f;
 		}
 		public override void Kill(int timeLeft)
         {
 			Main.PlaySound(SoundID.Item, projectile.Center, 14);
-			for (int i = 0; i < Main.npc.Length; i++)
-            {
-				if (projectile.Distance(Main.npc[i].Center) < 32)
-                    Main.npc[i].StrikeNPC(projectile.damage, 0f, 0, false, false, false);
+			for (int i = 0; i < Main.player.Length; i++)
+			{
+				if (projectile.Distance(Main.player[i].Center) < 32)
+					Main.player[i].Hurt(Terraria.DataStructures.PlayerDeathReason.ByProjectile(Main.player[i].whoAmI, projectile.whoAmI), projectile.damage, 0);
 			}
 			for (int i = 0; i < 50; ++i) //Create dust after teleport
 			{
@@ -51,7 +50,14 @@ namespace Emperia.Projectiles
 				Main.dust[dust1].scale = 0.8f;
 				Main.dust[dust1].velocity *= 2f;
 			}
-		
-        }
+			for (int i = 0; i < 10; i++)
+			{
+
+				Vector2 perturbedSpeed = new Vector2(0, 3).RotatedByRandom(MathHelper.ToRadians(180));
+				Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, mod.ProjectileType("FireBallHostile"), projectile.damage / 3, 1, Main.myPlayer, 0, 0);
+
+			}
+
+		}
     }
 }

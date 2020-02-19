@@ -117,7 +117,7 @@ namespace Emperia.Npcs.GoblinArmy
 			int x = spawnInfo.spawnTileX;
 			int y = spawnInfo.spawnTileY;
 			int tile = Main.tile[x, y].type;
-			return Main.invasionType == 1 ? 0.2f : 0;
+			return Main.invasionType == 1 ? 0.08f : 0;
 		}
        
 
