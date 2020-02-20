@@ -89,45 +89,20 @@ namespace Emperia
 						{
 							if (Main.tile[xTile + xAdd, yTile + yAdd].active())
 							{
-								int[] TileArray = { 0, 53, 116, 112, 234, 2, 147 }; // dirt & grass
-								if (TileArray.Contains(Main.tile[xTile + xAdd, yTile + yAdd].type))
+								int[] grassTiles = { 0, 53, 116, 112, 234, 2, 147 }; // dirt & grass
+								if (grassTiles.Contains(Main.tile[xTile + xAdd, yTile + yAdd].type))
 								{
 									Main.tile[xTile + xAdd, yTile + yAdd].type = (ushort)mod.TileType("TwilightGrass");
 								
 								}
-								int[] TileArrayR = { 3, 27 }; // dirt & grass
-								if (TileArrayR.Contains(Main.tile[xTile + xAdd, yTile + yAdd].type))
+								int[] floraTiles = { 3, 27 }; // dirt & grass
+								if (floraTiles.Contains(Main.tile[xTile + xAdd, yTile + yAdd].type))
 								{
 									Main.tile[xTile + xAdd, yTile + yAdd].type = (ushort)mod.TileType("TwilightFlora1");
 
 								}
-
-								/*int[] TileArray3 = { 5, 323 }; // tree
-								if (TileArray3.Contains(Main.tile[xTile + xAdd, yTile + yAdd].type))
-								{
-									//WorldGen.KillTile(xTile + xAdd, yTile + yAdd);
-									if (Main.tile[xTile + xAdd, yTile + yAdd + 1].type == mod.TileType("TwilightGrass"))
-                                    {
-										WorldGen.PlaceObject(xTile + xAdd, yTile + yAdd, mod.TileType("TwilightTreeSap"));
-										WorldGen.GrowTree(xTile + xAdd, yTile + yAdd);
-									}
-									//Main.tile[xTile + xAdd, yTile + yAdd].type = (ushort)mod.TileType("TFWood");
-
-								}*/
-								/*int[] TileArray8 = { 2 }; //grass
-								if (Main.tile[xTile + xAdd, yTile + yAdd].type == 2)
-								{
-									Main.tile[xTile + xAdd, yTile + yAdd].type = (ushort)mod.TileType("TwilightGrass");
-									
-									if (Main.rand.Next(5) == 0)
-									{
-										WorldGen.PlaceObject(xTile + xAdd, yTile + yAdd - 1, mod.TileType("TwilightTreeSap"));
-										WorldGen.GrowTree(xTile + xAdd, yTile + yAdd - 1);
-									}
-									
-								}*/
-								int[] TileArray2 = { 1, 151, 161 }; // stones
-								if (TileArray2.Contains(Main.tile[xTile + xAdd, yTile + yAdd].type))
+								int[] stoneTiles = {1,151,161}; // stones
+								if (stoneTiles.Contains(Main.tile[xTile + xAdd, yTile + yAdd].type))
 								{
 									Main.tile[xTile + xAdd, yTile + yAdd].type = (ushort)mod.TileType("TFWood");
 								}
