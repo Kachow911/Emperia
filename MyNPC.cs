@@ -15,6 +15,7 @@ namespace Emperia
 		public bool fatesDemise = false;
 		public bool sporeStorm = false;
         public bool scoriaExplosion = false;
+		public bool moreCoins = false;
         public int spineCount = 0;
 		int InfirmaryTimer = 30;
         int poisonTimer = 0;
@@ -28,7 +29,8 @@ namespace Emperia
 			fatesDemise = false;
 			sporeStorm = false;
             moreDamage = false;
-        } 
+			moreCoins = false;
+		} 
 		public override bool InstancePerEntity {get{return true;}}
 		
 		public override void SetupShop(int type, Chest shop, ref int nextSlot)
@@ -245,6 +247,15 @@ namespace Emperia
 		public override void OnHitPlayer(NPC npc, Player target, int damage, bool crit)
 		{
 		}
+		public override bool PreNPCLoot(NPC npc)
+        {
+			if (moreCoins)
+            {
+				npc.value += npc.value += Item.buyPrice(0, 0, 10, 0);
+				return true;
+			}
+			return true;
+        }
 		public override void ModifyHitPlayer(NPC npc, Player target, ref int damage, ref bool crit)
 		{
 			if (vermillionVenom)
