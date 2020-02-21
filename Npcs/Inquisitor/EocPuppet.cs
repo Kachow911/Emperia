@@ -10,35 +10,14 @@ namespace Emperia.Npcs.Inquisitor
 {
     public class EocPuppet : ModNPC
     {
+		private NPC parent { get { return Main.npc[(int)npc.ai[1]]; } }
 		int move = 1;
 		int counter = 120;
 		int dashCount = 0;
-		private void LookToPlayer()
-		{
-			Vector2 look = Main.player[npc.target].Center - npc.Center;
-			LookInDirection(look);
-		}
 
-		private void LookInDirection(Vector2 look)
-		{
-			float angle = 0.5f * (float)Math.PI;
-			if (look.X != 0f)
-			{
-				angle = (float)Math.Atan(look.Y / look.X);
-			}
-			else if (look.Y < 0f)
-			{
-				angle += (float)Math.PI;
-			}
-			if (look.X < 0f)
-			{
-				angle += (float)Math.PI;
-			}
-			npc.rotation = angle;
-		}
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Eye of Cthulu Puppet");
+			DisplayName.SetDefault("Eye of Cthulhu Puppet");
 			Main.npcFrameCount[npc.type] = 1;
 		}
         public override void SetDefaults()
@@ -70,7 +49,7 @@ namespace Emperia.Npcs.Inquisitor
 				LookToPlayer();
 				Vector2 direction1 = Main.player[npc.target].Center - npc.Center;
 				direction1.Normalize();
-				npc.velocity = direction1 * 1f;
+				npc.velocity = direction1 * 3f;
 				counter--;
 				if (counter > 20)
 				{
@@ -81,7 +60,7 @@ namespace Emperia.Npcs.Inquisitor
 					dashCount++;
 					Vector2 direction = Main.player[npc.target].Center - npc.Center;
 					direction.Normalize();
-					npc.velocity = direction * 13f;
+					npc.velocity = direction * 26f;
 					move = 2;
 					counter = 30;
 				}
@@ -89,18 +68,20 @@ namespace Emperia.Npcs.Inquisitor
 			if (move == 2)
 			{
 				counter--;
-				npc.velocity *= .98f;
+				npc.velocity *= .9f;
 				if (counter <= 0)
 				{
-					//npc.velocity = Vector2.Zero;
 					move = 1;
-					if (dashCount < 5)
+					if (dashCount < 5) {
 						counter = 5;
-					else
+					} else {
 						counter = 120;
+					}
 				}
 			}
-			
+			if (!parent.active) {
+                npc.life = 0;
+            }
 		}
 		public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
         {
@@ -113,6 +94,30 @@ namespace Emperia.Npcs.Inquisitor
 			}
             return true;
         }
+
+		private void LookToPlayer()
+		{
+			Vector2 look = Main.player[npc.target].Center - npc.Center;
+			LookInDirection(look);
+		}
+
+		private void LookInDirection(Vector2 look)
+		{
+			float angle = 0.5f * (float)Math.PI;
+			if (look.X != 0f)
+			{
+				angle = (float)Math.Atan(look.Y / look.X);
+			}
+			else if (look.Y < 0f)
+			{
+				angle += (float)Math.PI;
+			}
+			if (look.X < 0f)
+			{
+				angle += (float)Math.PI;
+			}
+			npc.rotation = angle;
+		}
     }
     
 }

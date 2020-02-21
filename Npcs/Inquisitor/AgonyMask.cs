@@ -12,8 +12,9 @@ namespace Emperia.Npcs.Inquisitor
     {
         private NPC parent { get { return Main.npc[(int)npc.ai[0]]; } set { npc.ai[0] = value.whoAmI; } }
         private float rotate { get { return npc.ai[1]; } set { npc.ai[1] = value; } }
-		private float rotateValue = 0;
-		private float dist = 512;
+        //private float rotateValue = Main.rand.Next(359);
+        private float rotateValue = 0;
+        private float dist = 512;
 		private int counter = 0;
 		public override void SetStaticDefaults()
 		{
@@ -54,8 +55,9 @@ namespace Emperia.Npcs.Inquisitor
 			if (npc.ai[3] <= 0)
 				rotateValue += .75f;
 
-            if (!parent.active)
+            if (!parent.active) {
                 npc.life = 0;
+            }
 			counter ++;
 			if (counter % 60 == 0)
 			{
