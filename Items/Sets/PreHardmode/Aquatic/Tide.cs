@@ -13,7 +13,7 @@ namespace Emperia.Items.Sets.PreHardmode.Aquatic  //where is located
 		 public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Tide");
-			Tooltip.SetDefault("Enemy hits send waves forward across the ground");
+			Tooltip.SetDefault("Enemy hits send water in orbit around you");
 		}
         public override void SetDefaults()
         {   //Sword name
@@ -49,7 +49,7 @@ namespace Emperia.Items.Sets.PreHardmode.Aquatic  //where is located
 				velocity = 2;
 			else
 				velocity = -2;
-			Projectile.NewProjectile(target.Center.X, target.Center.Y, velocity, 0, mod.ProjectileType("TideProjOne"), 0, 1, Main.myPlayer, 0, 0);
+			Projectile.NewProjectile(target.Center.X, target.Center.Y, velocity, 0, mod.ProjectileType("TideProj2"), 0, 1, Main.myPlayer, 0, 0);
 		}
     }
 }

@@ -221,7 +221,7 @@ namespace Emperia
                             if (egg == 0) type = mod.ProjectileType("plant1");
                             else if (egg == 1) type = mod.ProjectileType("plant2");
                             else type = mod.ProjectileType("plant3");
-                            Projectile.NewProjectile(i * 16 , j * 16 - 8, 0, 0, type, 0, 1, Main.myPlayer, 0, 0);
+                            Projectile.NewProjectile(i * 16 , j * 16 - 14, 0, 0, type, 0, 1, Main.myPlayer, 0, 0);
                            }
 
                        }

@@ -23,7 +23,7 @@ public class AquaticLegs : ModItem
         item.height = 18;
         item.value = 57500;
         item.rare = 3;
-        item.defense = 5; //15
+        item.defense = 7; //15
     }
 
     public override void UpdateEquip(Player player)
