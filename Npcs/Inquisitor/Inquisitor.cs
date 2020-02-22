@@ -29,8 +29,9 @@ namespace Emperia.Npcs.Inquisitor
 
         private bool phaseStart;
         private bool phaseEnd;
-		
-		private bool spawnedMasks = false;
+
+		private int numMasks = 1;
+		private int masksToSpawn = 0;
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("The Inquisitor");
@@ -40,7 +41,7 @@ namespace Emperia.Npcs.Inquisitor
         {
             npc.aiStyle = -1;
             npc.lifeMax = 10000;
-            npc.damage = 150;
+            npc.damage = 100;
             npc.defense = 40;
             npc.knockBackResist = 0f;
             npc.width = 94;
@@ -72,10 +73,12 @@ namespace Emperia.Npcs.Inquisitor
 
         public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
         {
-            npc.lifeMax = 16000;
+            npc.lifeMax = 16000 * (Math.Min((numPlayers - 1) * 2, 1));
             npc.damage = 175;
+			numMasks *= numPlayers;
+			masksToSpawn = numMasks;
         }
-
+		
         public override void AI()
         {
             Player player = Main.player[npc.target];
@@ -87,18 +90,26 @@ namespace Emperia.Npcs.Inquisitor
 				npc.timeLeft = 10;
 			}
 			
-			if (!spawnedMasks)
+			if (masksToSpawn > 0)
 			{
-				int n = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, mod.NPCType("AgonyMask"), ai0: npc.whoAmI, ai1: 1);
-				spawnedMasks = true;
+				NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, mod.NPCType("AgonyMask"), ai0: npc.whoAmI, ai1: masksToSpawn);
+				masksToSpawn--;
 			}
-            if (npc.ai[3] == 0 && npc.life <= npc.lifeMax * .9)
+            if (npc.ai[3] == 0 && IsInPhaseOne())
             {
 				SetMove(Move.Hover, 240);
                 NPC.NewNPC((int)npc.Center.X - 20, (int)npc.Center.Y, mod.NPCType("EocPuppet"), ai0: player.whoAmI, ai1: npc.whoAmI);
                 /*NPC.NewNPC((int)npc.Center.X + 20, (int)npc.Center.Y, mod.NPCType<AgonyMask>(), ai0: player.whoAmI, ai1: npc.whoAmI);*/
                 npc.ai[3] = 1;
-            }
+				masksToSpawn = numMasks;
+            } else if (npc.ai[3] == 1 && IsInPhaseTwo())
+			{
+				SetMove(Move.Shoot, 480);
+				NPC.NewNPC((int)npc.Center.X - 20, (int)npc.Center.Y, mod.NPCType("EocPuppet"), ai0: player.whoAmI, ai1: npc.whoAmI);
+				npc.ai[3] = 2;
+				numMasks *= 3;
+				masksToSpawn = numMasks;
+			}
 			if (move == Move.Hover)
 			{
 				counter--;
@@ -111,16 +122,15 @@ namespace Emperia.Npcs.Inquisitor
 					else
 						SetMove(Move.Shoot, 120);
 				}
-			}
-			if (move == Move.Teleport)
+			} else if (move == Move.Teleport)
 			{
-				bool sucess = false;
-				while (!sucess)
+				bool success = false;
+				while (!success)
 				{
-					Vector2 targPos = player.Center + new Vector2(200, 0).RotatedByRandom(MathHelper.ToRadians(360));
+					Vector2 targPos = player.Center + new Vector2(200, 0).RotatedByRandom(MathHelper.ToRadians(180));
 					if (targPos.Y < player.Center.Y)
 					{
-						sucess = true;
+						success = true;
 						for (int i = 0; i < 50; ++i) //Create dust b4 teleport
 						{
 							int dust = Dust.NewDust(npc.position, npc.width, npc.height, DustID.GoldCoin);
@@ -141,19 +151,18 @@ namespace Emperia.Npcs.Inquisitor
 							Main.dust[dust2].scale = 1.5f;
 						}
 					}
-					SetMove(Move.Hover, 240);
+					SetMove(Move.Hover, 120);
 				}
-			}
-			if (move == Move.Shoot)
+			} else if (move == Move.Shoot)
 			{
 				npc.velocity = Vector2.Zero;
 				counter--;
-				for (int i = 0; i < 360; i+= 5)
+				for (float i = 0; i < 360; i+= 7.5f)
 				{
 					int dust = Dust.NewDust(new Vector2(npc.Center.X , npc.Center.Y) + new Vector2(0, -100).RotatedBy(MathHelper.ToRadians(i)), npc.width / 8, npc.height / 8, 58, 0f, 0f, 0, Color.White, 1.5f);
 					Main.dust[dust].velocity = Vector2.Zero;
 				}
-				if (counter % 20 == 0)
+				if (counter % 10 == 0)
 				{
 					Vector2 placePosition = npc.Center + new Vector2(0, -100).RotatedByRandom(MathHelper.ToRadians(360));
 					Vector2 direction = (Main.player[npc.target].Center - placePosition);
@@ -162,11 +171,9 @@ namespace Emperia.Npcs.Inquisitor
 				}
 				if (counter <= 0)
 				{
-					SetMove(Move.Hover, 240);
+					SetMove(Move.Hover, 120);
 				}
 			}
-
-			
         }
         private void SetMove(Move move, int counter)
         {
@@ -175,7 +182,12 @@ namespace Emperia.Npcs.Inquisitor
 			this.counter = counter;
         }
 
-        private bool IsInPhaseTwo()
+		private bool IsInPhaseOne()
+		{
+			return npc.life <= npc.lifeMax * .9;    //90% hp
+		}
+
+		private bool IsInPhaseTwo()
         {
             return npc.life <= npc.lifeMax * .5;    //50% hp
         }
