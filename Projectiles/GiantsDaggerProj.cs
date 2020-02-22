@@ -67,7 +67,17 @@ namespace Emperia.Projectiles
                 // npc.StrikeNPCNoInteraction(2 * npc.GetGlobalNPC<MyNPC>().spineCount, 0, 0, false, false, false);
             }
         }
-		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void Kill(int timeLeft)
+        {
+            Main.PlaySound(SoundID.Dig, (int)projectile.position.X, (int)projectile.position.Y, 27);
+            for (int i = 0; i < 5; i++)
+            {
+                int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 7);
+                Vector2 vel = new Vector2(0, -1).RotatedBy(Main.rand.NextFloat() * 6.283f) * 3.5f;
+            }
+        }
+
+        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
             if (!latched)
             {

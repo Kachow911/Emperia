@@ -56,8 +56,12 @@ namespace Emperia.Projectiles
             Main.PlaySound(SoundID.Dig, (int)projectile.position.X, (int)projectile.position.Y, 27);
             if (Main.rand.Next(0, 4) == 0)
 				Item.NewItem((int)projectile.position.X, (int)projectile.position.Y, projectile.width, projectile.height, mod.ItemType("BarbarianWaraxe"), 1, false, 0, false, false);
+			for (int i = 0; i < 5; i++)
+			{
+				int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 7);
+				Vector2 vel = new Vector2(0, -1).RotatedBy(Main.rand.NextFloat() * 6.283f) * 3.5f;
+			}
 
-			
 		}
 
 	}
