@@ -21,8 +21,8 @@ namespace Emperia.Items.Weapons.GoblinArmy
             item.ranged = true;    
             item.width = 42; 
             item.height = 16;    
-            item.useAnimation = 32;
-			item.useTime = 32;
+            item.useAnimation = 25;
+			item.useTime = 25;
 			item.reuseDelay = 80;
             item.useStyle = 5;  
             item.noMelee = true; 

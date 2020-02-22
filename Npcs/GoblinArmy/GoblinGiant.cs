@@ -175,56 +175,38 @@ namespace Emperia.Npcs.GoblinArmy
 			int tile = Main.tile[x, y].type;
 			return Main.invasionType == 1 ? 0.02f : 0;
 		}
-		/*public override void NPCLoot()
+		public override void NPCLoot()
 		{
-			Gore.NewGore(npc.position, npc.velocity, mod.GetGoreSlot("Gores/Yeti/gore1"), 1f);
+			/*Gore.NewGore(npc.position, npc.velocity, mod.GetGoreSlot("Gores/Yeti/gore1"), 1f);
 			Gore.NewGore(npc.position, npc.velocity, mod.GetGoreSlot("Gores/Yeti/gore2"), 1f);
 			Gore.NewGore(npc.position, npc.velocity, mod.GetGoreSlot("Gores/Yeti/gore3"), 1f);
 			Gore.NewGore(npc.position, npc.velocity, mod.GetGoreSlot("Gores/Yeti/gore4"), 1f);
-			Gore.NewGore(npc.position, npc.velocity, mod.GetGoreSlot("Gores/Yeti/gore5"), 1f);
-			/*if (!EmperialWorld.downedMushor)
-			{
-            	Main.NewText("The guardian of the mushroom biome has fallen...", 0, 75, 161, false);
-				EmperialWorld.downedMushor = true;
-			}
-			if (Main.rand.Next(10) == 0)
-			{
-				Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("YetiTrophy"));
-			}
-			if (Main.expertMode)
-			{
-				npc.DropBossBags();
-			}
-			else
-			{
+			Gore.NewGore(npc.position, npc.velocity, mod.GetGoreSlot("Gores/Yeti/gore5"), 1f);*/
 				
-				if (Main.rand.Next(2) == 0)
-				{
-					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("MammothineClub"));
-				}
-				if (Main.rand.Next(2) == 0)
-				{
-					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("HuntersSpear"));
-				}
-				if (Main.rand.Next(2) == 0)
-				{
-					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("BigGameHunter"));
-				}
+				Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("GiantPlating"), Main.rand.Next(3, 8));
 				
-				if (Main.rand.Next(7) == 0)
+				if (Main.rand.Next(5) == 0)
 				{
-					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("YetiMask"));
+					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("GiantsDagger"));
 				}
-				if (Main.rand.Next(10) == 0)
+				if (Main.rand.Next(5) == 0)
 				{
-				Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("ChilledFootprint"));
+				Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("GiantsDevastator"));
 				}
-				if (Main.rand.Next(2) == 0)
+				if (Main.rand.Next(5) == 0)
 				{
-				Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("ArcticIncantation"));
+				Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("OversizedFemur"));
 				}
+			if (Main.rand.Next(5) == 0)
+			{
+				Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("GiantsHead"));
 			}
-		}*/
+			for (int i = 0; i < 25; i++)
+			{
+				int dust = Dust.NewDust(npc.position, npc.width, npc.height, 7);
+				Vector2 vel = new Vector2(0, -5).RotatedBy(Main.rand.NextFloat() * 6.283f) * 3.5f;
+			}
+		}
 
 	}
 }

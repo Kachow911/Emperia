@@ -36,11 +36,11 @@ public class GoblinLegs : ModItem
 
     public override void AddRecipes()
     {
-       /* ModRecipe recipe = new ModRecipe(mod);      
-            recipe.AddIngredient(ItemID.Seashell, 3);
-            recipe.AddIngredient(ItemID.FishingSeaweed, 2); 			
-            recipe.AddTile(TileID.Anvils); 			//you need 1 DirtBlock  //at work bench
+            ModRecipe recipe = new ModRecipe(mod);
+            recipe.AddIngredient(null, "GiantPlating", 4);
+            recipe.AddIngredient(ItemID.IronBar, 8);
+            recipe.AddTile(TileID.Anvils);
             recipe.SetResult(this);
-            recipe.AddRecipe();*/
-    }
+            recipe.AddRecipe();
+        }
 }}
