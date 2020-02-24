@@ -25,7 +25,7 @@ namespace Emperia.Npcs.Yeti
         private Vector2 targetPosition;
 
         private int side { get { return (int)npc.ai[2]; } set { npc.ai[2] = value; } }
-		
+		private int counter3 = 0;
         private bool phase2Active;
 		private bool init = false;
 		private int walkTimer = 1;
@@ -97,6 +97,7 @@ namespace Emperia.Npcs.Yeti
 
         public override void AI()
 		{
+			counter3++;
 			if (IsBelowPhaseTwoThreshhold() && !phase2Active)
 			{
 				NPC.NewNPC((int)npc.Center.X + Main.rand.Next(-200, 200), (int)npc.Center.Y - 150, mod.NPCType("Yetiling"));
@@ -146,20 +147,21 @@ namespace Emperia.Npcs.Yeti
 				}
 				else
                 {
-					if (Main.rand.NextBool(180))
+					if (Main.rand.NextBool(80) && counter3 > 90)
 					{
+						counter3 = 0;
 						for (int i = 0; i < 12; i++)
 						{
 
-							Vector2 perturbedSpeed = new Vector2(0, 3).RotatedBy(MathHelper.ToRadians(90 + 30 * i));
+							Vector2 perturbedSpeed = new Vector2(0, 3).RotatedBy(MathHelper.ToRadians((Main.rand.Next(30) + 30 * i));
 							Projectile.NewProjectile(npc.Center.X, npc.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, mod.ProjectileType("IcicleC"), npc.damage / 2, 1, Main.myPlayer, 0, 0);
 
 						}
 					}
-					if (npc.velocity.X > 2.7f)
-						npc.velocity.X = 2.7f;
-					if (npc.velocity.X < -2.7f)
-						npc.velocity.X = -2.7f;
+					if (npc.velocity.X > 3f)
+						npc.velocity.X = 3f;
+					if (npc.velocity.X < -3f)
+						npc.velocity.X = -3f;
 				}
 				if (Main.rand.Next(2) == 0 && counter <= 0 && Main.expertMode && walkTimer > 400)
 				{
