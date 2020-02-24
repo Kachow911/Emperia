@@ -30,6 +30,7 @@ namespace Emperia.Npcs.Yeti
 		private bool init = false;
 		private int walkTimer = 1;
 		private int jumpDir = 1;
+		private float maxWalkSpeed = 2f;
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("The Yeti");
@@ -136,10 +137,30 @@ namespace Emperia.Npcs.Yeti
 				{
 					NPC.NewNPC((int)npc.Center.X + Main.rand.Next(-200, 200), (int)npc.Center.Y - 150, mod.NPCType("Yetiling"));
 				}
-				if (npc.velocity.X > 2f)
-					npc.velocity.X = 2f;
-				if (npc.velocity.X < -2f)
-					npc.velocity.X = -2f;
+				if (!IsBelowPhaseTwoThreshhold())
+				{
+					if (npc.velocity.X > 2f)
+						npc.velocity.X = 2f;
+					if (npc.velocity.X < -2f)
+						npc.velocity.X = -2f;
+				}
+				else
+                {
+					if (Main.rand.NextBool(180))
+					{
+						for (int i = 0; i < 12; i++)
+						{
+
+							Vector2 perturbedSpeed = new Vector2(0, 3).RotatedBy(MathHelper.ToRadians(90 + 30 * i));
+							Projectile.NewProjectile(npc.Center.X, npc.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, mod.ProjectileType("IcicleC"), npc.damage / 2, 1, Main.myPlayer, 0, 0);
+
+						}
+					}
+					if (npc.velocity.X > 2.7f)
+						npc.velocity.X = 2.7f;
+					if (npc.velocity.X < -2.7f)
+						npc.velocity.X = -2.7f;
+				}
 				if (Main.rand.Next(2) == 0 && counter <= 0 && Main.expertMode && walkTimer > 400)
 				{
 					SetMove(Move.Snowball, 25);

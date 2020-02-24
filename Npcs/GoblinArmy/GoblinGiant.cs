@@ -177,13 +177,14 @@ namespace Emperia.Npcs.GoblinArmy
 		}
 		public override void NPCLoot()
 		{
-			/*Gore.NewGore(npc.position, npc.velocity, mod.GetGoreSlot("Gores/Yeti/gore1"), 1f);
-			Gore.NewGore(npc.position, npc.velocity, mod.GetGoreSlot("Gores/Yeti/gore2"), 1f);
-			Gore.NewGore(npc.position, npc.velocity, mod.GetGoreSlot("Gores/Yeti/gore3"), 1f);
-			Gore.NewGore(npc.position, npc.velocity, mod.GetGoreSlot("Gores/Yeti/gore4"), 1f);
-			Gore.NewGore(npc.position, npc.velocity, mod.GetGoreSlot("Gores/Yeti/gore5"), 1f);*/
-				
-				Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("GiantPlating"), Main.rand.Next(3, 8));
+			Gore.NewGore(npc.position, npc.velocity, mod.GetGoreSlot("Gores/Goblin/GoblinGiantGoreHead"), 1f);
+			Gore.NewGore(npc.position, npc.velocity, mod.GetGoreSlot("Gores/Goblin/GoblinGiantGoreLeg"), 1f);
+			Gore.NewGore(npc.position, npc.velocity, mod.GetGoreSlot("Gores/Goblin/GoblinGiantGoreArm"), 1f);
+			Gore.NewGore(npc.position, npc.velocity, mod.GetGoreSlot("Gores/Goblin/GoblinGiantGoreCannon_4"), 1f);
+			Gore.NewGore(npc.position, npc.velocity, mod.GetGoreSlot("Gores/Goblin/GoblinGiantGoreCannon_3"), 1f);
+			Gore.NewGore(npc.position, npc.velocity, mod.GetGoreSlot("Gores/Goblin/GoblinGiantGoreCannon_1"), 1f);
+
+			Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("GiantPlating"), Main.rand.Next(3, 8));
 				
 				if (Main.rand.Next(5) == 0)
 				{
