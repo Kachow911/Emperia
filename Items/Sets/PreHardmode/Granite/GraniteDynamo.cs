@@ -20,7 +20,7 @@ namespace Emperia.Items.Sets.PreHardmode.Granite
             item.width = 48;
             item.height = 46;
             item.value = Item.sellPrice(0, 0, 50, 0);
-            item.rare = 3;
+            item.rare = 2;
             item.mana = 20;
             item.damage = 18;
             item.knockBack = 7;
