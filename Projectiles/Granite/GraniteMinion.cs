@@ -47,7 +47,18 @@ namespace Emperia.Projectiles.Granite
 				projectile.damage = 0;
 				init = true;
             }
-			projectile.timeLeft = 100;
+			bool flag64 = projectile.type == mod.ProjectileType("GraniteMinion");
+
+			MyPlayer modPlayer1 = Main.player[projectile.owner].GetModPlayer<MyPlayer>();
+			if (flag64)
+			{
+				if (Main.player[projectile.owner].dead)
+					modPlayer1.graniteMinion = false;
+
+				if (modPlayer1.graniteMinion)
+					projectile.timeLeft = 2;
+
+			}
 			targetNPC = false;
 			for (int npcFinder = 0; npcFinder < 200; ++npcFinder)
 			{
@@ -77,7 +88,7 @@ namespace Emperia.Projectiles.Granite
 				num6 *= num8;
 				projectile.velocity.X = (projectile.velocity.X * 20f + num5) / 30f;
 				projectile.velocity.Y = (projectile.velocity.Y * 20f + num6) / 30f;
-				if (num7 < 8f)
+				if (num7 < 6f)
                 {
 					projectile.Center = Main.npc[npc].Center;
 					if (hitTimer > 60)
@@ -88,6 +99,38 @@ namespace Emperia.Projectiles.Granite
 						totalHits++;
 						if (totalHits >= 10)
                         {
+							Main.PlaySound(SoundID.Item14, projectile.Center);
+							Player player = Main.player[projectile.owner];
+							MyPlayer modPlayer = player.GetModPlayer<MyPlayer>();
+							if (modPlayer.graniteSet && modPlayer.graniteTime >= 1800)
+							{
+								for (int i = 0; i < Main.npc.Length; i++)
+								{
+									if (projectile.Distance(Main.npc[i].Center) < 90)
+										Main.npc[i].StrikeNPC(projDamage * 3, 0f, 0, false, false, false);
+								}
+								for (int i = 0; i < 45; ++i)
+								{
+									int index2 = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, 15, 0.0f, 0.0f, 15, new Color(53f, 67f, 253f), 2f);
+									Main.dust[index2].noGravity = true;
+									Main.dust[index2].velocity *= 3.25f;
+								}
+								modPlayer.graniteTime = 0;
+							}
+							else
+							{
+								for (int i = 0; i < Main.npc.Length; i++)
+								{
+									if (projectile.Distance(Main.npc[i].Center) < 60)
+										Main.npc[i].StrikeNPC(projDamage + projDamage / 2, 0f, 0, false, false, false);
+								}
+								for (int i = 0; i < 30; ++i)
+								{
+									int index2 = Dust.NewDust(new Vector2(projectile.Center.X, projectile.Center.Y), projectile.width, projectile.height, 15, 0.0f, 0.0f, 15, new Color(53f, 67f, 253f), 1.5f);
+									Main.dust[index2].noGravity = true;
+									Main.dust[index2].velocity *= 2f;
+								}
+							}
 							projectile.timeLeft = 0;
                         }
 						if (curHits >= 3)
@@ -112,37 +155,11 @@ namespace Emperia.Projectiles.Granite
 		}
 		public override void Kill(int timeLeft)
         {
-			Main.PlaySound(SoundID.Item14, projectile.Center);
-			Player player = Main.player[projectile.owner];
-			MyPlayer modPlayer = player.GetModPlayer<MyPlayer>();
-			if (modPlayer.graniteSet && modPlayer.graniteTime >= 1800)
+			for (int i = 0; i < 3; ++i)
 			{
-				for (int i = 0; i < Main.npc.Length; i++)
-				{
-					if (projectile.Distance(Main.npc[i].Center) < 90)
-						Main.npc[i].StrikeNPC(projDamage * 3, 0f, 0, false, false, false);
-				}
-				for (int i = 0; i < 45; ++i)
-				{
-					int index2 = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, 15, 0.0f, 0.0f, 15, new Color(53f, 67f, 253f), 2f);
-					Main.dust[index2].noGravity = true;
-					Main.dust[index2].velocity *= 3.25f;
-				}
-				modPlayer.graniteTime = 0;
-			}
-			else
-			{
-				for (int i = 0; i < Main.npc.Length; i++)
-				{
-					if (projectile.Distance(Main.npc[i].Center) < 60)
-						Main.npc[i].StrikeNPC(projDamage + projDamage / 2, 0f, 0, false, false, false);
-				}
-				for (int i = 0; i < 30; ++i)
-				{
-					int index2 = Dust.NewDust(new Vector2(projectile.Center.X, projectile.Center.Y), projectile.width, projectile.height, 15, 0.0f, 0.0f, 15, new Color(53f, 67f, 253f), 1.5f);
-					Main.dust[index2].noGravity = true;
-					Main.dust[index2].velocity *= 2f;
-				}
+				int index2 = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, 15, 0.0f, 0.0f, 15, new Color(53f, 67f, 253f), 2f);
+				Main.dust[index2].noGravity = true;
+				Main.dust[index2].velocity *= 3.25f;
 			}
 		}
 		

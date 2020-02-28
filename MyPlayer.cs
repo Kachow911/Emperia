@@ -33,6 +33,7 @@ namespace Emperia
 		public bool slightKnockback = false;
         public bool doubleKnockback = false;
         public bool sharkMinion = false;
+		public bool graniteMinion = false;
 		public bool EmberTyrant = false;
         public bool ancientPelt = false;
 		public bool eruptionBottle = false;
@@ -98,6 +99,7 @@ namespace Emperia
             frostGauntlet = false;
             eruptionBottle = false;
             sharkMinion = false;
+			graniteMinion = false;
 			cursedDash = false;
 			yetiMount = false;
 			slightKnockback = false;

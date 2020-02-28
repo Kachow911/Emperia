@@ -31,7 +31,7 @@ namespace Emperia.Items.Sets.PreHardmode.Granite
             item.noMelee = true;
             item.shoot = mod.ProjectileType("GraniteMinion");
             item.shootSpeed = 5f;
-            //item.buffType = mod.BuffType("SharkMinionBuff");
+            item.buffType = mod.BuffType("GraniteMinionBuff");
             item.buffTime = 3600;
             item.UseSound = SoundID.Item44;
             item.knockBack = 0f;
