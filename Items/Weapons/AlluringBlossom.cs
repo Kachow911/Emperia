@@ -31,6 +31,7 @@ namespace Emperia.Items.Weapons
 			item.UseSound = SoundID.Item20;
 			item.autoReuse = true;
 			item.shoot = mod.ProjectileType("AlluringPulse");
+			//item.shoot = mod.ProjectileType("FlameTendril");
 			item.shootSpeed = 8f;
 			item.mana = 7;
 		}

@@ -164,7 +164,14 @@ namespace Emperia.Npcs.GoblinArmy
             move = toMove;
             this.counter = counter;
 		}
-        /*public override void NPCLoot()
+		public override float SpawnChance(NPCSpawnInfo spawnInfo)
+		{
+			int x = spawnInfo.spawnTileX;
+			int y = spawnInfo.spawnTileY;
+			int tile = Main.tile[x, y].type;
+			return Main.invasionType == 1 ? 0.05f : 0;
+		}
+		/*public override void NPCLoot()
 		{
 			Gore.NewGore(npc.position, npc.velocity, mod.GetGoreSlot("Gores/Yeti/gore1"), 1f);
 			Gore.NewGore(npc.position, npc.velocity, mod.GetGoreSlot("Gores/Yeti/gore2"), 1f);
@@ -215,5 +222,5 @@ namespace Emperia.Npcs.GoblinArmy
 			}
 		}*/
 
-    }
+	}
 }

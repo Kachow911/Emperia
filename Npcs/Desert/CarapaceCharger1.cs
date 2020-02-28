@@ -130,8 +130,11 @@ namespace Emperia.Npcs.Desert
 							{
 							
 								Vector2 perturbedSpeed = new Vector2(0, -5).RotatedByRandom(MathHelper.ToRadians(45));
-								int p = Projectile.NewProjectile(npc.Center.X, npc.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, mod.ProjectileType("SandBlock"), npc.damage / 3, 1, Main.myPlayer, 0, 0);
-								Main.projectile[p].rotation = MathHelper.ToRadians(Main.rand.Next(360));
+                                if (Main.rand.NextBool(2))
+                                {
+                                    int p = Projectile.NewProjectile(npc.Center.X, npc.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, mod.ProjectileType("SandBlock"), npc.damage / 3, 1, Main.myPlayer, 0, 0);
+                                    Main.projectile[p].rotation = MathHelper.ToRadians(Main.rand.Next(360));
+                                }
 								colliding = false;
 							}
 						}

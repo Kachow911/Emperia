@@ -7,7 +7,7 @@ using Terraria.ModLoader;
 
 namespace Emperia.Projectiles
 {
-    public class GoblinBomb : ModProjectile
+    public class GoblinRocket : ModProjectile
     {
 		public override void SetStaticDefaults()
 		{
@@ -15,16 +15,16 @@ namespace Emperia.Projectiles
 		}
         public override void SetDefaults()
         {  //projectile name
-            projectile.width = 32;       //projectile width
-            projectile.height = 32;  //projectile height
-            projectile.friendly = false;      //make that the projectile will not damage you
-			projectile.hostile = true;       // 
+            projectile.width = 24;       //projectile width
+            projectile.height = 24;  //projectile height
+            projectile.friendly = true;      //make that the projectile will not damage you
+			projectile.hostile = false;       // 
             projectile.tileCollide = true;   //make that the projectile will be destroed if it hits the terrain
             projectile.penetrate = 1;      //how many npc will penetrate
-            projectile.timeLeft = 200;   //how many time projectile projectile has before disepire
+            projectile.timeLeft = 300;   //how many time projectile projectile has before disepire
             projectile.light = 0.75f;    // projectile light
             projectile.ignoreWater = true;
-			Main.projFrames[projectile.type] = 6;
+			Main.projFrames[projectile.type] = 3;
         }
         public override void AI()           //projectile make that the projectile will face the corect way
         {                                                           // |
@@ -32,8 +32,18 @@ namespace Emperia.Projectiles
 			if (projectile.frameCounter >= 6)
 			{
 				projectile.frameCounter = 0;
-				projectile.frame = (projectile.frame + 1) % 6;
-			} 
+				projectile.frame = (projectile.frame + 1) % 3;
+			}
+			projectile.rotation = projectile.velocity.ToRotation();
+
+			int dust = Dust.NewDust(projectile.position + projectile.velocity, projectile.width, projectile.height, 258, projectile.velocity.X * 0.5f, projectile.velocity.Y * 0.5f);
+			int dust2 = Dust.NewDust(projectile.position + projectile.velocity, projectile.width, projectile.height, 258, projectile.velocity.X * 0.5f, projectile.velocity.Y * 0.5f);
+			Main.dust[dust].noGravity = true;
+			Main.dust[dust2].noGravity = true;
+			Main.dust[dust2].velocity *= 0f;
+			Main.dust[dust2].velocity *= 0f;
+			Main.dust[dust2].scale = 1.9f;
+			Main.dust[dust].scale = 1.9f;
 		}
 		public override void Kill(int timeLeft)
         {
@@ -54,7 +64,7 @@ namespace Emperia.Projectiles
 			{
 
 				Vector2 perturbedSpeed = new Vector2(0, 3).RotatedByRandom(MathHelper.ToRadians(180));
-				Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, mod.ProjectileType("FireBallHostile"), projectile.damage / 3, 1, Main.myPlayer, 0, 0);
+				Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, mod.ProjectileType("FireBall"), projectile.damage / 2, 1, Main.myPlayer, 0, 0);
 
 			}
 

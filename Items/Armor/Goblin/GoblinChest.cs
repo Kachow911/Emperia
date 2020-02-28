@@ -34,11 +34,11 @@ public class GoblinChest : ModItem
 
     public override void AddRecipes()
     {
-        /*ModRecipe recipe = new ModRecipe(mod);      
-            recipe.AddIngredient(ItemID.Seashell, 4);
-            recipe.AddIngredient(ItemID.FishingSeaweed, 3); 			
-            recipe.AddTile(TileID.Anvils); 			//you need 1 DirtBlock  //at work bench
+            ModRecipe recipe = new ModRecipe(mod);
+            recipe.AddIngredient(null, "GiantPlating", 6);
+            recipe.AddIngredient(ItemID.IronBar, 10);
+            recipe.AddTile(TileID.Anvils);
             recipe.SetResult(this);
-            recipe.AddRecipe();*/
-    }
+            recipe.AddRecipe();
+        }
 }}

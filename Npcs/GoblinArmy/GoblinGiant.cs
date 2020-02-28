@@ -21,7 +21,7 @@ namespace Emperia.Npcs.GoblinArmy
         private Move move { get { return (Move)npc.ai[1]; } set { npc.ai[1] = (int)value; } }
         private Move prevMove;
         private Vector2 targetPosition;
-		
+		private int goblinCounter = 600;
 		private bool init = false;
 		public override void SetStaticDefaults()
 		{
@@ -31,7 +31,7 @@ namespace Emperia.Npcs.GoblinArmy
         public override void SetDefaults()
         {
             npc.lifeMax = 2000;
-            npc.damage = 30;
+            npc.damage = 60;
             npc.defense = 12;
             npc.knockBackResist = 0f;
             npc.width = 128;
@@ -74,6 +74,14 @@ namespace Emperia.Npcs.GoblinArmy
 
         public override void AI()
 		{
+			goblinCounter--;
+			if (goblinCounter <= 0)
+            {
+				NPC.NewNPC((int)npc.Center.X + Main.rand.Next(-25, 25), (int)npc.Center.Y + 40, mod.NPCType("GoblinRamCarrier"));
+				NPC.NewNPC((int)npc.Center.X + Main.rand.Next(-25, 25), (int)npc.Center.Y + 40, mod.NPCType("GoblinRamCarrier"));
+				NPC.NewNPC((int)npc.Center.X + Main.rand.Next(-25, 25), (int)npc.Center.Y + 40, mod.NPCType("GoblinRamCarrier"));
+				goblinCounter = 600;
+            }
 			if (npc.velocity.X < 0)
 				npc.spriteDirection = -1;
 			else if (npc.velocity.X > 0)
@@ -83,7 +91,7 @@ namespace Emperia.Npcs.GoblinArmy
 			if (!init)
 			{
 				move = Move.Walk;
-				counter = 600;
+				counter = 300;
 				init = true;
 			}
 			if (move == Move.Walk)
@@ -91,10 +99,10 @@ namespace Emperia.Npcs.GoblinArmy
 				counter--;
 				npc.aiStyle = 3;
 				aiType = 508;
-				if (npc.velocity.X > 2f)
-					npc.velocity.X = 2f;
-				if (npc.velocity.X < -2f)
-					npc.velocity.X = -2f;
+				if (npc.velocity.X > 1.5f)
+					npc.velocity.X = 1.5f;
+				if (npc.velocity.X < -1.5f)
+					npc.velocity.X = -1.5f;
 				if (counter <= 0)
 				{
 					SetMove(Move.Shoot, 15);
@@ -111,9 +119,10 @@ namespace Emperia.Npcs.GoblinArmy
 				npc.velocity = Vector2.Zero;
 				if (counter <= 0)
 				{
-					SetMove(Move.Walk, 600);
+					SetMove(Move.Walk, 300);
 					Vector2 placePosition = npc.Center + new Vector2(0, -npc.height / 2);
-					Vector2 direction = Main.player[npc.target].Center + new Vector2(0, -125) - placePosition;
+					Vector2 direction = Main.player[npc.target].Center + new Vector2(0, -10) - placePosition;
+				
 					direction.Normalize();
 					for (int index = 0; index < 10; ++index)
 						Dust.NewDust(placePosition, npc.width, npc.height, 31, 0.0f, 0.0f, 100, new Color(), 1.5f);
@@ -125,7 +134,7 @@ namespace Emperia.Npcs.GoblinArmy
 						int index3 = Dust.NewDust(placePosition, npc.width, npc.height, 6, 0.0f, 0.0f, 100, new Color(), 1.5f);
 						Main.dust[index3].velocity *= 2f;
 					}
-					Projectile.NewProjectile(npc.Center.X, npc.Center.Y - npc.height/2, direction.X * 13f, direction.Y * 7f, mod.ProjectileType("GoblinBomb"), npc.damage, 1, Main.myPlayer, 0, 0);
+					Projectile.NewProjectile(npc.Center.X, npc.Center.Y - npc.height/2, direction.X * 14f, direction.Y * 14f, mod.ProjectileType("GoblinBomb"), npc.damage / 2, 1, Main.myPlayer, 0, 0);
 					
 				}
 			}
@@ -159,56 +168,46 @@ namespace Emperia.Npcs.GoblinArmy
             move = toMove;
             this.counter = counter;
 		}
-        /*public override void NPCLoot()
+		public override float SpawnChance(NPCSpawnInfo spawnInfo)
 		{
-			Gore.NewGore(npc.position, npc.velocity, mod.GetGoreSlot("Gores/Yeti/gore1"), 1f);
-			Gore.NewGore(npc.position, npc.velocity, mod.GetGoreSlot("Gores/Yeti/gore2"), 1f);
-			Gore.NewGore(npc.position, npc.velocity, mod.GetGoreSlot("Gores/Yeti/gore3"), 1f);
-			Gore.NewGore(npc.position, npc.velocity, mod.GetGoreSlot("Gores/Yeti/gore4"), 1f);
-			Gore.NewGore(npc.position, npc.velocity, mod.GetGoreSlot("Gores/Yeti/gore5"), 1f);
-			/*if (!EmperialWorld.downedMushor)
-			{
-            	Main.NewText("The guardian of the mushroom biome has fallen...", 0, 75, 161, false);
-				EmperialWorld.downedMushor = true;
-			}
-			if (Main.rand.Next(10) == 0)
-			{
-				Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("YetiTrophy"));
-			}
-			if (Main.expertMode)
-			{
-				npc.DropBossBags();
-			}
-			else
-			{
-				
-				if (Main.rand.Next(2) == 0)
-				{
-					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("MammothineClub"));
-				}
-				if (Main.rand.Next(2) == 0)
-				{
-					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("HuntersSpear"));
-				}
-				if (Main.rand.Next(2) == 0)
-				{
-					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("BigGameHunter"));
-				}
-				
-				if (Main.rand.Next(7) == 0)
-				{
-					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("YetiMask"));
-				}
-				if (Main.rand.Next(10) == 0)
-				{
-				Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("ChilledFootprint"));
-				}
-				if (Main.rand.Next(2) == 0)
-				{
-				Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("ArcticIncantation"));
-				}
-			}
-		}*/
+			int x = spawnInfo.spawnTileX;
+			int y = spawnInfo.spawnTileY;
+			int tile = Main.tile[x, y].type;
+			return Main.invasionType == 1 ? 0.02f : 0;
+		}
+		public override void NPCLoot()
+		{
+			Gore.NewGore(npc.position, npc.velocity, mod.GetGoreSlot("Gores/Goblin/GoblinGiantGoreHead"), 1f);
+			Gore.NewGore(npc.position, npc.velocity, mod.GetGoreSlot("Gores/Goblin/GoblinGiantGoreLeg"), 1f);
+			Gore.NewGore(npc.position, npc.velocity, mod.GetGoreSlot("Gores/Goblin/GoblinGiantGoreArm"), 1f);
+			Gore.NewGore(npc.position, npc.velocity, mod.GetGoreSlot("Gores/Goblin/GoblinGiantGoreCannon_4"), 1f);
+			Gore.NewGore(npc.position, npc.velocity, mod.GetGoreSlot("Gores/Goblin/GoblinGiantGoreCannon_3"), 1f);
+			Gore.NewGore(npc.position, npc.velocity, mod.GetGoreSlot("Gores/Goblin/GoblinGiantGoreCannon_1"), 1f);
 
-    }
+			Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("GiantPlating"), Main.rand.Next(3, 8));
+				
+				if (Main.rand.Next(5) == 0)
+				{
+					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("GiantsDagger"));
+				}
+				if (Main.rand.Next(5) == 0)
+				{
+				Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("GiantsDevastator"));
+				}
+				if (Main.rand.Next(5) == 0)
+				{
+				Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("OversizedFemur"));
+				}
+			if (Main.rand.Next(5) == 0)
+			{
+				Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("GiantsHead"));
+			}
+			for (int i = 0; i < 25; i++)
+			{
+				int dust = Dust.NewDust(npc.position, npc.width, npc.height, 7);
+				Vector2 vel = new Vector2(0, -5).RotatedBy(Main.rand.NextFloat() * 6.283f) * 3.5f;
+			}
+		}
+
+	}
 }

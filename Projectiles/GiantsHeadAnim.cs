@@ -7,24 +7,27 @@ using Terraria.ModLoader;
 
 namespace Emperia.Projectiles
 {
-    public class GoblinBomb : ModProjectile
+    public class GiantsHeadAnim : ModProjectile
     {
+		bool init = false;
+		float xOFF = 0;
+		float yOFF = 0;
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Goblin Rocket");
+			DisplayName.SetDefault("Giants Head");
 		}
         public override void SetDefaults()
         {  //projectile name
-            projectile.width = 32;       //projectile width
-            projectile.height = 32;  //projectile height
-            projectile.friendly = false;      //make that the projectile will not damage you
-			projectile.hostile = true;       // 
-            projectile.tileCollide = true;   //make that the projectile will be destroed if it hits the terrain
-            projectile.penetrate = 1;      //how many npc will penetrate
-            projectile.timeLeft = 200;   //how many time projectile projectile has before disepire
+            projectile.width = 46;       //projectile width
+            projectile.height = 42;  //projectile height
+            projectile.friendly = true;      //make that the projectile will not damage you
+			projectile.hostile = false;       // 
+            projectile.tileCollide = false;   //make that the projectile will be destroed if it hits the terrain
+            projectile.penetrate = -1;      //how many npc will penetrate
+            projectile.timeLeft = 31;   //how many time projectile projectile has before disepire
             projectile.light = 0.75f;    // projectile light
             projectile.ignoreWater = true;
-			Main.projFrames[projectile.type] = 6;
+			Main.projFrames[projectile.type] = 3;
         }
         public override void AI()           //projectile make that the projectile will face the corect way
         {                                                           // |
@@ -32,10 +35,17 @@ namespace Emperia.Projectiles
 			if (projectile.frameCounter >= 6)
 			{
 				projectile.frameCounter = 0;
-				projectile.frame = (projectile.frame + 1) % 6;
+				projectile.frame = (projectile.frame + 1) % 3;
 			} 
+			if (!init)
+            {
+				xOFF = projectile.Center.X - Main.player[projectile.owner].Center.X;
+				yOFF = projectile.Center.Y - Main.player[projectile.owner].Center.Y;
+				init = true;
+			}
+			projectile.Center = Main.player[projectile.owner].Center + new Vector2(xOFF, yOFF);
 		}
-		public override void Kill(int timeLeft)
+		/*public override void Kill(int timeLeft)
         {
 			Main.PlaySound(SoundID.Item, projectile.Center, 14);
 			for (int i = 0; i < Main.player.Length; i++)
@@ -58,6 +68,6 @@ namespace Emperia.Projectiles
 
 			}
 
-		}
+		}*/
     }
 }
