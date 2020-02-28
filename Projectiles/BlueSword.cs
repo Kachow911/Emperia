@@ -21,7 +21,7 @@ namespace Emperia.Projectiles
             projectile.friendly = true;   
             projectile.melee = true;      
             projectile.tileCollide = false;
-            projectile.penetrate = 2;     
+            projectile.penetrate = 1;     
             projectile.timeLeft = 400;
             projectile.light = 0.75f;
             projectile.ignoreWater = true;
@@ -42,10 +42,7 @@ namespace Emperia.Projectiles
 				projectile.tileCollide = true;
 			}
         }
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
-		{	
-			target.immune[projectile.owner] = 5;
-		}
+        
 		public override void Kill(int timeLeft)
         {
 			Main.PlaySound(SoundID.Item10, projectile.position);

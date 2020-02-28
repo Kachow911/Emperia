@@ -58,6 +58,7 @@ namespace Emperia.Items.Weapons
 				damageFactor = 2;
 			}
 			int p = Projectile.NewProjectile(placePosition.X, placePosition.Y, direction.X * speedFactor, direction.Y * speedFactor, type1, damage * damageFactor, 1, Main.myPlayer, 0, 0);
+			Main.projectile[p].usesLocalNPCImmunity = false;
 			Main.PlaySound(SoundID.Item9, Main.projectile[p].position);
 			canSummon = true;
 			return false;
@@ -85,9 +86,10 @@ namespace Emperia.Items.Weapons
 					damageFactor = 2;
 				}
 				int p = Projectile.NewProjectile(placePosition.X, placePosition.Y, direction.X * speedFactor, direction.Y * speedFactor, type1, damage * damageFactor, 1, Main.myPlayer, 0, 0);
+				Main.projectile[p].usesLocalNPCImmunity = false;
 				Main.PlaySound(SoundID.Item9, Main.projectile[p].position);
 				canSummon = false;
-			target.immune[item.owner] = 5;
+				target.immune[item.owner] = 0;
 			}	
 		}
 		public override void MeleeEffects(Player player, Rectangle hitbox)

@@ -21,7 +21,7 @@ namespace Emperia.Projectiles
             projectile.friendly = true;
             projectile.melee = true;
             projectile.tileCollide = false;
-            projectile.penetrate = 3;
+            projectile.penetrate = 1;
             projectile.timeLeft = 400;
             projectile.light = 0.75f;
             projectile.extraUpdates = 1;
