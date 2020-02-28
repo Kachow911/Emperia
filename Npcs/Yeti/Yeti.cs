@@ -153,7 +153,7 @@ namespace Emperia.Npcs.Yeti
 						for (int i = 0; i < 12; i++)
 						{
 
-							Vector2 perturbedSpeed = new Vector2(0, 3).RotatedBy(MathHelper.ToRadians((Main.rand.Next(30) + 30 * i));
+							Vector2 perturbedSpeed = new Vector2(0, 3).RotatedBy(MathHelper.ToRadians(Main.rand.Next(30) + 30 * i));
 							Projectile.NewProjectile(npc.Center.X, npc.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, mod.ProjectileType("IcicleC"), npc.damage / 2, 1, Main.myPlayer, 0, 0);
 
 						}
