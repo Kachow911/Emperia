@@ -23,13 +23,14 @@ namespace Emperia.Projectiles.Granite
 			projectile.ignoreWater = true;
 			projectile.tileCollide = false;
 			projectile.netImportant = true;
-			projectile.width = 18;
-			projectile.height = 18;
+			projectile.width = 26;
+			projectile.height = 26;
 			projectile.friendly = true;
 			projectile.melee = true;
 			projectile.penetrate = -1;
 			projectile.timeLeft = 1000;
-			aiType = ProjectileID.Spazmamini;
+			aiType = -1;
+			//
 
 		}
 		public override bool OnTileCollide(Vector2 oldVelocity)

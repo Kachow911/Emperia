@@ -255,19 +255,30 @@ namespace Emperia
 						}
 					}
 				}
-			}				
+			}
+			pressTime--;
+			if (pressTime <= 0)
+			{
+				leftPresses = 0;
+				rightPresses = 0;
+			}
 			if (player.releaseLeft && clickedLeft)
 			{
-				pressTime = 15;
+				pressTime = 16;
 				leftPresses++;
 			}
 			if (player.releaseRight && clickedRight)
 			{
-				pressTime = 15;
+				pressTime = 16;
 				rightPresses++;
 			}
-			if (leftPresses >= 2 && dashDelay <= 0 && (cursedDash || lunarDash))
+			
+
+			if (leftPresses >= 2 && dashDelay <= 0 && (cursedDash || lunarDash) && leftPresses > rightPresses)
 			{
+				
+				pressTime = 0;
+				//leftPresses = 0;
 				if (!lunarDash)
 				{
 					changedVelocity = false;
@@ -282,6 +293,7 @@ namespace Emperia
 						Main.dust[dust1].velocity *= 2f;
 						Main.dust[dust1].noGravity = true;
 					}
+					
 				}
 				else
 				{
@@ -304,8 +316,11 @@ namespace Emperia
 					}
 				}
 			}
-			if (rightPresses >= 2 && dashDelay <= 0 && (cursedDash || lunarDash))
+			if (rightPresses >= 2 && dashDelay <= 0 && (cursedDash || lunarDash) && rightPresses > leftPresses)
 			{
+				
+				pressTime = 0;
+				//rightPresses = 0;
 				if (!lunarDash)
 				{
 					changedVelocity = false;
@@ -343,12 +358,12 @@ namespace Emperia
 				}
 		
 			}
-			pressTime--;
 			if (pressTime <= 0)
 			{
 				leftPresses = 0;
 				rightPresses = 0;
 			}
+
 			if (forbiddenOath && player.statLife <= (int) ((float) player.statLifeMax2 * .4f))
 			{
 				OathCooldown--;
