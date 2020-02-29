@@ -10,7 +10,7 @@ namespace Emperia.Items.Sets.PreHardmode.Granite
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Granite Dynamo");
-            Tooltip.SetDefault("Summons a granite chunk to fight for you\nFires like a projectile when first summoned");
+            Tooltip.SetDefault("Summons a granite elemental to fight for you\nFires like a projectile when first summoned");
 			Item.staff[item.type] = true;
         }
 
@@ -20,11 +20,11 @@ namespace Emperia.Items.Sets.PreHardmode.Granite
             item.height = 36;
             item.value = 22500;
             item.rare = 2;
-            item.damage = 18;
+            item.damage = 14;
             item.knockBack = 0f;
             item.useStyle = 5;
-            item.useTime = 31;
-            item.useAnimation = 31;
+            item.useTime = 55;
+            item.useAnimation = 55;
             item.mana = 20; 
             item.summon = true;
             item.noMelee = true;
