@@ -16,9 +16,10 @@ namespace Emperia.Projectiles.Granite
 		private int projDamage = 0;
 		int hitTimer = 0;
 		int retargetTimer = 60;
+		bool initRetargDone = false;
 		public override void SetDefaults()
 		{
-			projectile.CloneDefaults(ProjectileID.Spazmamini);
+			//projectile.CloneDefaults(ProjectileID.Spazmamini);
 			projectile.tileCollide = false;
 			projectile.ignoreWater = true;
 			projectile.tileCollide = false;
@@ -29,7 +30,8 @@ namespace Emperia.Projectiles.Granite
 			projectile.melee = true;
 			projectile.penetrate = -1;
 			projectile.timeLeft = 1000;
-			aiType = -1;
+			Main.projFrames[projectile.type] = 12;
+			//aiType = -1;
 			//
 
 		}
@@ -40,6 +42,18 @@ namespace Emperia.Projectiles.Granite
 		}
 		public override void AI()
 		{
+			float projVelAbs = (float)Math.Sqrt((double)(projectile.velocity.X * projectile.velocity.X + projectile.velocity.Y * projectile.velocity.Y));
+			// animation
+			projectile.frameCounter++;
+			if (projectile.frameCounter >= 6)
+			{
+				projectile.frameCounter = 0;
+				if (projVelAbs < 1)
+					projectile.frame = (projectile.frame + 1) % 12;
+				else
+					projectile.frame = (int) ((projectile.frame + projVelAbs) % 12);
+			}
+			//
 			retargetTimer--;
 			hitTimer++;
 			if (!init)
@@ -67,16 +81,27 @@ namespace Emperia.Projectiles.Granite
 				{
 					Vector2 num1 = Main.npc[npcFinder].Center;
 					float num2 = Math.Abs(projectile.Center.X - num1.X) + Math.Abs(projectile.Center.Y - num1.Y);
-					if (num2 < 200f)
+					if (num2 < 250f)
 					{
 						targetNPC = true;
 						npc = npcFinder;
 
 					}
+					if (num2 < 50f && !initRetargDone)
+                    {
+						targetNPC = true;
+						npc = npcFinder;
+						initRetargDone = true;
+						retargetTimer = 0;
+					}
 
 				}
 			}
-            if (targetNPC && retargetTimer < 0)
+			if (retargetTimer < 0)
+			{
+				initRetargDone = true;
+			}
+			if (targetNPC && retargetTimer < 0)
             {
 				aiType = -1;
 				float num4 = Main.rand.Next(30, 43);
@@ -87,9 +112,9 @@ namespace Emperia.Projectiles.Granite
 				float num8 = num4 / num7;
 				num5 *= num8;
 				num6 *= num8;
-				projectile.velocity.X = (projectile.velocity.X * 20f + num5) / 30f;
-				projectile.velocity.Y = (projectile.velocity.Y * 20f + num6) / 30f;
-				if (num7 < 6f)
+				projectile.velocity.X = (projectile.velocity.X * 25f + num5) / 30f;
+				projectile.velocity.Y = (projectile.velocity.Y * 25f + num6) / 30f;
+				if (num7 < 16f)
                 {
 					projectile.Center = Main.npc[npc].Center;
 					if (hitTimer > 60)
@@ -136,7 +161,7 @@ namespace Emperia.Projectiles.Granite
                         }
 						if (curHits >= 3)
                         {
-							Vector2 perturbedSpeed = new Vector2(0, 8).RotatedByRandom(MathHelper.ToRadians(360));
+							Vector2 perturbedSpeed = new Vector2(0, 6).RotatedByRandom(MathHelper.ToRadians(360));
 							projectile.velocity = perturbedSpeed;
 							retargetTimer = 120;
 							curHits = 0;
@@ -147,11 +172,43 @@ namespace Emperia.Projectiles.Granite
 			}
             else if (retargetTimer < 0)
             {
-				aiType = ProjectileID.Spazmamini;
+				float num544 = 8f;
+				Vector2 vector41 = new Vector2(projectile.position.X + (float)projectile.width * 0.5f, projectile.position.Y + (float)projectile.height * 0.5f);
+				float num545 = Main.player[projectile.owner].Center.X - vector41.X;
+				float num546 = Main.player[projectile.owner].Center.Y - vector41.Y - 60f;
+				float num547 = (float)Math.Sqrt((double)(num545 * num545 + num546 * num546));
+				if (num547 < 100f && projectile.ai[0] == 1f && !Collision.SolidCollision(projectile.position, projectile.width, projectile.height))
+				{
+					projectile.ai[0] = 0f;
+				}
+				if (num547 > 2000f)
+				{
+					projectile.position.X = Main.player[projectile.owner].Center.X - (float)(projectile.width / 2);
+					projectile.position.Y = Main.player[projectile.owner].Center.Y - (float)(projectile.width / 2);
+				}
+				if (num547 > 70f)
+				{
+					num547 = num544 / num547;
+					num545 *= num547;
+					num546 *= num547;
+					projectile.velocity.X = (projectile.velocity.X * 20f + num545) / 21f;
+					projectile.velocity.Y = (projectile.velocity.Y * 20f + num546) / 21f;
+				}
+				else
+				{
+					if (projectile.velocity.X == 0f && projectile.velocity.Y == 0f)
+					{
+						projectile.velocity.X = -0.15f;
+						projectile.velocity.Y = -0.05f;
+					}
+					projectile.velocity *= 1.01f;
+				}
 			}
 			else
             {
 				aiType = -1;
+				projectile.velocity *= .97f;
+				
 			}
 		}
 		public override void Kill(int timeLeft)
