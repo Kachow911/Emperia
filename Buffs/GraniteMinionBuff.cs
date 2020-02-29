@@ -8,9 +8,8 @@ namespace Emperia.Buffs
 	{
 		public override void SetDefaults()
 		{
-			DisplayName.SetDefault("Granite Minion");
-			Description.SetDefault("Epic Grabute moment");
-
+			DisplayName.SetDefault("Granite Elemental");
+			Description.SetDefault("The granite elemental will fight for you");
 			Main.buffNoSave[Type] = true;
 			Main.buffNoTimeDisplay[Type] = true;
 		}
