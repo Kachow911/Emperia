@@ -172,7 +172,7 @@ namespace Emperia.Projectiles.Granite
 			}
             else if (retargetTimer < 0)
             {
-				float num544 = 8f;
+				float num544 = 6f;
 				Vector2 vector41 = new Vector2(projectile.position.X + (float)projectile.width * 0.5f, projectile.position.Y + (float)projectile.height * 0.5f);
 				float num545 = Main.player[projectile.owner].Center.X - vector41.X;
 				float num546 = Main.player[projectile.owner].Center.Y - vector41.Y - 60f;

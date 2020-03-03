@@ -35,7 +35,7 @@ namespace Emperia.Npcs.Mushor
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Mushor");
-			Main.npcFrameCount[npc.type] = 2;
+			Main.npcFrameCount[npc.type] = 13;
 		}
         public override void SetDefaults()
         {
@@ -55,7 +55,7 @@ namespace Emperia.Npcs.Mushor
             npc.HitSound = SoundID.NPCHit1; //57 //20
             npc.DeathSound = SoundID.NPCDeath1;
             npc.buffImmune[24] = true;
-            Main.npcFrameCount[npc.type] = 2;
+            Main.npcFrameCount[npc.type] = 13;
             npc.netAlways = true;
 			bossBag = mod.ItemType("MushorBag");
         }
@@ -64,8 +64,18 @@ namespace Emperia.Npcs.Mushor
         {
             if (phase2Active)
             {
-                npc.frame.Y = frameHeight;
+				npc.frameCounter += 0.2f;
+				npc.frameCounter %= 8;
+				int frame = (int)npc.frameCounter + 5;
+				npc.frame.Y = frame * frameHeight;
             }
+			else
+            {
+				npc.frameCounter += 0.2f;
+				npc.frameCounter %= 5;
+				int frame = (int)npc.frameCounter;
+				npc.frame.Y = frame * frameHeight;
+			}
         }
 
         public override void ScaleExpertStats(int numPlayers, float bossLifeScale)

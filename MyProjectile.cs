@@ -33,7 +33,7 @@ namespace Emperia
                 if (Main.rand.Next(4) == 0)
                 {
                     damage += target.defense;
-                    CombatText.NewText(new Rectangle((int)target.position.X, (int)target.position.Y - 20, target.width, target.height), Color.White, "Defense Ignored!", false, false);
+                    //CombatText.NewText(new Rectangle((int)target.position.X, (int)target.position.Y - 20, target.width, target.height), Color.White, "Defense Ignored!", false, false);
                 }
             }
         }
