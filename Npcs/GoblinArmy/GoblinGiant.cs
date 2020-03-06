@@ -16,7 +16,7 @@ namespace Emperia.Npcs.GoblinArmy
 		   Shoot
         }
 
-        private int counter { get { return (int)npc.ai[0]; } set { npc.ai[0] = value; } }
+		private int counter = 0;
 
         private Move move { get { return (Move)npc.ai[1]; } set { npc.ai[1] = (int)value; } }
         private Move prevMove;
