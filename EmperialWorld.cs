@@ -104,7 +104,7 @@ namespace Emperia
 								int[] stoneTiles = {1,151,161}; // stones
 								if (stoneTiles.Contains(Main.tile[xTile + xAdd, yTile + yAdd].type))
 								{
-									Main.tile[xTile + xAdd, yTile + yAdd].type = (ushort)mod.TileType("TFWood");
+									Main.tile[xTile + xAdd, yTile + yAdd].type = (ushort)mod.TileType("TFLeaf");
 								}
 								
 							}

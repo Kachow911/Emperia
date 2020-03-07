@@ -70,10 +70,11 @@ namespace Emperia.Projectiles.Skeleton
 
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
         {
+            bool doneOnce = false;
             Vector2 vector2 = new Vector2(projectile.Center.X, projectile.Center.Y);
             float num1 = Main.player[projectile.owner].MountedCenter.X - vector2.X;
             float num2 = Main.player[projectile.owner].MountedCenter.Y - vector2.Y;
-            float rotation = (float)Math.Atan2((double)num2, (double)num1);
+            float rotation = (float)Math.Atan2((double)num2, (double)num1) + 1.57f;
             if (projectile.alpha == 0)
             {
                 int num3 = -1;
@@ -101,7 +102,13 @@ namespace Emperia.Projectiles.Skeleton
                     num1 = Main.player[projectile.owner].MountedCenter.X - vector2.X;
                     num2 = Main.player[projectile.owner].MountedCenter.Y - vector2.Y;
                     Microsoft.Xna.Framework.Color color = Lighting.GetColor((int)vector2.X / 16, (int)((double)vector2.Y / 16.0));
-                    Main.spriteBatch.Draw(mod.GetTexture("Projectiles/Skeleton/Chain"), new Vector2(vector2.X - Main.screenPosition.X, vector2.Y - Main.screenPosition.Y), new Microsoft.Xna.Framework.Rectangle?(new Microsoft.Xna.Framework.Rectangle(0, 0, 18, 14)), Color.White, rotation, new Vector2((float)18 * 0.5f, (float)14 * 0.5f), 1f, SpriteEffects.None, 0.0f);
+                    if ((double)f < 40.0)
+                    {
+                        Main.spriteBatch.Draw(mod.GetTexture("Projectiles/Skeleton/Handle"), new Vector2(vector2.X - Main.screenPosition.X, vector2.Y - Main.screenPosition.Y), new Microsoft.Xna.Framework.Rectangle?(new Microsoft.Xna.Framework.Rectangle(0, 0, 18, 14)), Color.White, rotation, new Vector2((float)18 * 0.5f, (float)14 * 0.5f), 1f, SpriteEffects.None, 0.0f);
+                        //doneOnce = true;
+                    }
+                    else
+                        Main.spriteBatch.Draw(mod.GetTexture("Projectiles/Skeleton/Chain"), new Vector2(vector2.X - Main.screenPosition.X, vector2.Y - Main.screenPosition.Y), new Microsoft.Xna.Framework.Rectangle?(new Microsoft.Xna.Framework.Rectangle(0, 0, 18, 14)), Color.White, rotation, new Vector2((float)18 * 0.5f, (float)14 * 0.5f), 1f, SpriteEffects.None, 0.0f);
                 }
             }
             return true;

@@ -15,6 +15,7 @@ namespace Emperia
 		public bool fatesDemise = false;
 		public bool sporeStorm = false;
         public bool scoriaExplosion = false;
+		public bool electrified = false;
 		public bool moreCoins = false;
         public int spineCount = 0;
 		int InfirmaryTimer = 30;
@@ -22,8 +23,9 @@ namespace Emperia
         public override void ResetEffects(NPC npc)
         {
             cuttingLeaves = false;
-            //spineCount = 0;
-            vermillionVenom = false;
+			electrified = false;
+			//spineCount = 0;
+			vermillionVenom = false;
 			indigoInfirmary = false;
 			burningNight = false;
 			fatesDemise = false;

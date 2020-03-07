@@ -22,7 +22,7 @@ namespace Emperia.Projectiles.Desert
             projectile.tileCollide = true;   //make that the projectile will be destroed if it hits the terrain
             projectile.penetrate = 1;      //how many npc will penetrate
             projectile.timeLeft = 300;   //how many time projectile projectile has before disepire
-            projectile.light = 0.75f;    // projectile light
+            //projectile.light = 0.75f;    // projectile light
             projectile.ignoreWater = true;
 			Main.projFrames[projectile.type] = 5;
         }

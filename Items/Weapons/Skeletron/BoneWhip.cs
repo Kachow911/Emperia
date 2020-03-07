@@ -14,7 +14,7 @@ namespace Emperia.Items.Weapons.Skeletron
             item.noUseGraphic = true;
             item.useTime = 22;
             item.useAnimation = 22;
-			item.thrown = true;
+            item.melee = true;
             item.width = 18;
             item.height = 40;
             item.shoot = mod.ProjectileType("BoneWhipProj");
