@@ -17,9 +17,9 @@ namespace Emperia.Tiles
 			Main.tileMergeDirt[Type] = true;
 			//Main.tileBlockLight[Type] = true;
 			Main.tileLighted[Type] = false;
-			TileObjectData.newTile.CopyFrom(TileObjectData.Style1x1);
-            TileObjectData.newTile.Height = 2;
-            TileObjectData.newTile.CoordinateHeights = new int[]
+			TileObjectData.newTile.CopyFrom(TileObjectData.Style1xX);
+			TileObjectData.newTile.Height = 2;
+			TileObjectData.newTile.CoordinateHeights = new int[]
 			{
 				16,
 				16
