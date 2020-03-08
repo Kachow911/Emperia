@@ -95,10 +95,11 @@ namespace Emperia
 									Main.tile[xTile + xAdd, yTile + yAdd].type = (ushort)mod.TileType("TwilightGrass");
 								
 								}
-								int[] floraTiles = { 3, 27 }; // dirt & grass
+								int[] floraTiles = { 3, 27, 73}; // plants
 								if (floraTiles.Contains(Main.tile[xTile + xAdd, yTile + yAdd].type))
 								{
-									Main.tile[xTile + xAdd, yTile + yAdd].type = (ushort)mod.TileType("TwilightFlora1");
+									WorldGen.KillTile(xTile + xAdd, yTile + yAdd);
+									WorldGen.PlaceObject(xTile + xAdd, yTile + yAdd, mod.TileType("TwilightFloraA"));
 
 								}
 								int[] stoneTiles = {1,151,161}; // stones

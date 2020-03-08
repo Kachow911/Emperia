@@ -48,57 +48,28 @@ namespace Emperia.Tiles
 			
             }
         }
-		
-	
-		public override void RandomUpdate(int i, int j)
+        public static bool PlaceObject(int x, int y, int type, bool mute = false, int style = 0, int alternate = 0, int random = -1, int direction = -1)
         {
-            if(Framing.GetTileSafely(i,j-1).type==0&&Framing.GetTileSafely(i,j-2).type==0&&Main.rand.Next(5) == 0)
+            TileObject toBePlaced;
+            if (!TileObject.CanPlace(x, y, type, style, direction, out toBePlaced, false))
             {
-                WorldGen.GrowTree(i, j-1);
-				if(Main.rand.Next(20)==0)
-                {		
-                    if(Framing.GetTileSafely(i,j-1).type==0&&Framing.GetTileSafely(i,j-2).type==0)
-					{		
-                    WorldGen.PlaceObject(i,j-1,mod.TileType("TwilightTreeSap"));
-                    NetMessage.SendObjectPlacment(-1,i,j-1,mod.TileType("TwilightTreeSap"),0,0,-1,-1);
-					}       
-				}
-				else
-                {
-					switch(Main.rand.Next(7)) 
-						   {
-								case 0: 
-								    WorldGen.PlaceObject(i-1,j-1,mod.TileType("TwilightFlora1"));
-									NetMessage.SendObjectPlacment(-1,i-1,j-1,mod.TileType("TwilightFlora1"),0,0,-1,-1);
-								break;
-								case 1: 
-								    WorldGen.PlaceObject(i-1,j-1,mod.TileType("TwilightFlora2"));
-									NetMessage.SendObjectPlacment(-1,i-1,j-1,mod.TileType("TwilightFlora2"),0,0,-1,-1);
-								break;
-								case 2: 
-								    WorldGen.PlaceObject(i-1,j-1,mod.TileType("TwilightFlora3"));
-									NetMessage.SendObjectPlacment(-1,i-1,j-1,mod.TileType("TwilightFlora3"),0,0,-1,-1);
-								break;
-								case 3: 
-								    WorldGen.PlaceObject(i-1,j-1,mod.TileType("TwilightFlora4"));
-									NetMessage.SendObjectPlacment(-1,i-1,j-1,mod.TileType("TwilightFlora4"),0,0,-1,-1);
-								break;
-								case 4: 
-								    WorldGen.PlaceObject(i-1,j-1,mod.TileType("MagnificentMushroom"));
-									NetMessage.SendObjectPlacment(-1,i-1,j-1,mod.TileType("MagnificentMushroom"),0,0,-1,-1);
-								break;
-								case 5: 
-								    WorldGen.PlaceObject(i-1,j-1,mod.TileType("SunsoakedChestnut"));
-									NetMessage.SendObjectPlacment(-1,i-1,j-1,mod.TileType("SunsoakedChestnut"),0,0,-1,-1);
-								break;
-								default:
-								    WorldGen.PlaceObject(i-1,j-1,mod.TileType("TwilightFlora5"));
-									NetMessage.SendObjectPlacment(-1,i-1,j-1,mod.TileType("TwilightFlora5"),0,0,-1,-1);
-								break;
-						   }
-					 
-               }
-                
+                return false;
+            }
+            toBePlaced.random = random;
+            if (TileObject.Place(toBePlaced) && !mute)
+            {
+                WorldGen.SquareTileFrame(x, y, true);
+                //   Main.PlaySound(0, x * 16, y * 16, 1, 1f, 0f);
+            }
+            return false;
+        }
+
+        public override void RandomUpdate(int i, int j)
+        {
+            if (!Framing.GetTileSafely(i, j - 1).active())// && Main.rand.Next(40) == 0)
+            {
+                TwilightGrass.PlaceObject(i, j - 1, mod.TileType("TwilightFlora1"));
+                NetMessage.SendObjectPlacment(-1, i, j - 1, mod.TileType("TwilightFlora1"), 0, 0, -1, -1);
             }
         }
 		public void SpreadAncientGrassAcrossTheWorld()
