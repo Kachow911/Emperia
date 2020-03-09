@@ -17,6 +17,7 @@ namespace Emperia.Projectiles.Granite
 		int hitTimer = 0;
 		int retargetTimer = 60;
 		bool initRetargDone = false;
+		bool firstHits = true;
 		public override void SetDefaults()
 		{
 			//projectile.CloneDefaults(ProjectileID.Spazmamini);
@@ -31,6 +32,7 @@ namespace Emperia.Projectiles.Granite
 			projectile.penetrate = -1;
 			projectile.timeLeft = 1000;
 			Main.projFrames[projectile.type] = 12;
+			projectile.minionSlots = 1;
 			//aiType = -1;
 			//
 
@@ -44,14 +46,15 @@ namespace Emperia.Projectiles.Granite
 		{
 			float projVelAbs = (float)Math.Sqrt((double)(projectile.velocity.X * projectile.velocity.X + projectile.velocity.Y * projectile.velocity.Y));
 			// animation
-			projectile.frameCounter++;
+			//projectile.frameCounter++;
+			if (projVelAbs < 2)
+				projectile.frameCounter++;
+			else
+				projectile.frameCounter = (int) ((float)projectile.frameCounter + projVelAbs / 2);
 			if (projectile.frameCounter >= 6)
 			{
 				projectile.frameCounter = 0;
-				if (projVelAbs < 1)
-					projectile.frame = (projectile.frame + 1) % 12;
-				else
-					projectile.frame = (int) ((projectile.frame + projVelAbs) % 12);
+				projectile.frame = (projectile.frame + 1) % 12;
 			}
 			//
 			retargetTimer--;
@@ -117,13 +120,14 @@ namespace Emperia.Projectiles.Granite
 				if (num7 < 16f)
                 {
 					projectile.Center = Main.npc[npc].Center;
-					if (hitTimer > 60)
+					int num310 = firstHits ? 30 : 60;
+					if (hitTimer > num310)
                     {
 						Main.npc[npc].StrikeNPC(projDamage, 0f, 0, false, false, false);
 						hitTimer = 0;
 						curHits++;
 						totalHits++;
-						if (totalHits >= 10)
+						if (totalHits >= 11)
                         {
 							Main.PlaySound(SoundID.Item14, projectile.Center);
 							Player player = Main.player[projectile.owner];
@@ -159,8 +163,11 @@ namespace Emperia.Projectiles.Granite
 							}
 							projectile.timeLeft = 0;
                         }
-						if (curHits >= 3)
+						int num308 = firstHits ? 5 : 3;
+						
+						if (curHits >= num308)
                         {
+							firstHits = false;
 							Vector2 perturbedSpeed = new Vector2(0, 6).RotatedByRandom(MathHelper.ToRadians(360));
 							projectile.velocity = perturbedSpeed;
 							retargetTimer = 120;

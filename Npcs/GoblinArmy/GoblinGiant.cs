@@ -99,10 +99,10 @@ namespace Emperia.Npcs.GoblinArmy
 				counter--;
 				npc.aiStyle = 3;
 				aiType = 508;
-				if (npc.velocity.X > 1.5f)
-					npc.velocity.X = 1.5f;
-				if (npc.velocity.X < -1.5f)
-					npc.velocity.X = -1.5f;
+				if (npc.velocity.X > 1.2f)
+					npc.velocity.X = 1.2f;
+				if (npc.velocity.X < -1.2f)
+					npc.velocity.X = -1.2f;
 				if (counter <= 0)
 				{
 					SetMove(Move.Shoot, 15);

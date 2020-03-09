@@ -37,7 +37,7 @@ namespace Emperia.Items.Weapons.GoblinArmy
 			item.value = Item.sellPrice(0, 0, 1, 50);
             item.crit = 4;
             item.rare = 2;
-            item.autoReuse = false;
+            item.autoReuse = true;
             item.maxStack = 1;
             item.consumable = false;
         }

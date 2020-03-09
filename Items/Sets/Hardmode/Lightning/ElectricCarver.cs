@@ -19,8 +19,8 @@ namespace Emperia.Items.Sets.Hardmode.Lightning
         public override void SetDefaults()
         {
             item.damage = 42;
-            item.useTime = 35;
-            item.useAnimation = 35;
+            item.useTime = 30;
+            item.useAnimation = 30;
             item.melee = true;            
             item.width = 60;              
             item.height = 66;             
@@ -31,7 +31,7 @@ namespace Emperia.Items.Sets.Hardmode.Lightning
             item.rare = 4;
             item.UseSound = SoundID.Item1;   
             item.autoReuse = true;
-            item.useTurn = true;
+            item.useTurn = false;
         }
         public override void OnHitNPC(Player player, NPC target, int damage, float knockback, bool crit)
         {
