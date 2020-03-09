@@ -40,17 +40,15 @@ namespace Emperia.Projectiles.Granite
 		
 		public override void Kill(int timeLeft)
         {
-			Main.PlaySound(SoundID.Dig, projectile.Center); 
-			/*
-        	 for (int i = 0; i < 360; i += 36)
-				{
+			Main.PlaySound(SoundID.Dig, projectile.Center);
+        	for (int i = 0; i < 108; i += 36)
+			{
 				Vector2 vec = Vector2.Transform(new Vector2(-1, 0), Matrix.CreateRotationZ(MathHelper.ToRadians(i)));
 				vec.Normalize();
-				int num622 = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, 46, 0f, 0f, 158, new Color(53f, 67f, 253f), 1f);
+				int num622 = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, 240, 0f, 0f, 0, new Color(53f, 67f, 253f), 1f);
 				Main.dust[num622].velocity += (vec *2f);
 				Main.dust[num622].noGravity = true;
-				}
-			*/
+			}
 		}
 		
     }
