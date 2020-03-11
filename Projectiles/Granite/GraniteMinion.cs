@@ -18,6 +18,7 @@ namespace Emperia.Projectiles.Granite
 		int retargetTimer = 60;
 		bool initRetargDone = false;
 		bool firstHits = true;
+		bool softUnlatch = false;
 		public override void SetDefaults()
 		{
 			//projectile.CloneDefaults(ProjectileID.Spazmamini);
@@ -44,7 +45,13 @@ namespace Emperia.Projectiles.Granite
 			return false;
 		}
 		public override void AI()
-		{
+		{ 
+			if (hitTimer > 60 && softUnlatch == false) //resets latch counter if enemy is killed early and deactivates firsthits
+            {
+				softUnlatch = true;
+				firstHits = false;
+				curHits = 0;
+			}
 			float projVelAbs = (float)Math.Sqrt((double)(projectile.velocity.X * projectile.velocity.X + projectile.velocity.Y * projectile.velocity.Y));
 			// animation
 			//projectile.frameCounter++;
@@ -122,8 +129,9 @@ namespace Emperia.Projectiles.Granite
                 {
 					projectile.Center = Main.npc[npc].Center;
 					int num310 = firstHits ? 30 : 60;
-					if (hitTimer > num310)
+					if (hitTimer > num310) //hit the enemy
                     {
+						softUnlatch = false;
 						Main.npc[npc].StrikeNPC(projDamage, 0f, 0, false, false, false);
 						hitTimer = 0;
 						curHits++;
@@ -166,13 +174,14 @@ namespace Emperia.Projectiles.Granite
                         }
 						int num308 = firstHits ? 5 : 3;
 						
-						if (curHits >= num308)
+						if (curHits >= num308) //unlatch
                         {
 							firstHits = false;
 							Vector2 perturbedSpeed = new Vector2(0, 6).RotatedByRandom(MathHelper.ToRadians(360));
 							projectile.velocity = perturbedSpeed;
 							retargetTimer = 120;
 							curHits = 0;
+							softUnlatch = true;
 						}
 					}
 
