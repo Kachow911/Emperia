@@ -15,7 +15,10 @@ namespace Emperia
 		public override void RandomUpdate(int i, int j, int type)
 		{
 			if(Framing.GetTileSafely(i,j-1).type==0 && Main.rand.Next(100) == 0 && Main.tile[i, j].type == TileID.Stone && (NPC.downedMechBoss3 == true || NPC.downedMechBoss2 == true || NPC.downedMechBoss1 == true))
-				WorldGen.PlaceObject(i,j-1,mod.TileType("VitalityCrystalTile"));
+            {
+				WorldGen.KillTile(i, j-1);
+				WorldGen.PlaceTile(i, j - 1, mod.TileType("VitalityCrystalTile"));
+			}
 				
 		}
 	}

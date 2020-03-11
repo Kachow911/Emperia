@@ -93,6 +93,12 @@ namespace Emperia
 								if (grassTiles.Contains(Main.tile[xTile + xAdd, yTile + yAdd].type))
 								{
 									Main.tile[xTile + xAdd, yTile + yAdd].type = (ushort)mod.TileType("TwilightGrass");
+									if (Framing.GetTileSafely(xTile + xAdd, yTile + yAdd - 1).type == 0)
+                                    {
+										WorldGen.KillTile(xTile + xAdd, yTile + yAdd - 1);
+										//WorldGen.PlaceTile(xTile + xAdd, yTile + yAdd - 1, mod.TileType("AphoticStone"));
+									}
+									
 								
 								}
 								/*int[] floraTiles = { 3, 27, 73}; // plants
@@ -105,29 +111,13 @@ namespace Emperia
 								int[] stoneTiles = {1,151,161}; // stones
 								if (stoneTiles.Contains(Main.tile[xTile + xAdd, yTile + yAdd].type))
 								{
+									//Main.tile[xTile + xAdd, yTile + yAdd].type = (ushort)mod.TileType("VitalityCrystalTile");
 									Main.tile[xTile + xAdd, yTile + yAdd].type = (ushort)mod.TileType("TFLeaf");
 								}
 								
 							}
 						}
 						
-					}
-				}
-				for (int xAdd = -150; xAdd < 150; xAdd++)
-				{
-					for (int yAdd = -50; yAdd < 100; yAdd++)
-					{
-						//if (Main.tile[xTile + xAdd, yTile + yAdd + 1].type == (ushort)mod.TileType("TwilightGrass"))
-						//{
-							int[] floraTiles = { 3, 27, 73 }; 
-							if (floraTiles.Contains(Main.tile[xTile + xAdd, yTile + yAdd].type))
-							{
-								Main.tile[xTile + xAdd, yTile + yAdd].type = (ushort)mod.TileType("TwilightFlora1");
-								//WorldGen.KillTile(xTile + xAdd, yTile + yAdd);
-								//WorldGen.PlaceObject(xTile + xAdd, yTile + yAdd, mod.TileType("TwilightFlora1"));
-
-							}
-						//}
 					}
 				}
 				}));

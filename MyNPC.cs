@@ -17,6 +17,7 @@ namespace Emperia
         public bool scoriaExplosion = false;
 		public bool electrified = false;
 		public bool moreCoins = false;
+		public bool graniteMinionLatched = false;
         public int spineCount = 0;
 		int InfirmaryTimer = 30;
         int poisonTimer = 0;
@@ -32,6 +33,7 @@ namespace Emperia
 			sporeStorm = false;
             moreDamage = false;
 			moreCoins = false;
+			graniteMinionLatched = false;
 		} 
 		public override bool InstancePerEntity {get{return true;}}
 		

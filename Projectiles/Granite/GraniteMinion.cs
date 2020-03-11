@@ -33,6 +33,7 @@ namespace Emperia.Projectiles.Granite
 			projectile.timeLeft = 1000;
 			Main.projFrames[projectile.type] = 12;
 			projectile.minionSlots = 1;
+			projectile.minion = true;
 			//aiType = -1;
 			//
 

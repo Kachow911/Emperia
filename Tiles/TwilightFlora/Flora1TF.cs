@@ -6,35 +6,38 @@ using Terraria.ObjectData;
 
 namespace Emperia.Tiles.TwilightFlora
 {
-	public class TwilightFlora1 : ModTile
+	public class Flora1TF : ModTile
 	{
 		public override void SetDefaults()
 		{
 			Main.tileFrameImportant[Type] = true;
 			TileObjectData.addTile(Type);
+            Main.tileSpelunker[Type] = true;
 			Main.tileCut[Type] = true;
+			TileObjectData.newTile.CopyFrom(TileObjectData.Style1x1);
 			Main.tileSolid[Type] = false;
 			Main.tileMergeDirt[Type] = true;
-			//Main.tileBlockLight[Type] = true;
+			Main.tileBlockLight[Type] = true;
 			Main.tileLighted[Type] = false;
-			TileObjectData.newTile.CopyFrom(TileObjectData.Style1x1);
-            TileObjectData.newTile.Height = 2;
-            TileObjectData.newTile.CoordinateHeights = new int[]
-			{
-				16,
-				16
-			};
 			TileObjectData.addTile(Type);
-			dustType = 33;
-			soundType = 6;
+			//TileObjectData.newTile.DrawYOffset = -8;
+			//drop = mod.ItemType("VitalityCrystal");
+			TileObjectData.newTile.CoordinateHeights = new int[]
+			{
+				20,
+				20
+			}; 
 		}
 
 		public override void NumDust(int i, int j, bool fail, ref int num)
 		{
-			num = 10;
+			num = fail ? 1 : 3;
 		}
-
-
-
+		
+		public override void KillMultiTile(int i, int j, int frameX, int frameY)
+		{
+			Main.PlaySound(2, i * 16, j * 16, 27);
+		} 
+		
 	}
 }
