@@ -88,7 +88,7 @@ namespace Emperia.Projectiles.Granite
 			targetNPC = false;
 			for (int npcFinder = 0; npcFinder < 200; ++npcFinder)
 			{
-				if (Main.npc[npcFinder].CanBeChasedBy(projectile, false) && Collision.CanHit(projectile.Center, 1, 1, Main.npc[npcFinder].Center, 1, 1))
+				if (Main.npc[npcFinder].CanBeChasedBy(projectile, false) && Collision.CanHit(projectile.Center, 1, 1, Main.npc[npcFinder].Center, 1, 1) &&!Main.npc[npcFinder].GetGlobalNPC<MyNPC>().graniteMinionLatched)
 				{
 					Vector2 num1 = Main.npc[npcFinder].Center;
 					float num2 = Math.Abs(projectile.Center.X - num1.X) + Math.Abs(projectile.Center.Y - num1.Y);
@@ -128,6 +128,7 @@ namespace Emperia.Projectiles.Granite
 				if (num7 < 16f)
                 {
 					projectile.Center = Main.npc[npc].Center;
+					Main.npc[npc].GetGlobalNPC<MyNPC>().graniteMinionLatched = true;
 					int num310 = firstHits ? 30 : 60;
 					if (hitTimer > num310) //hit the enemy
                     {
