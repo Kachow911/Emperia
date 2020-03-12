@@ -14,7 +14,7 @@ namespace Emperia.Items.Accessories
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Talisman of Death");
-			Tooltip.SetDefault("Critical hits inflict 'Demise of Fate'\nEnemies that die with Demise of Fate explode into fate's flames\nFlames deal additional damage based on HP of the enemy");
+			Tooltip.SetDefault("Critical hits alight enemies with fate's flames\nEnemies that die under this effect explode into additional flames\nFlames deal more damage based on the maximum life of the enemy");
 		}
         public override void SetDefaults()
         {

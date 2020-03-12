@@ -572,23 +572,23 @@ namespace Emperia
 			{
 				ferocityTime = 180;
 			}
-			if (crit && target.life <= 0 && deathTalisman)
+			if (crit && target.life <= 0 && deathTalisman && !target.HasBuff(mod.BuffType("FatesDemise")))
 			{
 				int damage1 = 0;
-				if (target.lifeMax > 3000)
+				if (target.lifeMax > 1500)
 				{
 					damage1 = 300;
 				}
 				else
 				{
-					damage1 = target.lifeMax / 10;
+					damage1 = target.lifeMax / 5;
 				}
-				//for (int i = 0; i < 5; i++)
-				//{
-					Vector2 perturbedSpeed = new Vector2(0, 5).RotatedByRandom(MathHelper.ToRadians(360));
-					Projectile.NewProjectile(target.Center.X, target.Center.Y, 0, 0, mod.ProjectileType("FateFlame"), damage1, 1, Main.myPlayer, 0, 0);
-					
-				//}
+				for (int i = 0; i < 6; i++)
+				{
+					Vector2 perturbedSpeed = new Vector2(4, 4).RotatedByRandom(MathHelper.ToRadians(360));
+					Projectile.NewProjectile(target.Center.X, target.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, mod.ProjectileType("FatesFlames"), damage1, 1, Main.myPlayer, 0, 0);
+					Main.PlaySound(SoundID.NPCDeath52, target.Center);
+				}
 			}
 			if (breakingPoint)
 			{
@@ -733,23 +733,23 @@ namespace Emperia
 			{
 				ferocityTime = 180;
 			}
-			if (crit && target.life <= 0 && deathTalisman)
+			if (crit && target.life <= 0 && deathTalisman && !target.HasBuff(mod.BuffType("FatesDemise")))
 			{
 				int damage1 = 0;
-				if (target.lifeMax > 3000)
+				if (target.lifeMax > 1500)
 				{
 					damage1 = 300;
 				}
 				else
 				{
-					damage1 = target.lifeMax / 10;
+					damage1 = target.lifeMax / 5;
 				}
-				//for (int i = 0; i < 5; i++)
-				//{
-					Vector2 perturbedSpeed = new Vector2(0, 5).RotatedByRandom(MathHelper.ToRadians(360));
-					Projectile.NewProjectile(target.Center.X, target.Center.Y, 0, 0, mod.ProjectileType("FateFlame"), damage1, 1, Main.myPlayer, 0, 0);
-					
-				//}
+				for (int i = 0; i < 6; i++)
+				{
+					Vector2 perturbedSpeed = new Vector2(4, 4).RotatedByRandom(MathHelper.ToRadians(360));
+					Projectile.NewProjectile(target.Center.X, target.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, mod.ProjectileType("FatesFlames"), damage1, 1, Main.myPlayer, 0, 0);
+					Main.PlaySound(SoundID.NPCDeath52, target.Center);
+				}
 			}
             if (meteorGauntlet)
             {
