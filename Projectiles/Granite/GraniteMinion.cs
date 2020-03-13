@@ -90,22 +90,22 @@ namespace Emperia.Projectiles.Granite
 			for (int npcFinder = 0; npcFinder < 200; ++npcFinder)
 			{
 				if ( Main.npc[npcFinder].CanBeChasedBy(projectile, false) && Main.npc[npcFinder].GetGlobalNPC<MyNPC>().graniteMinID == projectile.whoAmI) Main.npc[npcFinder].GetGlobalNPC<MyNPC>().graniteMinID = -1;
-				if (retargetTimer < 0 && Main.npc[npcFinder].CanBeChasedBy(projectile, false) && Collision.CanHit(projectile.Center, 1, 1, Main.npc[npcFinder].Center, 1, 1) && !(Main.npc[npcFinder].GetGlobalNPC<MyNPC>().graniteMinID != -1 && Main.npc[npcFinder].GetGlobalNPC<MyNPC>().graniteMinID != projectile.whoAmI))
+				if (Main.npc[npcFinder].CanBeChasedBy(projectile, false) && Collision.CanHit(projectile.Center, 1, 1, Main.npc[npcFinder].Center, 1, 1) && !(Main.npc[npcFinder].GetGlobalNPC<MyNPC>().graniteMinID != -1 && Main.npc[npcFinder].GetGlobalNPC<MyNPC>().graniteMinID != projectile.whoAmI))
 				{
 					Vector2 num1 = Main.npc[npcFinder].Center;
 					float num2 = Math.Abs(projectile.Center.X - num1.X) + Math.Abs(projectile.Center.Y - num1.Y);
-					if (num2 < 500f)
+					if (num2 < 500f && retargetTimer < 0)
 					{
 						targetNPC = true;
 						npc = npcFinder;
 
 					}
-					if (num2 < 50f && !initRetargDone)
+					if (num2 < 75f && !initRetargDone)
                     {
-						targetNPC = true;
-						npc = npcFinder;
+						//targetNPC = true;
+						//npc = npcFinder;
 						initRetargDone = true;
-						retargetTimer = 0;
+						retargetTimer = -2;
 					}
 
 				}
