@@ -18,9 +18,11 @@ namespace Emperia
 		public bool electrified = false;
 		public bool moreCoins = false;
 		public bool graniteMinionLatched = false;
+		public int graniteMinID = -1;
         public int spineCount = 0;
 		int InfirmaryTimer = 30;
         int poisonTimer = 0;
+
         public override void ResetEffects(NPC npc)
         {
             cuttingLeaves = false;
@@ -33,7 +35,7 @@ namespace Emperia
 			sporeStorm = false;
             moreDamage = false;
 			moreCoins = false;
-			graniteMinionLatched = false;
+			//graniteMinionLatched = false;
 		} 
 		public override bool InstancePerEntity {get{return true;}}
 		
