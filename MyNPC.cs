@@ -232,22 +232,21 @@ namespace Emperia
 			}
 			if (fatesDemise)
 			{
-				
 				int damage1 = 0;
-				if (npc.lifeMax > 3000)
+				if (npc.lifeMax > 1500)
 				{
 					damage1 = 300;
 				}
 				else
 				{
-					damage1 = npc.lifeMax / 10;
+					damage1 = npc.lifeMax / 5;
 				}
-				//for (int i = 0; i < 5; i++)
-				//{
-					Vector2 perturbedSpeed = new Vector2(0, 5).RotatedByRandom(MathHelper.ToRadians(360));
-					Projectile.NewProjectile(npc.Center.X, npc.Center.Y, 0, 0, mod.ProjectileType("FateFlame"), damage1, 1, Main.myPlayer, 0, 0);
-					
-				//}
+				for (int i = 0; i < 6; i++)
+				{
+					Vector2 perturbedSpeed = new Vector2(4, 4).RotatedByRandom(MathHelper.ToRadians(360));
+					Projectile.NewProjectile(npc.Center.X, npc.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, mod.ProjectileType("FatesFlames"), damage1, 1, Main.myPlayer, 0, 0);	
+				}
+				Main.PlaySound(SoundID.NPCDeath52, npc.Center);
 			}
 		}
 		public override void OnHitPlayer(NPC npc, Player target, int damage, bool crit)
