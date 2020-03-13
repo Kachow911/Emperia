@@ -15,7 +15,7 @@ public class GraniteChestplate : ModItem
 	public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Granite Breastplate");
-			Tooltip.SetDefault("Grants immunity to knockback");
+			Tooltip.SetDefault("Increases your max number of minions\n2% increased critical strike chance");
 		}
     public override void SetDefaults()
     {
@@ -28,7 +28,11 @@ public class GraniteChestplate : ModItem
 
     public override void UpdateEquip(Player player)
     {
-        player.noKnockback = true;
+        player.maxMinions += 1;
+        player.meleeCrit += 2;
+		player.magicCrit += 2;
+		player.rangedCrit += 2;
+		player.thrownCrit += 2;
     }
 
     public override void AddRecipes()

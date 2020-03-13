@@ -15,7 +15,7 @@ public class GraniteLeggings : ModItem
     public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Granite Greaves");
-			Tooltip.SetDefault("6% increased movement speed");
+			Tooltip.SetDefault("Grants immunity to knockback");
 		}
     public override void SetDefaults()
     {
@@ -28,7 +28,7 @@ public class GraniteLeggings : ModItem
 
     public override void UpdateEquip(Player player)
     {
-        player.moveSpeed += 0.06f;
+        player.noKnockback = true;
     }
 
     public override void AddRecipes()
