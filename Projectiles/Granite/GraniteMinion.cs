@@ -89,6 +89,7 @@ namespace Emperia.Projectiles.Granite
 			npc = -1;
 			for (int npcFinder = 0; npcFinder < 200; ++npcFinder)
 			{
+				if ( Main.npc[npcFinder].CanBeChasedBy(projectile, false) && Main.npc[npcFinder].GetGlobalNPC<MyNPC>().graniteMinID == projectile.whoAmI) Main.npc[npcFinder].GetGlobalNPC<MyNPC>().graniteMinID = -1;
 				if (retargetTimer < 0 && Main.npc[npcFinder].CanBeChasedBy(projectile, false) && Collision.CanHit(projectile.Center, 1, 1, Main.npc[npcFinder].Center, 1, 1) && !(Main.npc[npcFinder].GetGlobalNPC<MyNPC>().graniteMinID != -1 && Main.npc[npcFinder].GetGlobalNPC<MyNPC>().graniteMinID != projectile.whoAmI))
 				{
 					Vector2 num1 = Main.npc[npcFinder].Center;
@@ -180,7 +181,8 @@ namespace Emperia.Projectiles.Granite
 								}
 							}
 							projectile.timeLeft = 0;
-                        }
+							Main.npc[npc].GetGlobalNPC<MyNPC>().graniteMinID = -1;
+						}
 						int num308 = firstHits ? 5 : 3;
 						
 						if (curHits >= num308) //unlatch
