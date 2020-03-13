@@ -146,7 +146,7 @@ namespace Emperia.Projectiles.Granite
 						hitTimer = 0;
 						curHits++;
 						totalHits++;
-						if (totalHits >= 11)
+						if (totalHits >= 8)
                         {
 							Main.PlaySound(SoundID.Item14, projectile.Center);
 							Player player = Main.player[projectile.owner];

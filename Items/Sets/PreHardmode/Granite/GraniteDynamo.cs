@@ -20,7 +20,7 @@ namespace Emperia.Items.Sets.PreHardmode.Granite
             item.height = 36;
             item.value = 22500;
             item.rare = 2;
-            item.damage = 14;
+            item.damage = 16;
             item.knockBack = 0f;
             item.useStyle = 5;
             item.useTime = 55;
