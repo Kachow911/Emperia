@@ -58,7 +58,6 @@ namespace Emperia.Projectiles.Granite
 		}
 		public override void Kill(int timeLeft)
         {
-			Main.PlaySound(SoundID.Item14, projectile.Center);
 			Player player = Main.player[projectile.owner];
 			MyPlayer modPlayer = player.GetModPlayer<MyPlayer>();
 			if (modPlayer.graniteSet && modPlayer.graniteTime >= 1800)
@@ -75,6 +74,7 @@ namespace Emperia.Projectiles.Granite
 					Main.dust[index2].velocity *= 3.25f;
 				}
 				modPlayer.graniteTime = 0;
+				Main.PlaySound(SoundID.Item88, projectile.Center);
 			}
 			else
 			{
@@ -89,6 +89,7 @@ namespace Emperia.Projectiles.Granite
 					Main.dust[index2].noGravity = true;
 					Main.dust[index2].velocity *= 2f;
 				}
+				Main.PlaySound(SoundID.Item14, projectile.Center);
 			}
 		}
 		

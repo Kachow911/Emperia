@@ -26,7 +26,7 @@ namespace Emperia.Items.Sets.PreHardmode.Granite
 			item.useTime = 44;
 			item.useAnimation = 44;
 			item.useStyle = 5;
-			item.knockBack = 2f;
+			item.knockBack = 2.25f;
 			item.value = 22500;
 			item.noMelee = true;
 			item.rare = 2;
@@ -52,7 +52,7 @@ namespace Emperia.Items.Sets.PreHardmode.Granite
 		if (count == 1)
 		{
 			type = mod.ProjectileType("GraniteRock2");
-			knockBack = 2.5f;
+			knockBack = 2.75f;
 			speedX *= .75f;
 			speedY *= .75f;
 		}
@@ -60,7 +60,7 @@ namespace Emperia.Items.Sets.PreHardmode.Granite
 		{
 			type = mod.ProjectileType("GraniteRock3");
 			damage = (damage * 51) / 31; 
-			knockBack = 3.25f;
+			knockBack = 3.5f;
 			speedX *= .55f;
 			speedY *= .55f;
 		}

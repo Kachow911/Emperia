@@ -16,8 +16,8 @@ namespace Emperia.Items.Weapons
 		}
 		public override void SetDefaults()
 		{
-			item.damage = 16;
-            item.crit = 4;
+			item.damage = 15;
+            item.crit = 2;
 			item.melee = true;
 			item.width = 22;
 			item.height = 22;
@@ -31,7 +31,7 @@ namespace Emperia.Items.Weapons
 			item.noUseGraphic = true;
 			item.noMelee = true;
 			item.shoot = mod.ProjectileType("PiranhaProjectile");
-            item.shootSpeed = 10.5f;
+            item.shootSpeed = 8f;
 			item.channel = true;
         }
 		
