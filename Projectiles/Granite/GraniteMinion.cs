@@ -142,13 +142,11 @@ namespace Emperia.Projectiles.Granite
 					if (hitTimer > num310) //hit the enemy
                     {
 						softUnlatch = false;
-						Main.npc[npc].StrikeNPC(projDamage, 0f, 0, false, false, false);
 						hitTimer = 0;
 						curHits++;
 						totalHits++;
 						if (totalHits >= 8)
                         {
-							Main.PlaySound(SoundID.Item14, projectile.Center);
 							Player player = Main.player[projectile.owner];
 							MyPlayer modPlayer = player.GetModPlayer<MyPlayer>();
 							if (modPlayer.graniteSet && modPlayer.graniteTime >= 1800)
@@ -156,7 +154,7 @@ namespace Emperia.Projectiles.Granite
 								for (int i = 0; i < Main.npc.Length; i++)
 								{
 									if (projectile.Distance(Main.npc[i].Center) < 90)
-										Main.npc[i].StrikeNPC(projDamage * 3, 0f, 0, false, false, false);
+										Main.npc[i].StrikeNPC(projDamage / 4 * 15, 0f, 0, false, false, false);
 								}
 								for (int i = 0; i < 45; ++i)
 								{
@@ -165,13 +163,14 @@ namespace Emperia.Projectiles.Granite
 									Main.dust[index2].velocity *= 3.25f;
 								}
 								modPlayer.graniteTime = 0;
+								Main.PlaySound(SoundID.Item14, projectile.Center);
 							}
 							else
 							{
 								for (int i = 0; i < Main.npc.Length; i++)
 								{
 									if (projectile.Distance(Main.npc[i].Center) < 60)
-										Main.npc[i].StrikeNPC(projDamage + projDamage / 2, 0f, 0, false, false, false);
+										Main.npc[i].StrikeNPC(projDamage * 2 + projDamage / 2, 0f, 0, false, false, false);
 								}
 								for (int i = 0; i < 30; ++i)
 								{
@@ -179,9 +178,13 @@ namespace Emperia.Projectiles.Granite
 									Main.dust[index2].noGravity = true;
 									Main.dust[index2].velocity *= 2f;
 								}
+								Main.PlaySound(SoundID.Item10, projectile.Center);
 							}
 							projectile.timeLeft = 0;
 							Main.npc[npc].GetGlobalNPC<MyNPC>().graniteMinID = -1;
+						}
+						else {
+							Main.npc[npc].StrikeNPC(projDamage, 0f, 0, false, false, false);
 						}
 						int num308 = firstHits ? 5 : 3;
 						

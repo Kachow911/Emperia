@@ -12,7 +12,7 @@ namespace Emperia.Projectiles
         bool latched;
         bool returning;
 		bool init = false;
-		int returntimer = 30; //player.yoyoString should increase it to 36
+		int returntimer = 34;
 		
 		NPC npc;
 		Vector2 offset;
@@ -51,7 +51,7 @@ namespace Emperia.Projectiles
 			{
 				init = true;
 				if (Main.player[projectile.owner].yoyoString)
-					returntimer = 36;
+					returntimer = 42;
 			}
             Player player = Main.player[projectile.owner];
             Vector2 playerCenter = player.MountedCenter;

@@ -24,7 +24,7 @@ namespace Emperia.Items.Sets.PreHardmode.Granite   //where is located
             item.useTime = 27;          //how fast 
             item.useAnimation = 27;     
             item.useStyle = 1;        //Style is how this item is used, 1 is the style of the sword
-            item.knockBack = 3.5f;      //Sword knockback
+            item.knockBack = 4.5f;      //Sword knockback
             item.value = 22500;        
             item.rare = 2;
 			item.scale = 1f;
@@ -54,7 +54,7 @@ namespace Emperia.Items.Sets.PreHardmode.Granite   //where is located
 				MyPlayer modPlayer = player.GetModPlayer<MyPlayer>();
 				if (modPlayer.graniteSet && modPlayer.graniteTime >= 1800)
 				{
-					Main.PlaySound(2, (int)target.position.X, (int)target.position.Y, 10);
+					Main.PlaySound(2, (int)target.position.X, (int)target.position.Y, 14);
 					for (int i = 0; i < Main.npc.Length; i++)
 					{
 						if (target.Distance(Main.npc[i].Center) < 114 && Main.npc[i] != target)
