@@ -47,9 +47,9 @@ namespace Emperia.Projectiles.Twilight
 			}
 
 		}
-		
 		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
-		{
+		{		
+
 			projectile.damage *= 2;
 		}
 		

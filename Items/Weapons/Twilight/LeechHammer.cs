@@ -13,7 +13,7 @@ namespace Emperia.Items.Weapons.Twilight
 		 public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Leech Hammer");
-			Tooltip.SetDefault("Hitting enemies with the hammer generates leech eyes around you");
+			Tooltip.SetDefault("Critical hits with the hammer generates leech eyes around you");
 		}
         public override void SetDefaults()
         {   //Sword name
@@ -24,14 +24,14 @@ namespace Emperia.Items.Weapons.Twilight
             item.useTime = 27;          //how fast 
             item.useAnimation = 27;     
             item.useStyle = 1;        //Style is how this item is used, 1 is the style of the sword
-            item.knockBack = 3.5f;      //Sword knockback
+            item.knockBack = 6f;      //Sword knockback
             item.value = 100;        
             item.rare = 3;
 			item.scale = 1f;
             item.autoReuse = true;   //if it's capable of autoswing.
             item.useTurn = true;             //projectile speed
 			item.UseSound = SoundID.Item1; 	
-			//item.shoot = 1;
+			//item.shoot = mod.ProjectileType("LeechEye");
 			//item.shootSpeed = 10f;
         }
 
@@ -54,12 +54,15 @@ namespace Emperia.Items.Weapons.Twilight
 			 recipe.SetResult(this);
 			 recipe.AddRecipe();
 		 }*/
+		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+		{
+	
+			return false;
+		}
 		public override void OnHitNPC(Player player, NPC target, int damage, float knockback, bool crit)
 		{
-			for (int i = 0; i < 1; i++)
-			{
+			if (crit)
 				Projectile.NewProjectile(player.Center.X + Main.rand.Next(-250, 15), player.Center.Y + Main.rand.Next(-300, 300), 0, 0, mod.ProjectileType("LeechEye"), 25, 1, Main.myPlayer, 60, 0);
-			}
 		}
     }
 }
