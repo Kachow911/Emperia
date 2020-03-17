@@ -74,7 +74,7 @@ namespace Emperia.Projectiles.Granite
 					Main.dust[index2].velocity *= 3.25f;
 				}
 				modPlayer.graniteTime = 0;
-				Main.PlaySound(SoundID.Item88, projectile.Center);
+				Main.PlaySound(SoundID.Item62, projectile.Center);
 			}
 			else
 			{
