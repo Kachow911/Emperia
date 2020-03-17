@@ -69,6 +69,10 @@ namespace Emperia.Items.Sets.PreHardmode.Granite
 		return true;
 		
 	}
+	public override Vector2? HoldoutOffset()
+	{
+		return new Vector2(0, -2);
+	}
 	public override void AddRecipes()
     {
         ModRecipe recipe = new ModRecipe(mod);
