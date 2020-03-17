@@ -56,7 +56,10 @@ namespace Emperia
         public bool forestSetThrown = false;
         public bool forestSetSummon = false;
 		public bool graniteSet = false;
-        public int dayVergeProjTime = 0;
+		public bool carapaceSet = false;
+		public bool doPound = false;
+		bool velocityPos = false;
+		public int dayVergeProjTime = 0;
 		bool canJump = false;
         bool placedPlant = false;
 		bool changedVelocity;
@@ -85,7 +88,7 @@ namespace Emperia
 		public int eschargo = -5;
         public override void ResetEffects()
         {
-
+			carapaceSet = false;
 			EmberTyrant = false;
 			breakingPoint = false;
 			terraGauntlet = false;
@@ -459,6 +462,29 @@ namespace Emperia
 		}
 		public override void PreUpdate()
 		{
+			
+			if (carapaceSet && player.controlDown && player.velocity.Y != 0)
+			{
+				int dust = Dust.NewDust(new Vector2(player.position.X, (float)((double)player.position.Y + (double)player.height - 16.0)), player.width, 16, 32, 0.0f, 0.0f, 0, new Color(), 1.5f);
+				Main.dust[dust].velocity *= 0.1f;
+				Main.dust[dust].velocity += player.velocity * 0.2f;
+				Main.dust[dust].position.X = player.Center.X + 4f + (float)Main.rand.Next(-2, 3);
+				Main.dust[dust].position.Y = player.Center.Y + (float)Main.rand.Next(-2, 3);
+				Main.dust[dust].noGravity = true;
+				player.velocity.Y = 51f;
+					doPound = true;
+			}
+			if (carapaceSet && doPound && player.velocity.Y == 0)
+            {
+				for (int i = -15; i < 15; i+=3)
+                {
+					int dust = Dust.NewDust(new Vector2(player.position.X + i, (float)((double)player.position.Y + player.height)), player.width, 16, 32, 0.0f, 0.0f, 0, new Color(), 1.5f);
+					Main.dust[dust].velocity = new Vector2(i/2, -3);
+
+				}
+				doPound = false;
+            }
+			//velocityPos = (player.velocity.Y > 0);
 			{
 				{
 					{
