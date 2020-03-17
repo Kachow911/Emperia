@@ -482,6 +482,7 @@ namespace Emperia
 					Main.dust[dust].velocity = new Vector2(i/2, -3);
 
 				}
+				Projectile.NewProjectile(player.position.X, player.position.Y + 20, 0f, 0f, mod.ProjectileType("PoundProj"), 40, 0f, player.whoAmI, 0f, 0f);
 				doPound = false;
             }
 			//velocityPos = (player.velocity.Y > 0);
