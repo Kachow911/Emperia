@@ -102,15 +102,9 @@ namespace Emperia
 
                                 }
 								int[] grassTiles2 = { 0, 147 }; // dirt & grass
-								if (grassTiles.Contains(Main.tile[xTile + xAdd, yTile + yAdd].type))
+								if (grassTiles2.Contains(Main.tile[xTile + xAdd, yTile + yAdd].type))
 								{
 									Main.tile[xTile + xAdd, yTile + yAdd].type = (ushort)mod.TileType("TwilightDirt");
-									if (Framing.GetTileSafely(xTile + xAdd, yTile + yAdd - 1).type == 0)
-									{
-										WorldGen.KillTile(xTile + xAdd, yTile + yAdd - 1);
-										//WorldGen.PlaceTile(xTile + xAdd, yTile + yAdd - 1, mod.TileType("AphoticStone"));
-									}
-
 
 								}
 								/*int[] floraTiles = { 3, 27, 73}; // plants

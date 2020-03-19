@@ -5,19 +5,19 @@ using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using Terraria.ModLoader;
 
-namespace Emperia.Items.Sets.Hardmode.Lightning
+namespace Emperia.Items.Sets.Hardmode.Corrupt
 {
-    public class ConductiveConverger : ModItem
+    public class RotfireBow : ModItem
     {
 		//int counter = 0;
 		public override void SetStaticDefaults()
 		{
 			//DisplayName.SetDefault("Granite Bow");
-			Tooltip.SetDefault("Replaces wooden arrows with lightning bolts\n33% chance not to consume ammo");
+			Tooltip.SetDefault("Shoots out cursed flames along with the arrow");
 		}
         public override void SetDefaults()
         {
-            item.damage = 34;
+            item.damage = 38;
             item.noMelee = true;
             item.ranged = true;
             item.width = 30;
@@ -37,18 +37,12 @@ namespace Emperia.Items.Sets.Hardmode.Lightning
 
 		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
 		{
-			if (type == ProjectileID.WoodenArrowFriendly)
-			{
-				type = mod.ProjectileType("LightningArrow");
-			}
+			Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedBy(MathHelper.ToRadians(Main.rand.Next(-20, 20)));
+			Projectile.NewProjectile(position.X, position.Y, perturbedSpeed.X / 2, perturbedSpeed.Y / 2, mod.ProjectileType("FireBallCursed2"), damage, knockBack, player.whoAmI);
 			return true;
 
 		}
 
-		public override bool ConsumeAmmo(Player player)
-		{
-			return !(Main.rand.Next(3) == 0);
-		}
 
 		public override Vector2? HoldoutOffset()
 		{

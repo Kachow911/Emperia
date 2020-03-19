@@ -21,8 +21,8 @@ namespace Emperia.Npcs.Twilight
 
 		public override void SetDefaults()
 		{
-			npc.width = 62;
-			npc.height = 96;
+			npc.width = 48;
+			npc.height = 92;
 			npc.damage = 35;
 			npc.defense = 15;
 			npc.lifeMax = 380;
