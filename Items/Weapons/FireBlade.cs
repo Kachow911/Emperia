@@ -33,5 +33,5 @@ namespace Emperia.Items.Weapons   //where is located
 				}
 			}
 		}
-    }
+	}
 }

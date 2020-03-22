@@ -36,6 +36,21 @@ namespace Emperia
                     //CombatText.NewText(new Rectangle((int)target.position.X, (int)target.position.Y - 20, target.width, target.height), Color.White, "Defense Ignored!", false, false);
                 }
             }
+           
+        }
+        public override void OnHitNPC(Projectile projectile, NPC target, int damage, float knockback, bool crit)
+        {
+            Player player = Main.player[projectile.owner];
+            if (target.life <= 0 && projectile.thrown && player.GetModPlayer<MyPlayer>().rotfireSet)
+            {
+                for (int i = 0; i < 6; i++)
+                {
+
+                    Vector2 perturbedSpeed = new Vector2(0, 4).RotatedBy(MathHelper.ToRadians(90 + 60 * i));
+                    Projectile.NewProjectile(target.Center.X, target.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, mod.ProjectileType("CursedBoltSeeking"), 50, 1, Main.myPlayer, 0, 0);
+
+                }
+            }
         }
 
 

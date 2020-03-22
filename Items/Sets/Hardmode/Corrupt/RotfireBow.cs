@@ -17,7 +17,7 @@ namespace Emperia.Items.Sets.Hardmode.Corrupt
 		}
         public override void SetDefaults()
         {
-            item.damage = 38;
+            item.damage = 41;
             item.noMelee = true;
             item.ranged = true;
             item.width = 30;
@@ -48,14 +48,16 @@ namespace Emperia.Items.Sets.Hardmode.Corrupt
 		{
 			return new Vector2(-5, 0);
 		}
-		
-        public override void AddRecipes()
+
+		public override void AddRecipes()
 		{
-			/*ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(null, "GraniteBar", 8);
-			recipe.AddTile(TileID.Anvils);
+			ModRecipe recipe = new ModRecipe(mod);
+			recipe.AddIngredient(ItemID.RottenChunk, 2);
+			recipe.AddIngredient(ItemID.CursedFlame, 10);
+			recipe.AddIngredient(ItemID.SoulofNight, 1);
+			recipe.AddTile(TileID.MythrilAnvil);
 			recipe.SetResult(this);
-			recipe.AddRecipe();*/
+			recipe.AddRecipe();
 		}
-    }
+	}
 }

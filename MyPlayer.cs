@@ -57,6 +57,7 @@ namespace Emperia
         public bool forestSetSummon = false;
 		public bool graniteSet = false;
 		public bool carapaceSet = false;
+		public bool rotfireSet = false;
 		public bool doPound = false;
 		bool velocityPos = false;
 		public int dayVergeProjTime = 0;
@@ -88,6 +89,7 @@ namespace Emperia
 		public int eschargo = -5;
         public override void ResetEffects()
         {
+			rotfireSet = false;
 			carapaceSet = false;
 			EmberTyrant = false;
 			breakingPoint = false;

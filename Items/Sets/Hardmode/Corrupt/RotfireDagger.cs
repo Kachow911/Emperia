@@ -31,12 +31,12 @@ namespace Emperia.Items.Sets.Hardmode.Corrupt
             item.shoot = mod.ProjectileType("RotDaggerProj");
             item.useAnimation = 25;
             item.useTime = 25;
-            item.shootSpeed = 8.0f;
-            item.damage = 34;
+            item.shootSpeed = 12.0f;
+            item.damage = 38;
             item.knockBack = 3.5f;
 			item.value = Item.sellPrice(0, 0, 1, 50);
             item.crit = 4;
-            item.rare = 2;
+            item.rare = 4;
             item.autoReuse = true;
             item.maxStack = 999;
             item.consumable = true;
@@ -51,5 +51,15 @@ namespace Emperia.Items.Sets.Hardmode.Corrupt
 			}
 			return false; 
 		}
+        public override void AddRecipes()
+        {
+            ModRecipe recipe = new ModRecipe(mod);
+            recipe.AddIngredient(ItemID.RottenChunk, 2);
+            recipe.AddIngredient(ItemID.CursedFlame, 10);
+            recipe.AddIngredient(ItemID.SoulofNight, 1);
+            recipe.AddTile(TileID.MythrilAnvil);
+            recipe.SetResult(this);
+            recipe.AddRecipe();
+        }
     }
 }

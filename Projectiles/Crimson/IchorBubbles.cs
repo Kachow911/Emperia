@@ -36,7 +36,7 @@ namespace Emperia.Projectiles.Crimson
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
             if (Main.rand.Next(2) == 0)
-                target.AddBuff(BuffID.Ichor, 300);
+                target.AddBuff(BuffID.Ichor, 600);
         }
         public override void Kill(int timeLeft)
         {

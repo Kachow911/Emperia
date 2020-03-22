@@ -8,8 +8,8 @@ namespace Emperia.Tiles.Water
 	{
 		public override bool ChooseWaterStyle()
 		{
-			//return Main.bgStyle == mod.GetSurfaceBgStyleSlot("TwilightSurfaceBg");
-			return true;
+			return Main.bgStyle == mod.GetSurfaceBgStyleSlot("TwilightSurfaceBg");
+			//return true;
 		}
 
 		public override int ChooseWaterfallStyle()

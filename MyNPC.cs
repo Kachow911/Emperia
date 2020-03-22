@@ -41,12 +41,12 @@ namespace Emperia
 		
 		public override void SetupShop(int type, Chest shop, ref int nextSlot)
 		{
-			/*if (type == NPCID.Dryad)
+			if (type == NPCID.Merchant)
 			{
-				shop.item[nextSlot].SetDefaults(mod.ItemType<Items.ChestnutSeeds>());
+				shop.item[nextSlot].SetDefaults(mod.ItemType("Lasagna"));
 				nextSlot++;
 
-			}*/
+			}
 		}
         public override void UpdateLifeRegen(NPC npc, ref int damage)
         {

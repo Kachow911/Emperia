@@ -37,11 +37,11 @@ namespace Emperia.Projectiles.Corrupt
             Main.dust[index2].noGravity = true;
             Main.dust[index2].velocity = projectile.velocity * 0.5f;
         }
-		/*public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
 			if (Main.rand.Next(3) == 0)
-			 target.AddBuff(BuffID.Poisoned, 240);
-		}*/
+			 target.AddBuff(BuffID.CursedInferno, 240);
+		}
 		public override void Kill(int timeLeft)
         {
             Main.PlaySound(SoundID.Dig, projectile.Center);

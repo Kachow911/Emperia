@@ -20,7 +20,7 @@ namespace Emperia.Items.Sets.Hardmode.Corrupt
         int charger;
         public override void SetDefaults()
         {
-            item.damage = 41;
+            item.damage = 49;
             item.melee = true;
             item.width = 46;
             item.height = 66;
@@ -37,7 +37,7 @@ namespace Emperia.Items.Sets.Hardmode.Corrupt
         }
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
-            int numberProjectiles = Main.rand.Next(1, 3);
+            int numberProjectiles = Main.rand.Next(1, 2);
             for (int i = 0; i < numberProjectiles; i++)
             {
                 Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(12));
@@ -50,6 +50,16 @@ namespace Emperia.Items.Sets.Hardmode.Corrupt
             {
                 target.AddBuff(BuffID.CursedInferno, 180);
             }
+        }
+        public override void AddRecipes()
+        {
+            ModRecipe recipe = new ModRecipe(mod);
+            recipe.AddIngredient(ItemID.RottenChunk, 2);
+            recipe.AddIngredient(ItemID.CursedFlame, 10);
+            recipe.AddIngredient(ItemID.SoulofNight, 1);
+            recipe.AddTile(TileID.MythrilAnvil);
+            recipe.SetResult(this);
+            recipe.AddRecipe();
         }
 
     }

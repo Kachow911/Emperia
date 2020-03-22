@@ -22,7 +22,7 @@ namespace Emperia.Items.Sets.Hardmode.Corrupt
 		public override void SetDefaults()
 		{
 
-			item.damage = 42;
+			item.damage = 53;
 			item.magic = true;
 			item.mana = 15;
 			item.width = 25;
@@ -48,25 +48,16 @@ namespace Emperia.Items.Sets.Hardmode.Corrupt
 		  //DisplayName.SetDefault("Tesla Coil Rod");
 		  Tooltip.SetDefault("Fires a burst of cursed flames");
 		}
-		
-		/*public override void AddRecipes()
+
+		public override void AddRecipes()
 		{
 			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(null, "JungleMaterial", 5);
-			recipe.AddIngredient(ItemID.AdamantiteBar, 2);
-			recipe.AddIngredient(ItemID.SoulofNight, 2);
-			recipe.AddIngredient(ItemID.SoulofLight, 2);
+			recipe.AddIngredient(ItemID.RottenChunk, 2);
+			recipe.AddIngredient(ItemID.CursedFlame, 10);
+			recipe.AddIngredient(ItemID.SoulofNight, 1);
 			recipe.AddTile(TileID.MythrilAnvil);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
-			recipe = new ModRecipe(mod);
-			recipe.AddIngredient(null, "JungleMaterial", 5);
-			recipe.AddIngredient(ItemID.TitaniumBar, 2);
-			recipe.AddIngredient(ItemID.SoulofNight, 2);
-			recipe.AddIngredient(ItemID.SoulofLight, 2);
-			recipe.AddTile(TileID.MythrilAnvil);
-			recipe.SetResult(this);
-			recipe.AddRecipe();
-		}*/
+		}
 	}
 }

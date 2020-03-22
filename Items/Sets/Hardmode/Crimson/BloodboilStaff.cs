@@ -22,7 +22,7 @@ namespace Emperia.Items.Sets.Hardmode.Crimson
 		public override void SetDefaults()
 		{
 
-			item.damage = 24;
+			item.damage = 48;
 			item.magic = true;
 			item.mana = 5;
 			item.width = 25;
