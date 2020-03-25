@@ -32,14 +32,6 @@ namespace Emperia.Items.Sets.PreHardmode.Desert
             item.useTurn = true;             //player speed
 			item.UseSound = SoundID.Item1; 			
         }
-		public override void AddRecipes()
-        {
-            /*ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(null, "PolishedSandstone", 12);
-		    recipe.AddTile(TileID.Anvils);
-            recipe.SetResult(this);
-            recipe.AddRecipe();*/
-        }
 		public override void OnHitNPC(Player player, NPC target, int damage, float knockback, bool crit)
         {
 			
@@ -54,5 +46,14 @@ namespace Emperia.Items.Sets.PreHardmode.Desert
             }
         
 		}
+        public override void AddRecipes()
+        {
+            ModRecipe recipe = new ModRecipe(mod);
+            recipe.AddIngredient(null, "AridScale", 3);
+            recipe.AddTile(TileID.Anvils);
+            recipe.SetResult(this);
+            recipe.AddRecipe();
+
+        }
     }
 }

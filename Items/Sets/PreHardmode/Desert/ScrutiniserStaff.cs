@@ -56,5 +56,14 @@ namespace Emperia.Items.Sets.PreHardmode.Desert
             speedX = speedY = 0;
             return true;
         }
-	}
+        public override void AddRecipes()
+        {
+            ModRecipe recipe = new ModRecipe(mod);
+            recipe.AddIngredient(null, "DesertEye", 3);
+            recipe.AddTile(TileID.Anvils);
+            recipe.SetResult(this);
+            recipe.AddRecipe();
+
+        }
+    }
 }

@@ -49,5 +49,14 @@ namespace Emperia.Items.Sets.PreHardmode.Desert
 		{
 			return new Vector2(-8, 0);
 		}
+		public override void AddRecipes()
+        {
+            ModRecipe recipe = new ModRecipe(mod);
+            recipe.AddIngredient(null, "AridScale", 3);
+            recipe.AddTile(TileID.Anvils);
+            recipe.SetResult(this);
+            recipe.AddRecipe();
+
+        }
     }
 }

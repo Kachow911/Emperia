@@ -24,7 +24,7 @@ namespace Emperia.Npcs
         {
             npc.aiStyle = -1;
             npc.lifeMax = 150;
-            npc.damage = 25;
+            npc.damage = 20;
             npc.defense = 5;
             npc.knockBackResist = 3f;
             npc.width = 40;
@@ -51,22 +51,22 @@ namespace Emperia.Npcs
             }
             else
             {
-                if (npc.Center.X >= player.Center.X && moveSpeed >= -25) 
+                if (npc.Center.X >= player.Center.X && moveSpeed >= -20) 
                 {
                     moveSpeed--;
                 }
 
-                if (npc.Center.X <= player.Center.X && moveSpeed <= 25)
+                if (npc.Center.X <= player.Center.X && moveSpeed <= 20)
                 {
                     moveSpeed++;
                 }
-                if (npc.Center.Y >= player.Center.Y - HomeY && moveSpeedY >= -30)
+                if (npc.Center.Y >= player.Center.Y - HomeY && moveSpeedY >= -20)
                 {
                     moveSpeedY--;
                     HomeY = 35f;
                 }
 
-                if (npc.Center.Y <= player.Center.Y - HomeY && moveSpeedY <= 30)
+                if (npc.Center.Y <= player.Center.Y - HomeY && moveSpeedY <= 20)
                 {
                     moveSpeedY++;
                 }

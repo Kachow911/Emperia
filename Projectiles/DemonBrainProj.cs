@@ -34,6 +34,7 @@ namespace Emperia.Projectiles
 			int dust = Dust.NewDust(projectile.position + projectile.velocity, projectile.width, projectile.height, DustID.Shadowflame, 0f, 0f);
 			Main.dust[dust].scale = 1.0f;
 			Main.dust[dust].velocity *= 0f;
+            projectile.rotation += .5f;
 
         }
 		public override void Kill(int timeLeft)

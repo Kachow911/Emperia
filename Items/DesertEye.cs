@@ -3,11 +3,11 @@ using Terraria.ModLoader;
 
 namespace Emperia.Items
 {
-	public class AridScale : ModItem
+	public class DesertEye : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Arid Scale");
+			DisplayName.SetDefault("Arid Eye");
 		}
 		public override void SetDefaults()
 		{

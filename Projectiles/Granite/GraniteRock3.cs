@@ -69,7 +69,7 @@ namespace Emperia.Projectiles.Granite
             	}
 				for (int i = 0; i < 45; ++i)
 				{
-					int index2 = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, 15, 0.0f, 0.0f, 15, new Color(53f, 67f, 253f), 2f);
+					int index2 = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, 226, 0.0f, 0.0f, 15, new Color(53f, 67f, 253f), 2f);
 					Main.dust[index2].noGravity = true;
 					Main.dust[index2].velocity *= 3.25f;
 				}

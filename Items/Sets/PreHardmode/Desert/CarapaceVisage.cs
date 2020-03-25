@@ -42,14 +42,16 @@ public class CarapaceVisage : ModItem
     {
             player.endurance += 0.05f;
         }
-    
-    public override void AddRecipes()
-    {
-        /*ModRecipe recipe = new ModRecipe(mod);
-        recipe.AddIngredient(null, "GraniteBar", 8);
-        recipe.AddRecipeGroup("Emperia:EvilHide", 4);
-        recipe.AddTile(TileID.Anvils);
-        recipe.SetResult(this);
-        recipe.AddRecipe();*/
+
+        public override void AddRecipes()
+        {
+            ModRecipe recipe = new ModRecipe(mod);
+            recipe.AddIngredient(null, "AridScale", 4);
+            recipe.AddIngredient(null, "DesertEye", 2);
+            recipe.AddTile(TileID.Anvils);
+            recipe.SetResult(this);
+            recipe.AddRecipe();
+
+        }
     }
-}}
+}

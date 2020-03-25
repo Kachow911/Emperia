@@ -35,13 +35,15 @@ public class CarapaceMantle : ModItem
             player.minionDamage *= 1.04f;
         }
 
-    public override void AddRecipes()
-    {
-       /* ModRecipe recipe = new ModRecipe(mod);
-        recipe.AddIngredient(null, "GraniteBar", 12);
-        recipe.AddRecipeGroup("Emperia:EvilHide", 9);
-        recipe.AddTile(TileID.Anvils);
-        recipe.SetResult(this);
-        recipe.AddRecipe();*/
+        public override void AddRecipes()
+        {
+            ModRecipe recipe = new ModRecipe(mod);
+            recipe.AddIngredient(null, "AridScale", 5);
+            recipe.AddIngredient(null, "DesertEye", 3);
+            recipe.AddTile(TileID.Anvils);
+            recipe.SetResult(this);
+            recipe.AddRecipe();
+
+        }
     }
-}}
+}
