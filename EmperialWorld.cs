@@ -188,9 +188,10 @@ namespace Emperia
 
 						WorldGen.SpreadGrass(x, y, mod.TileType("TwilightDirt"), mod.TileType("TwilightGrass"));
 
-						if (Main.tile[x, y].type == mod.TileType("TwilightGrass"))// && Main.tile[x, y].slope() == 0 && !Main.tile[x, y].halfBrick() && !Main.tile[x, y - 1].active() && !Main.tile[x, y - 2].active())
+						if (Main.tile[x, y].type == mod.TileType("TwilightGrass") && Main.tile[x, y].slope() == 0 && !Main.tile[x, y].halfBrick() && !Main.tile[x, y - 1].active() && !Main.tile[x, y - 2].active())// && Main.tile[x, y].slope() == 0 && !Main.tile[x, y].halfBrick() && !Main.tile[x, y - 1].active() && !Main.tile[x, y - 2].active())
 						{
-							WorldGen.PlaceTile(x, y - 1, TileID.Plants, true);
+							WorldGen.PlaceTile(x, y - 1, mod.TileType("TwilightFlora"), true);
+							Main.tile[x, y - 1].frameX = (short)4;
 						}
 					}
 				}

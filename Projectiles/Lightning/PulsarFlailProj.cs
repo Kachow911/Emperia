@@ -21,7 +21,13 @@ namespace Emperia.Projectiles.Lightning
             projectile.timeLeft = 1000;
 			Main.projFrames[projectile.type] = 1;
         }
-
+        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        {
+            Player player = Main.player[projectile.owner];
+            MyPlayer modPlayer = player.GetModPlayer<MyPlayer>();
+            if (modPlayer.lightningSet)
+                modPlayer.lightningDamage += damage;
+        }
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Pulsar Flail");

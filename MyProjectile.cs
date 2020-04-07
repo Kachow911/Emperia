@@ -25,6 +25,7 @@ namespace Emperia
 			get { return true; }
 		}
 		public bool scoriaExplosion = false;
+        public bool chillEffect = false;
         public override void ModifyHitNPC(Projectile projectile,NPC target,ref int damage,ref float knockback,ref bool crit,ref int hitDirection)
         {
             Player player = Main.player[projectile.owner];
@@ -50,6 +51,21 @@ namespace Emperia
                     Projectile.NewProjectile(target.Center.X, target.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, mod.ProjectileType("CursedBoltSeeking"), 50, 1, Main.myPlayer, 0, 0);
 
                 }
+            }
+            if (target.life <= 0 && projectile.magic && player.GetModPlayer<MyPlayer>().bloodboilSet)
+            {
+                for (int i = 0; i < 4; i++)
+                {
+
+                    Vector2 perturbedSpeed = new Vector2(0, 4).RotatedByRandom(MathHelper.ToRadians(360));
+                    Projectile.NewProjectile(target.Center.X, target.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, mod.ProjectileType("IchorBoltSeeking"), 40, 1, Main.myPlayer, 0, 0);
+
+                }
+            }
+            if (chillEffect)
+            {
+                target.GetGlobalNPC<MyNPC>().chillStacks += 1;
+                target.AddBuff(mod.BuffType("CrushingFreeze"), 300);
             }
         }
 

@@ -65,6 +65,10 @@ namespace Emperia.Projectiles.Lightning
 		
 		 public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
+			Player player = Main.player[projectile.owner];
+			MyPlayer modPlayer = player.GetModPlayer<MyPlayer>();
+			if (modPlayer.lightningSet)
+				modPlayer.lightningDamage += damage;
 			int count = 0;
 			for (int npcFinder = 0; npcFinder < 200; ++npcFinder)
 			{

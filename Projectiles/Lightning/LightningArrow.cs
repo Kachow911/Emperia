@@ -72,6 +72,10 @@ namespace Emperia.Projectiles.Lightning
 		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
 		{
 			target.AddBuff(mod.BuffType("ElecHostile"), 120);
+			Player player = Main.player[projectile.owner];
+			MyPlayer modPlayer = player.GetModPlayer<MyPlayer>();
+			if (modPlayer.lightningSet)
+				modPlayer.lightningDamage += damage;
 		}
 		
 		public override void AI()

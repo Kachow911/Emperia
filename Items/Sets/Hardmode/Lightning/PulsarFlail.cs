@@ -1,7 +1,18 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.IO;
+using System.Threading.Tasks;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
+using Terraria.DataStructures;
+using Terraria.Graphics.Shaders;
+using Terraria.ModLoader.IO;
+using Terraria.GameInput;
 
 
 namespace Emperia.Items.Sets.Hardmode.Lightning
@@ -32,7 +43,13 @@ namespace Emperia.Items.Sets.Hardmode.Lightning
         {
             DisplayName.SetDefault("Pulsar Flail");
         }
-		
+        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+        {
+            MyPlayer modPlayer = player.GetModPlayer<MyPlayer>();
+            if (modPlayer.lightningSet)
+                Projectile.NewProjectile(player.Center.X, player.Center.Y, 0, 0, mod.ProjectileType("LightningSetEffect"), 25, knockBack, player.whoAmI);
+            return true;
+        }
         public override bool CanUseItem(Player player)
         {
 			int count= 0;

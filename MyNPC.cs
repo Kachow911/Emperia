@@ -18,8 +18,11 @@ namespace Emperia
 		public bool electrified = false;
 		public bool moreCoins = false;
 		public bool graniteMinionLatched = false;
+		public bool crushFreeze = false;
 		public int graniteMinID = -1;
         public int spineCount = 0;
+		public int chillStacks = 0;
+		
 		int InfirmaryTimer = 30;
         int poisonTimer = 0;
 
@@ -30,6 +33,7 @@ namespace Emperia
 			//spineCount = 0;
 			vermillionVenom = false;
 			indigoInfirmary = false;
+			crushFreeze = false;
 			burningNight = false;
 			fatesDemise = false;
 			sporeStorm = false;
@@ -74,6 +78,10 @@ namespace Emperia
 		
 		public override void AI(NPC npc)
 		{
+			if (!crushFreeze)
+            {
+				chillStacks = 0;
+            }
 			poisonTimer++;
 			if (spineCount > 0 && poisonTimer % 25 == 0)
 			{
@@ -103,6 +111,11 @@ namespace Emperia
 						damage = 2;
 					if (player.statLife < (player.statLifeMax2 / 4))
 						damage = 1;
+					npc.StrikeNPCNoInteraction(damage, 0, 0, false, false, false);
+				}
+				if (crushFreeze)
+                {
+					int damage = chillStacks;
 					npc.StrikeNPCNoInteraction(damage, 0, 0, false, false, false);
 				}
 			}
@@ -267,6 +280,8 @@ namespace Emperia
 			{
 				damage = (int)(damage * 0.9f);
 			}
+			if (crushFreeze)
+				damage = (int)(damage * (1 - .05 * chillStacks));
 		}
         public override void ModifyHitByProjectile(NPC npc, Projectile projectile, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
         {

@@ -47,7 +47,13 @@ namespace Emperia.Items.Sets.Hardmode.Lightning
 		  DisplayName.SetDefault("Tesla Coil Rod");
 		  Tooltip.SetDefault("Fires a bolt of lightning");
 		}
-		
+		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+		{
+			MyPlayer modPlayer = player.GetModPlayer<MyPlayer>();
+			if (modPlayer.lightningSet)
+				Projectile.NewProjectile(player.Center.X, player.Center.Y, 0, 0, mod.ProjectileType("LightningSetEffect"), 25, knockBack, player.whoAmI);
+			return true;
+		}
 		/*public override void AddRecipes()
 		{
 			ModRecipe recipe = new ModRecipe(mod);

@@ -32,11 +32,15 @@ namespace Emperia.Items.Sets.Hardmode.Lightning
             item.UseSound = SoundID.Item1;   
             item.autoReuse = true;
             item.useTurn = false;
+            item.shoot = 2;
         }
         public override void OnHitNPC(Player player, NPC target, int damage, float knockback, bool crit)
         {
             if (Main.rand.Next(8) == 0)
             target.AddBuff(mod.BuffType("ElecHostile"), 240);
+            MyPlayer modPlayer = player.GetModPlayer<MyPlayer>();
+            if (modPlayer.lightningSet)
+                modPlayer.lightningDamage += damage;
         }
         public override void MeleeEffects(Player player, Rectangle hitbox)
         {
@@ -46,6 +50,13 @@ namespace Emperia.Items.Sets.Hardmode.Lightning
                 Main.dust[dust].velocity *= 0f;
 
             }
+        }
+        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+        {
+            MyPlayer modPlayer = player.GetModPlayer<MyPlayer>();
+            if (modPlayer.lightningSet)
+                Projectile.NewProjectile(player.Center.X, player.Center.Y, 0, 0, mod.ProjectileType("LightningSetEffect"), 25, knockBack, player.whoAmI);
+            return false;
         }
         public override void ModifyHitNPC(Player player, NPC target, ref int damage, ref float knockBack, ref bool crit)
         {

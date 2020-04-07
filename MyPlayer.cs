@@ -58,6 +58,9 @@ namespace Emperia
 		public bool graniteSet = false;
 		public bool carapaceSet = false;
 		public bool rotfireSet = false;
+		public bool bloodboilSet = false;
+		public bool lightningSet = false;
+		public bool chillsteelSet = false;
 		public bool doPound = false;
 		bool velocityPos = false;
 		public int dayVergeProjTime = 0;
@@ -76,9 +79,11 @@ namespace Emperia
 		private int pressTime = 0;
 		public int sporeCount = 0;
 		public int sporeBuffCount = 0;
+		public int lightningDamage = 0;
 		public int OathCooldown = 720;
 		private int peltCounter = 120;
 		private int peltRadius = 256;
+
 		private int forestSetMeleeCooldown = 60;
 		int SporeHealCooldown = 60;
         int incDefTime = 0;
@@ -89,6 +94,9 @@ namespace Emperia
 		public int eschargo = -5;
         public override void ResetEffects()
         {
+			chillsteelSet = false;
+			bloodboilSet = false;
+			lightningSet = false;
 			rotfireSet = false;
 			carapaceSet = false;
 			EmberTyrant = false;
@@ -154,6 +162,23 @@ namespace Emperia
 		}
         public override void PostUpdate()
         {
+			if (!lightningSet)
+				lightningDamage = 0;
+			if (lightningSet && lightningDamage >= 500)
+            {
+				player.AddBuff(mod.BuffType("Supercharged"), 300);
+				for (int i = 0; i < 360; i++)
+				{
+					Vector2 vec = Vector2.Transform(new Vector2(-15, 0), Matrix.CreateRotationZ(MathHelper.ToRadians(i)));
+					if (i % 20 == 0)
+					{
+						int b = Dust.NewDust(player.Center, Main.rand.Next(1, 7), Main.rand.Next(1, 7), 226);
+						Main.dust[b].noGravity = true;
+						Main.dust[b].velocity = vec;
+					}
+				}
+				lightningDamage = 0;
+			}
 			if (graniteSet && graniteTime <= 1800)
 				graniteTime++;
 			if (forestSetMage && primalRageTime >= 0)
@@ -553,6 +578,16 @@ namespace Emperia
                 Main.projectile[p].hostile = false;
                 Main.projectile[p].scale = 0.7f;
             }
+			if (chillsteelSet)
+			{
+				for (int i = 0; i < 4; i++)
+				{
+
+					Vector2 perturbedSpeed = new Vector2(0, 4).RotatedByRandom(MathHelper.ToRadians(360));
+					Projectile.NewProjectile(player.Center.X, player.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, mod.ProjectileType("FrostBoltSeeking"), 15, 1, Main.myPlayer, 0, 0);
+
+				}
+			}
 		}
 		public override void ModifyHitNPC (Item item, NPC target, ref int damage, ref float knockback, ref bool crit)
 		{

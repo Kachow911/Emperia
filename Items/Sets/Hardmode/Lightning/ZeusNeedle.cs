@@ -38,6 +38,9 @@ namespace Emperia.Items.Sets.Hardmode.Lightning
         }
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type1, ref int damage, ref float knockBack)
         {
+            MyPlayer modPlayer = player.GetModPlayer<MyPlayer>();
+            if (modPlayer.lightningSet)
+                Projectile.NewProjectile(player.Center.X, player.Center.Y, 0, 0, mod.ProjectileType("LightningSetEffect"), 25, knockBack, player.whoAmI);
             int num250 = Dust.NewDust(new Vector2(player.position.X, player.position.Y - 16), 8, 8, 226, (float)(player.direction * 2), 0f, 226, new Color(53f, 67f, 253f), 1.3f);
             return true;
         }

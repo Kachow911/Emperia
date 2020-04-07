@@ -31,9 +31,14 @@ namespace Emperia.Projectiles.Lightning
             projectile.ignoreWater = true;
 			projectile.alpha = 255;
         }
+	
 		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
 		{
 			target.AddBuff(mod.BuffType("ElecHostile"), 240);
+			Player player = Main.player[projectile.owner];
+			MyPlayer modPlayer = player.GetModPlayer<MyPlayer>();
+			if (modPlayer.lightningSet)
+				modPlayer.lightningDamage += damage;
 		}
 		public override void AI()           //projectile make that the projectile will face the corect way
         {             

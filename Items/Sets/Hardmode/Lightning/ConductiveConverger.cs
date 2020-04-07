@@ -41,6 +41,10 @@ namespace Emperia.Items.Sets.Hardmode.Lightning
 			{
 				type = mod.ProjectileType("LightningArrow");
 			}
+
+			MyPlayer modPlayer = player.GetModPlayer<MyPlayer>();
+			if (modPlayer.lightningSet)
+				Projectile.NewProjectile(player.Center.X, player.Center.Y, 0, 0, mod.ProjectileType("LightningSetEffect"), 25, knockBack, player.whoAmI);
 			return true;
 
 		}
