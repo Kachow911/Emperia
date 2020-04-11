@@ -23,6 +23,11 @@ namespace Emperia
         public int spineCount = 0;
 		public int chillStacks = 0;
 		
+        public int strikeCount = 0;
+		public int desertSpikeTime = 0;
+		public int impaledDirection = 0;
+		public float desertSpikeHeight = 0;
+		public bool impaledGravity = true;
 		int InfirmaryTimer = 30;
         int poisonTimer = 0;
 
@@ -39,6 +44,7 @@ namespace Emperia
 			sporeStorm = false;
             moreDamage = false;
 			moreCoins = false;
+			strikeCount = 0;	
 			//graniteMinionLatched = false;
 		} 
 		public override bool InstancePerEntity {get{return true;}}
@@ -134,7 +140,37 @@ namespace Emperia
 			}
             spineCount = 0;
 			
-			
+			if (desertSpikeTime < 0)
+			{
+				desertSpikeTime++;
+				npc.velocity.X = 0;				
+			}
+			if (desertSpikeTime > 0)
+			{
+				desertSpikeTime--;
+				npc.direction = impaledDirection;
+				npc.velocity.X = 0;
+
+				if (npc.Bottom.Y > desertSpikeHeight)
+				{
+					npc.velocity.Y = -8;
+					if (npc.noGravity == false)
+					{
+						npc.noGravity = true;
+						impaledGravity = false;
+					}
+				}
+				else
+				{
+					npc.velocity.Y = 0.0001f; //so game thinks they're airbone
+				}
+
+				if (desertSpikeTime == 1)
+				{
+					npc.noGravity = impaledGravity;
+					impaledGravity = true;
+				}
+			}
 		}
 		public override void NPCLoot(NPC npc)  
         {
