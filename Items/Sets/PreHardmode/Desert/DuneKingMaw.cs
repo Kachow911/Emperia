@@ -6,15 +6,15 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace Emperia.Items.Sets.PreHardmode.Chillsteel {
+namespace Emperia.Items.Sets.PreHardmode.Desert {
 	[AutoloadEquip(EquipType.Head)]
-public class ChillsteelHelmet : ModItem
+public class DuneKingMaw : ModItem
 {
     
 	public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Chillsteel Helmet");
-			Tooltip.SetDefault("6% increased ranged damage");
+			DisplayName.SetDefault("Dune King's Maw");
+			Tooltip.SetDefault("4% increased endurance");
 		}
     public override void SetDefaults()
     {
@@ -27,23 +27,23 @@ public class ChillsteelHelmet : ModItem
 
     public override bool IsArmorSet(Item head, Item body, Item legs)
     {
-        return body.type == mod.ItemType("ChillsteelChestplate") && legs.type == mod.ItemType("ChillsteelGreaves");
+        return body.type == mod.ItemType("DuneKingMantle") && legs.type == mod.ItemType("DuneKingCuisses");
     }
     
     public override void UpdateArmorSet(Player player)
     {
-        player.setBonus = "Ranged attacks inflict frostburn";
+        player.setBonus = "Allows you to ground pound, damaging nearby enemies";
 		MyPlayer modPlayer = player.GetModPlayer<MyPlayer>();
-		modPlayer.chillsteelSet = true;
+		modPlayer.carapaceSet = true;
 		
     }
     
     public override void UpdateEquip(Player player)
     {
-            player.rangedDamage *= 1.04f;
-    }
+            player.endurance += 0.05f;
+        }
 
-        /*public override void AddRecipes()
+        public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(null, "AridScale", 4);
@@ -52,6 +52,6 @@ public class ChillsteelHelmet : ModItem
             recipe.SetResult(this);
             recipe.AddRecipe();
 
-        }*/
+        }
     }
 }

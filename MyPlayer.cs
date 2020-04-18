@@ -578,16 +578,6 @@ namespace Emperia
                 Main.projectile[p].hostile = false;
                 Main.projectile[p].scale = 0.7f;
             }
-			if (chillsteelSet)
-			{
-				for (int i = 0; i < 4; i++)
-				{
-
-					Vector2 perturbedSpeed = new Vector2(0, 4).RotatedByRandom(MathHelper.ToRadians(360));
-					Projectile.NewProjectile(player.Center.X, player.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, mod.ProjectileType("FrostBoltSeeking"), 15, 1, Main.myPlayer, 0, 0);
-
-				}
-			}
 		}
 		public override void ModifyHitNPC (Item item, NPC target, ref int damage, ref float knockback, ref bool crit)
 		{

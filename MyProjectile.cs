@@ -67,6 +67,10 @@ namespace Emperia
                 target.GetGlobalNPC<MyNPC>().chillStacks += 1;
                 target.AddBuff(mod.BuffType("CrushingFreeze"), 300);
             }
+            if (player.GetModPlayer<MyPlayer>().chillsteelSet && projectile.ranged)
+            { 
+                target.AddBuff(BuffID.Frostburn, 300);
+            }
         }
 
 

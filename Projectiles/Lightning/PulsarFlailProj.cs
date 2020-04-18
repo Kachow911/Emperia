@@ -68,7 +68,7 @@ namespace Emperia.Projectiles.Lightning
             {
                 for (int i = 0; i < Main.npc.Length; i++)
                 {
-                    if (projectile.Distance(Main.npc[i].Center) < 160)
+                    if (projectile.Distance(Main.npc[i].Center) < 160 && !Main.npc[i].townNPC)
                     {
                         Main.npc[i].StrikeNPC(projectile.damage * 2, 0f, 0, false, false, false);
                         Main.npc[i].AddBuff(mod.BuffType("ElecHostile"), 120);
