@@ -21,8 +21,8 @@ namespace Emperia.Items.Sets.Hardmode.Stratos
             item.ranged = true;
             item.width = 42;
             item.height = 24;
-            item.useTime = 29;
-            item.useAnimation = 29;
+            item.useTime = 18;
+            item.useAnimation = 18;
             item.useStyle = 5;
             item.shoot = 10;
             item.useAmmo = AmmoID.Bullet;
@@ -36,9 +36,9 @@ namespace Emperia.Items.Sets.Hardmode.Stratos
 		
 		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
 		{
-			int p = Projectile.NewProjectile(position.X, position.Y, speedX, speedY, type, damage, knockBack, player.whoAmI);
-			Main.projectile[p].GetGlobalProjectile<MyProjectile>().chillEffect = true;
-			return false;
+            if (Main.rand.NextBool(5))
+                type = mod.ProjectileType("StratosMeteorite");
+            return true;
 		}
 		
 		public override Vector2? HoldoutOffset()

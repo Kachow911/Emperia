@@ -30,15 +30,15 @@ namespace Emperia.Projectiles.Stratos
         }
         public override void AI()           //projectile make that the projectile will face the corect way
         {                                                           
-			int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 76, 0f, 0f, 91, new Color(65, 250, 247), 1f);
+			int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 180, 0f, 0f, 91, new Color(65, 250, 247), 1f);
             Main.dust[dust].position += projectile.velocity.RotatedBy(1.57);
             Main.dust[dust].noGravity = true;
             Main.dust[dust].velocity = projectile.velocity.RotatedBy(0.5);
-            int dust1 = Dust.NewDust(projectile.position, projectile.width, projectile.height, 76, 0f, 0f, 91, new Color(65, 250, 247), 1f);
+            int dust1 = Dust.NewDust(projectile.position, projectile.width, projectile.height, 180, 0f, 0f, 91, new Color(65, 250, 247), 1f);
             Main.dust[dust].position += projectile.velocity.RotatedBy(-1.57);
             Main.dust[dust1].noGravity = true;
             Main.dust[dust1].velocity = projectile.velocity.RotatedBy(-0.5);
-            int dust2 = Dust.NewDust(projectile.position, projectile.width, projectile.height, 76, 0f, 0f, 91, new Color(65, 250, 247), 1.5f);
+            int dust2 = Dust.NewDust(projectile.position, projectile.width, projectile.height, 180, 0f, 0f, 91, new Color(65, 250, 247), 1.5f);
             Main.dust[dust2].velocity = projectile.velocity;
             Main.dust[dust2].noGravity = true;
 
@@ -49,7 +49,7 @@ namespace Emperia.Projectiles.Stratos
 			{
 				Vector2 vec = Vector2.Transform(new Vector2(-10, 0), Matrix.CreateRotationZ(MathHelper.ToRadians(i)));
 				vec.Normalize();
-				int num622 = Dust.NewDust(projectile.position, projectile.width, projectile.height, 76, 0f, 0f, 91, new Color(65, 250, 247), 1.5f);
+				int num622 = Dust.NewDust(projectile.position, projectile.width, projectile.height, 180, 0f, 0f, 91, new Color(65, 250, 247), 1.5f);
                 Main.dust[num622].velocity += (vec * 2f);
                 Main.dust[num622].velocity += projectile.velocity;
                 Main.dust[num622].noGravity = true;

@@ -28,14 +28,50 @@ namespace Emperia.Projectiles.Stratos
             projectile.ignoreWater = true;
         }
         public override void AI()           //this make that the projectile will face the corect way
-        {                                                           // |
-            //projectile.rotation = (float)Math.Atan2((double)projectile.velocity.Y, (double)projectile.velocity.X) + 1.57f;
-			if (Main.rand.Next(5) == 2)
+        {
+            float maxHome = 200f;// |
+                                 //projectile.rotation = (float)Math.Atan2((double)projectile.velocity.Y, (double)projectile.velocity.X) + 1.57f;
+            if (Main.rand.Next(5) == 2)
 			{
 				int num622 = Dust.NewDust(new Vector2(projectile.Center.X, projectile.Center.Y), 1, 1, 180, 0f, 0f, 74, new Color(53f, 67f, 253f), 1.3f);
 				Main.dust[num622].velocity += projectile.velocity * 0.2f;
 				Main.dust[num622].noGravity = true;
 			}
+            float targetX = 0;
+            float targetY = 0;
+            bool targetNPC = false;
+            for (int npcFinder = 0; npcFinder < 200; ++npcFinder)
+            {
+                if (Main.npc[npcFinder].CanBeChasedBy(projectile, false) && Collision.CanHit(projectile.Center, 1, 1, Main.npc[npcFinder].Center, 1, 1))
+                {
+                    float num1 = Main.npc[npcFinder].position.X + (float)(Main.npc[npcFinder].width / 2);
+                    float num2 = Main.npc[npcFinder].position.Y + (float)(Main.npc[npcFinder].height / 2);
+                    float num3 = Math.Abs(projectile.position.X + (float)(projectile.width / 2) - num1) + Math.Abs(projectile.position.Y + (float)(projectile.height / 2) - num2);
+                    if (num3 < maxHome)
+                    {
+                        maxHome = num3;
+                        targetX = num1;
+                        targetY = num2;
+                        targetNPC = true;
+
+                    }
+
+                }
+            }
+            if (targetNPC)
+            {
+                float num4 = Main.rand.Next(30, 43);
+                Vector2 vector35 = new Vector2(projectile.position.X + (float)projectile.width * 0.5f, projectile.position.Y + (float)projectile.height * 0.5f);
+                float num5 = targetX - vector35.X;
+                float num6 = targetY - vector35.Y;
+                float num7 = (float)Math.Sqrt((double)(num5 * num5 + num6 * num6));
+                num7 = num4 / num7;
+                num5 *= num7;
+                num6 *= num7;
+                projectile.velocity.X = (projectile.velocity.X * 20f + num5) / 25f;
+                projectile.velocity.Y = (projectile.velocity.Y * 20f + num6) / 25f;
+
+            }
         }
 		
 		public override void Kill(int timeLeft)
