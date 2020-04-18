@@ -92,6 +92,7 @@ namespace Emperia
 		public int vileTimer = 0;
 		private bool waxwingActive = false;
 		public int eschargo = -5;
+		public int desertSpikeDirection = 0;
         public override void ResetEffects()
         {
 			chillsteelSet = false;
