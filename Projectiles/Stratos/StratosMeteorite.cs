@@ -9,7 +9,7 @@ namespace Emperia.Projectiles.Stratos
 {
     public class StratosMeteorite : ModProjectile
     {
-
+        bool init = false;
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Stratos Rock");
@@ -71,6 +71,20 @@ namespace Emperia.Projectiles.Stratos
                 projectile.velocity.X = (projectile.velocity.X * 20f + num5) / 25f;
                 projectile.velocity.Y = (projectile.velocity.Y * 20f + num6) / 25f;
 
+            }
+            if (!init)
+            {
+                init = true;
+                for (int i = 0; i < 360; i++)
+                {
+                    Vector2 vec = Vector2.Transform(new Vector2(-1, 0), Matrix.CreateRotationZ(MathHelper.ToRadians(i)));
+                    if (i % 8 == 0)
+                    {
+                        int b = Dust.NewDust(projectile.Center, Main.rand.Next(1, 7), Main.rand.Next(1, 7), 180);
+                        Main.dust[b].noGravity = true;
+                        Main.dust[b].velocity = vec;
+                    }
+                }
             }
         }
 		

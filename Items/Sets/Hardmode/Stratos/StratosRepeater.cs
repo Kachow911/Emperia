@@ -36,15 +36,22 @@ namespace Emperia.Items.Sets.Hardmode.Stratos
 		
 		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
 		{
+            Vector2 placePosition = player.Center + new Vector2(Main.rand.Next(-100, 100), -player.height - Main.rand.Next(50));
+            Vector2 direction = Main.MouseWorld - placePosition;
+            direction.Normalize();
             if (Main.rand.NextBool(5))
-                type = mod.ProjectileType("StratosMeteorite");
+            {
+                //type = mod.ProjectileType("StratosMeteorite");
+                Projectile.NewProjectile(placePosition.X, placePosition.Y, direction.X * 12f, direction.Y * 12f, mod.ProjectileType("StratosMeteorite"), damage, knockBack, Main.myPlayer, 0, 0);
+                return false;
+            }
             return true;
 		}
-		
-		public override Vector2? HoldoutOffset()
-		{
-			return new Vector2(-5, 0);
-		}
+
+        public override Vector2? HoldoutOffset()
+        {
+            return new Vector2(-5, 0);
+        }
 	
     }
 }
