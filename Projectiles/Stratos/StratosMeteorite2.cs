@@ -29,7 +29,12 @@ namespace Emperia.Projectiles.Stratos
         }
         public override void AI()           //this make that the projectile will face the corect way
         {
-            
+            if (Main.rand.Next(8) == 2)
+            {
+                int num622 = Dust.NewDust(new Vector2(projectile.Center.X, projectile.Center.Y), 1, 1, 180, 0f, 0f, 74, new Color(53f, 67f, 253f), 1.3f);
+                Main.dust[num622].velocity += projectile.velocity * 0.2f;
+                Main.dust[num622].noGravity = true;
+            }
             if (!init)
             {
                 init = true;
@@ -59,7 +64,7 @@ namespace Emperia.Projectiles.Stratos
 			}
             for (int i = 0; i < Main.npc.Length; i++)
             {
-                if (projectile.Distance(Main.npc[i].Center) < 60 && Main.npc[i] != hitNPC && !Main.npc[i].townNPC)
+                if (projectile.Distance(Main.npc[i].Center) < 60  && !Main.npc[i].townNPC)
                     Main.npc[i].StrikeNPC(projectile.damage, 0f, 0, false, false, false);
             }
         }
