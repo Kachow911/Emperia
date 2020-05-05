@@ -64,7 +64,7 @@ namespace Emperia.Projectiles.Granite
 			{
 				for (int i = 0; i < Main.npc.Length; i++)
             	{
-                	if (projectile.Distance(Main.npc[i].Center) < 90 && Main.npc[i] != hitNPC)
+                	if (projectile.Distance(Main.npc[i].Center) < 90 && Main.npc[i] != hitNPC && !Main.npc[i].townNPC)
                     	Main.npc[i].StrikeNPC(projectile.damage + projectile.damage / 2, 0f, 0, false, false, false);
             	}
 				for (int i = 0; i < 45; ++i)
@@ -80,7 +80,7 @@ namespace Emperia.Projectiles.Granite
 			{
 				for (int i = 0; i < Main.npc.Length; i++)
             	{
-					if (projectile.Distance(Main.npc[i].Center) < 60 && Main.npc[i] != hitNPC)
+					if (projectile.Distance(Main.npc[i].Center) < 60 && Main.npc[i] != hitNPC && !Main.npc[i].townNPC)
                     	Main.npc[i].StrikeNPC(projectile.damage, 0f, 0, false, false, false);
 				}	
 				for (int i = 0; i < 30; ++i)

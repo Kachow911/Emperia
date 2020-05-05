@@ -7,15 +7,15 @@ using Terraria.ID;
 using Terraria.ModLoader;
 
 
-namespace Emperia.Items.Sets.PreHardmode.Chillsteel {
+namespace Emperia.Items.Sets.PreHardmode.Desert {
 	[AutoloadEquip(EquipType.Legs)]
-public class ChillsteelGreaves : ModItem
+public class DuneKingCuisses : ModItem
 {
     
     public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Chillsteel Greaves");
-			Tooltip.SetDefault("4% increased ranged damage");
+			DisplayName.SetDefault("Dune King's Cuisses");
+			Tooltip.SetDefault("5% increased endurance");
 		}
     public override void SetDefaults()
     {
@@ -23,15 +23,15 @@ public class ChillsteelGreaves : ModItem
         item.height = 18;
         item.value = 75000;
         item.rare = 2;
-        item.defense = 5;
+        item.defense = 6;
     }
 
     public override void UpdateEquip(Player player)
     {
-            player.rangedDamage *= 1.04f;
-    }
+            player.endurance += 0.05f;
+        }
 
-        /*public override void AddRecipes()
+        public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(null, "AridScale", 4);
@@ -40,6 +40,6 @@ public class ChillsteelGreaves : ModItem
             recipe.SetResult(this);
             recipe.AddRecipe();
 
-        }*/
+        }
     }
 }
