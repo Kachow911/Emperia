@@ -61,7 +61,8 @@ namespace Emperia
 		public bool bloodboilSet = false;
 		public bool lightningSet = false;
 		public bool chillsteelSet = false;
-		public bool doPound = false;
+		public int poundTime = 0;
+		public int carapaceTime = 0;
 		bool velocityPos = false;
 		public int dayVergeProjTime = 0;
 		bool canJump = false;
@@ -490,28 +491,49 @@ namespace Emperia
 		}
 		public override void PreUpdate()
 		{
-			
-			if (carapaceSet && player.controlDown && player.velocity.Y != 0)
+			if (carapaceSet && poundTime == 0)
 			{
-				int dust = Dust.NewDust(new Vector2(player.position.X, (float)((double)player.position.Y + (double)player.height - 16.0)), player.width, 16, 32, 0.0f, 0.0f, 0, new Color(), 1.5f);
+				if (Main.rand.Next(20) < carapaceTime / 60)
+				{
+					int dust = Dust.NewDust(player.position, player.width, player.height, mod.DustType("CarapaceDust"));
+				}
+				if (carapaceTime == 479)
+				{
+					//int dust = Dust.NewDust(player.position, player.width, player.height, 262);
+					//Main.dust[dust].noGravity = true;
+					Main.PlaySound(SoundID.MaxMana, player.Center); //change sound
+				}
+			}
+			if (carapaceSet && carapaceTime < 480)
+				carapaceTime++;
+			if (carapaceSet && carapaceTime == 480 && player.controlDown && player.velocity.Y != 0 && !player.mount.Active)
+			{
+				poundTime = 10;
+				carapaceTime = 0;
+			}
+			if (poundTime > 0 && player.velocity.Y != 0)
+			{
+				int dust = Dust.NewDust(new Vector2(player.position.X, (float)((double)player.position.Y + (double)player.height - 16.0)), player.width, 16, mod.DustType("CarapaceDust"), 0.0f, 0.0f, 0, new Color(), 1.5f);
 				Main.dust[dust].velocity *= 0.1f;
 				Main.dust[dust].velocity += player.velocity * 0.2f;
 				Main.dust[dust].position.X = player.Center.X + 4f + (float)Main.rand.Next(-2, 3);
 				Main.dust[dust].position.Y = player.Center.Y + (float)Main.rand.Next(-2, 3);
 				Main.dust[dust].noGravity = true;
-				player.velocity.Y = 51f;
-					doPound = true;
+				player.velocity.Y = 36f;
+				player.maxFallSpeed = 36f;
+				poundTime--;
 			}
-			if (carapaceSet && doPound && player.velocity.Y == 0)
+			if (carapaceSet && poundTime > 0 && player.velocity.Y == 0)
             {
-				for (int i = -15; i < 15; i+=3)
+				for (int i = -12; i < 12; i+=3)
                 {
-					int dust = Dust.NewDust(new Vector2(player.position.X + i, (float)((double)player.position.Y + player.height)), player.width, 16, 32, 0.0f, 0.0f, 0, new Color(), 1.5f);
-					Main.dust[dust].velocity = new Vector2(i/2, -3);
-
+					int dust = Dust.NewDust(new Vector2(player.position.X + i, (float)((double)player.position.Y + player.height - 12)), player.width, 16, mod.DustType("CarapaceDust"), 0.0f, 0.0f, 0, new Color(), 1.5f);
+					//Main.dust[dust].velocity = new Vector2(i/4, -1);
+					Main.dust[dust].velocity = new Vector2(i / 7, 0);
 				}
-				Projectile.NewProjectile(player.position.X, player.position.Y + 20, 0f, 0f, mod.ProjectileType("PoundProj"), 40, 0f, player.whoAmI, 0f, 0f);
-				doPound = false;
+				Projectile.NewProjectile(player.Center.X, player.Center.Y, 2 * player.direction, 0, mod.ProjectileType("DesertBurrow"), 8, 0, Main.myPlayer, 0, 0);
+           		Main.PlaySound(SoundID.NPCHit11, player.Center);
+				poundTime = 0;
             }
 			//velocityPos = (player.velocity.Y > 0);
 			{
