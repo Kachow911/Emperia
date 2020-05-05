@@ -103,21 +103,15 @@ namespace Emperia.Projectiles.Desert
     		Projectile.NewProjectile(target.Center.X - (2 * projectile.direction), projectile.Center.Y - 21, 0, 0, mod.ProjectileType("DesertSpikeBig"), 0, 0, Main.myPlayer, 0, 0);
             npc = target;
             npc.GetGlobalNPC<MyNPC>().desertSpikeTime = -8;
+            Main.PlaySound(SoundID.Item70, projectile.Center);
         }
         public override void Kill(int timeLeft)
         {
-           // Main.PlaySound(SoundID.Item10, projectile.position);
-            /*for (int i = 0; i < 5; i++)
+            for (int i = 0; i < 3; i++)
             {
-                int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 7);
-                Vector2 vel = new Vector2(0, -1).RotatedBy(Main.rand.NextFloat() * 6.283f) * 3.5f;
-            }*/
+                int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, mod.DustType("CarapaceDust"));
+                Vector2 vel = new Vector2(projectile.velocity.X * -2, -1);
+            }
         }
-
-        //public override bool? CanHitNPC(NPC target)
-		//{
-        //    return false;
-		//}
-        
     }
 }

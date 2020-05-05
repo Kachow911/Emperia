@@ -28,6 +28,8 @@ namespace Emperia
 		public int impaledDirection = 0;
 		public float desertSpikeHeight = 0;
 		public bool impaledGravity = true;
+		public int maceSlam = 0;
+		public int maceSlamDamage = 0;
 		int InfirmaryTimer = 30;
         int poisonTimer = 0;
 
@@ -154,7 +156,7 @@ namespace Emperia
 				if (npc.Bottom.Y > desertSpikeHeight)
 				{
 					npc.velocity.Y = -8;
-					if (npc.noGravity == false)
+					if (npc.noGravity == false) //prevent enemies with gravity from falling
 					{
 						npc.noGravity = true;
 						impaledGravity = false;
@@ -165,10 +167,27 @@ namespace Emperia
 					npc.velocity.Y = 0.0001f; //so game thinks they're airbone
 				}
 
-				if (desertSpikeTime == 1)
+				if (desertSpikeTime == 1) //deactivate gravity effects
 				{
 					npc.noGravity = impaledGravity;
 					impaledGravity = true;
+				}
+			}
+			maceSlam--;
+			if (npc.collideY == true && maceSlam >= 0)
+			{
+				maceSlam = 0;
+				Main.PlaySound(SoundID.Item14, npc.Center);
+                for (int i = 0; i < Main.npc.Length; i++)
+                {
+                    if (npc.Distance(Main.npc[i].Center) < 1 && !Main.npc[i].townNPC)
+                        Main.npc[i].StrikeNPC(maceSlamDamage, 0f, 0, false, false, false);
+                }
+				for (int i = 0; i < 15; ++i)
+				{
+					int index2 = Dust.NewDust(npc.Center, npc.width, npc.height, mod.DustType("CarapaceDust"), 0.0f, 0.0f, 15, new Color(53f, 67f, 253f), 1.5f);
+					Main.dust[index2].noGravity = true;
+					Main.dust[index2].velocity *= 2f;
 				}
 			}
 		}
@@ -325,6 +344,13 @@ namespace Emperia
             {
                 damage = (int) (1.1 * damage);
             }
+
+			if (desertSpikeTime > 0 && desertSpikeTime < 100)
+			{
+				desertSpikeTime = 0;
+				npc.noGravity = impaledGravity;
+				impaledGravity = true;
+			}
         }
         public override void ModifyHitByItem(NPC npc, Player player, Item item, ref int damage, ref float knockback, ref bool crit)
         {
@@ -332,6 +358,23 @@ namespace Emperia
             {
                 damage = (int)(1.1 * damage);
             }
+
+			if (desertSpikeTime > 0 && desertSpikeTime < 100)
+			{
+				desertSpikeTime = 0;
+				npc.noGravity = impaledGravity;
+				impaledGravity = true;
+			}
+			if (item.type == mod.ItemType("Fungallows"))
+			{
+				if (npc.life <= damage - npc.defense * 0.5)
+				{
+					Main.NewText("wow", 255, 240, 20, false);
+					//damage = npc.life + npc.defense * 0.5 - 1;
+					//npc = target;
+        	    	//npc.GetGlobalNPC<MyNPC>().variableName = true;	
+				}
+			}
         }
     }
 }

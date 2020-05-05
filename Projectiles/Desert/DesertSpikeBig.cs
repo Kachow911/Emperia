@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Emperia;
 
 namespace Emperia.Projectiles.Desert
 {
@@ -21,35 +22,43 @@ namespace Emperia.Projectiles.Desert
             ProjectileID.Sets.DontAttachHideToAlpha[projectile.type] = true;
 		}
         public override void SetDefaults()
-        {  //projectile name
-            projectile.width = 32;       //projectile width
-            projectile.height = 54;  //projectile height
-            projectile.friendly = true;      //make that the projectile will not damage you
+        {
+            projectile.width = 32;
+            projectile.height = 54;
+            projectile.friendly = true;
 			projectile.hostile = false;
-            projectile.tileCollide = false;   //make that the projectile will be destroed if it hits the terrain
-            projectile.penetrate = 2;      //how many projectile will penetrate
-            projectile.timeLeft = 149;   //how many time projectile projectile has before disepire
-            projectile.light = 0f;    // projectile light
+            projectile.tileCollide = false;
+            projectile.penetrate = 2;
+            projectile.timeLeft = 109;
+            projectile.light = 0f;
             projectile.ignoreWater = true;
 			projectile.alpha = 0;
             projectile.damage = 0;
             projectile.hide = true;
             Main.projFrames[projectile.type] = 4;
         }
-        public override void AI()           //projectile make that the projectile will face the corect way
+        public override void AI()
         {
+            Player player = Main.player[projectile.owner];
+            MyPlayer modPlayer = player.GetModPlayer<MyPlayer>();
             initCounter++;
             if (initCounter == 1)
             {
-                Player player = Main.player[projectile.owner];
-                MyPlayer modPlayer = player.GetModPlayer<MyPlayer>();
                 projectile.direction = modPlayer.desertSpikeDirection;
                 projectile.spriteDirection = modPlayer.desertSpikeDirection;
             }
 
-            if (initCounter == 9) //make this faster
+            if (initCounter == 9)
             {
-                projectile.damage = 2;
+                projectile.damage = 18;
+           } 
+
+            if (projectile.penetrate == 1)
+            {
+                if (npc.GetGlobalNPC<MyNPC>().desertSpikeTime == 0 && initCounter > 10 && projectile.timeLeft > 5)
+                {
+                    projectile.timeLeft = 5;
+                }
             }
 
             //animation stuff
@@ -81,11 +90,19 @@ namespace Emperia.Projectiles.Desert
 		}
         public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection) {
             npc = target;
-            npc.GetGlobalNPC<MyNPC>().desertSpikeTime = 120;
+            npc.GetGlobalNPC<MyNPC>().desertSpikeTime = 100;
             npc.GetGlobalNPC<MyNPC>().desertSpikeHeight = projectile.Top.Y + 28;
 		}
         public override void DrawBehind(int index, List<int> drawCacheProjsBehindNPCsAndTiles, List<int> drawCacheProjsBehindNPCs, List<int> drawCacheProjsBehindProjectiles, List<int> drawCacheProjsOverWiresUI) {
 			drawCacheProjsBehindNPCs.Add(index);
 		}
+        public override void Kill(int timeLeft)
+        {
+            for (int i = 0; i < 5; i++)
+            {
+                int dust = Dust.NewDust(projectile.position, projectile.width / 2, projectile.height, mod.DustType("CarapaceDust"));
+                Vector2 vel = new Vector2(projectile.velocity.X * -2, -1);
+            }
+        }
     }
 }
