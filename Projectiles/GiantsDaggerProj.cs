@@ -23,8 +23,8 @@ namespace Emperia.Projectiles
 		}
         public override void SetDefaults()
         {  //projectile name
-            projectile.width = 36;       //projectile width
-            projectile.height = 36;  //projectile height
+            projectile.width = 24;       //projectile width
+            projectile.height = 24;  //projectile height
             projectile.friendly = true;      //make that the projectile will not damage you
             projectile.thrown = true;         // 
             projectile.tileCollide = true;   //make that the projectile will be destroed if it hits the terrain

@@ -22,7 +22,7 @@ namespace Emperia.Npcs.Desert
         public override void SetDefaults()
         {
   
-            npc.lifeMax = 250;        //this is the npc health
+            npc.lifeMax = 125;        //this is the npc health
             npc.damage = 15;    //this is the npc damage
             npc.defense = 2;         //this is the npc defense
             npc.knockBackResist = 0f;

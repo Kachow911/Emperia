@@ -68,9 +68,9 @@ namespace Emperia.Npcs.GoblinArmy
 			Player player = Main.player[npc.target];
 			if (Math.Abs(npc.velocity.X) < 5f)
 			{
-				if (npc.Center.X > player.Center.X)
+				if (npc.Center.X > player.Center.X && Math.Abs(player.Center.X - npc.Center.X) < 600)
 					npc.velocity.X -= .07f;
-				else if (npc.Center.X < player.Center.X)
+				else if (npc.Center.X < player.Center.X && Math.Abs(player.Center.X - npc.Center.X) < 600)
 					npc.velocity.X += .07f;
 			}
 			if (npc.velocity.X > 5f)

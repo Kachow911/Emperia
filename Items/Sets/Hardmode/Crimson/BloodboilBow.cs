@@ -64,11 +64,13 @@ namespace Emperia.Items.Sets.Hardmode.Crimson
 		
         public override void AddRecipes()
 		{
-			/*ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(null, "GraniteBar", 8);
-			recipe.AddTile(TileID.Anvils);
+			ModRecipe recipe = new ModRecipe(mod);
+			recipe.AddIngredient(ItemID.Vertebrae, 2);
+			recipe.AddIngredient(ItemID.Ichor, 10);
+			recipe.AddIngredient(ItemID.SoulofNight, 1);
+			recipe.AddTile(TileID.MythrilAnvil);
 			recipe.SetResult(this);
-			recipe.AddRecipe();*/
+			recipe.AddRecipe();
 		}
     }
 }

@@ -41,5 +41,15 @@ namespace Emperia.Items.Sets.Hardmode.Crimson
             item.maxStack = 999;
             item.consumable = true;
         }
+        public override void AddRecipes()
+        {
+            ModRecipe recipe = new ModRecipe(mod);
+            recipe.AddIngredient(ItemID.RottenChunk, 2);
+            recipe.AddIngredient(ItemID.CursedFlame, 10);
+            recipe.AddIngredient(ItemID.SoulofNight, 1);
+            recipe.AddTile(TileID.MythrilAnvil);
+            recipe.SetResult(this);
+            recipe.AddRecipe();
+        }
     }
 }

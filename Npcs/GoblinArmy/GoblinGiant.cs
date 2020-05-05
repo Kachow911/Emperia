@@ -134,7 +134,7 @@ namespace Emperia.Npcs.GoblinArmy
 						int index3 = Dust.NewDust(placePosition, npc.width, npc.height, 6, 0.0f, 0.0f, 100, new Color(), 1.5f);
 						Main.dust[index3].velocity *= 2f;
 					}
-					Projectile.NewProjectile(npc.Center.X, npc.Center.Y - npc.height/2, direction.X * 14f, direction.Y * 14f, mod.ProjectileType("GoblinBomb"), npc.damage / 2, 1, Main.myPlayer, 0, 0);
+					Projectile.NewProjectile(npc.Center.X, npc.Center.Y - npc.height/2, direction.X * 12f, direction.Y * 12f, mod.ProjectileType("GoblinBomb"), npc.damage / 3, 1, Main.myPlayer, 0, 0);
 					
 				}
 			}

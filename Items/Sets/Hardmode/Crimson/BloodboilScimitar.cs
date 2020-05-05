@@ -55,7 +55,7 @@ namespace Emperia.Items.Sets.Hardmode.Crimson
                 target.AddBuff(BuffID.Ichor, 180);
             }
         }
-        /*public override void AddRecipes()
+        public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(ItemID.RottenChunk, 2);
@@ -64,7 +64,7 @@ namespace Emperia.Items.Sets.Hardmode.Crimson
             recipe.AddTile(TileID.MythrilAnvil);
             recipe.SetResult(this);
             recipe.AddRecipe();
-        }*/
+        }
 
     }
 }

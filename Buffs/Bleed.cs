@@ -14,7 +14,7 @@ namespace Emperia.Buffs
 		public override void Update(NPC npc, ref int buffIndex)
 		{
 			npc.lifeRegen -= 5;
-			npc.defense -= 2;
+			npc.defense -= 5;
 
 			if (Main.rand.NextBool(3))
 			{

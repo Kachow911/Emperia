@@ -29,7 +29,7 @@ namespace Emperia.Npcs.Ice
 		}
         public override void SetDefaults()
         {
-            npc.lifeMax = 500;
+            npc.lifeMax = 180;
             npc.damage = 15;
             npc.defense = 3;
             npc.knockBackResist = 0.6f;

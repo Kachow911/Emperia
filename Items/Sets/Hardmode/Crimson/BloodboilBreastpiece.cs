@@ -34,8 +34,8 @@ public class BloodboilBreastpiece : ModItem
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ItemID.RottenChunk, 5);
-            recipe.AddIngredient(ItemID.CursedFlame, 10);
+            recipe.AddIngredient(ItemID.Vertebrae, 5);
+            recipe.AddIngredient(ItemID.Ichor, 10);
             recipe.AddIngredient(ItemID.SoulofNight, 2);
             recipe.AddTile(TileID.MythrilAnvil);
             recipe.SetResult(this);
