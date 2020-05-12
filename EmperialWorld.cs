@@ -38,12 +38,24 @@ namespace Emperia
 		private static int twilightX;
 		private static int twilightY;
 		private const int twilightSize = 600;
+		public static bool downedEye = false;
 
 		public override void Initialize()
 		{
 			
 		}
-		
+		public override void NetSend(BinaryWriter writer)
+		{
+			BitsByte flags = new BitsByte();
+			flags[0] = downedEye;
+			writer.Write(flags);
+		}
+
+		public override void NetReceive(BinaryReader reader)
+		{
+			BitsByte flags = reader.ReadByte();
+			downedEye = flags[0];
+		}
 		public override void ResetNearbyTileEffects()
 		{
 			VolcanoTiles = 0;

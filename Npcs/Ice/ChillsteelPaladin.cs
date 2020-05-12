@@ -25,7 +25,7 @@ namespace Emperia.Npcs.Ice
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Chillsteel Paladin");
-			Main.npcFrameCount[npc.type] = 7;
+			Main.npcFrameCount[npc.type] = 8;
 		}
         public override void SetDefaults()
         {
@@ -61,7 +61,7 @@ namespace Emperia.Npcs.Ice
 			{
 				npc.frameCounter += 0.2f;
 				npc.frameCounter %= 4; 
-				int frame = (int)npc.frameCounter + 0; 
+				int frame = 8; 
 				npc.frame.Y = frame * frameHeight; 
 			}
 		}

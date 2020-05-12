@@ -316,6 +316,12 @@ namespace Emperia
 				}
 				Main.PlaySound(SoundID.NPCDeath52, npc.Center);
 			}
+			if (!EmperialWorld.downedEye && npc.type == 4)
+			{
+				Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("SetStone"));
+				EmperialWorld.downedEye = true;
+			}
+
 		}
 		public override void OnHitPlayer(NPC npc, Player target, int damage, bool crit)
 		{
