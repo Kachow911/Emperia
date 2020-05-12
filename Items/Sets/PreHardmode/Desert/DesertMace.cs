@@ -11,7 +11,7 @@ namespace Emperia.Items.Sets.PreHardmode.Desert
 		NPC npc;
 
 		public override void SetStaticDefaults() {
-			Tooltip.SetDefault("Launches airborne enemies downwards\nEnemies will take additional damage if they slam into blocks");
+			Tooltip.SetDefault("Slams airborne enemies downwards, damaging them if they hit the ground");
 		}
 		
 		public override void SetDefaults() {
@@ -41,7 +41,8 @@ namespace Emperia.Items.Sets.PreHardmode.Desert
 		{
 			if (target.velocity.Y != 0 && target.noTileCollide == false && target.knockBackResist >= 0 && !target.boss)// && player.itemAnimation <= 22 if the effect is too strong
 			{
-				target.velocity.Y += 12 * target.knockBackResist;
+				//target.velocity.Y += 12 * target.knockBackResist;
+				target.velocity.Y += 4 + (6 * target.knockBackResist);
 				npc = target;
             	npc.GetGlobalNPC<MyNPC>().maceSlam = 25;
 				npc.GetGlobalNPC<MyNPC>().maceSlamDamage = damage;

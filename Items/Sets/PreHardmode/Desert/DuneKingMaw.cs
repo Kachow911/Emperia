@@ -32,7 +32,7 @@ public class DuneKingMaw : ModItem
     
     public override void UpdateArmorSet(Player player)
     {
-        player.setBonus = "Allows you to ground pound, damaging nearby enemies";
+        player.setBonus = "Allows you to ground pound, stirring up a sandstone spike to impale enemies";
 		MyPlayer modPlayer = player.GetModPlayer<MyPlayer>();
 		modPlayer.carapaceSet = true;
 		
