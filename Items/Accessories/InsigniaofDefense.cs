@@ -14,7 +14,7 @@ namespace Emperia.Items.Accessories
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Insignia of Defense");
-			Tooltip.SetDefault("Attacks that deal over 50 damage have a chance to spawn 'Protective Energy'\nMore damage over 50 has a hgiher chance to spawn Protective Energy\nProtective Energy increases Defense and Damage Reduction when collected");
+			Tooltip.SetDefault("Attacks dealing over 50 damage may spawn 'Protective Energy', increasing defense and damage reduction when collected\nThe stronger the attack, the higher the chance");
 		}
         public override void SetDefaults()
         {

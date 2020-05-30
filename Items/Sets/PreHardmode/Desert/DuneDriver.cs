@@ -26,8 +26,8 @@ namespace Emperia.Items.Sets.PreHardmode.Desert
             item.useStyle = 5;
             item.noMelee = true;
             item.knockBack = 0;
-            item.value = 25000;
-            item.rare = 3;
+            item.value = 27000;
+            item.rare = 1;
             item.UseSound = SoundID.Item8;
             item.autoReuse = false;
             item.shoot = mod.ProjectileType("DuneDriverProj");

@@ -19,8 +19,8 @@ namespace Emperia.Items.Sets.PreHardmode.Desert
 		{
             item.width = 42;
             item.height = 36;
-            item.value = Item.sellPrice(0, 0, 50, 0);
-            item.rare = 3;
+            item.value = 27000;
+            item.rare = 1;
             item.mana = 10;
             item.damage = 38;
             item.knockBack = 7;

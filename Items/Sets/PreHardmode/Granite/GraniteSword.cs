@@ -19,14 +19,14 @@ namespace Emperia.Items.Sets.PreHardmode.Granite   //where is located
         {    //Sword name
             item.damage = 23;           
             item.melee = true;            //if it's melee
-            item.width = 16;              //Sword width
-            item.height = 16;             //Sword height
+            item.width = 24;              //Sword width
+            item.height = 24;             //Sword height
             item.useTime = 27;          //how fast 
             item.useAnimation = 27;     
             item.useStyle = 1;        //Style is how this item is used, 1 is the style of the sword
             item.knockBack = 4.5f;      //Sword knockback
             item.value = 22500;        
-            item.rare = 2;
+            item.rare = 1;
 			item.scale = 1f;
             item.autoReuse = false;   //if it's capable of autoswing.    
 			item.UseSound = SoundID.Item1;

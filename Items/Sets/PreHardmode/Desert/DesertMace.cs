@@ -23,7 +23,7 @@ namespace Emperia.Items.Sets.PreHardmode.Desert
 			item.useAnimation = 32;
 			item.useStyle = 1;
 			item.knockBack = 5f;
-			item.value = 62000;
+			item.value = 27000;
 			item.rare = 1;
 			item.UseSound = SoundID.Item1;
 		}

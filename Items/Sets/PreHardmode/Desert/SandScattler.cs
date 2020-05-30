@@ -27,7 +27,7 @@ namespace Emperia.Items.Sets.PreHardmode.Desert
             item.useStyle = 5;  
             item.noMelee = true; 
             item.knockBack = 1f; 
-            item.value = 66000;
+            item.value = 27000;
             item.rare = 1;   
             item.autoReuse = false;  
             item.shoot = mod.ProjectileType("ShellStrike");   

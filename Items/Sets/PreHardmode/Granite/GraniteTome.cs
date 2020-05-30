@@ -29,7 +29,7 @@ namespace Emperia.Items.Sets.PreHardmode.Granite
 			item.knockBack = 2.25f;
 			item.value = 22500;
 			item.noMelee = true;
-			item.rare = 2;
+			item.rare = 1;
 			item.UseSound = SoundID.Item20;
 			item.autoReuse = false;
 			item.shoot = mod.ProjectileType("GraniteRock1");

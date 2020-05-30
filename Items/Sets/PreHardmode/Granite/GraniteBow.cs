@@ -29,7 +29,7 @@ namespace Emperia.Items.Sets.PreHardmode.Granite
             item.useAmmo = ItemID.WoodenArrow;
             item.knockBack = 1;
             item.value = 22500;
-            item.rare = 2;
+            item.rare = 1;
             item.autoReuse = false;
             item.shootSpeed = 8f;
 			item.UseSound = SoundID.Item5; 
