@@ -26,6 +26,14 @@ namespace Emperia
 					player.HealEffect(25);
 				}
 			}
+			if (item.type == 5 || item.type == mod.ItemType("MushroomPlatter") || item.type == mod.ItemType("MushroomPlatterCrim"))
+			{
+				MyPlayer modPlayer = player.GetModPlayer<MyPlayer>();
+				if (modPlayer.frostleafSet)
+				{
+					player.AddBuff(mod.BuffType("FrostleafBuff"), 1200);
+				}
+			}
 			return false;
 		}
 		public override void OpenVanillaBag(string context, Player player, int arg)

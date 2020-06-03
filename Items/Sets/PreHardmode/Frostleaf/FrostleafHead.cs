@@ -34,14 +34,13 @@ public class FrostleafHead : ModItem
     public override void UpdateArmorSet(Player player)
     {
         player.setBonus = "Eating mushrooms briefly increases damage and movement speed";
-		//player.GetModPlayer<MyPlayer>().forestSetMelee = true;
+		player.GetModPlayer<MyPlayer>().frostleafSet = true;
     }
     
 
     public override void UpdateEquip(Player player)
     {
-    //player.handWarmer = true;
-    player.moveSpeed += 0.06f;
+        player.allDamage += 0.04f;
     }
     
     public override void AddRecipes()

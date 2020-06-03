@@ -61,6 +61,7 @@ namespace Emperia
 		public bool bloodboilSet = false;
 		public bool lightningSet = false;
 		public bool chillsteelSet = false;
+		public bool frostleafSet = false;
 		public int poundTime = 0;
 		public int carapaceTime = 0;
 		bool velocityPos = false;
@@ -134,6 +135,7 @@ namespace Emperia
             forestSetThrown = false;
             forestSetSummon = false;
 			graniteSet = false;
+			frostleafSet = false;
 			
             sporeBuffCount = 0;
         }

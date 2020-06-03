@@ -22,13 +22,12 @@ public class FrostleafBody : ModItem
         item.height = 20;
         item.value = 65000;
         item.rare = 1;
-        item.defense = 5;
+        item.defense = 4;
     }
 
     public override void UpdateEquip(Player player)
     {
-    //player.handWarmer = true;
-    player.moveSpeed += 0.06f;
+        player.buffImmune[46] = true;
     }
 
     public override void AddRecipes()
