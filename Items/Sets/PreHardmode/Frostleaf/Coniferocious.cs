@@ -8,7 +8,7 @@ using Terraria.ModLoader;
 
 namespace Emperia.Items.Sets.PreHardmode.Frostleaf
 {
-    public class Coniferocious : ModItem
+    public class Coniferocious : ModItem //make grenade actually do splash damage
     {
 		public override void SetStaticDefaults()
 		{
@@ -29,7 +29,7 @@ namespace Emperia.Items.Sets.PreHardmode.Frostleaf
             item.useTurn = true;
             item.autoReuse = false;
 			item.knockBack = 6f;
-			item.value = 22500;        
+            item.value = 24000;        
             item.rare = 1;
             item.autoReuse = false;
             item.shoot = mod.ProjectileType("ConiferociousProj");
@@ -58,6 +58,15 @@ namespace Emperia.Items.Sets.PreHardmode.Frostleaf
                 }
             }
             return true;
+        }
+        public override void AddRecipes()
+        {
+            ModRecipe recipe = new ModRecipe(mod);      
+            recipe.AddIngredient(null, "Frostleaf", 7); 
+            recipe.AddIngredient(ItemID.BorealWood, 15); 			
+            recipe.AddTile(TileID.Anvils);
+            recipe.SetResult(this);
+            recipe.AddRecipe();
         }
 	}
 }

@@ -27,7 +27,7 @@ namespace Emperia.Items.Sets.PreHardmode.Granite
 			item.useAnimation = 44;
 			item.useStyle = 5;
 			item.knockBack = 2.25f;
-			item.value = 22500;
+            item.value = 27000;
 			item.noMelee = true;
 			item.rare = 1;
 			item.UseSound = SoundID.Item20;

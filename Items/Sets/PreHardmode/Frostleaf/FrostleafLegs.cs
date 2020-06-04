@@ -20,7 +20,7 @@ public class FrostleafLegs : ModItem
     {
         item.width = 18;
         item.height = 14;
-        item.value = 57500;
+        item.value = 63250;
         item.rare = 1;
         item.defense = 4;
     }
@@ -32,11 +32,11 @@ public class FrostleafLegs : ModItem
 
     public override void AddRecipes()
     {
-       /* ModRecipe recipe = new ModRecipe(mod);      
-            recipe.AddIngredient(ItemID.Seashell, 3);
-            recipe.AddIngredient(ItemID.FishingSeaweed, 2); 			
-            recipe.AddTile(TileID.Anvils); 			//you need 1 DirtBlock  //at work bench
+      ModRecipe recipe = new ModRecipe(mod);      
+            recipe.AddIngredient(null, "Frostleaf", 11); 
+            recipe.AddIngredient(ItemID.BorealWood, 25); 			
+            recipe.AddTile(TileID.Anvils);
             recipe.SetResult(this);
-            recipe.AddRecipe();*/
+            recipe.AddRecipe();
     }
 }}

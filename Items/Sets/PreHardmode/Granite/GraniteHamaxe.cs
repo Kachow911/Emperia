@@ -26,8 +26,8 @@ public class GraniteHamaxe : ModItem
 		item.hammer = 65;
         item.useStyle = 1;
         item.knockBack = 2f;
-        item.value = 1770;
-        item.rare = 2;
+        item.value = 22500;
+        item.rare = 1;
         item.UseSound = SoundID.Item1;
         item.autoReuse = true;
     }

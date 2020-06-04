@@ -13,8 +13,8 @@ namespace Emperia.Items.Accessories
     {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Insignia of Defense");
-			Tooltip.SetDefault("Attacks dealing over 50 damage may spawn 'Protective Energy', increasing defense and damage reduction when collected\nThe stronger the attack, the higher the chance");
+			DisplayName.SetDefault("Ironclad Insignia");
+			Tooltip.SetDefault("Attacks dealing high damage may spawn metallic energy, increasing defenses when collected\nThe stronger the attack, the higher the chance");
 		}
         public override void SetDefaults()
         {
@@ -27,8 +27,6 @@ namespace Emperia.Items.Accessories
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
 			player.GetModPlayer<MyPlayer>().defenseInsignia = true;
-		
         }
-		
     }
 }

@@ -8,6 +8,7 @@ namespace Emperia.Items
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Aetherium Bar");
+			Tooltip.SetDefault("’Surprisingly light");
 		}
 		public override void SetDefaults()
 		{

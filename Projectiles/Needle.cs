@@ -18,41 +18,38 @@ namespace Emperia.Projectiles
 			DisplayName.SetDefault("Pine Needle");
 		}
         public override void SetDefaults()
-        {  //projectile name
-            projectile.width = 20;       //projectile width
-            projectile.height = 28;  //projectile height
-            projectile.friendly = true;      //make that the projectile will not damage you
-            projectile.magic = true;         // 
-            projectile.tileCollide = true;   //make that the projectile will be destroed if it hits the terrain
-            projectile.penetrate = 1;      //how many projectile will penetrate
-            projectile.timeLeft = 510;   //how many time projectile projectile has before disepire
-            projectile.light = 0.75f;    // projectile light
+        {
+            projectile.width = 8;
+            projectile.height = 8;
+            projectile.friendly = true;
+            projectile.magic = true;
+            projectile.tileCollide = true;
+            projectile.penetrate = 1;
+            projectile.timeLeft = 270;
             projectile.extraUpdates = 1;
             projectile.ignoreWater = true;
 			projectile.alpha = 0;
+            Main.projFrames[projectile.type] = 3;
         }
-        public override void AI()           //projectile make that the projectile will face the corect way
+        public override void AI()
         {             
 			projectile.rotation = (float)Math.Atan2((double)projectile.velocity.Y, (double)projectile.velocity.X) + 1.57f;
 			projectile.velocity += Vector2.Normalize((Main.MouseWorld - projectile.Center) * speed);
             projectile.velocity.X = MathHelper.Clamp(projectile.velocity.X, -speedMax, speedMax);
             projectile.velocity.Y = MathHelper.Clamp(projectile.velocity.Y, -speedMax, speedMax);
+            if (!init)
+            {
+                projectile.frame = Main.rand.Next(0, 2);
+                init = true;
+            }
         }
 		public override void Kill(int timeLeft)
         {
-            for (int index1 = 4; index1 < 8; ++index1)
+            for (int i = 0; i < 4; ++i)
             {
-              float num1 = (float) (projectile.oldVelocity.X * (30.0 / (double) index1));
-              float num2 = (float) (projectile.oldVelocity.Y * (30.0 / (double) index1));
-              int index2 = Dust.NewDust(new Vector2((float) projectile.oldPosition.X - num1, (float) projectile.oldPosition.Y - num2), 8, 8, 3, (float) projectile.oldVelocity.X, (float) projectile.oldVelocity.Y, 100, Color.LightBlue, 1.8f);
+              int index2 = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), 8, 8, 93, 0f, 0f, 0, Color.LightBlue, 1f);
               Main.dust[index2].noGravity = true;
-              Dust dust1 = Main.dust[index2];
-              dust1.velocity = dust1.velocity * 0.5f;
-              int index3 = Dust.NewDust(new Vector2((float) projectile.oldPosition.X - num1, (float) projectile.oldPosition.Y - num2), 8, 8, 3, (float) projectile.oldVelocity.X, (float) projectile.oldVelocity.Y, 100, Color.LightBlue, 1.4f);
-              Dust dust2 = Main.dust[index3];
-              dust2.velocity = dust2.velocity * 0.5f;
             }
-		
         }
     }
 }

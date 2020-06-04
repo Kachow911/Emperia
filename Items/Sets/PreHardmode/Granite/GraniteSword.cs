@@ -25,7 +25,7 @@ namespace Emperia.Items.Sets.PreHardmode.Granite   //where is located
             item.useAnimation = 27;     
             item.useStyle = 1;        //Style is how this item is used, 1 is the style of the sword
             item.knockBack = 4.5f;      //Sword knockback
-            item.value = 22500;        
+            item.value = 27000;      
             item.rare = 1;
 			item.scale = 1f;
             item.autoReuse = false;   //if it's capable of autoswing.    
