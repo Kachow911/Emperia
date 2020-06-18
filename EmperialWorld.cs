@@ -182,9 +182,12 @@ namespace Emperia
 					{
 						switch (Main.tile[x, y].type)
 						{
+							
+							case TileID.Stone:
+								Main.tile[x, y].type = (ushort)mod.TileType("TwilightStone");
+								break;
 							case TileID.Grass:
 							case TileID.Dirt:
-							case TileID.Stone:
 							case TileID.ClayBlock:
 							case TileID.Sand:
 							case TileID.SnowBlock:

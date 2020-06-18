@@ -85,7 +85,7 @@ namespace Emperia
 		public int OathCooldown = 720;
 		private int peltCounter = 120;
 		private int peltRadius = 256;
-
+		
 		private int forestSetMeleeCooldown = 60;
 		int SporeHealCooldown = 60;
         int incDefTime = 0;
@@ -95,6 +95,9 @@ namespace Emperia
 		private bool waxwingActive = false;
 		public int eschargo = -5;
 		public int desertSpikeDirection = 0;
+		
+		
+		
         public override void ResetEffects()
         {
 			chillsteelSet = false;

@@ -67,6 +67,7 @@ namespace Emperia.Items.Sets.Hardmode.Stratos
 		Vector2 direction = Main.MouseWorld - player.Center;
 		direction.Normalize();
 		Projectile.NewProjectile(placePosition.X, placePosition.Y, direction.X * 8f, direction.Y * 8f, type, damage, knockBack, player.whoAmI);
+		Projectile.NewProjectile(placePosition.X, placePosition.Y, 0, 0, mod.ProjectileType("StratosPortalAnim"), 0, 0, player.whoAmI);
 		return false;
 		
 	}

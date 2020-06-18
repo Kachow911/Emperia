@@ -1,8 +1,21 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.IO;
+using System.Threading.Tasks;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.DataStructures;
+using Terraria.Graphics.Shaders;
+using Terraria.ModLoader.IO;
+using Terraria.GameInput;
 using Emperia;
+using Emperia.Projectiles;
+
 namespace Emperia
 {
     public class MyNPC: GlobalNPC
@@ -22,7 +35,7 @@ namespace Emperia
 		public int graniteMinID = -1;
         public int spineCount = 0;
 		public int chillStacks = 0;
-		
+		public int etherealTimer = 0;
         public int strikeCount = 0;
 		public int desertSpikeTime = 0;
 		public int impaledDirection = 0;
@@ -32,7 +45,10 @@ namespace Emperia
 		public int maceSlamDamage = 0;
 		int InfirmaryTimer = 30;
         int poisonTimer = 0;
-
+		
+		public List<int> etherealDamages = new List<int>();
+		public List<int> etherealCounts = new List<int>();
+		
         public override void ResetEffects(NPC npc)
         {
             cuttingLeaves = false;
@@ -62,6 +78,8 @@ namespace Emperia
 		}
         public override void UpdateLifeRegen(NPC npc, ref int damage)
         {
+			//etherealDamages.Add(2);
+			//Main.NewText(etherealDamages[0]);
 			if (burningNight)  //this tells the game to use the public bool customdebuff from NPCsINFO.cs
             {
                 npc.lifeRegen = -15;     
@@ -86,6 +104,31 @@ namespace Emperia
 		
 		public override void AI(NPC npc)
 		{
+			if (etherealDamages.Count > 0)
+				etherealTimer++;
+			if (etherealTimer >= 20)
+			{
+				if (etherealDamages.Count > 0)
+						Projectile.NewProjectile(npc.Center.X, npc.Center.Y, 0f, 0f, mod.ProjectileType("EtherealFlux"), 0, 0, Main.myPlayer, 0, 0);
+				etherealTimer = 0;
+				List<int> newEtherealCounts = new List<int>();
+				List<int> newEtherealDamages = new List<int>();
+				for (int i = 0; i < etherealDamages.Count; i++)
+				{
+					if (etherealCounts[i] > 0)
+					{
+						npc.StrikeNPCNoInteraction(etherealDamages[i], 0, 0, false, false, false);
+						etherealCounts[i]--;
+					}
+					if (etherealCounts[i] > 0)
+					{
+						newEtherealCounts.Add(etherealCounts[i]);
+						newEtherealDamages.Add(etherealDamages[i] / 2);
+					}
+				}
+				etherealCounts = newEtherealCounts;
+				etherealDamages = newEtherealDamages;
+			}	
 			if (!crushFreeze)
             {
 				chillStacks = 0;
