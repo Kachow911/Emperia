@@ -1,3 +1,4 @@
+using Emperia.Tiles;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -28,6 +29,7 @@ namespace Emperia.Items
             item.value = 200;
             item.buffType = BuffID.WellFed;
             item.buffTime = 108000;
+            item.createTile = ModContent.TileType<TwilightLantern>();
         }
     }
 }
