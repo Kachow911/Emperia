@@ -6,7 +6,7 @@ using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace Emperia.Items.Sets.Hardmode.IronInq
+namespace Emperia.Items.Sets.Hardmode.Ethereal
 {
     public class InquisitorBroadsword : ModItem
     {
@@ -30,10 +30,10 @@ namespace Emperia.Items.Sets.Hardmode.IronInq
             item.knockBack = 6;
             item.value = Terraria.Item.sellPrice(0, 8, 0, 0);
             item.rare = 5;
-            item.UseSound = SoundID.Item1;
+            item.UseSound = SoundID.DD2_SonicBoomBladeSlash;;
             item.autoReuse = true;
             item.shoot = mod.ProjectileType("EtherealWave");
-            item.shootSpeed = 8;
+            item.shootSpeed = 5;
         }
         /*public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
