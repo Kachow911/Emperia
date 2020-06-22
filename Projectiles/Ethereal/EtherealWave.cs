@@ -22,21 +22,16 @@ namespace Emperia.Projectiles.Ethereal
             projectile.magic = true;         // 
             projectile.tileCollide = false;   //make that the projectile will be destroed if it hits the terrain
             projectile.penetrate = -1;      //how many npc will penetrate
-            projectile.timeLeft = 80;   //how many time projectile projectile has before disepire
-            projectile.light = 1f;    // projectile light
+            projectile.timeLeft = 200;   //how many time projectile projectile has before disepire
+            projectile.light = 0.75f;    // projectile light
+            projectile.extraUpdates = 1;
             projectile.ignoreWater = true;
+			projectile.alpha = 255;
         }
         public override void AI()           //projectile make that the projectile will face the corect way
         {
-            //projectile.alpha += 4;
+            projectile.alpha = 50;
 			projectile.rotation = (float)Math.Atan2((double)projectile.velocity.Y, (double)projectile.velocity.X) + 1.57f;
-			if (Main.rand.NextBool(2))
-			{
-				int dust = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, 229);
-				Main.dust[dust].noGravity = true;
-			}
-			if (projectile.timeLeft < 20)
-				projectile.alpha += 10;
 			
         }
 		 public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
