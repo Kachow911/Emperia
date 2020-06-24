@@ -330,6 +330,7 @@ namespace Emperia.Npcs.Yeti
 				{
 				Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("ArcticIncantation"));
 				}
+				Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("Frostleaf"), Main.rand.Next(20, 30)); 
 			}
 		}
         

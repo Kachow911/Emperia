@@ -5,7 +5,7 @@ using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 
-namespace Emperia.Projectiles
+namespace Emperia.Projectiles.Yeti
 {
 	public class HuntersSpear : ModProjectile
 	{

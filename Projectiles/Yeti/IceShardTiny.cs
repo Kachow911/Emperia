@@ -5,7 +5,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace Emperia.Projectiles
+namespace Emperia.Projectiles.Yeti
 {
 	
     public class IceShardTiny : ModProjectile

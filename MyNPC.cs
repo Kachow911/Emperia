@@ -328,13 +328,6 @@ namespace Emperia
 					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("Escargun")); 
 				}
 			}
-			if(npc.type == mod.NPCType("Yeti"))
-			{
-				if (!Main.expertMode) 
-				{
-					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("Frostleaf"), Main.rand.Next(20, 30)); 
-				}
-			}
 			if (!EmperialWorld.downedEye && npc.type == 4)
 			{
 				Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("SetStone"));

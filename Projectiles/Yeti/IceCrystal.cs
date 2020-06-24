@@ -5,7 +5,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace Emperia.Projectiles
+namespace Emperia.Projectiles.Yeti
 {
 
     public class IceCrystal : ModProjectile
@@ -50,7 +50,7 @@ namespace Emperia.Projectiles
 			for (int i = 0; i < 6; i++)
 			{
 				Vector2 perturbedSpeed = new Vector2(0, 3).RotatedBy(MathHelper.ToRadians(90 + 60 * i));
-				int p = Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, mod.ProjectileType("IceShard"), projectile.damage / 3 - 1, 0, Main.myPlayer, 0, 0);
+				int p = Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, mod.ProjectileType("IceShard"), projectile.damage / 6, 0, Main.myPlayer, 0, 0);
 				Main.projectile[p].rotation = MathHelper.ToRadians(Main.rand.Next(360));
 			}
 		}
