@@ -95,6 +95,7 @@ namespace Emperia
 		private bool waxwingActive = false;
 		public int eschargo = -5;
 		public int desertSpikeDirection = 0;
+		public int iceCannonLoad = 0;
         public override void ResetEffects()
         {
 			chillsteelSet = false;
@@ -166,6 +167,11 @@ namespace Emperia
 		}
         public override void PostUpdate()
         {
+			if (iceCannonLoad < 0)
+			{
+				iceCannonLoad++;
+				if (iceCannonLoad == -1) iceCannonLoad = 2;
+			}
 			if (!lightningSet)
 				lightningDamage = 0;
 			if (lightningSet && lightningDamage >= 500)
@@ -941,6 +947,7 @@ namespace Emperia
 				Main.NewText("what", 255, 240, 20, false);
 				waxwingActive = false;
             }
+			//unfinished
         }
     }
 }

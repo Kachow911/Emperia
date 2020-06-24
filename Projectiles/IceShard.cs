@@ -14,18 +14,21 @@ namespace Emperia.Projectiles
 		{
 			projectile.CloneDefaults(ProjectileID.PainterPaintball);
 			projectile.friendly = true;
-			projectile.penetrate = -1;
+			projectile.penetrate = 4;
 			projectile.magic = true;
-			projectile.timeLeft = 225;
+			projectile.timeLeft = 900;
 			projectile.alpha = 0;
+			drawOriginOffsetY = -6;
 		}
 		public override void AI()
 		{
 			projectile.alpha = 0;
-			if (Main.rand.NextBool(20))
+			if (Main.rand.NextBool(30))
 			{
 				Color rgb = new Color(135,206,250);
-				int index2 = Dust.NewDust(projectile.position, projectile.width, projectile.height, 76, (float) projectile.velocity.X, (float) projectile.velocity.Y, 0, rgb, 0.9f);
+				int index2 = Dust.NewDust(projectile.position, projectile.width, projectile.height, 68, (float) projectile.velocity.X, (float) projectile.velocity.Y, 0, rgb, 0.9f);
+				Main.dust[index2].noGravity = true;
+				Main.dust[index2].velocity *= 0.5f;
 			}
 			projectile.velocity.Y += .3f;
 			if (!hitGround)
@@ -33,8 +36,6 @@ namespace Emperia.Projectiles
 		}
 		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
-			Color rgb = new Color(135,206,250);
-			int index2 = Dust.NewDust(projectile.position, projectile.width, projectile.height, 76, (float) projectile.velocity.X, (float) projectile.velocity.Y, 0, rgb, 0.9f);
 			target.AddBuff(BuffID.Frostburn, 120);
 		}
 		public override bool OnTileCollide(Vector2 oldVelocity)
@@ -42,6 +43,13 @@ namespace Emperia.Projectiles
 			hitGround = true;
 			projectile.velocity = Vector2.Zero;
 			return false;
+		}
+		public override void Kill(int timeLeft)
+		{
+			Main.PlaySound(SoundID.Item, projectile.Center, 27);  
+			Color rgb = new Color(135,206,250);
+			int index2 = Dust.NewDust(projectile.position, projectile.width, projectile.height, 68, (float) projectile.velocity.X, (float) projectile.velocity.Y, 0, rgb, 0.9f);
+			Main.dust[index2].noGravity = true;
 		}
 	}
 }

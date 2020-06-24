@@ -242,7 +242,7 @@ namespace Emperia
 					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("BoneWhip")); 
 				}
 			}
-			if (Main.expertMode)
+			/*if (Main.expertMode)
 			{
 				if (Main.rand.Next(150) == 0) 
 				{
@@ -255,49 +255,49 @@ namespace Emperia
 				{
 					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("FireBlade")); 
 				}
-			}
-			if(npc.type == 82 && !Main.expertMode)
+			}*/
+			//change this to be obtained another way
+			if(npc.type == 82)
 			{
-				if (Main.rand.Next(50) == 0) 
+				if ((!Main.expertMode && Main.rand.Next(50) == 0) || (Main.expertMode && Main.rand.Next(40) == 0)) 
 				{
 					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("DeathTalisman")); 
 				}
 			}
-			if(npc.type == 82 && Main.expertMode)
+			if (npc.type == 53 || npc.type == 536 || npc.type == 489 || npc.type == 490 || npc.type == 47 || npc.type == 464 || npc.type == 57 || npc.type == 465 || npc.type == 168 || npc.type == 470 || npc.type == 109)
 			{
-				if (Main.rand.Next(40) == 0) 
+				if ((!Main.expertMode && Main.rand.Next(100) == 0) || (Main.expertMode && Main.rand.Next(65) == 0))
 				{
-					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("DeathTalisman")); 
-				}
+					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("ForbiddenOath")); 
+				}			
 			}
-			if(!Main.expertMode && npc.type == 53 || npc.type == 536 || npc.type == 489 || npc.type == 490 || npc.type == 47 || npc.type == 464 || npc.type == 57 || npc.type == 465 || npc.type == 168 || npc.type == 470 || npc.type == 109)
-				{
-					 if (Main.rand.Next(100) == 0) 
-					 {
-						 Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("ForbiddenOath")); 
-					 }
-				}
-				if(Main.expertMode && npc.type == 53 || npc.type == 536 || npc.type == 489 || npc.type == 490 || npc.type == 47 || npc.type == 464 || npc.type == 57 || npc.type == 465 || npc.type == 168 || npc.type == 470 || npc.type == 109)
-				{
-					 if (Main.rand.Next(65) == 0) 
-					 {
-						 Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("ForbiddenOath")); 
-					 }
-				}
 			if(npc.type == 58)
 			{
-				if (Main.rand.Next(25) == 0) 
+				if (Main.rand.Next(50) == 0) 
 				{
 					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("TetheredPiranha")); 
 				}
 			}
 			if(npc.type == 122)
 			{
-				if (Main.rand.Next(40) == 0) 
+				if (Main.rand.Next(50) == 0) 
 				{
 					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("Escargun")); 
 				}
 			}
+			if(npc.type == mod.NPCType("Yeti"))
+			{
+				if (!Main.expertMode) 
+				{
+					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("Frostleaf"), Main.rand.Next(20, 30)); 
+				}
+			}
+			if (!EmperialWorld.downedEye && npc.type == 4)
+			{
+				Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("SetStone"));
+				EmperialWorld.downedEye = true;
+			}
+
 			if (fatesDemise)
 			{
 				int damage1 = 0;
@@ -316,12 +316,6 @@ namespace Emperia
 				}
 				Main.PlaySound(SoundID.NPCDeath52, npc.Center);
 			}
-			if (!EmperialWorld.downedEye && npc.type == 4)
-			{
-				Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("SetStone"));
-				EmperialWorld.downedEye = true;
-			}
-
 		}
 		public override void OnHitPlayer(NPC npc, Player target, int damage, bool crit)
 		{
@@ -371,7 +365,7 @@ namespace Emperia
 				npc.noGravity = impaledGravity;
 				impaledGravity = true;
 			}
-			if (item.type == mod.ItemType("Fungallows"))
+			if (item.type == mod.ItemType("Fungallows")) //wip
 			{
 				if (npc.life <= damage - npc.defense * 0.5)
 				{

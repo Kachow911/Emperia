@@ -58,6 +58,7 @@ namespace Emperia.Items
 				player.QuickSpawnItem(mod.ItemType("ChilledFootprint"));
 			}
 			player.QuickSpawnItem(mod.ItemType("AncientPelt"));
+			player.QuickSpawnItem(mod.ItemType("Frostleaf"), Main.rand.Next(25, 35));
 		}
 	}
 }

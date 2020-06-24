@@ -18,7 +18,7 @@ namespace Emperia.Items.Sets.PreHardmode.Frostleaf
 		public override void SetDefaults()
 		{
 
-			item.damage = 13;
+			item.damage = 12;
 			item.magic = true;
 			item.width = 22;
 			item.height = 24;

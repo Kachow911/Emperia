@@ -18,35 +18,27 @@ namespace Emperia.Items.Weapons.Yeti
 		public override void SetDefaults()
 		{
 
-			item.damage = 20;
+			item.damage = 24;
 			item.magic = true;
 			item.width = 22;
 			item.height = 24;
-			item.useTime = 24;
-			item.useAnimation = 24;
+			item.useTime = 45;
+			item.useAnimation = 45;
 			item.useStyle = 5;
 			item.knockBack = 4;
-			item.value = 5000;
-			item.rare = 2;
-			item.UseSound = SoundID.Item20;
-			item.autoReuse = true;
+			item.value = 52500;
+			item.rare = 1;
+			item.UseSound = SoundID.Item28;
+			item.autoReuse = false;
 			item.shoot = mod.ProjectileType("IceCrystal");
 			item.shootSpeed = 5f;
-			item.mana = 22;
+			item.mana = 26;
 		}
 
-    public override void SetStaticDefaults()
-    {
-      DisplayName.SetDefault("Arctic Incantation");
-	  Tooltip.SetDefault("Shoots forth a magic ice crystal that splits into shards");
-    }
-	/*public override void AddRecipes()
-    {
-        ModRecipe recipe = new ModRecipe(mod);
-        recipe.AddIngredient(null, "MarbleBar", 9);
-        recipe.AddTile(TileID.Anvils);
-        recipe.SetResult(this);
-        recipe.AddRecipe();
-    }*/
+   		public override void SetStaticDefaults()
+   		{
+   			DisplayName.SetDefault("Arctic Star");
+			Tooltip.SetDefault("Shoots a magic ice crystal that splits into shards");
+   		}
 	}
 }
