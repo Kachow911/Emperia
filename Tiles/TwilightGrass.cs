@@ -14,6 +14,7 @@ namespace Emperia.Tiles
             Main.tileSolid[Type] = true;
             Main.tileBlockLight[Type] = true;  //true for block to emit light
             Main.tileLighted[Type] = true;
+			//Main.tileMerge[Type] = true;
             AddMapEntry(new Color(117, 241, 255));
 			mineResist = 3f;
 			Main.tileBrick[Type] = true;

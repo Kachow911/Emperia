@@ -83,7 +83,7 @@ namespace Emperia.Npcs.Ice
 			}
 			if (move == Move.Walk)
 			{
-				Main.NewText("Big");
+				//Main.NewText("Big");
 				counter--;
 				npc.aiStyle = 3;
 				aiType = 508;

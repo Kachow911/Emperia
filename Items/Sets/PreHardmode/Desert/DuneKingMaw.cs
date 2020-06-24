@@ -35,7 +35,7 @@ public class DuneKingMaw : ModItem
         player.setBonus = "Allows you to ground pound, stirring up a sandstone spike to impale enemies";
 		MyPlayer modPlayer = player.GetModPlayer<MyPlayer>();
 		modPlayer.carapaceSet = true;
-		
+		ArmorIDs.Face.Sets.PreventHairDraw[face] = false;
     }
     
     public override void UpdateEquip(Player player)
