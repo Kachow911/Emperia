@@ -10,11 +10,11 @@ namespace Emperia.Tiles
         public override void SetDefaults()
         {
 			//AddToArray(ref TileID.Sets.Conversion.Grass);
-			//TileID.Sets.Conversion.Grass[Type]=true;
+			TileID.Sets.Conversion.Grass[Type]=true;
             Main.tileSolid[Type] = true;
             Main.tileBlockLight[Type] = true;  //true for block to emit light
             Main.tileLighted[Type] = true;
-			//Main.tileMerge[Type] = true;
+			Main.tileMerge[Type][mod.TileType("TwilightStone")] = true;
             AddMapEntry(new Color(117, 241, 255));
 			mineResist = 3f;
 			Main.tileBrick[Type] = true;

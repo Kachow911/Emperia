@@ -12,6 +12,7 @@ namespace Emperia.Tiles
 			Main.tileValue[Type] = 805;
 			Main.tileSolid[Type] = true;
 			Main.tileMergeDirt[Type] = true;
+			Main.tileMerge[Type][mod.TileType("TwilightGrass")] = true;
 			Main.tileBlockLight[Type] = true;
 			drop = mod.ItemType("TwilightStone");
 			AddMapEntry(new Color(138, 210, 230));

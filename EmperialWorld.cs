@@ -27,7 +27,7 @@ namespace Emperia
 				else if (Main.maxTilesX == 8400)
 					return 1900;
 
-				return 600;
+				return 900;
 			}
 		}
 
@@ -191,8 +191,8 @@ namespace Emperia
 							break;
 					}
 
-					if (Main.tile[x, y].wall > 0)
-						Main.tile[x, y].wall = WallID.ObsidianBackUnsafe;
+					if (Main.tile[i, j].wall == WallID.Dirt)
+						Main.tile[i, j].wall = (ushort)mod.WallType("TwilightWoodWall");
 				}
 
 				if (Main.tile[x + TwilightWidth - offset, j].active())
