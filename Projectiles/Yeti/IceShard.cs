@@ -4,7 +4,8 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-namespace Emperia.Projectiles
+
+namespace Emperia.Projectiles.Yeti
 {
 	
 	public class IceShard : ModProjectile
