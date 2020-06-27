@@ -47,7 +47,7 @@ namespace Emperia.Items
 			}
 			if (Main.rand.Next(2) != 0)
 			{
-				player.QuickSpawnItem(mod.ItemType("BigGameHunter"));
+				player.QuickSpawnItem(mod.ItemType("IcicleCannon"));
 			}
 			if (Main.rand.Next(2) != 0)
 			{

@@ -5,10 +5,10 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace Emperia.Projectiles.Desert
+namespace Emperia.Projectiles.Yeti
 {
 
-    public class CarapaceCrusherProj1 : ModProjectile
+    public class IceSpikePre : ModProjectile
     {
         int timer = 0;
         private Point tileCoordPos { get { return new Point((int)(projectile.position.X / 16), (int)(projectile.position.Y / 16)); } }
@@ -35,10 +35,9 @@ namespace Emperia.Projectiles.Desert
 
             if (timer % 7 == 0)
             {
-                Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y + 10, 0, -1, mod.ProjectileType("DesertSpike"), projectile.damage / 2, 1, Main.myPlayer, 0, 0);
+                Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y + 10, 0, -1, mod.ProjectileType("IceSpike"), projectile.damage, 1, Main.myPlayer, 0, 0);
             }
             timer++;
-            //Dust.NewDust(new Vector2(projectile.Hitbox.X, projectile.Hitbox.Y), Main.rand.Next(1, 7), Main.rand.Next(1, 7), 20, projectile.velocity.X, projectile.velocity.Y);
             projectile.velocity.Y = 0;
             bool foundbelow = false;
             for (int i = 0; i < 16; i++)
@@ -76,20 +75,52 @@ namespace Emperia.Projectiles.Desert
             if (!foundbelow)
                 projectile.Kill();
         }
-        public override void Kill(int timeLeft)
-        {
-           // Main.PlaySound(SoundID.Item10, projectile.position);
-            /*for (int i = 0; i < 5; i++)
-            {
-                int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 7);
-                Vector2 vel = new Vector2(0, -1).RotatedBy(Main.rand.NextFloat() * 6.283f) * 3.5f;
-            }*/
-        }
 
         public override bool? CanHitNPC(NPC target)
 		{
             return false;
 		}
         
+    }
+    public class IceSpike : ModProjectile
+    {
+		private bool init = false;
+
+		public override void SetStaticDefaults()
+		{
+			DisplayName.SetDefault("Ice Spike");
+		}
+        public override void SetDefaults()
+        {  //projectile name
+            projectile.width = 10;       //projectile width
+            projectile.height = 14;  //projectile height
+            projectile.friendly = true;      //make that the projectile will not damage you
+			projectile.hostile = false;
+            projectile.melee = true;         // 
+            projectile.tileCollide = false;   //make that the projectile will be destroed if it hits the terrain
+            projectile.penetrate = -1;      //how many projectile will penetrate
+            projectile.timeLeft = 50;   //how many time projectile projectile has before disepire
+            projectile.light = 0f;    // projectile light
+            projectile.extraUpdates = 1;
+            projectile.ignoreWater = true;
+			projectile.alpha = 0;
+            drawOriginOffsetY = 2;
+        }
+        public override void AI()           //projectile make that the projectile will face the corect way
+        {
+            projectile.scale = 1.1f;
+            projectile.velocity *= .90f;
+        }
+        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        {
+            if (Main.rand.Next(3) == 0)
+            {
+			    target.AddBuff(BuffID.Frostburn, 240);
+            }
+		}
+        public override void Kill(int timeLeft)
+		{
+            Dust.NewDust(projectile.position, projectile.width, projectile.height, 68, (float) projectile.velocity.X / 10, (float) projectile.velocity.Y / 10, 0, default(Color), 0.7f);
+		}
     }
 }
