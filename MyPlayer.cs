@@ -96,6 +96,7 @@ namespace Emperia
 		public int eschargo = -5;
 		public int desertSpikeDirection = 0;
 		public int iceCannonLoad = 0;
+		public int clubSwing = 0;
 
 		
 				
@@ -174,6 +175,22 @@ namespace Emperia
 			{
 				iceCannonLoad++;
 				if (iceCannonLoad == -1) iceCannonLoad = 2;
+			}
+			if (clubSwing > 0 && clubSwing < 40)
+			{
+				clubSwing++;
+			}
+			if (clubSwing == 40)
+			{
+				clubSwing = 0;
+				int clubSwingDamage = player.GetWeaponDamage(player.inventory[player.selectedItem]) / 3;
+				if (player.velocity.Y == 0 && !player.mount.Active)
+				{
+					Main.PlaySound(SoundID.Item, player.Center, 27);  		
+					Vector2 perturbedSpeed;
+					perturbedSpeed = new Vector2(2 * player.direction, 0);
+					Projectile.NewProjectile(player.position.X + 65 * player.direction, player.Bottom.Y - 10, perturbedSpeed.X, perturbedSpeed.Y, mod.ProjectileType("IceSpikePre"), clubSwingDamage, 1, Main.myPlayer, 0, 0);
+				}
 			}
 			if (!lightningSet)
 				lightningDamage = 0;
@@ -623,6 +640,7 @@ namespace Emperia
             {
                 damage = (int) ((float) damage * 1.15f);
             }
+			
             if (doubleKnockback)
             {
                 knockback *= 2f;

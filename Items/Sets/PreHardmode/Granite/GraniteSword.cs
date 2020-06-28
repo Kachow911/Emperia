@@ -30,7 +30,7 @@ namespace Emperia.Items.Sets.PreHardmode.Granite   //where is located
 			item.scale = 1f;
             item.autoReuse = false;   //if it's capable of autoswing.    
 			item.UseSound = SoundID.Item1;
-			item.crit = 4;			
+			item.crit = 6;			
         }
 		public override void ModifyHitNPC (Player player, NPC target, ref int damage, ref float knockback, ref bool crit)
 		{

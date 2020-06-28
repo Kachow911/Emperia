@@ -315,7 +315,7 @@ namespace Emperia.Npcs.Yeti
 				}
 				if (Main.rand.Next(2) == 0)
 				{
-					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("BigGameHunter"));
+					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("IcicleCannon"));
 				}
 				
 				if (Main.rand.Next(7) == 0)
