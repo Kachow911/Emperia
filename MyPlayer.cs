@@ -97,7 +97,6 @@ namespace Emperia
 		public int desertSpikeDirection = 0;
 		public int iceCannonLoad = 0;
 		public int clubSwing = 0;
-		public int clubSwingDamage = 29;
 
 		
 				
@@ -184,6 +183,7 @@ namespace Emperia
 			if (clubSwing == 40)
 			{
 				clubSwing = 0;
+				int clubSwingDamage = player.GetWeaponDamage(player.inventory[player.selectedItem]) / 3;
 				if (player.velocity.Y == 0 && !player.mount.Active)
 				{
 					Main.PlaySound(SoundID.Item, player.Center, 27);  		
@@ -655,10 +655,6 @@ namespace Emperia
 			{
 				damage = damage += ((damage * 13) / 100);
 			}
-			if (item.type == mod.ItemType("MammothineClub"))
-            {
-                clubSwingDamage = damage / 3;  //potential cheese if you use "striking moment" and then spam spikes
-            }
         }
 		public override void OnHitNPC (Item item, NPC target, int damage, float knockback, bool crit)
 		{

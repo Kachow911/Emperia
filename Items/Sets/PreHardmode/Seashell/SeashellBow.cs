@@ -12,24 +12,25 @@ namespace Emperia.Items.Sets.PreHardmode.Seashell
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Seashell Bow");
+            Tooltip.SetDefault("Wooden arrows turn into a burst of coral");
 		}
         public override void SetDefaults()
         {
-            item.damage = 7;
+            item.damage = 13;
             item.noMelee = true;
             item.ranged = true;
             item.width = 69;
             item.height = 40;
-            item.useTime = 27;
-            item.useAnimation = 27;
+		 	item.useAnimation = 22;
+			item.useTime = 22;
             item.useStyle = 5;
             item.shoot = 3;
             item.useAmmo = ItemID.WoodenArrow;
             item.knockBack = 1;
-            item.value = 1000;
-            item.rare = 2;
-            item.autoReuse = true;
-            item.shootSpeed = 10f;
+            item.value = 24000;
+            item.rare = 1;
+            item.autoReuse = false;
+            item.shootSpeed = 11f;
 			item.UseSound = SoundID.Item5; 
 
         }
@@ -45,17 +46,16 @@ namespace Emperia.Items.Sets.PreHardmode.Seashell
         }
 		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
 		{
-			if (player.altFunctionUse == 2)
+            if (type == ProjectileID.WoodenArrowFriendly)
 			{
-				type = mod.ProjectileType("SeashellArrow");
-				speedX /= 2;
-				speedY /= 2;
+				type = mod.ProjectileType("CoralBurstMain");
+                damage = (int)(damage * 0.70f);
 			}
 			return true;  
 		}
-		public override bool AltFunctionUse(Player player)
+        public override Vector2? HoldoutOffset()
 		{
-			return true;
+			return new Vector2(0, 0);
 		}
     }
 }

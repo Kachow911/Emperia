@@ -22,8 +22,8 @@ namespace Emperia.Items.Sets.PreHardmode.Granite
             item.ranged = true;
             item.width = 30;
             item.height = 40;
-            item.useTime = 28;
-            item.useAnimation = 29;
+            item.useTime = 26;
+            item.useAnimation = 26;
             item.useStyle = 5;
             item.shoot = 3;
             item.useAmmo = ItemID.WoodenArrow;

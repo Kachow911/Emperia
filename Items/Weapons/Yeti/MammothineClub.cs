@@ -19,8 +19,8 @@ namespace Emperia.Items.Weapons.Yeti
         {
             item.damage = 29;
             item.melee = true;
-            item.width = 56;
-            item.height = 66;
+            item.width = 42;
+            item.height = 42;
             item.useTime = 40;
             item.useAnimation = 40;     
             item.useStyle = 1;
