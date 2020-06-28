@@ -152,7 +152,7 @@ namespace Emperia
 							airCount++;
 					}
 				}
-			} while (badTileCount > 50 && airCount > 200 && tries < 500);
+			} while (badTileCount > 100 && airCount > 200 && tries < 500);
 
 			// find a spot on the ground
 			while (!Main.tile[x, y].active())
@@ -192,7 +192,10 @@ namespace Emperia
 					}
 
 					if (Main.tile[i, j].wall == WallID.Dirt)
+					{
+						WorldGen.KillWall(i, j);
 						Main.tile[i, j].wall = (ushort)mod.WallType("TwilightWoodWall");
+					}
 				}
 
 				if (Main.tile[x + TwilightWidth - offset, j].active())
