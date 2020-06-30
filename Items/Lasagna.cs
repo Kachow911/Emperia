@@ -29,7 +29,7 @@ namespace Emperia.Items
             item.value = 200;
             item.buffType = BuffID.WellFed;
             item.buffTime = 108000;
-            item.createTile = ModContent.TileType<TwilightLantern>();
+            //item.createTile = ModContent.TileType<TwilightLantern>();
         }
     }
 }

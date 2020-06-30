@@ -16,6 +16,7 @@ namespace Emperia
     {
 	
 		public static int VolcanoTiles = 0;
+		public static int GrottoTiles = 0;
 		private static int twilightX;
 		private static int twilightY;
 		private static int TwilightSize
@@ -35,6 +36,7 @@ namespace Emperia
 		private static int TwilightHeight => TwilightSize / 3;
 
 		public static bool downedEye = false;
+		public static bool respawnFull = false;
 
 		public override void NetSend(BinaryWriter writer)
 		{
@@ -51,10 +53,12 @@ namespace Emperia
 		public override void ResetNearbyTileEffects()
 		{
 			VolcanoTiles = 0;
+			GrottoTiles = 0;
 		}
 		public override void TileCountsAvailable(int[] tileCounts)
 		{
 			VolcanoTiles = tileCounts[mod.TileType("VolcanoTile")];
+			GrottoTiles = tileCounts[mod.TileType("TwilightDirt")] + tileCounts[mod.TileType("TwilightBrick")] + tileCounts[mod.TileType("TwilightGrass")] + tileCounts[mod.TileType("TwilightStone")] + tileCounts[mod.TileType("TFWood")] + tileCounts[mod.TileType("TFLeaf")];
 		}
 		public void MakeCircle(int X, int Y, int radius, int TileType)
 		{
