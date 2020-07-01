@@ -59,8 +59,6 @@ namespace Emperia.Npcs.Ice
 			}
 			else if (move == Move.Swordcast)
 			{
-				npc.frameCounter += 0.2f;
-				npc.frameCounter %= 4; 
 				int frame = 8; 
 				npc.frame.Y = frame * frameHeight; 
 			}
