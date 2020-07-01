@@ -38,7 +38,13 @@ namespace Emperia.Items
         public override bool UseItem(Player player)
         {
 			Main.NewText("The slumber of the Arctic Guardian has been disturbed...");
-			NPC.NewNPC((int)player.Center.X + Main.rand.Next(-350, 350), (int)player.Center.Y - 400, mod.NPCType("Yeti"));
+            int dist = 0;
+            if (Main.rand.NextBool(2))
+                dist = -1000;
+            else
+                dist = 1000;
+        
+			NPC.NewNPC((int)player.Center.X + dist, (int)player.Center.Y - 400, mod.NPCType("Yeti"));
             Main.PlaySound(SoundID.Roar, player.position, 0);
 			MyPlayer modPlayer1 = Main.player[Main.myPlayer].GetModPlayer<MyPlayer>();
 

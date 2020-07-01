@@ -17,7 +17,7 @@ namespace Emperia.Tiles
             AddMapEntry(new Color(117, 241, 255));
 			mineResist = 3f;
 			Main.tileBrick[Type] = true;
-            drop = ItemID.DirtBlock;
+            drop = mod.ItemType("GrottoDirt");
 			SetModTree(new TwilightTree());
 			dustType = 72;
       

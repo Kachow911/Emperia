@@ -11,7 +11,7 @@ namespace Emperia.Tiles
 
 		public override int DropWood()
 		{
-			return mod.ItemType("DaysVerge");
+			return mod.ItemType("GrottoWood");
 		}
 		public override int GrowthFXGore()
 		{
@@ -31,7 +31,8 @@ namespace Emperia.Tiles
 			frameWidth=160;
 			frameHeight=113;
 			frame = 0;
-			xOffsetLeft = 75;
+			xOffsetLeft = 52;
+			yOffset = 12;
 			return mod.GetTexture("Tiles/TwilightTree_Top");
 		}
 

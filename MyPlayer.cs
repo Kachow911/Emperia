@@ -20,6 +20,7 @@ namespace Emperia
 {
     public class MyPlayer : ModPlayer
     {
+		public bool ZoneGrotto = false;
 		public bool ZoneVolcano = false;
 		public bool cursedDash = false;
 		public bool lunarDash = false;
@@ -102,6 +103,7 @@ namespace Emperia
 				
         public override void ResetEffects()
         {
+			EmperialWorld.respawnFull = false;
 			chillsteelSet = false;
 			bloodboilSet = false;
 			lightningSet = false;
@@ -147,7 +149,9 @@ namespace Emperia
 		public override void UpdateBiomes()
 		{
 			ZoneVolcano = EmperialWorld.VolcanoTiles > 250;
+			ZoneGrotto = EmperialWorld.GrottoTiles > 100;
 		}
+		
         public override void UpdateBiomeVisuals()
 		{
 			player.ManageSpecialBiomeVisuals("Emperia:Volcano", ZoneVolcano);
@@ -618,6 +622,15 @@ namespace Emperia
         {
           
         }
+		public override void OnRespawn(Player player)
+		{
+			if (EmperialWorld.respawnFull)
+            {
+				player.statLife = player.statLifeMax2;
+				player.statMana = player.statManaMax2;
+				
+			}
+		}
 		public override void Hurt(bool pvp, bool quiet, double damage, int hitDirection, bool crit)
 		{
 			graniteTime = 0;

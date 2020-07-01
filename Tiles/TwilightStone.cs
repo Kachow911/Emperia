@@ -14,7 +14,7 @@ namespace Emperia.Tiles
 			Main.tileMergeDirt[Type] = true;
 			Main.tileMerge[Type][mod.TileType("TwilightGrass")] = true;
 			Main.tileBlockLight[Type] = true;
-			drop = mod.ItemType("TwilightStone");
+			drop = mod.ItemType("GrottoStone");
 			AddMapEntry(new Color(138, 210, 230));
 			mineResist = 4f;
 			minPick = 80;
