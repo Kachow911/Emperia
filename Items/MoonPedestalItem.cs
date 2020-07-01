@@ -11,7 +11,7 @@ namespace Emperia.Items
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Moon Pedestal");
-			Tooltip.SetDefault("Placing the pedestal will cause you to respawn with max health and mana");
+			Tooltip.SetDefault("Players will respawn with max life and mana when placed nearby");
 		}
 
 
