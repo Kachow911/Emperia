@@ -94,7 +94,7 @@ namespace Emperia
 		private int primalRageTime = 0;
 		public int vileTimer = 0;
 		private bool waxwingActive = false;
-		public int eschargo = -5;
+		public int eschargo = -10;
 		public int desertSpikeDirection = 0;
 		public int iceCannonLoad = 0;
 		public int clubSwing = 0;
@@ -156,6 +156,14 @@ namespace Emperia
 		{
 			player.ManageSpecialBiomeVisuals("Emperia:Volcano", ZoneVolcano);
 		}
+		public override float UseTimeMultiplier(Item item)
+        {
+            if (item.type == mod.ItemType("Escargun") && (eschargo >= 0))
+            {
+                return 1.25f;
+            }
+            return 1f;
+        }
         public override void CatchFish(Item fishingRod, Item bait, int power, int liquidType, int poolSize, int worldLayer, int questFish, ref int caughtType, ref bool junk)
 		{
 			if (junk)
@@ -505,7 +513,7 @@ namespace Emperia
 			}
 			if (eschargo > 600)
 			{
-				eschargo = -5;
+				eschargo = -10;
 			}
         }
 	
@@ -791,11 +799,11 @@ namespace Emperia
 			{
 				target.AddBuff(mod.BuffType("FatesDemise"), 720);
 			}
-			if (defenseInsignia && damage > 50)
+			if (defenseInsignia)
 			{
-				int increasedChance = 4 + ((damage - 50) % 25);
-				if (increasedChance > 12) increasedChance = 12;
-				if (Main.rand.Next(100 / increasedChance) == 0)
+				int increasedChance = damage / 50;
+				if (increasedChance > 8) increasedChance = 8;
+				if (Main.rand.NextFloat(100) < (2 + increasedChance))
 				{
 					Item.NewItem((int)target.position.X, (int)target.position.Y, target.width, target.height, mod.ItemType("ProtectiveEnergy"));
 				}
@@ -931,9 +939,11 @@ namespace Emperia
 			{
 				target.AddBuff(mod.BuffType("FatesDemise"), 720);
 			}
-			if (defenseInsignia && damage > 150)
+			if (defenseInsignia)
 			{
-				if (Main.rand.Next(12) == 0)
+				int increasedChance = damage / 50;
+				if (increasedChance > 9) increasedChance = 9;
+				if (Main.rand.NextFloat(100) < (1 + increasedChance))
 				{
 					Item.NewItem((int)target.position.X, (int)target.position.Y, target.width, target.height, mod.ItemType("ProtectiveEnergy"));
 				}
