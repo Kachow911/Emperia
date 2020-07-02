@@ -13,12 +13,10 @@ namespace Emperia.Npcs.StormBoss
     {
         private enum Move
         {
-           Chase,
-		   Charge,
-		   ThrowBombs,
-		   SporeStorm,
-		   SpawnMinions,
-		   Shielding
+           LightningDash,
+		   Shockwave,
+		   SweepingBeams,
+		   Lightning
         }
 
 		private int counter = 0;
@@ -60,16 +58,48 @@ namespace Emperia.Npcs.StormBoss
       
         public override void FindFrame(int frameHeight)
         {
-            
+            npc.frameCounter += 0.2f;
+            npc.frameCounter %= 6;
+            int frame = (int)npc.frameCounter;
+            npc.frame.Y = frame * frameHeight;
         }
 
         public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
         {
+            npc.lifeMax = 25500;
+            npc.damage = 100;
         }
 
         public override void AI()
 		{
-			
+            Player player = Main.player[npc.target];
+            if (!init)
+            {
+                move = Move.LightningDash;
+                counter = 100;
+                init = true;
+            }
+            if (move == Move.LightningDash)
+            {
+                //Main.NewText("Big");
+                counter--;
+                Vector2 toPlayer = new Vector2(player.Center.X - npc.Center.X, player.Center.Y - npc.Center.Y);
+                if (toPlayer.Length() > 4 && counter % 25 == 0)
+                {
+                    npc.velocity = (toPlayer / 4).RotatedBy(Main.rand.Next(-15, 15)); // jets in somewhat of a lightning pattern towards the player
+                }
+                move = Move.Lightning;
+            }
+            else if (move == Move.Lightning)
+            {
+                counter--;
+            } else if (move == Move.Shockwave)
+            {
+                counter--;
+            } else if (move == Move.SweepingBeams)
+            {
+                counter--;
+            }
         }
 		
 
@@ -108,5 +138,17 @@ namespace Emperia.Npcs.StormBoss
 			
 			
 		}
+
+        public Vector2 rotateVector(Vector2 v, float degrees)
+        {
+            double radians = (Math.PI / 180) * degrees;
+            float sin = (float)Math.Sin(radians);
+            float cos = (float)Math.Cos(radians);
+
+            float tx = v.X;
+            float ty = v.Y;
+
+            return new Vector2(cos * tx - sin * ty, sin * tx + cos * ty);
+        }
     }
 }
