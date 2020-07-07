@@ -13,11 +13,12 @@ namespace Emperia.Tiles
 			Main.tileSolid[Type] = true;
 			Main.tileMergeDirt[Type] = true;
 			Main.tileMerge[Type][mod.TileType("TwilightGrass")] = true;
+			Main.tileBlendAll[this.Type] = true;
 			Main.tileBlockLight[Type] = true;
 			drop = mod.ItemType("GrottoStone");
 			AddMapEntry(new Color(138, 210, 230));
 			mineResist = 4f;
-			minPick = 80;
+			minPick = 55;
 			soundType = 21;
 			Main.tileSpelunker[Type] = true;
 		}
