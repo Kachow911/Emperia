@@ -39,6 +39,7 @@ using Terraria.UI.Chat;
 using Terraria.UI.Gamepad;
 using Terraria.Utilities;
 using Terraria.World.Generation;
+using System.ComponentModel;
 
 namespace Emperia.Npcs.StormBoss
 {
@@ -134,37 +135,43 @@ namespace Emperia.Npcs.StormBoss
             }
             else if (move == Move.DashRecovery)
             {
-                int dust = Dust.NewDust(npc.Center, 8, 8, 226);
-                
-                if (LineIntersectsRect(new Point((int)npc.Center.X, (int)npc.Center.Y), new Point((int)initialPosition.X, (int)initialPosition.Y), player.Hitbox))
+                if (LineIntersectsRect(new Vector2(npc.Center.X, npc.Center.Y), new Vector2(initialPosition.X, initialPosition.Y), player.Hitbox))
                 {
                     Main.NewText("Intersection");
                 }
-                float lineLength = (float)Math.Sqrt(Math.Abs(npc.Center.X - initialPosition.X) * Math.Abs(npc.Center.X - initialPosition.X) + Math.Abs(npc.Center.Y - initialPosition.Y) * Math.Abs(npc.Center.Y - initialPosition.Y));
-
-                int numDusts = 5;
+                
+                Vector2 toBoss = new Vector2(npc.Center.X - initialPosition.X, npc.Center.Y - initialPosition.Y);
+                
+                int numDusts = 100;
                 for (float i = 0; i <= numDusts; i++)
-                { // make npc center and inital position variables that dont change after it starts dashing to fix I gotta go :))))))
-                    int dust1 = Dust.NewDust(new Vector2((float)(npc.Center.X + Math.Sqrt(Math.Pow((i / numDusts) * lineLength, 2) - Math.Pow(npc.Center.Y - initialPosition.Y, 2))), (float)(npc.Center.Y + Math.Sqrt(Math.Pow((i / numDusts) * lineLength, 2) - Math.Pow(npc.Center.X - initialPosition.X, 2))w)), 8, 8, 226);
+                {
+                    if (Main.rand.Next(1, 10) <= 3) {
+                        int dust1 = Dust.NewDust(new Vector2(initialPosition.X + ((npc.Center.X - initialPosition.X) * (i / numDusts)), initialPosition.Y + ((npc.Center.Y - initialPosition.Y) * (i / numDusts))), 8, 8, 226);
+                    }
                 }
                 //if (counter % 2 == 0)
                 npc.velocity *= .95f;
                 counter--;
                 if (counter <= 0)
                 {
-                    SetMove(Move.LightningDash, 100);
+                    SetMove(Move.Lightning, 60);
 
                 }
             }
             else if (move == Move.Lightning)
             {
-                
+                int dust = Dust.NewDust(npc.Center + new Vector2(0, 25), 8, 8, 226);
+                if (counter == 0)
+                {
+
+                    SetMove(Move.LightningDash, 100);
+                }
                 counter--;
             } else if (move == Move.Shockwave)
             {
                 counter--;
             } else if (move == Move.SweepingBeams)
-            {
+            {                
                 counter--;
             }
         }
@@ -205,16 +212,16 @@ namespace Emperia.Npcs.StormBoss
 			
 			
 		}
-        public static bool LineIntersectsRect(Point p1, Point p2, Rectangle r)
+        public static bool LineIntersectsRect(Vector2 p1, Vector2 p2, Rectangle r)
         {
-            return LineIntersectsLine(p1, p2, new Point(r.X, r.Y), new Point(r.X + r.Width, r.Y)) ||
-                   LineIntersectsLine(p1, p2, new Point(r.X + r.Width, r.Y), new Point(r.X + r.Width, r.Y + r.Height)) ||
-                   LineIntersectsLine(p1, p2, new Point(r.X + r.Width, r.Y + r.Height), new Point(r.X, r.Y + r.Height)) ||
-                   LineIntersectsLine(p1, p2, new Point(r.X, r.Y + r.Height), new Point(r.X, r.Y)) ||
-                   (r.Contains(p1) && r.Contains(p2));
+            return LineIntersectsLine(p1, p2, new Vector2(r.X, r.Y), new Vector2(r.X + r.Width, r.Y)) ||
+                   LineIntersectsLine(p1, p2, new Vector2(r.X + r.Width, r.Y), new Vector2(r.X + r.Width, r.Y + r.Height)) ||
+                   LineIntersectsLine(p1, p2, new Vector2(r.X + r.Width, r.Y + r.Height), new Vector2(r.X, r.Y + r.Height)) ||
+                   LineIntersectsLine(p1, p2, new Vector2(r.X, r.Y + r.Height), new Vector2(r.X, r.Y)) ||
+                   r.Contains(new Point((int)(p1.X), (int)(p1.Y))) && r.Contains(new Point((int)(p2.X), (int)(p2.Y)));
         }
 
-        private static bool LineIntersectsLine(Point l1p1, Point l1p2, Point l2p1, Point l2p2)
+        private static bool LineIntersectsLine(Vector2 l1p1, Vector2 l1p2, Vector2 l2p1, Vector2 l2p2)
         {
             float q = (l1p1.Y - l2p1.Y) * (l2p2.X - l2p1.X) - (l1p1.X - l2p1.X) * (l2p2.Y - l2p1.Y);
             float d = (l1p2.X - l1p1.X) * (l2p2.Y - l2p1.Y) - (l1p2.Y - l1p1.Y) * (l2p2.X - l2p1.X);
@@ -238,3 +245,4 @@ namespace Emperia.Npcs.StormBoss
         }
     }
 }
+
