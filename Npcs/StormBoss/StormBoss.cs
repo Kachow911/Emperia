@@ -40,10 +40,9 @@ using Terraria.UI.Gamepad;
 using Terraria.Utilities;
 using Terraria.World.Generation;
 using System.ComponentModel;
-
 namespace Emperia.Npcs.StormBoss
 {
-	//[AutoloadBossHead]
+	[AutoloadBossHead]
     public class StormBoss : ModNPC
     {
         private enum Move
@@ -76,16 +75,16 @@ namespace Emperia.Npcs.StormBoss
             npc.lifeMax = 12500;
             npc.damage = 75;
             npc.defense = 18;
-            npc.knockBackResist = 100f;
-            npc.width = 135;
-            npc.height = 135;
+            npc.knockBackResist = 0f;
+            npc.width = 176;
+            npc.height = 176;
             npc.value = Item.buyPrice(0, 8, 0, 0);
             npc.npcSlots = 1f;
             npc.boss = true;
             npc.lavaImmune = true;
             npc.noGravity = true;
             npc.noTileCollide = true;
-            npc.HitSound = SoundID.NPCHit1; 
+           // npc.HitSound = SoundID.NPCHit1; 
             npc.DeathSound = SoundID.NPCDeath1;
             npc.buffImmune[24] = true;
             npc.netAlways = true;
@@ -125,9 +124,23 @@ namespace Emperia.Npcs.StormBoss
                 
                 //LookAt(player.Center);
                 npc.rotation = (float)Math.Atan2((double)toPlayer.Y, (double)toPlayer.X) - 1.57f;
-                if (counter <= 0)
+                float distToPlayer = (float)Math.Sqrt(Math.Abs(npc.Center.X - player.Center.X) * Math.Abs(npc.Center.X - player.Center.X) + Math.Abs(npc.Center.Y - player.Center.Y) * Math.Abs(npc.Center.Y - player.Center.Y));
+                int multFactor;
+                if (distToPlayer < 100)
                 {
-                    npc.velocity = toPlayer * 32f; // jets in somewhat of a lightning pattern towards the player
+                    multFactor = 30;
+                }
+                else if (distToPlayer < 800)
+                {
+                    multFactor = 40;
+                }
+                else
+                {
+                    multFactor = 60;
+                }
+                    if (counter <= 0)
+                {
+                    npc.velocity = toPlayer.RotatedBy(MathHelper.ToRadians(Main.rand.Next(-10, 10))) * (float)multFactor; // jets in somewhat of a lightning pattern towards the player
                     initialPosition = npc.Center;
                     SetMove(Move.DashRecovery, 180);
                 }
@@ -139,7 +152,8 @@ namespace Emperia.Npcs.StormBoss
                 {
                     Main.NewText("Intersection");
                 }
-                
+                Line line1 = new Line(npc.Center, player.Center);
+                line1.Draw(Main.spriteBatch, default(Color));
                 Vector2 toBoss = new Vector2(npc.Center.X - initialPosition.X, npc.Center.Y - initialPosition.Y);
                 
                 int numDusts = 100;
@@ -147,6 +161,7 @@ namespace Emperia.Npcs.StormBoss
                 {
                     if (Main.rand.Next(1, 10) <= 3) {
                         int dust1 = Dust.NewDust(new Vector2(initialPosition.X + ((npc.Center.X - initialPosition.X) * (i / numDusts)), initialPosition.Y + ((npc.Center.Y - initialPosition.Y) * (i / numDusts))), 8, 8, 226);
+                        Main.dust[dust1].noGravity = true;
                     }
                 }
                 //if (counter % 2 == 0)
@@ -177,10 +192,7 @@ namespace Emperia.Npcs.StormBoss
         }
 		
 
-        public override void PostDraw(SpriteBatch batch, Color drawColor)
-        {
-           
-        }
+        
 
        /* private void SmoothMoveToPosition(Vector2 toPosition, float addSpeed, float maxSpeed, float slowRange = 64, float slowBy = .95f)
         {
@@ -207,11 +219,6 @@ namespace Emperia.Npcs.StormBoss
             move = toMove;
             this.counter = counter;
         }
-		public override void NPCLoot()
-		{
-			
-			
-		}
         public static bool LineIntersectsRect(Vector2 p1, Vector2 p2, Rectangle r)
         {
             return LineIntersectsLine(p1, p2, new Vector2(r.X, r.Y), new Vector2(r.X + r.Width, r.Y)) ||
@@ -243,6 +250,12 @@ namespace Emperia.Npcs.StormBoss
 
             return true;
         }
+        private Vector2[] getJaggedPoints(Vector2 p1, Vector2 p2)
+        {
+
+        }
+       
     }
+    
 }
 
