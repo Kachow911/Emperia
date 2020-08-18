@@ -10,7 +10,7 @@ namespace Emperia.Items
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Waxwing Potion");
-            Tooltip.SetDefault("Increased wing speed by 25%, but decreased flight time by 15%");
+            Tooltip.SetDefault("Increases wing speed by 25%, but decreases flight time by 10%");
         }
 
         public override void SetDefaults()

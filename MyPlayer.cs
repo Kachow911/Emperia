@@ -93,7 +93,6 @@ namespace Emperia
 		int ferocityTime = 0;
 		private int primalRageTime = 0;
 		public int vileTimer = 0;
-		private bool waxwingActive = false;
 		public int eschargo = -10;
 		public int desertSpikeDirection = 0;
 		public int iceCannonLoad = 0;
@@ -499,14 +498,6 @@ namespace Emperia
 					Main.PlaySound(SoundID.Item4, player.Center);
 				}
 			}
-			if (player.HasBuff(mod.BuffType("Waxwing"))) {
-				if ((player.controlJump) && (player.wingTimeMax > 0) && (player.velocity.Y != 0) && (!player.mount.Active))
-            	{
-					string airTimer = player.wingTime.ToString();
-					Main.NewText(airTimer, 255, 240, 20, false);
-					waxwingActive = true;
-            	}
-			}
 			if (eschargo >= 0)
 			{
 				eschargo++;
@@ -515,8 +506,18 @@ namespace Emperia
 			{
 				eschargo = -10;
 			}
+			if (player.HasBuff(mod.BuffType("Waxwing")))
+			{
+				if (player.wingTime == player.wingTimeMax)
+				{
+					player.wingTime *= 0.9f;//maybe 30% boost but 15% reduction?
+				}
+			}
         }
-	
+		public override void PostUpdateEquips()
+		{
+
+		}
 		public override void ProcessTriggers(TriggersSet triggersSet)
         {
 
@@ -985,13 +986,7 @@ namespace Emperia
         }
 		public override void PreUpdateMovement()
 		{
-            if (waxwingActive)
-			{
-                player.velocity.Y *= 1.25f;
-				Main.NewText("what", 255, 240, 20, false);
-				waxwingActive = false;
-            }
-			//unfinished
+
         }
     }
 }

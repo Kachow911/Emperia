@@ -11,24 +11,16 @@ namespace Emperia.Tiles
         {
 			//AddToArray(ref TileID.Sets.Conversion.Grass);
 			//TileID.Sets.Conversion.Grass[Type]=true;
+            //Main.tileMergeDirt[Type] = true;
             Main.tileSolid[Type] = true;
             Main.tileBlockLight[Type] = true;  //true for block to emit light
             Main.tileLighted[Type] = true;
-            AddMapEntry(new Color(117, 241, 255));
-			mineResist = 3f;
+            AddMapEntry(new Color(61, 57, 92));
 			Main.tileBrick[Type] = true;
             drop = mod.ItemType("GrottoDirt");
 			SetModTree(new TwilightTree());
-			dustType = 72;
-      
-			minPick = 100;
-      
-			soundType = 6; //6 is grass //11 //18 is money //20 is girl sound
-      
-			soundStyle = 6;
-      
-			
-			
+			dustType = 175;
+            mineResist = 0.5f;
         }
 		public override int SaplingGrowthType(ref int style)
         {
@@ -36,18 +28,6 @@ namespace Emperia.Tiles
             return mod.TileType("TwilightTreeSap");       
         }
 		
-		
-		
-		public override void KillTile(int i, int j, ref bool fail, ref bool effectOnly, ref bool noItem)
-        {
-            if (!effectOnly)
-            {
-                fail = true;
-                Main.tile[i, j].type = TileID.Dirt;
-                WorldGen.SquareTileFrame(i, j, true);
-			
-            }
-        }
         public static bool PlaceObject(int x, int y, int type, bool mute = false, int style = 0, int alternate = 0, int random = -1, int direction = -1)
         {
             TileObject toBePlaced;

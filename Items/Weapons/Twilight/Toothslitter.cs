@@ -18,7 +18,7 @@ namespace Emperia.Items.Weapons.Twilight
 
         public override void SetDefaults()
         {
-            item.damage 24;
+            item.damage = 24;
             item.useTime = 36;
             item.useAnimation = 36;
             item.melee = true;            

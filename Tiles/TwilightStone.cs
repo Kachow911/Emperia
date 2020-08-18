@@ -16,11 +16,10 @@ namespace Emperia.Tiles
 			Main.tileBlendAll[this.Type] = true;
 			Main.tileBlockLight[Type] = true;
 			drop = mod.ItemType("GrottoStone");
-			AddMapEntry(new Color(138, 210, 230));
-			mineResist = 4f;
-			minPick = 55;
+			AddMapEntry(new Color(51, 75, 102));
+			mineResist = 2f;
 			soundType = 21;
-			Main.tileSpelunker[Type] = true;
+			dustType = 121;
 		}
 		
 		public override bool CanExplode(int i, int j)

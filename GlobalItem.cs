@@ -79,5 +79,21 @@ namespace Emperia
             }
             return true;
         }
+		public override void VerticalWingSpeeds(Item item, Player player, ref float ascentWhenFalling, ref float ascentWhenRising, ref float maxCanAscendMultiplier, ref float maxAscentMultiplier, ref float constantAscend)
+        {
+            if (player.HasBuff(mod.BuffType("Waxwing")))
+            {
+				maxAscentMultiplier *= 1.25f;
+            }
+            return;
+        }
+		public override void HorizontalWingSpeeds(Item item, Player player, ref float speed, ref float acceleration)
+        {
+            if (player.HasBuff(mod.BuffType("Waxwing")))
+            {
+				speed *= 1.25f;
+            }
+            return;
+        }
 	}
 }

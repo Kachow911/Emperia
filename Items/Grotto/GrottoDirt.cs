@@ -7,19 +7,18 @@ namespace Emperia.Items.Grotto
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Grotto Dirt");
+			DisplayName.SetDefault("Loam Block");
 		}
 		public override void SetDefaults()
 		{
-			item.width = 20;
-			item.height = 20;
+			item.width = 16;
+			item.height = 16;
 			item.maxStack = 999;
-			item.value = 1000;
-			item.rare = 1;
+			item.rare = 0;
 			item.useTurn = true;
             item.autoReuse = true;
             item.useAnimation = 15;
-            item.useTime = 10;
+            item.useTime = 15;
             item.useStyle = ItemUseStyleID.SwingThrow;
             item.consumable = true;
             item.createTile = mod.TileType("TwilightDirt");
