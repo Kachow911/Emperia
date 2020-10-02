@@ -63,6 +63,7 @@ namespace Emperia
 		public bool lightningSet = false;
 		public bool chillsteelSet = false;
 		public bool frostleafSet = false;
+		public bool frostFang = false;
 		public int poundTime = 0;
 		public int carapaceTime = 0;
 		bool velocityPos = false;
@@ -97,6 +98,7 @@ namespace Emperia
 		public int desertSpikeDirection = 0;
 		public int iceCannonLoad = 0;
 		public int clubSwing = 0;
+		public int frostFangTimer = 0;
 
 		
 				
@@ -142,6 +144,7 @@ namespace Emperia
             forestSetSummon = false;
 			graniteSet = false;
 			frostleafSet = false;
+			frostFang = false;
 			
             sporeBuffCount = 0;
         }
@@ -511,6 +514,27 @@ namespace Emperia
 				if (player.wingTime == player.wingTimeMax)
 				{
 					player.wingTime *= 0.9f;//maybe 30% boost but 15% reduction?
+				}
+			}
+			if (frostFang == true && player.velocity.Y == 0 && player.velocity.X == 0)
+			{
+				frostFangTimer++;
+			}
+			else if (frostFangTimer > 0) frostFangTimer = 0;
+			if (frostFangTimer >= 60) 
+			{
+				for (int k = 0; k < 200; k++) {
+					NPC npc = Main.npc[k];
+					if (npc.CanBeChasedBy(player, false)) {
+						float distance = Vector2.Distance(npc.Center, player.Center);
+						if ((distance < 200) && Collision.CanHitLine(player.position, player.width, player.height, npc.position, npc.width, npc.height)) {
+							//distance 400
+							Main.NewText("yeet2", 255, 240, 20, false);	
+							npc.AddBuff(mod.BuffType("Frozen"), 120);	
+							frostFangTimer = -420;
+							k = 200;				
+						}
+					}
 				}
 			}
         }

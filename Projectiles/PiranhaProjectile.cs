@@ -26,6 +26,7 @@ namespace Emperia.Projectiles
             projectile.melee = true;
             projectile.penetrate = -1;
             projectile.timeLeft = 1000;
+            projectile.ignoreWater = true;
 			Main.projFrames[projectile.type] = 3;
         }
 
