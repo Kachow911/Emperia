@@ -90,8 +90,11 @@ namespace Emperia.Projectiles.Desert
 		}
         public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection) {
             npc = target;
-            npc.GetGlobalNPC<MyNPC>().desertSpikeTime = 100;
-            npc.GetGlobalNPC<MyNPC>().desertSpikeHeight = projectile.Top.Y + 28;
+            if (npc.knockBackResist > 0f)
+            {
+                npc.GetGlobalNPC<MyNPC>().desertSpikeTime = 100;
+                npc.GetGlobalNPC<MyNPC>().desertSpikeHeight = projectile.Top.Y + 28;
+            }
 		}
         public override void DrawBehind(int index, List<int> drawCacheProjsBehindNPCsAndTiles, List<int> drawCacheProjsBehindNPCs, List<int> drawCacheProjsBehindProjectiles, List<int> drawCacheProjsOverWiresUI) {
 			drawCacheProjsBehindNPCs.Add(index);

@@ -32,6 +32,7 @@ namespace Emperia
 		public bool moreCoins = false;
 		public bool graniteMinionLatched = false;
 		public bool crushFreeze = false;
+		public bool cryogenized = false;
 		public int graniteMinID = -1;
         public int spineCount = 0;
 		public int chillStacks = 0;
@@ -63,6 +64,7 @@ namespace Emperia
             moreDamage = false;
 			moreCoins = false;
 			strikeCount = 0;	
+			cryogenized = false;
 			//graniteMinionLatched = false;
 		} 
 		public override bool InstancePerEntity {get{return true;}}
@@ -101,7 +103,14 @@ namespace Emperia
 			}
             
         }
-		
+		public override bool PreAI(NPC npc)
+		{
+			if (cryogenized == true)
+			{
+				return false;
+			}
+			else return true;
+		}
 		public override void AI(NPC npc)
 		{
 			if (etherealDamages.Count > 0)

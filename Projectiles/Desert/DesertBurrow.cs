@@ -96,14 +96,18 @@ namespace Emperia.Projectiles.Desert
         }
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
+            
             Player player = Main.player[projectile.owner];
             MyPlayer modPlayer = player.GetModPlayer<MyPlayer>();
             modPlayer.desertSpikeDirection = projectile.direction;
             //Projectile.NewProjectile(projectile.Center.X + (4 * projectile.direction), projectile.Center.Y - 21, 0, 0, mod.ProjectileType("DesertSpikeBig"), 0, 0, Main.myPlayer, 0, 0);
     		Projectile.NewProjectile(target.Center.X - (2 * projectile.direction), projectile.Center.Y - 21, 0, 0, mod.ProjectileType("DesertSpikeBig"), 0, 0, Main.myPlayer, 0, 0);
             npc = target;
-            npc.GetGlobalNPC<MyNPC>().desertSpikeTime = -8;
             Main.PlaySound(SoundID.Item70, projectile.Center);
+            if (npc.knockBackResist > 0f)
+            {
+                npc.GetGlobalNPC<MyNPC>().desertSpikeTime = -8;
+            }
         }
         public override void Kill(int timeLeft)
         {

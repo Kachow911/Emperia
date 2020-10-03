@@ -520,17 +520,18 @@ namespace Emperia
 			{
 				frostFangTimer++;
 			}
-			else if (frostFangTimer > 0) frostFangTimer = 0;
+			else if (frostFangTimer >= 0) frostFangTimer = 0;
+			else frostFangTimer++;
 			if (frostFangTimer >= 60) 
 			{
 				for (int k = 0; k < 200; k++) {
 					NPC npc = Main.npc[k];
-					if (npc.CanBeChasedBy(player, false)) {
+					if (npc.CanBeChasedBy(player, false) && npc.knockBackResist > 0f) {
 						float distance = Vector2.Distance(npc.Center, player.Center);
 						if ((distance < 200) && Collision.CanHitLine(player.position, player.width, player.height, npc.position, npc.width, npc.height)) {
 							//distance 400
 							Main.NewText("yeet2", 255, 240, 20, false);	
-							npc.AddBuff(mod.BuffType("Frozen"), 120);	
+							npc.AddBuff(mod.BuffType("Cryogenized"), 120);	
 							frostFangTimer = -420;
 							k = 200;				
 						}
