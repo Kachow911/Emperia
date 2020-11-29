@@ -152,8 +152,8 @@ namespace Emperia.Npcs.StormBoss
                 {
                     Main.NewText("Intersection");
                 }
-                Line line1 = new Line(npc.Center, player.Center);
-                line1.Draw(Main.spriteBatch, default(Color));
+               // Line line1 = new Line(npc.Center, player.Center);
+               
                 Vector2 toBoss = new Vector2(npc.Center.X - initialPosition.X, npc.Center.Y - initialPosition.Y);
                 
                 int numDusts = 100;
@@ -250,10 +250,10 @@ namespace Emperia.Npcs.StormBoss
 
             return true;
         }
-        private Vector2[] getJaggedPoints(Vector2 p1, Vector2 p2)
-        {
-
-        }
+        //private Vector2[] getJaggedPoints(Vector2 p1, Vector2 p2)
+        //{
+           // return [new Vector2(0, 0)];
+        //}
        
     }
     

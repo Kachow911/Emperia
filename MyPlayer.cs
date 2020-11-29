@@ -20,6 +20,8 @@ namespace Emperia
 {
     public class MyPlayer : ModPlayer
     {
+		public bool bonusMelee = false; 
+
 		public bool ZoneGrotto = false;
 		public bool ZoneVolcano = false;
 		public bool cursedDash = false;
@@ -104,7 +106,8 @@ namespace Emperia
 				
         public override void ResetEffects()
         {
-			EmperialWorld.respawnFull = false;
+			 bool bonusMelee = false;
+		EmperialWorld.respawnFull = false;
 			chillsteelSet = false;
 			bloodboilSet = false;
 			lightningSet = false;
@@ -679,6 +682,15 @@ namespace Emperia
 		}
 		public override void ModifyHitNPC (Item item, NPC target, ref int damage, ref float knockback, ref bool crit)
 		{
+			if (bonusMelee)
+			{
+				double itemLength = Math.Sqrt(item.width * item.width + item.height * item.height) + 20f;
+				double distance = Vector2.Distance(player.Center, target.Center);
+				double damageMult = .25f * ((itemLength - distance) / itemLength);
+				damage += (int)(damage * damageMult);
+
+
+			}
 			if (slightKnockback)
 			{
 				knockback *= 1.1f;
@@ -705,6 +717,7 @@ namespace Emperia
         }
 		public override void OnHitNPC (Item item, NPC target, int damage, float knockback, bool crit)
 		{
+			
 			if (target.life <= 0 && terraGauntlet)
             {
                 for (int i = 0; i < Main.rand.Next(3, 6); i++)
