@@ -19,8 +19,7 @@ namespace Emperia.Items.Weapons.Twilight
     {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Petal Power");
-			//Tooltip.SetDefault("Uses gel for ammo\nInflicts Spore Storm for 10-30 seconds depending on range\nSteals a small amount of life from all afflicted enemies every 2 seconds");
+			DisplayName.SetDefault("Bouquet Blaster");
 		}
         public override void SetDefaults()
         {  
@@ -28,18 +27,17 @@ namespace Emperia.Items.Weapons.Twilight
             item.ranged = true;    
             item.width = 50; 
             item.height = 28;    
-            item.useTime = 20;   
-            item.useAnimation = 20;     
+            item.useTime = 16;   
+            item.useAnimation = 16;     
             item.useStyle = 5;  
             item.noMelee = true; 
-            item.knockBack = 0.5f; 
-            item.UseSound = SoundID.Item34; 
-            item.value = 600000;
-            item.rare = 8;   
+            item.knockBack = 0.75f; 
+            item.UseSound = SoundID.Item17; 
+            item.value = 33000;
+            item.rare = 3;   
             item.autoReuse = true;  
             item.shoot = mod.ProjectileType("PowPetal");   
-            item.shootSpeed = 7f; 
-            //item.useAmmo = AmmoID.Gel;
+            item.shootSpeed = 8f; 
         }
 	
 		public override Vector2? HoldoutOffset()
