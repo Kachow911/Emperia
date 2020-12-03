@@ -20,7 +20,7 @@ namespace Emperia
 {
     public class MyPlayer : ModPlayer
     {
-		public bool bonusMelee = false; 
+		public float gauntletBonus = 0; 
 
 		public bool ZoneGrotto = false;
 		public bool ZoneVolcano = false;
@@ -106,7 +106,7 @@ namespace Emperia
 				
         public override void ResetEffects()
         {
-			 bool bonusMelee = false;
+			gauntletBonus = 0;
 		EmperialWorld.respawnFull = false;
 			chillsteelSet = false;
 			bloodboilSet = false;
@@ -682,12 +682,14 @@ namespace Emperia
 		}
 		public override void ModifyHitNPC (Item item, NPC target, ref int damage, ref float knockback, ref bool crit)
 		{
-			if (bonusMelee)
+			if (gauntletBonus > 0)
 			{
-				double itemLength = Math.Sqrt(item.width * item.width + item.height * item.height) + 20f;
-				double distance = Vector2.Distance(player.Center, target.Center);
-				double damageMult = .25f * ((itemLength - distance) / itemLength);
+				double itemLength = Math.Sqrt(item.width * item.width + item.height * item.height) + 20f; //factor in scale pls
+				double distance = Vector2.Distance(player.Center, target.Center); //target.Center! bad!
+				double damageMult = gauntletBonus * ((itemLength - distance) / itemLength);
 				damage += (int)(damage * damageMult);
+				//string gauntText = ((itemLength - distance) / itemLength).ToString();
+				//Main.NewText(gauntText, 255, 240, 20, false);
 
 
 			}

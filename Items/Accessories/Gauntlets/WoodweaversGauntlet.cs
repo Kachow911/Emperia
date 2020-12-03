@@ -28,7 +28,7 @@ namespace Emperia.Items.Accessories.Gauntlets
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
 			player.GetModPlayer<MyPlayer>().slightKnockback = true;
-            player.GetModPlayer<MyPlayer>().bonusMelee = true;
+            player.GetModPlayer<MyPlayer>().gauntletBonus = 0.25f;
         }
 		public override void AddRecipes()
         {
