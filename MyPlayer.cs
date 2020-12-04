@@ -45,6 +45,7 @@ namespace Emperia
 		public bool goblinSet = false;
         public bool aquaticSet = false;
         public bool yetiMount = false;
+		public bool woodGauntlet = false;
         public bool frostGauntlet = false;
         public bool meteorGauntlet = false;
 		public bool ferocityGauntlet = false;
@@ -115,6 +116,7 @@ namespace Emperia
 			carapaceSet = false;
 			EmberTyrant = false;
 			breakingPoint = false;
+			woodGauntlet = false;
 			terraGauntlet = false;
 			floralGauntlet = false;
 			lunarDash = false;
@@ -695,7 +697,7 @@ namespace Emperia
 			}
 			if (slightKnockback)
 			{
-				knockback *= 1.1f;
+				knockback *= 1.1f;	
 			}
             if (item.type == mod.ItemType("LifesFate") && renewedLife)
             {
@@ -826,6 +828,15 @@ namespace Emperia
                     }
                 }
             }
+			if (woodGauntlet)
+			{
+				Vector2 rotVector = target.Center - player.Center;
+				if (Main.rand.Next(6 + (30 / damage)) == 0)
+				{
+					rotVector.Normalize();
+					Projectile.NewProjectile(player.Center.X, player.Center.Y, rotVector.X * 10f, rotVector.Y * 10f, mod.ProjectileType("Splinter"), 8, knockback, Main.myPlayer, 0, 0);
+				}
+			}
             if (crit && item.type == mod.ItemType("LifesFate"))
             {
                 player.AddBuff(mod.BuffType("LifesFateBuff"), Main.rand.Next(840, 960));
