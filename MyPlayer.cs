@@ -46,6 +46,7 @@ namespace Emperia
         public bool aquaticSet = false;
         public bool yetiMount = false;
 		public bool woodGauntlet = false;
+		public bool gelGauntlet = false;
         public bool frostGauntlet = false;
         public bool meteorGauntlet = false;
 		public bool ferocityGauntlet = false;
@@ -117,6 +118,7 @@ namespace Emperia
 			EmberTyrant = false;
 			breakingPoint = false;
 			woodGauntlet = false;
+			gelGauntlet = false;
 			terraGauntlet = false;
 			floralGauntlet = false;
 			lunarDash = false;
@@ -689,11 +691,16 @@ namespace Emperia
 				double itemLength = Math.Sqrt(item.width * item.width + item.height * item.height) + 20f; //factor in scale pls
 				double distance = Vector2.Distance(player.Center, target.Center); //target.Center! bad!
 				double damageMult = gauntletBonus * ((itemLength - distance) / itemLength);
-				damage += (int)(damage * damageMult);
+				if ((target.width + target.height / 2) > 48)//this is for particularly big enemies or bosses
+				{
+					damage += (int)(damage * damageMult);
+				}
+				else
+				{
+					damage += (int)(damage * (damageMult / 2));
+				}
 				//string gauntText = ((itemLength - distance) / itemLength).ToString();
 				//Main.NewText(gauntText, 255, 240, 20, false);
-
-
 			}
 			if (slightKnockback)
 			{
@@ -836,6 +843,15 @@ namespace Emperia
 					rotVector.Normalize();
 					Projectile.NewProjectile(player.Center.X, player.Center.Y, rotVector.X * 10f, rotVector.Y * 10f, mod.ProjectileType("Splinter"), 8, knockback, Main.myPlayer, 0, 0);
 				}
+			}
+			if (gelGauntlet && target.knockBackResist == 0f)
+			{
+				Vector2 direction = player.Center - target.Center;
+				direction.Normalize();
+				player.velocity.Y = direction.Y;
+				float minimumSpeed = 2f;
+				if (direction.X < 0) { minimumSpeed = -2f; }
+				player.velocity.X = direction.X * 5f + minimumSpeed;
 			}
             if (crit && item.type == mod.ItemType("LifesFate"))
             {

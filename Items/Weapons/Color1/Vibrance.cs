@@ -13,7 +13,7 @@ namespace Emperia.Items.Weapons.Color1
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Vibrance");
-			Tooltip.SetDefault("Slicing an enemy will increase defense and critical hit damage for a short time\nStriking a boss increases the duration\nShooting an enemy will decrease their contact damage as your DPS rises");
+			Tooltip.SetDefault("Striking an enemy will increase defense and critical hit damage briefly, longer on bosses\nWhen empowered, fires a blade lowering enemy contact damage as your DPS rises");
 		}
         public override void SetDefaults()
         {

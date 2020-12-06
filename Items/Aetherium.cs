@@ -7,7 +7,7 @@ namespace Emperia.Items
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Aetherium ");
+			DisplayName.SetDefault("Aetherium");
 		}
 		public override void SetDefaults()
 		{
