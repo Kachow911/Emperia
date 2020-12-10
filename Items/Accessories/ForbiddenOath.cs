@@ -14,14 +14,14 @@ namespace Emperia.Items.Accessories
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Forbidden Oath");
-			Tooltip.SetDefault("While under 40% HP you will recieve boosts of healing");
+			Tooltip.SetDefault("While under half life you will recieve boosts of healing");
 		}
         public override void SetDefaults()
         {
-            item.width = 30;
-            item.height = 28;
+            item.width = 26;
+            item.height = 18;
             item.rare = 3;
-            item.value = Item.sellPrice(0, 0, 50, 0);
+            item.value = 54000;
             item.accessory = true;
         }
         public override void UpdateAccessory(Player player, bool hideVisual)

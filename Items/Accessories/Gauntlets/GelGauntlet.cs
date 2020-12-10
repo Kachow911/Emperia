@@ -14,7 +14,7 @@ namespace Emperia.Items.Accessories.Gauntlets
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Gelatinous Gauntlet");
-			Tooltip.SetDefault("Sword strikes deal increased damage at close range, especially on large targets\nSword strikes on knockback immune foes will make you bounce back safely\nAllows you to turn around while walking backwards with all swords");
+			Tooltip.SetDefault("Sword damage increased by up to 12% at close range, 25% on large foes\nSword strikes on knockback immune foes bounce you back safely\nAllows you to swing swords while walking backwards");
 		}
         public override void SetDefaults()
         {
@@ -23,6 +23,7 @@ namespace Emperia.Items.Accessories.Gauntlets
             item.rare = 1;
             item.value = 3750;
             item.accessory = true;
+            //item.alpha = 50;
         }
         public override void UpdateAccessory(Player player, bool hideVisual)
         {

@@ -445,7 +445,7 @@ namespace Emperia
 				rightPresses = 0;
 			}
 
-			if (forbiddenOath && player.statLife <= (int) ((float) player.statLifeMax2 * .4f))
+			if (forbiddenOath && player.statLife <= player.statLifeMax2 / 2)
 			{
 				OathCooldown--;
 			}
