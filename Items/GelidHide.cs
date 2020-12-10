@@ -40,9 +40,9 @@ namespace Emperia.Items
 			Main.NewText("The slumber of the Arctic Guardian has been disturbed...");
             int dist = 0;
             if (Main.rand.NextBool(2))
-                dist = -1000;
+                dist = -1200;
             else
-                dist = 1000;
+                dist = 1200;
         
 			NPC.NewNPC((int)player.Center.X + dist, (int)player.Center.Y - 400, mod.NPCType("Yeti"));
             Main.PlaySound(SoundID.Roar, player.position, 0);

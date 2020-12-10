@@ -33,7 +33,7 @@ namespace Emperia.Npcs.Yeti
         public override void AI()           //projectile make that the projectile will face the corect way
         {             
 		   projectile.rotation += .02f;		// |
-           projectile.velocity.Y += 0.1f;
+           projectile.velocity.Y += 0.02f;
 		   if (projectile.velocity.Y > 4)
 			   projectile.velocity.Y = 4;
 		   if (Main.rand.NextBool(20))

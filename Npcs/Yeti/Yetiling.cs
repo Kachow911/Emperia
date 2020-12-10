@@ -10,7 +10,8 @@ namespace Emperia.Npcs.Yeti
 {
     public class Yetiling : ModNPC
     {
-    
+        bool onGround = false;
+        int aboveTimer = 0;
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Yetiling");
@@ -53,8 +54,22 @@ namespace Emperia.Npcs.Yeti
 
         public override void AI()
 		{
-			Player player = Main.player[npc.target];
-			if (Math.Abs(npc.velocity.X) < 6f)
+            Player player = Main.player[npc.target];
+            if (player.Center.Y < npc.Center.Y && npc.velocity.Y >= 0)
+            {
+                aboveTimer++;
+            }
+            else aboveTimer = 0;
+            if (aboveTimer > 90)
+            {
+                npc.velocity.Y = -8;
+                aboveTimer = 0;
+            }
+            if (onGround && npc.velocity.Y <= 0)
+            {
+                npc.velocity.Y *= 1.4f;
+            }
+			if (Math.Abs(npc.velocity.X) < 8f)
 			{
 				if (npc.Center.X > player.Center.X)
 					npc.velocity.X -= .05f;
@@ -64,7 +79,8 @@ namespace Emperia.Npcs.Yeti
 			if (npc.velocity.X > 0)
 				npc.spriteDirection = -1;
 			else if (npc.velocity.X < 0)
-				npc.spriteDirection = 1; 
+				npc.spriteDirection = 1;
+            onGround = (npc.velocity.Y == 0);
 		}
 		
 

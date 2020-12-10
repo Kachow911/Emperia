@@ -684,7 +684,7 @@ namespace Emperia
 		{
 			if (bonusMelee)
 			{
-				double itemLength = Math.Sqrt(item.width * item.width + item.height * item.height) + 20f;
+				double itemLength = (Math.Sqrt(item.width * item.width + item.height * item.height) + 20f) * item.scale;
 				double distance = Vector2.Distance(player.Center, target.Center);
 				double damageMult = .25f * ((itemLength - distance) / itemLength);
 				damage += (int)(damage * damageMult);
