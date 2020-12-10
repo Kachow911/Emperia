@@ -6,40 +6,40 @@ using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace Emperia.Items.Weapons.Color1   //where is located
+namespace Emperia.Items.Weapons.Color1
 {
     public class IndigoIaito : ModItem
     {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Indigo Iaitō");
-			Tooltip.SetDefault("Striking an enemy will increase life regeneration for a short time\nStriking a boss increases the duration");
+			DisplayName.SetDefault("Indigo Iaito");
+			Tooltip.SetDefault("Striking an enemy will increase life regeneration briefly, longer on bosses");
 		}
         public override void SetDefaults()
-        {    //Sword name
-            item.damage = 37;            //Sword damage
-            item.melee = true;            //if it's melee
-            item.width = 34;              //Sword width
-            item.height = 40;             //Sword height
-            item.useTime = 24;          //how fast 
+        {
+            item.damage = 37;
+            item.melee = true;
+            item.width = 34;
+            item.height = 40;
+            item.useTime = 24;
             item.useAnimation = 24;     
-            item.useStyle = 1;        //Style is how this item is used, 1 is the style of the sword
+            item.useStyle = 1;
             item.knockBack = 2f;  
             item.value = 48000;        
             item.rare = 3;
 			item.scale = 1f;
             item.autoReuse = true; 
-			item.UseSound = SoundID.Item1;			//if it's capable of autoswing.
-            item.useTurn = true;             //projectile speed                 
+			item.UseSound = SoundID.Item1;
+            item.useTurn = true;       
         }
 		
-        public override void AddRecipes()  //How to craft this sword
+        public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);      
             recipe.AddIngredient(null, "Prism", 1); 
 			recipe.AddIngredient(ItemID.Amethyst, 8); 
 			recipe.AddIngredient(ItemID.VioletHusk, 1); 
-            recipe.AddTile(TileID.Anvils); 			//you need 1 DirtBlock  //at work bench
+            recipe.AddTile(TileID.Anvils);
             recipe.SetResult(this);
             recipe.AddRecipe();
 

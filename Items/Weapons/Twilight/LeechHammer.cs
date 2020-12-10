@@ -21,16 +21,15 @@ namespace Emperia.Items.Weapons.Twilight
             item.melee = true;            //if it's melee
             item.width = 16;              //Sword width
             item.height = 16;             //Sword height
-            item.useTime = 27;          //how fast 
+            item.useTime = 30;          //how fast 
             item.useAnimation = 27;     
             item.useStyle = 1;        //Style is how this item is used, 1 is the style of the sword
             item.knockBack = 6f;      //Sword knockback
             item.value = 100;        
             item.rare = 3;
 			item.scale = 1f;
-            item.autoReuse = true;   //if it's capable of autoswing.
             item.useTurn = true;             //projectile speed
-			item.UseSound = SoundID.Item1; 	
+			item.UseSound = SoundID.Item18; 	
 			//item.shoot = mod.ProjectileType("LeechEye");
 			//item.shootSpeed = 10f;
         }
@@ -61,8 +60,15 @@ namespace Emperia.Items.Weapons.Twilight
 		}
 		public override void OnHitNPC(Player player, NPC target, int damage, float knockback, bool crit)
 		{
-			if (crit)
+			if (target.life == target.lifeMax - damage)
+			{
+				string text1 = target.life.ToString();
+				string text2 = target.lifeMax.ToString();
 				Projectile.NewProjectile(player.Center.X + Main.rand.Next(-250, 15), player.Center.Y + Main.rand.Next(-300, 300), 0, 0, mod.ProjectileType("LeechEye"), 25, 1, Main.myPlayer, 60, 0);
+				Main.PlaySound(SoundID.NPCHit36, target.Center);
+			}
+			//if (Main.rand.Next(3) == 0)
+			//	Projectile.NewProjectile(player.Center.X + Main.rand.Next(-250, 15), player.Center.Y + Main.rand.Next(-300, 300), 0, 0, mod.ProjectileType("LeechEye"), 25, 1, Main.myPlayer, 60, 0);
 		}
     }
 }

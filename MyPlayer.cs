@@ -20,7 +20,7 @@ namespace Emperia
 {
     public class MyPlayer : ModPlayer
     {
-		public bool bonusMelee = false; 
+		public float gauntletBonus = 0; 
 
 		public bool ZoneGrotto = false;
 		public bool ZoneVolcano = false;
@@ -45,6 +45,8 @@ namespace Emperia
 		public bool goblinSet = false;
         public bool aquaticSet = false;
         public bool yetiMount = false;
+		public bool woodGauntlet = false;
+		public bool gelGauntlet = false;
         public bool frostGauntlet = false;
         public bool meteorGauntlet = false;
 		public bool ferocityGauntlet = false;
@@ -106,7 +108,7 @@ namespace Emperia
 				
         public override void ResetEffects()
         {
-			 bool bonusMelee = false;
+			gauntletBonus = 0;
 		EmperialWorld.respawnFull = false;
 			chillsteelSet = false;
 			bloodboilSet = false;
@@ -115,6 +117,8 @@ namespace Emperia
 			carapaceSet = false;
 			EmberTyrant = false;
 			breakingPoint = false;
+			woodGauntlet = false;
+			gelGauntlet = false;
 			terraGauntlet = false;
 			floralGauntlet = false;
 			lunarDash = false;
@@ -682,18 +686,26 @@ namespace Emperia
 		}
 		public override void ModifyHitNPC (Item item, NPC target, ref int damage, ref float knockback, ref bool crit)
 		{
-			if (bonusMelee)
+			if (gauntletBonus > 0)
 			{
-				double itemLength = (Math.Sqrt(item.width * item.width + item.height * item.height) + 20f) * item.scale;
-				double distance = Vector2.Distance(player.Center, target.Center);
-				double damageMult = .25f * ((itemLength - distance) / itemLength);
-				damage += (int)(damage * damageMult);
-
-
+				double itemLength = Math.Sqrt(item.width * item.width + item.height * item.height) + 20f * item.scale; //factor in scale pls
+				double distance = Vector2.Distance(player.Center, target.Center); //target.Center! bad!
+				double damageMult = gauntletBonus * ((itemLength - distance) / itemLength);
+				if ((target.width + target.height / 2) > 48)//this is for particularly big enemies or bosses
+				{
+					damage += (int)(damage * damageMult);
+				}
+				else
+				{
+					damage += (int)(damage * (damageMult / 2));
+				}
+				//string gauntText = ((itemLength - distance) / itemLength).ToString();
+				//Main.NewText(gauntText, 255, 240, 20, false);
+>>>>>>> b5e229f4640ebb3ef93265de4ce8a00542bddd0e
 			}
 			if (slightKnockback)
 			{
-				knockback *= 1.1f;
+				knockback *= 1.1f;	
 			}
             if (item.type == mod.ItemType("LifesFate") && renewedLife)
             {
@@ -824,6 +836,24 @@ namespace Emperia
                     }
                 }
             }
+			if (woodGauntlet)
+			{
+				Vector2 rotVector = target.Center - player.Center;
+				if (Main.rand.Next(6 + (30 / damage)) == 0)
+				{
+					rotVector.Normalize();
+					Projectile.NewProjectile(player.Center.X, player.Center.Y, rotVector.X * 10f, rotVector.Y * 10f, mod.ProjectileType("Splinter"), 8, knockback, Main.myPlayer, 0, 0);
+				}
+			}
+			if (gelGauntlet && target.knockBackResist == 0f)
+			{
+				Vector2 direction = player.Center - target.Center;
+				direction.Normalize();
+				player.velocity.Y = direction.Y;
+				float minimumSpeed = 2f;
+				if (direction.X < 0) { minimumSpeed = -2f; }
+				player.velocity.X = direction.X * 5f + minimumSpeed;
+			}
             if (crit && item.type == mod.ItemType("LifesFate"))
             {
                 player.AddBuff(mod.BuffType("LifesFateBuff"), Main.rand.Next(840, 960));

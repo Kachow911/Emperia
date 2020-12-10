@@ -13,10 +13,10 @@ namespace Emperia.Items.Weapons.Color1
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Dusk");
-			Tooltip.SetDefault("Slicing an enemy will increase melee damage and life regeneration for a short time\nStriking a boss increases the duration\nShooting an enemy will deal damage over time that increases as your health rises");
+			Tooltip.SetDefault("Striking an enemy will increase melee damage and life regeneration briefly, longer on bosses\nWhen empowered, fires a projectile inflicting a burn that worsens as your life rises");
 		}
         public override void SetDefaults()
-        {   //Sword name
+        {
             item.damage = 126;
             item.melee = true;
             item.width = 48;

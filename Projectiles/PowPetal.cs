@@ -19,7 +19,7 @@ namespace Emperia.Projectiles
 		float rot;
 		public override void SetDefaults()
 		{
-			projectile.width = 24;
+			projectile.width = 10;
 			projectile.height = 10;
 			projectile.alpha = 0;
 			projectile.friendly = true;
@@ -27,6 +27,7 @@ namespace Emperia.Projectiles
 			projectile.penetrate = -1;
 			projectile.timeLeft = 240;
 			projectile.ignoreWater = true;
+			Main.projFrames[projectile.type] = 2;
 		}
 
 		public override void SetStaticDefaults()
@@ -51,8 +52,7 @@ namespace Emperia.Projectiles
 			if (!init)
 			{
 				init = true;
-				if (Main.player[projectile.owner].yoyoString)
-					returntimer = 42;
+				projectile.frame = Main.rand.Next(2);
 			}
 			Player player = Main.player[projectile.owner];
 			Vector2 playerCenter = player.MountedCenter;
@@ -108,13 +108,12 @@ namespace Emperia.Projectiles
 
 		public override bool OnTileCollide(Vector2 oldVelocity)
 		{
-			for (int i = 0; i < 5; i++)
+			for (int i = 0; i < 3; i++)
 			{
-				int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 0);
-				Main.dust[dust].scale = 1.5f;
-				Main.dust[dust].noGravity = true;
+				int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 253);
+				Main.dust[dust].scale = 0.5f;
 			}
-			Main.PlaySound(0, (int)projectile.position.X, (int)projectile.position.Y);
+			Main.PlaySound(SoundID.Grass, projectile.position);
 			return true;
 		}
 		public override void Kill(int timeLeft)
@@ -126,12 +125,13 @@ namespace Emperia.Projectiles
 					if (projectile.Distance(Main.npc[i].Center) < 25 && !Main.npc[i].townNPC)
 						Main.npc[i].StrikeNPCNoInteraction(14, 0f, 0, false, false, false);
 				}
-				for (int i = 0; i < 20; ++i)
+				for (int i = 0; i < 8; ++i)
 				{
-					int index2 = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, 249, 0.0f, 0.0f, 15, new Color(53f, 67f, 253f), 2f);
+					int index2 = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, 253, 0.0f, 0.0f, 15, new Color(53f, 67f, 253f), 1f);
 					Main.dust[index2].noGravity = true;
-					Main.dust[index2].velocity *= 2.25f;
+					Main.dust[index2].velocity *= 1.5f;
 				}
+				Main.PlaySound(SoundID.Grass, projectile.position);
 			}
 		}
 	}

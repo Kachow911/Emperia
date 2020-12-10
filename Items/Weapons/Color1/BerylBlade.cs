@@ -6,40 +6,40 @@ using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace Emperia.Items.Weapons.Color1   //where is located
+namespace Emperia.Items.Weapons.Color1
 {
     public class BerylBlade : ModItem
     {
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Beryl Blade");
-			Tooltip.SetDefault("Striking an enemy will increase melee speed for a short time\nStriking a boss increases the duration");
+			Tooltip.SetDefault("Striking an enemy will increase melee speed briefly, longer on bosses");
 		}
         public override void SetDefaults()
-        {    //Sword name
-            item.damage = 46;            //Sword damage
-            item.melee = true;            //if it's melee
-            item.width = 42;              //Sword width
-            item.height = 42;             //Sword height
-            item.useTime = 32;          //how fast 
+        {
+            item.damage = 46;
+            item.melee = true;
+            item.width = 42;
+            item.height = 42;
+            item.useTime = 32;
             item.useAnimation = 32;     
-            item.useStyle = 1;        //Style is how this item is used, 1 is the style of the sword
+            item.useStyle = 1;
             item.knockBack = 2.25f;  
             item.value = 48000;        
             item.rare = 3;
 			item.scale = 1f;
             item.autoReuse = true;
-			item.UseSound = SoundID.Item1;   //if it's capable of autoswing.
-            item.useTurn = true;             //projectile speed                 
+			item.UseSound = SoundID.Item1;
+            item.useTurn = true;             
         }
 		
-        public override void AddRecipes()  //How to craft this sword
+        public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);      
             recipe.AddIngredient(null, "Prism", 1); 
 			recipe.AddIngredient(ItemID.Emerald, 8); 
 			recipe.AddIngredient(ItemID.GreenMushroom, 1); 
-            recipe.AddTile(TileID.Anvils); 			//you need 1 DirtBlock  //at work bench
+            recipe.AddTile(TileID.Anvils);
             recipe.SetResult(this);
             recipe.AddRecipe();
 

@@ -6,32 +6,32 @@ using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace Emperia.Items.Weapons.Color1  //where is located
+namespace Emperia.Items.Weapons.Color1
 {
     public class SaffronSaber : ModItem
     {
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Saffron Sabre");
-			Tooltip.SetDefault("Striking an enemy will increase movement speed for a short time\nStriking a boss increases the duration");
+			Tooltip.SetDefault("Striking an enemy will increase movement speed briefly, longer on bosses");
 		}
         public override void SetDefaults()
-        {     //Sword name
-            item.damage = 32;            //Sword damage
-            item.melee = true;            //if it's melee
-            item.width = 36;              //Sword width
-            item.height = 40;             //Sword height
-            item.useTime = 18;          //how fast 
+        {
+            item.damage = 32;
+            item.melee = true;
+            item.width = 36;
+            item.height = 40;
+            item.useTime = 18;
             item.useAnimation = 18;     
-            item.useStyle = 1;        //Style is how this item is used, 1 is the style of the sword
+            item.useStyle = 1;
             item.knockBack = 2f;  
-			item.crit = 2;			//Sword knockback
+			item.crit = 2;
             item.value = 48000;        
             item.rare = 3;
 			item.scale = 1f;
 			item.UseSound = SoundID.Item1;
-            item.autoReuse = true;   //if it's capable of autoswing.
-            item.useTurn = true;             //projectile speed                 
+            item.autoReuse = true;
+            item.useTurn = true;                
         }
 		public override void MeleeEffects(Player player, Rectangle hitbox)
 		{
@@ -40,13 +40,13 @@ namespace Emperia.Items.Weapons.Color1  //where is located
 				int dust = Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, 64);
 			}
 		}
-        public override void AddRecipes()  //How to craft this sword
+        public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);      
             recipe.AddIngredient(null, "Prism", 1); 
 			recipe.AddIngredient(ItemID.Topaz, 8); 
 			recipe.AddIngredient(ItemID.YellowMarigold, 1); 
-            recipe.AddTile(TileID.Anvils); 			//you need 1 DirtBlock  //at work bench
+            recipe.AddTile(TileID.Anvils);
             recipe.SetResult(this);
             recipe.AddRecipe();
 

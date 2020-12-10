@@ -6,41 +6,41 @@ using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace Emperia.Items.Weapons.Color1   //where is located
+namespace Emperia.Items.Weapons.Color1
 {
     public class CeruleanClaymore : ModItem
     {
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Cerulean Claymore");
-			Tooltip.SetDefault("Striking an enemy will increase melee damage for a short time\nStriking a boss increases the duration");
+			Tooltip.SetDefault("Striking an enemy will increase melee damage briefly, longer on bosses");
 		}
         public override void SetDefaults()
-        {     //Sword name
-            item.damage = 41;            //Sword damage
-            item.melee = true;            //if it's melee
-            item.width = 44;              //Sword width
-            item.height = 44;             //Sword height
-            item.useTime = 28;          //how fast 
+        {
+            item.damage = 41;
+            item.melee = true;
+            item.width = 44;
+            item.height = 44;
+            item.useTime = 28;
             item.useAnimation = 28;     
-            item.useStyle = 1;        //Style is how this item is used, 1 is the style of the sword
+            item.useStyle = 1;
             item.knockBack = 2.25f;  
-			item.crit = 2;			//Sword knockback
+			item.crit = 2;
             item.value = 48000;        
             item.rare = 3;
 			item.UseSound = SoundID.Item1;
 			item.scale = 1f;
-            item.autoReuse = false;   //if it's capable of autoswing.
-            item.useTurn = true;             //projectile speed                 
+            item.autoReuse = false;
+            item.useTurn = true;            
         }
 		
-        public override void AddRecipes()  //How to craft this sword
+        public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);      
             recipe.AddIngredient(null, "Prism", 1); 
 			recipe.AddIngredient(ItemID.Sapphire, 8); 
 			recipe.AddIngredient(ItemID.BlueBerries, 1); 
-            recipe.AddTile(TileID.Anvils); 			//you need 1 DirtBlock  //at work bench
+            recipe.AddTile(TileID.Anvils);
             recipe.SetResult(this);
             recipe.AddRecipe();
 

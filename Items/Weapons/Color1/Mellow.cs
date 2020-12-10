@@ -13,7 +13,7 @@ namespace Emperia.Items.Weapons.Color1   //where is located
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Mellow");
-			Tooltip.SetDefault("Slicing an enemy will increase movement and melee speed for a short time\nStriking a boss increases the duration\nShooting an enemy will decrease their defense as your MPH rises");
+			Tooltip.SetDefault("Striking an enemy will increase movement and melee speed briefly, longer on bosses\nWhen empowered, fires a blade lowering enemy defense as your MPH rises");
 		}
         public override void SetDefaults()
         {

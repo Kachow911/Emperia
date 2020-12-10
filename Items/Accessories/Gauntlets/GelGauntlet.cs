@@ -9,32 +9,31 @@ using Terraria.ModLoader;
 
 namespace Emperia.Items.Accessories.Gauntlets
 {
-    public class WoodweaversGauntlet : ModItem
+    public class GelGauntlet : ModItem
     {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Woodweaver's Gauntlet");
-			Tooltip.SetDefault("Sword strikes deal slightly increased damage at close range, especially on large targets\nSword strikes may fire a tiny splinter of wood at foes");
+			DisplayName.SetDefault("Gelatinous Gauntlet");
+			Tooltip.SetDefault("Sword strikes deal increased damage at close range, especially on large targets\nSword strikes on knockback immune foes will make you bounce back safely\nAllows you to turn around while walking backwards with all swords");
 		}
         public override void SetDefaults()
         {
             item.width = 30;
             item.height = 28;
             item.rare = 1;
-            item.value = 1500;
+            item.value = 3750;
             item.accessory = true;
         }
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-			//player.GetModPlayer<MyPlayer>().slightKnockback = true;
-            player.GetModPlayer<MyPlayer>().gauntletBonus = 0.20f;
-            player.GetModPlayer<MyPlayer>().woodGauntlet = true;
+            player.GetModPlayer<MyPlayer>().gauntletBonus = 0.25f;
+            player.GetModPlayer<MyPlayer>().gelGauntlet = true;
         }
 		public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ItemID.Wood, 20);
-			recipe.AddRecipeGroup("IronBar", 2);
+            recipe.AddIngredient(null, "WoodweaversGauntlet", 1);
+            recipe.AddIngredient(ItemID.Gel, 40);
             recipe.AddTile(TileID.Anvils);
             recipe.SetResult(this);
             recipe.AddRecipe();

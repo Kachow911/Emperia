@@ -17,9 +17,9 @@ namespace Emperia
 		public int forestSetShots = 2;
 		public override bool UseItem(Item item, Player player)
         {
+			MyPlayer modPlayer = player.GetModPlayer<MyPlayer>();
 			if (item.type == 28 || item.type == 188 || item.type == 499 || item.type == 3544 || item.type == 226 || item.type == 227 || item.type == 3001 || item.type == mod.ItemType("AshenBandage"))
 			{
-				MyPlayer modPlayer = player.GetModPlayer<MyPlayer>();
 				if (modPlayer.vitalityCrystal)
 				{
 					player.statLife += 25;
@@ -28,10 +28,22 @@ namespace Emperia
 			}
 			if (item.type == 5 || item.type == mod.ItemType("MushroomPlatter") || item.type == mod.ItemType("MushroomPlatterCrim"))
 			{
-				MyPlayer modPlayer = player.GetModPlayer<MyPlayer>();
 				if (modPlayer.frostleafSet)
 				{
 					player.AddBuff(mod.BuffType("FrostleafBuff"), 1200);
+				}
+			}
+			if (modPlayer.gelGauntlet && !item.noMelee && Main.mouseLeft)//janky!!!!
+			{
+				if (Main.MouseWorld.X > player.position.X && player.direction == -1)
+				{
+					player.direction = 1;
+					item.useTurn = false;
+				}
+				if (Main.MouseWorld.X < player.position.X && player.direction == 1)
+				{
+					player.direction = -1;
+					item.useTurn = false;
 				}
 			}
 			return false;
