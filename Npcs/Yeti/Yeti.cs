@@ -15,20 +15,23 @@ namespace Emperia.Npcs.Yeti
            Walk, 
 		   JumpStart,
 		   Jump,
-		   Snowball
+		   Snowball,
+		   YetilingSpawn,
+		   IcicleStart
         }
 
-        private int counter { get { return (int)npc.ai[0]; } set { npc.ai[0] = value; } }
+		private int counter;
 
-        private Move move { get { return (Move)npc.ai[1]; } set { npc.ai[1] = (int)value; } }
+		private Move move;
         private Move prevMove;
         private Vector2 targetPosition;
 
-        private int side { get { return (int)npc.ai[2]; } set { npc.ai[2] = value; } }
+		private int side;
 		private int counter3 = 0;
         private bool phase2Active;
 		private bool init = false;
 		private int walkTimer = 1;
+		private int remainingTime = 0;
 		private int jumpDir = 1;
 		private float maxWalkSpeed = 2f;
 		public override void SetStaticDefaults()
@@ -38,12 +41,12 @@ namespace Emperia.Npcs.Yeti
 		}
         public override void SetDefaults()
         {
-            npc.lifeMax = 1500;
+            npc.lifeMax = 2250;
             npc.damage = 50;
             npc.defense = 12;
             npc.knockBackResist = 0f;
             npc.width = 55;
-            npc.height = 62;
+            npc.height = 60;
             npc.value = Item.buyPrice(0, 8, 0, 0);
             npc.npcSlots = 1f;
             npc.boss = true;
@@ -65,6 +68,22 @@ namespace Emperia.Npcs.Yeti
 				npc.frameCounter %= 8; 
 				int frame = (int)npc.frameCounter; 
 				npc.frame.Y = frame * frameHeight; 
+			}
+			else if (move == Move.YetilingSpawn || move == Move.IcicleStart)
+            {
+				npc.frameCounter += 0.5f;
+				int frame;
+				if (counter > 12)
+				{
+					npc.frameCounter %= 4;
+					frame = (int)npc.frameCounter + 8;
+				}
+				else
+				{
+					npc.frameCounter %= 2;
+					frame = (int)npc.frameCounter + 12;
+				}
+				npc.frame.Y = frame * frameHeight;
 			}
 			else if (move == Move.JumpStart && counter >= 70)
 			{
@@ -91,7 +110,7 @@ namespace Emperia.Npcs.Yeti
 
         public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
         {
-            npc.lifeMax = 1750;
+            npc.lifeMax = 2750;
             npc.damage = 60;
         }
 
@@ -127,16 +146,60 @@ namespace Emperia.Npcs.Yeti
 				counter = 600;
 				init = true;
 			}
+			if (move == Move.YetilingSpawn)
+			{
+				if (counter == 12) npc.velocity.Y = -6;
+				counter--;
+				if (npc.velocity.Y >= 0) npc.velocity.Y *= 1.2f;
+				if (counter <= 0 && npc.velocity.Y == 0)
+				{
+					Main.PlaySound(SoundID.Dig, npc.Center, 1);
+					for (int i = -50; i < 50; i++)
+					{
+						Color rgb = new Color(255, 255, 255);
+						int index2 = Dust.NewDust(npc.position + new Vector2(i, npc.height), npc.width, npc.height, 76, npc.velocity.X / 5, (float)npc.velocity.Y, 0, rgb, 0.9f);
+					}
+					NPC.NewNPC((int)npc.Center.X + Main.rand.Next(-75, 75), (int)npc.Center.Y + npc.height - 58, mod.NPCType("YetilingInit"));
+					SetMove(Move.Walk, remainingTime);
+					remainingTime = 0;
+				}
+
+			}
+			if (move == Move.IcicleStart)
+			{
+				if (counter == 12) npc.velocity.Y = -6;
+				counter--;
+				if (npc.velocity.Y >= 0) npc.velocity.Y *= 1.2f;
+				if (counter <= 0 && npc.velocity.Y == 0)
+				{
+					Main.PlaySound(SoundID.Dig, npc.Center, 1);
+					for (int i = -50; i < 50; i++)
+					{
+						Color rgb = new Color(160, 243, 255);
+						int index2 = Dust.NewDust(npc.position + new Vector2(i, npc.height), npc.width, npc.height, 76, npc.velocity.X / 5, (float)npc.velocity.Y, 0, rgb, 0.9f);
+					}
+					for (int i = 0; i < 12; i++)
+					{
+
+						Vector2 perturbedSpeed = new Vector2(0, 3).RotatedBy(MathHelper.ToRadians(Main.rand.Next(30) + 30 * i)) * 1.5f;
+						Projectile.NewProjectile(npc.Center.X, npc.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, mod.ProjectileType("IcicleC"), npc.damage / 2, 1, Main.myPlayer, 0, 0);
+
+					}
+					SetMove(Move.Walk, remainingTime);
+					remainingTime = 0;
+				}
+			}
 			if (move == Move.Walk)
 			{
 				walkTimer++;
 				counter--;
 				npc.aiStyle = 3;
 				aiType = 508;
-		
-				if (!IsBelowPhaseTwoThreshhold() && counter % 400 == 0)
+
+				if (!IsBelowPhaseTwoThreshhold() && counter % 200 == 0)
 				{
-					NPC.NewNPC((int)npc.Center.X + Main.rand.Next(-200, 200), (int)npc.Center.Y - 150, mod.NPCType("Yetiling"));
+					//NPC.NewNPC((int)npc.Center.X + Main.rand.Next(-200, 200), (int)npc.Center.Y - 150, mod.NPCType("Yetiling"));
+					SetMove(Move.YetilingSpawn, 25, counter);
 				}
 				if (!IsBelowPhaseTwoThreshhold())
 				{
@@ -150,13 +213,10 @@ namespace Emperia.Npcs.Yeti
 					if (Main.rand.NextBool(80) && counter3 > 90)
 					{
 						counter3 = 0;
-						for (int i = 0; i < 12; i++)
-						{
-
-							Vector2 perturbedSpeed = new Vector2(0, 3).RotatedBy(MathHelper.ToRadians(Main.rand.Next(30) + 30 * i));
-							Projectile.NewProjectile(npc.Center.X, npc.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, mod.ProjectileType("IcicleC"), npc.damage / 2, 1, Main.myPlayer, 0, 0);
-
-						}
+						if (Vector2.Distance(player.Center, npc.Center) > 400 && Main.rand.Next(2) == 0)
+							SetMove(Move.Snowball, 25, counter);
+						else
+							SetMove(Move.IcicleStart, 20, counter);
 					}
 					if (npc.velocity.X > 3f)
 						npc.velocity.X = 3f;
@@ -235,6 +295,7 @@ namespace Emperia.Npcs.Yeti
 			}
 			if (move == Move.Snowball)
 			{
+				
 				counter--;
 				if (player.Center.X > npc.Center.X)
 					npc.spriteDirection = 1;
@@ -244,11 +305,18 @@ namespace Emperia.Npcs.Yeti
 				if (counter <= 0)
 				{
 					walkTimer = 1;
-					SetMove(Move.Walk, 200);
+					if (remainingTime > 0)
+					{
+						SetMove(Move.Walk, remainingTime);
+						remainingTime = 0;
+					}
+					else
+						SetMove(Move.Walk, 200);
 					Vector2 placePosition = npc.Center + new Vector2(0, -npc.height / 2);
-					Vector2 direction = Main.player[npc.target].Center + new Vector2(0, -125) - placePosition;
+					Vector2 direction = Main.player[npc.target].Center + new Vector2(0, -115) - placePosition;
 					direction.Normalize();
-					Projectile.NewProjectile(npc.Center.X, npc.Center.Y - npc.height/2, direction.X * 7f, direction.Y * 7f, mod.ProjectileType("YetiSnowball"), npc.damage / 2, 1, Main.myPlayer, 0, 0);
+					direction *= 9f;
+					Projectile.NewProjectile(npc.Center.X, npc.Center.Y - npc.height/2, direction.X, direction.Y, mod.ProjectileType("YetiSnowball"), npc.damage / 2, 1, Main.myPlayer, 0, 0);
 					
 				}
 			}
@@ -276,8 +344,9 @@ namespace Emperia.Npcs.Yeti
             return npc.life <= npc.lifeMax / 2;     
         }
 
-        private void SetMove(Move toMove, int counter)
+		private void SetMove(Move toMove, int counter, int remaining = 0)
         {
+			remainingTime = remaining;
             prevMove = move;
             move = toMove;
             this.counter = counter;

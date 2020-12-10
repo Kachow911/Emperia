@@ -688,7 +688,7 @@ namespace Emperia
 		{
 			if (gauntletBonus > 0)
 			{
-				double itemLength = Math.Sqrt(item.width * item.width + item.height * item.height) + 20f; //factor in scale pls
+				double itemLength = Math.Sqrt(item.width * item.width + item.height * item.height) + 20f * item.scale; //factor in scale pls
 				double distance = Vector2.Distance(player.Center, target.Center); //target.Center! bad!
 				double damageMult = gauntletBonus * ((itemLength - distance) / itemLength);
 				if ((target.width + target.height / 2) > 48)//this is for particularly big enemies or bosses
@@ -701,6 +701,7 @@ namespace Emperia
 				}
 				//string gauntText = ((itemLength - distance) / itemLength).ToString();
 				//Main.NewText(gauntText, 255, 240, 20, false);
+>>>>>>> b5e229f4640ebb3ef93265de4ce8a00542bddd0e
 			}
 			if (slightKnockback)
 			{
