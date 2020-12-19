@@ -48,19 +48,19 @@ namespace Emperia
             ItemID.IronBar,
             ItemID.LeadBar
             });
-            RecipeGroup.RegisterGroup("Emperia:AnyIronBar", group2);
+            RecipeGroup.RegisterGroup("Emperia:AnyIronBar", group3);
             RecipeGroup group4 = new RecipeGroup(() => Lang.misc[37] + " Silver Bar", new int[]
             {
             ItemID.SilverBar,
             ItemID.TungstenBar
             });
-            RecipeGroup.RegisterGroup("Emperia:AnySilverBar", group2);
+            RecipeGroup.RegisterGroup("Emperia:AnySilverBar", group4);
             RecipeGroup group5 = new RecipeGroup(() => Lang.misc[37] + " Gold Bar", new int[]
             {
             ItemID.GoldBar,
             ItemID.PlatinumBar
             });
-            RecipeGroup.RegisterGroup("Emperia:AnyGoldBar", group2);
+            RecipeGroup.RegisterGroup("Emperia:AnyGoldBar", group5);
 			RecipeGroup group6 = new RecipeGroup(() => Lang.misc[37] + " Evil Ore", new int[]
             {
             ItemID.DemoniteOre,
@@ -73,6 +73,12 @@ namespace Emperia
             ItemID.TissueSample
             });
             RecipeGroup.RegisterGroup("Emperia:EvilHide", group7);
+            RecipeGroup group8 = new RecipeGroup(() => Lang.misc[37] + " Copper Bar", new int[]
+            {
+            ItemID.CopperBar,
+            ItemID.TinBar
+            });
+            RecipeGroup.RegisterGroup("Emperia:AnyCopperBar", group8);
 
         }
 		public override void UpdateMusic(ref int music)

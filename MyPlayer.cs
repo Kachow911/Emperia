@@ -47,12 +47,15 @@ namespace Emperia
         public bool yetiMount = false;
 		public bool woodGauntlet = false;
 		public bool gelGauntlet = false;
+		public bool metalGauntlet = false;
+		public bool magicGauntlet = false;
         public bool frostGauntlet = false;
         public bool meteorGauntlet = false;
 		public bool ferocityGauntlet = false;
 		public bool thermalGauntlet = false;
 		public bool floralGauntlet = false;
 		public bool terraGauntlet = false;
+		public bool wristBrace = false;
         public bool renewedLife = false;
 		public bool breakingPoint = false;
 		public bool forestSetMelee = false;
@@ -94,7 +97,6 @@ namespace Emperia
 		
 		private int forestSetMeleeCooldown = 60;
 		int SporeHealCooldown = 60;
-        int incDefTime = 0;
 		int ferocityTime = 0;
 		private int primalRageTime = 0;
 		public int vileTimer = 0;
@@ -104,7 +106,7 @@ namespace Emperia
 		public int clubSwing = 0;
 		public int frostFangTimer = 0;
 
-		
+		public Rectangle swordHitbox = new Rectangle(0, 0, 0, 0); //value taken from GlobalItem
 				
         public override void ResetEffects()
         {
@@ -119,7 +121,10 @@ namespace Emperia
 			breakingPoint = false;
 			woodGauntlet = false;
 			gelGauntlet = false;
+			metalGauntlet = false;
+			magicGauntlet = false;
 			terraGauntlet = false;
+			wristBrace = false;
 			floralGauntlet = false;
 			lunarDash = false;
 			thermalGauntlet = false;
@@ -267,11 +272,6 @@ namespace Emperia
 					doWave = false;
 				}
 			}
-			if (incDefTime > 0)
-            {
-                player.statDefense += 5;
-                incDefTime--;
-            }
 			if (eruptionBottle)
 			{
 				if (player.velocity.Y == 0 && player.releaseJump)
@@ -688,20 +688,38 @@ namespace Emperia
 		{
 			if (gauntletBonus > 0)
 			{
-				double itemLength = Math.Sqrt(item.width * item.width + item.height * item.height) + 20f * item.scale; //factor in scale pls
-				double distance = Vector2.Distance(player.Center, target.Center); //target.Center! bad!
-				double damageMult = gauntletBonus * ((itemLength - distance) / itemLength);
-				if ((target.width + target.height / 2) > 48)//this is for particularly big enemies or bosses
+				double itemLength = Math.Sqrt(swordHitbox.Width * swordHitbox.Width + swordHitbox.Height * swordHitbox.Height) * 0.85 - 5f; //makes bonus damage not op at tip
+				Vector2 closestPoint = target.Center;
+				if ((target.Center.Y - target.height / 4) > player.Center.Y)
+					{
+						closestPoint.Y = target.Top.Y;
+					}
+				else if ((target.Center.Y + target.height / 4) < player.Center.Y)
+					{
+						closestPoint.Y = target.Bottom.Y;
+					}
+				if ((target.Center.X - target.width / 4) > player.Center.X)
+					{
+						closestPoint.X = target.Left.X;
+					}
+				else if ((target.Center.X + target.width / 4) < player.Center.X)
+					{
+						closestPoint.X = target.Right.X;
+					}
+					double distance = Vector2.Distance(player.Center, closestPoint);
+					double distanceMult = (itemLength - distance) / itemLength; 
+					double damageMult = gauntletBonus * (((distanceMult > .65f) ? .65f : distanceMult) + .35f); //caps damage multiplier at 65% distance
 				{
-					damage += (int)(damage * damageMult);
+					if ((target.width + target.height / 2) > 48) //this is for big enemies or bosses
+					{
+						damage += (int)(damage * damageMult);
+					}
+					else
+					{
+						damage += (int)(damage * (damageMult / 2));
+					}
 				}
-				else
-				{
-					damage += (int)(damage * (damageMult / 2));
-				}
-				//string gauntText = ((itemLength - distance) / itemLength).ToString();
-				//Main.NewText(gauntText, 255, 240, 20, false);
->>>>>>> b5e229f4640ebb3ef93265de4ce8a00542bddd0e
+				//Main.NewText(damageMult.ToString(), 255, 240, 20, false);
 			}
 			if (slightKnockback)
 			{
@@ -729,7 +747,6 @@ namespace Emperia
         }
 		public override void OnHitNPC (Item item, NPC target, int damage, float knockback, bool crit)
 		{
-			
 			if (target.life <= 0 && terraGauntlet)
             {
                 for (int i = 0; i < Main.rand.Next(3, 6); i++)
@@ -785,8 +802,6 @@ namespace Emperia
                     Main.projectile[p].scale = 0.7f;
                 }
             }
-            if (doubleKnockback)
-                incDefTime = 180;
 			if (thermalGauntlet)
 			{
 				if (target.life <= 0)
@@ -853,6 +868,36 @@ namespace Emperia
 				float minimumSpeed = 2f;
 				if (direction.X < 0) { minimumSpeed = -2f; }
 				player.velocity.X = direction.X * 5f + minimumSpeed;
+			}
+			if (metalGauntlet)
+			{
+			    player.AddBuff(mod.BuffType("AlloyArmor"), 90);	
+			}
+			if (magicGauntlet)
+			{
+				if (Main.rand.Next(8 + (60 / damage)) == 0 || target.life <= 0 && Main.rand.Next(3)== 0) { //chance based on damage and if the attack killed
+					NPC chosenNPC = target;
+					for (int k = 0; k < 200; k++) {
+						NPC npc = Main.npc[k];
+						if (npc.CanBeChasedBy(player, false)) {
+							float distance = Vector2.Distance(npc.Center, player.Center);
+							if (distance < 400 && chosenNPC == target || distance < 400 && npc.life > chosenNPC.life && npc != target) { //finds the highest hp enemy besides the target
+								chosenNPC = npc;	
+							}
+						}
+						if (k == 199 && chosenNPC != target)
+						{
+							float xPosition = chosenNPC.Left.X - 30f;
+							float projDirection = 0.1f;
+							if (chosenNPC.Center.X < player.Center.X) {
+								xPosition = chosenNPC.Right.X + 30f;
+								projDirection = -0.1f;
+							}
+							Projectile.NewProjectile(xPosition, chosenNPC.Center.Y - 35f, projDirection, 0, mod.ProjectileType("EnchantedBlade"), 40, 4f, player.whoAmI);
+							Main.PlaySound(SoundID.Item, chosenNPC.Center, 8);  		
+						}
+					}
+				}
 			}
             if (crit && item.type == mod.ItemType("LifesFate"))
             {
@@ -960,8 +1005,6 @@ namespace Emperia
                     Main.projectile[p].scale = 0.7f;
                 }
             }
-            if (doubleKnockback)
-                incDefTime = 180;
             if (frostGauntlet)
             {
                 if (target.life <= 0)

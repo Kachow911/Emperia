@@ -29,11 +29,13 @@ namespace Emperia.Items.Accessories.Gauntlets
         {
             player.GetModPlayer<MyPlayer>().gauntletBonus = 0.25f;
             player.GetModPlayer<MyPlayer>().gelGauntlet = true;
+            player.GetModPlayer<MyPlayer>().wristBrace = true;
         }
 		public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(null, "WoodweaversGauntlet", 1);
+            recipe.AddIngredient(null, "WristBrace", 1);
             recipe.AddIngredient(ItemID.Gel, 40);
             recipe.AddTile(TileID.Anvils);
             recipe.SetResult(this);

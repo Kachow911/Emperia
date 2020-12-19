@@ -33,7 +33,7 @@ namespace Emperia
 					player.AddBuff(mod.BuffType("FrostleafBuff"), 1200);
 				}
 			}
-			if (modPlayer.gelGauntlet && !item.noMelee && Main.mouseLeft)//janky!!!!
+			if (modPlayer.wristBrace && !item.noMelee && Main.mouseLeft)//janky!!!!
 			{
 				if (Main.MouseWorld.X > player.position.X && player.direction == -1)
 				{
@@ -104,6 +104,19 @@ namespace Emperia
             if (player.HasBuff(mod.BuffType("Waxwing")))
             {
 				speed *= 1.25f;
+            }
+            return;
+        }
+		int delay = 1;
+		public override void UseItemHitbox(Item item, Player player, ref Rectangle hitbox, ref bool noHitbox)
+        {
+			MyPlayer modPlayer = player.GetModPlayer<MyPlayer>();
+			delay--;
+            if (modPlayer.gauntletBonus > 0 && delay == 0)
+            {
+				delay = item.useAnimation - 1;
+				modPlayer.swordHitbox.Width = hitbox.Height;
+				modPlayer.swordHitbox.Height = (int)((int)(hitbox.Height / 1.4f) * 1.1f);
             }
             return;
         }

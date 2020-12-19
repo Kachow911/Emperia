@@ -14,7 +14,7 @@ namespace Emperia.Items.Accessories.Gauntlets
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Woodweaver's Gauntlet");
-			Tooltip.SetDefault("Sword strikes deal slightly increased damage at close range, especially on large targets\nSword strikes may fire a tiny splinter of wood at foes");
+			Tooltip.SetDefault("Sword damage increased by up to 10% at close range, 20% on large foes\nSword strikes may fire a tiny splinter of wood at foes");
 		}
         public override void SetDefaults()
         {
