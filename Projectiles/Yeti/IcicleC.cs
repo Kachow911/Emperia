@@ -12,7 +12,7 @@ namespace Emperia.Projectiles.Yeti
         public override void SetDefaults()
         {
             projectile.width = 22;
-            projectile.height = 44;
+            projectile.height = 22;
             //projectile.aiStyle = 1;
             projectile.friendly = false;
             projectile.hostile = true;

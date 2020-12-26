@@ -17,8 +17,8 @@ namespace Emperia.Npcs.Yeti
 		}
         public override void SetDefaults()
         {  //projectile name
-            projectile.width = 32;       //projectile width
-            projectile.height = 32;  //projectile height
+            projectile.width = 56;       //projectile width
+            projectile.height = 56;  //projectile height
             projectile.friendly = false;      //make that the projectile will not damage you
             projectile.magic = true;         // 
             projectile.tileCollide = true;   //make that the projectile will be destroed if it hits the terrain
@@ -41,6 +41,7 @@ namespace Emperia.Npcs.Yeti
 		}
 		 public override void Kill(int timeLeft)
         {
+            projectile.velocity.Y += .03f;
 			Main.PlaySound(SoundID.Item, projectile.Center, 14);
 			for (int i = 0; i < Main.player.Length; i++)
             {

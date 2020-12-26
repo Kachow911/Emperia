@@ -39,7 +39,16 @@ namespace Emperia.Npcs.Yeti
 
         public override void AI()
 		{
+            npc.TargetClosest(true);
+            Player player = Main.player[npc.target];
             npc.velocity = Vector2.Zero;
+            if (counter == 60)
+            {
+                if (player.position.X < npc.Center.X)
+                    npc.spriteDirection = -1;
+                else if (player.position.X > npc.Center.X)
+                    npc.spriteDirection = 1;
+            }
             counter--;
             if (counter==0)
             {

@@ -22,9 +22,9 @@ namespace Emperia.Npcs.Yeti
             npc.lifeMax = 120;
             npc.damage = 20;
             npc.defense = 10;
-            npc.knockBackResist = 0.2f;
-            npc.width = 96;
-            npc.height = 56;
+            npc.knockBackResist = 0.4f;
+            npc.width = 48;
+            npc.height = 48;
             npc.value = Item.buyPrice(0, 0, 20, 0);
             npc.npcSlots = 1f;
             npc.boss = false;

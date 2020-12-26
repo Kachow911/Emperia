@@ -41,12 +41,12 @@ namespace Emperia.Npcs.Yeti
 		}
         public override void SetDefaults()
         {
-            npc.lifeMax = 2250;
+            npc.lifeMax = 2650;
             npc.damage = 50;
             npc.defense = 12;
             npc.knockBackResist = 0f;
-            npc.width = 55;
-            npc.height = 60;
+            npc.width = 45;
+            npc.height = 55;
             npc.value = Item.buyPrice(0, 8, 0, 0);
             npc.npcSlots = 1f;
             npc.boss = true;
@@ -110,7 +110,7 @@ namespace Emperia.Npcs.Yeti
 
         public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
         {
-            npc.lifeMax = 2750;
+            npc.lifeMax = 3100;
             npc.damage = 60;
         }
 
@@ -181,7 +181,7 @@ namespace Emperia.Npcs.Yeti
 					for (int i = 0; i < 12; i++)
 					{
 
-						Vector2 perturbedSpeed = new Vector2(0, 3).RotatedBy(MathHelper.ToRadians(Main.rand.Next(30) + 30 * i)) * 1.5f;
+						Vector2 perturbedSpeed = new Vector2(0, 3).RotatedBy(MathHelper.ToRadians(Main.rand.Next(30) + 30 * i)) * 1.8f;
 						Projectile.NewProjectile(npc.Center.X, npc.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, mod.ProjectileType("IcicleC"), npc.damage / 2, 1, Main.myPlayer, 0, 0);
 
 					}
@@ -195,18 +195,28 @@ namespace Emperia.Npcs.Yeti
 				counter--;
 				npc.aiStyle = 3;
 				aiType = 508;
-
+				if(Vector2.Distance(player.Center, npc.Center) > 800 || (player.Center.Y - npc.Center.Y >= 350))
+				{
+					SetMove(Move.JumpStart, 90);
+				}
 				if (!IsBelowPhaseTwoThreshhold() && counter % 200 == 0)
 				{
 					//NPC.NewNPC((int)npc.Center.X + Main.rand.Next(-200, 200), (int)npc.Center.Y - 150, mod.NPCType("Yetiling"));
-					SetMove(Move.YetilingSpawn, 25, counter);
+					if(Main.rand.NextBool(3))
+						SetMove(Move.YetilingSpawn, 25, counter);
+					else if (Main.rand.NextBool(2))
+						SetMove(Move.Snowball, 25, counter);
 				}
 				if (!IsBelowPhaseTwoThreshhold())
 				{
-					if (npc.velocity.X > 2f)
-						npc.velocity.X = 2f;
-					if (npc.velocity.X < -2f)
-						npc.velocity.X = -2f;
+					if (player.position.X > npc.Center.X)
+						npc.velocity.X += 0.2f;
+					else
+						npc.velocity.X -= 0.2f;
+					if (npc.velocity.X > 2.5f)
+						npc.velocity.X = 2.5f;
+					if (npc.velocity.X < -2.5f)
+						npc.velocity.X = -2.5f;
 				}
 				else
                 {
@@ -218,10 +228,14 @@ namespace Emperia.Npcs.Yeti
 						else
 							SetMove(Move.IcicleStart, 20, counter);
 					}
-					if (npc.velocity.X > 3f)
-						npc.velocity.X = 3f;
-					if (npc.velocity.X < -3f)
-						npc.velocity.X = -3f;
+					if (player.position.X > npc.Center.X)
+						npc.velocity.X += 0.2f;
+					else
+						npc.velocity.X -= 0.2f;
+					if (npc.velocity.X > 3.7f)
+						npc.velocity.X = 3.7f;
+					if (npc.velocity.X < -3.7f)
+						npc.velocity.X = -3.7f;
 				}
 				if (Main.rand.Next(2) == 0 && counter <= 0 && Main.expertMode && walkTimer > 400)
 				{
@@ -246,13 +260,13 @@ namespace Emperia.Npcs.Yeti
 					if (player.Center.X > npc.Center.X)
 					{
 						npc.velocity.Y = -12;
-						npc.velocity.X = 5;
+						npc.velocity.X = 6.5f;
 						jumpDir = 1;
 					}
 					else
 					{
 						npc.velocity.Y = -12;
-						npc.velocity.X = -5;
+						npc.velocity.X = -6.5f;
 						jumpDir = -1;
 					}
 				}
