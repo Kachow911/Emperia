@@ -49,6 +49,7 @@ namespace Emperia
 		public bool gelGauntlet = false;
 		public bool metalGauntlet = false;
 		public bool magicGauntlet = false;
+		public bool boneGauntlet = false;
         public bool frostGauntlet = false;
         public bool meteorGauntlet = false;
 		public bool ferocityGauntlet = false;
@@ -105,7 +106,6 @@ namespace Emperia
 		public int iceCannonLoad = 0;
 		public int clubSwing = 0;
 		public int frostFangTimer = 0;
-
 		public Rectangle swordHitbox = new Rectangle(0, 0, 0, 0); //value taken from GlobalItem
 				
         public override void ResetEffects()
@@ -123,6 +123,7 @@ namespace Emperia
 			gelGauntlet = false;
 			metalGauntlet = false;
 			magicGauntlet = false;
+			boneGauntlet = false;
 			terraGauntlet = false;
 			wristBrace = false;
 			floralGauntlet = false;
@@ -554,6 +555,14 @@ namespace Emperia
         {
 
 		}
+		public override void ModifyHitByNPC(NPC npc, ref int damage, ref bool crit)
+		{
+			if (player.HasBuff(mod.BuffType("SkullBuff")))
+			{
+				damage /= 2;
+				player.ClearBuff(mod.BuffType("SkullBuff"));
+			}
+		}
 		public override bool PreKill(double damage, int hitDirection, bool pvp, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource)
         {
 			return true;
@@ -897,6 +906,15 @@ namespace Emperia
 							Main.PlaySound(SoundID.Item, chosenNPC.Center, 8);  		
 						}
 					}
+				}
+			}
+			if (boneGauntlet && !player.HasBuff(mod.BuffType("SkullBuff")))
+			{
+				if (Main.rand.Next(30 + (160 / damage)) == 0)
+				{
+					Projectile.NewProjectile(player.Center.X, player.Center.Y, 0, 0, mod.ProjectileType("GauntletSkull"), 0, 4f, player.whoAmI);
+					player.AddBuff(mod.BuffType("SkullBuff"), 1200);
+					Main.PlaySound(SoundID.Item8, player.Center);
 				}
 			}
             if (crit && item.type == mod.ItemType("LifesFate"))
