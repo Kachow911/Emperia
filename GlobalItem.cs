@@ -108,6 +108,8 @@ namespace Emperia
             return;
         }
 		int delay = 1;
+		bool goliathInit = false;
+		float baseScale = 0;
 		public override void UseItemHitbox(Item item, Player player, ref Rectangle hitbox, ref bool noHitbox)
         {
 			MyPlayer modPlayer = player.GetModPlayer<MyPlayer>();
@@ -118,7 +120,23 @@ namespace Emperia
 				modPlayer.swordHitbox.Width = hitbox.Height;
 				modPlayer.swordHitbox.Height = (int)((int)(hitbox.Height / 1.4f) * 1.1f);
             }
-            return;
+			if (!goliathInit)
+			{
+				baseScale = item.scale;
+				goliathInit = true;
+				if (player.HasBuff(mod.BuffType("Goliath")))
+				{
+					item.scale *= 1.2f;
+				}
+			}
+			if (delay == 1) //last frame of sword swing
+			{
+				item.scale = baseScale; //shrinking it here means it's visible, but barely noticable
+				goliathInit = false;
+				//Main.NewText(item.scale.ToString(), 200, 20, 20, false);
+				//Main.NewText(baseScale.ToString(), 20, 200, 20, false);
+			}
+			return;
         }
 	}
 }
