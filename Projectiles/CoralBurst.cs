@@ -50,7 +50,7 @@ namespace Emperia.Projectiles
 	{
 		public override void SetDefaults()
 		{
-			projectile.damage = 10;
+			//projectile.damage = 10;
 			projectile.width = 8;
 			projectile.height = 8;
 			projectile.friendly = true;
@@ -69,7 +69,7 @@ namespace Emperia.Projectiles
 		{
 			for (int i = 0; i < 2; ++i)
 			{
-				int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 46, (float) 0, 0, 0, default(Color), 0.5f);
+				int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 46, projectile.velocity.X / 2, projectile.velocity.Y / 2, 0, default(Color), 0.65f);
                 Main.dust[dust].noGravity = false;
 			}
 		}

@@ -28,40 +28,60 @@ namespace Emperia.Projectiles
             timer++;
 			projectile.ai[1] ++;
 			int x1 = Main.rand.Next(7);
-			if (!init && timer > 2)
+			if (!init)
 			{
-				
 				if (x1 == 0)
 				{
-					rgb = new Color(230, 0, 0);
+					rgb = new Color(230, 0, 0); //red
 				}			
 				else if (x1 == 1)
 				{
-					rgb = new Color(255, 255, 0);			
+					rgb = new Color(255, 255, 0); //yellow		
 				}
 				else if (x1 == 2)
 				{
-					rgb = new Color(0, 0, 240);
+					rgb = new Color(0, 0, 240); //blue
 				}
 				else if(x1 == 3)
 				{
-					rgb = new Color(0, 255, 0);
+					rgb = new Color(0, 255, 0); //lime
 				}
 				else if(x1 == 4)
 				{
-					rgb = new Color(255, 105, 180);
+					//rgb = new Color(255, 105, 180); pink
+					rgb = new Color(255, 70, 240); //fuschia
 				}
 				else if (x1 == 5)
 				{
-					rgb = new Color(132, 112, 255);
+					//rgb = new Color(132, 112, 255); purple
+					rgb = new Color(30, 255, 255); //teal
 				}
 				else if (x1 == 6)
 				{
-				rgb = new Color(255, 165, 0);
+					//rgb = new Color(255, 165, 0);
+					rgb = new Color(255, 120, 35); //orange
 				}
-
-                
                 init = true;
+			}
+			Vector2 direction = projectile.velocity.RotatedByRandom(MathHelper.ToRadians(25)) * 0.6f;
+			Vector2 direction2 = projectile.velocity.RotatedByRandom(MathHelper.ToRadians(-25)) * 0.6f;
+			if (timer == 4)
+			{
+				for (int i = 0; i < 2; ++i)
+			    {
+			        if (i < 1)
+			        {
+					    int index2 = Dust.NewDust(new Vector2((float)(projectile.position.X + 4.0), (float)(projectile.position.Y + 4.0)), projectile.width - 8, projectile.height - 8, 76, direction.X, direction.Y, 0, rgb, 1.3f);
+              			Main.dust[index2].position = projectile.Center;
+               			Main.dust[index2].noGravity = true;
+			        }
+					else 
+					{
+					    int index2 = Dust.NewDust(new Vector2((float)(projectile.position.X + 4.0), (float)(projectile.position.Y + 4.0)), projectile.width - 8, projectile.height - 8, 76, direction2.X, direction2.Y, 0, rgb, 1.3f);
+              			Main.dust[index2].position = projectile.Center;
+               			Main.dust[index2].noGravity = true;
+					}
+			    }
 			}
             if (timer > 2)
             {
@@ -74,16 +94,15 @@ namespace Emperia.Projectiles
 		public override void Kill(int timeLeft)
         {
             Main.PlaySound(0, (int)projectile.position.X, (int)projectile.position.Y, 1, 1f, 0.0f);
-            for (int index1 = 0; index1 < 10; ++index1)
+            for (int index1 = 0; index1 < 8; ++index1)
 			{
 			int index2 = Dust.NewDust(projectile.position, projectile.width, projectile.height, 76, 0.0f, 0.0f, 0, rgb, 1f);
 			Main.dust[index2].noGravity = true;
 			Dust dust1 = Main.dust[index2];
 			dust1.velocity = dust1.velocity * 1.2f;
-			Main.dust[index2].scale = 1.2f;
 			Dust dust2 = Main.dust[index2];
 			dust2.velocity = dust2.velocity - (projectile.oldVelocity * 0.3f);
-			int index3 = Dust.NewDust(new Vector2((float) (projectile.position.X + 4.0), (float) (projectile.position.Y + 4.0)), projectile.width - 8, projectile.height - 8, 76, 0.0f, 0.0f, 0, rgb, 1.5f);
+			int index3 = Dust.NewDust(new Vector2((float) (projectile.position.X + 4.0), (float) (projectile.position.Y + 4.0)), projectile.width - 8, projectile.height - 8, 76, 0.0f, 0.0f, 0, rgb, 1f);
 			Main.dust[index3].noGravity = true;
 			Dust dust3 = Main.dust[index3];
 			dust3.velocity = dust3.velocity* 2f;

@@ -36,7 +36,8 @@ public class SeashellHamaxe : ModItem
     {
        ModRecipe recipe = new ModRecipe(mod);      
             recipe.AddIngredient(ItemID.Seashell, 2);
-            recipe.AddIngredient(ItemID.FishingSeaweed, 1); 			
+            recipe.AddIngredient(ItemID.Coral, 2);
+            recipe.AddIngredient(null, "SeaCrystal", 1);  			
             recipe.AddTile(TileID.Anvils);
             recipe.SetResult(this);
             recipe.AddRecipe();

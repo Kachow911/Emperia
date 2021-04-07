@@ -17,7 +17,7 @@ namespace Emperia.Projectiles.Granite
 		int hitTimer = 0;
 		int retargetTimer = 60;
 		bool initRetargDone = false;
-		bool firstHits = true;
+		bool firstHits = true; 
 		bool softUnlatch = false;
 		public override void SetDefaults()
 		{
@@ -149,7 +149,7 @@ namespace Emperia.Projectiles.Granite
                         {
 							Player player = Main.player[projectile.owner];
 							MyPlayer modPlayer = player.GetModPlayer<MyPlayer>();
-							if (modPlayer.graniteSet && modPlayer.graniteTime >= 1800)
+							if (modPlayer.graniteSet && modPlayer.graniteTime >= 900)
 							{
 								for (int i = 0; i < Main.npc.Length; i++)
 								{
@@ -184,7 +184,7 @@ namespace Emperia.Projectiles.Granite
 							Main.npc[npc].GetGlobalNPC<MyNPC>().graniteMinID = -1;
 						}
 						else {
-							Main.npc[npc].StrikeNPC(projDamage, 0f, 0, false, false, false);
+							Main.npc[npc].StrikeNPC(firstHits ? projDamage + projDamage / 3 : projDamage, 0f, 0, false, false, false);
 						}
 						int num308 = firstHits ? 5 : 3;
 						

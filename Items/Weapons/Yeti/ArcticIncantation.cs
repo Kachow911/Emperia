@@ -20,6 +20,7 @@ namespace Emperia.Items.Weapons.Yeti
 
 			item.damage = 24;
 			item.magic = true;
+			item.noMelee = true;
 			item.width = 22;
 			item.height = 24;
 			item.useTime = 45;

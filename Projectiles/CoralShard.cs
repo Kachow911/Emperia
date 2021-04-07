@@ -9,18 +9,18 @@ using Terraria.ModLoader;
 namespace Emperia.Projectiles
 {
 
-    public class Cerith : ModProjectile
+    public class CoralShard : ModProjectile
     {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Cerith");
+			DisplayName.SetDefault("Coral Shard");
 		}
         public override void SetDefaults()
         {
-            projectile.width = 12;
-            projectile.height = 12;
+            projectile.width = 18;
+            projectile.height = 18;
             projectile.friendly = true;
-            projectile.magic = true;
+            projectile.melee = true;
             projectile.tileCollide = true;
             projectile.penetrate = 1;
             projectile.timeLeft = 140;
@@ -44,8 +44,9 @@ namespace Emperia.Projectiles
             Main.PlaySound(SoundID.Item10, projectile.position);
 			for (int i = 0; i < 5; i++)
 			{
-				int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 7);
-			    int dust2 = Dust.NewDust(new Vector2(projectile.Center.X, projectile.Center.Y), projectile.width, projectile.height, 107, 0.0f, 0.0f, 15, default(Color), 0.8f);
+				int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 46);
+			    Main.dust[dust].noGravity = false;
+                int dust2 = Dust.NewDust(new Vector2(projectile.Center.X, projectile.Center.Y), projectile.width, projectile.height, 107, 0.0f, 0.0f, 15, default(Color), 0.8f);
 				Main.dust[dust2].velocity *= 1.5f;
                 int dust2copy = Dust.NewDust(new Vector2(projectile.Center.X, projectile.Center.Y), projectile.width, projectile.height, 107, 0.0f, 0.0f, 15, default(Color), 0.8f);
                 Vector2 vel = new Vector2(0, -1).RotatedBy(Main.rand.NextFloat() * 6.283f) * 3.5f;

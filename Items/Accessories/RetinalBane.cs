@@ -13,7 +13,7 @@ public class RetinalBane : ModItem
 	public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Retinal Bane");
-			Tooltip.SetDefault("Allows the player to dash into enemies, inflicting cursed damage\nDouble Tap a direction to dash");
+			Tooltip.SetDefault("Allows the player to dash into enemies, inflicting cursed flames\nDouble Tap a direction to dash");
 		}
 	public override void SetDefaults()
 	{
@@ -38,9 +38,7 @@ public class RetinalBane : ModItem
      {
 		ModRecipe recipe = new ModRecipe(mod);
 		recipe.AddIngredient(ItemID.EoCShield, 1);
-		recipe.AddIngredient(ItemID.HallowedBar, 10);
-		recipe.AddIngredient(ItemID.CursedFlame, 10);
-		recipe.AddIngredient(ItemID.SoulofSight, 15);
+		recipe.AddIngredient(ItemID.MechanicalWheelPiece, 1);
         recipe.AddTile(TileID.MythrilAnvil); 			
         recipe.SetResult(this);
         recipe.AddRecipe(); 

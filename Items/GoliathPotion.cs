@@ -10,7 +10,7 @@ namespace Emperia.Items
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Goliath Potion");
-            Tooltip.SetDefault("20% increased sword size");
+            Tooltip.SetDefault("Increases sword size by 20%");
         }
 
         public override void SetDefaults()

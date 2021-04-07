@@ -55,7 +55,27 @@ namespace Emperia.Projectiles
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
-			target.AddBuff(mod.BuffType("FatesDemise"), 720);
+			if (target.life <= 0 && !target.HasBuff(mod.BuffType("FatesDemise")))
+			{
+				int damage1 = 0;
+				if (target.lifeMax > 1500)
+				{
+					damage1 = 300;
+				}
+				else
+				{
+					damage1 = target.lifeMax / 5;
+				}
+				for (int i = 0; i < 6; i++)
+				{
+					Vector2 perturbedSpeed = new Vector2(4, 4).RotatedByRandom(MathHelper.ToRadians(360));
+					Projectile.NewProjectile(target.Center.X, target.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, mod.ProjectileType("FatesFlames"), damage1, 1, Main.myPlayer, 0, 0);
+					Main.PlaySound(SoundID.NPCDeath52, target.Center);
+				}
+			}
+			else {
+				target.AddBuff(mod.BuffType("FatesDemise"), 720);
+			}
 		}
 
 		public override void Kill(int timeLeft)

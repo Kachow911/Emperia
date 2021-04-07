@@ -18,7 +18,7 @@ namespace Emperia
 		public override bool UseItem(Item item, Player player)
         {
 			MyPlayer modPlayer = player.GetModPlayer<MyPlayer>();
-			if (item.type == 28 || item.type == 188 || item.type == 499 || item.type == 3544 || item.type == 226 || item.type == 227 || item.type == 3001 || item.type == mod.ItemType("AshenBandage"))
+			if (item.potion == true)
 			{
 				if (modPlayer.vitalityCrystal)
 				{
@@ -38,13 +38,19 @@ namespace Emperia
 				if (Main.MouseWorld.X > player.position.X && player.direction == -1)
 				{
 					player.direction = 1;
-					item.useTurn = false;
+					item.useTurn = false; 
 				}
 				if (Main.MouseWorld.X < player.position.X && player.direction == 1)
 				{
 					player.direction = -1;
 					item.useTurn = false;
 				}
+			}
+			if (!modPlayer.wristBrace && !item.noMelee) //fixes item.useTurn from the previous block :)
+			{
+				Item defaultStats = new Item();
+				defaultStats.SetDefaults(item.type);
+				if (defaultStats.useTurn == true) { item.useTurn = true; }
 			}
 			return false;
 		}
@@ -114,12 +120,16 @@ namespace Emperia
         {
 			MyPlayer modPlayer = player.GetModPlayer<MyPlayer>();
 			delay--;
-            if (modPlayer.gauntletBonus > 0 && delay == 0)
+            if (delay == 0)
             {
-				delay = item.useAnimation - 1;
-				modPlayer.swordHitbox.Width = hitbox.Height;
-				modPlayer.swordHitbox.Height = (int)((int)(hitbox.Height / 1.4f) * 1.1f);
+				delay = (int)(item.useAnimation * player.meleeSpeed) - 1;
+				if (modPlayer.gauntletBonus > 0)
+				{ 
+					modPlayer.swordHitbox.Width = hitbox.Height;
+					modPlayer.swordHitbox.Height = (int)((int)(hitbox.Height / 1.4f) * 1.1f);
+				}
             }
+
 			if (!goliathInit)
 			{
 				baseScale = item.scale;

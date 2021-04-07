@@ -360,6 +360,7 @@ namespace Emperia
 					Projectile.NewProjectile(npc.Center.X, npc.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, mod.ProjectileType("FatesFlames"), damage1, 1, Main.myPlayer, 0, 0);	
 				}
 				Main.PlaySound(SoundID.NPCDeath52, npc.Center);
+				//this code also exists in FatesFlames and MyPlayer, be sure to make all changes consistent
 			}
 		}
 		public override void OnHitPlayer(NPC npc, Player target, int damage, bool crit)

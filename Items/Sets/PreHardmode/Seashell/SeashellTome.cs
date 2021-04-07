@@ -33,7 +33,7 @@ namespace Emperia.Items.Sets.PreHardmode.Seashell
 	        item.shoot = mod.ProjectileType("Cerith"); 
 	        item.shootSpeed = 4f;
             item.autoReuse = true;
-            item.useTurn = true;        
+            //item.useTurn = true; okay i guess this makes tomes turn you around but only for one frame so dont use it lol       
         }
 		public override bool CanUseItem(Player player)
         {
@@ -45,6 +45,16 @@ namespace Emperia.Items.Sets.PreHardmode.Seashell
                 }
             }
             return true;
+        }
+        public override void AddRecipes()  //How to craft this sword
+        {
+            ModRecipe recipe = new ModRecipe(mod);      
+            recipe.AddIngredient(ItemID.Seashell, 4);
+            recipe.AddIngredient(ItemID.Coral, 4);
+            recipe.AddIngredient(null, "SeaCrystal", 1); 			
+            recipe.AddTile(TileID.Anvils);
+            recipe.SetResult(this);
+            recipe.AddRecipe();
         }
     }
 }

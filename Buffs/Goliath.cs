@@ -10,7 +10,7 @@ namespace Emperia.Buffs
         public override void SetDefaults()
         {
 			DisplayName.SetDefault("Goliath");
-			Description.SetDefault("Swords are 20% larger");
+			Description.SetDefault("20% increased sword size");
             Main.buffNoSave[Type] = true;
             canBeCleared = true;
         }

@@ -17,13 +17,13 @@ namespace Emperia.Items.Sets.PreHardmode.Granite
 		}
         public override void SetDefaults()
         {
-            item.damage = 16;
+            item.damage = 20;
             item.noMelee = true;
             item.ranged = true;
             item.width = 30;
             item.height = 40;
-            item.useTime = 26;
-            item.useAnimation = 26;
+            item.useTime = 29;
+            item.useAnimation = 29;
             item.useStyle = 5;
             item.shoot = 3;
             item.useAmmo = ItemID.WoodenArrow;
@@ -31,7 +31,7 @@ namespace Emperia.Items.Sets.PreHardmode.Granite
             item.value = 27000;
             item.rare = 1;
             item.autoReuse = false;
-            item.shootSpeed = 8f;
+            item.shootSpeed = 6f;
 			item.UseSound = SoundID.Item5; 
         }
 		

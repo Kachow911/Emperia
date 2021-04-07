@@ -1,0 +1,44 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+using Microsoft.Xna.Framework;
+
+using Terraria.ModLoader;
+using Terraria;
+using Terraria.ID;
+
+namespace Emperia.Buffs
+{
+    public class Bloodstained : ModBuff
+    {
+        public override void SetDefaults()
+        {
+			DisplayName.SetDefault("Bloodstained");
+			Description.SetDefault("Your next damage taken can be healed back");
+            Main.buffNoSave[Type] = true;
+            canBeCleared = true;
+        }
+    }
+    public class Bloodstained2 : ModBuff
+    {
+        public override void SetDefaults()
+        {
+			DisplayName.SetDefault("Rally!");
+			Description.SetDefault("Deal damage with sword strikes to rally back the damage taken!");
+            Main.buffNoSave[Type] = true;
+            canBeCleared = true;
+        }
+
+        public override void Update(Player player, ref int buffIndex)
+        {
+            if (Main.rand.Next(2) == 0)
+            {
+                int dust = Dust.NewDust(new Vector2(player.Center.X, player.Center.Y), 20, 20, 183);
+				Main.dust[dust].velocity = Vector2.Zero;
+            }
+        }
+    }
+}

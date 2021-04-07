@@ -15,19 +15,19 @@ namespace Emperia.Projectiles.Yeti
 			DisplayName.SetDefault("Ice Crystal");
 		}
         public override void SetDefaults()
-        {  //projectile name
-            projectile.width = 32;       //projectile width
-            projectile.height = 32;  //projectile height
-            projectile.friendly = true;      //make that the projectile will not damage you
-            projectile.magic = true;         // 
-            projectile.tileCollide = true;   //make that the projectile will be destroed if it hits the terrain
-            projectile.penetrate = 1;      //how many npc will penetrate
-            projectile.timeLeft = 200;   //how many time projectile projectile has before disepire
-            projectile.light = 0.75f;    // projectile light
+        {
+            projectile.width = 32;
+            projectile.height = 32;
+            projectile.friendly = true;
+            projectile.magic = true;
+            projectile.tileCollide = true;
+            projectile.penetrate = 1;
+            projectile.timeLeft = 200;
+            projectile.light = 0.75f;
             projectile.extraUpdates = 1;
             projectile.ignoreWater = true;
         }
-        public override void AI()           //projectile make that the projectile will face the corect way
+        public override void AI()
         {                                                           // |
 			if (Main.rand.NextBool(2))
 			{
@@ -50,7 +50,7 @@ namespace Emperia.Projectiles.Yeti
 			for (int i = 0; i < 6; i++)
 			{
 				Vector2 perturbedSpeed = new Vector2(0, 3).RotatedBy(MathHelper.ToRadians(90 + 60 * i));
-				int p = Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, mod.ProjectileType("IceShard"), projectile.damage / 6, 0, Main.myPlayer, 0, 0);
+				int p = Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, mod.ProjectileType("IceShard"), projectile.damage / 3, 0, Main.myPlayer, 0, 0);
 				Main.projectile[p].rotation = MathHelper.ToRadians(Main.rand.Next(360));
 			}
 		}

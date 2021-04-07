@@ -24,10 +24,10 @@ namespace Emperia.Items.Sets.PreHardmode.Granite   //where is located
             item.useTime = 27;          //how fast 
             item.useAnimation = 27;     
             item.useStyle = 1;        //Style is how this item is used, 1 is the style of the sword
-            item.knockBack = 4.5f;      //Sword knockback
+            item.knockBack = 4f;      //Sword knockback
             item.value = 27000;      
             item.rare = 1;
-			item.scale = 1f;
+			//item.scale = 1.1f;
             item.autoReuse = false;   //if it's capable of autoswing.    
 			item.UseSound = SoundID.Item1;
 			item.crit = 6;			
@@ -37,7 +37,7 @@ namespace Emperia.Items.Sets.PreHardmode.Granite   //where is located
 			if (crit)
 			{
 				MyPlayer modPlayer = player.GetModPlayer<MyPlayer>();
-				if (modPlayer.graniteSet && modPlayer.graniteTime >= 1800)
+				if (modPlayer.graniteSet && modPlayer.graniteTime >= 900)
                 {
 					damage = (int) ((float) damage * 1.875f);
 				}
@@ -52,12 +52,12 @@ namespace Emperia.Items.Sets.PreHardmode.Granite   //where is located
 			if (crit)
 			{
 				MyPlayer modPlayer = player.GetModPlayer<MyPlayer>();
-				if (modPlayer.graniteSet && modPlayer.graniteTime >= 1800)
+				if (modPlayer.graniteSet && modPlayer.graniteTime >= 900)
 				{
 					Main.PlaySound(2, (int)target.position.X, (int)target.position.Y, 14);
 					for (int i = 0; i < Main.npc.Length; i++)
 					{
-						if (target.Distance(Main.npc[i].Center) < 114 && Main.npc[i] != target)
+						if (target.Distance(Main.npc[i].Center) < 100 && Main.npc[i] != target)
 							Main.npc[i].StrikeNPC((int) (damage), 0f, 0, false, false, false);
 					}
 					for (int i = 0; i < 45; ++i)
@@ -73,7 +73,7 @@ namespace Emperia.Items.Sets.PreHardmode.Granite   //where is located
 					Main.PlaySound(2, (int)target.position.X, (int)target.position.Y, 10);
 					for (int i = 0; i < Main.npc.Length; i++)
 					{
-						if (target.Distance(Main.npc[i].Center) < 76 && Main.npc[i] != target)
+						if (target.Distance(Main.npc[i].Center) < 70 && Main.npc[i] != target)
 							Main.npc[i].StrikeNPC((int) (damage), 0f, 0, false, false, false);
 					}
 					for (int i = 0; i < 30; ++i)

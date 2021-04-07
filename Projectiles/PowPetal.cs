@@ -84,7 +84,6 @@ namespace Emperia.Projectiles
 					returntimer = 0;
 				}
 				//projectile.rotation = (float)Math.Atan2(-(double)offset.Y, -(double)offset.X);
-				projectile.frameCounter++;
 				projectile.velocity = Vector2.Zero;
 				projectile.position = npc.position + offset;
 				if (projectile.frameCounter >= 3)

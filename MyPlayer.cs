@@ -50,6 +50,7 @@ namespace Emperia
 		public bool metalGauntlet = false;
 		public bool magicGauntlet = false;
 		public bool boneGauntlet = false;
+		public bool bloodGauntlet = false;
         public bool frostGauntlet = false;
         public bool meteorGauntlet = false;
 		public bool ferocityGauntlet = false;
@@ -84,6 +85,8 @@ namespace Emperia
 		List<int> hitEnemies = new List<int>();
 		private int terraTime = 0;
 		public int yetiCooldown = 30;
+		public int seaBladeCount = 0;
+		public int seaBladeTimer = 0;
 		public int graniteTime = 0;
 		private int leftPresses = 0;
 		private int rightPresses = 0;
@@ -95,6 +98,7 @@ namespace Emperia
 		public int OathCooldown = 720;
 		private int peltCounter = 120;
 		private int peltRadius = 256;
+		public int bloodstainedDmg = 0;
 		
 		private int forestSetMeleeCooldown = 60;
 		int SporeHealCooldown = 60;
@@ -124,6 +128,7 @@ namespace Emperia
 			metalGauntlet = false;
 			magicGauntlet = false;
 			boneGauntlet = false;
+			bloodGauntlet = false;
 			terraGauntlet = false;
 			wristBrace = false;
 			floralGauntlet = false;
@@ -160,6 +165,7 @@ namespace Emperia
 			frostFang = false;
 			
             sporeBuffCount = 0;
+			//bloodstainedDmg = 0;
         }
 		public override void UpdateBiomes()
 		{
@@ -198,6 +204,7 @@ namespace Emperia
 		}
         public override void PostUpdate()
         {
+			if (graniteMinion) { player.maxMinions += 1; } //first minion is free
 			if (iceCannonLoad < 0)
 			{
 				iceCannonLoad++;
@@ -236,7 +243,7 @@ namespace Emperia
 				}
 				lightningDamage = 0;
 			}
-			if (graniteSet && graniteTime <= 1800)
+			if (graniteSet && graniteTime <= 900)
 				graniteTime++;
 			if (forestSetMage && primalRageTime >= 0)
 			{
@@ -546,6 +553,8 @@ namespace Emperia
 					}
 				}
 			}
+			if (seaBladeTimer > 0) { seaBladeTimer--; }
+			if (seaBladeTimer == 0) { seaBladeCount = 0; }
         }
 		public override void PostUpdateEquips()
 		{
@@ -692,6 +701,17 @@ namespace Emperia
                 Main.projectile[p].hostile = false;
                 Main.projectile[p].scale = 0.7f;
             }
+			if (player.HasBuff(mod.BuffType("Bloodstained")))
+			{
+				bloodstainedDmg = (int)damage;
+				player.AddBuff(mod.BuffType("Bloodstained2"), 600);
+				player.ClearBuff(mod.BuffType("Bloodstained"));
+			}
+			else if (player.HasBuff(mod.BuffType("Bloodstained2")))
+			{
+				bloodstainedDmg = 0;
+				player.ClearBuff(mod.BuffType("Bloodstained2"));
+			}
 		}
 		public override void ModifyHitNPC (Item item, NPC target, ref int damage, ref float knockback, ref bool crit)
 		{
@@ -917,6 +937,32 @@ namespace Emperia
 					Main.PlaySound(SoundID.Item8, player.Center);
 				}
 			}
+			if (bloodGauntlet && !player.HasBuff(mod.BuffType("Bloodstained")) && !player.HasBuff(mod.BuffType("Bloodstained2")))
+			{
+				if (Main.rand.Next(25 + (240 / damage)) == 0)
+				{
+					player.AddBuff(mod.BuffType("Bloodstained"), 1200);
+					Main.PlaySound(SoundID.Item8, player.Center);
+				}
+			}	
+			if (bloodGauntlet && player.HasBuff(mod.BuffType("Bloodstained2")))
+			{
+				if (bloodstainedDmg >= damage / 2)
+				{
+					player.statLife += damage / 2;
+                	player.HealEffect(damage / 2);
+					bloodstainedDmg -= damage / 2;
+				}
+				else 
+				{
+					player.statLife += bloodstainedDmg;
+                	player.HealEffect(bloodstainedDmg);
+					bloodstainedDmg	= 0;
+					player.ClearBuff(mod.BuffType("Bloodstained2"));
+					Main.PlaySound(SoundID.Item28, player.Center);
+				}
+
+			}			
             if (crit && item.type == mod.ItemType("LifesFate"))
             {
                 player.AddBuff(mod.BuffType("LifesFateBuff"), Main.rand.Next(840, 960));
@@ -935,7 +981,7 @@ namespace Emperia
 			{
 				int increasedChance = damage / 50;
 				if (increasedChance > 8) increasedChance = 8;
-				if (Main.rand.NextFloat(100) < (2 + increasedChance))
+				if (Main.rand.NextFloat(80) <= (2 + increasedChance))
 				{
 					Item.NewItem((int)target.position.X, (int)target.position.Y, target.width, target.height, mod.ItemType("ProtectiveEnergy"));
 				}
@@ -1073,7 +1119,7 @@ namespace Emperia
 			{
 				int increasedChance = damage / 50;
 				if (increasedChance > 9) increasedChance = 9;
-				if (Main.rand.NextFloat(100) < (1 + increasedChance))
+				if (Main.rand.NextFloat(80) <= (1 + increasedChance))
 				{
 					Item.NewItem((int)target.position.X, (int)target.position.Y, target.width, target.height, mod.ItemType("ProtectiveEnergy"));
 				}

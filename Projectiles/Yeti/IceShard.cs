@@ -11,14 +11,17 @@ namespace Emperia.Projectiles.Yeti
 	public class IceShard : ModProjectile
 	{
 		private bool hitGround;
+		private int hitTimer;
 		public override void SetDefaults()
 		{
 			projectile.CloneDefaults(ProjectileID.PainterPaintball);
 			projectile.friendly = true;
-			projectile.penetrate = 4;
+			projectile.penetrate = 1 + Main.rand.Next(3);
 			projectile.magic = true;
 			projectile.timeLeft = 900;
 			projectile.alpha = 0;
+			projectile.height = 2;
+			projectile.width = 2;
 			drawOriginOffsetY = -6;
 		}
 		public override void AI()
@@ -32,18 +35,29 @@ namespace Emperia.Projectiles.Yeti
 				Main.dust[index2].velocity *= 0.5f;
 			}
 			projectile.velocity.Y += .3f;
+			hitTimer--;
 			if (!hitGround)
 				projectile.rotation += Main.rand.Next(10) * .01f;
 		}
 		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
-			target.AddBuff(BuffID.Frostburn, 120);
+			target.AddBuff(BuffID.Frostburn, 120); //make frostburn 1/3 chance, if activates penetration goes down?
+			hitTimer = 20;
 		}
 		public override bool OnTileCollide(Vector2 oldVelocity)
 		{
+			if (!hitGround) projectile.damage /= 2;
 			hitGround = true;
 			projectile.velocity = Vector2.Zero;
 			return false;
+		}
+		public override bool? CanHitNPC(NPC target)
+		{
+            if (hitTimer > 0)
+            {
+                return false;
+            }
+            else return true;
 		}
 		public override void Kill(int timeLeft)
 		{

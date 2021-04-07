@@ -31,9 +31,9 @@ namespace Emperia.Projectiles.Granite
 		public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection) {
 			Player player = Main.player[projectile.owner];
 			MyPlayer modPlayer = player.GetModPlayer<MyPlayer>();
-			if (modPlayer.graniteSet && modPlayer.graniteTime >= 1800)
+			if (modPlayer.graniteSet && modPlayer.graniteTime >= 900)
             {
-				damage = (int) ((float) damage * 1.5f);
+				damage = (int) ((float) damage * 1.75f);
 			}
 		}
 		public override void Kill(int timeLeft)
@@ -43,12 +43,12 @@ namespace Emperia.Projectiles.Granite
 			projectile.localAI[1] = -1f;
 			projectile.maxPenetrate = 0;
 			projectile.Damage();
-			if (modPlayer.graniteSet && modPlayer.graniteTime >= 1800)
+			if (modPlayer.graniteSet && modPlayer.graniteTime >= 900)
 			{
 				for (int i = 0; i < Main.npc.Length; i++)
             	{
                 	if (projectile.Distance(Main.npc[i].Center) < 90 && Main.npc[i] != hitNPC)
-                    	Main.npc[i].StrikeNPC(projectile.damage + projectile.damage / 2, 0f, 0, false, false, false);
+                    	Main.npc[i].StrikeNPC(projectile.damage / 4 * 7, 0f, 0, false, false, false);
             	}
 				for (int i = 0; i < 45; ++i)
 				{
@@ -63,7 +63,7 @@ namespace Emperia.Projectiles.Granite
 			{
 				for (int i = 0; i < Main.npc.Length; i++)
             	{
-                	if (projectile.Distance(Main.npc[i].Center) < 60 && Main.npc[i] != hitNPC)
+                	if (projectile.Distance(Main.npc[i].Center) < 65 && Main.npc[i] != hitNPC)
                     	Main.npc[i].StrikeNPC(projectile.damage, 0f, 0, false, false, false);
             	}
 				for (int i = 0; i < 30; ++i)
