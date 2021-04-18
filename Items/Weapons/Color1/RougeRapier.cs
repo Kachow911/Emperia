@@ -52,7 +52,7 @@ namespace Emperia.Items.Weapons.Color1   //where is located
 				int dust = Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, 60);
 			}
 		}
-		 public override void OnHitNPC(Player player, NPC target, int damage, float knockback, bool crit)
+		public override void OnHitNPC(Player player, NPC target, int damage, float knockback, bool crit)
 		{
             if (target.boss)
 			    player.AddBuff(mod.BuffType("RougeRage"), Main.rand.Next(360, 600) + 300);

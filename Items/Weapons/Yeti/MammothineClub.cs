@@ -31,18 +31,25 @@ namespace Emperia.Items.Weapons.Yeti
             item.autoReuse = false;
             item.useTurn = false;
 			item.UseSound = SoundID.Item1;	
+            //item.reuseDelay = 10; doesnt work!!
         }
         public override bool UseItem(Player player)
         {
             MyPlayer modPlayer = player.GetModPlayer<MyPlayer>();
-            modPlayer.clubSwing += 1;
+            if (modPlayer.clubSwing == -2) //prevents club from creating spikes if it hits an enemy frame 1
+            {
+                modPlayer.clubSwing = -1;
+            }
+            else {
+                modPlayer.clubSwing = (int)(item.useTime * player.meleeSpeed) - 1;
+            }
             return true;
         }
 		public override void OnHitNPC(Player player, NPC target, int damage, float knockback, bool crit)
         {
             MyPlayer modPlayer = player.GetModPlayer<MyPlayer>();
-            if (modPlayer.clubSwing == 0) modPlayer.clubSwing = -1; //frame 1 hits dont count otherwise
-            else modPlayer.clubSwing = 0;
+            if (modPlayer.clubSwing == -1) modPlayer.clubSwing = -2; //this only occurs if the club hits frame 1
+            else modPlayer.clubSwing = -1;
 		}
     }
 }

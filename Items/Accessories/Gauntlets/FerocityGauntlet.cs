@@ -23,6 +23,8 @@ namespace Emperia.Items.Accessories.Gauntlets
             item.rare = 4;
             item.value = Item.sellPrice(0, 3, 0, 0);
             item.accessory = true;
+            item.GetGlobalItem<GItem>().isGauntlet = true;
+
         }
         public override void UpdateAccessory(Player player, bool hideVisual)
         {

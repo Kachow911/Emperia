@@ -10,11 +10,13 @@ using Emperia;
 
 namespace Emperia
 {
-	public class ExampleInstancedGlobalItem : GlobalItem
-	{
+	public class GItem : GlobalItem
+	{	
 		public override bool InstancePerEntity {get{return true;}}
 		public override bool CloneNewInstances {get{return true;}}		
 		public int forestSetShots = 2;
+		public bool gelPad = false;
+		public bool isGauntlet = false;
 		public override bool UseItem(Item item, Player player)
         {
 			MyPlayer modPlayer = player.GetModPlayer<MyPlayer>();
@@ -147,6 +149,58 @@ namespace Emperia
 				//Main.NewText(baseScale.ToString(), 20, 200, 20, false);
 			}
 			return;
+        }
+		public override void ModifyTooltips(Item item, List<TooltipLine> tooltips) {
+			if (item.GetGlobalItem<GItem>().gelPad) {
+				TooltipLine line = new TooltipLine(mod, "x", "Gel Pad"); //no clue what the first string does here, gives the tooltip a name for other code to reference?
+				line.overrideColor = new Color(150, 150, 255);
+				TooltipLine line2 = new TooltipLine(mod, "x2", "Sword strikes on knockback-immune foes bounce you slightly back\nRight Click to detach");
+				tooltips.Add(line);
+				tooltips.Add(line2);
+				if (item.type == mod.ItemType("GelGauntlet"))
+				{
+					TooltipLine line3 = new TooltipLine(mod, "x3", "'Dear God... we're reaching levels of gel that shouldn't even be possible'");
+					tooltips.Add(line3);
+				}
+			}
+		}
+		public override bool NeedsSaving(Item item)
+		{
+			return gelPad;
+		}
+		public override TagCompound Save(Item item) {
+			TagCompound saveData = new TagCompound();
+			saveData.Add("gelPad", gelPad);
+			return saveData;
+		}
+
+		public override void Load(Item item, TagCompound tag) {
+			gelPad = tag.GetBool("gelPad");
+		}
+
+		public sealed override bool CanRightClick(Item item)
+		{
+			return gelPad;
+		}
+		public override void RightClick(Item item, Player player)
+		{
+            if (item.GetGlobalItem<GItem>().gelPad == true)
+			{
+				item.GetGlobalItem<GItem>().gelPad = false;
+				Item.NewItem(player.getRect(), mod.ItemType("GelPad"));
+				Item gauntletCopy = Main.item[Item.NewItem(player.getRect(), item.type)];
+				gauntletCopy.prefix = item.prefix;
+				gauntletCopy.rare = item.rare;
+				gauntletCopy.value = item.value;
+			}
+		}
+		public override void UpdateAccessory(Item item, Player player, bool hideVisual)
+        {
+			MyPlayer modPlayer = player.GetModPlayer<MyPlayer>();
+			if (item.GetGlobalItem<GItem>().gelPad == true && modPlayer.gelGauntlet < 1)
+			{
+				player.GetModPlayer<MyPlayer>().gelGauntlet = 0.6f;
+			}
         }
 	}
 }

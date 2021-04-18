@@ -46,7 +46,7 @@ namespace Emperia
         public bool aquaticSet = false;
         public bool yetiMount = false;
 		public bool woodGauntlet = false;
-		public bool gelGauntlet = false;
+		public float gelGauntlet = 0f;
 		public bool metalGauntlet = false;
 		public bool magicGauntlet = false;
 		public bool boneGauntlet = false;
@@ -108,7 +108,7 @@ namespace Emperia
 		public int eschargo = -10;
 		public int desertSpikeDirection = 0;
 		public int iceCannonLoad = 0;
-		public int clubSwing = 0;
+		public int clubSwing = -1;
 		public int frostFangTimer = 0;
 		public Rectangle swordHitbox = new Rectangle(0, 0, 0, 0); //value taken from GlobalItem
 				
@@ -124,7 +124,7 @@ namespace Emperia
 			EmberTyrant = false;
 			breakingPoint = false;
 			woodGauntlet = false;
-			gelGauntlet = false;
+			gelGauntlet = 0f;
 			metalGauntlet = false;
 			magicGauntlet = false;
 			boneGauntlet = false;
@@ -210,20 +210,20 @@ namespace Emperia
 				iceCannonLoad++;
 				if (iceCannonLoad == -1) iceCannonLoad = 2;
 			}
-			if (clubSwing > 0 && clubSwing < 40)
+			if (clubSwing > 0)
 			{
-				clubSwing++;
+				clubSwing--;
 			}
-			if (clubSwing == 40)
+			if (clubSwing == 0)
 			{
-				clubSwing = 0;
+				clubSwing = -1;
 				int clubSwingDamage = player.GetWeaponDamage(player.inventory[player.selectedItem]) / 3;
 				if (player.velocity.Y == 0 && !player.mount.Active)
 				{
 					Main.PlaySound(SoundID.Item, player.Center, 27);  		
 					Vector2 perturbedSpeed;
 					perturbedSpeed = new Vector2(2 * player.direction, 0);
-					Projectile.NewProjectile(player.position.X + 65 * player.direction, player.Bottom.Y - 10, perturbedSpeed.X, perturbedSpeed.Y, mod.ProjectileType("IceSpikePre"), clubSwingDamage, 1, Main.myPlayer, 0, 0);
+					Projectile.NewProjectile(player.position.X + 75 * player.direction, player.Bottom.Y - 10, perturbedSpeed.X, perturbedSpeed.Y, mod.ProjectileType("IceSpikePre"), clubSwingDamage, 1, Main.myPlayer, 0, 0);
 				}
 			}
 			if (!lightningSet)
@@ -737,6 +737,8 @@ namespace Emperia
 					}
 					double distance = Vector2.Distance(player.Center, closestPoint);
 					double distanceMult = (itemLength - distance) / itemLength; 
+					//Main.NewText((((distanceMult > .65f) ? .65f : distanceMult) + .35f).ToString());
+					//Main.NewText(Vector2.Distance(player.Center, closestPoint).ToString());
 					double damageMult = gauntletBonus * (((distanceMult > .65f) ? .65f : distanceMult) + .35f); //caps damage multiplier at 65% distance
 				{
 					if ((target.width + target.height / 2) > 48) //this is for big enemies or bosses
@@ -889,14 +891,50 @@ namespace Emperia
 					Projectile.NewProjectile(player.Center.X, player.Center.Y, rotVector.X * 10f, rotVector.Y * 10f, mod.ProjectileType("Splinter"), 8, knockback, Main.myPlayer, 0, 0);
 				}
 			}
-			if (gelGauntlet && target.knockBackResist == 0f)
+			if (gelGauntlet > 0 && target.knockBackResist == 0f)
 			{
+				Vector2 closestPoint = target.Center;
+				if ((target.Center.Y - target.height / 4) > player.Center.Y)
+					{
+						closestPoint.Y = target.Top.Y;
+					}
+				else if ((target.Center.Y + target.height / 4) < player.Center.Y)
+					{
+						closestPoint.Y = target.Bottom.Y;
+					}
+				if ((target.Center.X - target.width / 4) > player.Center.X)
+					{
+						closestPoint.X = target.Left.X;
+					}
+				else if ((target.Center.X + target.width / 4) < player.Center.X)
+					{
+						closestPoint.X = target.Right.X;
+					}
+				float distance = Vector2.Distance(player.Center, closestPoint);
 				Vector2 direction = player.Center - target.Center;
+				direction.Normalize();
+				Vector2 oldSpeedFactor = Vector2.Zero;
+				if (player.velocity.X > 7f) oldSpeedFactor.X = 7f;
+				else if (player.velocity.X < -7f) oldSpeedFactor.X = -7f;
+				else oldSpeedFactor.X = player.velocity.X;
+				if (player.velocity.Y > 7f) oldSpeedFactor.Y = 7f;
+				else if (player.velocity.Y < -7f) oldSpeedFactor.Y = -7f;
+				else oldSpeedFactor.Y = player.velocity.Y;
+				player.velocity.Y = (direction.Y * gelGauntlet) + oldSpeedFactor.Y / 2;
+				player.velocity.X = (direction.X * (7f - (distance / 100)) * gelGauntlet) + oldSpeedFactor.X / 2;
+
+
+				//player.velocity.Y = direction.Y * gelGauntlet;
+				//player.velocity.X = direction.X * (7f - (distance / 100)) * gelGauntlet;
+				
+				//old formula, doesn't calculate for disance
+				/*Vector2 direction = player.Center - target.Center;
 				direction.Normalize();
 				player.velocity.Y = direction.Y;
 				float minimumSpeed = 2f;
 				if (direction.X < 0) { minimumSpeed = -2f; }
-				player.velocity.X = direction.X * 5f + minimumSpeed;
+				player.velocity.X = direction.X * (5f) + minimumSpeed;
+				*/
 			}
 			if (metalGauntlet)
 			{
@@ -939,7 +977,7 @@ namespace Emperia
 			}
 			if (bloodGauntlet && !player.HasBuff(mod.BuffType("Bloodstained")) && !player.HasBuff(mod.BuffType("Bloodstained2")))
 			{
-				if (Main.rand.Next(25 + (240 / damage)) == 0)
+				if (Main.rand.Next(25 + (240 / damage)) == 0) //this can somehow sometimes divide by zero? i dont see how onhit can activate if damage is 0
 				{
 					player.AddBuff(mod.BuffType("Bloodstained"), 1200);
 					Main.PlaySound(SoundID.Item8, player.Center);
