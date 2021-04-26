@@ -110,6 +110,7 @@ namespace Emperia
 		public int iceCannonLoad = 0;
 		public int clubSwing = -1;
 		public int frostFangTimer = 0;
+		public int fastFallLength = 0;
 		public Rectangle swordHitbox = new Rectangle(0, 0, 0, 0); //value taken from GlobalItem
 				
         public override void ResetEffects()
@@ -664,6 +665,11 @@ namespace Emperia
 						}
 					}
 				}
+			}
+			if (fastFallLength > 0)
+			{
+				player.maxFallSpeed = 20f;
+				fastFallLength--;
 			}
 		}
 		

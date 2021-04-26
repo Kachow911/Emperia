@@ -52,7 +52,11 @@ namespace Emperia.Items
 		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
 		{
 			///*
-			if (!latched)
+			if (projectile.velocity == Vector2.Zero) ///prevents game from crashing due to hooking both a tile and enemy at once
+			{
+				projectile.damage = 0;
+			}
+			else if (!latched)
 			{
 				npc = target;
 				offset = projectile.position - npc.position;
@@ -68,7 +72,6 @@ namespace Emperia.Items
 
 		public override void AI()
 		{
-			//Main.NewText(projectile.damage.ToString());
 			projectile.damage = 16;
 			projectile.knockBack = 0;
 			Player player = Main.player[projectile.owner];
@@ -87,26 +90,20 @@ namespace Emperia.Items
 				if (!npc.active || player.controlJump)
 				{
 					projectile.timeLeft = 0;
-					player.velocity *= 0.75f;
+					//player.velocity *= 0.75f;
 				}
 			}
 		}
 		
-		/*// Use this hook for hooks that can have multiple hooks mid-flight: Dual Hook, Web Slinger, Fish Hook, Static Hook, Lunar Hook
 		public override bool? CanUseGrapple(Player player) {
 			int hooksOut = 0;
 			for (int l = 0; l < 1000; l++) {
-				if (Main.projectile[l].active && Main.projectile[l].owner == Main.myPlayer && Main.projectile[l].type == projectile.type) {
+				if (Main.projectile[l].active && Main.projectile[l].owner == Main.myPlayer && Main.projectile[l].type == projectile.type && Main.projectile[l].velocity != new Vector2(0, 0)) {
 					hooksOut++;
 				}
 			}
-			if (hooksOut > 2) // This hook can have 3 hooks out.
-			{
-				return false;
-			}
-			return true;
+			return (hooksOut == 0);
 		}
-		*/
 
 
 		public override bool? SingleGrappleHook(Player player)
@@ -154,7 +151,8 @@ namespace Emperia.Items
 		}
 
 		public override void GrapplePullSpeed(Player player, ref float speed) {
-			speed = 11;
+			if (latched) return;
+			else speed = 11;
 		}
 
 		public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor) {
@@ -179,5 +177,12 @@ namespace Emperia.Items
 			}
 			return true;
 		}
+		public override void Kill(int timeLeft)
+        {
+			Player player = Main.player[projectile.owner];
+			player.fallStart = (int)(player.position.Y / 16f);
+			if (latched) player.velocity *= 0.75f;
+		}
+		
 	}
 }

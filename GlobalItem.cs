@@ -17,6 +17,7 @@ namespace Emperia
 		public int forestSetShots = 2;
 		public bool gelPad = false;
 		public bool isGauntlet = false;
+		public bool noWristBrace = false;
 		public override bool UseItem(Item item, Player player)
         {
 			MyPlayer modPlayer = player.GetModPlayer<MyPlayer>();
@@ -35,7 +36,7 @@ namespace Emperia
 					player.AddBuff(mod.BuffType("FrostleafBuff"), 1200);
 				}
 			}
-			if (modPlayer.wristBrace && !item.noMelee && Main.mouseLeft)//janky!!!!
+			if (modPlayer.wristBrace && !item.noMelee && Main.mouseLeft && !item.GetGlobalItem<GItem>().noWristBrace)//janky!!!!
 			{
 				if (Main.MouseWorld.X > player.position.X && player.direction == -1)
 				{
