@@ -897,7 +897,7 @@ namespace Emperia
 					Projectile.NewProjectile(player.Center.X, player.Center.Y, rotVector.X * 10f, rotVector.Y * 10f, mod.ProjectileType("Splinter"), 8, knockback, Main.myPlayer, 0, 0);
 				}
 			}
-			if (gelGauntlet > 0 && target.knockBackResist == 0f)
+			if (gelGauntlet > 0 && target.knockBackResist == 0f && !item.GetGlobalItem<GItem>().noGelGauntlet)
 			{
 				Vector2 closestPoint = target.Center;
 				if ((target.Center.Y - target.height / 4) > player.Center.Y)

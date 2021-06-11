@@ -14,7 +14,7 @@ namespace Emperia.Items.Accessories.Gauntlets
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Wrist Brace");
-			Tooltip.SetDefault("Allows you to swing swords while walking backwards");
+			Tooltip.SetDefault("Allows you to swing swords while walking backwards\n'Also prevents carpal tunnel!'");
 		}
         public override void SetDefaults()
         {

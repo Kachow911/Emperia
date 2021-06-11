@@ -35,6 +35,7 @@ namespace Emperia.Items.Weapons   //where is located
             item.useTurn = false; 
             item.channel = true;
             item.GetGlobalItem<GItem>().noWristBrace = true;
+            item.GetGlobalItem<GItem>().noGelGauntlet = true;
         }
 
         int delay = 0; //checks when the item starts and stops being used
@@ -53,7 +54,7 @@ namespace Emperia.Items.Weapons   //where is located
 		{
             //Main.NewText(player.velocity.Y.ToString(), 255, 0, 50);
             player.fallStart = (int)(player.position.Y / 16f);
-            player.velocity.Y = -1.5f + -0.5f * player.velocity.Y; 
+            player.velocity.Y = -1.5f + -0.5f * player.velocity.Y; //* (target.boss && target.noGravity ? 2f : 1); 
             preHit = false;
             firstFrameHit = true;
             initialStrike = false;

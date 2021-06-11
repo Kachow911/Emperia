@@ -18,6 +18,7 @@ namespace Emperia
 		public bool gelPad = false;
 		public bool isGauntlet = false;
 		public bool noWristBrace = false;
+		public bool noGelGauntlet = false;
 		public override bool UseItem(Item item, Player player)
         {
 			MyPlayer modPlayer = player.GetModPlayer<MyPlayer>();
