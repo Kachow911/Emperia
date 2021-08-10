@@ -19,8 +19,8 @@ public class GranitePickaxe : ModItem
         item.melee = true;
         item.width = 46;
         item.height = 46;
-        item.useTime = 17;
-        item.useAnimation = 17;
+        item.useTime = 16;
+        item.useAnimation = 16;
         item.useTurn = true;
         item.pick = 59;
         item.useStyle = 1;

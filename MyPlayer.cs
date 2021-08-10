@@ -73,6 +73,10 @@ namespace Emperia
 		public bool chillsteelSet = false;
 		public bool frostleafSet = false;
 		public bool frostFang = false;
+		public bool warlockTorc = false;
+		public bool arcaneShieldHold = false;
+		public bool arcaneShieldRaised = false;
+		public int manaOverdoseTime = 0;
 		public int poundTime = 0;
 		public int carapaceTime = 0;
 		bool velocityPos = false;
@@ -164,6 +168,9 @@ namespace Emperia
 			graniteSet = false;
 			frostleafSet = false;
 			frostFang = false;
+			warlockTorc = false;
+			arcaneShieldHold = false;
+			arcaneShieldRaised = false;
 			
             sporeBuffCount = 0;
 			//bloodstainedDmg = 0;
@@ -556,10 +563,23 @@ namespace Emperia
 			}
 			if (seaBladeTimer > 0) { seaBladeTimer--; }
 			if (seaBladeTimer == 0) { seaBladeCount = 0; }
+			if (manaOverdoseTime > 0) manaOverdoseTime--;
+			if (arcaneShieldRaised)
+			{
+				player.bodyFrame.Y = player.bodyFrame.Height * 10;
+				if (player.velocity.Y == 0) player.velocity.X -= player.velocity.X / 15;
+				else player.velocity.X -= player.velocity.X / 50;
+			}
         }
 		public override void PostUpdateEquips()
 		{
-
+			if (warlockTorc) 
+			{
+				//reduces mana by a third, rounded up
+				player.statManaMax2 -= (player.statManaMax2 / 3) - ((player.statManaMax2 / 3) % 20);
+				//reduces any mana over 200 by another third (but calculated after decrease, so numbers are adjusted accordingly) - change to / 3 to buff
+				if (player.statManaMax2 > 140) player.statManaMax2 -= ((player.statManaMax2 - 140) / 2) - (((player.statManaMax2 - 140) / 2) % 20);
+			}
 		}
 		public override void ProcessTriggers(TriggersSet triggersSet)
         {
@@ -1207,5 +1227,10 @@ namespace Emperia
 		{
 
         }
+		public override void FrameEffects() {
+			if (arcaneShieldHold) {
+				player.shield = (sbyte)mod.GetEquipSlot("ArcaneShield", EquipType.Shield);
+			}			
+		}
     }
 }

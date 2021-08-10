@@ -19,10 +19,10 @@ public class GraniteHamaxe : ModItem
         item.melee = true;
         item.width = 46;
         item.height = 46;
-        item.useTime = 26;
-        item.useAnimation = 26;
+        item.useTime = 16;
+        item.useAnimation = 32;
         item.useTurn = true;
-        item.axe = 13;
+        item.axe = 14;
 		item.hammer = 65;
         item.useStyle = 1;
         item.knockBack = 2f;

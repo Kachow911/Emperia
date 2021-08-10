@@ -19,6 +19,13 @@ namespace Emperia
 		public bool isGauntlet = false;
 		public bool noWristBrace = false;
 		public bool noGelGauntlet = false;
+		public override bool CanUseItem(Item item, Player player)
+        {
+			MyPlayer modPlayer = player.GetModPlayer<MyPlayer>();
+			if (item.healMana > 0 && player.HasBuff(mod.BuffType("ManaOverdose"))) return false;
+			if (item.type == 293 && modPlayer.warlockTorc) return false;
+			else return true;
+		}
 		public override bool UseItem(Item item, Player player)
         {
 			MyPlayer modPlayer = player.GetModPlayer<MyPlayer>();
@@ -36,6 +43,16 @@ namespace Emperia
 				{
 					player.AddBuff(mod.BuffType("FrostleafBuff"), 1200);
 				}
+			}
+			if (item.healMana > 0 && !modPlayer.warlockTorc) modPlayer.manaOverdoseTime = 1800;
+			if (item.healMana > 0 && modPlayer.warlockTorc)
+			{
+				player.AddBuff(BuffID.ManaSickness, 900);
+				player.AddBuff(mod.BuffType("ManaOverdose"), 1800);
+			}  
+			if (item.healMana > 0 && modPlayer.warlockTorc)
+			{
+				player.AddBuff(BuffID.ManaSickness, 900);
 			}
 			if (modPlayer.wristBrace && !item.noMelee && Main.mouseLeft && !item.GetGlobalItem<GItem>().noWristBrace)//janky!!!!
 			{
@@ -153,6 +170,7 @@ namespace Emperia
 			return;
         }
 		public override void ModifyTooltips(Item item, List<TooltipLine> tooltips) {
+			MyPlayer modPlayer = Main.player[item.owner].GetModPlayer<MyPlayer>();
 			if (item.GetGlobalItem<GItem>().gelPad) {
 				TooltipLine line = new TooltipLine(mod, "x", "Gel Pad"); //no clue what the first string does here, gives the tooltip a name for other code to reference?
 				line.overrideColor = new Color(150, 150, 255);
@@ -164,6 +182,11 @@ namespace Emperia
 					TooltipLine line3 = new TooltipLine(mod, "x3", "'Dear God... we're reaching levels of gel that shouldn't even be possible'");
 					tooltips.Add(line3);
 				}
+			}
+			if (item.type == 293 && modPlayer.warlockTorc) 
+			{
+				TooltipLine line = new TooltipLine(mod, "x", "[c/e65555:Cannot be consumed while wearing a torc]");
+				tooltips.Add(line);
 			}
 		}
 		public override bool NeedsSaving(Item item)
