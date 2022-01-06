@@ -18,27 +18,27 @@ namespace Emperia.Items.Accessories.Gauntlets
 		}
         public override void SetDefaults()
         {
-            item.width = 30;
-            item.height = 28;
-            item.rare = 5;
-            item.value = Item.sellPrice(0, 5, 0, 0);
-            item.defense = 0;
-            item.accessory = true;
-            item.GetGlobalItem<GItem>().isGauntlet = true;
+            Item.width = 30;
+            Item.height = 28;
+            Item.rare = 5;
+            Item.value = Item.sellPrice(0, 5, 0, 0);
+            Item.defense = 0;
+            Item.accessory = true;
+            Item.GetGlobalItem<GItem>().isGauntlet = true;
         }
-        public override void UpdateAccessory(Player player, bool hideVisual)
+        public override void UpdateAccessory(Player player, bool hideVisibleAccessory)
         {
 			player.GetModPlayer<MyPlayer>().thermalGauntlet = true;
         }
 		public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            Recipe recipe = CreateRecipe();
             recipe.AddIngredient(null, "FrostGauntlet", 1);
 			recipe.AddIngredient(null, "MeteorGauntlet", 1);
             recipe.AddIngredient(ItemID.HallowedBar, 15);
             recipe.AddTile(TileID.MythrilAnvil);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            recipe.Register();
+            
            
         }
     }

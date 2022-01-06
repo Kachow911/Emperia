@@ -7,12 +7,11 @@ namespace Emperia.Buffs
 {
     public class Waxwing : ModBuff
     {
-        public override void SetDefaults()
+        public override void SetStaticDefaults()
         {
 			DisplayName.SetDefault("Waxwing");
 			Description.SetDefault("25% increased wing speed, but 10% decreased flight time");
             Main.buffNoSave[Type] = true;
-            canBeCleared = true;
         }
     }
 }

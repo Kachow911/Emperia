@@ -7,7 +7,7 @@ namespace Emperia.Tiles
 {
 	public class TwilightFlora : ModTile
 	{
-		public override void SetDefaults()
+		public override void SetStaticDefaults()
 		{
 			Main.tileFrameImportant[Type] = true;
 			Main.tileCut[Type] = true;
@@ -31,7 +31,7 @@ namespace Emperia.Tiles
 			{
 				offset.Y -= 12;
 			}
-			spriteBatch.Draw(Main.tileTexture[Type], new Vector2(i, j) * 16 - Main.screenPosition + offset, new Rectangle(tile.frameX, tile.frameY, 16, tile.frameY == 18 ? 28 : 16), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+			Main.EntitySpriteDraw(Mod.Assets.Request<Texture2D>("Tiles.TwilightFlora").Value, new Vector2(i, j) * 16 - Main.screenPosition + offset, new Rectangle(tile.frameX, tile.frameY, 16, tile.frameY == 18 ? 28 : 16), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0);
 			return false;
 		}
 	}

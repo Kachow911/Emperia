@@ -10,7 +10,7 @@ namespace Emperia.Npcs.Inquisitor
 {
     public class EocPuppet : ModNPC
     {
-		private NPC parent { get { return Main.npc[(int)npc.ai[1]]; } }
+		private NPC parent { get { return Main.npc[(int)NPC.ai[1]]; } }
 		int move = 1;
 		int counter = 120;
 		int dashCount = 0;
@@ -18,38 +18,38 @@ namespace Emperia.Npcs.Inquisitor
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Eye of Cthulhu Puppet");
-			Main.npcFrameCount[npc.type] = 1;
+			Main.npcFrameCount[NPC.type] = 1;
 		}
         public override void SetDefaults()
         {
-            npc.aiStyle = -1;
-            npc.lifeMax = 500;
-            npc.damage = 50;
-            npc.defense = 7;
-            npc.knockBackResist = 100f;
-            npc.width = 28;
-            npc.height = 40;
-            npc.value = Item.buyPrice(0, 0, 0, 0);
-            npc.npcSlots = 0f;
-            npc.lavaImmune = true;
-            npc.noGravity = true;
-            npc.noTileCollide = true;
-            npc.HitSound = SoundID.NPCHit1; //57 //true
-            npc.DeathSound = SoundID.NPCDeath1;
-            npc.buffImmune[24] = true;
-            npc.netAlways = true;
+            NPC.aiStyle = -1;
+            NPC.lifeMax = 500;
+            NPC.damage = 50;
+            NPC.defense = 7;
+            NPC.knockBackResist = 100f;
+            NPC.width = 28;
+            NPC.height = 40;
+            NPC.value = Item.buyPrice(0, 0, 0, 0);
+            NPC.npcSlots = 0f;
+            NPC.lavaImmune = true;
+            NPC.noGravity = true;
+            NPC.noTileCollide = true;
+            NPC.HitSound = SoundID.NPCHit1; //57 //true
+            NPC.DeathSound = SoundID.NPCDeath1;
+            NPC.buffImmune[24] = true;
+            NPC.netAlways = true;
         }
 		 public override void AI()
         {
-			npc.TargetClosest(true);
-			npc.dontTakeDamage = true;
-			Player player = Main.player[npc.target];
+			NPC.TargetClosest(true);
+			NPC.dontTakeDamage = true;
+			Player player = Main.player[NPC.target];
 			if (move == 1)
 			{
 				LookToPlayer();
-				Vector2 direction1 = Main.player[npc.target].Center - npc.Center;
+				Vector2 direction1 = Main.player[NPC.target].Center - NPC.Center;
 				direction1.Normalize();
-				npc.velocity = direction1 * 3f;
+				NPC.velocity = direction1 * 3f;
 				counter--;
 				if (counter > 20)
 				{
@@ -58,9 +58,9 @@ namespace Emperia.Npcs.Inquisitor
 				if (counter <= 0)
 				{
 					dashCount++;
-					Vector2 direction = Main.player[npc.target].Center - npc.Center;
+					Vector2 direction = Main.player[NPC.target].Center - NPC.Center;
 					direction.Normalize();
-					npc.velocity = direction * 26f;
+					NPC.velocity = direction * 26f;
 					move = 2;
 					counter = 30;
 				}
@@ -68,7 +68,7 @@ namespace Emperia.Npcs.Inquisitor
 			if (move == 2)
 			{
 				counter--;
-				npc.velocity *= .9f;
+				NPC.velocity *= .9f;
 				if (counter <= 0)
 				{
 					move = 1;
@@ -80,24 +80,24 @@ namespace Emperia.Npcs.Inquisitor
 				}
 			}
 			if (!parent.active) {
-                npc.life = 0;
+                NPC.life = 0;
             }
 		}
-		public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
+		public override bool PreDraw(SpriteBatch spritebatch, Vector2 Vector2, Color lightColor)
         {
-			Vector2 drawOrigin = new Vector2(Main.npcTexture[npc.type].Width * 0.5f, npc.height * 0.5f);
-			for(int k = 0; k < npc.oldPos.Length; k++)
+			Vector2 drawOrigin = new Vector2(Mod.Assets.Request<Texture2D>("Npcs/Inquisitor/StickyHandChain").Value.Width * 0.5f, NPC.height * 0.5f);
+			for(int k = 0; k < NPC.oldPos.Length; k++)
 			{
-				Vector2 drawPos = npc.oldPos[k] - Main.screenPosition + drawOrigin + new Vector2(0f, npc.gfxOffY);
-				Color color = npc.GetAlpha(lightColor) * ((float)(npc.oldPos.Length - k) / (float)npc.oldPos.Length);
-				spriteBatch.Draw(Main.npcTexture[npc.type], drawPos, null, color, npc.rotation, drawOrigin, npc.scale, SpriteEffects.None, 0f);
+				Vector2 drawPos = NPC.oldPos[k] - Main.screenPosition + drawOrigin + new Vector2(0f, NPC.gfxOffY);
+				Color color = NPC.GetAlpha(lightColor) * ((float)(NPC.oldPos.Length - k) / (float)NPC.oldPos.Length);
+				Main.EntitySpriteDraw(Mod.Assets.Request<Texture2D>("Npcs/Inquisitor/EocPuppet").Value, drawPos, null, color, NPC.rotation, drawOrigin, NPC.scale, SpriteEffects.None, 0);
 			}
             return true;
         }
 
 		private void LookToPlayer()
 		{
-			Vector2 look = Main.player[npc.target].Center - npc.Center;
+			Vector2 look = Main.player[NPC.target].Center - NPC.Center;
 			LookInDirection(look);
 		}
 
@@ -116,7 +116,7 @@ namespace Emperia.Npcs.Inquisitor
 			{
 				angle += (float)Math.PI;
 			}
-			npc.rotation = angle;
+			NPC.rotation = angle;
 		}
     }
     

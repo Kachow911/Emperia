@@ -18,23 +18,24 @@ public class DuneKingMaw : ModItem
 		}
     public override void SetDefaults()
     {
-        item.width = 18;
-        item.height = 18;
-        item.value = 140000;
-        item.rare = 2;
-        item.defense = 4;
+        Item.width = 18;
+        Item.height = 18;
+        Item.value = 140000;
+        Item.rare = 2;
+        Item.defense = 4;
     }
 
     public override bool IsArmorSet(Item head, Item body, Item legs)
     {
-        return body.type == mod.ItemType("DuneKingMantle") && legs.type == mod.ItemType("DuneKingCuisses");
+        return body.type == ModContent.ItemType<DuneKingMantle>() && legs.type == ModContent.ItemType<DuneKingCuisses>();
     }
     
     public override void UpdateArmorSet(Player player)
     {
         player.setBonus = "Allows you to ground pound, stirring up a sandstone spike to impale enemies";
 		MyPlayer modPlayer = player.GetModPlayer<MyPlayer>();
-		modPlayer.carapaceSet = true;
+		//modPlayer.carapaceSet = true;
+        modPlayer.carapaceSet = Item;
     }
     
     public override void UpdateEquip(Player player)
@@ -44,12 +45,12 @@ public class DuneKingMaw : ModItem
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            Recipe recipe = CreateRecipe();
             recipe.AddIngredient(null, "AridScale", 4);
             recipe.AddIngredient(null, "DesertEye", 2);
             recipe.AddTile(TileID.Anvils);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            recipe.Register();
+            
 
         }
     }

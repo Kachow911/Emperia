@@ -13,19 +13,19 @@ namespace Emperia.Items
         }
         public override void SetDefaults()
         {
-            item.width = 30;
-            item.height = 18;
-            item.useStyle = 2;
-            item.useAnimation = 17;
-            item.useTime = 17;
-            item.useTurn = true;
-            item.UseSound = SoundID.Item2;
-            item.maxStack = 30;
-            item.consumable = true;
-            item.rare = 1;
-            item.value = 1750;
-        	item.healLife = 110;
-            item.potion = true;
+            Item.width = 30;
+            Item.height = 18;
+            Item.useStyle = 2;
+            Item.useAnimation = 17;
+            Item.useTime = 17;
+            Item.useTurn = true;
+            Item.UseSound = SoundID.Item2;
+            Item.maxStack = 30;
+            Item.consumable = true;
+            Item.rare = 1;
+            Item.value = 1750;
+        	Item.healLife = 110;
+            Item.potion = true;
         }
 
 		public override void GetHealLife(Player player, bool quickHeal, ref int healValue)
@@ -35,13 +35,13 @@ namespace Emperia.Items
 
         public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(mod);
+			Recipe recipe = CreateRecipe();
 			recipe.AddIngredient(ItemID.Mushroom);
 			recipe.AddIngredient(ItemID.VileMushroom);
 			recipe.AddIngredient(ItemID.GlowingMushroom); 
 			recipe.AddTile(TileID.CookingPots);
-			recipe.SetResult(this);
-			recipe.AddRecipe();
+			recipe.Register();
+			
 		}
     }
     public class MushroomPlatterCrim : ModItem
@@ -52,7 +52,7 @@ namespace Emperia.Items
         }
         public override void SetDefaults()
         {
-            item.CloneDefaults(mod.ItemType("MushroomPlatter"));
+            Item.CloneDefaults(ModContent.ItemType<MushroomPlatter>());
         }
 
 		public override void GetHealLife(Player player, bool quickHeal, ref int healValue)
@@ -62,13 +62,13 @@ namespace Emperia.Items
 
         public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(mod);
+			Recipe recipe = CreateRecipe();
 			recipe.AddIngredient(ItemID.Mushroom);
 			recipe.AddIngredient(ItemID.ViciousMushroom);
 			recipe.AddIngredient(ItemID.GlowingMushroom); 
 			recipe.AddTile(TileID.CookingPots);
-			recipe.SetResult(this);
-			recipe.AddRecipe();
+			recipe.Register();
+			
 		}
     }
 }

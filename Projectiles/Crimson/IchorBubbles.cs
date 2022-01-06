@@ -4,6 +4,8 @@ using Terraria.ID;
 using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using Terraria.ModLoader;
+using Emperia.Projectiles.Crimson;
+using static Terraria.Audio.SoundEngine;
 
 namespace Emperia.Projectiles.Crimson
 {
@@ -15,22 +17,22 @@ namespace Emperia.Projectiles.Crimson
             DisplayName.SetDefault("Ichor Bubble");
         }
         public override void SetDefaults()
-        {  //projectile name
-            projectile.width = 12;       //projectile width
-            projectile.height = 12;  //projectile height
-            projectile.friendly = true;      //make that the projectile will not damage you
-            projectile.magic = true;         // 
-            projectile.tileCollide = true;   //make that the projectile will be destroed if it hits the terrain
-            projectile.penetrate = 1;      //how many npc will penetrate
-            projectile.timeLeft = 80;
-            projectile.light = 0.75f;    // projectile light
-            projectile.ignoreWater = true;
-            projectile.alpha = 100;
+        {  //Projectile name
+            Projectile.width = 12;       //Projectile width
+            Projectile.height = 12;  //Projectile height
+            Projectile.friendly = true;      //make that the Projectile will not damage you
+            Projectile.DamageType = DamageClass.Magic;         // 
+            Projectile.tileCollide = true;   //make that the Projectile will be destroed if it hits the terrain
+            Projectile.penetrate = 1;      //how many NPC will penetrate
+            Projectile.timeLeft = 80;
+            Projectile.light = 0.75f;    // Projectile light
+            Projectile.ignoreWater = true;
+            Projectile.alpha = 100;
         }
-        public override void AI()           //projectile make that the projectile will face the corect way
+        public override void AI()           //Projectile make that the Projectile will face the corect way
         {
 
-            projectile.velocity.X *= .98f;
+            Projectile.velocity.X *= .98f;
 
         }
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
@@ -40,18 +42,18 @@ namespace Emperia.Projectiles.Crimson
         }
         public override void Kill(int timeLeft)
         {
-            Main.PlaySound(SoundID.Item54, projectile.Center);
+            PlaySound(SoundID.Item54, Projectile.Center);
             for (int i = 0; i < 2; i++)
             {
                 Vector2 perturbedSpeed = new Vector2(0, 3).RotatedByRandom(MathHelper.ToRadians(360));
-                Projectile.NewProjectile(projectile.position.X, projectile.position.Y, perturbedSpeed.X, perturbedSpeed.Y, mod.ProjectileType("MedBubble"), projectile.damage / 2, projectile.knockBack, projectile.owner, 0, 0);
+                Projectile.NewProjectile(Projectile.InheritSource(Projectile), Projectile.position.X, Projectile.position.Y, perturbedSpeed.X, perturbedSpeed.Y, ModContent.ProjectileType<MedBubble>(), Projectile.damage / 2, Projectile.knockBack, Projectile.owner, 0, 0);
             }
             for (int i = 0; i < 360; i++)
             {
                 Vector2 vec = Vector2.Transform(new Vector2(-6, 0), Matrix.CreateRotationZ(MathHelper.ToRadians(i)));
                 if (i % 8 == 0)
                 {
-                   int b = Dust.NewDust(projectile.Center + vec, Main.rand.Next(1, 7), Main.rand.Next(1, 7), 87);
+                   int b = Dust.NewDust(Projectile.Center + vec, Main.rand.Next(1, 7), Main.rand.Next(1, 7), 87);
                     Main.dust[b].noGravity = true;
                     Main.dust[b].velocity = Vector2.Zero;
                 }
@@ -65,22 +67,22 @@ namespace Emperia.Projectiles.Crimson
             DisplayName.SetDefault("Ichor Bubble");
         }
         public override void SetDefaults()
-        {  //projectile name
-            projectile.width = 12;       //projectile width
-            projectile.height = 12;  //projectile height
-            projectile.friendly = true;      //make that the projectile will not damage you
-            projectile.magic = true;         // 
-            projectile.tileCollide = true;   //make that the projectile will be destroed if it hits the terrain
-            projectile.penetrate = 1;      //how many npc will penetrate
-            projectile.timeLeft = 80;
-            projectile.light = 0.75f;    // projectile light
-            projectile.ignoreWater = true;
-            projectile.alpha = 100;
+        {  //Projectile name
+            Projectile.width = 12;       //Projectile width
+            Projectile.height = 12;  //Projectile height
+            Projectile.friendly = true;      //make that the Projectile will not damage you
+            Projectile.DamageType = DamageClass.Magic;         // 
+            Projectile.tileCollide = true;   //make that the Projectile will be destroed if it hits the terrain
+            Projectile.penetrate = 1;      //how many NPC will penetrate
+            Projectile.timeLeft = 80;
+            Projectile.light = 0.75f;    // Projectile light
+            Projectile.ignoreWater = true;
+            Projectile.alpha = 100;
         }
-        public override void AI()           //projectile make that the projectile will face the corect way
+        public override void AI()           //Projectile make that the Projectile will face the corect way
         {
 
-            projectile.velocity.X *= .99f;
+            Projectile.velocity.X *= .99f;
 
         }
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
@@ -90,18 +92,18 @@ namespace Emperia.Projectiles.Crimson
         }
         public override void Kill(int timeLeft)
         {
-            Main.PlaySound(SoundID.Item54, projectile.Center);
+            PlaySound(SoundID.Item54, Projectile.Center);
             for (int i = 0; i < 2; i++)
             {
                 Vector2 perturbedSpeed = new Vector2(0, 3).RotatedByRandom(MathHelper.ToRadians(360));
-                Projectile.NewProjectile(projectile.position.X, projectile.position.Y, perturbedSpeed.X, perturbedSpeed.Y, mod.ProjectileType("SmallBubble"), projectile.damage / 2, projectile.knockBack, projectile.owner, 0, 0);
+                Projectile.NewProjectile(Projectile.InheritSource(Projectile), Projectile.position.X, Projectile.position.Y, perturbedSpeed.X, perturbedSpeed.Y, ModContent.ProjectileType<SmallBubble>(), Projectile.damage / 2, Projectile.knockBack, Projectile.owner, 0, 0);
             }
             for (int i = 0; i < 360; i++)
             {
                 Vector2 vec = Vector2.Transform(new Vector2(-4, 0), Matrix.CreateRotationZ(MathHelper.ToRadians(i)));
                 if (i % 8 == 0)
                 {
-                    int b = Dust.NewDust(projectile.Center + vec, Main.rand.Next(1, 7), Main.rand.Next(1, 7), 87);
+                    int b = Dust.NewDust(Projectile.Center + vec, Main.rand.Next(1, 7), Main.rand.Next(1, 7), 87);
                     Main.dust[b].noGravity = true;
                     Main.dust[b].velocity = Vector2.Zero;
                 }
@@ -116,19 +118,19 @@ namespace Emperia.Projectiles.Crimson
             DisplayName.SetDefault("Ichor Bubble");
         }
         public override void SetDefaults()
-        {  //projectile name
-            projectile.width = 12;       //projectile width
-            projectile.height = 12;  //projectile height
-            projectile.friendly = true;      //make that the projectile will not damage you
-            projectile.magic = true;         // 
-            projectile.tileCollide = true;   //make that the projectile will be destroed if it hits the terrain
-            projectile.penetrate = 1;      //how many npc will penetrate
-            projectile.timeLeft = 80;
-            projectile.light = 0.75f;    // projectile light
-            projectile.ignoreWater = true;
-            projectile.alpha = 100;
+        {  //Projectile name
+            Projectile.width = 12;       //Projectile width
+            Projectile.height = 12;  //Projectile height
+            Projectile.friendly = true;      //make that the Projectile will not damage you
+            Projectile.DamageType = DamageClass.Magic;         // 
+            Projectile.tileCollide = true;   //make that the Projectile will be destroed if it hits the terrain
+            Projectile.penetrate = 1;      //how many NPC will penetrate
+            Projectile.timeLeft = 80;
+            Projectile.light = 0.75f;    // Projectile light
+            Projectile.ignoreWater = true;
+            Projectile.alpha = 100;
         }
-        public override void AI()           //projectile make that the projectile will face the corect way
+        public override void AI()           //Projectile make that the Projectile will face the corect way
         {
 
 
@@ -140,13 +142,13 @@ namespace Emperia.Projectiles.Crimson
         }
         public override void Kill(int timeLeft)
         {
-            Main.PlaySound(SoundID.Item54, projectile.Center);
+            PlaySound(SoundID.Item54, Projectile.Center);
             for (int i = 0; i < 360; i++)
             {
                 Vector2 vec = Vector2.Transform(new Vector2(-2, 0), Matrix.CreateRotationZ(MathHelper.ToRadians(i)));
                 if (i % 8 == 0)
                 {
-                    int b = Dust.NewDust(projectile.Center + vec, Main.rand.Next(1, 7), Main.rand.Next(1, 7), 87);
+                    int b = Dust.NewDust(Projectile.Center + vec, Main.rand.Next(1, 7), Main.rand.Next(1, 7), 87);
                     Main.dust[b].noGravity = true;
                     Main.dust[b].velocity = Vector2.Zero;
                 }

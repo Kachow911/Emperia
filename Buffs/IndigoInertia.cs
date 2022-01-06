@@ -14,14 +14,12 @@ namespace Emperia.Buffs
 {
     public class IndigoInertia : ModBuff
     {
-        public override void SetDefaults()
+        public override void SetStaticDefaults()
         {
 			DisplayName.SetDefault("Indigo Inertia");
 			Description.SetDefault("Life regeneration increased by 1");
             Main.buffNoSave[Type] = true;
             //Main.buffNoTimeDisplay[Type] = true;
-
-            canBeCleared = true;
         }
 
         public override void Update(Player player, ref int buffIndex)

@@ -16,30 +16,30 @@ namespace Emperia.Projectiles
 			DisplayName.SetDefault("Ghastly Bolt");
 		}
         public override void SetDefaults()
-        {  //projectile name
-            projectile.width = 8;       //projectile width
-            projectile.height = 8;  //projectile height
-            projectile.friendly = true;      //make that the projectile will not damage you
-            projectile.ranged = true;         // 
-            projectile.tileCollide = true;   //make that the projectile will be destroed if it hits the terrain
-            projectile.penetrate = 1;      //how many npc will penetrate
-            projectile.timeLeft = 80;   //how many time projectile projectile has before disepire
-            projectile.light = 0.75f;    // projectile light
-            projectile.ignoreWater = true;
-			projectile.alpha = 255;
+        {  //Projectile name
+            Projectile.width = 8;       //Projectile width
+            Projectile.height = 8;  //Projectile height
+            Projectile.friendly = true;      //make that the Projectile will not damage you
+            Projectile.DamageType = DamageClass.Ranged;         // 
+            Projectile.tileCollide = true;   //make that the Projectile will be destroed if it hits the terrain
+            Projectile.penetrate = 1;      //how many NPC will penetrate
+            Projectile.timeLeft = 80;   //how many time Projectile Projectile has before disepire
+            Projectile.light = 0.75f;    // Projectile light
+            Projectile.ignoreWater = true;
+			Projectile.alpha = 255;
         }
 		public override bool OnTileCollide(Vector2 oldVelocity)
 		{
-			projectile.tileCollide = false;
-			if (projectile.timeLeft > 30)
-				projectile.timeLeft = 30;
-			projectile.velocity = oldVelocity;
+			Projectile.tileCollide = false;
+			if (Projectile.timeLeft > 30)
+				Projectile.timeLeft = 30;
+			Projectile.velocity = oldVelocity;
 			return false;
 			
 		}
-        public override void AI()           //projectile make that the projectile will face the corect way
+        public override void AI()           //Projectile make that the Projectile will face the corect way
         {                                                           
-			int dust = Dust.NewDust(projectile.position + projectile.velocity, projectile.width, projectile.height, 15, 0f, 0f);
+			int dust = Dust.NewDust(Projectile.position + Projectile.velocity, Projectile.width, Projectile.height, 15, 0f, 0f);
 			Main.dust[dust].scale = 1.5f;
 			Main.dust[dust].velocity *= 0f;
 

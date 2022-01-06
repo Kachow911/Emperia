@@ -4,9 +4,10 @@ using Terraria;
 using System;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.World.Generation;
+using Terraria.WorldBuilding;
 using Microsoft.Xna.Framework;
 using Terraria.GameContent.Generation;
+
 
 namespace Emperia
 {
@@ -32,7 +33,7 @@ namespace Emperia
             int Xstray = length / 2;
             for (int level = 0; level <= height; level++)
             {
-                Main.tile[X, (int)(Y + level - (slope / 2))].active(true);
+                Main.tile[X, (int)(Y + level - (slope / 2))].IsActive = true;
                 Main.tile[X, (int)(Y + level - (slope / 2))].type = type2;
                 for (int I = X - (int)((length + (level * trueslope)) + (Math.Sqrt(level) * 3)); I < X + (int)((length + (level * truesloperight)) + (Math.Sqrt(level) * 3)); I++)
                 {
@@ -43,7 +44,7 @@ namespace Emperia
 							WorldGen.KillWall((int)I, (int)(Y + level));
 							WorldGen.PlaceWall((int)I, (int)(Y + level), 1);
 						}
-                    Main.tile[(int)I, (int)(Y + level)].active(true);
+                    Main.tile[(int)I, (int)(Y + level)].IsActive = true;
                     Main.tile[(int)I, (int)(Y + level)].type = type2;
 					if (Main.rand.Next(50) == 1)
 					{
@@ -61,13 +62,13 @@ namespace Emperia
             int Xstray = length / 2;
             for (int level = 0; level <= height; level++)
             {
-                Main.tile[X, (int)(Y + level - (slope / 2))].active(true);
+                Main.tile[X, (int)(Y + level - (slope / 2))].IsActive = true;
                 Main.tile[X, (int)(Y + level - (slope / 2))].type = type2;
                 for (int I = X - (int)(length + (level * trueslope)); I < X + (int)(length + (level * truesloperight)); I++)
                 {
                     //		if (Main.tile[(int)I, (int)(Y + level)].type != replacetile || replace)
                     //	{
-                    Main.tile[(int)I, (int)(Y + level)].active(true);
+                    Main.tile[(int)I, (int)(Y + level)].IsActive = true;
                     Main.tile[(int)I, (int)(Y + level)].type = type2;
                     //}
                 }
@@ -160,19 +161,20 @@ namespace Emperia
 
                             if (type < 0)
                             {
-                                if (type == -2 && Main.tile[k, l].active() && (l < WorldGen.waterLine || l > WorldGen.lavaLine))
+                                if (type == -2 && Main.tile[k, l].IsActive && (l < WorldGen.waterLine || l > WorldGen.lavaLine))
                                 {
-                                    Main.tile[k, l].liquid = 255;
+                                    Main.tile[k, l].LiquidType = 255;
                                     if (l > WorldGen.lavaLine)
                                     {
-                                        Main.tile[k, l].lava(true);
+                                        //Main.tile[k, l].lava(true);
+                                        Main.tile[k, l].LiquidType = 2;
                                     }
                                 }
-                                Main.tile[k, l].active(false);
+                                Main.tile[k, l].IsActive = false;
                             }
                             else
                             {
-                                if (overRide || !Main.tile[k, l].active())
+                                if (overRide || !Main.tile[k, l].IsActive)
                                 {
                                     Tile tile = Main.tile[k, l];
                                     bool flag3 = Main.tileStone[type] && tile.type != 1;
@@ -260,14 +262,14 @@ namespace Emperia
                             IL_5C5:
                                 if (addTile)
                                 {
-                                    Main.tile[k, l].active(true);
-                                    Main.tile[k, l].liquid = 0;
-                                    Main.tile[k, l].lava(false);
+                                    Main.tile[k, l].IsActive = true;
+                                    Main.tile[k, l].LiquidType = 0;
+                                    //Main.tile[k, l].lava(false);
                                 }
-                                if (type == 59 && l > WorldGen.waterLine && Main.tile[k, l].liquid > 0)
+                                if (type == 59 && l > WorldGen.waterLine && Main.tile[k, l].LiquidType > 0)
                                 {
-                                    Main.tile[k, l].lava(false);
-                                    Main.tile[k, l].liquid = 0;
+                                    //Main.tile[k, l].lava(false);
+                                    Main.tile[k, l].LiquidType = 0;
                                 }
                             }
                         }
@@ -414,38 +416,39 @@ namespace Emperia
         public static void templeCleaner(int x, int y)
         {
             int num = 0;
-            if (Main.tile[x + 1, y].active() && Main.tile[x + 1, y].type == 206)
+            if (Main.tile[x + 1, y].IsActive && Main.tile[x + 1, y].type == 206)
             {
                 num++;
             }
-            if (Main.tile[x - 1, y].active() && Main.tile[x - 1, y].type == 206)
+            if (Main.tile[x - 1, y].IsActive && Main.tile[x - 1, y].type == 206)
             {
                 num++;
             }
-            if (Main.tile[x, y + 1].active() && Main.tile[x, y + 1].type == 206)
+            if (Main.tile[x, y + 1].IsActive && Main.tile[x, y + 1].type == 206)
             {
                 num++;
             }
-            if (Main.tile[x, y - 1].active() && Main.tile[x, y - 1].type == 206)
+            if (Main.tile[x, y - 1].IsActive && Main.tile[x, y - 1].type == 206)
             {
                 num++;
             }
-            if (Main.tile[x, y].active() && Main.tile[x, y].type == 206)
+            if (Main.tile[x, y].IsActive && Main.tile[x, y].type == 206)
             {
                 if (num <= 1)
                 {
-                    Main.tile[x, y].active(false);
+                    Main.tile[x, y].IsActive = false;
                     Main.tile[x, y].wall = 84;
                     return;
                 }
             }
-            else if (!Main.tile[x, y].active() && num == 3)
+            else if (!Main.tile[x, y].IsActive && num == 3)
             {
-                Main.tile[x, y].active(true);
+                Main.tile[x, y].IsActive = true;
                 Main.tile[x, y].type = 206;
-                Main.tile[x, y].liquid = 0;
-                Main.tile[x, y].slope(0);
-                Main.tile[x, y].halfBrick(false);
+                Main.tile[x, y].LiquidType = 0;
+                //Main.tile[x, y].slope(0);
+                //Main.tile[x, y].HalfBrick(false);
+                Main.tile[x, y].BlockType = 0;
             }
         }
         public static Vector2 templePather(Vector2 templePath, int destX, int destY)
@@ -477,7 +480,7 @@ namespace Emperia
 				{
 					for (int j = num2 - num4; j < num2 + num4; j++)
 					{
-						Main.tile[i, j].active(false);
+						Main.tile[i, j].IsActive = false;
 						Main.tile[i, j].wall = 84;
 					}
 				}
@@ -488,7 +491,7 @@ namespace Emperia
 		
         public static void outerTempled(int x, int y)
         {
-            if (Main.tile[x, y].active() & Main.tile[x, y].type == 206)
+            if (Main.tile[x, y].IsActive & Main.tile[x, y].type == 206)
             {
                 return;
             }
@@ -501,13 +504,14 @@ namespace Emperia
             {
                 for (int j = y - num; j <= y + num; j++)
                 {
-                    if (!Main.tile[i, j].active() && Main.tile[i, j].wall == 84)
+                    if (!Main.tile[i, j].IsActive && Main.tile[i, j].wall == 84)
                     {
-                        Main.tile[x, y].active(true);
+                        Main.tile[x, y].IsActive = true;
                         Main.tile[x, y].type = 206;
-                        Main.tile[x, y].liquid = 0;
-                        Main.tile[x, y].slope(0);
-                        Main.tile[x, y].halfBrick(false);
+                        Main.tile[x, y].LiquidType = 0;
+                        //Main.tile[x, y].slope(0);
+                        //Main.tile[x, y].halfBrick(false);
+                        Main.tile[x, y].BlockType = 0;
                         return;
                     }
                 }
@@ -650,11 +654,12 @@ namespace Emperia
                                 int num22 = num17;
                                 for (int num23 = num18; num23 < num19; num23++)
                                 {
-                                    Main.tile[num22, num23].active(true);
+                                    Main.tile[num22, num23].IsActive = true;
                                     Main.tile[num22, num23].type = 206;
-                                    Main.tile[num22, num23].liquid = 0;
-                                    Main.tile[num22, num23].slope(0);
-                                    Main.tile[num22, num23].halfBrick(false);
+                                    Main.tile[num22, num23].LiquidType = 0;
+                                    //Main.tile[num22, num23].slope(0);
+                                    //Main.tile[num22, num23].halfBrick(false);
+                                    Main.tile[num22, num23].BlockType = 0;
                                 }
                             }
                         }
@@ -669,11 +674,12 @@ namespace Emperia
                     {
                         for (int num26 = array[num24].Y; num26 < array[num24].Y + array[num24].Height; num26++)
                         {
-                            Main.tile[num25, num26].active(true);
+                            Main.tile[num25, num26].IsActive = true;
                             Main.tile[num25, num26].type = 206;
-                            Main.tile[num25, num26].liquid = 0;
-                            Main.tile[num25, num26].slope(0);
-                            Main.tile[num25, num26].halfBrick(false);
+                            Main.tile[num25, num26].LiquidType = 0;
+                            //Main.tile[num25, num26].slope(0);
+                            //Main.tile[num25, num26].halfBrick(false);
+                            Main.tile[num25, num26].BlockType = 0;
                         }
                     }
                     int num27 = array[num24].X;
@@ -744,7 +750,7 @@ namespace Emperia
                             }
                             if (num37 >= num31 && (num37 < num32 & num38 >= num33) && num38 <= num34)
                             {
-                                Main.tile[num37, num38].active(false);
+                                Main.tile[num37, num38].IsActive = false;
                                 Main.tile[num37, num38].wall = 84;
                             }
                         }
@@ -803,7 +809,7 @@ namespace Emperia
                             }
                             if (num40 >= num31 && (num40 < num32 & num39 >= num33) && num39 <= num34)
                             {
-                                Main.tile[num40, num39].active(false);
+                                Main.tile[num40, num39].IsActive = false;
                                 Main.tile[num40, num39].wall = 84;
                             }
                         }
@@ -960,13 +966,13 @@ namespace Emperia
                 int num69 = (int)vector2.Y - num65;
                 while ((float)num69 < vector2.Y + (float)num65)
                 {
-                    if (Main.tile[num68, num69].wall == 84 || (Main.tile[num68, num69].active() && Main.tile[num68, num69].type == 206))
+                    if (Main.tile[num68, num69].wall == 84 || (Main.tile[num68, num69].IsActive && Main.tile[num68, num69].type == 206))
                     {
                         flag3 = true;
                     }
-                    if (Main.tile[num68, num69].active() && Main.tile[num68, num69].type == 206)
+                    if (Main.tile[num68, num69].IsActive && Main.tile[num68, num69].type == 206)
                     {
-                        Main.tile[num68, num69].active(false);
+                        Main.tile[num68, num69].IsActive = false;
                         Main.tile[num68, num69].wall = 84;
                     }
                     num69++;
@@ -974,13 +980,13 @@ namespace Emperia
             }
             int num70 = num5;
             int num71 = num6;
-            while (!Main.tile[num70, num71].active())
+            while (!Main.tile[num70, num71].IsActive)
             {
                 num71++;
             }
             num71 -= 4;
             int num72 = num71;
-            while ((Main.tile[num70, num72].active() && Main.tile[num70, num72].type == 206) || Main.tile[num70, num72].wall == 84)
+            while ((Main.tile[num70, num72].IsActive && Main.tile[num70, num72].type == 206) || Main.tile[num70, num72].wall == 84)
             {
                 num72--;
             }
@@ -989,18 +995,19 @@ namespace Emperia
             {
                 for (int num74 = num72; num74 <= num71; num74++)
                 {
-                    Main.tile[num73, num74].active(true);
+                    Main.tile[num73, num74].IsActive = true;
                     Main.tile[num73, num74].type = 206;
-                    Main.tile[num73, num74].liquid = 0;
-                    Main.tile[num73, num74].slope(0);
-                    Main.tile[num73, num74].halfBrick(false);
+                    Main.tile[num73, num74].LiquidType = 0;
+                    //Main.tile[num73, num74].slope(0);
+                    //Main.tile[num73, num74].halfBrick(false);
+                    Main.tile[num73, num74].BlockType = 0;
                 }
             }
             for (int num75 = num70 - 4; num75 <= num70 + 4; num75++)
             {
                 for (int num76 = num71 - 1; num76 < num71 + 3; num76++)
                 {
-                    Main.tile[num75, num76].active(false);
+                    Main.tile[num75, num76].IsActive = false;
                     Main.tile[num75, num76].wall = 84;
                 }
             }
@@ -1008,18 +1015,19 @@ namespace Emperia
             {
                 for (int num78 = num71 - 5; num78 <= num71 + 8; num78++)
                 {
-                    Main.tile[num77, num78].active(true);
+                    Main.tile[num77, num78].IsActive = true;
                     Main.tile[num77, num78].type = 206;
-                    Main.tile[num77, num78].liquid = 0;
-                    Main.tile[num77, num78].slope(0);
-                    Main.tile[num77, num78].halfBrick(false);
+                    Main.tile[num77, num78].LiquidType = 0;
+                    //Main.tile[num77, num78].slope(0);
+                    //Main.tile[num77, num78].halfBrick(false);
+                    Main.tile[num77, num78].BlockType = 0;
                 }
             }
             for (int num79 = num70 - 1; num79 <= num70 + 1; num79++)
             {
                 for (int num80 = num71; num80 < num71 + 3; num80++)
                 {
-                    Main.tile[num79, num80].active(false);
+                    Main.tile[num79, num80].IsActive = false;
                     Main.tile[num79, num80].wall = 84;
                 }
             }
@@ -1047,7 +1055,7 @@ namespace Emperia
                     {
                         for (int num88 = num86 - 1; num88 <= num86 + 1; num88++)
                         {
-                            if ((!Main.tile[num84, num88].active() || Main.tile[num84, num88].type != 206) && Main.tile[num84, num88].wall != 84)
+                            if ((!Main.tile[num84, num88].IsActive || Main.tile[num84, num88].type != 206) && Main.tile[num84, num88].wall != 84)
                             {
                                 flag4 = false;
                                 break;
@@ -1081,21 +1089,24 @@ namespace Emperia
             num91 = rectangle3.Y + rectangle3.Height / 2;
             num90 += Main.rand.Next(-10, 11);
             num91 += Main.rand.Next(-10, 11);
-            while (!Main.tile[num90, num91].active())
+            while (!Main.tile[num90, num91].IsActive)
             {
                 num91++;
             }
-            Main.tile[num90 - 1, num91].active(true);
-            Main.tile[num90 - 1, num91].slope(0);
-            Main.tile[num90 - 1, num91].halfBrick(false);
+            Main.tile[num90 - 1, num91].IsActive = true;
+            //Main.tile[num90 - 1, num91].slope(0);
+            //Main.tile[num90 - 1, num91].halfBrick(false);
+            Main.tile[num90 - 1, num91].BlockType = 0;
             Main.tile[num90 - 1, num91].type = 206;
-            Main.tile[num90, num91].active(true);
-            Main.tile[num90, num91].slope(0);
-            Main.tile[num90, num91].halfBrick(false);
+            Main.tile[num90, num91].IsActive = true;
+            //Main.tile[num90, num91].slope(0);
+            //Main.tile[num90, num91].halfBrick(false);
+            Main.tile[num90, num91].BlockType = 0;
             Main.tile[num90, num91].type = 206;
-            Main.tile[num90 + 1, num91].active(true);
-            Main.tile[num90 + 1, num91].slope(0);
-            Main.tile[num90 + 1, num91].halfBrick(false);
+            Main.tile[num90 + 1, num91].IsActive = true;
+            //Main.tile[num90 + 1, num91].slope(0);
+            //Main.tile[num90 + 1, num91].halfBrick(false);
+            Main.tile[num90 + 1, num91].BlockType = 0;
             Main.tile[num90 + 1, num91].type = 206;
             num91 -= 2;
             num90--;
@@ -1105,7 +1116,7 @@ namespace Emperia
                 {
                     x = num90 + num92;
                     y = num91 + num93;
-                    Main.tile[x, y].active(false);
+                    Main.tile[x, y].IsActive = false;
                 }
             }
             for (int num94 = 0; num94 <= 2; num94++)
@@ -1114,7 +1125,7 @@ namespace Emperia
                 {
                     x = num90 + num94;
                     y = num91 + num95;
-                    Main.tile[x, y].active(true);
+                    Main.tile[x, y].IsActive = true;
                     Main.tile[x, y].type = 237;
                     Main.tile[x, y].frameX = (short)(num94 * 18);
                     Main.tile[x, y].frameY = (short)(num95 * 18);
@@ -1134,7 +1145,7 @@ namespace Emperia
                 int num98 = Main.rand.Next(num2);
                 int num99 = Main.rand.Next(array[num98].X, array[num98].X + array[num98].Width);
                 int num100 = Main.rand.Next(array[num98].Y, array[num98].Y + array[num98].Height);
-                if (Main.tile[num99, num100].wall == 84 && !Main.tile[num99, num100].active())
+                if (Main.tile[num99, num100].wall == 84 && !Main.tile[num99, num100].IsActive)
                 {
                     bool flag5 = false;
                     if (Main.rand.Next(2) == 0)
@@ -1144,7 +1155,7 @@ namespace Emperia
                         {
                             num101 = -1;
                         }
-                        while (!Main.tile[num99, num100].active())
+                        while (!Main.tile[num99, num100].IsActive)
                         {
                             num100 += num101;
                         }
@@ -1156,7 +1167,7 @@ namespace Emperia
                         {
                             for (int num105 = num100 - num103; num105 < num100 + num103; num105++)
                             {
-                                if (Main.tile[num104, num105].active() && Main.tile[num104, num105].type == 10)
+                                if (Main.tile[num104, num105].IsActive && Main.tile[num104, num105].type == 10)
                                 {
                                     flag6 = false;
                                     break;
@@ -1176,12 +1187,12 @@ namespace Emperia
                                         if (num102 == 0)
                                         {
                                             Main.tile[num106, num107 - 1].type = 232;
-                                            Main.tile[num106, num107 - 1].active(true);
+                                            Main.tile[num106, num107 - 1].IsActive = true;
                                         }
                                         else
                                         {
                                             Main.tile[num106, num107 + 1].type = 232;
-                                            Main.tile[num106, num107 + 1].active(true);
+                                            Main.tile[num106, num107 + 1].IsActive = true;
                                         }
                                         num102++;
                                         if (num102 > 1)
@@ -1205,7 +1216,7 @@ namespace Emperia
                         {
                             num108 = -1;
                         }
-                        while (!Main.tile[num99, num100].active())
+                        while (!Main.tile[num99, num100].IsActive)
                         {
                             num99 += num108;
                         }
@@ -1217,7 +1228,7 @@ namespace Emperia
                         {
                             for (int num112 = num100 - num110; num112 < num100 + num110; num112++)
                             {
-                                if (Main.tile[num111, num112].active() && Main.tile[num111, num112].type == 10)
+                                if (Main.tile[num111, num112].IsActive && Main.tile[num111, num112].type == 10)
                                 {
                                     flag7 = false;
                                     break;
@@ -1237,12 +1248,12 @@ namespace Emperia
                                         if (num109 == 0)
                                         {
                                             Main.tile[num113 - 1, num114].type = 232;
-                                            Main.tile[num113 - 1, num114].active(true);
+                                            Main.tile[num113 - 1, num114].IsActive = true;
                                         }
                                         else
                                         {
                                             Main.tile[num113 + 1, num114].type = 232;
-                                            Main.tile[num113 + 1, num114].active(true);
+                                            Main.tile[num113 + 1, num114].IsActive = true;
                                         }
                                         num109++;
                                         if (num109 > 1)
@@ -1287,7 +1298,7 @@ namespace Emperia
             {
                 int num5 = Main.rand.Next(minValue, maxValue);
                 int num6 = Main.rand.Next(minValue2, num);
-                if (Main.tile[num5, num6].wall == 84 && !Main.tile[num5, num6].active())
+                if (Main.tile[num5, num6].wall == 84 && !Main.tile[num5, num6].IsActive)
                 {
                     if (WorldGen.mayanTrap(num5, num6))
                     {
@@ -1318,7 +1329,7 @@ namespace Emperia
             {
                 int num8 = Main.rand.Next(minValue, maxValue);
                 int num9 = Main.rand.Next(minValue2, num);
-                if (Main.tile[num8, num9].wall == 84 && !Main.tile[num8, num9].active() && WorldGen.AddBuriedChest(num8, num9, contain, true, 16))
+                if (Main.tile[num8, num9].wall == 84 && !Main.tile[num8, num9].IsActive && WorldGen.AddBuriedChest(num8, num9, contain, true, 16))
                 {
                     num7 -= 1f;
                     num4 = 0;
@@ -1337,11 +1348,11 @@ namespace Emperia
                 num4++;
                 int num11 = Main.rand.Next(minValue, maxValue);
                 int num12 = Main.rand.Next(minValue2, num);
-                if (Main.tile[num11, num12].wall == 84 && !Main.tile[num11, num12].active())
+                if (Main.tile[num11, num12].wall == 84 && !Main.tile[num11, num12].IsActive)
                 {
                     int num13 = num11;
                     int num14 = num12;
-                    while (!Main.tile[num13, num14].active())
+                    while (!Main.tile[num13, num14].IsActive)
                     {
                         num14++;
                         if (num14 > num)
@@ -1368,11 +1379,11 @@ namespace Emperia
                 num4++;
                 int num16 = Main.rand.Next(minValue, maxValue);
                 int num17 = Main.rand.Next(minValue2, num);
-                if (Main.tile[num16, num17].wall == 84 && !Main.tile[num16, num17].active())
+                if (Main.tile[num16, num17].wall == 84 && !Main.tile[num16, num17].IsActive)
                 {
                     int num18 = num16;
                     int num19 = num17;
-                    while (!Main.tile[num18, num19].active())
+                    while (!Main.tile[num18, num19].IsActive)
                     {
                         num19++;
                         if (num19 > num)

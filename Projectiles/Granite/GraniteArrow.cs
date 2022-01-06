@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.GameContent;
 using System.Collections.Generic;
 using System;
 
@@ -13,14 +14,14 @@ namespace Emperia.Projectiles.Granite
 		NPC hitNPC;
 		public override void SetDefaults()
 		{
-			projectile.width = 14;
-			projectile.height = 14;
-			projectile.aiStyle = 1;
-			projectile.friendly = true;
-			projectile.ranged = true;
-			projectile.penetrate = 1;
-			projectile.timeLeft = 1000;
-			projectile.tileCollide = true;
+			Projectile.width = 14;
+			Projectile.height = 14;
+			Projectile.aiStyle = 1;
+			Projectile.friendly = true;
+			Projectile.DamageType = DamageClass.Ranged;
+			Projectile.penetrate = 1;
+			Projectile.timeLeft = 1000;
+			Projectile.tileCollide = true;
 		}
 		
 		public override void SetStaticDefaults()
@@ -29,7 +30,7 @@ namespace Emperia.Projectiles.Granite
 		}
 		
 		public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection) {
-			Player player = Main.player[projectile.owner];
+			Player player = Main.player[Projectile.owner];
 			MyPlayer modPlayer = player.GetModPlayer<MyPlayer>();
 			if (modPlayer.graniteSet && modPlayer.graniteTime >= 900)
             {
@@ -38,48 +39,48 @@ namespace Emperia.Projectiles.Granite
 		}
 		public override void Kill(int timeLeft)
 		{
-			Player player = Main.player[projectile.owner];
+			Player player = Main.player[Projectile.owner];
 			MyPlayer modPlayer = player.GetModPlayer<MyPlayer>();
-			projectile.localAI[1] = -1f;
-			projectile.maxPenetrate = 0;
-			projectile.Damage();
+			Projectile.localAI[1] = -1f;
+			Projectile.maxPenetrate = 0;
+			Projectile.Damage();
 			if (modPlayer.graniteSet && modPlayer.graniteTime >= 900)
 			{
 				for (int i = 0; i < Main.npc.Length; i++)
             	{
-                	if (projectile.Distance(Main.npc[i].Center) < 90 && Main.npc[i] != hitNPC)
-                    	Main.npc[i].StrikeNPC(projectile.damage / 4 * 7, 0f, 0, false, false, false);
+                	if (Projectile.Distance(Main.npc[i].Center) < 90 && Main.npc[i] != hitNPC)
+                    	Main.npc[i].StrikeNPC(Projectile.damage / 4 * 7, 0f, 0, false, false, false);
             	}
 				for (int i = 0; i < 45; ++i)
 				{
-					int index2 = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, 15, 0.0f, 0.0f, 15, new Color(53f, 67f, 253f), 2f);
+					int index2 = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 15, 0.0f, 0.0f, 15, new Color(53f, 67f, 253f), 2f);
 					Main.dust[index2].noGravity = true;
 					Main.dust[index2].velocity *= 3.25f;
 				}
 				modPlayer.graniteTime = 0;
-				Main.PlaySound(SoundID.Item14, projectile.Center);
+				Terraria.Audio.SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
 			}
 			else
 			{
 				for (int i = 0; i < Main.npc.Length; i++)
             	{
-                	if (projectile.Distance(Main.npc[i].Center) < 65 && Main.npc[i] != hitNPC)
-                    	Main.npc[i].StrikeNPC(projectile.damage, 0f, 0, false, false, false);
+                	if (Projectile.Distance(Main.npc[i].Center) < 65 && Main.npc[i] != hitNPC)
+                    	Main.npc[i].StrikeNPC(Projectile.damage, 0f, 0, false, false, false);
             	}
 				for (int i = 0; i < 30; ++i)
 				{
-					int index2 = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, 15, 0.0f, 0.0f, 15, new Color(53f, 67f, 253f), 1.5f);
+					int index2 = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 15, 0.0f, 0.0f, 15, new Color(53f, 67f, 253f), 1.5f);
 					Main.dust[index2].noGravity = true;
 					Main.dust[index2].velocity *= 2f;
 				}
-				Main.PlaySound(SoundID.Item10, projectile.Center);
+				Terraria.Audio.SoundEngine.PlaySound(SoundID.Item10, Projectile.Center);
 			}
 			
 		}
 		
 		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
 		{	
-			target.immune[projectile.owner] = 5;
+			target.immune[Projectile.owner] = 5;
 			hitNPC = target;
 		}
 		
@@ -87,18 +88,20 @@ namespace Emperia.Projectiles.Granite
 		{
 			if (Main.rand.Next(3) == 0)
 			{
-				Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, 15, 0.0f, 0.0f, 15, new Color(53f, 67f, 253f), 0.8f);
+				Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 15, 0.0f, 0.0f, 15, new Color(53f, 67f, 253f), 0.8f);
 			}
 		}
 		
-		public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
+		public override bool PreDraw(ref Color lightColor)
 		{
-			Texture2D texture2D3 = Main.projectileTexture[projectile.type];
-			int num156 = Main.projectileTexture[projectile.type].Height / Main.projFrames[projectile.type];
-			int y3 = num156 * projectile.frame;
-			Microsoft.Xna.Framework.Rectangle rectangle = new Microsoft.Xna.Framework.Rectangle(0, y3, texture2D3.Width, num156);
+			Main.instance.LoadProjectile(Projectile.type);
+			Texture2D texture = TextureAssets.Projectile[Projectile.type].Value;
+
+			int num156 = texture.Height / Main.projFrames[Projectile.type];
+			int y3 = num156 * Projectile.frame;
+			Microsoft.Xna.Framework.Rectangle rectangle = new Microsoft.Xna.Framework.Rectangle(0, y3, texture.Width, num156);
 			Vector2 origin2 = rectangle.Size() / 2f;
-			Main.spriteBatch.Draw(Main.projectileTexture[projectile.type], projectile.position + projectile.Size / 2f - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), Color.White, projectile.rotation, origin2, projectile.scale, SpriteEffects.None, 0f);
+			Main.EntitySpriteDraw(texture, Projectile.position + Projectile.Size / 2f - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle?(rectangle), Color.White, Projectile.rotation, origin2, Projectile.scale, SpriteEffects.None, 0);
 			return false;
 		}
 	}

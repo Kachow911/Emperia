@@ -1,12 +1,13 @@
 using System;
 using Terraria;
 using Terraria.ModLoader;
+using Emperia.Projectiles.Summon;
 
 namespace Emperia.Buffs
 {
 	public class SharkMinionBuff : ModBuff
 	{
-		public override void SetDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Depth Scrounger");
 			Description.SetDefault("Epic shark moment");
@@ -18,7 +19,7 @@ namespace Emperia.Buffs
 		public override void Update(Player player, ref int buffIndex)
 		{
 			MyPlayer modPlayer = player.GetModPlayer<MyPlayer>();
-			if (player.ownedProjectileCounts[mod.ProjectileType("SharkMinion")] > 0)
+			if (player.ownedProjectileCounts[ModContent.ProjectileType<SharkMinion>()] > 0)
 			{
 				modPlayer.sharkMinion = true;
 			}

@@ -4,6 +4,8 @@ using Terraria.ID;
 using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using Terraria.ModLoader;
+using Terraria.DataStructures;
+using Emperia.Projectiles;
 
 namespace Emperia.Items.Weapons.Skeletron
 {
@@ -16,29 +18,29 @@ namespace Emperia.Items.Weapons.Skeletron
 		}
         public override void SetDefaults()
         {
-            item.damage = 25;
-            item.noMelee = true;
-            item.ranged = true;
-            item.width = 69;
-            item.height = 40;
-            item.useTime = 30;
-            item.useAnimation = 30;
-            item.useStyle = 5;
-            item.shoot = 3;
-            item.useAmmo = ItemID.WoodenArrow;
-            item.knockBack = 1;
-            item.value = 5000;
-            item.rare = 2;
-            item.autoReuse = true;
-            item.shootSpeed = 15f;
-			item.UseSound = SoundID.Item5; 
+            Item.damage = 25;
+            Item.noMelee = true;
+            Item.DamageType = DamageClass.Ranged;
+            Item.width = 69;
+            Item.height = 40;
+            Item.useTime = 30;
+            Item.useAnimation = 30;
+            Item.useStyle = 5;
+            Item.shoot = 3;
+            Item.useAmmo = ItemID.WoodenArrow;
+            Item.knockBack = 1;
+            Item.value = 5000;
+            Item.rare = 2;
+            Item.autoReuse = true;
+            Item.shootSpeed = 15f;
+			Item.UseSound = SoundID.Item5; 
         }
 		
-		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+		public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockBack)
 		{
 			if (Main.rand.Next(3) == 2)
 			{
-				int p = Projectile.NewProjectile(position.X, position.Y, speedX, speedY, mod.ProjectileType("ShadowBolt"), damage, knockBack, player.whoAmI);
+				int p = Projectile.NewProjectile(source, position.X, position.Y, velocity.X, velocity.Y, ModContent.ProjectileType<ShadowBolt>(), damage, knockBack, player.whoAmI);
 				Main.projectile[p].penetrate = 2;
 				return false;
 			}

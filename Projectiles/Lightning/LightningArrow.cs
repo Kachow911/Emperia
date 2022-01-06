@@ -5,6 +5,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using System.Collections.Generic;
 using System;
+using Emperia.Buffs;
 
 namespace Emperia.Projectiles.Lightning
 {
@@ -13,14 +14,14 @@ namespace Emperia.Projectiles.Lightning
 		//NPC hitNPC;
 		public override void SetDefaults()
 		{
-			projectile.width = 14;
-			projectile.height = 14;
-			//projectile.aiStyle = 1;
-			projectile.friendly = true;
-			projectile.ranged = true;
-			projectile.penetrate = -1;
-			projectile.timeLeft = 1000;
-			projectile.tileCollide = true;
+			Projectile.width = 14;
+			Projectile.height = 14;
+			//Projectile.aiStyle = 1;
+			Projectile.friendly = true;
+			Projectile.DamageType = DamageClass.Ranged;
+			Projectile.penetrate = -1;
+			Projectile.timeLeft = 1000;
+			Projectile.tileCollide = true;
 		}
 		
 		public override void SetStaticDefaults()
@@ -31,22 +32,22 @@ namespace Emperia.Projectiles.Lightning
 		
 		public override void Kill(int timeLeft)
 		{
-			/*Main.PlaySound(2, (int)projectile.position.X, (int)projectile.position.Y, 10);
-			Player player = Main.player[projectile.owner];
+			/*Terraria.Audio.SoundEngine.PlaySound(2, (int)Projectile.position.X, (int)Projectile.position.Y, 10);
+			Player player = Main.player[Projectile.owner];
 			MyPlayer modPlayer = player.GetModPlayer<MyPlayer>();
-			projectile.localAI[1] = -1f;
-			projectile.maxPenetrate = 0;
-			projectile.Damage();
+			Projectile.localAI[1] = -1f;
+			Projectile.maxPenetrate = 0;
+			Projectile.Damage();
 			if (modPlayer.graniteSet && modPlayer.graniteTime >= 1800)
 			{
 				for (int i = 0; i < Main.npc.Length; i++)
             	{
-                	if (projectile.Distance(Main.npc[i].Center) < 90 && Main.npc[i] != hitNPC)
-                    	Main.npc[i].StrikeNPC(projectile.damage + projectile.damage / 2, 0f, 0, false, false, false);
+                	if (Projectile.Distance(Main.npc[i].Center) < 90 && Main.npc[i] != hitNPC)
+                    	Main.npc[i].StrikeNPC(Projectile.damage + Projectile.damage / 2, 0f, 0, false, false, false);
             	}
 				for (int i = 0; i < 45; ++i)
 				{
-					int index2 = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, 15, 0.0f, 0.0f, 15, new Color(53f, 67f, 253f), 2f);
+					int index2 = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 15, 0.0f, 0.0f, 15, new Color(53f, 67f, 253f), 2f);
 					Main.dust[index2].noGravity = true;
 					Main.dust[index2].velocity *= 3.25f;
 				}
@@ -56,12 +57,12 @@ namespace Emperia.Projectiles.Lightning
 			{
 				for (int i = 0; i < Main.npc.Length; i++)
             	{
-                	if (projectile.Distance(Main.npc[i].Center) < 60 && Main.npc[i] != hitNPC)
-                    	Main.npc[i].StrikeNPC(projectile.damage, 0f, 0, false, false, false);
+                	if (Projectile.Distance(Main.npc[i].Center) < 60 && Main.npc[i] != hitNPC)
+                    	Main.npc[i].StrikeNPC(Projectile.damage, 0f, 0, false, false, false);
             	}
 				for (int i = 0; i < 30; ++i)
 				{
-					int index2 = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, 15, 0.0f, 0.0f, 15, new Color(53f, 67f, 253f), 1.5f);
+					int index2 = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 15, 0.0f, 0.0f, 15, new Color(53f, 67f, 253f), 1.5f);
 					Main.dust[index2].noGravity = true;
 					Main.dust[index2].velocity *= 2f;
 				}
@@ -71,8 +72,8 @@ namespace Emperia.Projectiles.Lightning
 		
 		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
 		{
-			target.AddBuff(mod.BuffType("ElecHostile"), 120);
-			Player player = Main.player[projectile.owner];
+			target.AddBuff(ModContent.BuffType<ElecHostile>(), 120);
+			Player player = Main.player[Projectile.owner];
 			MyPlayer modPlayer = player.GetModPlayer<MyPlayer>();
 			if (modPlayer.lightningSet)
 				modPlayer.lightningDamage += damage;
@@ -80,10 +81,10 @@ namespace Emperia.Projectiles.Lightning
 		
 		public override void AI()
 		{
-			projectile.rotation = (float)Math.Atan2((double)projectile.velocity.Y, (double)projectile.velocity.X) + 1.57f;
+			Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + 1.57f;
 			if (Main.rand.Next(3) == 0)
 			{
-				Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, 226, 0.0f, 0.0f, 15, Color.LightBlue, 0.8f);
+				Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 226, 0.0f, 0.0f, 15, Color.LightBlue, 0.8f);
 			}
 		}
 	

@@ -10,12 +10,12 @@ namespace Emperia.Projectiles.Corrupt
 	{
 		public override void SetDefaults()
 		{
-			projectile.CloneDefaults(ProjectileID.PainterPaintball);
+			Projectile.CloneDefaults(ProjectileID.PainterPaintball);
 
-			projectile.friendly = true;
-			projectile.penetrate = -1;
-			projectile.melee = true;
-			projectile.timeLeft = 225;
+			Projectile.friendly = true;
+			Projectile.penetrate = -1;
+			Projectile.DamageType = DamageClass.Melee;
+			Projectile.timeLeft = 225;
 
 		}
 		
@@ -23,7 +23,7 @@ namespace Emperia.Projectiles.Corrupt
 
 		public override void AI()
 		{
-			projectile.ai[1] ++;
+			Projectile.ai[1] ++;
 			int x1 = Main.rand.Next(7);
 			/*Color rgb = new Color(0, 0, 0);
 			if (x1 == 0)
@@ -56,12 +56,12 @@ namespace Emperia.Projectiles.Corrupt
 			}*/
 			if (Main.rand.Next(2) == 0)
             {
-            	int dust = Dust.NewDust(new Vector2(projectile.Center.X, projectile.Center.Y), projectile.width / 8, projectile.height / 8, 75, 0f, 0f, 0, new Color(39, 90, 219), 1f);
+            	int dust = Dust.NewDust(new Vector2(Projectile.Center.X, Projectile.Center.Y), Projectile.width / 8, Projectile.height / 8, 75, 0f, 0f, 0, new Color(39, 90, 219), 1f);
             }
 		}
 			public override bool OnTileCollide(Vector2 oldVelocity)
 			{
-				projectile.velocity = Vector2.Zero;
+				Projectile.velocity = Vector2.Zero;
 				return false;
 			}
 		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)

@@ -1,6 +1,8 @@
 using Terraria.ID;
 using Terraria.ModLoader;
 
+using Emperia.Mounts;
+
 namespace Emperia.Items
 {
 	public class ChilledFootprint : ModItem
@@ -12,16 +14,16 @@ namespace Emperia.Items
 
 		public override void SetDefaults()
 		{
-			item.width = 20;
-			item.height = 30;
-			item.useTime = 20;
-			item.useAnimation = 20;
-			item.useStyle = 1;
-			item.value = 30000;
-			item.rare = 3;
-			item.UseSound = SoundID.Item79;
-			item.noMelee = true;
-			item.mountType = mod.MountType("Yetiling");
+			Item.width = 20;
+			Item.height = 30;
+			Item.useTime = 20;
+			Item.useAnimation = 20;
+			Item.useStyle = 1;
+			Item.value = 30000;
+			Item.rare = 3;
+			Item.UseSound = SoundID.Item79;
+			Item.noMelee = true;
+			Item.mountType = ModContent.MountType<Yetiling>();
 		}
 	}
 }

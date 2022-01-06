@@ -18,13 +18,13 @@ namespace Emperia.Items.Accessories
 		}
         public override void SetDefaults()
         {
-            item.width = 30;
-            item.height = 28;
-            item.rare = 4;
-            item.value = Item.sellPrice(0, 0, 50, 0);
-            item.accessory = true;
+            Item.width = 30;
+            Item.height = 28;
+            Item.rare = 4;
+            Item.value = Item.sellPrice(0, 0, 50, 0);
+            Item.accessory = true;
         }
-        public override void UpdateAccessory(Player player, bool hideVisual)
+        public override void UpdateAccessory(Player player, bool hideVisibleAccessory)
         {
 			player.GetModPlayer<MyPlayer>().vitalityCrystal = true;
 		

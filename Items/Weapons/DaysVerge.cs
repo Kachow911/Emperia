@@ -5,7 +5,9 @@ using Terraria.Graphics.Effects;
 using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.DataStructures;
 using Emperia.Projectiles;
+using static Terraria.Audio.SoundEngine;
 
 namespace Emperia.Items.Weapons
 {
@@ -19,24 +21,24 @@ namespace Emperia.Items.Weapons
 		}
         public override void SetDefaults()
         {
-            item.damage = 26;
-            item.melee = true;
-            item.width = 36;
-            item.height = 36;
-            item.useTime = 38;
-            item.useAnimation = 38;     
-            item.useStyle = 1;
-            item.knockBack = 7.5f;
-            item.value = 204000;        
-            item.rare = 3;
-			item.scale = 1f;
-			item.UseSound = SoundID.Item18;
-			item.shoot = mod.ProjectileType("BlueSword");
-			item.shootSpeed = 20f;
-            item.useTurn = true;          
+            Item.damage = 26;
+            Item.DamageType = DamageClass.Melee;
+            Item.width = 36;
+            Item.height = 36;
+            Item.useTime = 38;
+            Item.useAnimation = 38;     
+            Item.useStyle = 1;
+            Item.knockBack = 7.5f;
+            Item.value = 204000;        
+            Item.rare = 3;
+			Item.scale = 1f;
+			Item.UseSound = SoundID.Item18;
+			Item.shoot = ModContent.ProjectileType<BlueSword>();
+			Item.shootSpeed = 20f;
+            Item.useTurn = true;          
         }
 		bool canSummon = true;
-		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type1, ref int damage, ref float knockBack)
+        public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockBack)
 		{
 			
 			float speedFactor;
@@ -47,19 +49,19 @@ namespace Emperia.Items.Weapons
 			direction.Normalize();
 			if (Main.rand.NextBool(2))
 			{
-				type1 = mod.ProjectileType("BlueSword");
+				type = ModContent.ProjectileType<BlueSword>();
 				speedFactor = 24f;
 				damageFactor = 2;
 			}
 			else
 			{
-				type1 = mod.ProjectileType("PinkSword");
+				type = ModContent.ProjectileType<PinkSword>();
 				speedFactor = 9.5f;
 				damageFactor = 2;
 			}
-			int p = Projectile.NewProjectile(placePosition.X, placePosition.Y, direction.X * speedFactor, direction.Y * speedFactor, type1, damage * damageFactor, 1, Main.myPlayer, 0, 0);
+			int p = Projectile.NewProjectile(source, placePosition.X, placePosition.Y, direction.X * speedFactor, direction.Y * speedFactor, type, damage * damageFactor, 1, Main.myPlayer, 0, 0);
 			Main.projectile[p].usesLocalNPCImmunity = false;
-			Main.PlaySound(SoundID.Item9, Main.projectile[p].position);
+			PlaySound(SoundID.Item9, Main.projectile[p].position);
 			canSummon = true;
 			return false;
 		  }
@@ -67,7 +69,7 @@ namespace Emperia.Items.Weapons
 		{
 			float speedFactor;
 			int damageFactor;
-			int type1;
+			int type;
 			if (canSummon)
 			{
 				Vector2 placePosition = player.Center + new Vector2((Main.MouseWorld.X - player.Center.X) / 2 + Main.rand.Next(-100, 100), -580);
@@ -75,21 +77,21 @@ namespace Emperia.Items.Weapons
 				direction.Normalize();
 				if (Main.rand.NextBool(2))
 				{
-					type1 = mod.ProjectileType("BlueSword");
+					type = ModContent.ProjectileType<BlueSword>();
 					speedFactor = 24f;
 					damageFactor = 2;
 				}
 				else
 				{
-					type1 = mod.ProjectileType("PinkSword");
+					type = ModContent.ProjectileType<PinkSword>();
 					speedFactor = 9.5f;
 					damageFactor = 2;
 				}
-				int p = Projectile.NewProjectile(placePosition.X, placePosition.Y, direction.X * speedFactor, direction.Y * speedFactor, type1, damage * damageFactor, 1, Main.myPlayer, 0, 0);
+				int p = Projectile.NewProjectile(player.GetProjectileSource_Item(Item), placePosition.X, placePosition.Y, direction.X * speedFactor, direction.Y * speedFactor, type, damage * damageFactor, 1, Main.myPlayer, 0, 0);
 				Main.projectile[p].usesLocalNPCImmunity = false;
-				Main.PlaySound(SoundID.Item9, Main.projectile[p].position);
+				PlaySound(SoundID.Item9, Main.projectile[p].position);
 				canSummon = false;
-				target.immune[item.owner] = 0;
+				target.immune[Item.playerIndexTheItemIsReservedFor] = 0;
 			}	
 		}
 		public override void MeleeEffects(Player player, Rectangle hitbox)
@@ -102,22 +104,22 @@ namespace Emperia.Items.Weapons
 		}
 		public override void AddRecipes()
         {
-			ModRecipe recipe = new ModRecipe(mod);      
+			Recipe recipe = CreateRecipe();      
             recipe.AddIngredient(null, "FireBlade", 1); 
 			recipe.AddIngredient(ItemID.IceBlade, 1);
 			recipe.AddIngredient(ItemID.Starfury, 1);
 			recipe.AddIngredient(ItemID.EnchantedSword, 1);
             recipe.AddTile(TileID.Anvils); 			
-            recipe.SetResult(this);
-            recipe.AddRecipe(); 
-			recipe = new ModRecipe(mod);      
+            recipe.Register();
+             
+			recipe = CreateRecipe();      
             recipe.AddIngredient(null, "FireBlade", 1); 
 			recipe.AddIngredient(ItemID.IceBlade, 1);
 			recipe.AddIngredient(ItemID.Starfury, 1);
 			recipe.AddIngredient(ItemID.Arkhalis, 1);
             recipe.AddTile(TileID.Anvils); 			
-            recipe.SetResult(this);
-            recipe.AddRecipe(); 
+            recipe.Register();
+             
 
         }
     }

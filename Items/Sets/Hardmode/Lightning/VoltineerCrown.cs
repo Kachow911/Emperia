@@ -18,16 +18,16 @@ namespace Emperia.Items.Sets.Hardmode.Lightning {
         }
         public override void SetDefaults()
         {
-            item.width = 18;
-            item.height = 18;
-            item.value = 140000;
-            item.rare = 4;
-            item.defense = 7;
+            Item.width = 18;
+            Item.height = 18;
+            Item.value = 140000;
+            Item.rare = 4;
+            Item.defense = 7;
         }
 
         public override bool IsArmorSet(Item head, Item body, Item legs)
         {
-            return body.type == mod.ItemType("VoltineerChestplate") && legs.type == mod.ItemType("VoltineerLeggings");
+            return body.type == ModContent.ItemType<VoltineerChestplate>() && legs.type == ModContent.ItemType<VoltineerLeggings>();
         }
 
         public override void UpdateArmorSet(Player player)
@@ -40,18 +40,18 @@ namespace Emperia.Items.Sets.Hardmode.Lightning {
 
         public override void UpdateEquip(Player player)
         {
-            player.thrownDamage *= 1.09f;
+            //player.thrownDamage *= 1.09f;
         }
 
         /*public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            Recipe recipe = CreateRecipe();
             recipe.AddIngredient(ItemID.RottenChunk, 5);
             recipe.AddIngredient(ItemID.CursedFlame, 10);
             recipe.AddIngredient(ItemID.SoulofNight, 2);
             recipe.AddTile(TileID.MythrilAnvil);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            recipe.Register();
+            
         }*/
     }
 }

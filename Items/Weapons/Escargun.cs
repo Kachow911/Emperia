@@ -4,6 +4,8 @@ using Terraria.ID;
 using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using Terraria.ModLoader;
+using Terraria.DataStructures;
+using Emperia.Projectiles;
 
 namespace Emperia.Items.Weapons
 {
@@ -17,32 +19,31 @@ namespace Emperia.Items.Weapons
 
         public override void SetDefaults()
         {
-            item.damage = 41;  
-            item.magic = true;
-            item.crit = -4;
-            item.width = 52;     
-            item.height = 30;    
-            item.useStyle = 5;    
-            item.noMelee = true; 
-            item.knockBack = 2.75f;
-            item.useTurn = false;
-            item.value = 215000;
-            item.rare = 5;
-            item.UseSound = SoundID.Item12;
-            item.autoReuse = true;
-            item.shoot = mod.ProjectileType("Escarbeam"); 
-            item.useTime = 13;
-            item.useAnimation = 13;
-            item.shootSpeed = 16f;
-            item.mana = 7;  
+            Item.damage = 41;  
+            Item.DamageType = DamageClass.Magic;
+            Item.crit = -4;
+            Item.width = 52;     
+            Item.height = 30;    
+            Item.useStyle = 5;    
+            Item.noMelee = true; 
+            Item.knockBack = 2.75f;
+            Item.useTurn = false;
+            Item.value = 215000;
+            Item.rare = 5;
+            Item.UseSound = SoundID.Item12;
+            Item.autoReuse = true;
+            Item.shoot = ModContent.ProjectileType<Escarbeam>(); 
+            Item.useTime = 13;
+            Item.useAnimation = 13;
+            Item.shootSpeed = 16f;
+            Item.mana = 7;  
         }
         int shootAngle = 0;
-        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack) //if it needs nerfs, make only angled lasers have the ability to crit
+		public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockBack)
 		{
-			Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedBy(MathHelper.ToRadians(((shootAngle % 2 == 0) ? 0 : (shootAngle * 5))));
+			Vector2 perturbedSpeed = velocity.RotatedBy(MathHelper.ToRadians(((shootAngle % 2 == 0) ? 0 : (shootAngle * 5))));
             MyPlayer modPlayer = player.GetModPlayer<MyPlayer>();
-            speedX = perturbedSpeed.X;
-		    speedY = perturbedSpeed.Y;
+            velocity = perturbedSpeed;
             if (shootAngle < 2 && modPlayer.eschargo < 0)
             {
                 shootAngle++;

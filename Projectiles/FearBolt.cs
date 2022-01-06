@@ -21,23 +21,23 @@ namespace Emperia.Projectiles
 		}
         public override void SetDefaults()
         {
-            projectile.width = 16;
-            projectile.height = 16;
-            projectile.friendly = false;
-            projectile.tileCollide = true;
-            projectile.penetrate = 4;
-            projectile.timeLeft = 200;
-            projectile.light = 0.75f;
-            projectile.extraUpdates = 1;
-            projectile.ignoreWater = true;
-            projectile.hostile = true;
+            Projectile.width = 16;
+            Projectile.height = 16;
+            Projectile.friendly = false;
+            Projectile.tileCollide = true;
+            Projectile.penetrate = 4;
+            Projectile.timeLeft = 200;
+            Projectile.light = 0.75f;
+            Projectile.extraUpdates = 1;
+            Projectile.ignoreWater = true;
+            Projectile.hostile = true;
         }
 
         public override void AI()
         {
-			projectile.rotation = (float)Math.Atan2((double)projectile.velocity.Y, (double)projectile.velocity.X);
+			Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X);
 
-            Dust.NewDust(projectile.Center, 2, 2, 58, projectile.velocity.X, projectile.velocity.Y);
+            Dust.NewDust(Projectile.Center, 2, 2, 58, Projectile.velocity.X, Projectile.velocity.Y);
         }
     }
 }

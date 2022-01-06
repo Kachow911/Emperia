@@ -15,31 +15,31 @@ public class SeashellHamaxe : ModItem
 		}
     public override void SetDefaults()
     {
-        item.damage = 7;
-        item.melee = true;
-        item.width = 46;
-        item.height = 46;
-        item.useTime = 26;
-        item.useAnimation = 26;
-        item.useTurn = true;
-        item.axe = 11;
-		item.hammer = 55;
-        item.useStyle = 1;
-        item.knockBack = 2f;
-        item.value = 1770;
-        item.rare = 2;
-        item.UseSound = SoundID.Item1;
-        item.autoReuse = true;
+        Item.damage = 7;
+        Item.DamageType = DamageClass.Melee;
+        Item.width = 46;
+        Item.height = 46;
+        Item.useTime = 26;
+        Item.useAnimation = 26;
+        Item.useTurn = true;
+        Item.axe = 11;
+		Item.hammer = 55;
+        Item.useStyle = 1;
+        Item.knockBack = 2f;
+        Item.value = 1770;
+        Item.rare = 2;
+        Item.UseSound = SoundID.Item1;
+        Item.autoReuse = true;
     }
 
     public override void AddRecipes()
     {
-       ModRecipe recipe = new ModRecipe(mod);      
+       Recipe recipe = CreateRecipe();      
             recipe.AddIngredient(ItemID.Seashell, 2);
             recipe.AddIngredient(ItemID.Coral, 2);
             recipe.AddIngredient(null, "SeaCrystal", 1);  			
             recipe.AddTile(TileID.Anvils);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            recipe.Register();
+            
     }
 }}

@@ -2,6 +2,7 @@ using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Emperia.Projectiles;
 
 namespace Emperia.Items.Weapons
 {
@@ -16,14 +17,14 @@ namespace Emperia.Items.Weapons
 
         public override void SetDefaults()
         {
-            item.CloneDefaults(ItemID.Shuriken);        
-            item.shoot = mod.ProjectileType("AxeProj");
-            item.shootSpeed = 8f;
-			item.rare = 1;
-            item.autoReuse = true;
-            item.damage = 16;
-            item.knockBack = 3f;
-			item.value = Terraria.Item.sellPrice(0, 0, 60, 0);
+            Item.CloneDefaults(ItemID.Shuriken);        
+            Item.shoot = ModContent.ProjectileType<AxeProj>();
+            Item.shootSpeed = 8f;
+			Item.rare = 1;
+            Item.autoReuse = true;
+            Item.damage = 16;
+            Item.knockBack = 3f;
+			Item.value = Terraria.Item.sellPrice(0, 0, 60, 0);
 
         }
     }

@@ -2,6 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
+using Emperia.Projectiles;
 
 
 namespace Emperia.Items.Sets.PreHardmode.Scoria
@@ -10,23 +11,24 @@ namespace Emperia.Items.Sets.PreHardmode.Scoria
     {
         public override void SetDefaults()
         {
-            item.damage = 25;
-            item.noUseGraphic = true;
-            item.useTime = 22;
-            item.useAnimation = 22;
-			item.thrown = true;
-            item.width = 18;
-            item.height = 40;
-            item.shoot = mod.ProjectileType("ScoriaKnife");
-            item.shootSpeed = 8f;
-            item.useStyle = 1;
-            item.knockBack = 5f;
-            item.value = Item.sellPrice(0, 0, 12, 0);
-            item.rare = 3;
-            item.UseSound = SoundID.Item1;
-            item.autoReuse = true;
-			item.consumable = true;
-			item.maxStack = 999;
+            Item.damage = 25;
+            Item.noUseGraphic = true;
+            Item.useTime = 22;
+            Item.useAnimation = 22;
+			//Item.thrown = true;
+            Item.DamageType = DamageClass.Ranged;
+            Item.width = 18;
+            Item.height = 40;
+            Item.shoot = ModContent.ProjectileType<Projectiles.ScoriaKnife>();
+            Item.shootSpeed = 8f;
+            Item.useStyle = 1;
+            Item.knockBack = 5f;
+            Item.value = Item.sellPrice(0, 0, 12, 0);
+            Item.rare = 3;
+            Item.UseSound = SoundID.Item1;
+            Item.autoReuse = true;
+			Item.consumable = true;
+			Item.maxStack = 999;
         }
 
         public override void SetStaticDefaults()

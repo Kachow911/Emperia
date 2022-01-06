@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Emperia.Projectiles.Crimson;
 
 namespace Emperia.Items.Sets.Hardmode.Crimson
 { 
@@ -18,38 +19,39 @@ namespace Emperia.Items.Sets.Hardmode.Crimson
 
         public override void SetDefaults()
         {
-            item.useStyle = 1;
-            item.width = 16;
-            item.height = 16;
-            item.noUseGraphic = true;
-            item.UseSound = SoundID.Item1;
-            item.thrown = true;
-            item.channel = true;
-            item.noMelee = true;
-            item.consumable = true;
-            item.maxStack = 999;
-            item.shoot = mod.ProjectileType("BloodNeedleProj");
-            item.useAnimation = 25;
-            item.useTime = 25;
-            item.shootSpeed = 8.0f;
-            item.damage = 58;
-            item.knockBack = 4f;
-			item.value = Item.sellPrice(0, 0, 1, 50);
-            item.crit = 4;
-            item.rare = 4;
-            item.autoReuse = true;
-            item.maxStack = 999;
-            item.consumable = true;
+            Item.useStyle = 1;
+            Item.width = 16;
+            Item.height = 16;
+            Item.noUseGraphic = true;
+            Item.UseSound = SoundID.Item1;
+            //Item.thrown = true;
+            Item.DamageType = DamageClass.Ranged;
+            Item.channel = true;
+            Item.noMelee = true;
+            Item.consumable = true;
+            Item.maxStack = 999;
+            Item.shoot = ModContent.ProjectileType<BloodNeedleProj>();
+            Item.useAnimation = 25;
+            Item.useTime = 25;
+            Item.shootSpeed = 8.0f;
+            Item.damage = 58;
+            Item.knockBack = 4f;
+			Item.value = Item.sellPrice(0, 0, 1, 50);
+            Item.crit = 4;
+            Item.rare = 4;
+            Item.autoReuse = true;
+            Item.maxStack = 999;
+            Item.consumable = true;
         }
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            Recipe recipe = CreateRecipe();
             recipe.AddIngredient(ItemID.RottenChunk, 2);
             recipe.AddIngredient(ItemID.CursedFlame, 10);
             recipe.AddIngredient(ItemID.SoulofNight, 1);
             recipe.AddTile(TileID.MythrilAnvil);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            recipe.Register();
+            
         }
     }
 }

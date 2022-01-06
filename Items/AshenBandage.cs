@@ -18,15 +18,15 @@ namespace Emperia.Items
 		}
         public override void SetDefaults()
         {
-            item.width = 36;
-            item.height = 36;
-            item.maxStack = 999;
-            item.rare = 2;
-            item.useAnimation = 45;
-            item.useTime = 45;
-            item.useStyle = 4;
-            item.UseSound = SoundID.Item44;
-            item.consumable = true;
+            Item.width = 36;
+            Item.height = 36;
+            Item.maxStack = 999;
+            Item.rare = 2;
+            Item.useAnimation = 45;
+            Item.useTime = 45;
+            Item.useStyle = 4;
+            Item.UseSound = SoundID.Item44;
+            Item.consumable = true;
         }
 
         public override bool CanUseItem(Player player)
@@ -34,7 +34,7 @@ namespace Emperia.Items
             return !player.HasBuff(BuffID.PotionSickness);
         }
 
-        public override bool UseItem(Player player)
+        public override bool? UseItem(Player player)
         {
             player.statLife += 60;
             player.HealEffect(60);
@@ -42,14 +42,14 @@ namespace Emperia.Items
 
             return true;
         }
-        public override void AddRecipes()  //How to craft this sword
+        /*public override void AddRecipes()  //How to craft this sword
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            Recipe recipe = CreateRecipe();
             recipe.AddIngredient(null, "AshenStrips", 15);
             recipe.AddTile(TileID.WorkBenches);
             recipe.SetResult(this, 5);
-            recipe.AddRecipe();
+            
 
-        }
+        }*/
     }
 }

@@ -3,13 +3,9 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
 using Terraria.ID;
-using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
 using System.Collections.Generic;
-using System;
+using Emperia.Projectiles.Yeti;
 
 namespace Emperia.Items.Sets.PreHardmode.Frostleaf
 {
@@ -18,21 +14,21 @@ namespace Emperia.Items.Sets.PreHardmode.Frostleaf
 		public override void SetDefaults()
 		{
 
-			item.damage = 12;
-			item.magic = true;
-			item.width = 22;
-			item.height = 24;
-			item.useTime = 15;
-			item.useAnimation = 15;
-			item.useStyle = 5;
-			item.knockBack = 3;
-            item.value = 24000;
-			item.rare = 1;
-			item.UseSound = SoundID.Item20;
-			item.autoReuse = true;
-			item.shoot = mod.ProjectileType("Needle");
-			item.shootSpeed = 6f;
-			item.mana = 5;
+			Item.damage = 12;
+			Item.DamageType = DamageClass.Magic;
+			Item.width = 22;
+			Item.height = 24;
+			Item.useTime = 15;
+			Item.useAnimation = 15;
+			Item.useStyle = 5;
+			Item.knockBack = 3;
+            Item.value = 24000;
+			Item.rare = 1;
+			Item.UseSound = SoundID.Item20;
+			Item.autoReuse = true;
+			Item.shoot = ModContent.ProjectileType<Needle>();
+			Item.shootSpeed = 6f;
+			Item.mana = 5;
 		}
 
     public override void SetStaticDefaults()
@@ -42,12 +38,12 @@ namespace Emperia.Items.Sets.PreHardmode.Frostleaf
     }
     	public override void AddRecipes()
     	{
-    		ModRecipe recipe = new ModRecipe(mod);      
+    		Recipe recipe = CreateRecipe();      
     	    recipe.AddIngredient(null, "Frostleaf", 7); 
             recipe.AddIngredient(ItemID.BorealWood, 15); 			
     	    recipe.AddTile(TileID.Anvils);
-            recipe.SetResult(this);
-	        recipe.AddRecipe();
+            recipe.Register();
+	        
     	}
 	}
 }

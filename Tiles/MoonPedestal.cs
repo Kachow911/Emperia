@@ -3,35 +3,20 @@ using Terraria.DataStructures;
 using Terraria.Enums;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
-using Emperia;
-using System;
-using Terraria;
-using Terraria.Graphics.Effects;
-using Terraria.Graphics.Shaders;
-using Terraria.ID;
-using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
-using System.Collections.Generic;
-using System.Linq;
-using System.IO;
 using Microsoft.Xna.Framework.Graphics;
-using Terraria.UI;
-using Terraria.DataStructures;
-using Terraria.GameContent.UI;
-using static Terraria.ModLoader.ModContent;
-using Terraria.Utilities;
 
 namespace Emperia.Tiles
 {
 	public class MoonPedestal : ModTile
 	{
-		public override void SetDefaults()
+		public override void SetStaticDefaults()
 		{
 			Main.tileFrameImportant[Type] = true;
 			Main.tileNoAttach[Type] = true;
 			Main.tileLavaDeath[Type] = true;
 			Main.tileLighted[Type] = true;
-			drop = mod.ItemType("MoonPedestalItem");
+			ItemDrop = ModContent.ItemType<Items.MoonPedestalItem>();
 
 			TileObjectData.newTile.CopyFrom(TileObjectData.Style1x2);
 			TileObjectData.newTile.Origin = new Point16(0, 1);

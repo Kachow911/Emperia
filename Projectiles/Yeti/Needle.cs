@@ -19,27 +19,27 @@ namespace Emperia.Projectiles.Yeti
 		}
         public override void SetDefaults()
         {
-            projectile.width = 8;
-            projectile.height = 8;
-            projectile.friendly = true;
-            projectile.magic = true;
-            projectile.tileCollide = true;
-            projectile.penetrate = 1;
-            projectile.timeLeft = 270;
-            projectile.extraUpdates = 1;
-            projectile.ignoreWater = true;
-			projectile.alpha = 0;
-            Main.projFrames[projectile.type] = 3;
+            Projectile.width = 8;
+            Projectile.height = 8;
+            Projectile.friendly = true;
+            Projectile.DamageType = DamageClass.Magic;
+            Projectile.tileCollide = true;
+            Projectile.penetrate = 1;
+            Projectile.timeLeft = 270;
+            Projectile.extraUpdates = 1;
+            Projectile.ignoreWater = true;
+			Projectile.alpha = 0;
+            Main.projFrames[Projectile.type] = 3;
         }
         public override void AI()
         {             
-			projectile.rotation = (float)Math.Atan2((double)projectile.velocity.Y, (double)projectile.velocity.X) + 1.57f;
-			projectile.velocity += Vector2.Normalize((Main.MouseWorld - projectile.Center) * speed);
-            projectile.velocity.X = MathHelper.Clamp(projectile.velocity.X, -speedMax, speedMax);
-            projectile.velocity.Y = MathHelper.Clamp(projectile.velocity.Y, -speedMax, speedMax);
+			Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + 1.57f;
+			Projectile.velocity += Vector2.Normalize((Main.MouseWorld - Projectile.Center) * speed);
+            Projectile.velocity.X = MathHelper.Clamp(Projectile.velocity.X, -speedMax, speedMax);
+            Projectile.velocity.Y = MathHelper.Clamp(Projectile.velocity.Y, -speedMax, speedMax);
             if (!init)
             {
-                projectile.frame = Main.rand.Next(0, 2);
+                Projectile.frame = Main.rand.Next(0, 2);
                 init = true;
             }
         }
@@ -47,7 +47,7 @@ namespace Emperia.Projectiles.Yeti
         {
             for (int i = 0; i < 4; ++i)
             {
-              int index2 = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), 8, 8, 93, 0f, 0f, 0, Color.LightBlue, 1f);
+              int index2 = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), 8, 8, 93, 0f, 0f, 0, Color.LightBlue, 1f);
               Main.dust[index2].noGravity = true;
             }
         }

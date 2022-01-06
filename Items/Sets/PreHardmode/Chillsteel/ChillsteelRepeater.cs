@@ -4,6 +4,7 @@ using Terraria.ID;
 using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using Terraria.ModLoader;
+using Terraria.DataStructures;
 
 namespace Emperia.Items.Sets.PreHardmode.Chillsteel
 {
@@ -16,27 +17,27 @@ namespace Emperia.Items.Sets.PreHardmode.Chillsteel
 		}
         public override void SetDefaults()
         {
-            item.damage = 18;
-            item.noMelee = true;
-            item.ranged = true;
-            item.width = 42;
-            item.height = 24;
-            item.useTime = 29;
-            item.useAnimation = 29;
-            item.useStyle = 5;
-            item.shoot = 10;
-            item.useAmmo = AmmoID.Bullet;
-            item.knockBack = 1;
-            item.value = 22500;
-            item.rare = 2;
-            item.autoReuse = true;
-            item.shootSpeed = 12f;
-			item.UseSound = SoundID.Item5; 
+            Item.damage = 18;
+            Item.noMelee = true;
+            Item.DamageType = DamageClass.Ranged;
+            Item.width = 42;
+            Item.height = 24;
+            Item.useTime = 29;
+            Item.useAnimation = 29;
+            Item.useStyle = 5;
+            Item.shoot = 10;
+            Item.useAmmo = AmmoID.Bullet;
+            Item.knockBack = 1;
+            Item.value = 22500;
+            Item.rare = 2;
+            Item.autoReuse = true;
+            Item.shootSpeed = 12f;
+			Item.UseSound = SoundID.Item5; 
         }
 		
-		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+		public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockBack)
 		{
-			int p = Projectile.NewProjectile(position.X, position.Y, speedX, speedY, type, damage, knockBack, player.whoAmI);
+			int p = Projectile.NewProjectile(source, position.X, position.Y, velocity.X, velocity.Y, type, damage, knockBack, player.whoAmI);
 			Main.projectile[p].GetGlobalProjectile<MyProjectile>().chillEffect = true;
 			return false;
 		}

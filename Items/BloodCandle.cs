@@ -14,18 +14,18 @@ namespace Emperia.Items
 		}
 
 		public override void SetDefaults() {
-			item.width = 10;
-			item.height = 10;
-			item.maxStack = 99;
-			item.useTurn = true;
-			item.autoReuse = true;
-			item.useAnimation = 15;
-			item.useTime = 15;
-			item.useStyle = 1;
-			item.consumable = true;
-			item.createTile = TileType<Tiles.BloodCandle>();
-			item.flame = true;
-			item.value = 120000;
+			Item.width = 10;
+			Item.height = 10;
+			Item.maxStack = 99;
+			Item.useTurn = true;
+			Item.autoReuse = true;
+			Item.useAnimation = 15;
+			Item.useTime = 15;
+			Item.useStyle = 1;
+			Item.consumable = true;
+			Item.createTile = TileType<Tiles.BloodCandle>();
+			Item.flame = true;
+			Item.value = 120000;
 		}
 	}
 }

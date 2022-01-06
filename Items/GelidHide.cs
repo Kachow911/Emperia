@@ -6,6 +6,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Emperia.Npcs.Yeti;
+using static Terraria.ModLoader.ModContent;
 
 namespace Emperia.Items
 {
@@ -18,15 +19,15 @@ namespace Emperia.Items
 		}
         public override void SetDefaults()
         {
-            item.width = 36;
-            item.height = 36;
-            item.maxStack = 999;
-            item.rare = 3;
-            item.useAnimation = 45;
-            item.useTime = 45;
-            item.useStyle = 4;
-            item.UseSound = SoundID.Item44;
-            item.consumable = true;
+            Item.width = 36;
+            Item.height = 36;
+            Item.maxStack = 999;
+            Item.rare = 3;
+            Item.useAnimation = 45;
+            Item.useTime = 45;
+            Item.useStyle = 4;
+            Item.UseSound = SoundID.Item44;
+            Item.consumable = true;
         }
 
         public override bool CanUseItem(Player player)
@@ -35,7 +36,7 @@ namespace Emperia.Items
             return player.ZoneSnow;
         }
 
-        public override bool UseItem(Player player)
+        public override bool? UseItem(Player player)
         {
 			Main.NewText("The slumber of the Arctic Guardian has been disturbed...");
             int dist = 0;
@@ -44,8 +45,8 @@ namespace Emperia.Items
             else
                 dist = 1200;
         
-			NPC.NewNPC((int)player.Center.X + dist, (int)player.Center.Y - 400, mod.NPCType("Yeti"));
-            Main.PlaySound(SoundID.Roar, player.position, 0);
+			NPC.NewNPC((int)player.Center.X + dist, (int)player.Center.Y - 400, NPCType<Yeti>());
+            Terraria.Audio.SoundEngine.PlaySound(SoundID.Roar, player.position, 0);
 			MyPlayer modPlayer1 = Main.player[Main.myPlayer].GetModPlayer<MyPlayer>();
 
             return true;

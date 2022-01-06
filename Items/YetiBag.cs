@@ -3,6 +3,8 @@ using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Emperia.Items.Weapons.Yeti;
+using Emperia.Items.Accessories;
 
 namespace Emperia.Items
 {
@@ -17,13 +19,13 @@ namespace Emperia.Items
 
 		public override void SetDefaults()
 		{
-			item.width = 20;
-			item.height = 20;
-			item.rare = -2;
+			Item.width = 20;
+			Item.height = 20;
+			Item.rare = -2;
 
-			item.maxStack = 30;
+			Item.maxStack = 30;
 
-			item.expert = true;
+			Item.expert = true;
 		}
 
 		public override bool CanRightClick()
@@ -35,30 +37,30 @@ namespace Emperia.Items
 		{
 			if (Main.rand.Next(2) == 0)
 			{
-				player.QuickSpawnItem(mod.ItemType("YetiMask"));
+				player.QuickSpawnItem(ModContent.ItemType<Items.Armor.YetiMask>());
 			}
 			if (Main.rand.Next(2) == 0)
 			{
-				player.QuickSpawnItem(mod.ItemType("ArcticIncantation"));
+				player.QuickSpawnItem(ModContent.ItemType<ArcticIncantation>());
 			}
 			if (Main.rand.Next(2) == 0)
 			{
-				player.QuickSpawnItem(mod.ItemType("HuntersSpear"));
+				player.QuickSpawnItem(ModContent.ItemType<HuntersSpear>());
 			}
 			if (Main.rand.Next(2) != 0)
 			{
-				player.QuickSpawnItem(mod.ItemType("IcicleCannon"));
+				player.QuickSpawnItem(ModContent.ItemType<IcicleCannon>());
 			}
 			if (Main.rand.Next(2) != 0)
 			{
-				player.QuickSpawnItem(mod.ItemType("MammothineClub"));
+				player.QuickSpawnItem(ModContent.ItemType<MammothineClub>());
 			}
 			if (Main.rand.Next(5) == 0)
 			{
-				player.QuickSpawnItem(mod.ItemType("ChilledFootprint"));
+				player.QuickSpawnItem(ModContent.ItemType<ChilledFootprint>());
 			}
-			player.QuickSpawnItem(mod.ItemType("AncientPelt"));
-			player.QuickSpawnItem(mod.ItemType("Frostleaf"), Main.rand.Next(25, 35));
+			player.QuickSpawnItem(ModContent.ItemType<AncientPelt>());
+			player.QuickSpawnItem(ModContent.ItemType<Items.Sets.PreHardmode.Frostleaf.Frostleaf>(), Main.rand.Next(25, 35));
 		}
 	}
 }

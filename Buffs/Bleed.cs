@@ -5,20 +5,20 @@ namespace Emperia.Buffs
 {
     public class Bleed : ModBuff
 	{
-		public override void SetDefaults()
+		public override void SetStaticDefaults()
 		{
             DisplayName.SetDefault("Bleeding");
             Main.buffNoTimeDisplay[Type] = false;
 		}
 
-		public override void Update(NPC npc, ref int buffIndex)
+		public override void Update(NPC NPC, ref int buffIndex)
 		{
-			npc.lifeRegen -= 5;
-			npc.defense -= 5;
+			NPC.lifeRegen -= 5;
+			NPC.defense -= 5;
 
 			if (Main.rand.NextBool(3))
 			{
-				int dust = Dust.NewDust(npc.position, npc.width, npc.height, 5);
+				int dust = Dust.NewDust(NPC.position, NPC.width, NPC.height, 5);
 				Main.dust[dust].scale = 1.5f;
 				Main.dust[dust].noGravity = true;
 			}

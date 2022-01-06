@@ -7,17 +7,16 @@ namespace Emperia.Tiles
 {
 	public class AphoticStone : ModTile
 	{
-		public override void SetDefaults()
+		public override void SetStaticDefaults()
 		{
-			Main.tileValue[Type] = 805;
 			Main.tileSolid[Type] = true;
 			Main.tileMergeDirt[Type] = true;
 			Main.tileBlockLight[Type] = false;
-			drop = mod.ItemType("AbyssalStone");
+			//ItemDrop = ModContent.ItemType<Tiles.AbyssalStone>();
 			AddMapEntry(new Color(73, 64, 64));
-			mineResist = 5f;
-			minPick = 209;
-			soundType = 21;
+			MineResist = 5f;
+			MinPick = 209;
+			SoundType = 21;
 			Main.tileSpelunker[Type] = false;
 		}
 		

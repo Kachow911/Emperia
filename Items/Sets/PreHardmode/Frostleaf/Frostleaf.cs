@@ -12,11 +12,11 @@ namespace Emperia.Items.Sets.PreHardmode.Frostleaf
 		}
 		public override void SetDefaults()
 		{
-			item.width = 18;
-			item.height = 18;
-			item.maxStack = 999;
-			item.value = 5750;
-			item.rare = 1;
+			Item.width = 18;
+			Item.height = 18;
+			Item.maxStack = 999;
+			Item.value = 5750;
+			Item.rare = 1;
 		}
 	}
 }

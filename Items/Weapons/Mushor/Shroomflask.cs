@@ -5,6 +5,7 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Emperia.Projectiles.Mushroom;
 
 namespace Emperia.Items.Weapons.Mushor 
 {
@@ -17,23 +18,23 @@ public class Shroomflask : ModItem
 		}
 	public override void SetDefaults()
 	{
-		item.width = 28;  
-		item.damage = 24;  
-		item.mana = 20;//Keep this reasonable please.
-		item.magic = true;  
-		item.noMelee = true;
-		item.noUseGraphic = true;
-		item.useAnimation = 45;
-		item.useStyle = 1;
-		item.useTime = 45;
-		item.knockBack = 0f;  //Ranges from 1 to 9.
-		item.UseSound = SoundID.Item106;
-		item.autoReuse = false;  //Dictates whether the weapon can be "auto-fired".
-		item.height = 30;  //The height of the .png file in pixels divided by 2.
-		item.maxStack = 1;
-		item.value = 60000;  //Value is calculated in copper coins.
-		item.rare = 3;  //Ranges from 1 to 11.
-		item.shoot = mod.ProjectileType("ShroomFlask");
-		item.shootSpeed = 9f;
+		Item.width = 28;  
+		Item.damage = 24;  
+		Item.mana = 20;//Keep this reasonable please.
+		Item.DamageType = DamageClass.Magic;  
+		Item.noMelee = true;
+		Item.noUseGraphic = true;
+		Item.useAnimation = 45;
+		Item.useStyle = 1;
+		Item.useTime = 45;
+		Item.knockBack = 0f;  //Ranges from 1 to 9.
+		Item.UseSound = SoundID.Item106;
+		Item.autoReuse = false;  //Dictates whether the weapon can be "auto-fired".
+		Item.height = 30;  //The height of the .png file in pixels divided by 2.
+		Item.maxStack = 1;
+		Item.value = 60000;  //Value is calculated in copper coins.
+		Item.rare = 3;  //Ranges from 1 to 11.
+		Item.shoot = ModContent.ProjectileType<ShroomFlask>();
+		Item.shootSpeed = 9f;
 	}
 }}

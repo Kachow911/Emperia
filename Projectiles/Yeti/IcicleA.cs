@@ -17,26 +17,26 @@ namespace Emperia.Projectiles.Yeti
 			DisplayName.SetDefault("Icicle");
 		}
         public override void SetDefaults()
-        {  //projectile name
-            projectile.width = 20;       //projectile width
-            projectile.height = 28;  //projectile height
-            projectile.friendly = false;      //make that the projectile will not damage you
-			projectile.hostile = true;
-            projectile.magic = true;         // 
-            projectile.tileCollide = false;   //make that the projectile will be destroed if it hits the terrain
-            projectile.penetrate = -1;      //how many projectile will penetrate
-            projectile.timeLeft = 160;   //how many time projectile projectile has before disepire
-            projectile.light = 0f;    // projectile light
-            projectile.extraUpdates = 1;
-            projectile.ignoreWater = true;
-			projectile.alpha = 0;
+        {  //Projectile name
+            Projectile.width = 20;       //Projectile width
+            Projectile.height = 28;  //Projectile height
+            Projectile.friendly = false;      //make that the Projectile will not damage you
+			Projectile.hostile = true;
+            Projectile.DamageType = DamageClass.Magic;         // 
+            Projectile.tileCollide = false;   //make that the Projectile will be destroed if it hits the terrain
+            Projectile.penetrate = -1;      //how many Projectile will penetrate
+            Projectile.timeLeft = 160;   //how many time Projectile Projectile has before disepire
+            Projectile.light = 0f;    // Projectile light
+            Projectile.extraUpdates = 1;
+            Projectile.ignoreWater = true;
+			Projectile.alpha = 0;
         }
-        public override void AI()           //projectile make that the projectile will face the corect way
+        public override void AI()           //Projectile make that the Projectile will face the corect way
         {    
-			if (projectile.timeLeft > 120)
+			if (Projectile.timeLeft > 120)
 			{
 				
-				projectile.velocity.Y = 0;
+				Projectile.velocity.Y = 0;
 			}
         }
     }

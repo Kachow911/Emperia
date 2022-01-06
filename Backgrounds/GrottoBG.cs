@@ -4,12 +4,12 @@ using Terraria.ID;
 
 namespace Emperia.Backgrounds
 {
-	public class GrottoBG : ModSurfaceBgStyle
+	public class GrottoBG : ModSurfaceBackgroundStyle
 	{
-        public override bool ChooseBgStyle()
-        {
-            return !Main.gameMenu && (Main.player[Main.myPlayer].GetModPlayer<MyPlayer>().ZoneGrotto);
-        }
+        //public override bool ChooseBgStyle()
+        //{
+        //    return !Main.gameMenu && (Main.player[Main.myPlayer].GetModPlayer<MyPlayer>().ZoneGrotto);
+        //}
 
         public override void ModifyFarFades(float[] fades, float transitionSpeed)
 		{
@@ -37,7 +37,11 @@ namespace Emperia.Backgrounds
 		{
             b -= 750;
             scale = 1.1f;
-            return mod.GetBackgroundSlot("Backgrounds/GrottoBackground");
+            return BackgroundTextureLoader.GetBackgroundSlot("Backgrounds/GrottoBackground");
 		}
 	}
+	//public class GrottoBGStyle : ModSceneEffect
+	//{ 
+	//	ModSurfaceBackgroundStyle GrottoBG {get{ return Main.player[Main.myPlayer].GetModPlayer<MyPlayer>().ZoneGrotto; } }
+	//}
 }

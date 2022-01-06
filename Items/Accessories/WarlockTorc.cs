@@ -6,6 +6,8 @@ using Terraria;
 using Terraria.ID;
 using Emperia;
 using Terraria.ModLoader;
+using Emperia.Buffs;
+using static Terraria.Audio.SoundEngine;
 
 namespace Emperia.Items.Accessories
 {
@@ -18,18 +20,18 @@ namespace Emperia.Items.Accessories
 		}
         public override void SetDefaults()
         {
-            item.width = 20;
-            item.height = 20;
-            item.rare = 1;
-            item.value = 36000;
-            item.accessory = true;
+            Item.width = 20;
+            Item.height = 20;
+            Item.rare = 1;
+            Item.value = 36000;
+            Item.accessory = true;
         }
-        public override void UpdateAccessory(Player player, bool hideVisual)
+        public override void UpdateAccessory(Player player, bool hideVisibleAccessory)
         {
 			MyPlayer modPlayer = player.GetModPlayer<MyPlayer>();
-			player.magicDamage += 0.15f;
+			player.GetDamage(DamageClass.Magic) += 0.15f;
 			modPlayer.warlockTorc = true;
-			if (modPlayer.manaOverdoseTime > 0) player.AddBuff(mod.BuffType("ManaOverdose"), modPlayer.manaOverdoseTime);
+			if (modPlayer.manaOverdoseTime > 0) player.AddBuff(ModContent.BuffType<ManaOverdose>(), modPlayer.manaOverdoseTime);
 
 			if (player.HasBuff(BuffID.ManaRegeneration))
 			{
@@ -37,7 +39,7 @@ namespace Emperia.Items.Accessories
 				{
 					player.DelBuff(player.FindBuffIndex(BuffID.ManaRegeneration));
 					player.AddBuff(BuffID.ManaRegeneration, 900);
-					Main.PlaySound(SoundID.NPCDeath13, player.Center);
+					PlaySound(SoundID.NPCDeath13, player.Center);
 					for (int i = 0; i < 8; ++i)
                     {
                         int index2 = Dust.NewDust(new Vector2(player.Center.X, player.Center.Y - 8), 4, 4, 4, 2.5f * player.direction, -0.5f, 200, new Color(255, 130, 200), 1.2f);
@@ -47,13 +49,13 @@ namespace Emperia.Items.Accessories
 		}
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(mod);
+			Recipe recipe = CreateRecipe();
 			recipe.AddIngredient(ItemID.ManaCrystal, 1);
 			recipe.AddIngredient(ItemID.FallenStar, 2);
 			recipe.AddRecipeGroup("Emperia:AnySilverBar", 6);
 			recipe.AddTile(TileID.Anvils);
-			recipe.SetResult(this);
-			recipe.AddRecipe();
+			recipe.Register();
+			
 		}
     }
 }

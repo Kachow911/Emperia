@@ -14,12 +14,11 @@ namespace Emperia.Buffs
 {
     public class SkullBuff : ModBuff
     {
-        public override void SetDefaults()
+        public override void SetStaticDefaults()
         {
 			DisplayName.SetDefault("Unveiled Death");
 			Description.SetDefault("Next contact damage taken will be halved");
             Main.buffNoSave[Type] = true;
-            canBeCleared = true;
         }
     }
 }

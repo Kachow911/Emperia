@@ -17,41 +17,41 @@ namespace Emperia.Projectiles
 			DisplayName.SetDefault("Stray Block");
 		}
         public override void SetDefaults()
-        {  //projectile name
-            projectile.width = 20;       //projectile width
-            projectile.height = 28;  //projectile height
-            projectile.friendly = false;      //make that the projectile will not damage you
-			projectile.hostile = true;
-            projectile.magic = true;         // 
-            projectile.tileCollide = true;   //make that the projectile will be destroed if it hits the terrain
-            projectile.penetrate = -1;      //how many projectile will penetrate
-            projectile.timeLeft = 240;   //how many time projectile projectile has before disepire
-            projectile.light = 0f;    // projectile light
-            projectile.extraUpdates = 1;
-            projectile.ignoreWater = true;
-			projectile.alpha = 0;
+        {  //Projectile name
+            Projectile.width = 20;       //Projectile width
+            Projectile.height = 28;  //Projectile height
+            Projectile.friendly = false;      //make that the Projectile will not damage you
+			Projectile.hostile = true;
+            Projectile.DamageType = DamageClass.Magic;         // 
+            Projectile.tileCollide = true;   //make that the Projectile will be destroed if it hits the terrain
+            Projectile.penetrate = -1;      //how many Projectile will penetrate
+            Projectile.timeLeft = 240;   //how many time Projectile Projectile has before disepire
+            Projectile.light = 0f;    // Projectile light
+            Projectile.extraUpdates = 1;
+            Projectile.ignoreWater = true;
+			Projectile.alpha = 0;
         }
-        public override void AI()           //projectile make that the projectile will face the corect way
+        public override void AI()           //Projectile make that the Projectile will face the corect way
         {             
-			projectile.rotation = (float)Math.Atan2((double)projectile.velocity.Y, (double)projectile.velocity.X) + 1.57f;
+			Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + 1.57f;
 			for (int i = 0; i < 2; i++)
 			{
-				int dust = Dust.NewDust(new Vector2(projectile.position.X, (float) ((double) projectile.position.Y + (double) projectile.height - 16.0)), projectile.width, 16, 85, 0.0f, 0.0f, 0, new Color(), 1f);
+				int dust = Dust.NewDust(new Vector2(Projectile.position.X, (float) ((double) Projectile.position.Y + (double) Projectile.height - 16.0)), Projectile.width, 16, 85, 0.0f, 0.0f, 0, new Color(), 1f);
 				Main.dust[dust].velocity *= 0.1f;
-				if (projectile.velocity == Vector2.Zero)
+				if (Projectile.velocity == Vector2.Zero)
 				{
 					Main.dust[dust].velocity.Y -= 1f;
 					Main.dust[dust].scale = 1.2f;
 				}
 				else
 				{
-					Main.dust[dust].velocity += projectile.velocity * 0.2f;
+					Main.dust[dust].velocity += Projectile.velocity * 0.2f;
 				}
-				Main.dust[dust].position.X = projectile.Center.X + 4f + (float)Main.rand.Next(-2, 3);
-				Main.dust[dust].position.Y = projectile.Center.Y + (float)Main.rand.Next(-2, 3);
+				Main.dust[dust].position.X = Projectile.Center.X + 4f + (float)Main.rand.Next(-2, 3);
+				Main.dust[dust].position.Y = Projectile.Center.Y + (float)Main.rand.Next(-2, 3);
 				Main.dust[dust].noGravity = true;
             }
-			projectile.velocity.Y += 0.15f;
+			Projectile.velocity.Y += 0.15f;
         }
     }
 }

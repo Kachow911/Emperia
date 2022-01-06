@@ -7,12 +7,11 @@ namespace Emperia.Buffs
 {
     public class Goliath : ModBuff
     {
-        public override void SetDefaults()
+        public override void SetStaticDefaults()
         {
 			DisplayName.SetDefault("Goliath");
 			Description.SetDefault("20% increased sword size");
             Main.buffNoSave[Type] = true;
-            canBeCleared = true;
         }
     }
 }

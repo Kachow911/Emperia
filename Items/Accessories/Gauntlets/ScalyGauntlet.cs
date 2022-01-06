@@ -18,22 +18,22 @@ namespace Emperia.Items.Accessories.Gauntlets
 		}
         public override void SetDefaults()
         {
-            item.width = 30;
-            item.height = 28;
-            item.rare = 6;
-            item.value = Item.sellPrice(0, 5, 0, 0);
-            item.accessory = true;
-			item.GetGlobalItem<GItem>().isGauntlet = true;
+            Item.width = 30;
+            Item.height = 28;
+            Item.rare = 6;
+            Item.value = Item.sellPrice(0, 5, 0, 0);
+            Item.accessory = true;
+			Item.GetGlobalItem<GItem>().isGauntlet = true;
         }
-        public override void UpdateAccessory(Player player, bool hideVisual)
+        public override void UpdateAccessory(Player player, bool hideVisibleAccessory)
         {
 			if (!player.ZoneBeach)
 			{
-				player.thrownDamage += 0.10f;
-				player.meleeDamage += 0.10f;
-				player.minionDamage += 0.10f;
-				player.magicDamage += 0.10f;
-				player.rangedDamage += 0.10f;
+				//player.thrownDamage += 0.10f;
+				player.GetDamage(DamageClass.Melee) += 0.10f;
+				player.GetDamage(DamageClass.Summon) += 0.10f;
+				player.GetDamage(DamageClass.Magic) += 0.10f;
+				player.GetDamage(DamageClass.Ranged) += 0.10f;
 				player.moveSpeed += 0.25f;
 				player.wingTimeMax = (int) (player.wingTimeMax * 1.1f);
 			}

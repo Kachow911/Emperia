@@ -8,7 +8,7 @@ namespace Emperia.Tiles
 {
 	public class TwilightWorkbench : ModTile
 	{
-		public override void SetDefaults()
+		public override void SetStaticDefaults()
 		{
 			Main.tileSolidTop[Type] = true;
 			Main.tileFrameImportant[Type] = true;
@@ -21,7 +21,7 @@ namespace Emperia.Tiles
 			TileObjectData.newTile.CopyFrom(TileObjectData.Style2x1);
 			TileObjectData.addTile(Type);
 
-			adjTiles = new int[] { TileID.WorkBenches };
+			AdjTiles = new int[] { TileID.WorkBenches };
 		}
 	}
 }

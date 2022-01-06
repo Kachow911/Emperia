@@ -16,62 +16,62 @@ namespace Emperia.Npcs.Desert
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Dune King");
-			Main.npcFrameCount[npc.type] = 6;
+			Main.npcFrameCount[NPC.type] = 6;
 		}
 
 		public override void SetDefaults()
 		{
-			npc.width = 80;
-			npc.height = 100;
-			npc.damage = 20;
-			npc.lifeMax = 850;
-			npc.knockBackResist = 0;
+			NPC.width = 80;
+			NPC.height = 100;
+			NPC.damage = 20;
+			NPC.lifeMax = 850;
+			NPC.knockBackResist = 0;
 
-			npc.boss = true;
-			npc.noGravity = true;
-			npc.noTileCollide = true;
+			NPC.boss = true;
+			NPC.noGravity = true;
+			NPC.noTileCollide = true;
 
-			//npc.HitSound = SoundID.NPCHit7;
-			//npc.DeathSound = SoundID.NPCDeath5;
+			//NPC.HitSound = SoundID.NPCHit7;
+			//NPC.DeathSound = SoundID.NPCDeath5;
 		}
 
 		private int Counter;
 		public override void FindFrame(int frameHeight)
 		{
-			npc.frameCounter += 0.2f;
-			npc.frameCounter %= 6;
-			int frame = (int)npc.frameCounter;
-			npc.frame.Y = frame * frameHeight;
+			NPC.frameCounter += 0.2f;
+			NPC.frameCounter %= 6;
+			int frame = (int)NPC.frameCounter;
+			NPC.frame.Y = frame * frameHeight;
 		}
 		public override void AI()
 		{
 			{
-				npc.spriteDirection = npc.direction;
-				Player player = Main.player[npc.target];
-				if (npc.Center.X > player.Center.X && moveSpeed >= -40) 
+				NPC.spriteDirection = NPC.direction;
+				Player player = Main.player[NPC.target];
+				if (NPC.Center.X > player.Center.X && moveSpeed >= -40) 
 				{
 					moveSpeed--;
 				}
 
-				if (npc.Center.X <= player.Center.X && moveSpeed <=40)
+				if (NPC.Center.X <= player.Center.X && moveSpeed <=40)
 				{
 					moveSpeed++;
 				}
 
-				npc.velocity.X = moveSpeed * 0.1f;
+				NPC.velocity.X = moveSpeed * 0.1f;
 
-				if (npc.Center.Y > player.Center.Y - yDist && moveSpeedY >= -30) 
+				if (NPC.Center.Y > player.Center.Y - yDist && moveSpeedY >= -30) 
 				{
 					moveSpeedY--;
 					yDist = 150f;
 				}
 
-				if (npc.Center.Y <= player.Center.Y - yDist && moveSpeedY <= 30)
+				if (NPC.Center.Y <= player.Center.Y - yDist && moveSpeedY <= 30)
 				{
 					moveSpeedY++;
 				}
-				npc.spriteDirection = -npc.direction;
-				npc.velocity.Y = moveSpeedY * 0.1f;
+				NPC.spriteDirection = -NPC.direction;
+				NPC.velocity.Y = moveSpeedY * 0.1f;
 				/*if (Main.rand.Next(220) == 6)
 				{
 					HomeY = -35f;
@@ -81,7 +81,7 @@ namespace Emperia.Npcs.Desert
 			
 		}
 
-		public override void NPCLoot()
+		public override void ModifyNPCLoot(NPCLoot npcLoot)
 		{
 			
 		}

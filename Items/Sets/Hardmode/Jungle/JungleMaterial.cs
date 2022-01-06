@@ -11,11 +11,11 @@ namespace Emperia.Items.Sets.Hardmode.Jungle
 		}
 		public override void SetDefaults()
 		{
-			item.width = 20;
-			item.height = 20;
-			item.maxStack = 999;
-			item.value = 100;
-			item.rare = 1;
+			Item.width = 20;
+			Item.height = 20;
+			Item.maxStack = 999;
+			Item.value = 100;
+			Item.rare = 1;
 		}
 	}
 }

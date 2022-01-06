@@ -14,14 +14,11 @@ namespace Emperia.Buffs
 {
     public class GoblinsCelerity : ModBuff
     {
-        public override void SetDefaults()
+        public override void SetStaticDefaults()
         {
 			DisplayName.SetDefault("Goblin's Celerity");
 			Description.SetDefault("10% increased movement and melee speed");
             Main.buffNoSave[Type] = true;
-            //Main.buffNoTimeDisplay[Type] = true;
-
-            canBeCleared = true;
         }
 
         public override void Update(Player player, ref int buffIndex)

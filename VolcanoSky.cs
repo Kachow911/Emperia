@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
+using Terraria.GameContent;
 using Terraria.Graphics.Effects;
 using Terraria.ModLoader;
 
@@ -35,16 +36,19 @@ namespace Emperia
 			return new Color(Vector4.Lerp(new Vector4(0.5f, 0.8f, 1f, 1f), inColor.ToVector4(), 1f - intensity));
 		}
 
-		public override void Draw(SpriteBatch spriteBatch, float minDepth, float maxDepth)
-		{
-			if (maxDepth >= 0 && minDepth < 0)
-			{
-				float intensity = this.GetIntensity();
-				spriteBatch.Draw(Main.blackTileTexture, new Rectangle(0, 0, Main.screenWidth, Main.screenHeight), Color.Orange * 0.1f);
+        public override void Draw(SpriteBatch spriteBatch, float minDepth, float maxDepth)
+        {
+            if (maxDepth >= 0 && minDepth < 0)
+            {
+                float intensity = this.GetIntensity();
+				//Main.EntitySpriteDraw(Main.blackTileTexture, new Rectangle(0, 0, Main.screenWidth, Main.screenHeight), Color.Orange * 0.1f);
+				//this might not be the same thing lol also this code might suck completely shooting in the dark here
+				Main.EntitySpriteDraw(Main.Assets.Request<Texture2D>("Terraria/Images/Black_Tile").Value, new Vector2(Main.screenWidth, Main.screenHeight), null, Color.Orange * 0.1f, 0, Main.screenPosition, 1f, SpriteEffects.None, 0);
+				
 			}
-		}
+        }
 
-		public override float GetCloudAlpha()
+        public override float GetCloudAlpha()
 		{
 			return 0f;
 		}
@@ -68,5 +72,5 @@ namespace Emperia
 		{
 			return isActive || intensity > 0f;
 		}
-	}
+    }
 }

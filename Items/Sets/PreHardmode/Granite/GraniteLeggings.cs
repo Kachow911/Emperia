@@ -19,11 +19,11 @@ public class GraniteLeggings : ModItem
 		}
     public override void SetDefaults()
     {
-        item.width = 18;
-        item.height = 18;
-        item.value = 175000;
-        item.rare = 2;
-        item.defense = 7;
+        Item.width = 18;
+        Item.height = 18;
+        Item.value = 175000;
+        Item.rare = 2;
+        Item.defense = 7;
     }
 
     public override void UpdateEquip(Player player)
@@ -33,11 +33,11 @@ public class GraniteLeggings : ModItem
 
     public override void AddRecipes()
     {
-        ModRecipe recipe = new ModRecipe(mod);
+        Recipe recipe = CreateRecipe();
         recipe.AddIngredient(null, "GraniteBar", 10);
         recipe.AddRecipeGroup("Emperia:EvilHide", 7);
         recipe.AddTile(TileID.Anvils);
-        recipe.SetResult(this);
-        recipe.AddRecipe();
+        recipe.Register();
+        
     }
 }}

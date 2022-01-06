@@ -16,16 +16,15 @@ namespace Emperia.Projectiles
 		int timer = 0;
 		public override void SetDefaults()
 		{
-			projectile.width = 16;
-			projectile.height = 16;
-			projectile.aiStyle = 3;
-			projectile.friendly = true;
-			projectile.melee = true;
-			projectile.magic = false;
-			projectile.penetrate = -1;
-			projectile.timeLeft = 700;
-			projectile.extraUpdates = 0;
-			projectile.tileCollide = true;
+			Projectile.width = 16;
+			Projectile.height = 16;
+			Projectile.aiStyle = 3;
+			Projectile.friendly = true;
+			Projectile.DamageType = DamageClass.Melee;
+			Projectile.penetrate = -1;
+			Projectile.timeLeft = 700;
+			Projectile.extraUpdates = 0;
+			Projectile.tileCollide = true;
 		}
 
 		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
@@ -33,14 +32,14 @@ namespace Emperia.Projectiles
 			timer++;
 			if (timer > 20)
             {
-				projectile.width = 46;
-				projectile.height = 66;
+				Projectile.width = 46;
+				Projectile.height = 66;
 			}
 		}
 
 		public override void AI()
 		{
-			projectile.scale = 0.9f;
+			Projectile.scale = 0.9f;
 		}
 
 	}

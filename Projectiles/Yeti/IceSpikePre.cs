@@ -11,40 +11,40 @@ namespace Emperia.Projectiles.Yeti
     public class IceSpikePre : ModProjectile
     {
         int timer = 0;
-        private Point tileCoordPos { get { return new Point((int)(projectile.position.X / 16), (int)(projectile.position.Y / 16)); } }
+        private Point tileCoordPos { get { return new Point((int)(Projectile.position.X / 16), (int)(Projectile.position.Y / 16)); } }
         public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Ball");
 		}
         public override void SetDefaults()
         {
-            projectile.width = 12;
-            projectile.height = 12;
-            projectile.friendly = true;
-            projectile.melee = true;
-            projectile.tileCollide = false;
-            projectile.penetrate = -1;
-            projectile.timeLeft = 90;
-            projectile.light = 0.75f;
-            projectile.extraUpdates = 1;
-            projectile.ignoreWater = true;
-            projectile.hide = true;
+            Projectile.width = 12;
+            Projectile.height = 12;
+            Projectile.friendly = true;
+            Projectile.DamageType = DamageClass.Melee;
+            Projectile.tileCollide = false;
+            Projectile.penetrate = -1;
+            Projectile.timeLeft = 90;
+            Projectile.light = 0.75f;
+            Projectile.extraUpdates = 1;
+            Projectile.ignoreWater = true;
+            Projectile.hide = true;
         }
         public override void AI()
         {
 
             if (timer % 7 == 0)
             {
-                Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y + 10, 0, -1, mod.ProjectileType("IceSpike"), projectile.damage, 1, Main.myPlayer, 0, 0);
+                Projectile.NewProjectile(Projectile.InheritSource(Projectile), Projectile.Center.X, Projectile.Center.Y + 10, 0, -1, ModContent.ProjectileType<IceSpike>(), Projectile.damage, 1, Main.myPlayer, 0, 0);
             }
             timer++;
-            projectile.velocity.Y = 0;
+            Projectile.velocity.Y = 0;
             bool foundbelow = false;
             for (int i = 0; i < 16; i++)
             {
                 Tile below = Framing.GetTileSafely(tileCoordPos.X, tileCoordPos.Y + i);
 
-                if (below.active() && below.collisionType > 0)
+                if (below.IsActive && below.CollisionType > 0)
                 {
                     if (i == 0) //if it's inside the tile
                     {
@@ -53,27 +53,27 @@ namespace Emperia.Projectiles.Yeti
                         {
                             Tile above = Framing.GetTileSafely(tileCoordPos.X, tileCoordPos.Y - j);
 
-                            if (!above.active())
+                            if (!above.IsActive)
                             {
-                                projectile.position.Y = (tileCoordPos.Y - j) * 16;
+                                Projectile.position.Y = (tileCoordPos.Y - j) * 16;
                                 foundabove = true;
                                 break;
                             }
                         }
 
                         if (!foundabove)
-                            projectile.Kill();
+                            Projectile.Kill();
                     }
                     else
                     {
-                        projectile.position.Y = (tileCoordPos.Y + i - 1) * 16;
+                        Projectile.position.Y = (tileCoordPos.Y + i - 1) * 16;
                         foundbelow = true;
                         break;
                     }
                 }
             }
             if (!foundbelow)
-                projectile.Kill();
+                Projectile.Kill();
         }
 
         public override bool? CanHitNPC(NPC target)
@@ -91,25 +91,25 @@ namespace Emperia.Projectiles.Yeti
 			DisplayName.SetDefault("Ice Spike");
 		}
         public override void SetDefaults()
-        {  //projectile name
-            projectile.width = 10;       //projectile width
-            projectile.height = 14;  //projectile height
-            projectile.friendly = true;      //make that the projectile will not damage you
-			projectile.hostile = false;
-            projectile.melee = true;         // 
-            projectile.tileCollide = false;   //make that the projectile will be destroed if it hits the terrain
-            projectile.penetrate = -1;      //how many projectile will penetrate
-            projectile.timeLeft = 50;   //how many time projectile projectile has before disepire
-            projectile.light = 0f;    // projectile light
-            projectile.extraUpdates = 1;
-            projectile.ignoreWater = true;
-			projectile.alpha = 0;
-            drawOriginOffsetY = 2;
+        {  //Projectile name
+            Projectile.width = 10;       //Projectile width
+            Projectile.height = 14;  //Projectile height
+            Projectile.friendly = true;      //make that the Projectile will not damage you
+			Projectile.hostile = false;
+            Projectile.DamageType = DamageClass.Melee;         // 
+            Projectile.tileCollide = false;   //make that the Projectile will be destroed if it hits the terrain
+            Projectile.penetrate = -1;      //how many Projectile will penetrate
+            Projectile.timeLeft = 50;   //how many time Projectile Projectile has before disepire
+            Projectile.light = 0f;    // Projectile light
+            Projectile.extraUpdates = 1;
+            Projectile.ignoreWater = true;
+			Projectile.alpha = 0;
+            DrawOriginOffsetY = 2;
         }
-        public override void AI()           //projectile make that the projectile will face the corect way
+        public override void AI()           //Projectile make that the Projectile will face the corect way
         {
-            projectile.scale = 1.1f;
-            projectile.velocity *= .90f;
+            Projectile.scale = 1.1f;
+            Projectile.velocity *= .90f;
         }
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
@@ -120,7 +120,7 @@ namespace Emperia.Projectiles.Yeti
 		}
         public override void Kill(int timeLeft)
 		{
-            Dust.NewDust(projectile.position, projectile.width, projectile.height, 68, (float) projectile.velocity.X / 10, (float) projectile.velocity.Y / 10, 0, default(Color), 0.7f);
+            Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 68, (float) Projectile.velocity.X / 10, (float) Projectile.velocity.Y / 10, 0, default(Color), 0.7f);
 		}
     }
 }

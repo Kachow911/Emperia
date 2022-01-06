@@ -14,14 +14,12 @@ namespace Emperia.Buffs
 {
     public class LifesFateBuff : ModBuff
     {
-        public override void SetDefaults()
+        public override void SetStaticDefaults()
         {
 			DisplayName.SetDefault("Bloodbath");
 			Description.SetDefault("Life's Fate damage increased by 15%, sword strikes will steal life\n'You are overflowing with life'");
             Main.buffNoSave[Type] = true;
             //Main.buffNoTimeDisplay[Type] = true;
-
-            canBeCleared = true;
         }
 
         public override void Update(Player player, ref int buffIndex)

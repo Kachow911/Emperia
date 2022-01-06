@@ -14,14 +14,12 @@ namespace Emperia.Buffs
 {
     public class TitianTyranny : ModBuff
     {
-        public override void SetDefaults()
+        public override void SetStaticDefaults()
         {
 			DisplayName.SetDefault("Titian Tyranny");
 			Description.SetDefault("Defense increased by 3");
             Main.buffNoSave[Type] = true;
             //Main.buffNoTimeDisplay[Type] = true;
-
-            canBeCleared = true;
         }
 
         public override void Update(Player player, ref int buffIndex)

@@ -15,40 +15,40 @@ public class JungleHamaxe : ModItem
 		}
     public override void SetDefaults()
     {
-        item.damage = 60;
-        item.melee = true;
-        item.width = 46;
-        item.height = 46;
-        item.useTime = 26;
-        item.useAnimation = 26;
-        item.useTurn = true;
-        item.axe = 30;
-		item.hammer = 90;
-        item.useStyle = 1;
-        item.knockBack = 2f;
-        item.value = 1770;
-        item.rare = 2;
-        item.UseSound = SoundID.Item1;
-        item.autoReuse = true;
+        Item.damage = 60;
+        Item.DamageType = DamageClass.Melee;
+        Item.width = 46;
+        Item.height = 46;
+        Item.useTime = 26;
+        Item.useAnimation = 26;
+        Item.useTurn = true;
+        Item.axe = 30;
+		Item.hammer = 90;
+        Item.useStyle = 1;
+        Item.knockBack = 2f;
+        Item.value = 1770;
+        Item.rare = 2;
+        Item.UseSound = SoundID.Item1;
+        Item.autoReuse = true;
     }
 
     public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(mod);
+			Recipe recipe = CreateRecipe();
 			recipe.AddIngredient(null, "JungleMaterial", 4);
 			recipe.AddIngredient(ItemID.AdamantiteBar, 2);
 			recipe.AddIngredient(ItemID.SoulofNight, 2);
 			recipe.AddIngredient(ItemID.SoulofLight, 2);
 			recipe.AddTile(TileID.MythrilAnvil);
-			recipe.SetResult(this);
-			recipe.AddRecipe();
-			recipe = new ModRecipe(mod);
+			recipe.Register();
+			
+			recipe = CreateRecipe();
 			recipe.AddIngredient(null, "JungleMaterial", 4);
 			recipe.AddIngredient(ItemID.TitaniumBar, 2);
 			recipe.AddIngredient(ItemID.SoulofNight, 2);
 			recipe.AddIngredient(ItemID.SoulofLight, 2);
 			recipe.AddTile(TileID.MythrilAnvil);
-			recipe.SetResult(this);
-			recipe.AddRecipe();
+			recipe.Register();
+			
 		}
 }}

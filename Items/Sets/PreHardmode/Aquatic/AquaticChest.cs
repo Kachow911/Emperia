@@ -19,30 +19,30 @@ public class AquaticChest : ModItem
 		}
     public override void SetDefaults()
     {
-        item.width = 18;
-        item.height = 18;
-        item.value = 65000;
-        item.rare = 3;
-        item.defense = 9; //15
+        Item.width = 18;
+        Item.height = 18;
+        Item.value = 65000;
+        Item.rare = 3;
+        Item.defense = 9; //15
     }
 
     public override void UpdateEquip(Player player)
     {
-            player.meleeDamage *= 1.04f;
-            player.thrownDamage *= 1.04f;
-            player.rangedDamage *= 1.04f;
-            player.magicDamage *= 1.04f;
-            player.minionDamage *= 1.04f;
+            player.GetDamage(DamageClass.Melee) *= 1.04f;
+            //player.thrownDamage *= 1.04f;
+            player.GetDamage(DamageClass.Ranged) *= 1.04f;
+            player.GetDamage(DamageClass.Magic) *= 1.04f;
+            player.GetDamage(DamageClass.Summon) *= 1.04f;
             player.endurance += 0.04f;
         }
 
     public override void AddRecipes()
     {
-        /*ModRecipe recipe = new ModRecipe(mod);      
+        /*Recipe recipe = CreateRecipe();      
             recipe.AddIngredient(ItemID.Seashell, 4);
             recipe.AddIngredient(ItemID.FishingSeaweed, 3); 			
             recipe.AddTile(TileID.Anvils); 			//you need 1 DirtBlock  //at work bench
-            recipe.SetResult(this);
-            recipe.AddRecipe();*/
+            recipe.Register();
+            */
     }
 }}

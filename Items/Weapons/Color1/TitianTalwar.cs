@@ -5,6 +5,7 @@ using Terraria.Graphics.Effects;
 using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Emperia.Buffs;
 
 namespace Emperia.Items.Weapons.Color1
 {
@@ -17,31 +18,31 @@ namespace Emperia.Items.Weapons.Color1
 		}
         public override void SetDefaults()
         {
-            item.damage = 45;
-            item.melee = true;
-            item.width = 42;
-            item.height = 50;
-            item.useTime = 33;
-            item.useAnimation = 33;     
-            item.useStyle = 1;
-            item.knockBack = 2.85f;  
-            item.value = 48000;        
-            item.rare = 3;
-			item.UseSound = SoundID.Item1;
-			item.scale = 1f;
-            item.autoReuse = false;
-            item.useTurn = true;
+            Item.damage = 45;
+            Item.DamageType = DamageClass.Melee;
+            Item.width = 42;
+            Item.height = 50;
+            Item.useTime = 33;
+            Item.useAnimation = 33;     
+            Item.useStyle = 1;
+            Item.knockBack = 2.85f;  
+            Item.value = 48000;        
+            Item.rare = 3;
+			Item.UseSound = SoundID.Item1;
+			Item.scale = 1f;
+            Item.autoReuse = false;
+            Item.useTurn = true;
         }
 		
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);      
+            Recipe recipe = CreateRecipe();      
             recipe.AddIngredient(null, "Prism", 1); 
 			recipe.AddIngredient(ItemID.Amber, 8); 
 			recipe.AddIngredient(ItemID.OrangeBloodroot, 1); 
             recipe.AddTile(TileID.Anvils);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            recipe.Register();
+            
 
         }
 		public override void MeleeEffects(Player player, Rectangle hitbox)
@@ -54,9 +55,9 @@ namespace Emperia.Items.Weapons.Color1
 		 public override void OnHitNPC(Player player, NPC target, int damage, float knockback, bool crit)
 		{
             if(target.boss)
-			    player.AddBuff(mod.BuffType("TitianTyranny"), Main.rand.Next(360, 600) + 300);
+			    player.AddBuff(ModContent.BuffType<TitianTyranny>(), Main.rand.Next(360, 600) + 300);
             else
-                player.AddBuff(mod.BuffType("TitianTyranny"), Main.rand.Next(360, 600));
+                player.AddBuff(ModContent.BuffType<TitianTyranny>(), Main.rand.Next(360, 600));
         }
     }
 }

@@ -1,6 +1,7 @@
 using Terraria;
 using System;
 using Terraria.ID;
+using Terraria.DataStructures;
 using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using Terraria.ModLoader;
@@ -16,27 +17,27 @@ namespace Emperia.Items.Sets.PreHardmode.Scoria
 		}
         public override void SetDefaults()
         {
-            item.damage = 20;
-            item.noMelee = true;
-            item.ranged = true;
-            item.width = 69;
-            item.height = 40;
-            item.useTime = 29;
-            item.useAnimation = 29;
-            item.useStyle = 5;
-            item.shoot = 3;
-            item.useAmmo = ItemID.WoodenArrow;
-            item.knockBack = 1;
-            item.value = 22500;
-            item.rare = 2;
-            item.autoReuse = true;
-            item.shootSpeed = 12f;
-			item.UseSound = SoundID.Item5; 
+            Item.damage = 20;
+            Item.noMelee = true;
+            Item.DamageType = DamageClass.Ranged;
+            Item.width = 69;
+            Item.height = 40;
+            Item.useTime = 29;
+            Item.useAnimation = 29;
+            Item.useStyle = 5;
+            Item.shoot = 3;
+            Item.useAmmo = ItemID.WoodenArrow;
+            Item.knockBack = 1;
+            Item.value = 22500;
+            Item.rare = 2;
+            Item.autoReuse = true;
+            Item.shootSpeed = 12f;
+			Item.UseSound = SoundID.Item5; 
         }
 		
-		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+		public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockBack)
 		{
-			int p = Projectile.NewProjectile(position.X, position.Y, speedX, speedY, type, damage, knockBack, player.whoAmI);
+			int p = Projectile.NewProjectile(source, position.X, position.Y, velocity.X, velocity.Y, type, damage, knockBack, player.whoAmI);
 			Main.projectile[p].GetGlobalProjectile<MyProjectile>().scoriaExplosion = true;
 			return false;
 		}

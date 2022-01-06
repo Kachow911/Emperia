@@ -16,20 +16,20 @@ namespace Emperia.Items
 
         public override void SetDefaults()
         {
-            item.width = 28;
-            item.height = 30;
-            item.useStyle = 2;
-            item.useAnimation = 17;
-            item.useTime = 17;
-            item.useTurn = true;
-            item.UseSound = SoundID.Item3;
-            item.maxStack = 30;
-            item.consumable = true;
-            item.rare = 1;
-            item.value = 200;
-            item.buffType = BuffID.WellFed;
-            item.buffTime = 108000;
-            //item.createTile = ModContent.TileType<TwilightLantern>();
+            Item.width = 28;
+            Item.height = 30;
+            Item.useStyle = 2;
+            Item.useAnimation = 17;
+            Item.useTime = 17;
+            Item.useTurn = true;
+            Item.UseSound = SoundID.Item3;
+            Item.maxStack = 30;
+            Item.consumable = true;
+            Item.rare = 1;
+            Item.value = 200;
+            Item.buffType = BuffID.WellFed;
+            Item.buffTime = 108000;
+            //Item.createTile = ModContent.TileType<TwilightLantern>();
         }
     }
 }

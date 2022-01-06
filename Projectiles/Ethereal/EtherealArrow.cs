@@ -12,15 +12,15 @@ namespace Emperia.Projectiles.Ethereal
 	{
 		public override void SetDefaults()
 		{
-			projectile.width = 14;
-			projectile.height = 14;
-			projectile.aiStyle = 1;
-			projectile.friendly = true;
-			projectile.ranged = true;
-			projectile.penetrate = -1;
-			projectile.timeLeft = 1000;
-			projectile.tileCollide = false;
-			projectile.light = 1f; 
+			Projectile.width = 14;
+			Projectile.height = 14;
+			Projectile.aiStyle = 1;
+			Projectile.friendly = true;
+			Projectile.DamageType = DamageClass.Ranged;
+			Projectile.penetrate = -1;
+			Projectile.timeLeft = 1000;
+			Projectile.tileCollide = false;
+			Projectile.light = 1f; 
 		}
 		
 		public override void SetStaticDefaults()
@@ -30,15 +30,15 @@ namespace Emperia.Projectiles.Ethereal
 		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
 			target.GetGlobalNPC<MyNPC>().etherealDamages.Add(damage/2);
-			target.GetGlobalNPC<MyNPC>().etherealCounts.Add(2);
-			
+            target.GetGlobalNPC<MyNPC>().etherealCounts.Add(2);
+			target.GetGlobalNPC<MyNPC>().etherealSource = Projectile;
 		}
-		
+
 		public override void AI()
 		{
 			if (Main.rand.Next(3) == 0)
 			{
-				Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, 229, 0.0f, 0.0f, 15, new Color(53f, 67f, 253f), 0.8f);
+				Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 229, 0.0f, 0.0f, 15, new Color(53f, 67f, 253f), 0.8f);
 			}
 		}
 

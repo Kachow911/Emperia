@@ -14,12 +14,11 @@ namespace Emperia.Buffs
 {
     public class AlloyArmor : ModBuff
     {
-        public override void SetDefaults()
+        public override void SetStaticDefaults()
         {
 			DisplayName.SetDefault("Alloy Armor");
 			Description.SetDefault("Defense increased by 4");
             Main.buffNoSave[Type] = true;
-            canBeCleared = true;
         }
 
         public override void Update(Player player, ref int buffIndex)

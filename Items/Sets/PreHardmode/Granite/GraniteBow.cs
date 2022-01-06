@@ -4,6 +4,8 @@ using Terraria.ID;
 using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using Terraria.ModLoader;
+using Terraria.DataStructures;
+using Emperia.Projectiles.Granite;
 
 namespace Emperia.Items.Sets.PreHardmode.Granite
 {
@@ -17,30 +19,37 @@ namespace Emperia.Items.Sets.PreHardmode.Granite
 		}
         public override void SetDefaults()
         {
-            item.damage = 20;
-            item.noMelee = true;
-            item.ranged = true;
-            item.width = 30;
-            item.height = 40;
-            item.useTime = 29;
-            item.useAnimation = 29;
-            item.useStyle = 5;
-            item.shoot = 3;
-            item.useAmmo = ItemID.WoodenArrow;
-            item.knockBack = 1;
-            item.value = 27000;
-            item.rare = 1;
-            item.autoReuse = false;
-            item.shootSpeed = 6f;
-			item.UseSound = SoundID.Item5; 
+            Item.damage = 20;
+            Item.noMelee = true;
+            Item.DamageType = DamageClass.Ranged;
+            Item.width = 30;
+            Item.height = 40;
+            Item.useTime = 29;
+            Item.useAnimation = 29;
+            Item.useStyle = 5;
+            Item.shoot = 3;
+            Item.useAmmo = ItemID.WoodenArrow;
+            Item.knockBack = 1;
+            Item.value = 27000;
+            Item.rare = 1;
+            Item.autoReuse = false;
+            Item.shootSpeed = 6f;
+			Item.UseSound = SoundID.Item5; 
         }
-		
-		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+
+		/*public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
+		{
+			if (counter == 3)
+			{
+				damage = (int)(damage * 1.2);
+			}
+		}*/
+        public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockBack)
 		{
 			if (counter == 3)
 			{
                 damage = (int) (damage * 1.2);
-				Projectile.NewProjectile(position.X, position.Y, speedX, speedY, mod.ProjectileType("GraniteArrow"), damage, knockBack, player.whoAmI);
+				Projectile.NewProjectile(source, position.X, position.Y, velocity.X, velocity.Y, ModContent.ProjectileType<GraniteArrow>(), damage, knockBack, player.whoAmI);
 				counter = 0;
 				return false;
 			}
@@ -48,7 +57,7 @@ namespace Emperia.Items.Sets.PreHardmode.Granite
 			return true;
 		}
 		
-		public override bool ConsumeAmmo(Player player)
+		public override bool CanConsumeAmmo(Player player)
 		{
 			return !(counter == 3);
 		}
@@ -60,11 +69,11 @@ namespace Emperia.Items.Sets.PreHardmode.Granite
 		
         public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(mod);
+			Recipe recipe = CreateRecipe();
 			recipe.AddIngredient(null, "GraniteBar", 8);
 			recipe.AddTile(TileID.Anvils);
-			recipe.SetResult(this);
-			recipe.AddRecipe();
+			recipe.Register();
+			
 		}
     }
 }

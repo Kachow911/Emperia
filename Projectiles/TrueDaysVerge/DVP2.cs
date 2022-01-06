@@ -17,23 +17,23 @@ namespace Emperia.Projectiles.TrueDaysVerge
 			DisplayName.SetDefault("Pine Needle");
 		}
         public override void SetDefaults()
-        {  //projectile name
-            projectile.width = 20;       //projectile width
-            projectile.height = 28;  //projectile height
-            projectile.friendly = true;      //make that the projectile will not damage you
-            projectile.magic = true;         // 
-            projectile.tileCollide = true;   //make that the projectile will be destroed if it hits the terrain
-            projectile.penetrate = -1;      //how many projectile will penetrate
-            projectile.timeLeft = 240;   //how many time projectile projectile has before disepire
-            projectile.light = 0f;    // projectile light
-            projectile.extraUpdates = 1;
-            projectile.ignoreWater = true;
-			projectile.alpha = 255;
+        {  //Projectile name
+            Projectile.width = 20;       //Projectile width
+            Projectile.height = 28;  //Projectile height
+            Projectile.friendly = true;      //make that the Projectile will not damage you
+            Projectile.DamageType = DamageClass.Magic;         // 
+            Projectile.tileCollide = true;   //make that the Projectile will be destroed if it hits the terrain
+            Projectile.penetrate = -1;      //how many Projectile will penetrate
+            Projectile.timeLeft = 240;   //how many time Projectile Projectile has before disepire
+            Projectile.light = 0f;    // Projectile light
+            Projectile.extraUpdates = 1;
+            Projectile.ignoreWater = true;
+			Projectile.alpha = 255;
         }
-        public override void AI()           //projectile make that the projectile will face the corect way
+        public override void AI()           //Projectile make that the Projectile will face the corect way
         {          
 float maxHome = 200f;		
-			projectile.rotation = (float)Math.Atan2((double)projectile.velocity.Y, (double)projectile.velocity.X) + 1.57f;
+			Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + 1.57f;
 			if(Main.rand.Next(2) == 0)
 			{
 				int type = 0;
@@ -41,7 +41,7 @@ float maxHome = 200f;
 					type = 58;
 				else
 					type = 176;
-				int num250 = Dust.NewDust(new Vector2(projectile.position.X - projectile.velocity.X, projectile.position.Y - projectile.velocity.Y), projectile.width, projectile.height, type, (float)(projectile.direction * 2), 0f, 150, new Color(53f, 67f, 253f), 1.3f);
+				int num250 = Dust.NewDust(new Vector2(Projectile.position.X - Projectile.velocity.X, Projectile.position.Y - Projectile.velocity.Y), Projectile.width, Projectile.height, type, (float)(Projectile.direction * 2), 0f, 150, new Color(53f, 67f, 253f), 1.3f);
 				Main.dust[num250].noGravity = true;
 				Main.dust[num250].velocity *= 0f;
 				Main.dust[num250].alpha = 0;
@@ -50,11 +50,11 @@ float maxHome = 200f;
 			bool targetNPC = false;
 			for (int npcFinder = 0; npcFinder < 200; ++npcFinder)
                 {
-                    if (Main.npc[npcFinder].CanBeChasedBy(projectile, false) && Collision.CanHit(projectile.Center, 1, 1, Main.npc[npcFinder].Center, 1, 1))
+                    if (Main.npc[npcFinder].CanBeChasedBy(Projectile, false) && Collision.CanHit(Projectile.Center, 1, 1, Main.npc[npcFinder].Center, 1, 1))
                     {
                         float num1 = Main.npc[npcFinder].position.X + (float)(Main.npc[npcFinder].width / 2);
                         float num2 = Main.npc[npcFinder].position.Y + (float)(Main.npc[npcFinder].height / 2);
-                        float num3 = Math.Abs(projectile.position.X + (float)(projectile.width / 2) - num1) + Math.Abs(projectile.position.Y + (float)(projectile.height / 2) - num2);
+                        float num3 = Math.Abs(Projectile.position.X + (float)(Projectile.width / 2) - num1) + Math.Abs(Projectile.position.Y + (float)(Projectile.height / 2) - num2);
                         if (num3 < maxHome)
                         {
 							maxHome = num3;
@@ -69,15 +69,15 @@ float maxHome = 200f;
 			if (targetNPC)
 			{
 					float num4 = Main.rand.Next(30, 43);
-                    Vector2 vector35 = new Vector2(projectile.position.X + (float)projectile.width * 0.5f, projectile.position.Y + (float)projectile.height * 0.5f);
+                    Vector2 vector35 = new Vector2(Projectile.position.X + (float)Projectile.width * 0.5f, Projectile.position.Y + (float)Projectile.height * 0.5f);
                     float num5 = targetX - vector35.X;
                     float num6 = targetY - vector35.Y;
                     float num7 = (float)Math.Sqrt((double)(num5 * num5 + num6 * num6));
                     num7 = num4 / num7;
                     num5 *= num7;
                     num6 *= num7;
-                    projectile.velocity.X = (projectile.velocity.X * 20f + num5) / 35f;
-                    projectile.velocity.Y = (projectile.velocity.Y * 20f + num6) / 35f;
+                    Projectile.velocity.X = (Projectile.velocity.X * 20f + num5) / 35f;
+                    Projectile.velocity.Y = (Projectile.velocity.Y * 20f + num6) / 35f;
 		
 			}
 			}

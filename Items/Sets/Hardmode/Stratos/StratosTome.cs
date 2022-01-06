@@ -3,13 +3,10 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
 using Terraria.ID;
-using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
+using Terraria.DataStructures;
 using System.Collections.Generic;
-using System;
+using Emperia.Projectiles.Stratos;
 
 namespace Emperia.Items.Sets.Hardmode.Stratos
 {
@@ -19,22 +16,22 @@ namespace Emperia.Items.Sets.Hardmode.Stratos
 		int count = 0;
 		public override void SetDefaults()
 		{
-			item.damage = 56;
-			item.magic = true;
-			item.width = 22;
-			item.height = 24;
-			item.useTime = 36;
-			item.useAnimation = 36;
-			item.useStyle = 5;
-			item.knockBack = 2.25f;
-			item.value = 22500;
-			item.noMelee = true;
-			item.rare = 4;
-			item.UseSound = SoundID.Item20;
-			item.autoReuse = true;
-			item.shoot = mod.ProjectileType("StratosMeteorite2");
-			item.shootSpeed = 12f;
-			item.mana = 12;
+			Item.damage = 56;
+			Item.DamageType = DamageClass.Magic;
+			Item.width = 22;
+			Item.height = 24;
+			Item.useTime = 36;
+			Item.useAnimation = 36;
+			Item.useStyle = 5;
+			Item.knockBack = 2.25f;
+			Item.value = 22500;
+			Item.noMelee = true;
+			Item.rare = 4;
+			Item.UseSound = SoundID.Item20;
+			Item.autoReuse = true;
+			Item.shoot = ModContent.ProjectileType<StratosMeteorite2>();
+			Item.shootSpeed = 12f;
+			Item.mana = 12;
 		}
 
     public override void SetStaticDefaults()
@@ -42,22 +39,22 @@ namespace Emperia.Items.Sets.Hardmode.Stratos
       DisplayName.SetDefault("Stratos Spellbook");
 	  Tooltip.SetDefault("Cycles between firing different stratos chunks, each one more powerful than the last");
     }
-	public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+	public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockBack)
 	{
 		if (count == 0)
 		{
-			type = mod.ProjectileType("StratosMeteorite2");
+			type = ModContent.ProjectileType<StratosMeteorite2>();
 			damage = 56; 
 		}
 		if (count == 1)
 		{
-			type = mod.ProjectileType("StratosMeteor");
+			type = ModContent.ProjectileType<StratosMeteor>();
 			knockBack = 4f;
 			damage = 75;
 		}
 		if (count == 2)
 		{
-			type = mod.ProjectileType("StratosMeteorite2");
+			type = ModContent.ProjectileType<StratosMeteorite2>();
 			damage = 56; 
 			knockBack = 5f;
 		}
@@ -66,8 +63,8 @@ namespace Emperia.Items.Sets.Hardmode.Stratos
 		Vector2 placePosition = new Vector2(player.Center.X + Main.rand.Next(-50, 50), player.Center.Y + Main.rand.Next(-50, 50));
 		Vector2 direction = Main.MouseWorld - player.Center;
 		direction.Normalize();
-		Projectile.NewProjectile(placePosition.X, placePosition.Y, direction.X * 8f, direction.Y * 8f, type, damage, knockBack, player.whoAmI);
-		Projectile.NewProjectile(placePosition.X, placePosition.Y, 0, 0, mod.ProjectileType("StratosPortalAnim"), 0, 0, player.whoAmI);
+		Projectile.NewProjectile(source, placePosition.X, placePosition.Y, direction.X * 8f, direction.Y * 8f, type, damage, knockBack, player.whoAmI);
+		Projectile.NewProjectile(source, placePosition.X, placePosition.Y, 0, 0, ModContent.ProjectileType<Projectiles.StratosPortalAnim>(), 0, 0, player.whoAmI);
 		return false;
 		
 	}
@@ -77,11 +74,11 @@ namespace Emperia.Items.Sets.Hardmode.Stratos
 	}
 	/*public override void AddRecipes()
     {
-        ModRecipe recipe = new ModRecipe(mod);
+        Recipe recipe = CreateRecipe();
         recipe.AddIngredient(null, "GraniteBar", 8);
         recipe.AddTile(TileID.Anvils);
-        recipe.SetResult(this);
-        recipe.AddRecipe();
+        recipe.Register();
+        
     }*/
 	}
 }

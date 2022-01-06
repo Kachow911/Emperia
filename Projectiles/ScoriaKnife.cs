@@ -17,32 +17,32 @@ namespace Emperia.Projectiles
 			DisplayName.SetDefault("Scoria Knife");
 		}
         public override void SetDefaults()
-        {  //projectile name
-            projectile.width = 30;       //projectile width
-            projectile.height = 30;  //projectile height
-            projectile.friendly = true;      //make that the projectile will not damage you
-            projectile.melee = true;         // 
-            projectile.tileCollide = true;   //make that the projectile will be destroed if it hits the terrain
-            projectile.penetrate = -1;      //how many npc will penetrate
-            projectile.timeLeft = 2000;   //how many time this projectile has before disepire
-            projectile.light = 0f;    // projectile light
-            projectile.extraUpdates = 1;
-            projectile.ignoreWater = true;
+        {  //Projectile name
+            Projectile.width = 30;       //Projectile width
+            Projectile.height = 30;  //Projectile height
+            Projectile.friendly = true;      //make that the Projectile will not damage you
+            Projectile.DamageType = DamageClass.Melee;         // 
+            Projectile.tileCollide = true;   //make that the Projectile will be destroed if it hits the terrain
+            Projectile.penetrate = -1;      //how many NPC will penetrate
+            Projectile.timeLeft = 2000;   //how many time this Projectile has before disepire
+            Projectile.light = 0f;    // Projectile light
+            Projectile.extraUpdates = 1;
+            Projectile.ignoreWater = true;
         }
-        public override void AI()           //this make that the projectile will face the corect way
+        public override void AI()           //this make that the Projectile will face the corect way
         {                                                           // |
             timer++;
-			int dust = Dust.NewDust(new Vector2(projectile.Center.X, projectile.Center.Y), projectile.width / 8, projectile.height / 8, 258, 0f, 0f);
-			Main.dust[dust].velocity = -projectile.velocity;
-			if (projectile.velocity.X > 0)
+			int dust = Dust.NewDust(new Vector2(Projectile.Center.X, Projectile.Center.Y), Projectile.width / 8, Projectile.height / 8, 258, 0f, 0f);
+			Main.dust[dust].velocity = -Projectile.velocity;
+			if (Projectile.velocity.X > 0)
 			{
-				projectile.spriteDirection = 1;
-				projectile.rotation = (float)Math.Atan2((double)projectile.velocity.Y, (double)projectile.velocity.X) + (float) (3.14 / 4);
+				Projectile.spriteDirection = 1;
+				Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + (float) (3.14 / 4);
 			}
-			else if (projectile.velocity.X < 0)
+			else if (Projectile.velocity.X < 0)
 			{
-				projectile.spriteDirection = -1;
-				projectile.rotation = (float)Math.Atan2((double)projectile.velocity.Y, (double)projectile.velocity.X) + (float)((3.14) - (3.14 / 4));
+				Projectile.spriteDirection = -1;
+				Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + (float)((3.14) - (3.14 / 4));
 			}
 			
         }
@@ -51,7 +51,7 @@ namespace Emperia.Projectiles
 			if (Main.rand.Next(3) == 0)
 			{
 				target.AddBuff(BuffID.OnFire, 240);
-				projectile.Kill();
+				Projectile.Kill();
 			}
 		}
 		public override void Kill(int timeLeft)

@@ -16,35 +16,35 @@ namespace Emperia.Projectiles
 			DisplayName.SetDefault("Energy-Filled Rock");
 		}
         public override void SetDefaults()
-        {  //projectile name
-            projectile.width = 8;       //projectile width
-            projectile.height = 8;  //projectile height
-            projectile.friendly = true;      //make that the projectile will not damage you
-            projectile.melee = true;         // 
-            projectile.tileCollide = true;   //make that the projectile will be destroed if it hits the terrain
-            projectile.penetrate = 1;      //how many npc will penetrate
-            projectile.timeLeft = 200;   //how many time projectile projectile has before disepire
-            projectile.light = 0.75f;    // projectile light
-            projectile.extraUpdates = 1;
-            projectile.ignoreWater = true;
-			projectile.alpha = 255;
+        {  //Projectile name
+            Projectile.width = 8;       //Projectile width
+            Projectile.height = 8;  //Projectile height
+            Projectile.friendly = true;      //make that the Projectile will not damage you
+            Projectile.DamageType = DamageClass.Melee;         // 
+            Projectile.tileCollide = true;   //make that the Projectile will be destroed if it hits the terrain
+            Projectile.penetrate = 1;      //how many NPC will penetrate
+            Projectile.timeLeft = 200;   //how many time Projectile Projectile has before disepire
+            Projectile.light = 0.75f;    // Projectile light
+            Projectile.extraUpdates = 1;
+            Projectile.ignoreWater = true;
+			Projectile.alpha = 255;
         }
-        public override void AI()           //projectile make that the projectile will face the corect way
+        public override void AI()           //Projectile make that the Projectile will face the corect way
         {                                                           // |
-            projectile.rotation = (float)Math.Atan2((double)projectile.velocity.Y, (double)projectile.velocity.X) + 1.57f;
-			int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 66, 0f, 0f, 91, new Color(89, 249, 116), 1.5f);
+            Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + 1.57f;
+			int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 66, 0f, 0f, 91, new Color(89, 249, 116), 1.5f);
             Main.dust[dust].velocity *= 0.1f;
-            if (projectile.velocity == Vector2.Zero)
+            if (Projectile.velocity == Vector2.Zero)
             {
                 Main.dust[dust].velocity.Y -= 1f;
                 Main.dust[dust].scale = 1.2f;
             }
             else
             {
-                Main.dust[dust].velocity += projectile.velocity * 0.2f;
+                Main.dust[dust].velocity += Projectile.velocity * 0.2f;
             }
-            Main.dust[dust].position.X = projectile.Center.X + 4f + (float)Main.rand.Next(-2, 3);
-            Main.dust[dust].position.Y = projectile.Center.Y + (float)Main.rand.Next(-2, 3);
+            Main.dust[dust].position.X = Projectile.Center.X + 4f + (float)Main.rand.Next(-2, 3);
+            Main.dust[dust].position.Y = Projectile.Center.Y + (float)Main.rand.Next(-2, 3);
             Main.dust[dust].noGravity = true;
 		}
 		public override void Kill(int timeLeft)

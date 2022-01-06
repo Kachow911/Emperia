@@ -4,6 +4,8 @@ using Terraria.ID;
 using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using Terraria.ModLoader;
+using Terraria.DataStructures;
+using Emperia.Projectiles;
 
 namespace Emperia.Items.Sets.PreHardmode.FrousForest
 {
@@ -17,29 +19,29 @@ namespace Emperia.Items.Sets.PreHardmode.FrousForest
 		}
         public override void SetDefaults()
         {
-            item.damage = 17;
-            item.noMelee = true;
-            item.ranged = true;
-            item.width = 69;
-            item.height = 40;
-            item.useTime = 29;
-            item.useAnimation = 29;
-            item.useStyle = 5;
-            item.shoot = 3;
-            item.useAmmo = ItemID.WoodenArrow;
-            item.knockBack = 1;
-            item.value = 22500;
-            item.rare = 2;
-            item.autoReuse = false;
-            item.shootSpeed = 8f;
-			item.UseSound = SoundID.Item5; 
+            Item.damage = 17;
+            Item.noMelee = true;
+            Item.DamageType = DamageClass.Ranged;
+            Item.width = 69;
+            Item.height = 40;
+            Item.useTime = 29;
+            Item.useAnimation = 29;
+            Item.useStyle = 5;
+            Item.shoot = 3;
+            Item.useAmmo = ItemID.WoodenArrow;
+            Item.knockBack = 1;
+            Item.value = 22500;
+            Item.rare = 2;
+            Item.autoReuse = false;
+            Item.shootSpeed = 8f;
+			Item.UseSound = SoundID.Item5; 
         }
 		
-		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+		public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockBack)
 		{
             if (type == ProjectileID.WoodenArrowFriendly)
             {
-                type = mod.ProjectileType("VineLeaf");
+                type = ModContent.ProjectileType<VineLeaf>();
             }
             return true;
 			

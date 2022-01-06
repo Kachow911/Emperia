@@ -14,12 +14,11 @@ namespace Emperia.Buffs
 {
     public class ProtectiveBoost : ModBuff
     {
-        public override void SetDefaults()
+        public override void SetStaticDefaults()
         {
 			DisplayName.SetDefault("Ironclad");
 			Description.SetDefault("6% increased damage reduction, +6 defense");
             Main.buffNoSave[Type] = true;
-            canBeCleared = true;
         }
 
         public override void Update(Player player, ref int buffIndex)

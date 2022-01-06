@@ -19,27 +19,27 @@ public class RotfireChestplate : ModItem
 		}
     public override void SetDefaults()
     {
-        item.width = 18;
-        item.height = 18;
-        item.value = 65000;
-        item.rare = 4;
-        item.defense = 9; //15
+        Item.width = 18;
+        Item.height = 18;
+        Item.value = 65000;
+        Item.rare = 4;
+        Item.defense = 9; //15
     }
 
     public override void UpdateEquip(Player player)
     {
-            player.thrownDamage *= 1.07f;
+            //player.thrownDamage *= 1.07f;
      }
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            Recipe recipe = CreateRecipe();
             recipe.AddIngredient(ItemID.RottenChunk, 5);
             recipe.AddIngredient(ItemID.CursedFlame, 10);
             recipe.AddIngredient(ItemID.SoulofNight, 2);
             recipe.AddTile(TileID.MythrilAnvil);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            recipe.Register();
+            
         }
     }
 }

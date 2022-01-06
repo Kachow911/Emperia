@@ -3,6 +3,9 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.DataStructures;
+using Emperia.Projectiles.Desert;
+using Emperia.Buffs;
 namespace Emperia.Items.Sets.PreHardmode.Desert
 {
 	public class ScrutiniserStaff : ModItem
@@ -17,22 +20,22 @@ namespace Emperia.Items.Sets.PreHardmode.Desert
 
 		public override void SetDefaults()
 		{
-            item.width = 42;
-            item.height = 36;
-            item.value = 27000;
-            item.rare = 1;
-            item.mana = 10;
-            item.damage = 38;
-            item.knockBack = 7;
-            item.useStyle = 1;
-            item.useTime = 30;
-            item.useAnimation = 30;        
-            item.summon = true;
-            item.noMelee = true;
-            item.shoot = mod.ProjectileType("SharkMinion");
-            item.buffType = mod.BuffType("SharkMinionBuff");
-            item.buffTime = 3600;
-            item.UseSound = SoundID.Item44;
+            Item.width = 42;
+            Item.height = 36;
+            Item.value = 27000;
+            Item.rare = 1;
+            Item.mana = 10;
+            Item.damage = 38;
+            Item.knockBack = 7;
+            Item.useStyle = 1;
+            Item.useTime = 30;
+            Item.useAnimation = 30;        
+            Item.DamageType = DamageClass.Summon;
+            Item.noMelee = true;
+            Item.shoot = ModContent.ProjectileType<Projectiles.Summon.SharkMinion>();
+            Item.buffType = ModContent.BuffType<Buffs.SharkMinionBuff>();
+            Item.buffTime = 3600;
+            Item.UseSound = SoundID.Item44;
         
 		
     }
@@ -41,28 +44,31 @@ namespace Emperia.Items.Sets.PreHardmode.Desert
             return true;
         }
         
-        public override bool UseItem(Player player)
+        /*public override bool? UseItem(Player player)
         {
             if(player.altFunctionUse == 2)
             {
                 player.MinionNPCTargetAim();
             }
             return base.UseItem(player);
-        }
-        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+        }*/
+
+        //might be handled by vanilla now idk
+		public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockBack)
         {
 	        return player.altFunctionUse != 2;
             position = Main.MouseWorld;
-            speedX = speedY = 0;
+            //speedX = speedY = 0;
+            velocity = Vector2.Zero;
             return true;
         }
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            Recipe recipe = CreateRecipe();
             recipe.AddIngredient(null, "DesertEye", 3);
             recipe.AddTile(TileID.Anvils);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            recipe.Register();
+            
 
         }
     }

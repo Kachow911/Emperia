@@ -18,20 +18,20 @@ namespace Emperia.Items.Sets.Hardmode.Stratos
 
         public override void SetDefaults()
         {
-            item.damage = 54;
-            item.useTime = 30;
-            item.useAnimation = 30;
-            item.melee = true;            
-            item.width = 60;              
-            item.height = 66;             
-            item.useStyle = 1;        
-            item.knockBack = 5f;
-            item.value = 258000;
-            item.crit = 6;
-            item.rare = 4;
-            item.UseSound = SoundID.Item1;   
-            item.autoReuse = true;
-            item.useTurn = false;
+            Item.damage = 54;
+            Item.useTime = 30;
+            Item.useAnimation = 30;
+            Item.DamageType = DamageClass.Melee;            
+            Item.width = 60;              
+            Item.height = 66;             
+            Item.useStyle = 1;        
+            Item.knockBack = 5f;
+            Item.value = 258000;
+            Item.crit = 6;
+            Item.rare = 4;
+            Item.UseSound = SoundID.Item1;   
+            Item.autoReuse = true;
+            Item.useTurn = false;
         }
         public override void OnHitNPC(Player player, NPC target, int damage, float knockback, bool crit)
         {
@@ -51,14 +51,14 @@ namespace Emperia.Items.Sets.Hardmode.Stratos
 
         /*public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            Recipe recipe = CreateRecipe();
             recipe.AddIngredient(ItemID.Muramasa, 1);
             recipe.AddIngredient(ItemID.BladeofGrass, 1);
             recipe.AddIngredient(ItemID.FieryGreatsword, 1);
             recipe.AddIngredient(ItemID.BloodButcherer, 1);
             recipe.AddTile(TileID.DemonAltar);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            recipe.Register();
+            
         }*/
     }
 }

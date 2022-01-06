@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Emperia.Projectiles;
 
 namespace Emperia.Items.Weapons.GoblinArmy
 {
@@ -18,28 +19,29 @@ namespace Emperia.Items.Weapons.GoblinArmy
 
         public override void SetDefaults()
         {
-            item.useStyle = 1;
-            item.width = 16;
-            item.height = 16;
-            item.noUseGraphic = true;
-            item.UseSound = SoundID.Item1;
-            item.thrown = true;
-            item.channel = true;
-            item.noMelee = true;
-            item.consumable = true;
-            item.maxStack = 999;
-            item.shoot = mod.ProjectileType("GiantsDaggerProj");
-            item.useAnimation = 32;
-            item.useTime = 32;
-            item.shootSpeed = 8.0f;
-            item.damage = 22;
-            item.knockBack = 3.5f;
-			item.value = Item.sellPrice(0, 0, 1, 50);
-            item.crit = 4;
-            item.rare = 2;
-            item.autoReuse = true;
-            item.maxStack = 1;
-            item.consumable = false;
+            Item.useStyle = 1;
+            Item.width = 16;
+            Item.height = 16;
+            Item.noUseGraphic = true;
+            Item.UseSound = SoundID.Item1;
+            //Item.thrown = true;
+            Item.DamageType = DamageClass.Ranged;
+            Item.channel = true;
+            Item.noMelee = true;
+            Item.consumable = true;
+            Item.maxStack = 999;
+            Item.shoot = ModContent.ProjectileType<GiantsDaggerProj>();
+            Item.useAnimation = 32;
+            Item.useTime = 32;
+            Item.shootSpeed = 8.0f;
+            Item.damage = 22;
+            Item.knockBack = 3.5f;
+			Item.value = Item.sellPrice(0, 0, 1, 50);
+            Item.crit = 4;
+            Item.rare = 2;
+            Item.autoReuse = true;
+            Item.maxStack = 1;
+            Item.consumable = false;
         }
     }
 }

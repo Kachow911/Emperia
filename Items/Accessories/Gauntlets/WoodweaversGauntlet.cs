@@ -18,15 +18,15 @@ namespace Emperia.Items.Accessories.Gauntlets
 		}
         public override void SetDefaults()
         {
-            item.width = 30;
-            item.height = 28;
-            item.rare = 1;
-            item.value = 1500;
-            item.accessory = true;
-            item.GetGlobalItem<GItem>().isGauntlet = true;
+            Item.width = 30;
+            Item.height = 28;
+            Item.rare = 1;
+            Item.value = 1500;
+            Item.accessory = true;
+            Item.GetGlobalItem<GItem>().isGauntlet = true;
 
         }
-        public override void UpdateAccessory(Player player, bool hideVisual)
+        public override void UpdateAccessory(Player player, bool hideVisibleAccessory)
         {
 			//player.GetModPlayer<MyPlayer>().slightKnockback = true;
             player.GetModPlayer<MyPlayer>().gauntletBonus = 0.20f;
@@ -34,12 +34,12 @@ namespace Emperia.Items.Accessories.Gauntlets
         }
 		public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            Recipe recipe = CreateRecipe();
             recipe.AddIngredient(ItemID.Wood, 20);
 			recipe.AddRecipeGroup("IronBar", 2);
             recipe.AddTile(TileID.Anvils);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            recipe.Register();
+            
         }
     }
 }

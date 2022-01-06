@@ -5,6 +5,10 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using static Terraria.ModLoader.ModContent;
+using static Terraria.Audio.SoundEngine;
+
+
 
 namespace Emperia.Npcs.GoblinArmy
 {
@@ -15,101 +19,101 @@ namespace Emperia.Npcs.GoblinArmy
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Goblin Battle Ram");
-			Main.npcFrameCount[npc.type] = 14;
+			Main.npcFrameCount[NPC.type] = 14;
 		}
         public override void SetDefaults()
         {
-            npc.lifeMax = 250;
-            npc.damage = 15;
-            npc.defense = 3;
-            npc.knockBackResist = -3f;
-            npc.width = 96;
-            npc.height = 56;
-            npc.value = Item.buyPrice(0, 0, 20, 0);
-            npc.npcSlots = 1f;
-            npc.boss = false;
-            npc.lavaImmune = false;
-            npc.noGravity = false;
-            npc.noTileCollide = false;
-            npc.HitSound = SoundID.NPCHit1; //57 //20
-            npc.DeathSound = SoundID.NPCDeath1;
-            npc.netAlways = true;
-			npc.scale = 1f;
-			npc.aiStyle = 3;
-			aiType = 508;
+            NPC.lifeMax = 250;
+            NPC.damage = 15;
+            NPC.defense = 3;
+            NPC.knockBackResist = -3f;
+            NPC.width = 96;
+            NPC.height = 56;
+            NPC.value = Item.buyPrice(0, 0, 20, 0);
+            NPC.npcSlots = 1f;
+            NPC.boss = false;
+            NPC.lavaImmune = false;
+            NPC.noGravity = false;
+            NPC.noTileCollide = false;
+            NPC.HitSound = SoundID.NPCHit1; //57 //20
+            NPC.DeathSound = SoundID.NPCDeath1;
+            NPC.netAlways = true;
+			NPC.scale = 1f;
+			NPC.aiStyle = 3;
+			AIType = 508;
         }
 		public override void FindFrame(int frameHeight)
 		{	
 			if (charging)
 			{
-				npc.frameCounter += 0.2f;
-				npc.frameCounter %= 6; 
-				int frame = (int)npc.frameCounter + 8; 
-				npc.frame.Y = frame * frameHeight; 
+				NPC.frameCounter += 0.2f;
+				NPC.frameCounter %= 6; 
+				int frame = (int)NPC.frameCounter + 8; 
+				NPC.frame.Y = frame * frameHeight; 
 			}
 			else
 			{
-				npc.frameCounter += 0.2f;
-				npc.frameCounter %= 8; 
-				int frame = (int)npc.frameCounter; 
-				npc.frame.Y = frame * frameHeight; 
+				NPC.frameCounter += 0.2f;
+				NPC.frameCounter %= 8; 
+				int frame = (int)NPC.frameCounter; 
+				NPC.frame.Y = frame * frameHeight; 
 			}
 		}
 
         public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
         {
-            npc.lifeMax = 300;
-            npc.damage = 20;
+            NPC.lifeMax = 300;
+            NPC.damage = 20;
         }
 
         public override void AI()
 		{
 			counter++;
-			Player player = Main.player[npc.target];
-			if (Math.Abs(npc.velocity.X) < 5f)
+			Player player = Main.player[NPC.target];
+			if (Math.Abs(NPC.velocity.X) < 5f)
 			{
-				if (npc.Center.X > player.Center.X && Math.Abs(player.Center.X - npc.Center.X) < 600)
-					npc.velocity.X -= .07f;
-				else if (npc.Center.X < player.Center.X && Math.Abs(player.Center.X - npc.Center.X) < 600)
-					npc.velocity.X += .07f;
+				if (NPC.Center.X > player.Center.X && Math.Abs(player.Center.X - NPC.Center.X) < 600)
+					NPC.velocity.X -= .07f;
+				else if (NPC.Center.X < player.Center.X && Math.Abs(player.Center.X - NPC.Center.X) < 600)
+					NPC.velocity.X += .07f;
 			}
-			if (npc.velocity.X > 5f)
-				npc.velocity.X = 5f;
-			if (npc.velocity.X < -5f)
-				npc.velocity.X = -5f;
-			if (npc.velocity.X > 0)
-				npc.spriteDirection = 1;
-			else if (npc.velocity.X < 0)
-				npc.spriteDirection = -1; 
-			charging = (Math.Abs(npc.velocity.X) > 4.5f);
+			if (NPC.velocity.X > 5f)
+				NPC.velocity.X = 5f;
+			if (NPC.velocity.X < -5f)
+				NPC.velocity.X = -5f;
+			if (NPC.velocity.X > 0)
+				NPC.spriteDirection = 1;
+			else if (NPC.velocity.X < 0)
+				NPC.spriteDirection = -1; 
+			charging = (Math.Abs(NPC.velocity.X) > 4.5f);
 			if (charging)
 			{
-				npc.velocity.Y = 5f;
+				NPC.velocity.Y = 5f;
 				Color rgb = new Color(252, 207, 83);
-				npc.damage = 100;
+				NPC.damage = 100;
 				if (counter % 5 == 0)
-					Dust.NewDust(npc.Center, npc.width, npc.height, 76, npc.velocity.X, (float) npc.velocity.Y, 0, rgb, 0.9f);
+					Dust.NewDust(NPC.Center, NPC.width, NPC.height, 76, NPC.velocity.X, (float) NPC.velocity.Y, 0, rgb, 0.9f);
 			}
 			else
 			{
-				npc.damage = 20;
+				NPC.damage = 20;
 			}
 		}
 		public override void OnHitPlayer(Player target, int damage, bool crit)
 		{
 			if (charging)
 			{
-				Main.PlaySound(SoundID.Item, npc.Center, 14);
+				PlaySound(SoundID.Item, NPC.Center, 14);
 				Color rgb = new Color(252, 207, 83);
 				for (int i = - 50; i < 50; i++)
 				{
-					int index2 = Dust.NewDust(npc.Center + new Vector2(i, 0), npc.width, npc.height, 76, npc.velocity.X / 5, (float) npc.velocity.Y, 0, rgb, 0.9f);
+					int index2 = Dust.NewDust(NPC.Center + new Vector2(i, 0), NPC.width, NPC.height, 76, NPC.velocity.X / 5, (float) NPC.velocity.Y, 0, rgb, 0.9f);
 				}
 				
-				Gore.NewGore(npc.position, new Vector2(0, -2), mod.GetGoreSlot("Gores/BattleRam"), 1f);
-				npc.life = 0;
-				NPC.NewNPC((int)npc.Center.X + 25, (int)npc.Center.Y, mod.NPCType("GoblinRamCarrier"));
-				NPC.NewNPC((int)npc.Center.X - 50, (int)npc.Center.Y, mod.NPCType("GoblinRamCarrier"));
+				Gore.NewGore(NPC.position, new Vector2(0, -2), ModContent.Find<ModGore>("Gores/BattleRam").Type, 1f);
+				NPC.life = 0;
+				NPC.NewNPC((int)NPC.Center.X + 25, (int)NPC.Center.Y, NPCType<GoblinRamCarrier>());
+				NPC.NewNPC((int)NPC.Center.X - 50, (int)NPC.Center.Y, NPCType<GoblinRamCarrier>());
 			}
 		}
 		public override float SpawnChance(NPCSpawnInfo spawnInfo)
@@ -119,33 +123,37 @@ namespace Emperia.Npcs.GoblinArmy
 			int tile = Main.tile[x, y].type;
 			return Main.invasionType == 1 ? 0.08f : 0;
 		}
-       
 
-       /* private void SmoothMoveToPosition(Vector2 toPosition, float addSpeed, float maxSpeed, float slowRange = 64, float slowBy = .95f)
+
+        /* private void SmoothMoveToPosition(Vector2 toPosition, float addSpeed, float maxSpeed, float slowRange = 64, float slowBy = .95f)
+         {
+             if (Math.Abs((toPosition - NPC.Center).Length()) >= slowRange)
+             {
+                 NPC.velocity += Vector2.Normalize((toPosition - NPC.Center) * addSpeed);
+                 NPC.velocity.X = MathHelper.Clamp(NPC.velocity.X, -maxSpeed, maxSpeed);
+                 NPC.velocity.Y = MathHelper.Clamp(NPC.velocity.Y, -maxSpeed, maxSpeed);
+             }
+             else
+             {
+                 NPC.velocity *= slowBy;
+             }
+         }*/
+
+        public override void OnKill()
         {
-            if (Math.Abs((toPosition - npc.Center).Length()) >= slowRange)
-            {
-                npc.velocity += Vector2.Normalize((toPosition - npc.Center) * addSpeed);
-                npc.velocity.X = MathHelper.Clamp(npc.velocity.X, -maxSpeed, maxSpeed);
-                npc.velocity.Y = MathHelper.Clamp(npc.velocity.Y, -maxSpeed, maxSpeed);
-            }
-            else
-            {
-                npc.velocity *= slowBy;
-            }
-        }*/
-		public override void NPCLoot()
-		{
-			Main.PlaySound(SoundID.Item, npc.Center, 14);
+			PlaySound(SoundID.Item, NPC.Center, 14);
 			Color rgb = new Color(252, 207, 83);
-			for (int i = - 50; i < 50; i++)
+			for (int i = -50; i < 50; i++)
 			{
-				int index2 = Dust.NewDust(npc.Center + new Vector2(i, 0), npc.width, npc.height, 76, npc.velocity.X / 5, (float) npc.velocity.Y, 0, rgb, 0.9f);
+				int index2 = Dust.NewDust(NPC.Center + new Vector2(i, 0), NPC.width, NPC.height, 76, NPC.velocity.X / 5, (float)NPC.velocity.Y, 0, rgb, 0.9f);
 			}
-				
-			Gore.NewGore(npc.position, new Vector2(0, -2), mod.GetGoreSlot("Gores/BattleRam"), 1f);
-			NPC.NewNPC((int)npc.Center.X + 25, (int)npc.Center.Y, mod.NPCType("GoblinRamCarrier"));
-			NPC.NewNPC((int)npc.Center.X - 50, (int)npc.Center.Y, mod.NPCType("GoblinRamCarrier"));
+
+			Gore.NewGore(NPC.position, new Vector2(0, -2), ModContent.Find<ModGore>("Gores/BattleRam").Type, 1f);
+		}
+        public override void ModifyNPCLoot(NPCLoot npcLoot)
+		{
+			NPC.NewNPC((int)NPC.Center.X + 25, (int)NPC.Center.Y, NPCType<GoblinRamCarrier>());
+			NPC.NewNPC((int)NPC.Center.X - 50, (int)NPC.Center.Y, NPCType<GoblinRamCarrier>());
 		}
         
     }

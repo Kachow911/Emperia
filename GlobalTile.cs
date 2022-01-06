@@ -4,9 +4,10 @@ using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.World.Generation;
+using Terraria.WorldBuilding;
 using Microsoft.Xna.Framework;
 using Terraria.GameContent.Generation;
+using static Terraria.ModLoader.ModContent;
 
 namespace Emperia
 {
@@ -17,7 +18,7 @@ namespace Emperia
 			if(Framing.GetTileSafely(i,j-1).type==0 && Main.rand.Next(250) == 0 && Main.tile[i, j].type == TileID.Stone && (NPC.downedMechBoss3 == true || NPC.downedMechBoss2 == true || NPC.downedMechBoss1 == true))
             {
 				WorldGen.KillTile(i, j-1);
-				WorldGen.PlaceTile(i, j - 1, mod.TileType("VitalityCrystalTile"));
+				WorldGen.PlaceTile(i, j - 1, TileType<Tiles.VitalityCrystalTile>());
 			}
 				
 		}

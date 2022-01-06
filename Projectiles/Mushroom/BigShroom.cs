@@ -15,28 +15,28 @@ namespace Emperia.Projectiles.Mushroom
 			DisplayName.SetDefault("Enchanted Mushroom");
 		}
         public override void SetDefaults()
-        {  //projectile name
-            projectile.width = 20;       //projectile width
-            projectile.height = 28;  //projectile height
-            projectile.friendly = false;      //make that the projectile will not damage you
-			projectile.hostile = true;
-            projectile.magic = true;         // 
-            projectile.tileCollide = false;   //make that the projectile will be destroed if it hits the terrain
-            projectile.penetrate = -1;      //how many npc will penetrate
-            projectile.timeLeft = 240;   //how many time projectile projectile has before disepire
-            projectile.light = 0.75f;    // projectile light
+        {  //Projectile name
+            Projectile.width = 20;       //Projectile width
+            Projectile.height = 28;  //Projectile height
+            Projectile.friendly = false;      //make that the Projectile will not damage you
+			Projectile.hostile = true;
+            Projectile.DamageType = DamageClass.Magic;         // 
+            Projectile.tileCollide = false;   //make that the Projectile will be destroed if it hits the terrain
+            Projectile.penetrate = -1;      //how many NPC will penetrate
+            Projectile.timeLeft = 240;   //how many time Projectile Projectile has before disepire
+            Projectile.light = 0.75f;    // Projectile light
 			
-            projectile.extraUpdates = 1;
-            projectile.ignoreWater = true;
-			projectile.alpha = 75;
+            Projectile.extraUpdates = 1;
+            Projectile.ignoreWater = true;
+			Projectile.alpha = 75;
         }
-        public override void AI()           //projectile make that the projectile will face the corect way
+        public override void AI()           //Projectile make that the Projectile will face the corect way
         {
-            projectile.rotation = (float)Math.Atan2((double)projectile.velocity.Y, (double)projectile.velocity.X) + 1.57f;
-            int dust = Dust.NewDust(new Vector2(projectile.Center.X, projectile.Center.Y), projectile.width / 8, projectile.height / 8, 20, 0f, 0f, 0, new Color(39, 90, 219), 1.5f);// |
+            Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + 1.57f;
+            int dust = Dust.NewDust(new Vector2(Projectile.Center.X, Projectile.Center.Y), Projectile.width / 8, Projectile.height / 8, 20, 0f, 0f, 0, new Color(39, 90, 219), 1.5f);// |
             if (Main.rand.Next(5) == 0)
             {
-                Dust.NewDust(projectile.position, projectile.width, projectile.height, 41, projectile.velocity.X * 0.15f, projectile.velocity.Y * 0.15f);
+                Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 41, Projectile.velocity.X * 0.15f, Projectile.velocity.Y * 0.15f);
                
             }
 			

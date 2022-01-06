@@ -17,15 +17,15 @@ public class EruptionBottle : ModItem
 		}
 	public override void SetDefaults()
 	{
-		item.melee = true;
-		item.width = 38;
-		item.height = 44;
-		item.value = 180000;
-		item.expert = true;
-		item.accessory = true;
+		Item.DamageType = DamageClass.Melee;
+		Item.width = 38;
+		Item.height = 44;
+		Item.value = 180000;
+		Item.expert = true;
+		Item.accessory = true;
 	}
 	
-	public override void UpdateAccessory(Player player, bool hideVisual)
+	public override void UpdateAccessory(Player player, bool hideVisibleAccessory)
 	{
 	
 		MyPlayer modPlayer = player.GetModPlayer<MyPlayer>();
@@ -34,12 +34,12 @@ public class EruptionBottle : ModItem
 	}
 	 public override void AddRecipes()  //How to craft this sword
      {
-		ModRecipe recipe = new ModRecipe(mod);
+		Recipe recipe = CreateRecipe();
 		recipe.AddIngredient(ItemID.CloudinaBottle, 1);
 		 recipe.AddIngredient(null, "MoltenChunk", 5); 
         recipe.AddTile(TileID.Anvils); 			
-        recipe.SetResult(this);
-        recipe.AddRecipe(); 
+        recipe.Register();
+         
 
      }
 

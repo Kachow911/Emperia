@@ -1,4 +1,4 @@
-using Terraria.World.Generation;
+using Terraria.WorldBuilding;
 using Microsoft.Xna.Framework;
 using Terraria.GameContent.Generation;
 using Terraria;
@@ -10,7 +10,7 @@ namespace Emperia.Tiles
 {
 	public class TFLeaf : ModTile
 	{
-		public override void SetDefaults()
+		public override void SetStaticDefaults()
 		{
 			Main.tileSolid[Type] = true;
 			Main.tileMergeDirt[Type] = true;

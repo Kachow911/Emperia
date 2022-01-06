@@ -15,35 +15,35 @@ namespace Emperia.Npcs.Chasm
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Unstable Slime");
-			Main.npcFrameCount[npc.type] = 2;
+			Main.npcFrameCount[NPC.type] = 2;
 		}
 
 		int mult;
 		int numTeleports = 5;
 		public override void SetDefaults()
 		{
-			npc.lifeMax = 160;
-			npc.damage = 25;
-			npc.defense = 5;
-			npc.width = 34;
-			npc.height = 28;
-			npc.aiStyle = 1;
-			npc.knockBackResist = 0f;
-			animationType = 81;
-			npc.npcSlots = 1f;
-			npc.HitSound = SoundID.NPCHit1;
-			npc.DeathSound = SoundID.NPCDeath4;
-			npc.value = Item.buyPrice(0, 0, 7, 8);
+			NPC.lifeMax = 160;
+			NPC.damage = 25;
+			NPC.defense = 5;
+			NPC.width = 34;
+			NPC.height = 28;
+			NPC.aiStyle = 1;
+			NPC.knockBackResist = 0f;
+			AnimationType = 81;
+			NPC.npcSlots = 1f;
+			NPC.HitSound = SoundID.NPCHit1;
+			NPC.DeathSound = SoundID.NPCDeath4;
+			NPC.value = Item.buyPrice(0, 0, 7, 8);
 		}
 
 		public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
 		{
-			npc.lifeMax = Convert.ToInt32(npc.lifeMax * 1.4);
-			npc.damage = Convert.ToInt32(npc.damage * 1.4);
+			NPC.lifeMax = Convert.ToInt32(NPC.lifeMax * 1.4);
+			NPC.damage = Convert.ToInt32(NPC.damage * 1.4);
 		}
 		public override void HitEffect(int hitDirection, double Damage)
 		{
-			if (npc.life <= 0)
+			if (NPC.life <= 0)
 			{
 				return;
 			}
@@ -58,14 +58,14 @@ namespace Emperia.Npcs.Chasm
 				teleportRelative(0, teleLenY);
 				for (int n = 0; n <= 10; n++)
 					{
-						int dust = Dust.NewDust(npc.position, npc.width, npc.height, 58, 0f, 0f, 0, new Color(), 1.5f);
+						int dust = Dust.NewDust(NPC.position, NPC.width, NPC.height, 58, 0f, 0f, 0, new Color(), 1.5f);
 						Main.dust[dust].noGravity = true;
 					}
 				waitFor(1000);
 				teleportRelative(teleLenX, 0);
 				for (int n = 0; n <= 10; n++)
 					{
-						int dust = Dust.NewDust(npc.position, npc.width, npc.height, 58, 0f, 0f, 0, new Color(), 1.5f);
+						int dust = Dust.NewDust(NPC.position, NPC.width, NPC.height, 58, 0f, 0f, 0, new Color(), 1.5f);
 						Main.dust[dust].noGravity = true;
 					}
 				waitFor(1000);
@@ -79,13 +79,13 @@ namespace Emperia.Npcs.Chasm
 			int x = spawnInfo.spawnTileX;
 			int y = spawnInfo.spawnTileY;
 			int tile = Main.tile[x, y].type;
-			return (tile == mod.TileType("AphoticStone") || tile == mod.TileType("GloomStone")) ? 0.80f : 0;
+			return (tile == ModContent.TileType<Tiles.AphoticStone>() || tile == ModContent.TileType<Tiles.GloomStone>()) ? 0.80f : 0;
 		}
 		
 		private void teleportRelative(float x, float y)
 		{
-			npc.position.X = npc.position.X + x;
-			npc.position.Y = npc.position.Y + y;
+			NPC.position.X = NPC.position.X + x;
+			NPC.position.Y = NPC.position.Y + y;
 		}
 		
 		private void waitFor(int milliseconds) //a hacked version of waiting, shouldn't pause the entire game

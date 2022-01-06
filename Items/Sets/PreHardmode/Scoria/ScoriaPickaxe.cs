@@ -15,20 +15,20 @@ public class ScoriaPickaxe : ModItem
 		}
     public override void SetDefaults()
     {
-        item.damage = 16;
-        item.melee = true;
-        item.width = 46;
-        item.height = 46;
-        item.useTime = 14;
-        item.useAnimation = 22;
-        item.useTurn = true;
-        item.pick = 70;
-        item.useStyle = 1;
-        item.knockBack = 2f;
-        item.value = 5000;
-        item.rare = 3;
-        item.UseSound = SoundID.Item1;
-        item.autoReuse = true;
+        Item.damage = 16;
+        Item.DamageType = DamageClass.Melee;
+        Item.width = 46;
+        Item.height = 46;
+        Item.useTime = 14;
+        Item.useAnimation = 22;
+        Item.useTurn = true;
+        Item.pick = 70;
+        Item.useStyle = 1;
+        Item.knockBack = 2f;
+        Item.value = 5000;
+        Item.rare = 3;
+        Item.UseSound = SoundID.Item1;
+        Item.autoReuse = true;
     }
 	public override void MeleeEffects(Player player, Rectangle hitbox)
         {

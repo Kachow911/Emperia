@@ -2,6 +2,7 @@
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
+using Emperia.Projectiles.Mushroom;
 
 namespace Emperia.Items.Weapons.Mushor
 {
@@ -14,21 +15,21 @@ namespace Emperia.Items.Weapons.Mushor
 		}
         public override void SetDefaults()
         {
-            item.damage = 34;
-            item.melee = true;
-            item.width = 24;
-            item.height = 46;
-            item.useTime = 20;
-            item.shootSpeed = 14f;
-            item.useAnimation = 20;
-            item.useStyle = 1;
-            item.knockBack = 3f;
-            item.shoot = mod.ProjectileType("Shroomerang");
-            item.value = Item.sellPrice(0, 0, 16, 0);
-            item.rare = 4;
-            item.noUseGraphic = true;
-            item.UseSound = SoundID.Item1;
-            item.autoReuse = true;
+            Item.damage = 34;
+            Item.DamageType = DamageClass.Melee;
+            Item.width = 24;
+            Item.height = 46;
+            Item.useTime = 20;
+            Item.shootSpeed = 14f;
+            Item.useAnimation = 20;
+            Item.useStyle = 1;
+            Item.knockBack = 3f;
+            Item.shoot = ModContent.ProjectileType<Projectiles.Mushroom.Shroomerang>();
+            Item.value = Item.sellPrice(0, 0, 16, 0);
+            Item.rare = 4;
+            Item.noUseGraphic = true;
+            Item.UseSound = SoundID.Item1;
+            Item.autoReuse = true;
         }
 
         public override bool CanUseItem(Player player)
@@ -36,7 +37,7 @@ namespace Emperia.Items.Weapons.Mushor
 			int count= 0;
             for (int i = 0; i < 255; ++i)
             {
-                if (Main.projectile[i].active && Main.projectile[i].owner == Main.myPlayer && Main.projectile[i].type == mod.ProjectileType("Shroomerang"))
+                if (Main.projectile[i].active && Main.projectile[i].owner == Main.myPlayer && Main.projectile[i].type == ModContent.ProjectileType<Projectiles.Mushroom.Shroomerang>())
                 {
                     count++;
                 }

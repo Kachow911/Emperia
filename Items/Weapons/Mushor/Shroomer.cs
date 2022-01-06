@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework;
 using Terraria.ModLoader;
 using Terraria;
 using Terraria.ID;
+using Emperia.Projectiles.Mushroom;
 
 
 namespace Emperia.Items.Weapons.Mushor
@@ -19,24 +20,24 @@ namespace Emperia.Items.Weapons.Mushor
 		}
         public override void SetDefaults()
         {
-            item.damage = 36; 
-            item.ranged = true;
-            item.width = 64;
-            item.height = 64;
-            item.useTime = 22;
-            item.useAnimation = 22;
-            item.useStyle = 5;
-            item.knockBack = 3.5f;
-            item.value = 100;
-            item.rare = 3;
-            item.scale = 1f;
-            item.UseSound = SoundID.Item11;
-            item.autoReuse = true;
-            item.useTurn = false;  
-            item.noMelee = true;
+            Item.damage = 36; 
+            Item.DamageType = DamageClass.Ranged;
+            Item.width = 64;
+            Item.height = 64;
+            Item.useTime = 22;
+            Item.useAnimation = 22;
+            Item.useStyle = 5;
+            Item.knockBack = 3.5f;
+            Item.value = 100;
+            Item.rare = 3;
+            Item.scale = 1f;
+            Item.UseSound = SoundID.Item11;
+            Item.autoReuse = true;
+            Item.useTurn = false;  
+            Item.noMelee = true;
 
-            item.shoot = mod.ProjectileType("ShroomNade2");
-            item.shootSpeed = 10f;
+            Item.shoot = ModContent.ProjectileType<ShroomNade2>();
+            Item.shootSpeed = 10f;
         }
     }
 }

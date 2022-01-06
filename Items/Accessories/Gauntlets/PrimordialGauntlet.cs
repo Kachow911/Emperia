@@ -18,20 +18,21 @@ namespace Emperia.Items.Accessories.Gauntlets
 		}
         public override void SetDefaults()
         {
-            item.width = 30;
-            item.height = 28;
-            item.rare = 9;
-            item.value = Item.sellPrice(1, 0, 0, 0);
-            item.accessory = true;
-            item.GetGlobalItem<GItem>().isGauntlet = true;
+            Item.width = 30;
+            Item.height = 28;
+            Item.rare = 9;
+            Item.value = Item.sellPrice(1, 0, 0, 0);
+            Item.accessory = true;
+            Item.GetGlobalItem<GItem>().isGauntlet = true;
         }
-        public override void UpdateAccessory(Player player, bool hideVisual)
+        public override void UpdateAccessory(Player player, bool hideVisibleAccessory)
         {
 			player.statLifeMax2 += 100;
 			player.statDefense += 10;
 			player.statManaMax2 += 100;
 			player.GetModPlayer<MyPlayer>().floralGauntlet = true;
-			player.GetModPlayer<MyPlayer>().terraGauntlet = true;
+			//player.GetModPlayer<MyPlayer>().terraGauntlet = true;
+            //player.GetModPlayer<MyPlayer>().terraGauntlet2 = Main.Item[Item.NewItem(Player.getRect(), Item.type)];
         }
     }
 }

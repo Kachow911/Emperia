@@ -17,17 +17,17 @@ public class RetinalBane : ModItem
 		}
 	public override void SetDefaults()
 	{
-		item.damage = 60;
-		item.melee = true;
-		item.defense = 4;
-		item.width = 30;
-		item.height = 38;
-		item.value = 180000;
-		item.expert = true;
-		item.accessory = true;
+		Item.damage = 60;
+		Item.DamageType = DamageClass.Melee;
+		Item.defense = 4;
+		Item.width = 30;
+		Item.height = 38;
+		Item.value = 180000;
+		Item.expert = true;
+		Item.accessory = true;
 	}
 	
-	public override void UpdateAccessory(Player player, bool hideVisual)
+	public override void UpdateAccessory(Player player, bool hideVisibleAccessory)
 	{
 	
 		MyPlayer modPlayer = player.GetModPlayer<MyPlayer>();
@@ -36,12 +36,12 @@ public class RetinalBane : ModItem
 	}
 	 public override void AddRecipes()  //How to craft this sword
      {
-		ModRecipe recipe = new ModRecipe(mod);
+		Recipe recipe = CreateRecipe();
 		recipe.AddIngredient(ItemID.EoCShield, 1);
 		recipe.AddIngredient(ItemID.MechanicalWheelPiece, 1);
         recipe.AddTile(TileID.MythrilAnvil); 			
-        recipe.SetResult(this);
-        recipe.AddRecipe(); 
+        recipe.Register();
+         
 
      }
 

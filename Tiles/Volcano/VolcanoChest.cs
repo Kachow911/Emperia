@@ -6,12 +6,13 @@ using Terraria.Enums;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
+using static Terraria.Audio.SoundEngine;
 
 namespace Emperia.Tiles.Volcano
 {
 	public class VolcanoChest : ModTile
 	{
-		public override void SetDefaults()
+		public override void SetStaticDefaults()
 		{
 			Main.tileSpelunker[Type] = true;
 			Main.tileContainer[Type] = true;
@@ -19,12 +20,12 @@ namespace Emperia.Tiles.Volcano
 			Main.tileShine[Type] = 1200;
 			Main.tileFrameImportant[Type] = true;
 			Main.tileNoAttach[Type] = true;
-			Main.tileValue[Type] = 500;
+			Main.tileOreFinderPriority[Type] = 500;
 			TileObjectData.newTile.CopyFrom(TileObjectData.Style2x2);
 			TileObjectData.newTile.Origin = new Point16(0, 1);
 			TileObjectData.newTile.CoordinateHeights = new int[] { 16, 18 };
-			TileObjectData.newTile.HookCheck = new PlacementHook(new Func<int, int, int, int, int, int>(Chest.FindEmptyChest), -1, 0, true);
-			TileObjectData.newTile.HookPostPlaceMyPlayer = new PlacementHook(new Func<int, int, int, int, int, int>(Chest.AfterPlacement_Hook), -1, 0, false);
+			TileObjectData.newTile.HookCheckIfCanPlace = new PlacementHook(Chest.FindEmptyChest, -1, 0, true);
+			TileObjectData.newTile.HookPostPlaceMyPlayer = new PlacementHook(Chest.AfterPlacement_Hook, -1, 0, false);
 			TileObjectData.newTile.AnchorInvalidTiles = new int[] { 127 };
 			TileObjectData.newTile.StyleHorizontal = true;
 			TileObjectData.newTile.LavaDeath = false;
@@ -33,9 +34,9 @@ namespace Emperia.Tiles.Volcano
 			ModTranslation name = CreateMapEntryName();
 			name.SetDefault("Magmous Chest");
 			AddMapEntry(new Color(240, 20, 20), name, MapChestName);
-			disableSmartCursor = true;
-			adjTiles = new int[] { TileID.Containers };
-			chest = "Magmous Chest";
+			TileID.Sets.DisableSmartCursor[Type] = true;
+			AdjTiles = new int[] { TileID.Containers };
+			//ChestDrop = ModContent.ItemType<lol whatever chest we end up adding>();
 		}
 
 		public string MapChestName(string name, int i, int j)
@@ -85,11 +86,11 @@ namespace Emperia.Tiles.Volcano
 
 		public override void KillMultiTile(int i, int j, int frameX, int frameY)
 		{
-			//Terraria.Item.NewItem(i * 16, j * 16, 32, 32, mod.ItemType("VolcanoChest"));
+			//Terraria.Item.NewItem(i * 16, j * 16, 32, 32, ModContent.ItemType<VolcanoChest>());
 			Chest.DestroyChest(i, j);
 		}
 
-		public override void RightClick(int i, int j)
+		public override bool RightClick(int i, int j)
 		{
 			Player player = Main.player[Main.myPlayer];
 			Tile tile = Main.tile[i, j];
@@ -106,14 +107,14 @@ namespace Emperia.Tiles.Volcano
 			}
 			if (player.sign >= 0)
 			{
-				Main.PlaySound(11, -1, -1, 1);
+				PlaySound(11, -1, -1, 1);
 				player.sign = -1;
 				Main.editSign = false;
 				Main.npcChatText = "";
 			}
 			if (Main.editChest)
 			{
-				Main.PlaySound(12, -1, -1, 1);
+				PlaySound(12, -1, -1, 1);
 				Main.editChest = false;
 				Main.npcChatText = "";
 			}
@@ -128,7 +129,7 @@ namespace Emperia.Tiles.Volcano
 				{
 					player.chest = -1;
 					Recipe.FindRecipes();
-					Main.PlaySound(11, -1, -1, 1);
+					PlaySound(11, -1, -1, 1);
 				}
 				else
 				{
@@ -145,7 +146,7 @@ namespace Emperia.Tiles.Volcano
 					if (chest == player.chest)
 					{
 						player.chest = -1;
-						Main.PlaySound(11, -1, -1, 1);
+						PlaySound(11, -1, -1, 1);
 					}
 					else
 					{
@@ -154,11 +155,12 @@ namespace Emperia.Tiles.Volcano
 						Main.recBigList = false;
 						player.chestX = left;
 						player.chestY = top;
-						Main.PlaySound(player.chest < 0 ? 10 : 12, -1, -1, 1);
+						PlaySound(player.chest < 0 ? 10 : 12, -1, -1, 1);
 					}
 					Recipe.FindRecipes();
 				}
 			}
+			return true; //this might be wrong
 		}
 
 		

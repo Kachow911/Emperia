@@ -17,29 +17,29 @@ namespace Emperia.Projectiles
 			DisplayName.SetDefault("Vulcan Rocket");
 		}
         public override void SetDefaults()
-        {  //projectile name
-            projectile.width = 24;       //projectile width
-            projectile.height = 14;  //projectile height
-            projectile.friendly = true;      //make that the projectile will not damage you
-            projectile.ranged = true;         // 
-			projectile.aiStyle = 0;
-            projectile.tileCollide = true;   //make that the projectile will be destroed if it hits the terrain
-            projectile.penetrate = 3;      //how many npc will penetrate
-            projectile.timeLeft = 2000;   //how many time this projectile has before disepire
-            projectile.light = 0.75f;    // projectile light
-            projectile.extraUpdates = 1;
-            projectile.ignoreWater = true;
+        {  //Projectile name
+            Projectile.width = 24;       //Projectile width
+            Projectile.height = 14;  //Projectile height
+            Projectile.friendly = true;      //make that the Projectile will not damage you
+            Projectile.DamageType = DamageClass.Ranged;         // 
+			Projectile.aiStyle = 0;
+            Projectile.tileCollide = true;   //make that the Projectile will be destroed if it hits the terrain
+            Projectile.penetrate = 3;      //how many NPC will penetrate
+            Projectile.timeLeft = 2000;   //how many time this Projectile has before disepire
+            Projectile.light = 0.75f;    // Projectile light
+            Projectile.extraUpdates = 1;
+            Projectile.ignoreWater = true;
         }
-        public override void AI()           //this make that the projectile will face the corect way
+        public override void AI()           //this make that the Projectile will face the corect way
         {
-            projectile.rotation = (float)Math.Atan2((double)projectile.velocity.Y, (double)projectile.velocity.X);// |
-            if (projectile.velocity.X > 0)
+            Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X);// |
+            if (Projectile.velocity.X > 0)
 			{
-				projectile.spriteDirection = 1;	
+				Projectile.spriteDirection = 1;	
 			}
-			else if (projectile.velocity.X < 0)
+			else if (Projectile.velocity.X < 0)
 			{
-				projectile.spriteDirection = -1;
+				Projectile.spriteDirection = -1;
 			}
 			
 			if (!init)
@@ -47,38 +47,38 @@ namespace Emperia.Projectiles
 
                 for (int index1 = 0; index1 < 4; ++index1)
                 {
-                    int index3 = Dust.NewDust(projectile.position, projectile.width, projectile.height, 258, (float)projectile.velocity.X, (float)projectile.velocity.Y, 0, Color.White, 1.1f);
+                    int index3 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 258, (float)Projectile.velocity.X, (float)Projectile.velocity.Y, 0, Color.White, 1.1f);
                     Main.dust[index3].noGravity = true;
-                    Main.dust[index3].velocity = projectile.Center - Main.dust[index3].position;
+                    Main.dust[index3].velocity = Projectile.Center - Main.dust[index3].position;
                     ((Vector2)@Main.dust[index3].velocity).Normalize();
                     Dust dust1 = Main.dust[index3];
                     Vector2 vector2_1 = dust1.velocity * -3f;
                     dust1.velocity = vector2_1;
                     Dust dust2 = Main.dust[index3];
-                    Vector2 vector2_2 = dust2.velocity + (projectile.velocity / 2f);
+                    Vector2 vector2_2 = dust2.velocity + (Projectile.velocity / 2f);
                     dust2.velocity = vector2_2;
                 }
                 init = true;
 			}
 
-            int index2 = Dust.NewDust(new Vector2((float)(projectile.position.X + 4.0), (float)(projectile.position.Y + 4.0)), projectile.width - 8, projectile.height - 8, 76, (float)(projectile.velocity.X * 0.200000002980232), (float)(projectile.velocity.Y * 0.200000002980232), 0, rgb, 0.7f);
-            Main.dust[index2].position = projectile.Center;
+            int index2 = Dust.NewDust(new Vector2((float)(Projectile.position.X + 4.0), (float)(Projectile.position.Y + 4.0)), Projectile.width - 8, Projectile.height - 8, 76, (float)(Projectile.velocity.X * 0.200000002980232), (float)(Projectile.velocity.Y * 0.200000002980232), 0, rgb, 0.7f);
+            Main.dust[index2].position = Projectile.Center;
             Main.dust[index2].noGravity = true;
-            Main.dust[index2].velocity = projectile.velocity * 0.5f;
+            Main.dust[index2].velocity = Projectile.velocity * 0.5f;
         }
 		
 		public override void Kill(int timeLeft)
         {
 			for (int i = 0; i < Main.npc.Length; i++)
             {
-				if (projectile.Distance(Main.npc[i].Center) < 32)
-                    Main.npc[i].StrikeNPC(projectile.damage, 0f, 0, false, false, false);
+				if (Projectile.Distance(Main.npc[i].Center) < 32)
+                    Main.npc[i].StrikeNPC(Projectile.damage, 0f, 0, false, false, false);
 			}
         	 for (int i = 0; i < 360; i += 36)
 				{
 				Vector2 vec = Vector2.Transform(new Vector2(-1, 0), Matrix.CreateRotationZ(MathHelper.ToRadians(i)));
 				vec.Normalize();
-				int num622 = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, 46, 0f, 0f, 158, new Color(53f, 67f, 253f), 1f);
+				int num622 = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 46, 0f, 0f, 158, new Color(53f, 67f, 253f), 1f);
 				Main.dust[num622].velocity += (vec *2f);
 				Main.dust[num622].noGravity = true;
 				}

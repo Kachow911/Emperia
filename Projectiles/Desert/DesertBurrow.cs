@@ -4,59 +4,60 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Emperia.Projectiles.Desert;
 
 namespace Emperia.Projectiles.Desert
 {
 
     public class DesertBurrow : ModProjectile
     {
-        NPC npc;
+        NPC NPC;
 
         bool init = false;
         int timer = 0;
-        private Point tileCoordPos { get { return new Point((int)(projectile.position.X / 16), (int)(projectile.position.Y / 16)); } }
+        private Point tileCoordPos { get { return new Point((int)(Projectile.position.X / 16), (int)(Projectile.position.Y / 16)); } }
         public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Desert Burrow");
 		}
         public override void SetDefaults()
         {
-            projectile.width = 6;
-            projectile.height = 12;
-            projectile.friendly = true;
-            projectile.tileCollide = false;
-            projectile.penetrate = 1;
-            projectile.timeLeft = 180;
-            projectile.light = 0.75f;
-            projectile.extraUpdates = 1;
-            projectile.ignoreWater = true;
-            projectile.knockBack = 0;
-            //projectile.damage = 1;
-            //projectile.hide = true;
-			Main.projFrames[projectile.type] = 5;
+            Projectile.width = 6;
+            Projectile.height = 12;
+            Projectile.friendly = true;
+            Projectile.tileCollide = false;
+            Projectile.penetrate = 1;
+            Projectile.timeLeft = 180;
+            Projectile.light = 0.75f;
+            Projectile.extraUpdates = 1;
+            Projectile.ignoreWater = true;
+            Projectile.knockBack = 0;
+            //Projectile.damage = 1;
+            //Projectile.hide = true;
+			Main.projFrames[Projectile.type] = 5;
         }
         public override void AI()
         {
 			if(!init)
 			{
 				init = true;
-			    Player player = Main.player[projectile.owner];
-			    projectile.velocity.X = 2 * player.direction;
-                projectile.spriteDirection = player.direction;
-                //projectile.direction = player.direction;
+			    Player player = Main.player[Projectile.owner];
+			    Projectile.velocity.X = 2 * player.direction;
+                Projectile.spriteDirection = player.direction;
+                //Projectile.direction = player.direction;
 			}
             //if (timer % 7 == 0)
             //{
-            //    Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y + 10, 0, -1, mod.ProjectileType("DesertSpike"), projectile.damage / 2, 1, Main.myPlayer, 0, 0);
+            //    Projectile.NewProjectile(Projectile.InheritSource(Projectile), Projectile.Center.X, Projectile.Center.Y + 10, 0, -1, ModContent.ProjectileType<DesertSpike>(), Projectile.damage / 2, 1, Main.myPlayer, 0, 0);
             //}
             timer++;
-            //Dust.NewDust(new Vector2(projectile.Hitbox.X, projectile.Hitbox.Y), Main.rand.Next(1, 7), Main.rand.Next(1, 7), 20, projectile.velocity.X, projectile.velocity.Y);
+            //Dust.NewDust(new Vector2(Projectile.Hitbox.X, Projectile.Hitbox.Y), Main.rand.Next(1, 7), Main.rand.Next(1, 7), 20, Projectile.velocity.X, Projectile.velocity.Y);
             bool foundbelow = false;
             for (int i = 0; i < 16; i++)
             {
                 Tile below = Framing.GetTileSafely(tileCoordPos.X, tileCoordPos.Y + i);
 
-                if (below.active() && below.collisionType > 0)
+                if (below.IsActive && below.CollisionType > 0)
                 {
                     if (i == 0) //if it's inside the tile
                     {
@@ -65,56 +66,56 @@ namespace Emperia.Projectiles.Desert
                         {
                             Tile above = Framing.GetTileSafely(tileCoordPos.X, tileCoordPos.Y - j);
 
-                            if (!above.active())
+                            if (!above.IsActive)
                             {
-                                projectile.position.Y = (tileCoordPos.Y - j) * 16 + 6;
+                                Projectile.position.Y = (tileCoordPos.Y - j) * 16 + 6;
                                 foundabove = true;
                                 break;
                             }
                         }
 
                         if (!foundabove)
-                            projectile.Kill();
+                            Projectile.Kill();
                     }
                     else
                     {
-                        projectile.position.Y = (tileCoordPos.Y + i - 1) * 16 + 4;
+                        Projectile.position.Y = (tileCoordPos.Y + i - 1) * 16 + 4;
                         foundbelow = true;
                         break;
                     }
                 }
             }
             if (!foundbelow)
-                projectile.Kill();
+                Projectile.Kill();
 
-			projectile.frameCounter++;
-			if (projectile.frameCounter >= 10)
+			Projectile.frameCounter++;
+			if (Projectile.frameCounter >= 10)
 			{
-				projectile.frameCounter = 0;
-				projectile.frame = (projectile.frame + 1) % 5;
+				Projectile.frameCounter = 0;
+				Projectile.frame = (Projectile.frame + 1) % 5;
 			}
         }
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
             
-            Player player = Main.player[projectile.owner];
+            Player player = Main.player[Projectile.owner];
             MyPlayer modPlayer = player.GetModPlayer<MyPlayer>();
-            modPlayer.desertSpikeDirection = projectile.direction;
-            //Projectile.NewProjectile(projectile.Center.X + (4 * projectile.direction), projectile.Center.Y - 21, 0, 0, mod.ProjectileType("DesertSpikeBig"), 0, 0, Main.myPlayer, 0, 0);
-    		Projectile.NewProjectile(target.Center.X - (2 * projectile.direction), projectile.Center.Y - 21, 0, 0, mod.ProjectileType("DesertSpikeBig"), 0, 0, Main.myPlayer, 0, 0);
-            npc = target;
-            Main.PlaySound(SoundID.Item70, projectile.Center);
-            if (npc.knockBackResist > 0f)
+            modPlayer.desertSpikeDirection = Projectile.direction;
+            //Projectile.NewProjectile(Projectile.InheritSource(Projectile), Projectile.Center.X + (4 * Projectile.direction), Projectile.Center.Y - 21, 0, 0, ModContent.ProjectileType<DesertSpikeBig>(), 0, 0, Main.myPlayer, 0, 0);
+    		Projectile.NewProjectile(Projectile.InheritSource(Projectile), target.Center.X - (2 * Projectile.direction), Projectile.Center.Y - 21, 0, 0, ModContent.ProjectileType<DesertSpikeBig>(), 0, 0, Main.myPlayer, 0, 0);
+            NPC = target;
+            Terraria.Audio.SoundEngine.PlaySound(SoundID.Item70, Projectile.Center);
+            if (NPC.knockBackResist > 0f)
             {
-                npc.GetGlobalNPC<MyNPC>().desertSpikeTime = -8;
+                NPC.GetGlobalNPC<MyNPC>().desertSpikeTime = -8;
             }
         }
         public override void Kill(int timeLeft)
         {
             for (int i = 0; i < 3; i++)
             {
-                int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, mod.DustType("CarapaceDust"));
-                Vector2 vel = new Vector2(projectile.velocity.X * -2, -1);
+                int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, ModContent.DustType<Dusts.CarapaceDust>());
+                Vector2 vel = new Vector2(Projectile.velocity.X * -2, -1);
             }
         }
     }

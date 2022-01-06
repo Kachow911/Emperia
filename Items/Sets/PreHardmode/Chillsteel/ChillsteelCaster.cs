@@ -1,8 +1,9 @@
-    using Terraria;
+using Terraria;
 using System;
 using Microsoft.Xna.Framework;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Emperia.Projectiles.Ice;
 
 namespace Emperia.Items.Sets.PreHardmode.Chillsteel
 {
@@ -17,32 +18,32 @@ namespace Emperia.Items.Sets.PreHardmode.Chillsteel
 
         public override void SetDefaults()
         {
-            item.damage = 25;
-            item.magic = true;
-            item.mana = 9;
-            item.width = 52;
-            item.height = 60;
-            item.useTime = 15;
-            item.useAnimation = 30;
-            item.reuseDelay = 10;
-            item.useStyle = 5;
-            Item.staff[item.type] = true;
-            item.noMelee = true;
-            item.knockBack = 0;
-            item.value = Terraria.Item.sellPrice(0, 0, 50, 0);
-            item.rare = 3;
-            item.UseSound = SoundID.Item34;
-            item.autoReuse = true;
-            item.shoot = mod.ProjectileType("IceBomb2");
-            item.shootSpeed = 8f;
+            Item.damage = 25;
+            Item.DamageType = DamageClass.Magic;
+            Item.mana = 9;
+            Item.width = 52;
+            Item.height = 60;
+            Item.useTime = 15;
+            Item.useAnimation = 30;
+            Item.reuseDelay = 10;
+            Item.useStyle = 5;
+            Item.staff[Item.type] = true;
+            Item.noMelee = true;
+            Item.knockBack = 0;
+            Item.value = Terraria.Item.sellPrice(0, 0, 50, 0);
+            Item.rare = 3;
+            Item.UseSound = SoundID.Item34;
+            Item.autoReuse = true;
+            Item.shoot = ModContent.ProjectileType<IceBomb2>();
+            Item.shootSpeed = 8f;
         }
        /* public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            Recipe recipe = CreateRecipe();
             recipe.AddIngredient(null, "DesertEye", 3);
             recipe.AddTile(TileID.Anvils);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            recipe.Register();
+            
 
         }*/
     }

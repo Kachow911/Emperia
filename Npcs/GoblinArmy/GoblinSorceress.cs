@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Emperia.Projectiles;
 
 namespace Emperia.Npcs.GoblinArmy
 {
@@ -26,54 +27,54 @@ namespace Emperia.Npcs.GoblinArmy
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Goblin Sorceress");
-			Main.npcFrameCount[npc.type] = 9;
+			Main.npcFrameCount[NPC.type] = 9;
 		}
         public override void SetDefaults()
         {
-            npc.lifeMax = 275;
-            npc.damage = 30;
-            npc.defense = 5;
-            npc.knockBackResist = 0f;
-            npc.width = 42;
-            npc.height = 64;
-            npc.value = Item.buyPrice(0, 0, 50, 0);
-            npc.npcSlots = 1f;
-            npc.boss = false;
-            npc.lavaImmune = true;
-            npc.noGravity = false;
-            npc.noTileCollide = false;
-            npc.HitSound = SoundID.NPCHit1; //57 //20
-            npc.DeathSound = SoundID.NPCDeath1;
-            npc.netAlways = true;
-			npc.scale = 1f;
+            NPC.lifeMax = 275;
+            NPC.damage = 30;
+            NPC.defense = 5;
+            NPC.knockBackResist = 0f;
+            NPC.width = 42;
+            NPC.height = 64;
+            NPC.value = Item.buyPrice(0, 0, 50, 0);
+            NPC.npcSlots = 1f;
+            NPC.boss = false;
+            NPC.lavaImmune = true;
+            NPC.noGravity = false;
+            NPC.noTileCollide = false;
+            NPC.HitSound = SoundID.NPCHit1; //57 //20
+            NPC.DeathSound = SoundID.NPCDeath1;
+            NPC.netAlways = true;
+			NPC.scale = 1f;
         }
 		public override void FindFrame(int frameHeight)
 		{
 			if (move == Move.Walk)
 			{
-				npc.frameCounter += 0.2f;
-				npc.frameCounter %= 5; 
-				int frame = (int)npc.frameCounter; 
-				npc.frame.Y = frame * frameHeight; 
+				NPC.frameCounter += 0.2f;
+				NPC.frameCounter %= 5; 
+				int frame = (int)NPC.frameCounter; 
+				NPC.frame.Y = frame * frameHeight; 
 			}
 			else if (move == Move.Shoot)
 			{
-				npc.frameCounter += 0.1f;
-				npc.frameCounter %= 3; 
-				int frame = (int)npc.frameCounter + 5; 
-				npc.frame.Y = frame * frameHeight; 
+				NPC.frameCounter += 0.1f;
+				NPC.frameCounter %= 3; 
+				int frame = (int)NPC.frameCounter + 5; 
+				NPC.frame.Y = frame * frameHeight; 
 			}
 			
 		}
 
         public override void AI()
 		{
-			if (npc.velocity.X < 0)
-				npc.spriteDirection = -1;
-			else if (npc.velocity.X > 0)
-				npc.spriteDirection = 1;
-			npc.TargetClosest(true);
-			Player player = Main.player[npc.target];
+			if (NPC.velocity.X < 0)
+				NPC.spriteDirection = -1;
+			else if (NPC.velocity.X > 0)
+				NPC.spriteDirection = 1;
+			NPC.TargetClosest(true);
+			Player player = Main.player[NPC.target];
 			if (!init)
 			{
 				move = Move.Walk;
@@ -83,12 +84,12 @@ namespace Emperia.Npcs.GoblinArmy
 			if (move == Move.Walk)
             { 
 				counter--;
-				npc.aiStyle = 3;
-				aiType = 508;
-				if (npc.velocity.X > 2f)
-					npc.velocity.X = 2f;
-				if (npc.velocity.X < -2f)
-					npc.velocity.X = -2f;
+				NPC.aiStyle = 3;
+				AIType = 508;
+				if (NPC.velocity.X > 2f)
+					NPC.velocity.X = 2f;
+				if (NPC.velocity.X < -2f)
+					NPC.velocity.X = -2f;
 				if (counter <= 0)
 				{
 					SetMove(Move.Shoot, 30);
@@ -97,19 +98,19 @@ namespace Emperia.Npcs.GoblinArmy
 			if (move == Move.Shoot)
 			{
 				counter--;
-				if (player.Center.X > npc.Center.X)
-					npc.spriteDirection = 1;
+				if (player.Center.X > NPC.Center.X)
+					NPC.spriteDirection = 1;
 				else
-					npc.spriteDirection = -1;
-				npc.velocity.X = 0;
+					NPC.spriteDirection = -1;
+				NPC.velocity.X = 0;
 				int xOff = 0;
-				if (npc.spriteDirection == 1) xOff = -5;
+				if (NPC.spriteDirection == 1) xOff = -5;
 				else xOff = 5;
-				Vector2 placePosition = npc.Center + new Vector2(-xOff, -npc.height / 2);
+				Vector2 placePosition = NPC.Center + new Vector2(-xOff, -NPC.height / 2);
 				for (int index1 = 0; index1 < 3; ++index1)
 				{
 					Vector2 vel = new Vector2(2, 0).RotatedByRandom(MathHelper.ToRadians(360));
-					int index2 = Dust.NewDust(placePosition + vel, npc.width, npc.height, DustID.Shadowflame, 0.0f, 0.0f, 100, new Color(), 0.8f);
+					int index2 = Dust.NewDust(placePosition + vel, NPC.width, NPC.height, DustID.Shadowflame, 0.0f, 0.0f, 100, new Color(), 0.8f);
 					
 				}
 				if (counter <= 0)
@@ -122,14 +123,14 @@ namespace Emperia.Npcs.GoblinArmy
 							Vector2 placePosition1 = new Vector2(player.Center.X + 100 * i, player.Center.Y - 600);
 							Vector2 direction1 = player.Center - placePosition1;
 							direction1.Normalize();
-							Projectile.NewProjectile(placePosition1.X, placePosition1.Y, direction1.X * 10f, direction1.Y * 10f, mod.ProjectileType("ShadowBoltHostile"), 10, 1, Main.myPlayer, 0, 0);
+							Projectile.NewProjectile(NPC.GetProjectileSpawnSource(), placePosition1.X, placePosition1.Y, direction1.X * 10f, direction1.Y * 10f, ModContent.ProjectileType<ShadowBoltHostile>(), 10, 1, Main.myPlayer, 0, 0);
 						}
 					}
 					else
 					{
-						Vector2 direction = Main.player[npc.target].Center - placePosition;
+						Vector2 direction = Main.player[NPC.target].Center - placePosition;
 						direction.Normalize();
-						int p = Projectile.NewProjectile(placePosition.X, placePosition.Y, direction.X * 8f, direction.Y * 8f, mod.ProjectileType("ShadowBoltHostile"), 22, 1, Main.myPlayer, 0, 0);
+						int p = Projectile.NewProjectile(NPC.GetProjectileSpawnSource(), placePosition.X, placePosition.Y, direction.X * 8f, direction.Y * 8f, ModContent.ProjectileType<ShadowBoltHostile>(), 22, 1, Main.myPlayer, 0, 0);
 					}
 					
 				}
@@ -141,21 +142,21 @@ namespace Emperia.Npcs.GoblinArmy
 
        /* private void SmoothMoveToPosition(Vector2 toPosition, float addSpeed, float maxSpeed, float slowRange = 64, float slowBy = .95f)
         {
-            if (Math.Abs((toPosition - npc.Center).Length()) >= slowRange)
+            if (Math.Abs((toPosition - NPC.Center).Length()) >= slowRange)
             {
-                npc.velocity += Vector2.Normalize((toPosition - npc.Center) * addSpeed);
-                npc.velocity.X = MathHelper.Clamp(npc.velocity.X, -maxSpeed, maxSpeed);
-                npc.velocity.Y = MathHelper.Clamp(npc.velocity.Y, -maxSpeed, maxSpeed);
+                NPC.velocity += Vector2.Normalize((toPosition - NPC.Center) * addSpeed);
+                NPC.velocity.X = MathHelper.Clamp(NPC.velocity.X, -maxSpeed, maxSpeed);
+                NPC.velocity.Y = MathHelper.Clamp(NPC.velocity.Y, -maxSpeed, maxSpeed);
             }
             else
             {
-                npc.velocity *= slowBy;
+                NPC.velocity *= slowBy;
             }
         }*/
 
         private bool IsBelowPhaseTwoThreshhold()
         {
-            return npc.life <= npc.lifeMax / 2;     
+            return NPC.life <= NPC.lifeMax / 2;     
         }
 
         private void SetMove(Move toMove, int counter)
@@ -171,13 +172,13 @@ namespace Emperia.Npcs.GoblinArmy
 			int tile = Main.tile[x, y].type;
 			return Main.invasionType == 1 ? 0.05f : 0;
 		}
-		/*public override void NPCLoot()
+		/*public override void ModifyNPCLoot(NPCLoot npcLoot)
 		{
-			Gore.NewGore(npc.position, npc.velocity, mod.GetGoreSlot("Gores/Yeti/gore1"), 1f);
-			Gore.NewGore(npc.position, npc.velocity, mod.GetGoreSlot("Gores/Yeti/gore2"), 1f);
-			Gore.NewGore(npc.position, npc.velocity, mod.GetGoreSlot("Gores/Yeti/gore3"), 1f);
-			Gore.NewGore(npc.position, npc.velocity, mod.GetGoreSlot("Gores/Yeti/gore4"), 1f);
-			Gore.NewGore(npc.position, npc.velocity, mod.GetGoreSlot("Gores/Yeti/gore5"), 1f);
+			Gore.NewGore(NPC.position, NPC.velocity, ModContent.Find<ModGore>("Gores/Yeti/gore1"), 1f);
+			Gore.NewGore(NPC.position, NPC.velocity, ModContent.Find<ModGore>("Gores/Yeti/gore2"), 1f);
+			Gore.NewGore(NPC.position, NPC.velocity, ModContent.Find<ModGore>("Gores/Yeti/gore3"), 1f);
+			Gore.NewGore(NPC.position, NPC.velocity, ModContent.Find<ModGore>("Gores/Yeti/gore4"), 1f);
+			Gore.NewGore(NPC.position, NPC.velocity, ModContent.Find<ModGore>("Gores/Yeti/gore5"), 1f);
 			/*if (!EmperialWorld.downedMushor)
 			{
             	Main.NewText("The guardian of the mushroom biome has fallen...", 0, 75, 161, false);
@@ -185,39 +186,39 @@ namespace Emperia.Npcs.GoblinArmy
 			}
 			if (Main.rand.Next(10) == 0)
 			{
-				Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("YetiTrophy"));
+				Item.NewItem((int)NPC.position.X, (int)NPC.position.Y, NPC.width, NPC.height, ModContent.ItemType<YetiTrophy>());
 			}
 			if (Main.expertMode)
 			{
-				npc.DropBossBags();
+				NPC.DropBossBags();
 			}
 			else
 			{
 				
 				if (Main.rand.Next(2) == 0)
 				{
-					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("MammothineClub"));
+					Item.NewItem((int)NPC.position.X, (int)NPC.position.Y, NPC.width, NPC.height, ModContent.ItemType<MammothineClub>());
 				}
 				if (Main.rand.Next(2) == 0)
 				{
-					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("HuntersSpear"));
+					Item.NewItem((int)NPC.position.X, (int)NPC.position.Y, NPC.width, NPC.height, ModContent.ItemType<HuntersSpear>());
 				}
 				if (Main.rand.Next(2) == 0)
 				{
-					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("BigGameHunter"));
+					Item.NewItem((int)NPC.position.X, (int)NPC.position.Y, NPC.width, NPC.height, ModContent.ItemType<BigGameHunter>());
 				}
 				
 				if (Main.rand.Next(7) == 0)
 				{
-					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("YetiMask"));
+					Item.NewItem((int)NPC.position.X, (int)NPC.position.Y, NPC.width, NPC.height, ModContent.ItemType<YetiMask>());
 				}
 				if (Main.rand.Next(10) == 0)
 				{
-				Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("ChilledFootprint"));
+				Item.NewItem((int)NPC.position.X, (int)NPC.position.Y, NPC.width, NPC.height, ModContent.ItemType<ChilledFootprint>());
 				}
 				if (Main.rand.Next(2) == 0)
 				{
-				Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("ArcticIncantation"));
+				Item.NewItem((int)NPC.position.X, (int)NPC.position.Y, NPC.width, NPC.height, ModContent.ItemType<ArcticIncantation>());
 				}
 			}
 		}*/

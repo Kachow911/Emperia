@@ -5,6 +5,7 @@ using Terraria.Graphics.Effects;
 using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.ModLoader;
+using static Terraria.Audio.SoundEngine;
 
 namespace Emperia.Items.Sets.PreHardmode.Granite   //where is located
 {
@@ -17,20 +18,20 @@ namespace Emperia.Items.Sets.PreHardmode.Granite   //where is located
 		}
         public override void SetDefaults()
         {    //Sword name
-            item.damage = 23;           
-            item.melee = true;            //if it's melee
-            item.width = 24;              //Sword width
-            item.height = 24;             //Sword height
-            item.useTime = 27;          //how fast 
-            item.useAnimation = 27;     
-            item.useStyle = 1;        //Style is how this item is used, 1 is the style of the sword
-            item.knockBack = 4f;      //Sword knockback
-            item.value = 27000;      
-            item.rare = 1;
-			//item.scale = 1.1f;
-            item.autoReuse = false;   //if it's capable of autoswing.    
-			item.UseSound = SoundID.Item1;
-			item.crit = 6;			
+            Item.damage = 23;           
+            Item.DamageType = DamageClass.Melee;            //if it's melee
+            Item.width = 24;              //Sword width
+            Item.height = 24;             //Sword height
+            Item.useTime = 27;          //how fast 
+            Item.useAnimation = 27;     
+            Item.useStyle = 1;        //Style is how this Item is used, 1 is the style of the sword
+            Item.knockBack = 4f;      //Sword knockback
+            Item.value = 27000;      
+            Item.rare = 1;
+			//Item.scale = 1.1f;
+            Item.autoReuse = false;   //if it's capable of autoswing.    
+			Item.UseSound = SoundID.Item1;
+			Item.crit = 6;			
         }
 		public override void ModifyHitNPC (Player player, NPC target, ref int damage, ref float knockback, ref bool crit)
 		{
@@ -54,7 +55,7 @@ namespace Emperia.Items.Sets.PreHardmode.Granite   //where is located
 				MyPlayer modPlayer = player.GetModPlayer<MyPlayer>();
 				if (modPlayer.graniteSet && modPlayer.graniteTime >= 900)
 				{
-					Main.PlaySound(2, (int)target.position.X, (int)target.position.Y, 14);
+					PlaySound(2, (int)target.position.X, (int)target.position.Y, 14);
 					for (int i = 0; i < Main.npc.Length; i++)
 					{
 						if (target.Distance(Main.npc[i].Center) < 100 && Main.npc[i] != target)
@@ -70,7 +71,7 @@ namespace Emperia.Items.Sets.PreHardmode.Granite   //where is located
 				}
 				else
 				{
-					Main.PlaySound(2, (int)target.position.X, (int)target.position.Y, 10);
+					PlaySound(2, (int)target.position.X, (int)target.position.Y, 10);
 					for (int i = 0; i < Main.npc.Length; i++)
 					{
 						if (target.Distance(Main.npc[i].Center) < 70 && Main.npc[i] != target)
@@ -87,11 +88,11 @@ namespace Emperia.Items.Sets.PreHardmode.Granite   //where is located
 		}
         public override void AddRecipes()  //How to craft this sword
         {
-            ModRecipe recipe = new ModRecipe(mod);      
+            Recipe recipe = CreateRecipe();      
             recipe.AddIngredient(null, "GraniteBar", 8); 
             recipe.AddTile(TileID.Anvils); 			//you need 1 DirtBlock  //at work bench
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            recipe.Register();
+            
 
         }
     }

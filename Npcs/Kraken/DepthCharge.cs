@@ -13,46 +13,46 @@ namespace Emperia.Npcs.Kraken
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Depth Charge");
-			Main.npcFrameCount[npc.type] = 1;
+			Main.npcFrameCount[NPC.type] = 1;
 		}
         public override void SetDefaults()
         {
-            npc.aiStyle = -1;
-            npc.lifeMax = 80;
-            npc.damage = 32;
-            npc.defense = 7;
-            npc.knockBackResist = 0f;
-            npc.width = 16;
-            npc.height = 16;
-            npc.value = Item.buyPrice(0, 0, 0, 0);
-            npc.npcSlots = 0f;
-            npc.lavaImmune = true;
-            npc.noGravity = true;
-            npc.noTileCollide = true;
-            npc.HitSound = SoundID.NPCHit1; //57 //20
-            npc.DeathSound = SoundID.NPCDeath1;
-            npc.buffImmune[24] = true;
-            npc.netAlways = true;
+            NPC.aiStyle = -1;
+            NPC.lifeMax = 80;
+            NPC.damage = 32;
+            NPC.defense = 7;
+            NPC.knockBackResist = 0f;
+            NPC.width = 16;
+            NPC.height = 16;
+            NPC.value = Item.buyPrice(0, 0, 0, 0);
+            NPC.npcSlots = 0f;
+            NPC.lavaImmune = true;
+            NPC.noGravity = true;
+            NPC.noTileCollide = true;
+            NPC.HitSound = SoundID.NPCHit1; //57 //20
+            NPC.DeathSound = SoundID.NPCDeath1;
+            NPC.buffImmune[24] = true;
+            NPC.netAlways = true;
 			
-			npc.scale = 2f;
+			NPC.scale = 2f;
         }
 		 public override void FindFrame(int frameHeight)
         {
-            npc.frameCounter++;
+            NPC.frameCounter++;
         }
 		public override void AI()
         {
-			npc.TargetClosest(true);
-			Player player = Main.player[npc.target];
+			NPC.TargetClosest(true);
+			Player player = Main.player[NPC.target];
 			float num1 = player.Center.X;
 			float num2 = player.Center.Y;
-			float num3 = Math.Abs(npc.Center.X - num1) + Math.Abs(npc.Center.Y - num2);
+			float num3 = Math.Abs(NPC.Center.X - num1) + Math.Abs(NPC.Center.Y - num2);
 			if (num3 < 100f)
 			{
 				for (int i = 0; i < Main.player.Length; i++)
 				{
-                if (npc.Distance(Main.player[i].Center) < 100f)
-                    Main.player[i].Hurt(Terraria.DataStructures.PlayerDeathReason.ByNPC(npc.whoAmI), npc.damage, 0);
+                if (NPC.Distance(Main.player[i].Center) < 100f)
+                    Main.player[i].Hurt(Terraria.DataStructures.PlayerDeathReason.ByNPC(NPC.whoAmI), NPC.damage, 0);
 					Main.player[i].velocity.Y = 50f;
 				}
 				for (int i = 0; i < 360; i++)
@@ -61,16 +61,16 @@ namespace Emperia.Npcs.Kraken
 
                 if (i % 8 == 0)
                 {   //odd
-                    Dust.NewDust(npc.Center + vec, Main.rand.Next(1, 7), Main.rand.Next(1, 7), 103);
+                    Dust.NewDust(NPC.Center + vec, Main.rand.Next(1, 7), Main.rand.Next(1, 7), 103);
                 }
 
                 if (i % 9 == 0)
                 {   //even
                     vec.Normalize();
-                    Dust.NewDust(npc.Center, Main.rand.Next(1, 7), Main.rand.Next(1, 7), 103, vec.X * 2, vec.Y * 2);
+                    Dust.NewDust(NPC.Center, Main.rand.Next(1, 7), Main.rand.Next(1, 7), 103, vec.X * 2, vec.Y * 2);
                 }
 				}
-				npc.life = 0;
+				NPC.life = 0;
 			}
 		}
     }

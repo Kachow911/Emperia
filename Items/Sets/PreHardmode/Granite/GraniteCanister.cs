@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Emperia.Projectiles.Granite;
 
 namespace Emperia.Items.Sets.PreHardmode.Granite
 {
@@ -18,25 +19,26 @@ namespace Emperia.Items.Sets.PreHardmode.Granite
 
         public override void SetDefaults()
         {
-            item.useStyle = 1;
-            item.width = 16;
-            item.height = 16;
-            item.noUseGraphic = true;
-            item.UseSound = SoundID.Item1;
-            item.thrown = true;
-            item.channel = true;
-            item.noMelee = true;
-            item.shoot = mod.ProjectileType("GraniteCanisterProj");
-            item.useAnimation = 25;
-            item.useTime = 25;
-            item.shootSpeed = 8.0f;
-            item.knockBack = 3.5f;
-			item.value = Item.sellPrice(0, 0, 1, 50);
-            item.crit = 4;
-            item.rare = 1;
-            item.autoReuse = true;
-            item.maxStack = 1;
-            item.consumable = true;
+            Item.useStyle = 1;
+            Item.width = 16;
+            Item.height = 16;
+            Item.noUseGraphic = true;
+            Item.UseSound = SoundID.Item1;
+            //Item.thrown = true;
+            Item.DamageType = DamageClass.Ranged;
+            Item.channel = true;
+            Item.noMelee = true;
+            Item.shoot = ModContent.ProjectileType<GraniteCanisterProj>();
+            Item.useAnimation = 25;
+            Item.useTime = 25;
+            Item.shootSpeed = 8.0f;
+            Item.knockBack = 3.5f;
+			Item.value = Item.sellPrice(0, 0, 1, 50);
+            Item.crit = 4;
+            Item.rare = 1;
+            Item.autoReuse = true;
+            Item.maxStack = 1;
+            Item.consumable = true;
         }
 		
     }

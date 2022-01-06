@@ -17,60 +17,60 @@ namespace Emperia.Npcs.Chasm
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Chasm Belcher");
-			Main.npcFrameCount[npc.type] = 4;
+			Main.npcFrameCount[NPC.type] = 4;
 		}
         public override void SetDefaults()
         {
-            npc.aiStyle = -1;
-            npc.lifeMax = 500;
-            npc.damage = 50;
-            npc.defense = 7;
-            npc.knockBackResist = 100f;
-            npc.width = 32;
-            npc.height = 40;
-            npc.value = Item.buyPrice(0, 15, 0, 0);
-            npc.npcSlots = 0f;
-            npc.lavaImmune = true;
-            npc.noGravity = false;
-            npc.noTileCollide = true;
-            npc.HitSound = SoundID.NPCHit1; //57 //true
-            npc.DeathSound = SoundID.NPCDeath1;
-            npc.buffImmune[24] = true;
-            npc.netAlways = true;
+            NPC.aiStyle = -1;
+            NPC.lifeMax = 500;
+            NPC.damage = 50;
+            NPC.defense = 7;
+            NPC.knockBackResist = 100f;
+            NPC.width = 32;
+            NPC.height = 40;
+            NPC.value = Item.buyPrice(0, 15, 0, 0);
+            NPC.npcSlots = 0f;
+            NPC.lavaImmune = true;
+            NPC.noGravity = false;
+            NPC.noTileCollide = true;
+            NPC.HitSound = SoundID.NPCHit1; //57 //true
+            NPC.DeathSound = SoundID.NPCDeath1;
+            NPC.buffImmune[24] = true;
+            NPC.netAlways = true;
         }
 		 public override void FindFrame(int frameHeight)
         {
-            npc.frameCounter++;
-			if (npc.frameCounter >= 15)
+            NPC.frameCounter++;
+			if (NPC.frameCounter >= 15)
 			{
-				npc.frame.Y += frameHeight;
+				NPC.frame.Y += frameHeight;
 				
-				if (npc.frame.Y >= Main.npcFrameCount[npc.type] * frameHeight)
+				if (NPC.frame.Y >= Main.npcFrameCount[NPC.type] * frameHeight)
 				{
-					npc.frameCounter = 0;
-					npc.frame.Y = 0;
+					NPC.frameCounter = 0;
+					NPC.frame.Y = 0;
 				}
 			} 
         }
 		 public override void AI()
         {
-			npc.TargetClosest(true);
-			Player player = Main.player[npc.target];
+			NPC.TargetClosest(true);
+			Player player = Main.player[NPC.target];
 			if (move == 1)
 			{
 			
 				counter--;
-				npc.rotation = (float)Math.Atan2((double)npc.velocity.Y, (double)npc.velocity.X) + 1.57f;
+				NPC.rotation = (float)Math.Atan2((double)NPC.velocity.Y, (double)NPC.velocity.X) + 1.57f;
 				targetPos = new Vector2(player.Center.X, player.Center.Y);
-				npc.velocity += Vector2.Normalize((targetPos - npc.Center) * .05f);
-                npc.velocity.X = MathHelper.Clamp(npc.velocity.X, -6f, 6f);
-                npc.velocity.Y = MathHelper.Clamp(npc.velocity.Y, -6f, 6f);
+				NPC.velocity += Vector2.Normalize((targetPos - NPC.Center) * .05f);
+                NPC.velocity.X = MathHelper.Clamp(NPC.velocity.X, -6f, 6f);
+                NPC.velocity.Y = MathHelper.Clamp(NPC.velocity.Y, -6f, 6f);
 				if (counter <= 0)
 				{
-					Vector2 direction = Main.player[npc.target].Center - npc.Center;
+					Vector2 direction = Main.player[NPC.target].Center - NPC.Center;
 					direction.Normalize();
-					npc.velocity.X = direction.X *= 5f;
-					npc.velocity.Y = direction.Y *= 5f;
+					NPC.velocity.X = direction.X *= 5f;
+					NPC.velocity.Y = direction.Y *= 5f;
 					counter = 20;
 					move = 2;
 					
@@ -78,11 +78,11 @@ namespace Emperia.Npcs.Chasm
 			}
 			if (move == 2)
 			{
-				npc.rotation = (float)Math.Atan2((double)npc.velocity.Y, (double)npc.velocity.X) + 1.57f;
+				NPC.rotation = (float)Math.Atan2((double)NPC.velocity.Y, (double)NPC.velocity.X) + 1.57f;
 				if (counter % 2 == 0)
 				{
-					npc.velocity.X *= .99f;
-					npc.velocity.Y *= .99f;
+					NPC.velocity.X *= .99f;
+					NPC.velocity.Y *= .99f;
 				}
 				counter--;
 				if (counter <= 0)

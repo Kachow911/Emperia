@@ -5,6 +5,7 @@ using Terraria.Graphics.Effects;
 using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Emperia.Projectiles;
 
 namespace Emperia.Items.Sets.PreHardmode.Aquatic  //where is located
 {
@@ -17,30 +18,30 @@ namespace Emperia.Items.Sets.PreHardmode.Aquatic  //where is located
 		}
         public override void SetDefaults()
         {   //Sword name
-            item.damage = 27;            //Sword damage
-            item.melee = true;            //if it's melee
-            item.width = 16;              //Sword width
-            item.height = 16;             //Sword height
-            item.useTime = 27;          //how fast 
-            item.useAnimation = 27;     
-            item.useStyle = 1;        //Style is how this item is used, 1 is the style of the sword
-            item.knockBack = 3.5f;      //Sword knockback
-            item.value = 5000;        
-            item.rare = 3;
-			item.scale = 1f;
-            item.autoReuse = true;   //if it's capable of autoswing.
-            item.useTurn = true;             //projectile speed
-			item.UseSound = SoundID.Item1; 			
+            Item.damage = 27;            //Sword damage
+            Item.DamageType = DamageClass.Melee;            //if it's melee
+            Item.width = 16;              //Sword width
+            Item.height = 16;             //Sword height
+            Item.useTime = 27;          //how fast 
+            Item.useAnimation = 27;     
+            Item.useStyle = 1;        //Style is how this Item is used, 1 is the style of the sword
+            Item.knockBack = 3.5f;      //Sword knockback
+            Item.value = 5000;        
+            Item.rare = 3;
+			Item.scale = 1f;
+            Item.autoReuse = true;   //if it's capable of autoswing.
+            Item.useTurn = true;             //Projectile speed
+			Item.UseSound = SoundID.Item1; 			
         }
 		
         /*public override void AddRecipes()  //How to craft this sword
         {
-            ModRecipe recipe = new ModRecipe(mod);      
+            Recipe recipe = CreateRecipe();      
             recipe.AddIngredient(ItemID.Seashell, 3);
             recipe.AddIngredient(ItemID.FishingSeaweed, 2); 			
             recipe.AddTile(TileID.WorkBenches); 			//you need 1 DirtBlock  //at work bench
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            recipe.Register();
+            
         }*/
 		public override void OnHitNPC (Player player, NPC target, int damage, float knockback, bool crit)
 		{
@@ -49,7 +50,7 @@ namespace Emperia.Items.Sets.PreHardmode.Aquatic  //where is located
 				velocity = 2;
 			else
 				velocity = -2;
-			Projectile.NewProjectile(target.Center.X, target.Center.Y, velocity, 0, mod.ProjectileType("TideProj2"), 0, 1, Main.myPlayer, 0, 0);
+			Projectile.NewProjectile(player.GetProjectileSource_Item(Item), target.Center.X, target.Center.Y, velocity, 0, ModContent.ProjectileType<TideProj2>(), 0, 1, Main.myPlayer, 0, 0);
 		}
     }
 }

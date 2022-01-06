@@ -4,6 +4,7 @@ using Terraria.ID;
 using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using Terraria.ModLoader;
+using Terraria.DataStructures;
 
 namespace Emperia.Items.Sets.PreHardmode.Aquatic
 {
@@ -17,25 +18,25 @@ namespace Emperia.Items.Sets.PreHardmode.Aquatic
 		}
         public override void SetDefaults()
         {
-            item.damage = 14;
-            item.noMelee = true;
-            item.ranged = true;
-            item.width = 69;
-            item.height = 40;
-            item.useTime = 10;
-            item.useAnimation = 10;
-            item.useStyle = 5;
-            item.shoot = 3;
-            item.useAmmo = ItemID.WoodenArrow;
-            item.knockBack = 1;
-            item.value = 1000;
-            item.rare = 3;
-            item.autoReuse = false;
-            item.shootSpeed = 12f;
-			item.UseSound = SoundID.Item5; 
+            Item.damage = 14;
+            Item.noMelee = true;
+            Item.DamageType = DamageClass.Ranged;
+            Item.width = 69;
+            Item.height = 40;
+            Item.useTime = 10;
+            Item.useAnimation = 10;
+            Item.useStyle = 5;
+            Item.shoot = 3;
+            Item.useAmmo = ItemID.WoodenArrow;
+            Item.knockBack = 1;
+            Item.value = 1000;
+            Item.rare = 3;
+            Item.autoReuse = false;
+            Item.shootSpeed = 12f;
+			Item.UseSound = SoundID.Item5; 
         }
 		
-		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+		public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockBack)
 		{
 			
 			return true;
@@ -48,11 +49,11 @@ namespace Emperia.Items.Sets.PreHardmode.Aquatic
 		
         /*public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(mod);
+			Recipe recipe = CreateRecipe();
 			recipe.AddIngredient(null, "GraniteBar", 8);
 			recipe.AddTile(TileID.Anvils);
-			recipe.SetResult(this);
-			recipe.AddRecipe();
+			recipe.Register();
+			
 		}*/
     }
 }

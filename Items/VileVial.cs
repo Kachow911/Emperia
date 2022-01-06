@@ -14,19 +14,19 @@ namespace Emperia.Items
         }
         public override void SetDefaults()
         {
-            item.width = 20;
-            item.height = 28;
-            item.useStyle = 2;
-            item.useAnimation = 17;
-            item.useTime = 17;
-            item.useTurn = true;
-            item.UseSound = SoundID.Item3;
-            item.maxStack = 30;
-            item.consumable = true;
-            item.rare = 1;
-            item.value = 1750;
-        	item.healLife = 130;
-            item.potion = true;
+            Item.width = 20;
+            Item.height = 28;
+            Item.useStyle = 2;
+            Item.useAnimation = 17;
+            Item.useTime = 17;
+            Item.useTurn = true;
+            Item.UseSound = SoundID.Item3;
+            Item.maxStack = 30;
+            Item.consumable = true;
+            Item.rare = 1;
+            Item.value = 1750;
+        	Item.healLife = 130;
+            Item.potion = true;
         }
         int healDisplayFix = 130;
 		public override void GetHealLife(Player player, bool quickHeal, ref int healValue)
@@ -35,29 +35,41 @@ namespace Emperia.Items
             healDisplayFix = 130;
 		}
 
-        public override bool UseItem(Player player)
+        public override bool? UseItem(Player player)
         {
             MyPlayer modPlayer = player.GetModPlayer<MyPlayer>();
-            if (Main.expertMode) {
+            if (Main.masterMode)
+            {
+                player.AddBuff(BuffID.Poisoned, 240);
+            }
+            else if (Main.expertMode) {
 				player.AddBuff(BuffID.Poisoned, 300);
             }
             else {
 				player.AddBuff(BuffID.Poisoned, 600);
-            } //vanilla expert mode code automatically doubles poison time
+            } //vanilla expert mode code automatically doubles poison time, master increases by 2.5x
             modPlayer.vileTimer = 600;
             healDisplayFix = 0;
-            return false;
+            return true;
         }
 
         public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(ItemID.LesserHealingPotion, 2);
-			recipe.AddIngredient(ItemID.VileMushroom);
-			recipe.AddIngredient(ItemID.RottenChunk); 
-			recipe.AddTile(TileID.Bottles);
-			recipe.SetResult(this, 2);
-			recipe.AddRecipe();
+            CreateRecipe(2)
+			    .AddIngredient(ItemID.LesserHealingPotion, 2)
+                //.AddIngredient(ItemID.VileMushroom)
+                .AddRecipeGroup("Emperia:EvilMushroom")
+                .AddRecipeGroup("Emperia:EvilChunk")
+                //.AddIngredient(ItemID.RottenChunk)
+			    .AddTile(TileID.Bottles)
+			    .Register();
+			//Recipe recipe = CreateRecipe();
+			//recipe.AddIngredient(ItemID.LesserHealingPotion, 2);
+			//recipe.AddIngredient(ItemID.VileMushroom);
+			//recipe.AddIngredient(ItemID.RottenChunk); 
+			//recipe.AddTile(TileID.Bottles);
+			//recipe.SetResult(this, 2);
+			
 		}
     }
 }

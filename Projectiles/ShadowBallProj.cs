@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Emperia.Items.Weapons.GoblinArmy;
 
 namespace Emperia.Projectiles
 {
@@ -15,47 +16,47 @@ namespace Emperia.Projectiles
 		}
 		public override void SetDefaults()
 		{
-			projectile.CloneDefaults(ProjectileID.PainterPaintball);
-			projectile.friendly = true;
-			projectile.hostile = false;
-			projectile.timeLeft = 200;
-			projectile.height = 24;
-			projectile.width = 24;
-			projectile.penetrate = 4;
-			projectile.extraUpdates = 1;
-			projectile.alpha = 0;
-			Main.projFrames[projectile.type] = 7;
+			Projectile.CloneDefaults(ProjectileID.PainterPaintball);
+			Projectile.friendly = true;
+			Projectile.hostile = false;
+			Projectile.timeLeft = 200;
+			Projectile.height = 24;
+			Projectile.width = 24;
+			Projectile.penetrate = 4;
+			Projectile.extraUpdates = 1;
+			Projectile.alpha = 0;
+			Main.projFrames[Projectile.type] = 7;
 		}
 
 		public override void AI()
 		{
-			projectile.frameCounter++;
-			if (projectile.frameCounter >= 4)
+			Projectile.frameCounter++;
+			if (Projectile.frameCounter >= 4)
 			{
-				projectile.frameCounter = 0;
-				if (projectile.frame < 4)
-					projectile.frame = (projectile.frame + 1);
+				Projectile.frameCounter = 0;
+				if (Projectile.frame < 4)
+					Projectile.frame = (Projectile.frame + 1);
 				else
-					projectile.frame = 0;
+					Projectile.frame = 0;
 			} 
-			projectile.rotation += 0.2f;
+			Projectile.rotation += 0.2f;
 		}
 
 		public override bool OnTileCollide(Vector2 oldVelocity)
 		{
-			projectile.penetrate--;
-			if (projectile.penetrate <= 0)
-				projectile.Kill();
+			Projectile.penetrate--;
+			if (Projectile.penetrate <= 0)
+				Projectile.Kill();
 			else
 			{
-				projectile.ai[0] += 0.1f;
-				if (projectile.velocity.X != oldVelocity.X)
-					projectile.velocity.X = -oldVelocity.X;
+				Projectile.ai[0] += 0.1f;
+				if (Projectile.velocity.X != oldVelocity.X)
+					Projectile.velocity.X = -oldVelocity.X;
 
-				if (projectile.velocity.Y != oldVelocity.Y)
-					projectile.velocity.Y = -oldVelocity.Y;
+				if (Projectile.velocity.Y != oldVelocity.Y)
+					Projectile.velocity.Y = -oldVelocity.Y;
 
-				projectile.velocity *= 0.5f;
+				Projectile.velocity *= 0.5f;
 			}
 			return false;
 		}
@@ -63,14 +64,14 @@ namespace Emperia.Projectiles
 		public override void Kill(int timeLeft)
 		{
 			if (Main.rand.Next(0, 4) == 0)
-				Item.NewItem((int)projectile.position.X, (int)projectile.position.Y, projectile.width, projectile.height, mod.ItemType("ShadowBall"), 1, false, 0, false, false);
+				Item.NewItem((int)Projectile.position.X, (int)Projectile.position.Y, Projectile.width, Projectile.height, ModContent.ItemType<Items.Weapons.GoblinArmy.ShadowBall>(), 1, false, 0, false, false);
 
 			for (int i = 0; i < 8; ++i)
 			{
 				Color rgb = new Color(83, 66, 180);
-				int index3 = Dust.NewDust(new Vector2((float) (projectile.position.X + 4.0), (float) (projectile.position.Y + 4.0)), projectile.width - 8, projectile.height - 8, DustID.Shadowflame, 0.0f, 0.0f, 0, Color.White, 1.5f);
+				int index3 = Dust.NewDust(new Vector2((float) (Projectile.position.X + 4.0), (float) (Projectile.position.Y + 4.0)), Projectile.width - 8, Projectile.height - 8, DustID.Shadowflame, 0.0f, 0.0f, 0, Color.White, 1.5f);
 			}
-			Main.PlaySound(2, (int)projectile.position.X, (int)projectile.position.Y, 27);
+			Terraria.Audio.SoundEngine.PlaySound(2, (int)Projectile.position.X, (int)Projectile.position.Y, 27);
 		}
 		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {

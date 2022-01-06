@@ -18,16 +18,16 @@ public class GraniteHelm : ModItem
 		}
     public override void SetDefaults()
     {
-        item.width = 18;
-        item.height = 18;
-        item.value = 140000;
-        item.rare = 2;
-        item.defense = 6;
+        Item.width = 18;
+        Item.height = 18;
+        Item.value = 140000;
+        Item.rare = 2;
+        Item.defense = 6;
     }
 
     public override bool IsArmorSet(Item head, Item body, Item legs)
     {
-        return body.type == mod.ItemType("GraniteChestplate") && legs.type == mod.ItemType("GraniteLeggings");
+        return body.type == ModContent.ItemType<GraniteChestplate>() && legs.type == ModContent.ItemType<GraniteLeggings>();
     }
     
     public override void UpdateArmorSet(Player player)
@@ -47,19 +47,16 @@ public class GraniteHelm : ModItem
     
     public override void UpdateEquip(Player player)
     {
-        player.meleeCrit += 3;
-		player.magicCrit += 3;
-		player.rangedCrit += 3;
-		player.thrownCrit += 3;
+		player.GetCritChance(DamageClass.Generic) += 3;
     }
     
     public override void AddRecipes()
     {
-        ModRecipe recipe = new ModRecipe(mod);
+        Recipe recipe = CreateRecipe();
         recipe.AddIngredient(null, "GraniteBar", 8);
         recipe.AddRecipeGroup("Emperia:EvilHide", 4);
         recipe.AddTile(TileID.Anvils);
-        recipe.SetResult(this);
-        recipe.AddRecipe();
+        recipe.Register();
+        
     }
 }}

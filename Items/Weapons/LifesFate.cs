@@ -18,20 +18,20 @@ namespace Emperia.Items.Weapons
 
         public override void SetDefaults()
         {
-            item.damage = 61;
-            item.useTime = 36;
-            item.useAnimation = 36;
-            item.melee = true;            
-            item.width = 32;              
-            item.height = 32;             
-            item.useStyle = 1;        
-            item.knockBack = 3.75f;
-            item.value = 258000;
-            item.crit = 6;
-            item.rare = 3;
-            item.UseSound = SoundID.Item1;   
-            item.autoReuse = false;
-            item.useTurn = true;
+            Item.damage = 61;
+            Item.useTime = 36;
+            Item.useAnimation = 36;
+            Item.DamageType = DamageClass.Melee;            
+            Item.width = 32;              
+            Item.height = 32;             
+            Item.useStyle = 1;        
+            Item.knockBack = 3.75f;
+            Item.value = 258000;
+            Item.crit = 6;
+            Item.rare = 3;
+            Item.UseSound = SoundID.Item1;   
+            Item.autoReuse = false;
+            Item.useTurn = true;
         }
         public override void MeleeEffects(Player player, Rectangle hitbox)
         {
@@ -45,14 +45,14 @@ namespace Emperia.Items.Weapons
        
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            Recipe recipe = CreateRecipe();
             recipe.AddIngredient(ItemID.Muramasa, 1);
             recipe.AddIngredient(ItemID.BladeofGrass, 1);
             recipe.AddIngredient(ItemID.FieryGreatsword, 1);
             recipe.AddIngredient(ItemID.BloodButcherer, 1);
             recipe.AddTile(TileID.DemonAltar);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            recipe.Register();
+            
         }
     }
 }

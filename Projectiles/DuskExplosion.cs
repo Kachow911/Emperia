@@ -14,26 +14,26 @@ namespace Emperia.Projectiles
 		}
 		public override void SetDefaults()
 		{
-			projectile.width = 16;
-			projectile.height = 16;
-			projectile.aiStyle = -1;
-			projectile.friendly = true;
-			projectile.melee = true;
-			projectile.penetrate = 3;
-			projectile.timeLeft = 15;
-			projectile.light = 0.5f;
-			projectile.tileCollide = false;
-			Main.projFrames[projectile.type] = 7;
-			projectile.scale = 1.25f;
+			Projectile.width = 16;
+			Projectile.height = 16;
+			Projectile.aiStyle = -1;
+			Projectile.friendly = true;
+			Projectile.DamageType = DamageClass.Melee;
+			Projectile.penetrate = 3;
+			Projectile.timeLeft = 15;
+			Projectile.light = 0.5f;
+			Projectile.tileCollide = false;
+			Main.projFrames[Projectile.type] = 7;
+			Projectile.scale = 1.25f;
 		}
 		
 		public override void AI()
 		{
-			projectile.frameCounter++;
-			if (projectile.frameCounter >= 4)
+			Projectile.frameCounter++;
+			if (Projectile.frameCounter >= 4)
 			{
-				projectile.frameCounter = 0;
-				projectile.frame = (projectile.frame + 1) % 4;
+				Projectile.frameCounter = 0;
+				Projectile.frame = (Projectile.frame + 1) % 4;
 			} 
 		}
 	}

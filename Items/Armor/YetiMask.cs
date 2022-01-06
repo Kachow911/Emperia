@@ -9,10 +9,10 @@ namespace Emperia.Items.Armor
     {
         public override void SetDefaults()
         {
-            item.width = 30;
-            item.height = 24;
-            item.rare = 3;
-			item.vanity = true;
+            Item.width = 30;
+            Item.height = 24;
+            Item.rare = 3;
+			Item.vanity = true;
         }
 
         public override void SetStaticDefaults()

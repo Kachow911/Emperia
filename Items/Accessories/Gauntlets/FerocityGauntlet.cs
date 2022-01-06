@@ -18,15 +18,15 @@ namespace Emperia.Items.Accessories.Gauntlets
 		}
         public override void SetDefaults()
         {
-            item.width = 30;
-            item.height = 28;
-            item.rare = 4;
-            item.value = Item.sellPrice(0, 3, 0, 0);
-            item.accessory = true;
-            item.GetGlobalItem<GItem>().isGauntlet = true;
+            Item.width = 30;
+            Item.height = 28;
+            Item.rare = 4;
+            Item.value = Item.sellPrice(0, 3, 0, 0);
+            Item.accessory = true;
+            Item.GetGlobalItem<GItem>().isGauntlet = true;
 
         }
-        public override void UpdateAccessory(Player player, bool hideVisual)
+        public override void UpdateAccessory(Player player, bool hideVisibleAccessory)
         {
 			player.GetModPlayer<MyPlayer>().doubleKnockback = true;
 			player.GetModPlayer<MyPlayer>().ferocityGauntlet = true;
@@ -34,7 +34,7 @@ namespace Emperia.Items.Accessories.Gauntlets
         }
 		public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            Recipe recipe = CreateRecipe();
             recipe.AddIngredient(null, "MetallurgyGauntlet", 1);
             recipe.AddIngredient(null, "EnchantedGauntlet", 1);
             recipe.AddIngredient(null, "SpeedGauntlet", 1);
@@ -42,8 +42,8 @@ namespace Emperia.Items.Accessories.Gauntlets
 			recipe.AddIngredient(ItemID.SoulofNight, 5);
 			recipe.AddIngredient(ItemID.SoulofLight, 5);
             recipe.AddTile(TileID.MythrilAnvil);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            recipe.Register();
+            
 			
         }
     }

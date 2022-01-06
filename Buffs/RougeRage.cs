@@ -14,14 +14,12 @@ namespace Emperia.Buffs
 {
     public class RougeRage : ModBuff
     {
-        public override void SetDefaults()
+        public override void SetStaticDefaults()
         {
 			DisplayName.SetDefault("Rouge Rage");
 			Description.SetDefault("10% increased critical hit damage");
             Main.buffNoSave[Type] = true;
             //Main.buffNoTimeDisplay[Type] = true;
-
-            canBeCleared = true;
         }
 
         public override void Update(Player player, ref int buffIndex)

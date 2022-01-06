@@ -16,32 +16,32 @@ namespace Emperia.Projectiles.Mushroom
 			DisplayName.SetDefault("Enchanted Mushroom");
 		}
         public override void SetDefaults()
-        {  //projectile name
-            projectile.width = 20;       //projectile width
-            projectile.height = 28;  //projectile height
-            projectile.friendly = true;      //make that the projectile will not damage you
-			projectile.hostile = false;
-            projectile.magic = true;         // 
-            projectile.tileCollide = false;   //make that the projectile will be destroed if it hits the terrain
-            projectile.penetrate = -1;      //how many npc will penetrate
-            projectile.timeLeft = 240;   //how many time projectile projectile has before disepire
-            projectile.light = 0.3f;    // projectile light
+        {  //Projectile name
+            Projectile.width = 20;       //Projectile width
+            Projectile.height = 28;  //Projectile height
+            Projectile.friendly = true;      //make that the Projectile will not damage you
+			Projectile.hostile = false;
+            Projectile.DamageType = DamageClass.Magic;         // 
+            Projectile.tileCollide = false;   //make that the Projectile will be destroed if it hits the terrain
+            Projectile.penetrate = -1;      //how many NPC will penetrate
+            Projectile.timeLeft = 240;   //how many time Projectile Projectile has before disepire
+            Projectile.light = 0.3f;    // Projectile light
 			
-            projectile.extraUpdates = 1;
-            projectile.ignoreWater = true;
-			projectile.alpha = 100;
+            Projectile.extraUpdates = 1;
+            Projectile.ignoreWater = true;
+			Projectile.alpha = 100;
         }
-        public override void AI()           //projectile make that the projectile will face the corect way
+        public override void AI()           //Projectile make that the Projectile will face the corect way
         {              
 			if (!init)
 			{
 				if (Main.rand.NextBool(2))
-					projectile.spriteDirection = -1;
+					Projectile.spriteDirection = -1;
 				init = true;
 			}
             if (Main.rand.Next(20) == 0)
             {
-            	int dust = Dust.NewDust(new Vector2(projectile.Center.X, projectile.Center.Y), projectile.width / 8, projectile.height / 8, 20, 0f, 0f, 0, new Color(39, 90, 219), 1.5f);
+            	int dust = Dust.NewDust(new Vector2(Projectile.Center.X, Projectile.Center.Y), Projectile.width / 8, Projectile.height / 8, 20, 0f, 0f, 0, new Color(39, 90, 219), 1.5f);
             }
 			
         }

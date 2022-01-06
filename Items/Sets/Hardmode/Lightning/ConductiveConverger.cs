@@ -4,6 +4,8 @@ using Terraria.ID;
 using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using Terraria.ModLoader;
+using Terraria.DataStructures;
+using Emperia.Projectiles.Lightning;
 
 namespace Emperia.Items.Sets.Hardmode.Lightning
 {
@@ -17,39 +19,39 @@ namespace Emperia.Items.Sets.Hardmode.Lightning
 		}
         public override void SetDefaults()
         {
-            item.damage = 34;
-            item.noMelee = true;
-            item.ranged = true;
-            item.width = 30;
-            item.height = 40;
-            item.useTime = 28;
-            item.useAnimation = 29;
-            item.useStyle = 5;
-            item.shoot = 3;
-            item.useAmmo = ItemID.WoodenArrow;
-            item.knockBack = 1;
-            item.value = 22500;
-            item.rare = 4;
-            item.autoReuse = false;
-            item.shootSpeed = 12f;
-			item.UseSound = SoundID.Item5; 
+            Item.damage = 34;
+            Item.noMelee = true;
+            Item.DamageType = DamageClass.Ranged;
+            Item.width = 30;
+            Item.height = 40;
+            Item.useTime = 28;
+            Item.useAnimation = 29;
+            Item.useStyle = 5;
+            Item.shoot = 3;
+            Item.useAmmo = ItemID.WoodenArrow;
+            Item.knockBack = 1;
+            Item.value = 22500;
+            Item.rare = 4;
+            Item.autoReuse = false;
+            Item.shootSpeed = 12f;
+			Item.UseSound = SoundID.Item5; 
         }
 
-		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+		public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockBack)
 		{
 			if (type == ProjectileID.WoodenArrowFriendly)
 			{
-				type = mod.ProjectileType("LightningArrow");
+				type = ModContent.ProjectileType<LightningArrow>();
 			}
 
 			MyPlayer modPlayer = player.GetModPlayer<MyPlayer>();
 			if (modPlayer.lightningSet)
-				Projectile.NewProjectile(player.Center.X, player.Center.Y, 0, 0, mod.ProjectileType("LightningSetEffect"), 25, knockBack, player.whoAmI);
+				Projectile.NewProjectile(source, player.Center.X, player.Center.Y, 0, 0, ModContent.ProjectileType<LightningSetEffect>(), 25, knockBack, player.whoAmI);
 			return true;
 
 		}
 
-		public override bool ConsumeAmmo(Player player)
+		public override bool CanConsumeAmmo(Player player)
 		{
 			return !(Main.rand.Next(3) == 0);
 		}
@@ -61,11 +63,11 @@ namespace Emperia.Items.Sets.Hardmode.Lightning
 		
         public override void AddRecipes()
 		{
-			/*ModRecipe recipe = new ModRecipe(mod);
+			/*Recipe recipe = CreateRecipe();
 			recipe.AddIngredient(null, "GraniteBar", 8);
 			recipe.AddTile(TileID.Anvils);
-			recipe.SetResult(this);
-			recipe.AddRecipe();*/
+			recipe.Register();
+			*/
 		}
     }
 }

@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.GameContent;
 
 namespace Emperia.Projectiles
 {
@@ -13,25 +14,25 @@ namespace Emperia.Projectiles
 		}
 
 		public override void SetDefaults() {
-			projectile.width = 6;
-			projectile.height = 6;
-			projectile.aiStyle = 1;
-			projectile.friendly = true;
-			projectile.hostile = false;
-			projectile.magic = true;
-			projectile.penetrate = 3;
-			projectile.timeLeft = 600;
-			projectile.alpha = 255;
-			projectile.light = 0.8f;
-			projectile.ignoreWater = true;
-			projectile.tileCollide = true;
-			projectile.extraUpdates = 1;
-			projectile.scale = 1.8f;
-			aiType = ProjectileID.GreenLaser;
+			Projectile.width = 6;
+			Projectile.height = 6;
+			Projectile.aiStyle = 1;
+			Projectile.friendly = true;
+			Projectile.hostile = false;
+			Projectile.DamageType = DamageClass.Magic;
+			Projectile.penetrate = 3;
+			Projectile.timeLeft = 600;
+			Projectile.alpha = 255;
+			Projectile.light = 0.8f;
+			Projectile.ignoreWater = true;
+			Projectile.tileCollide = true;
+			Projectile.extraUpdates = 1;
+			Projectile.scale = 1.8f;
+			AIType = ProjectileID.GreenLaser;
 		}
 		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
 		{
-			Player player = Main.player[projectile.owner];
+			Player player = Main.player[Projectile.owner];
             MyPlayer modPlayer = player.GetModPlayer<MyPlayer>();
 			if (modPlayer.eschargo < 0 && crit)
 			{
@@ -44,19 +45,21 @@ namespace Emperia.Projectiles
 					modPlayer.eschargo += 1;
 					if (modPlayer.eschargo == 0) 
 					{
-						Main.PlaySound(SoundID.Item4, player.Center);
+						Terraria.Audio.SoundEngine.PlaySound(SoundID.Item4, player.Center);
 						//CombatText.NewText(new Rectangle((int)player.position.X, (int)player.position.Y - 20, player.width, player.height), Color.HotPink, "Charged!", false, false);
 					}
 				}
 			}
 		}
-		public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor) {
-			//Redraw the projectile with the color not influenced by light
-			Vector2 drawOrigin = new Vector2(Main.projectileTexture[projectile.type].Width * 0.5f, projectile.height * 0.5f);
-			for (int k = 0; k < projectile.oldPos.Length; k++) {
-				Vector2 drawPos = projectile.oldPos[k] - Main.screenPosition + drawOrigin + new Vector2(0f, projectile.gfxOffY);
-				Color color = projectile.GetAlpha(lightColor) * ((float)(projectile.oldPos.Length - k) / (float)projectile.oldPos.Length);
-				spriteBatch.Draw(Main.projectileTexture[projectile.type], drawPos, null, color, projectile.rotation, drawOrigin, projectile.scale, SpriteEffects.None, 0f);
+		public override bool PreDraw(ref Color lightColor) {
+			Main.instance.LoadProjectile(Projectile.type);
+			Texture2D texture = TextureAssets.Projectile[Projectile.type].Value;
+
+			Vector2 drawOrigin = new Vector2(texture.Width * 0.5f, Projectile.height * 0.5f);
+			for (int k = 0; k < Projectile.oldPos.Length; k++) {
+				Vector2 drawPos = Projectile.oldPos[k] - Main.screenPosition + drawOrigin + new Vector2(0f, Projectile.gfxOffY);
+				Color color = Projectile.GetAlpha(lightColor) * ((float)(Projectile.oldPos.Length - k) / (float)Projectile.oldPos.Length);
+				Main.EntitySpriteDraw(texture, drawPos, null, color, Projectile.rotation, drawOrigin, Projectile.scale, SpriteEffects.None, 0);
 			}
 			return true;
 		}

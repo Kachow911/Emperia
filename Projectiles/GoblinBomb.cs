@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Emperia.Projectiles;
 
 namespace Emperia.Projectiles
 {
@@ -14,39 +15,39 @@ namespace Emperia.Projectiles
 			DisplayName.SetDefault("Goblin Rocket");
 		}
         public override void SetDefaults()
-        {  //projectile name
-            projectile.width = 32;       //projectile width
-            projectile.height = 32;  //projectile height
-            projectile.friendly = false;      //make that the projectile will not damage you
-			projectile.hostile = true;       // 
-            projectile.tileCollide = true;   //make that the projectile will be destroed if it hits the terrain
-            projectile.penetrate = 1;      //how many npc will penetrate
-            projectile.timeLeft = 200;   //how many time projectile projectile has before disepire
-            projectile.light = 0.75f;    // projectile light
-            projectile.ignoreWater = true;
-			Main.projFrames[projectile.type] = 6;
+        {  //Projectile name
+            Projectile.width = 32;       //Projectile width
+            Projectile.height = 32;  //Projectile height
+            Projectile.friendly = false;      //make that the Projectile will not damage you
+			Projectile.hostile = true;       // 
+            Projectile.tileCollide = true;   //make that the Projectile will be destroed if it hits the terrain
+            Projectile.penetrate = 1;      //how many NPC will penetrate
+            Projectile.timeLeft = 200;   //how many time Projectile Projectile has before disepire
+            Projectile.light = 0.75f;    // Projectile light
+            Projectile.ignoreWater = true;
+			Main.projFrames[Projectile.type] = 6;
         }
-        public override void AI()           //projectile make that the projectile will face the corect way
+        public override void AI()           //Projectile make that the Projectile will face the corect way
         {                                                           // |
-			projectile.frameCounter++;
-			if (projectile.frameCounter >= 6)
+			Projectile.frameCounter++;
+			if (Projectile.frameCounter >= 6)
 			{
-				projectile.frameCounter = 0;
-				projectile.frame = (projectile.frame + 1) % 6;
+				Projectile.frameCounter = 0;
+				Projectile.frame = (Projectile.frame + 1) % 6;
 			} 
 		}
 		public override void Kill(int timeLeft)
         {
-			Main.PlaySound(SoundID.Item, projectile.Center, 14);
+			Terraria.Audio.SoundEngine.PlaySound(SoundID.Item, Projectile.Center, 14);
 			for (int i = 0; i < Main.player.Length; i++)
 			{
-				if (projectile.Distance(Main.player[i].Center) < 32)
-					Main.player[i].Hurt(Terraria.DataStructures.PlayerDeathReason.ByProjectile(Main.player[i].whoAmI, projectile.whoAmI), projectile.damage, 0);
+				if (Projectile.Distance(Main.player[i].Center) < 32)
+					Main.player[i].Hurt(Terraria.DataStructures.PlayerDeathReason.ByProjectile(Main.player[i].whoAmI, Projectile.whoAmI), Projectile.damage, 0);
 			}
 			for (int i = 0; i < 50; ++i) //Create dust after teleport
 			{
-				int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 258);
-				int dust1 = Dust.NewDust(projectile.position, projectile.width, projectile.height, 258);
+				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 258);
+				int dust1 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 258);
 				Main.dust[dust1].scale = 0.8f;
 				Main.dust[dust1].velocity *= 2f;
 			}
@@ -54,7 +55,7 @@ namespace Emperia.Projectiles
 			{
 
 				Vector2 perturbedSpeed = new Vector2(0, 3).RotatedByRandom(MathHelper.ToRadians(180));
-				Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, mod.ProjectileType("FireBallHostile"), projectile.damage / 3, 1, Main.myPlayer, 0, 0);
+				Projectile.NewProjectile(Projectile.InheritSource(Projectile), Projectile.Center.X, Projectile.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, ModContent.ProjectileType<FireBallHostile>(), Projectile.damage / 3, 1, Main.myPlayer, 0, 0);
 
 			}
 

@@ -4,6 +4,7 @@ using Terraria.ID;
 using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using Terraria.ModLoader;
+using Emperia.Projectiles;
 
 namespace Emperia.Items.Sets.Hardmode.Vulcan
 {
@@ -17,42 +18,42 @@ namespace Emperia.Items.Sets.Hardmode.Vulcan
         }
         public override void SetDefaults()
         {
-            item.damage = 50;
-            item.noMelee = true;
-            item.ranged = true;
-            item.width = 69;
-            item.height = 40;
-            item.useTime = 40;
-            item.useAnimation = 40;
-            item.useStyle = 5;
-            item.knockBack = 1;
-            item.value = 1000;
-            item.rare = 3;
-            item.scale = 0.7f;
-            item.autoReuse = false;
-            item.shootSpeed = 10f;
-            item.crit = 10;
+            Item.damage = 50;
+            Item.noMelee = true;
+            Item.DamageType = DamageClass.Ranged;
+            Item.width = 69;
+            Item.height = 40;
+            Item.useTime = 40;
+            Item.useAnimation = 40;
+            Item.useStyle = 5;
+            Item.knockBack = 1;
+            Item.value = 1000;
+            Item.rare = 3;
+            Item.scale = 0.7f;
+            Item.autoReuse = false;
+            Item.shootSpeed = 10f;
+            Item.crit = 10;
         }
         public override bool CanUseItem(Player player)
         {
             if (player.altFunctionUse == 2)
             {
-                item.useStyle = 5;
-                item.useAnimation = 15;
-                item.useTime = 5;
-                item.reuseDelay = 14;
-                item.damage = 75;
-                item.shoot = mod.ProjectileType("VulcanRocket");
+                Item.useStyle = 5;
+                Item.useAnimation = 15;
+                Item.useTime = 5;
+                Item.reuseDelay = 14;
+                Item.damage = 75;
+                Item.shoot = ModContent.ProjectileType<VulcanRocket>();
             }
             else
             {
-                item.useStyle = 5;
-                item.useTime = 32;
-                item.useAnimation = 32;
-                item.damage = 44;
-                item.shoot = 3;
-                item.shootSpeed = 15f;
-                item.useAmmo = ItemID.WoodenArrow;
+                Item.useStyle = 5;
+                Item.useTime = 32;
+                Item.useAnimation = 32;
+                Item.damage = 44;
+                Item.shoot = 3;
+                Item.shootSpeed = 15f;
+                Item.useAmmo = ItemID.WoodenArrow;
             }
             return base.CanUseItem(player);
         }
@@ -60,17 +61,17 @@ namespace Emperia.Items.Sets.Hardmode.Vulcan
         {
             return true;
         }
-        public override bool UseItem(Player player)
+        public override bool? UseItem(Player player)
         {
             return bulletLoadeds > 0;
         }
         /*public override void AddRecipes()
     {
-        ModRecipe recipe = new ModRecipe(mod);
+        Recipe recipe = CreateRecipe();
         recipe.AddIngredient(null, "GraniteBar", 8);
         recipe.AddTile(TileID.Anvils);
-        recipe.SetResult(this);
-        recipe.AddRecipe();
+        recipe.Register();
+        
     }*/
     }
 }

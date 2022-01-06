@@ -12,99 +12,100 @@ namespace Emperia.Projectiles.Desert
 	
     public class DesertSpikeBig : ModProjectile
     {
-        NPC npc;
+        NPC NPC;
 
 		private int initCounter = 0;
 
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Sandstone Spike");
-            ProjectileID.Sets.DontAttachHideToAlpha[projectile.type] = true;
+            ProjectileID.Sets.DontAttachHideToAlpha[Projectile.type] = true;
 		}
         public override void SetDefaults()
         {
-            projectile.width = 32;
-            projectile.height = 54;
-            projectile.friendly = true;
-			projectile.hostile = false;
-            projectile.tileCollide = false;
-            projectile.penetrate = 2;
-            projectile.timeLeft = 109;
-            projectile.light = 0f;
-            projectile.ignoreWater = true;
-			projectile.alpha = 0;
-            projectile.damage = 0;
-            projectile.hide = true;
-            Main.projFrames[projectile.type] = 4;
+            Projectile.width = 32;
+            Projectile.height = 54;
+            Projectile.friendly = true;
+			Projectile.hostile = false;
+            Projectile.tileCollide = false;
+            Projectile.penetrate = 2;
+            Projectile.timeLeft = 109;
+            Projectile.light = 0f;
+            Projectile.ignoreWater = true;
+			Projectile.alpha = 0;
+            Projectile.damage = 0;
+            Projectile.hide = true;
+            Main.projFrames[Projectile.type] = 4;
         }
         public override void AI()
         {
-            Player player = Main.player[projectile.owner];
+            Player player = Main.player[Projectile.owner];
             MyPlayer modPlayer = player.GetModPlayer<MyPlayer>();
             initCounter++;
             if (initCounter == 1)
             {
-                projectile.direction = modPlayer.desertSpikeDirection;
-                projectile.spriteDirection = modPlayer.desertSpikeDirection;
+                Projectile.direction = modPlayer.desertSpikeDirection;
+                Projectile.spriteDirection = modPlayer.desertSpikeDirection;
             }
 
             if (initCounter == 9)
             {
-                projectile.damage = 18;
+                Projectile.damage = 18;
            } 
 
-            if (projectile.penetrate == 1)
+            if (Projectile.penetrate == 1)
             {
-                if (npc.GetGlobalNPC<MyNPC>().desertSpikeTime == 0 && initCounter > 10 && projectile.timeLeft > 5)
+                if (NPC.GetGlobalNPC<MyNPC>().desertSpikeTime == 0 && initCounter > 10 && Projectile.timeLeft > 5)
                 {
-                    projectile.timeLeft = 5;
+                    Projectile.timeLeft = 5;
                 }
             }
 
             //animation stuff
-            projectile.frameCounter++;
+            Projectile.frameCounter++;
 
-			if (projectile.frameCounter >= 4 && projectile.frame < 3 && projectile.timeLeft >= 4)
+			if (Projectile.frameCounter >= 4 && Projectile.frame < 3 && Projectile.timeLeft >= 4)
 			{
-				projectile.frameCounter = 0;
-				projectile.frame = (projectile.frame + 1) % 4;
+				Projectile.frameCounter = 0;
+				Projectile.frame = (Projectile.frame + 1) % 4;
 			}
 
-            if (projectile.timeLeft == 4)
+            if (Projectile.timeLeft == 4)
             {
-                projectile.frame = 1;
+                Projectile.frame = 1;
             }
         }
         public override bool? CanHitNPC(NPC target)
 		{
-            if (projectile.penetrate == 1 | initCounter > 10)
+            if (Projectile.penetrate == 1 | initCounter > 10)
             {
                 return false;
             }
-            else return true;
+            else return null;
 		}
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
-            npc = target;
-            npc.GetGlobalNPC<MyNPC>().impaledDirection = npc.direction;
+            NPC = target;
+            NPC.GetGlobalNPC<MyNPC>().impaledDirection = NPC.direction;
 		}
         public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection) {
-            npc = target;
-            if (npc.knockBackResist > 0f)
+            NPC = target;
+            if (NPC.knockBackResist > 0f)
             {
-                npc.GetGlobalNPC<MyNPC>().desertSpikeTime = 100;
-                npc.GetGlobalNPC<MyNPC>().desertSpikeHeight = projectile.Top.Y + 28;
+                NPC.GetGlobalNPC<MyNPC>().desertSpikeTime = 100;
+                NPC.GetGlobalNPC<MyNPC>().desertSpikeHeight = Projectile.Top.Y + 28;
             }
 		}
-        public override void DrawBehind(int index, List<int> drawCacheProjsBehindNPCsAndTiles, List<int> drawCacheProjsBehindNPCs, List<int> drawCacheProjsBehindProjectiles, List<int> drawCacheProjsOverWiresUI) {
-			drawCacheProjsBehindNPCs.Add(index);
+        public override void DrawBehind(int index, List<int> behindNPCsAndTiles, List<int> behindNPCs, List<int> behindProjectiles, List<int> overPlayers, List<int> overWiresUI)
+        {
+            behindNPCs.Add(index);
 		}
         public override void Kill(int timeLeft)
         {
             for (int i = 0; i < 5; i++)
             {
-                int dust = Dust.NewDust(projectile.position, projectile.width / 2, projectile.height, mod.DustType("CarapaceDust"));
-                Vector2 vel = new Vector2(projectile.velocity.X * -2, -1);
+                int dust = Dust.NewDust(Projectile.position, Projectile.width / 2, Projectile.height, ModContent.DustType<Dusts.CarapaceDust>());
+                Vector2 vel = new Vector2(Projectile.velocity.X * -2, -1);
             }
         }
     }

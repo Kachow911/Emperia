@@ -5,6 +5,8 @@ using Terraria.Graphics.Effects;
 using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.DataStructures;
+using Emperia.Projectiles.Twilight;
 
 namespace Emperia.Items.Weapons.Twilight
 {
@@ -17,43 +19,43 @@ namespace Emperia.Items.Weapons.Twilight
 		}
         public override void SetDefaults()
         {   //Sword name
-            item.damage = 24;            //Sword damage
-            item.melee = true;            //if it's melee
-            item.width = 16;              //Sword width
-            item.height = 16;             //Sword height
-            item.useTime = 30;          //how fast 
-            item.useAnimation = 27;     
-            item.useStyle = 1;        //Style is how this item is used, 1 is the style of the sword
-            item.knockBack = 6f;      //Sword knockback
-            item.value = 100;        
-            item.rare = 3;
-			item.scale = 1f;
-            item.useTurn = true;             //projectile speed
-			item.UseSound = SoundID.Item18; 	
-			//item.shoot = mod.ProjectileType("LeechEye");
-			//item.shootSpeed = 10f;
+            Item.damage = 24;            //Sword damage
+            Item.DamageType = DamageClass.Melee;            //if it's melee
+            Item.width = 16;              //Sword width
+            Item.height = 16;             //Sword height
+            Item.useTime = 30;          //how fast 
+            Item.useAnimation = 27;     
+            Item.useStyle = 1;        //Style is how this Item is used, 1 is the style of the sword
+            Item.knockBack = 6f;      //Sword knockback
+            Item.value = 100;        
+            Item.rare = 3;
+			Item.scale = 1f;
+            Item.useTurn = true;             //Projectile speed
+			Item.UseSound = SoundID.Item18; 	
+			//Item.shoot = ModContent.ProjectileType<LeechEye>();
+			//Item.shootSpeed = 10f;
         }
 
 		/*public override void AddRecipes()
 		 {
-			 ModRecipe recipe = new ModRecipe(mod);
+			 Recipe recipe = CreateRecipe();
 			 recipe.AddIngredient(null, "JungleMaterial", 5);
 			 recipe.AddIngredient(ItemID.AdamantiteBar, 2);
 			 recipe.AddIngredient(ItemID.SoulofNight, 2);
 			 recipe.AddIngredient(ItemID.SoulofLight, 2);
 			 recipe.AddTile(TileID.MythrilAnvil);
-			 recipe.SetResult(this);
-			 recipe.AddRecipe();
-			 recipe = new ModRecipe(mod);
+			 recipe.Register();
+			 
+			 recipe = CreateRecipe();
 			 recipe.AddIngredient(null, "JungleMaterial", 5);
 			 recipe.AddIngredient(ItemID.TitaniumBar, 2);
 			 recipe.AddIngredient(ItemID.SoulofNight, 2);
 			 recipe.AddIngredient(ItemID.SoulofLight, 2);
 			 recipe.AddTile(TileID.MythrilAnvil);
-			 recipe.SetResult(this);
-			 recipe.AddRecipe();
+			 recipe.Register();
+			 
 		 }*/
-		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+		public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockBack)
 		{
 	
 			return false;
@@ -64,11 +66,11 @@ namespace Emperia.Items.Weapons.Twilight
 			{
 				string text1 = target.life.ToString();
 				string text2 = target.lifeMax.ToString();
-				Projectile.NewProjectile(player.Center.X + Main.rand.Next(-250, 15), player.Center.Y + Main.rand.Next(-300, 300), 0, 0, mod.ProjectileType("LeechEye"), 25, 1, Main.myPlayer, 60, 0);
-				Main.PlaySound(SoundID.NPCHit36, target.Center);
+				Projectile.NewProjectile(player.GetProjectileSource_Item(Item), player.Center.X + Main.rand.Next(-250, 15), player.Center.Y + Main.rand.Next(-300, 300), 0, 0, ModContent.ProjectileType<LeechEye>(), 25, 1, Main.myPlayer, 60, 0);
+				Terraria.Audio.SoundEngine.PlaySound(SoundID.NPCHit36, target.Center);
 			}
 			//if (Main.rand.Next(3) == 0)
-			//	Projectile.NewProjectile(player.Center.X + Main.rand.Next(-250, 15), player.Center.Y + Main.rand.Next(-300, 300), 0, 0, mod.ProjectileType("LeechEye"), 25, 1, Main.myPlayer, 60, 0);
+			//	Projectile.NewProjectile(source, player.Center.X + Main.rand.Next(-250, 15), player.Center.Y + Main.rand.Next(-300, 300), 0, 0, ModContent.ProjectileType<LeechEye>(), 25, 1, Main.myPlayer, 60, 0);
 		}
     }
 }

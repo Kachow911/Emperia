@@ -18,13 +18,13 @@ namespace Emperia.Items.Accessories
 		}
         public override void SetDefaults()
         {
-            item.width = 26;
-            item.height = 18;
-            item.rare = 3;
-            item.value = 54000;
-            item.accessory = true;
+            Item.width = 26;
+            Item.height = 18;
+            Item.rare = 3;
+            Item.value = 54000;
+            Item.accessory = true;
         }
-        public override void UpdateAccessory(Player player, bool hideVisual)
+        public override void UpdateAccessory(Player player, bool hideVisibleAccessory)
         {
 			player.GetModPlayer<MyPlayer>().forbiddenOath = true;
 		

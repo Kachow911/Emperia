@@ -5,7 +5,10 @@ using Terraria.Graphics.Effects;
 using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.DataStructures;
+
 using Emperia.Projectiles;
+using Emperia.Projectiles.Lightning;
 
 
 namespace Emperia.Items.Sets.Hardmode.Lightning
@@ -14,33 +17,34 @@ namespace Emperia.Items.Sets.Hardmode.Lightning
     {
         public override void SetDefaults()
         {
-            item.damage = 32;
-            item.noUseGraphic = true;
-            item.useTime = 28;
-            item.useAnimation = 28;
-            item.thrown = true;
-            item.width = 18;
-            item.height = 40;
-            item.shoot = mod.ProjectileType("ZeusNeedleProj");
-            item.shootSpeed = 16f;
-            item.useStyle = 1;
-            item.knockBack = 5f;
-            item.value = Item.sellPrice(0, 10, 12, 0);
-            item.rare = 4;
-            item.UseSound = SoundID.Item1;
-            item.autoReuse = true;
-            item.consumable = false;
+            Item.damage = 32;
+            Item.noUseGraphic = true;
+            Item.useTime = 28;
+            Item.useAnimation = 28;
+            //Item.thrown = true;
+            Item.DamageType = DamageClass.Ranged;
+            Item.width = 18;
+            Item.height = 40;
+            Item.shoot = ModContent.ProjectileType<ZeusNeedleProj>();
+            Item.shootSpeed = 16f;
+            Item.useStyle = 1;
+            Item.knockBack = 5f;
+            Item.value = Item.sellPrice(0, 10, 12, 0);
+            Item.rare = 4;
+            Item.UseSound = SoundID.Item1;
+            Item.autoReuse = true;
+            Item.consumable = false;
         }
 
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Zeus' Needle");
         }
-        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type1, ref int damage, ref float knockBack)
+		public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockBack)
         {
             MyPlayer modPlayer = player.GetModPlayer<MyPlayer>();
             if (modPlayer.lightningSet)
-                Projectile.NewProjectile(player.Center.X, player.Center.Y, 0, 0, mod.ProjectileType("LightningSetEffect"), 25, knockBack, player.whoAmI);
+                Projectile.NewProjectile(source, player.Center.X, player.Center.Y, 0, 0, ModContent.ProjectileType<LightningSetEffect>(), 25, knockBack, player.whoAmI);
             int num250 = Dust.NewDust(new Vector2(player.position.X, player.position.Y - 16), 8, 8, 226, (float)(player.direction * 2), 0f, 226, new Color(53f, 67f, 253f), 1.3f);
             return true;
         }

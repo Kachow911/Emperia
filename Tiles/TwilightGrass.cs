@@ -2,40 +2,42 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
 using Terraria.ID;
+using static Terraria.ModLoader.ModContent;
+
 
 namespace Emperia.Tiles
 {
     public class TwilightGrass : ModTile
     {
-        public override void SetDefaults()
+        public override void SetStaticDefaults()
         {
 			//AddToArray(ref TileID.Sets.Conversion.Grass);
 			TileID.Sets.Conversion.Grass[Type]=true;
             Main.tileSolid[Type] = true;
             Main.tileBlockLight[Type] = true;  //true for block to emit light
             Main.tileLighted[Type] = true;
-			Main.tileMerge[Type][mod.TileType("TwilightStone")] = true;
+			Main.tileMerge[Type][TileType<Tiles.TwilightStone>()] = true;
             AddMapEntry(new Color(117, 241, 255));
-			mineResist = 3f;
+			MineResist = 3f;
 			Main.tileBrick[Type] = true;
-            drop = ItemID.DirtBlock;
+            ItemDrop = ItemID.DirtBlock;
 			SetModTree(new TwilightTree());
-			dustType = 72;
+			DustType = 72;
       
-			minPick = 100;
+			MinPick = 100;
       
-			soundType = 6; //6 is grass //11 //18 is money //20 is girl sound
+			SoundType = 6; //6 is grass //11 //18 is money //20 is girl sound
       
-			soundStyle = 6;
+			SoundStyle = 6;
       
 			
 			
         }
-		public override int SaplingGrowthType(ref int style)
-        {
-            style = 0;
-            return mod.TileType("TwilightTreeSap");       
-        }
+		//public override int SaplingGrowthType(ref int style)
+        //{
+        //    style = 0;
+        //    return ModContent.TileType<TwilightTreeSap>();       
+        //}
 		
 		
 		
@@ -60,17 +62,17 @@ namespace Emperia.Tiles
             if (TileObject.Place(toBePlaced) && !mute)
             {
                 WorldGen.SquareTileFrame(x, y, true);
-                //   Main.PlaySound(0, x * 16, y * 16, 1, 1f, 0f);
+                //   Terraria.Audio.SoundEngine.PlaySound(0, x * 16, y * 16, 1, 1f, 0f);
             }
             return false;
         }
 
         public override void RandomUpdate(int i, int j)
         {
-            if (!Framing.GetTileSafely(i, j - 1).active())// && Main.rand.Next(40) == 0)
+            if (!Framing.GetTileSafely(i, j - 1).IsActive)// && Main.rand.Next(40) == 0)
             {
-                TwilightGrass.PlaceObject(i, j - 1, mod.TileType("TwilightFlora1"));
-                NetMessage.SendObjectPlacment(-1, i, j - 1, mod.TileType("TwilightFlora1"), 0, 0, -1, -1);
+                TwilightGrass.PlaceObject(i, j - 1, TileType<Tiles.TwilightFlora>());
+                NetMessage.SendObjectPlacment(-1, i, j - 1, TileType<Tiles.TwilightFlora>(), 0, 0, -1, -1);
             }
         }
 		public void SpreadAncientGrassAcrossTheWorld()
@@ -81,17 +83,17 @@ namespace Emperia.Tiles
                 int num = 0;
                 while ((double)num < Main.maxTilesY)
                 {
-                    if (Main.tile[k, num].active())
+                    if (Main.tile[k, num].IsActive)
                     {
                         if (flag2 && Main.tile[k, num].type == TileID.Dirt)
                         {
                             try
                             {
-                                WorldGen.SpreadGrass(k, num, TileID.Dirt, mod.TileType("TwilightGrass"), true, Main.tile[k, num].color());
+                                WorldGen.SpreadGrass(k, num, TileID.Dirt, TileType<Tiles.TwilightGrass>(), true, Main.tile[k, num].Color);
                             }
                             catch
                             {
-                                WorldGen.SpreadGrass(k, num, TileID.Dirt, mod.TileType("TwilightGrass"), true, Main.tile[k, num].color());
+                                WorldGen.SpreadGrass(k, num, TileID.Dirt, TileType<Tiles.TwilightGrass>(), true, Main.tile[k, num].Color);
                             }
                         }
                         if ((double)num > WorldGen.worldSurfaceHigh)

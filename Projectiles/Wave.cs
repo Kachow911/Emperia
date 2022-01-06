@@ -15,38 +15,38 @@ namespace Emperia.Projectiles
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Wave");
-			Main.projFrames[projectile.type] = 5;
+			Main.projFrames[Projectile.type] = 5;
 		}
         public override void SetDefaults()
-        {  //projectile name
-            projectile.width = 20;       //projectile width
-            projectile.height = 5;  //projectile height
-            projectile.friendly = true;      //make that the projectile will not damage you
-			projectile.hostile = false;
-            projectile.magic = true;         // 
-            projectile.tileCollide = false;   //make that the projectile will be destroed if it hits the terrain
-            projectile.penetrate = -1;      //how many projectile will penetrate
-            projectile.timeLeft = 50;   //how many time projectile projectile has before disepire
-            projectile.light = 0f;    // projectile light
-            projectile.extraUpdates = 1;
-            projectile.ignoreWater = true;
-			projectile.alpha = 0;
+        {  //Projectile name
+            Projectile.width = 20;       //Projectile width
+            Projectile.height = 5;  //Projectile height
+            Projectile.friendly = true;      //make that the Projectile will not damage you
+			Projectile.hostile = false;
+            Projectile.DamageType = DamageClass.Magic;         // 
+            Projectile.tileCollide = false;   //make that the Projectile will be destroed if it hits the terrain
+            Projectile.penetrate = -1;      //how many Projectile will penetrate
+            Projectile.timeLeft = 50;   //how many time Projectile Projectile has before disepire
+            Projectile.light = 0f;    // Projectile light
+            Projectile.extraUpdates = 1;
+            Projectile.ignoreWater = true;
+			Projectile.alpha = 0;
         }
-        public override void AI()           //projectile make that the projectile will face the corect way
+        public override void AI()           //Projectile make that the Projectile will face the corect way
         {
 			if (!init)
 			{
 				
 			}
-			projectile.frameCounter++;
-			if (projectile.frameCounter >= 4)
+			Projectile.frameCounter++;
+			if (Projectile.frameCounter >= 4)
 			{
-				projectile.frameCounter = 0;
-				if (projectile.frame < 4)
-					projectile.frame = (projectile.frame + 1);
+				Projectile.frameCounter = 0;
+				if (Projectile.frame < 4)
+					Projectile.frame = (Projectile.frame + 1);
 				
 			} 
-			projectile.velocity.Y = 0;
+			Projectile.velocity.Y = 0;
 		}
     }
 }

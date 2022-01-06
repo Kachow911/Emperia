@@ -3,6 +3,8 @@ using System;
 using Microsoft.Xna.Framework;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.DataStructures;
+using Emperia.Projectiles.Desert;
 
 namespace Emperia.Items.Sets.PreHardmode.Desert
 {
@@ -11,40 +13,40 @@ namespace Emperia.Items.Sets.PreHardmode.Desert
 		public override void SetStaticDefaults()
 		{
 			Tooltip.SetDefault("Summons a pack of illusory worms to plague your foes");
-            Item.staff[item.type] = true;
+            Item.staff[Item.type] = true;
 		}
 
         public override void SetDefaults()
         {
-            item.damage = 14;
-            item.magic = true;
-            item.mana = 14;
-            item.width = 52;
-            item.height = 60;
-            item.useTime = 30;
-            item.useAnimation = 30;
-            item.useStyle = 5;
-            item.noMelee = true;
-            item.knockBack = 0;
-            item.value = 27000;
-            item.rare = 1;
-            item.UseSound = SoundID.Item8;
-            item.autoReuse = false;
-            item.shoot = mod.ProjectileType("DuneDriverProj");
-            item.shootSpeed = 0f;
+            Item.damage = 14;
+            Item.DamageType = DamageClass.Magic;
+            Item.mana = 14;
+            Item.width = 52;
+            Item.height = 60;
+            Item.useTime = 30;
+            Item.useAnimation = 30;
+            Item.useStyle = 5;
+            Item.noMelee = true;
+            Item.knockBack = 0;
+            Item.value = 27000;
+            Item.rare = 1;
+            Item.UseSound = SoundID.Item8;
+            Item.autoReuse = false;
+            Item.shoot = ModContent.ProjectileType<DuneDriverProj>();
+            Item.shootSpeed = 0f;
         }
-        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type1, ref int damage, ref float knockBack)
+		public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockBack)
         {
-            Projectile.NewProjectile(player.position.X + 65 * player.direction, player.position.Y, 0, 0, mod.ProjectileType("DuneDriverProj"), item.damage, 0, Main.myPlayer, 0, 0);
+            Projectile.NewProjectile(source, player.position.X + 65 * player.direction, player.position.Y, 0, 0, ModContent.ProjectileType<DuneDriverProj>(), Item.damage, 0, Main.myPlayer, 0, 0);
             return false;
         }
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            Recipe recipe = CreateRecipe();
             recipe.AddIngredient(null, "DesertEye", 3);
             recipe.AddTile(TileID.Anvils);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            recipe.Register();
+            
 
         }
     }

@@ -5,6 +5,9 @@ using Terraria.Graphics.Effects;
 using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.DataStructures;
+using Emperia.Projectiles;
+using Emperia.Buffs;
 
 namespace Emperia.Items.Weapons.Color1   //where is located
 {
@@ -17,27 +20,27 @@ namespace Emperia.Items.Weapons.Color1   //where is located
 		}
         public override void SetDefaults()
         {
-            item.damage = 45;
-            item.melee = true;
-            item.width = 42;
-            item.height = 50;
-            item.useTime = 13;
-            item.useAnimation = 13;     
-            item.useStyle = 1;
-            item.knockBack = 1.5f;  
-            item.value = 232500;        
-            item.rare = 5;
-			item.UseSound = SoundID.Item1;
-			item.shoot = mod.ProjectileType("MellowSlice");
-			item.shootSpeed = 12f;
-			item.scale = 1f;
-            item.autoReuse = true;
-            item.useTurn = true;               
+            Item.damage = 45;
+            Item.DamageType = DamageClass.Melee;
+            Item.width = 42;
+            Item.height = 50;
+            Item.useTime = 13;
+            Item.useAnimation = 13;     
+            Item.useStyle = 1;
+            Item.knockBack = 1.5f;  
+            Item.value = 232500;        
+            Item.rare = 5;
+			Item.UseSound = SoundID.Item1;
+			Item.shoot = ModContent.ProjectileType<MellowSlice>();
+			Item.shootSpeed = 12f;
+			Item.scale = 1f;
+            Item.autoReuse = true;
+            Item.useTurn = true;               
         }
 		
         public override void AddRecipes()
         {
-			ModRecipe recipe = new ModRecipe(mod);      
+			Recipe recipe = CreateRecipe();      
             recipe.AddIngredient(null, "BerylBlade", 1); 
 			recipe.AddIngredient(null, "SaffronSaber", 1); 
 			recipe.AddIngredient(null, "PearlyPrism", 1); 
@@ -45,8 +48,8 @@ namespace Emperia.Items.Weapons.Color1   //where is located
 			recipe.AddIngredient(ItemID.TitaniumBar, 2); 
 			recipe.AddIngredient(ItemID.MythrilBar, 2);  	
             recipe.AddTile(TileID.MythrilAnvil); 			
-            recipe.SetResult(this);
-            recipe.AddRecipe(); 
+            recipe.Register();
+             
 
         }
 		public override void MeleeEffects(Player player, Rectangle hitbox)
@@ -59,16 +62,16 @@ namespace Emperia.Items.Weapons.Color1   //where is located
 		 public override void OnHitNPC(Player player, NPC target, int damage, float knockback, bool crit)
 		{
             if (target.boss)
-			    player.AddBuff(mod.BuffType("LimeLegerity"), Main.rand.Next(420, 600) + 300);
+			    player.AddBuff(ModContent.BuffType<LimeLegerity>(), Main.rand.Next(420, 600) + 300);
             else
-                player.AddBuff(mod.BuffType("LimeLegerity"), Main.rand.Next(420, 600));
+                player.AddBuff(ModContent.BuffType<LimeLegerity>(), Main.rand.Next(420, 600));
         }
-		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type1, ref int damage, ref float knockBack)
+		public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockBack)
 		{
 			MyPlayer p = player.GetModPlayer<MyPlayer>();
 			if (p.isMellowProjectile)
 				return false;
-			//Projectile.NewProjectile(Main.MouseWorld.X, Main.MouseWorld.Y, 0f, 0f, mod.ProjectileType("MellowSlice"), 28, knockBack, player.whoAmI, 0f, 0f);
+			//Projectile.NewProjectile(source, Main.MouseWorld.X, Main.MouseWorld.Y, 0f, 0f, ModContent.ProjectileType<MellowSlice>(), 28, knockBack, player.whoAmI, 0f, 0f);
 			return true;
 		}
     }

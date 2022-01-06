@@ -6,7 +6,7 @@ namespace Emperia.Walls
 {
 	public class TwilightBrickWall : ModWall
 	{
-		public override void SetDefaults()
+		public override void SetStaticDefaults()
 		{
 			Main.wallHouse[Type] = true;
 			AddMapEntry(new Color(96, 125, 162));

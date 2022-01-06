@@ -2,7 +2,9 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.DataStructures;
 using System;
+using Emperia.Projectiles;
 namespace Emperia.Items.Weapons.Inquisitor
 {
     public class PuppeteerPistol : ModItem
@@ -16,31 +18,31 @@ namespace Emperia.Items.Weapons.Inquisitor
 
         public override void SetDefaults()
         {
-            item.damage = 42;
-            item.ranged = true;
-            item.width = 50;
-            item.height = 32;
-            item.useTime = 24;
-            item.useAnimation = 24;
-            item.useStyle = 5;
-            item.noMelee = true;
-            item.knockBack = 2.5f;
-            item.useTurn = false;
-            item.value = Terraria.Item.sellPrice(0, 1, 32, 0);
-            item.rare = 4;
-            item.UseSound = SoundID.Item11;
-            item.autoReuse = true;
-            item.shoot = 10;
-            item.shootSpeed = 8f;
-            item.useAmmo = AmmoID.Bullet;
+            Item.damage = 42;
+            Item.DamageType = DamageClass.Ranged;
+            Item.width = 50;
+            Item.height = 32;
+            Item.useTime = 24;
+            Item.useAnimation = 24;
+            Item.useStyle = 5;
+            Item.noMelee = true;
+            Item.knockBack = 2.5f;
+            Item.useTurn = false;
+            Item.value = Terraria.Item.sellPrice(0, 1, 32, 0);
+            Item.rare = 4;
+            Item.UseSound = SoundID.Item11;
+            Item.autoReuse = true;
+            Item.shoot = 10;
+            Item.shootSpeed = 8f;
+            Item.useAmmo = AmmoID.Bullet;
         }
-        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+		public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockBack)
         {
             count++;
             if (count >= 3)
             {
                 {
-                    Projectile.NewProjectile(position.X, position.Y, speedX * 2, speedY * 2, mod.ProjectileType("PuppetShot"), damage, knockBack, player.whoAmI, 0f, 0f);
+                    Projectile.NewProjectile(source, position.X, position.Y, velocity.X * 2f, velocity.Y * 2f, ModContent.ProjectileType<PuppetShot>(), damage, knockBack, player.whoAmI, 0f, 0f);
                 }
                 count = 0;
 				return false;

@@ -15,37 +15,37 @@ namespace Emperia.Projectiles.Ethereal
 			DisplayName.SetDefault("EtherealWave");
 		}
         public override void SetDefaults()
-        {  //projectile name
-            projectile.width = 68;       //projectile width
-            projectile.height = 36;  //projectile height
-            projectile.friendly = true;      //make that the projectile will not damage you
-            projectile.magic = true;         // 
-            projectile.tileCollide = false;   //make that the projectile will be destroed if it hits the terrain
-            projectile.penetrate = -1;      //how many npc will penetrate
-            projectile.timeLeft = 80;   //how many time projectile projectile has before disepire
-            projectile.light = 1f;    // projectile light
-            projectile.ignoreWater = true;
+        {  //Projectile name
+            Projectile.width = 68;       //Projectile width
+            Projectile.height = 36;  //Projectile height
+            Projectile.friendly = true;      //make that the Projectile will not damage you
+            Projectile.DamageType = DamageClass.Magic;         // 
+            Projectile.tileCollide = false;   //make that the Projectile will be destroed if it hits the terrain
+            Projectile.penetrate = -1;      //how many NPC will penetrate
+            Projectile.timeLeft = 80;   //how many time Projectile Projectile has before disepire
+            Projectile.light = 1f;    // Projectile light
+            Projectile.ignoreWater = true;
         }
-        public override void AI()           //projectile make that the projectile will face the corect way
+        public override void AI()           //Projectile make that the Projectile will face the corect way
         {
-            //projectile.alpha += 4;
-			projectile.rotation = (float)Math.Atan2((double)projectile.velocity.Y, (double)projectile.velocity.X) + 1.57f;
+            //Projectile.alpha += 4;
+			Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + 1.57f;
 			if (Main.rand.NextBool(2))
 			{
-				int dust = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, 229);
+				int dust = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 229);
 				Main.dust[dust].noGravity = true;
 			}
-			if (projectile.timeLeft < 20)
-				projectile.alpha += 10;
+			if (Projectile.timeLeft < 20)
+				Projectile.alpha += 10;
 			
         }
 		 public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
 			target.GetGlobalNPC<MyNPC>().etherealDamages.Add(damage/2);
 			target.GetGlobalNPC<MyNPC>().etherealCounts.Add(2);
-			
-		}
-		public override void Kill(int timeLeft)
+            target.GetGlobalNPC<MyNPC>().etherealSource = Projectile;
+        }
+        public override void Kill(int timeLeft)
         {
 			//
 		}

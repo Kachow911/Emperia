@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.GameContent;
 
 namespace Emperia.Projectiles.Summon
 {
@@ -14,27 +15,27 @@ namespace Emperia.Projectiles.Summon
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Depth Scrounger");
-			Main.projFrames[base.projectile.type] = 8;
-			ProjectileID.Sets.MinionSacrificable[base.projectile.type] = true;
-			ProjectileID.Sets.Homing[base.projectile.type] = true;
-			ProjectileID.Sets.MinionTargettingFeature[projectile.type] = true;
+			Main.projFrames[base.Projectile.type] = 8;
+			ProjectileID.Sets.MinionSacrificable[base.Projectile.type] = true;
+			ProjectileID.Sets.CultistIsResistantTo[base.Projectile.type] = true;
+			ProjectileID.Sets.MinionTargettingFeature[Projectile.type] = true;
 		}
 
 		public override void SetDefaults()
 		{
-            projectile.CloneDefaults(ProjectileID.Spazmamini);
-            projectile.width = 30;
-            projectile.height = 34;
-            projectile.minion = true;
-            projectile.friendly = true;
-            projectile.ignoreWater = true;
-            projectile.tileCollide = false;
-            projectile.netImportant = true;
-            aiType = ProjectileID.Spazmamini;
-            projectile.alpha = 0;
-            projectile.penetrate = -1;
-            projectile.timeLeft = 18000;
-            projectile.minionSlots = 1;
+            Projectile.CloneDefaults(ProjectileID.Spazmamini);
+            Projectile.width = 30;
+            Projectile.height = 34;
+            Projectile.minion = true;
+            Projectile.friendly = true;
+            Projectile.ignoreWater = true;
+            Projectile.tileCollide = false;
+            Projectile.netImportant = true;
+            AIType = ProjectileID.Spazmamini;
+            Projectile.alpha = 0;
+            Projectile.penetrate = -1;
+            Projectile.timeLeft = 18000;
+            Projectile.minionSlots = 1;
         }
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
@@ -44,29 +45,29 @@ namespace Emperia.Projectiles.Summon
 
         public override void AI()
 		{
-            Player player = Main.player[projectile.owner];
+            Player player = Main.player[Projectile.owner];
             /* timer+=5;
              Vector2 targetPos = player.Center + new Vector2((float) (50 * Math.Cos(MathHelper.ToRadians(timer))), -50f);
-             projectile.velocity.X += Vector2.Normalize((targetPos - projectile.Center) * .05f).X;
-             projectile.velocity.X = MathHelper.Clamp(projectile.velocity.X, -5f, 5f);
-             projectile.velocity.Y = Vector2.Normalize((targetPos - projectile.Center) * .05f).Y;
-             projectile.velocity.Y = MathHelper.Clamp(projectile.velocity.Y, -5f, 5f);*/
-            if (projectile.velocity.X > 0)
+             Projectile.velocity.X += Vector2.Normalize((targetPos - Projectile.Center) * .05f).X;
+             Projectile.velocity.X = MathHelper.Clamp(Projectile.velocity.X, -5f, 5f);
+             Projectile.velocity.Y = Vector2.Normalize((targetPos - Projectile.Center) * .05f).Y;
+             Projectile.velocity.Y = MathHelper.Clamp(Projectile.velocity.Y, -5f, 5f);*/
+            if (Projectile.velocity.X > 0)
             {
-                projectile.spriteDirection = -1;
-                projectile.rotation = MathHelper.ToRadians(180 + MathHelper.ToDegrees(projectile.rotation));
+                Projectile.spriteDirection = -1;
+                Projectile.rotation = MathHelper.ToRadians(180 + MathHelper.ToDegrees(Projectile.rotation));
             }
-			else projectile.spriteDirection = 1;
-			if (projectile.velocity.Length() > 7f)
+			else Projectile.spriteDirection = 1;
+			if (Projectile.velocity.Length() > 7f)
 			{
 				Color rgb = new Color(83, 66, 180);
-				int index2 = Dust.NewDust(new Vector2((float)(projectile.position.X + 4.0), (float)(projectile.position.Y + 4.0)), projectile.width - 8, projectile.height - 8, 76, (float)(projectile.velocity.X * 0.200000002980232), (float)(projectile.velocity.Y * 0.200000002980232), 0, rgb, 0.9f);
-				Main.dust[index2].position = projectile.Center;
+				int index2 = Dust.NewDust(new Vector2((float)(Projectile.position.X + 4.0), (float)(Projectile.position.Y + 4.0)), Projectile.width - 8, Projectile.height - 8, 76, (float)(Projectile.velocity.X * 0.200000002980232), (float)(Projectile.velocity.Y * 0.200000002980232), 0, rgb, 0.9f);
+				Main.dust[index2].position = Projectile.Center;
 				Main.dust[index2].noGravity = true;
-				Main.dust[index2].velocity = projectile.velocity * 0.5f;
+				Main.dust[index2].velocity = Projectile.velocity * 0.5f;
 			}
            
-            bool flag64 = projectile.type == mod.ProjectileType("SharkMinion");
+            bool flag64 = Projectile.type == ModContent.ProjectileType<SharkMinion>();
 			
 			MyPlayer modPlayer = player.GetModPlayer<MyPlayer>();
 			if (flag64)
@@ -75,19 +76,21 @@ namespace Emperia.Projectiles.Summon
 					modPlayer.sharkMinion = false;
 
 				if (modPlayer.sharkMinion)
-					projectile.timeLeft =2;
+					Projectile.timeLeft =2;
 
 			}
 		}
-		public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
+		public override bool PreDraw(ref Color lightColor)
         {
-			
-				Vector2 drawOrigin = new Vector2(Main.projectileTexture[projectile.type].Width * 0.5f, projectile.height * 0.5f);
-				for(int k = 0; k < projectile.oldPos.Length; k++)
+				Main.instance.LoadProjectile(Projectile.type);
+				Texture2D texture = TextureAssets.Projectile[Projectile.type].Value;
+
+				Vector2 drawOrigin = new Vector2(texture.Width * 0.5f, Projectile.height * 0.5f);
+				for(int k = 0; k < Projectile.oldPos.Length; k++)
 				{
-					Vector2 drawPos = projectile.oldPos[k] - Main.screenPosition + drawOrigin + new Vector2(0f, projectile.gfxOffY);
-					Color color = projectile.GetAlpha(lightColor) * ((float)(projectile.oldPos.Length - k) / (float)projectile.oldPos.Length);
-					spriteBatch.Draw(Main.projectileTexture[projectile.type], drawPos, null, color, projectile.rotation, drawOrigin, projectile.scale, SpriteEffects.None, 0f);
+					Vector2 drawPos = Projectile.oldPos[k] - Main.screenPosition + drawOrigin + new Vector2(0f, Projectile.gfxOffY);
+					Color color = Projectile.GetAlpha(lightColor) * ((float)(Projectile.oldPos.Length - k) / (float)Projectile.oldPos.Length);
+					Main.EntitySpriteDraw(texture, drawPos, null, color, Projectile.rotation, drawOrigin, Projectile.scale, SpriteEffects.None, 0);
 				}
 			
 			return true;

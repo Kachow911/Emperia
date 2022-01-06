@@ -1,4 +1,4 @@
-using Terraria.World.Generation;
+using Terraria.WorldBuilding;
 using Microsoft.Xna.Framework;
 using Terraria.GameContent.Generation;
 using Terraria;
@@ -10,16 +10,16 @@ namespace Emperia.Tiles
 {
 	public class TFWood : ModTile
 	{
-		public override void SetDefaults()
+		public override void SetStaticDefaults()
 		{
 			Main.tileSolid[Type] = true;
 			Main.tileMergeDirt[Type] = true;
 			Main.tileBlendAll[this.Type] = true;
 			Main.tileBlockLight[Type] = true;
 			Main.tileLighted[Type] = true;
-			drop = mod.ItemType("GrottoWood");
+			ItemDrop = ModContent.ItemType<Items.Grotto.GrottoWood>();
 			AddMapEntry(new Color(74, 107, 140));
-			dustType = 121;
+			DustType = 121;
 		}
 
 public override bool CanExplode(int i, int j)

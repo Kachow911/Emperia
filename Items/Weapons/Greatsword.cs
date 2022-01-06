@@ -19,20 +19,20 @@ namespace Emperia.Items.Weapons
 		}
         public override void SetDefaults()
         {
-            item.damage = 35;
-            item.melee = true;
-            item.width = 44;
-            item.height = 44;
-            item.useTime = 120;
-            item.useAnimation = 120;     
-            item.useStyle = 5;
-            item.knockBack = 5f;  
-			//item.crit = 6;
-            item.value = 48000;        
-            item.rare = 3;
-			item.scale = 1f;
-            //item.autoReuse = true;
-            item.useTurn = false; 
+            Item.damage = 35;
+            Item.DamageType = DamageClass.Melee;
+            Item.width = 44;
+            Item.height = 44;
+            Item.useTime = 120;
+            Item.useAnimation = 120;     
+            Item.useStyle = 5;
+            Item.knockBack = 5f;  
+			//Item.crit = 6;
+            Item.value = 48000;        
+            Item.rare = 3;
+			Item.scale = 1f;
+            //Item.autoReuse = true;
+            Item.useTurn = false; 
             //drawOffsetX = -32;
             //drawOriginOffsetY = -32;
         }
@@ -55,8 +55,8 @@ namespace Emperia.Items.Weapons
             if (delay == 0)
             {
                 //Main.NewText("initiated");
-                delay = (int)(item.useAnimation * player.meleeSpeed) - 1;
-                Main.PlaySound(SoundID.Item1, player.Center);
+                delay = (int)(Item.useAnimation * player.meleeSpeed) - 1;
+                Terraria.Audio.SoundEngine.PlaySound(SoundID.Item1, player.Center);
             }
 
             if (delay == 1)
@@ -73,7 +73,7 @@ namespace Emperia.Items.Weapons
             hitbox.X += 40;
 		}
         int rotationAngle = 45;
-        public override void UseStyle(Player player)
+        public override void UseStyle(Player player, Rectangle heldItemFrame)
         {   
             //if ()
             //player.itemRotation = 2.35f * player.direction;

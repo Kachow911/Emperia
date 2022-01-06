@@ -1,6 +1,7 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using static Terraria.ModLoader.ModContent;
 using System;
 using System.Linq;
 using System.Collections.Generic;
@@ -16,49 +17,49 @@ namespace Emperia.Npcs.Twilight
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Flying Polyp");
-			Main.npcFrameCount[npc.type] = 20;
+			Main.npcFrameCount[NPC.type] = 20;
 		}
 
 		public override void SetDefaults()
 		{
-			npc.width = 48;
-			npc.height = 92;
-			npc.damage = 35;
-			npc.defense = 15;
-			npc.lifeMax = 380;
-			npc.HitSound = SoundID.NPCHit3;
-			npc.DeathSound = SoundID.NPCDeath6;
-			npc.value = 10f;
-			npc.knockBackResist = .40f;
-			npc.noGravity = true;
-			npc.noTileCollide = true;
-			npc.aiStyle = 22;
-			aiType = NPCID.Wraith;
-			npc.stepSpeed = .3f;
+			NPC.width = 48;
+			NPC.height = 92;
+			NPC.damage = 35;
+			NPC.defense = 15;
+			NPC.lifeMax = 380;
+			NPC.HitSound = SoundID.NPCHit3;
+			NPC.DeathSound = SoundID.NPCDeath6;
+			NPC.value = 10f;
+			NPC.knockBackResist = .40f;
+			NPC.noGravity = true;
+			NPC.noTileCollide = true;
+			NPC.aiStyle = 22;
+			AIType = NPCID.Wraith;
+			NPC.stepSpeed = .3f;
 		}
 		public override void FindFrame(int frameHeight)
 		{
 			if (move == 0)
 			{
-				npc.frameCounter += 0.2f;
-				npc.frameCounter %= 10;
-				int frame = (int)npc.frameCounter;
-				npc.frame.Y = frame * frameHeight;
+				NPC.frameCounter += 0.2f;
+				NPC.frameCounter %= 10;
+				int frame = (int)NPC.frameCounter;
+				NPC.frame.Y = frame * frameHeight;
 			}
 			else if (move == 1)
 			{
-				npc.frameCounter += 0.2f;
-				npc.frameCounter %= 10;
-				int frame = (int)npc.frameCounter + 10;
-				npc.frame.Y = frame * frameHeight;
+				NPC.frameCounter += 0.2f;
+				NPC.frameCounter %= 10;
+				int frame = (int)NPC.frameCounter + 10;
+				NPC.frame.Y = frame * frameHeight;
 			}
 		}
 		public override void AI()
 		{
-			if (npc.velocity.X < 0)
-				npc.spriteDirection = -1;
+			if (NPC.velocity.X < 0)
+				NPC.spriteDirection = -1;
 			else
-				npc.spriteDirection = 1;
+				NPC.spriteDirection = 1;
 			if (move == 0)
 			{
 				counter++;
@@ -71,15 +72,15 @@ namespace Emperia.Npcs.Twilight
 			if (move == 1)
             {
 				counter++;
-				npc.velocity.X = 0;
-				npc.velocity.Y = 0.5f * (float)Math.Cos(MathHelper.ToRadians(counter * 3));
+				NPC.velocity.X = 0;
+				NPC.velocity.Y = 0.5f * (float)Math.Cos(MathHelper.ToRadians(counter * 3));
 				if (counter >= 50)
                 {
 					for (int i = 0; i < 5; i++)
 					{
 
 						Vector2 perturbedSpeed = new Vector2(-3, 0).RotatedBy(MathHelper.ToRadians(36 * i));
-						int n = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y - 30, mod.NPCType("PolypMinion"));
+						int n = NPC.NewNPC((int)NPC.Center.X, (int)NPC.Center.Y - 30, NPCType<PolypMinion>());
 						Main.npc[n].velocity = perturbedSpeed * 2f;
 					}
 					counter = 0;
@@ -92,7 +93,7 @@ namespace Emperia.Npcs.Twilight
 		{
 			if (SpawnTiles.Length == 0)
 			{
-				int[] Tiles = { mod.TileType("TwilightGrass"), mod.TileType("TFWood"), mod.TileType("TFLeaf") };
+				int[] Tiles = { ModContent.TileType<Tiles.TwilightGrass>(), ModContent.TileType<Tiles.TFWood>(), ModContent.TileType<Tiles.TFLeaf>() };
 				SpawnTiles = Tiles;
 			}
 			return SpawnTiles.Contains(Main.tile[spawnInfo.spawnTileX, spawnInfo.spawnTileY].type) && !spawnInfo.playerSafe && !spawnInfo.invasion ? 2f : 0f;
@@ -100,22 +101,22 @@ namespace Emperia.Npcs.Twilight
 
 		public override void HitEffect(int hitDirection, double damage)
 		{
-			if (npc.life <= 0)
+			if (NPC.life <= 0)
 			{
-				Gore.NewGore(npc.position, npc.velocity, 13);
-				Gore.NewGore(npc.position, npc.velocity, 12);
-				Gore.NewGore(npc.position, npc.velocity, 11);
+				Gore.NewGore(NPC.position, NPC.velocity, 13);
+				Gore.NewGore(NPC.position, NPC.velocity, 12);
+				Gore.NewGore(NPC.position, NPC.velocity, 11);
 			}
 		}
 
-		public override void NPCLoot()
+		public override void ModifyNPCLoot(NPCLoot npcLoot)
 		{
 			
 		}
 		public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
 		{
-			npc.lifeMax = Convert.ToInt32(npc.lifeMax * 1.4);
-			npc.damage = Convert.ToInt32(npc.damage * 1.4);
+			NPC.lifeMax = Convert.ToInt32(NPC.lifeMax * 1.4);
+			NPC.damage = Convert.ToInt32(NPC.damage * 1.4);
 		}
 
 	}

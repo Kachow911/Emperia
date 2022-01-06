@@ -18,25 +18,25 @@ namespace Emperia.Items.Accessories.Gauntlets
 		}
         public override void SetDefaults()
         {
-            item.width = 20;
-            item.height = 20;
-            item.rare = 1;
-            item.value = 1750;
-            item.accessory = true;
-            item.defense = 1;
+            Item.width = 20;
+            Item.height = 20;
+            Item.rare = 1;
+            Item.value = 1750;
+            Item.accessory = true;
+            Item.defense = 1;
         }
-        public override void UpdateAccessory(Player player, bool hideVisual)
+        public override void UpdateAccessory(Player player, bool hideVisibleAccessory)
         {
             player.GetModPlayer<MyPlayer>().wristBrace = true;
         }
 		public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            Recipe recipe = CreateRecipe();
             recipe.AddIngredient(ItemID.Shackle);
             recipe.AddRecipeGroup("IronBar", 6);
             recipe.AddTile(TileID.Anvils);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            recipe.Register();
+            
         }
     }
 }

@@ -11,14 +11,14 @@ namespace Emperia.Projectiles.Yeti
     {
         public override void SetDefaults()
         {
-            projectile.width = 22;
-            projectile.height = 22;
-            //projectile.aiStyle = 1;
-            projectile.friendly = false;
-            projectile.hostile = true;
-            projectile.penetrate = -1;
-            projectile.timeLeft = 360;
-            projectile.tileCollide = false;
+            Projectile.width = 22;
+            Projectile.height = 22;
+            //Projectile.aiStyle = 1;
+            Projectile.friendly = false;
+            Projectile.hostile = true;
+            Projectile.penetrate = -1;
+            Projectile.timeLeft = 360;
+            Projectile.tileCollide = false;
         }
 
         public override void SetStaticDefaults()
@@ -28,13 +28,13 @@ namespace Emperia.Projectiles.Yeti
 
         public override void Kill(int timeLeft)
         {
-            int num622 = Dust.NewDust(new Vector2(projectile.position.X, (float)((double)projectile.position.Y + (double)projectile.height - 16.0)), projectile.width, 16, 67, 0.0f, 0.0f, 0, new Color(), 1f);
+            int num622 = Dust.NewDust(new Vector2(Projectile.position.X, (float)((double)Projectile.position.Y + (double)Projectile.height - 16.0)), Projectile.width, 16, 67, 0.0f, 0.0f, 0, new Color(), 1f);
 
         }
 
         public override void AI()
         {
-            projectile.rotation = (float)Math.Atan2((double)projectile.velocity.Y, (double)projectile.velocity.X) + 1.57f;
+            Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + 1.57f;
         }
     }
 }

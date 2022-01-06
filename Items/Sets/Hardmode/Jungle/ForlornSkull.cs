@@ -18,24 +18,21 @@ namespace Emperia.Items.Sets.Hardmode.Jungle
 		}
         public override void SetDefaults()
         {
-            item.width = 30;
-            item.height = 28;
-            item.rare = 2;
-            item.value = Item.sellPrice(0, 0, 50, 0);
-            item.accessory = true;
+            Item.width = 30;
+            Item.height = 28;
+            Item.rare = 2;
+            Item.value = Item.sellPrice(0, 0, 50, 0);
+            Item.accessory = true;
         }
-        public override void UpdateAccessory(Player player, bool hideVisual)
+        public override void UpdateAccessory(Player player, bool hideVisibleAccessory)
         {
 			if (player.ZoneJungle)
 			{
-				player.rangedDamage *= 1.1f;
-				player.magicDamage *= 1.1f;
-				player.meleeDamage *= 1.1f;
-				player.minionDamage *= 1.1f;
-				player.meleeCrit += 10;
-				player.magicCrit += 10;
-				player.rangedCrit += 10;
-				player.thrownCrit += 10;
+				player.GetDamage(DamageClass.Ranged) *= 1.1f;
+				player.GetDamage(DamageClass.Magic) *= 1.1f;
+				player.GetDamage(DamageClass.Melee) *= 1.1f;
+				player.GetDamage(DamageClass.Summon) *= 1.1f;
+				player.GetCritChance(DamageClass.Generic) += 10;
 				player.moveSpeed *= .9f;
 			}
 			else
@@ -46,14 +43,14 @@ namespace Emperia.Items.Sets.Hardmode.Jungle
         }
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(mod);
+			Recipe recipe = CreateRecipe();
 			recipe.AddIngredient(null, "JungleMaterial", 7);
 			recipe.AddIngredient(ItemID.TurtleShell, 1);
 			recipe.AddIngredient(ItemID.SoulofNight, 2);
 			recipe.AddIngredient(ItemID.SoulofLight, 2);
 			recipe.AddTile(TileID.MythrilAnvil);
-			recipe.SetResult(this);
-			recipe.AddRecipe();
+			recipe.Register();
+			
 
 		}
     }

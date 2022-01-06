@@ -8,33 +8,33 @@ namespace Emperia.Items.Sets.PreHardmode.Desert
 {
 	public class DesertMace : ModItem
 	{
-		NPC npc;
+		NPC NPC;
 
 		public override void SetStaticDefaults() {
 			Tooltip.SetDefault("Slams airborne enemies downwards, damaging them if they hit the ground");
 		}
 		
 		public override void SetDefaults() {
-			item.damage = 26;
-			item.melee = true;
-			item.width = 42;
-			item.height = 40;
-			item.useTime = 32;
-			item.useAnimation = 32;
-			item.useStyle = 1;
-			item.knockBack = 5f;
-			item.value = 27000;
-			item.rare = 1;
-			item.UseSound = SoundID.Item1;
+			Item.damage = 26;
+			Item.DamageType = DamageClass.Melee;
+			Item.width = 42;
+			Item.height = 40;
+			Item.useTime = 32;
+			Item.useAnimation = 32;
+			Item.useStyle = 1;
+			Item.knockBack = 5f;
+			Item.value = 27000;
+			Item.rare = 1;
+			Item.UseSound = SoundID.Item1;
 		}
 
 		/*public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(mod);
+			Recipe recipe = CreateRecipe();
 			recipe.AddIngredient(ItemID.Somethingidk, uhh);
 			recipe.AddTile(TileID.Anvils);
-			recipe.SetResult(this);
-			recipe.AddRecipe();
+			recipe.Register();
+			
 		}*/
 
 		public override void ModifyHitNPC (Player player, NPC target, ref int damage, ref float knockback, ref bool crit)
@@ -43,9 +43,9 @@ namespace Emperia.Items.Sets.PreHardmode.Desert
 			{
 				//target.velocity.Y += 12 * target.knockBackResist;
 				target.velocity.Y += 4 + (6 * target.knockBackResist);
-				npc = target;
-            	npc.GetGlobalNPC<MyNPC>().maceSlam = 25;
-				npc.GetGlobalNPC<MyNPC>().maceSlamDamage = damage;
+				NPC = target;
+            	NPC.GetGlobalNPC<MyNPC>().maceSlam = 25;
+				NPC.GetGlobalNPC<MyNPC>().maceSlamDamage = damage;
 			}
 		}
 	}

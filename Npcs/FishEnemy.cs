@@ -1,6 +1,7 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.ModLoader.Utilities;
 
 namespace Emperia.Npcs
 {
@@ -9,24 +10,24 @@ namespace Emperia.Npcs
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Torrential Spearer");
-			Main.npcFrameCount[npc.type] = Main.npcFrameCount[NPCID.Shark];
+			Main.npcFrameCount[NPC.type] = Main.npcFrameCount[NPCID.Shark];
 		}
 
 		public override void SetDefaults()
 		{
-			npc.width = 118;
-			npc.height = 42;
-			npc.damage = 25;
-			npc.defense = 5;
-			npc.lifeMax = 650;
-			npc.HitSound = SoundID.NPCHit1;
-			npc.DeathSound = SoundID.NPCDeath1;
-			npc.noGravity = true;
-			npc.value = 60f;
-			npc.knockBackResist = .55f;
-			npc.aiStyle = 16;
-			aiType = NPCID.Arapaima;
-			animationType = NPCID.Shark;
+			NPC.width = 118;
+			NPC.height = 42;
+			NPC.damage = 25;
+			NPC.defense = 5;
+			NPC.lifeMax = 650;
+			NPC.HitSound = SoundID.NPCHit1;
+			NPC.DeathSound = SoundID.NPCDeath1;
+			NPC.noGravity = true;
+			NPC.value = 60f;
+			NPC.knockBackResist = .55f;
+			NPC.aiStyle = 16;
+			AIType = NPCID.Arapaima;
+			AnimationType = NPCID.Shark;
 		}
 
 		public override float SpawnChance(NPCSpawnInfo spawnInfo)
@@ -34,11 +35,11 @@ namespace Emperia.Npcs
 			return SpawnCondition.OceanMonster.Chance * 0.2f;
 		}
 
-		public override void NPCLoot()
+		public override void ModifyNPCLoot(NPCLoot npcLoot)
 		{
 			if (Main.rand.Next(2) == 1)
 			{
-				Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("AquaticScale"), Main.rand.Next(2, 4));
+				Item.NewItem((int)NPC.position.X, (int)NPC.position.Y, NPC.width, NPC.height, ModContent.ItemType<Items.AquaticScale>(), Main.rand.Next(2, 4));
 			}
 		}
 

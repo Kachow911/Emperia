@@ -1,16 +1,9 @@
 using Terraria;
-using System;
 using Terraria.ID;
-using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
-using System.Collections.Generic;
-using System;
+using Emperia.Projectiles;
 
  
 namespace Emperia.Items.Weapons        
@@ -24,24 +17,24 @@ namespace Emperia.Items.Weapons
 		}
         public override void SetDefaults()
         {  
-            item.damage = 34;  
-            item.ranged = true;    
-            item.width = 42; 
-            item.height = 16;    
-            item.useTime = 6;   
-            item.useAnimation = 20;     
-            item.useStyle = 5;  
-            item.noMelee = true; 
-            item.knockBack = 0.5f; 
-            item.UseSound = SoundID.Item34; 
-            item.value = 600000;
-            item.rare = 8;   
-            item.autoReuse = true;  
-            item.shoot = mod.ProjectileType("SporeFlame");   
-            item.shootSpeed = 7f; 
-            item.useAmmo = AmmoID.Gel;
+            Item.damage = 34;  
+            Item.DamageType = DamageClass.Ranged;    
+            Item.width = 42; 
+            Item.height = 16;    
+            Item.useTime = 6;   
+            Item.useAnimation = 20;     
+            Item.useStyle = 5;  
+            Item.noMelee = true; 
+            Item.knockBack = 0.5f; 
+            Item.UseSound = SoundID.Item34; 
+            Item.value = 600000;
+            Item.rare = 8;   
+            Item.autoReuse = true;  
+            Item.shoot = ModContent.ProjectileType<SporeFlame>();   
+            Item.shootSpeed = 7f; 
+            Item.useAmmo = AmmoID.Gel;
         }
-		public override bool ConsumeAmmo(Player player)
+		public override bool CanConsumeAmmo(Player player)
 		{
 			return Main.rand.Next(100) > 66;
 		}
@@ -52,23 +45,23 @@ namespace Emperia.Items.Weapons
 		}
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(mod);
+			Recipe recipe = CreateRecipe();
 			recipe.AddIngredient(ItemID.ShroomiteBar, 14);
 			recipe.AddTile(TileID.MythrilAnvil);  
-			recipe.SetResult(this);
-			recipe.AddRecipe();
+			recipe.Register();
+			
 		}
 		public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float  scale, int whoAmI) 	
 		{
 			Texture2D texture;
-			texture = Main.itemTexture[item.type];
-			spriteBatch.Draw
+			//texture = GameContent.TextureAssets.Item[Item.type].Value;
+			Main.EntitySpriteDraw
 			(
-				mod.GetTexture("Glowmasks/SporeCombustorGM"),
+				texture = Mod.Assets.Request<Texture2D>("Glowmasks/SporeCombustorGM").Value,
 				new Vector2
 				(
-					item.position.X - Main.screenPosition.X + item.width * 0.5f,
-					item.position.Y - Main.screenPosition.Y + item.height - texture.Height * 0.5f + 2f
+					Item.position.X - Main.screenPosition.X + Item.width * 0.5f,
+					Item.position.Y - Main.screenPosition.Y + Item.height - texture.Height * 0.5f + 2f
 				),
 				new Rectangle(0, 0, texture.Width, texture.Height),
 				Color.White,
@@ -76,7 +69,7 @@ namespace Emperia.Items.Weapons
 				texture.Size() * 0.5f,
 				scale, 
 				SpriteEffects.None, 
-				0f
+				0
 			);
 		}
     }

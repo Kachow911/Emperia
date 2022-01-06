@@ -2,12 +2,13 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
 using Terraria.ID;
+using static Terraria.ModLoader.ModContent;
 
 namespace Emperia.Tiles
 {
     public class TwilightDirt : ModTile
     {
-        public override void SetDefaults()
+        public override void SetStaticDefaults()
         {
 			//AddToArray(ref TileID.Sets.Conversion.Grass);
 			//TileID.Sets.Conversion.Grass[Type]=true;
@@ -17,16 +18,16 @@ namespace Emperia.Tiles
             Main.tileLighted[Type] = true;
             AddMapEntry(new Color(61, 57, 92));
 			Main.tileBrick[Type] = true;
-            drop = mod.ItemType("GrottoDirt");
+            ItemDrop = ModContent.ItemType<Items.Grotto.GrottoDirt>();
 			SetModTree(new TwilightTree());
-			dustType = 175;
-            mineResist = 0.5f;
+			DustType = 175;
+            MineResist = 0.5f;
         }
-		public override int SaplingGrowthType(ref int style)
-        {
-            style = 0;
-            return mod.TileType("TwilightTreeSap");       
-        }
+		//public override int SaplingGrowthType(ref int style)
+        //{
+        //    style = 0;
+        //    return TileType<Tiles.TwilightTreeSap>();       
+        //}
 		
         public static bool PlaceObject(int x, int y, int type, bool mute = false, int style = 0, int alternate = 0, int random = -1, int direction = -1)
         {
@@ -39,7 +40,7 @@ namespace Emperia.Tiles
             if (TileObject.Place(toBePlaced) && !mute)
             {
                 WorldGen.SquareTileFrame(x, y, true);
-                //   Main.PlaySound(0, x * 16, y * 16, 1, 1f, 0f);
+                //   Terraria.Audio.SoundEngine.PlaySound(0, x * 16, y * 16, 1, 1f, 0f);
             }
             return false;
         }
@@ -53,17 +54,17 @@ namespace Emperia.Tiles
                 int num = 0;
                 while ((double)num < Main.maxTilesY)
                 {
-                    if (Main.tile[k, num].active())
+                    if (Main.tile[k, num].IsActive)
                     {
                         if (flag2 && Main.tile[k, num].type == TileID.Dirt)
                         {
                             try
                             {
-                                WorldGen.SpreadGrass(k, num, TileID.Dirt, mod.TileType("TwilightGrass"), true, Main.tile[k, num].color());
+                                WorldGen.SpreadGrass(k, num, TileID.Dirt, ModContent.TileType<Tiles.TwilightGrass>(), true, Main.tile[k, num].Color);
                             }
                             catch
                             {
-                                WorldGen.SpreadGrass(k, num, TileID.Dirt, mod.TileType("TwilightGrass"), true, Main.tile[k, num].color());
+                                WorldGen.SpreadGrass(k, num, TileID.Dirt, ModContent.TileType<Tiles.TwilightGrass>(), true, Main.tile[k, num].Color);
                             }
                         }
                         if ((double)num > WorldGen.worldSurfaceHigh)

@@ -5,6 +5,8 @@ using Terraria.Graphics.Effects;
 using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.DataStructures;
+using Emperia.Projectiles.Crimson;
 
 namespace Emperia.Items.Sets.Hardmode.Crimson
 {
@@ -20,31 +22,31 @@ namespace Emperia.Items.Sets.Hardmode.Crimson
         int charger;
         public override void SetDefaults()
         {
-            item.damage = 38;
-            item.melee = true;
-            item.width = 46;
-            item.height = 66;
-            item.useTime = 20;
-            item.useAnimation = 20;
-            item.useStyle = 1;
-            item.knockBack = 6;
-            item.value = Terraria.Item.sellPrice(0, 8, 0, 0);
-            item.rare = 4;
-            item.UseSound = SoundID.Item1;
-            item.autoReuse = true;
-            item.shoot = mod.ProjectileType("BigBubble");
-            item.shootSpeed = 12;
+            Item.damage = 38;
+            Item.DamageType = DamageClass.Melee;
+            Item.width = 46;
+            Item.height = 66;
+            Item.useTime = 20;
+            Item.useAnimation = 20;
+            Item.useStyle = 1;
+            Item.knockBack = 6;
+            Item.value = Terraria.Item.sellPrice(0, 8, 0, 0);
+            Item.rare = 4;
+            Item.UseSound = SoundID.Item1;
+            Item.autoReuse = true;
+            Item.shoot = ModContent.ProjectileType<BigBubble>();
+            Item.shootSpeed = 12;
         }
-        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+        public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockBack)
         {
             if (Main.rand.NextBool(7))
             {
                 int numberProjectiles = Main.rand.Next(5, 6);
                 for (int i = 0; i < numberProjectiles; i++)
                 {
-                    Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(16));
+                    Vector2 perturbedSpeed = velocity.RotatedByRandom(MathHelper.ToRadians(16));
                     float speedFact = (float) Main.rand.Next(2, 15) / 10;
-                    Projectile.NewProjectile(position.X, position.Y, perturbedSpeed.X * speedFact, perturbedSpeed.Y * speedFact, type, damage, knockBack, player.whoAmI);
+                    Projectile.NewProjectile(source, position.X, position.Y, perturbedSpeed.X * speedFact, perturbedSpeed.Y * speedFact, type, damage, knockBack, player.whoAmI);
                 }
             }
             return false;
@@ -57,13 +59,13 @@ namespace Emperia.Items.Sets.Hardmode.Crimson
         }
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            Recipe recipe = CreateRecipe();
             recipe.AddIngredient(ItemID.RottenChunk, 2);
             recipe.AddIngredient(ItemID.CursedFlame, 10);
             recipe.AddIngredient(ItemID.SoulofNight, 1);
             recipe.AddTile(TileID.MythrilAnvil);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            recipe.Register();
+            
         }
 
     }

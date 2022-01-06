@@ -4,12 +4,12 @@ using Terraria.ID;
 
 namespace Emperia.Backgrounds
 {
-	public class VolcanoSurfaceBg : ModSurfaceBgStyle
+	public class VolcanoSurfaceBg : ModSurfaceBackgroundStyle
 	{
-        public override bool ChooseBgStyle()
-        {
-            return !Main.gameMenu && (Main.player[Main.myPlayer].GetModPlayer<MyPlayer>().ZoneVolcano);
-        }
+        //public override bool ChooseBgStyle()
+        //{
+        //    return !Main.gameMenu && (Main.player[Main.myPlayer].GetModPlayer<MyPlayer>().ZoneVolcano);
+        //}
 
         public override void ModifyFarFades(float[] fades, float transitionSpeed)
 		{
@@ -37,7 +37,7 @@ namespace Emperia.Backgrounds
 		{
             b -= 750;
             scale = 0.9f;
-            return mod.GetBackgroundSlot("Backgrounds/VolcanoBG");
+            return BackgroundTextureLoader.GetBackgroundSlot("Backgrounds/VolcanoBG");
 		}
 	}
 }

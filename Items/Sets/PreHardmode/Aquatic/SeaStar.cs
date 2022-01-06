@@ -2,6 +2,7 @@ using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Emperia.Projectiles;
 
 namespace Emperia.Items.Sets.PreHardmode.Aquatic
 {
@@ -16,14 +17,14 @@ namespace Emperia.Items.Sets.PreHardmode.Aquatic
 
         public override void SetDefaults()
         {
-            item.CloneDefaults(ItemID.Shuriken);        
-            item.shoot = mod.ProjectileType("SeaStarProj");
-            item.shootSpeed = 8f;
-			item.rare = 3;
-            item.autoReuse = true;
-            item.damage = 32;
-            item.knockBack = 3f;
-			item.value = Terraria.Item.sellPrice(0, 0, 60, 0);
+            Item.CloneDefaults(ItemID.Shuriken);        
+            Item.shoot = ModContent.ProjectileType<SeaStarProj>();
+            Item.shootSpeed = 8f;
+			Item.rare = 3;
+            Item.autoReuse = true;
+            Item.damage = 32;
+            Item.knockBack = 3f;
+			Item.value = Terraria.Item.sellPrice(0, 0, 60, 0);
 
         }
     }

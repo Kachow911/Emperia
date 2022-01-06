@@ -15,51 +15,51 @@ namespace Emperia.Projectiles
 		}
 		public override void SetDefaults()
 		{
-			projectile.CloneDefaults(ProjectileID.PainterPaintball);
-			projectile.friendly = true;
-			projectile.hostile = false;
-            projectile.magic = true;
-			projectile.timeLeft = 200;
-			projectile.height = 24;
-			projectile.width = 24;
-			projectile.penetrate = 4;
-			projectile.extraUpdates = 1;
-			projectile.alpha = 0;
+			Projectile.CloneDefaults(ProjectileID.PainterPaintball);
+			Projectile.friendly = true;
+			Projectile.hostile = false;
+            Projectile.DamageType = DamageClass.Magic;
+			Projectile.timeLeft = 200;
+			Projectile.height = 24;
+			Projectile.width = 24;
+			Projectile.penetrate = 4;
+			Projectile.extraUpdates = 1;
+			Projectile.alpha = 0;
 		}
 
 		public override void AI()
 		{
 
-			projectile.rotation += 0.2f;
+			Projectile.rotation += 0.2f;
 		}
 
 		public override bool OnTileCollide(Vector2 oldVelocity)
 		{
-			projectile.penetrate--;
-			if (projectile.penetrate <= 0)
-				projectile.Kill();
+			Projectile.penetrate--;
+			if (Projectile.penetrate <= 0)
+				Projectile.Kill();
 			else
 			{
-				projectile.ai[0] += 0.1f;
-				if (projectile.velocity.X != oldVelocity.X)
-					projectile.velocity.X = -oldVelocity.X;
+				Projectile.ai[0] += 0.1f;
+				if (Projectile.velocity.X != oldVelocity.X)
+					Projectile.velocity.X = -oldVelocity.X;
 
-				if (projectile.velocity.Y != oldVelocity.Y)
-					projectile.velocity.Y = -oldVelocity.Y;
+				if (Projectile.velocity.Y != oldVelocity.Y)
+					Projectile.velocity.Y = -oldVelocity.Y;
 
-				projectile.velocity *= 0.5f;
+				Projectile.velocity *= 0.5f;
 			}
 			return false;
 		}
 
 		public override void Kill(int timeLeft)
 		{
-            Projectile.NewProjectile(projectile.position.X, projectile.position.Y, 0, 0, mod.ProjectileType("FireBall"), projectile.damage, 0f, Main.player[projectile.owner].whoAmI);
+            Projectile.NewProjectile(Projectile.InheritSource(Projectile), Projectile.position.X, Projectile.position.Y, 0, 0, ModContent.ProjectileType<FireBall>(), Projectile.damage, 0f, Main.player[Projectile.owner].whoAmI);
            
 
 			for (int i = 0; i < 8; ++i)
 			{
-				int index3 = Dust.NewDust(new Vector2((float) (projectile.position.X + 4.0), (float) (projectile.position.Y + 4.0)), projectile.width - 8, projectile.height - 8, 258, 0.0f, 0.0f, 0, Color.White, 1.5f);
+				int index3 = Dust.NewDust(new Vector2((float) (Projectile.position.X + 4.0), (float) (Projectile.position.Y + 4.0)), Projectile.width - 8, Projectile.height - 8, 258, 0.0f, 0.0f, 0, Color.White, 1.5f);
 			}
 		}
 

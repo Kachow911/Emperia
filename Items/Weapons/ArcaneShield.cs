@@ -7,6 +7,7 @@ using Terraria.Graphics.Effects;
 using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.ModLoader;
+using static Terraria.Audio.SoundEngine;
 
 namespace Emperia.Items.Weapons
 {
@@ -20,27 +21,27 @@ namespace Emperia.Items.Weapons
 		}
         public override void SetDefaults()
         {
-            item.damage = 18;
-            item.magic = true;
-            item.width = 32;
-            item.height = 38;
-            item.useTime = 30;
-            item.useAnimation = 30;   
-            item.useStyle = 5;
-            item.knockBack = 4f;  
-            item.value = 36000;        
-            item.rare = 1;
-            item.autoReuse = true;
-            item.useTurn = false; 
-            item.noUseGraphic = true;
+            Item.damage = 18;
+            Item.DamageType = DamageClass.Magic;
+            Item.width = 32;
+            Item.height = 38;
+            Item.useTime = 30;
+            Item.useAnimation = 30;   
+            Item.useStyle = 5;
+            Item.knockBack = 4f;  
+            Item.value = 36000;        
+            Item.rare = 1;
+            Item.autoReuse = true;
+            Item.useTurn = false; 
+            Item.noUseGraphic = true;
         }
 
-        int delay = 0; //checks when the item starts and stops being used
+        int delay = 0; //checks when the Item starts and stops being used
         bool delaySet = false;
 
         public override bool? CanHitNPC(Player player, NPC target)
 		{
-            if (delay >= 17 && delay <= 25) return true;
+            if (delay >= 17 && delay <= 25) return null;
             else return false;
         }
 
@@ -65,12 +66,12 @@ namespace Emperia.Items.Weapons
             {
                 player.statMana += 60;
                 player.ManaEffect(60);
-                Main.PlaySound(SoundID.MaxMana, player.Center);
+                PlaySound(SoundID.MaxMana, player.Center);
                 player.AddBuff(BuffID.ManaRegeneration, 480); // 360
             }
 		}
 
-        public override bool UseItem(Player player)
+        public override bool? UseItem(Player player)
         {
             delaySet = false;
             return true;
@@ -81,8 +82,8 @@ namespace Emperia.Items.Weapons
             MyPlayer modPlayer = player.GetModPlayer<MyPlayer>();
             modPlayer.arcaneShieldRaised = true;
 
-            //if (delay == 1) Main.PlaySound(SoundID.Item1, player.Center);
-            //if (delay == 1) Main.PlaySound(SoundID.Item, -1, -1, mod.GetSoundSlot(SoundType.Item, "Sounds/Item/ItemShield"));
+            //if (delay == 1) PlaySound(SoundID.Item1, player.Center);
+            //if (delay == 1) PlaySound(SoundID.Item, -1, -1, Mod.GetSoundSlot(SoundType.Item, "Sounds/Item/ItemShield"));
 
             if (player.direction == 1) hitbox.X += 19;
             else hitbox.X += 13;
@@ -92,7 +93,7 @@ namespace Emperia.Items.Weapons
 
             if (delay == 17)
             {
-                //Main.PlaySound(SoundID.Item28, player.Center);
+                //PlaySound(SoundID.Item28, player.Center);
                 for (int i = 0; i < 4; ++i)
                     {
                         int index2 = Dust.NewDust(new Vector2(hitbox.Center.X - 4, hitbox.Center.Y - 4), 6, 6, 56, 0.0f, 0.0f, 200, default(Color), 0.8f);
@@ -103,12 +104,12 @@ namespace Emperia.Items.Weapons
 		}
         public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(mod);
+			Recipe recipe = CreateRecipe();
 			recipe.AddIngredient(ItemID.ManaCrystal, 2);
 			recipe.AddRecipeGroup("Emperia:AnySilverBar", 8);
 			recipe.AddTile(TileID.Anvils);
-			recipe.SetResult(this);
-			recipe.AddRecipe();
+			recipe.Register();
+			
 		}
 	}
 }

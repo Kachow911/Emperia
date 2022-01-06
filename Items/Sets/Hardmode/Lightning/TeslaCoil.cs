@@ -7,13 +7,7 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
-using System.Collections.Generic;
-using System;
+using Emperia.Projectiles.Lightning;
 
 namespace Emperia.Items.Sets.Hardmode.Lightning
 {
@@ -22,23 +16,23 @@ namespace Emperia.Items.Sets.Hardmode.Lightning
 		public override void SetDefaults()
 		{
 
-			item.damage = 45;
-			item.magic = true;
-			item.mana = 18;
-			item.width = 25;
-			item.height = 26;
-			item.useTime = 28;
-			item.UseSound = SoundID.Item43;
-			item.useAnimation = 28;
-			item.useStyle = 5;
-			Item.staff[item.type] = true;
-			item.noMelee = true;
-			item.knockBack = 2.5f;
-			item.value = 6500;
-			item.rare = 4;
-			item.autoReuse = false;
-			item.shoot = mod.ProjectileType("LightningBolt1");
-			item.shootSpeed = 16f;
+			Item.damage = 45;
+			Item.DamageType = DamageClass.Magic;
+			Item.mana = 18;
+			Item.width = 25;
+			Item.height = 26;
+			Item.useTime = 28;
+			Item.UseSound = SoundID.Item43;
+			Item.useAnimation = 28;
+			Item.useStyle = 5;
+			Item.staff[Item.type] = true;
+			Item.noMelee = true;
+			Item.knockBack = 2.5f;
+			Item.value = 6500;
+			Item.rare = 4;
+			Item.autoReuse = false;
+			Item.shoot = ModContent.ProjectileType<LightningBolt1>();
+			Item.shootSpeed = 16f;
 		}
 		
 
@@ -47,31 +41,31 @@ namespace Emperia.Items.Sets.Hardmode.Lightning
 		  DisplayName.SetDefault("Tesla Coil Rod");
 		  Tooltip.SetDefault("Fires a bolt of lightning");
 		}
-		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+		public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockBack)
 		{
 			MyPlayer modPlayer = player.GetModPlayer<MyPlayer>();
 			if (modPlayer.lightningSet)
-				Projectile.NewProjectile(player.Center.X, player.Center.Y, 0, 0, mod.ProjectileType("LightningSetEffect"), 25, knockBack, player.whoAmI);
+				Projectile.NewProjectile(source, player.Center.X, player.Center.Y, 0, 0, ModContent.ProjectileType<LightningSetEffect>(), 25, knockBack, player.whoAmI);
 			return true;
 		}
 		/*public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(mod);
+			Recipe recipe = CreateRecipe();
 			recipe.AddIngredient(null, "JungleMaterial", 5);
 			recipe.AddIngredient(ItemID.AdamantiteBar, 2);
 			recipe.AddIngredient(ItemID.SoulofNight, 2);
 			recipe.AddIngredient(ItemID.SoulofLight, 2);
 			recipe.AddTile(TileID.MythrilAnvil);
-			recipe.SetResult(this);
-			recipe.AddRecipe();
-			recipe = new ModRecipe(mod);
+			recipe.Register();
+			
+			recipe = CreateRecipe();
 			recipe.AddIngredient(null, "JungleMaterial", 5);
 			recipe.AddIngredient(ItemID.TitaniumBar, 2);
 			recipe.AddIngredient(ItemID.SoulofNight, 2);
 			recipe.AddIngredient(ItemID.SoulofLight, 2);
 			recipe.AddTile(TileID.MythrilAnvil);
-			recipe.SetResult(this);
-			recipe.AddRecipe();
+			recipe.Register();
+			
 		}*/
 	}
 }

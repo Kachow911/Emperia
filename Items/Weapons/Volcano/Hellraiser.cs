@@ -5,6 +5,7 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Emperia.Projectiles;
  
 namespace Emperia.Items.Weapons.Volcano       
 {
@@ -17,27 +18,27 @@ namespace Emperia.Items.Weapons.Volcano
 		}
         public override void SetDefaults()
         {  
-            item.damage = 19;  
-            item.ranged = true;    
-            item.width = 42; 
-            item.height = 16;    
-            item.useAnimation = 34;
-			item.useTime = 34;
-            item.useStyle = 5;  
-            item.noMelee = true; 
-            item.knockBack = 1.3f; 
-            item.value = Item.buyPrice(0, 10, 0, 0);
-            item.rare = 3;   
-            item.autoReuse = false;  
-            item.shoot = mod.ProjectileType("MagmaShot");   
-            item.shootSpeed = 7f; 
-			item.crit = 4;
-			item.useAmmo = AmmoID.Bullet;
+            Item.damage = 19;  
+            Item.DamageType = DamageClass.Ranged;    
+            Item.width = 42; 
+            Item.height = 16;    
+            Item.useAnimation = 34;
+			Item.useTime = 34;
+            Item.useStyle = 5;  
+            Item.noMelee = true; 
+            Item.knockBack = 1.3f; 
+            Item.value = Item.buyPrice(0, 10, 0, 0);
+            Item.rare = 3;   
+            Item.autoReuse = false;  
+            Item.shoot = ModContent.ProjectileType<MagmaShot>();   
+            Item.shootSpeed = 7f; 
+			Item.crit = 4;
+			Item.useAmmo = AmmoID.Bullet;
         }
  
-		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+		public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockBack)
 		{
-			Main.PlaySound(SoundID.Item14, player.position);
+			Terraria.Audio.SoundEngine.PlaySound(SoundID.Item14, player.position);
 			for (int index = 0; index < 10; ++index)
 				Dust.NewDust(new Vector2(player.position.X, player.position.Y), player.width, player.height, 31, 0.0f, 0.0f, 100, new Color(), 1.5f);
 			for (int index1 = 0; index1 < 10; ++index1)
@@ -51,9 +52,9 @@ namespace Emperia.Items.Weapons.Volcano
 			int numberProjectiles = 3; 
 			for (int i = 0; i < numberProjectiles; i++)
 			{
-				type = mod.ProjectileType("MagmaShot");  
-				Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(15)); 
-				Projectile.NewProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, type, damage, knockBack, player.whoAmI);
+				type = ModContent.ProjectileType<MagmaShot>();  
+				Vector2 perturbedSpeed = velocity.RotatedByRandom(MathHelper.ToRadians(15)); 
+				Projectile.NewProjectile(source, position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, type, damage, knockBack, player.whoAmI);
 			}
 			return false; 
 		}

@@ -3,13 +3,10 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
 using Terraria.ID;
-using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
+using Terraria.DataStructures;
 using System.Collections.Generic;
-using System;
+using Emperia.Projectiles;
 
 namespace Emperia.Items.Sets.PreHardmode.Aquatic
 {
@@ -18,22 +15,22 @@ namespace Emperia.Items.Sets.PreHardmode.Aquatic
 		public override void SetDefaults()
 		{
 
-			item.damage = 17;
-			item.magic = true;
-			item.width = 22;
-			item.height = 24;
-			item.useTime = 15;
-			item.useAnimation = 15;
-			item.useStyle = 5;
-			item.knockBack = 3;
-			item.value = 5000;
-			item.rare = 3;
-			item.UseSound = SoundID.Item20;
-			item.autoReuse = true;
+			Item.damage = 17;
+			Item.DamageType = DamageClass.Magic;
+			Item.width = 22;
+			Item.height = 24;
+			Item.useTime = 15;
+			Item.useAnimation = 15;
+			Item.useStyle = 5;
+			Item.knockBack = 3;
+			Item.value = 5000;
+			Item.rare = 3;
+			Item.UseSound = SoundID.Item20;
+			Item.autoReuse = true;
 
-			item.shoot = mod.ProjectileType("Rain");
-			item.shootSpeed = 5f;
-			item.mana = 5;
+			Item.shoot = ModContent.ProjectileType<Projectiles.Rain>();
+			Item.shootSpeed = 5f;
+			Item.mana = 5;
 		}
 
     public override void SetStaticDefaults()
@@ -41,7 +38,7 @@ namespace Emperia.Items.Sets.PreHardmode.Aquatic
       DisplayName.SetDefault("Downpour");
 	  Tooltip.SetDefault("Rains ocean water onto the cursor");
     }
-	public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type1, ref int damage, ref float knockBack)
+		public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockBack)
 	{
 		float speedFactor;
 		float damageFactor;
@@ -52,27 +49,27 @@ namespace Emperia.Items.Sets.PreHardmode.Aquatic
 			direction.Normalize();
 			if (Main.rand.NextBool(2))
 			{
-				type1 = mod.ProjectileType("Rain");
+				type = ModContent.ProjectileType<Projectiles.Rain>();
 				speedFactor = 11.5f;
 				damageFactor = 1f;
 			}
 			else
 			{
-				type1 = mod.ProjectileType("Rain");
+				type = ModContent.ProjectileType<Projectiles.Rain>();
 				speedFactor = 10.8f;
 				damageFactor = 1.2f;
 			}
-				Projectile.NewProjectile(placePosition.X, placePosition.Y, direction.X * speedFactor, direction.Y * speedFactor, type1, damage, 1, Main.myPlayer, 0, 0);
+				Projectile.NewProjectile(source, placePosition.X, placePosition.Y, direction.X * speedFactor, direction.Y * speedFactor, type, damage, 1, Main.myPlayer, 0, 0);
 			}
 			return false;
 	}
 	/*public override void AddRecipes()
     {
-        ModRecipe recipe = new ModRecipe(mod);
+        Recipe recipe = CreateRecipe();
         recipe.AddIngredient(null, "MarbleBar", 9);
         recipe.AddTile(TileID.Anvils);
-        recipe.SetResult(this);
-        recipe.AddRecipe();
+        recipe.Register();
+        
     }*/
 	}
 }

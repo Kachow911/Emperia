@@ -11,11 +11,11 @@ namespace Emperia.Items.Sets.PreHardmode.Seashell
 		}
 		public override void SetDefaults()
 		{
-			item.width = 16;
-			item.height = 20;
-			item.maxStack = 999;
-			item.value = 20000;
-			item.rare = 1;
+			Item.width = 16;
+			Item.height = 20;
+			Item.maxStack = 999;
+			Item.value = 20000;
+			Item.rare = 1;
 		}
 	}
 }

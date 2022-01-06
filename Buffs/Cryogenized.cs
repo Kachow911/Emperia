@@ -9,7 +9,7 @@ namespace Emperia.Buffs
 {
     public class Cryogenized : ModBuff
     {
-        public override void SetDefaults()
+        public override void SetStaticDefaults()
         {
            DisplayName.SetDefault("Cryogenized");
 			Description.SetDefault("Frozen Solid");         
@@ -18,13 +18,13 @@ namespace Emperia.Buffs
             Main.buffNoSave[Type] = true;
         }
 
-        public override void Update(NPC npc, ref int buffIndex)
+        public override void Update(NPC NPC, ref int buffIndex)
         {
-            npc.GetGlobalNPC<MyNPC>().cryogenized = true;
-            npc.velocity = Vector2.Zero;
+            NPC.GetGlobalNPC<MyNPC>().cryogenized = true;
+            NPC.velocity = Vector2.Zero;
             if (Main.rand.Next(10) == 0)
             {
-                int num1 = Dust.NewDust(npc.position, npc.width, npc.height, 92, 0f, 0f, 0, default(Color), 0.75f);
+                int num1 = Dust.NewDust(NPC.position, NPC.width, NPC.height, 92, 0f, 0f, 0, default(Color), 0.75f);
             }
             //Main.dust[num1].noGravity = false;
             //Main.dust[num1].velocity.Y *= 2f;

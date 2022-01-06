@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Emperia.Projectiles;
+using static Terraria.ModLoader.ModContent;
  
 namespace Emperia.Npcs.Desert
 {
@@ -17,36 +19,36 @@ namespace Emperia.Npcs.Desert
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Carapace Charger");
-			Main.npcFrameCount[npc.type] = 6;
+			Main.npcFrameCount[NPC.type] = 6;
 		}
         public override void SetDefaults()
         {
   
-            npc.lifeMax = 80;        //this is the npc health
-            npc.damage = 12;    //this is the npc damage
-            npc.defense = 2;         //this is the npc defense
-            npc.knockBackResist = 0f;
-            npc.width = 42; //this is where you put the npc sprite width.     important
-            npc.height = 32; //this is where you put the npc sprite height.   important
-            npc.boss = false;
-            npc.lavaImmune = true;       //this make the npc immune to lava
-            npc.noGravity = true;           //this make the npc float
-            npc.noTileCollide = true;        //this make the npc go thru walls
-            npc.HitSound = SoundID.NPCHit1;
-            npc.DeathSound = SoundID.NPCDeath1;
-            npc.behindTiles = true;          
-            npc.value = Item.buyPrice(0, 0, 2, 10);
-            npc.npcSlots = 1f;
-            npc.netAlways = true;
+            NPC.lifeMax = 80;        //this is the NPC health
+            NPC.damage = 12;    //this is the NPC damage
+            NPC.defense = 2;         //this is the NPC defense
+            NPC.knockBackResist = 0f;
+            NPC.width = 42; //this is where you put the NPC sprite width.     important
+            NPC.height = 32; //this is where you put the NPC sprite height.   important
+            NPC.boss = false;
+            NPC.lavaImmune = true;       //this make the NPC immune to lava
+            NPC.noGravity = true;           //this make the NPC float
+            NPC.noTileCollide = true;        //this make the NPC go thru walls
+            NPC.HitSound = SoundID.NPCHit1;
+            NPC.DeathSound = SoundID.NPCDeath1;
+            NPC.behindTiles = true;          
+            NPC.value = Item.buyPrice(0, 0, 2, 10);
+            NPC.npcSlots = 1f;
+            NPC.netAlways = true;
         }
 		public override void FindFrame(int frameHeight)
 		{
-			npc.frameCounter += 0.2f;
-			npc.frameCounter %= 6; 
-			int frame = (int)npc.frameCounter; 
-			npc.frame.Y = frame * frameHeight;
+			NPC.frameCounter += 0.2f;
+			NPC.frameCounter %= 6; 
+			int frame = (int)NPC.frameCounter; 
+			NPC.frame.Y = frame * frameHeight;
 		}
-		public override void NPCLoot()
+		public override void ModifyNPCLoot(NPCLoot npcLoot)
 		{
 			
 		}
@@ -54,17 +56,17 @@ namespace Emperia.Npcs.Desert
         {
             if (Main.netMode != 1)
             {
-                // So, we start the AI off by checking if npc.ai[0] is 0.
+                // So, we start the AI off by checking if NPC.ai[0] is 0.
                 // This is practically ALWAYS the case with a freshly spawned NPC, so this means this is the first update.
                 // Since this is the first update, we can safely assume we need to spawn the rest of the worm (bodies + tail).
-                if (npc.ai[0] == 0)
+                if (NPC.ai[0] == 0)
                 {
-                    // So, here we assing the npc.realLife value.
-                    // The npc.realLife value is mainly used to determine which NPC loses life when we hit this NPC.
+                    // So, here we assing the NPC.realLife value.
+                    // The NPC.realLife value is mainly used to determine which NPC loses life when we hit this NPC.
                     // We don't want every single piece of the worm to have its own HP pool, so this is a neat way to fix that.
-                    npc.realLife = npc.whoAmI;
+                    NPC.realLife = NPC.whoAmI;
                     // LatestNPC is going to be used later on and I'll explain it there.
-                    int latestNPC = npc.whoAmI;
+                    int latestNPC = NPC.whoAmI;
  
                     // Here we determine the length of the worm.
                     // In this case the worm will have a length of 10 to 14 body parts.
@@ -75,25 +77,25 @@ namespace Emperia.Npcs.Desert
                         // to set the parent of this new NPC. The parent of the new NPC (may it be a tail or body part)
                         // will determine the movement of this new NPC.
                         // Under there, we also set the realLife value of the new NPC, because of what is explained above.
-                        latestNPC = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, mod.NPCType("CarapaceChargerSmall2"), npc.whoAmI, 0, latestNPC);
-                        Main.npc[(int)latestNPC].realLife = npc.whoAmI;
-                        Main.npc[(int)latestNPC].ai[3] = npc.whoAmI;
+                        latestNPC = NPC.NewNPC((int)NPC.Center.X, (int)NPC.Center.Y, NPCType<CarapaceChargerSmall2>(), NPC.whoAmI, 0, latestNPC);
+                        Main.npc[(int)latestNPC].realLife = NPC.whoAmI;
+                        Main.npc[(int)latestNPC].ai[3] = NPC.whoAmI;
                     }
                     // When we're out of that loop, we want to 'close' the worm with a tail part!
-                    latestNPC = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, mod.NPCType("CarapaceChargerSmall3"), npc.whoAmI, 0, latestNPC);
-                    Main.npc[(int)latestNPC].realLife = npc.whoAmI;
-                    Main.npc[(int)latestNPC].ai[3] = npc.whoAmI;
+                    latestNPC = NPC.NewNPC((int)NPC.Center.X, (int)NPC.Center.Y, NPCType<CarapaceChargerSmall3>(), NPC.whoAmI, 0, latestNPC);
+                    Main.npc[(int)latestNPC].realLife = NPC.whoAmI;
+                    Main.npc[(int)latestNPC].ai[3] = NPC.whoAmI;
  
-                    // We're setting npc.ai[0] to 1, so that this 'if' is not triggered again.
-                    npc.ai[0] = 1;
-                    npc.netUpdate = true;
+                    // We're setting NPC.ai[0] to 1, so that this 'if' is not triggered again.
+                    NPC.ai[0] = 1;
+                    NPC.netUpdate = true;
                 }
             }
  
-            int minTilePosX = (int)(npc.position.X / 16.0) - 1;
-            int maxTilePosX = (int)((npc.position.X + npc.width) / 16.0) + 2;
-            int minTilePosY = (int)(npc.position.Y / 16.0) - 1;
-            int maxTilePosY = (int)((npc.position.Y + npc.height) / 16.0) + 2;
+            int minTilePosX = (int)(NPC.position.X / 16.0) - 1;
+            int maxTilePosX = (int)((NPC.position.X + NPC.width) / 16.0) + 2;
+            int minTilePosY = (int)(NPC.position.Y / 16.0) - 1;
+            int maxTilePosY = (int)((NPC.position.Y + NPC.height) / 16.0) + 2;
             if (minTilePosX < 0)
                 minTilePosX = 0;
             if (maxTilePosX > Main.maxTilesX)
@@ -109,16 +111,16 @@ namespace Emperia.Npcs.Desert
             {
                 for (int j = minTilePosY; j < maxTilePosY; ++j)
                 {
-                    if (Main.tile[i, j] != null && (Main.tile[i, j].nactive() && (Main.tileSolid[(int)Main.tile[i, j].type] || Main.tileSolidTop[(int)Main.tile[i, j].type] && (int)Main.tile[i, j].frameY == 0) || (int)Main.tile[i, j].liquid > 64))
+                    if (Main.tile[i, j] != null && (Main.tile[i, j].IsActiveUnactuated && (Main.tileSolid[(int)Main.tile[i, j].type] || Main.tileSolidTop[(int)Main.tile[i, j].type] && (int)Main.tile[i, j].frameY == 0) || (int)Main.tile[i, j].LiquidType > 64))
                     {
                         Vector2 vector2;
                         vector2.X = (float)(i * 16);
                         vector2.Y = (float)(j * 16);
-                        if (npc.position.X + npc.width > vector2.X && npc.position.X < vector2.X + 16.0 && (npc.position.Y + npc.height > (double)vector2.Y && npc.position.Y < vector2.Y + 16.0))
+                        if (NPC.position.X + NPC.width > vector2.X && NPC.position.X < vector2.X + 16.0 && (NPC.position.Y + NPC.height > (double)vector2.Y && NPC.position.Y < vector2.Y + 16.0))
                         {
 							colliding = true;
                             collision = true;
-                            if (Main.rand.Next(100) == 0 && Main.tile[i, j].nactive())
+                            if (Main.rand.Next(100) == 0 && Main.tile[i, j].IsActiveUnactuated)
                                 WorldGen.KillTile(i, j, true, true, false);
                         }
 						else
@@ -129,7 +131,7 @@ namespace Emperia.Npcs.Desert
 								Vector2 perturbedSpeed = new Vector2(0, -5).RotatedByRandom(MathHelper.ToRadians(45));
                                 if (Main.rand.NextBool(2))
                                 {
-                                    int p = Projectile.NewProjectile(npc.Center.X, npc.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, mod.ProjectileType("SandBlock"), npc.damage / 3, 1, Main.myPlayer, 0, 0);
+                                    int p = Projectile.NewProjectile(NPC.GetProjectileSpawnSource(), NPC.Center.X, NPC.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, ModContent.ProjectileType<SandBlock>(), NPC.damage / 3, 1, Main.myPlayer, 0, 0);
                                     Main.projectile[p].rotation = MathHelper.ToRadians(Main.rand.Next(360));
                                 }
 								colliding = false;
@@ -141,7 +143,7 @@ namespace Emperia.Npcs.Desert
             // If there is no collision with tiles, we check if the distance between this NPC and its target is too large, so that we can still trigger 'collision'.
             if (!collision)
             {
-                Rectangle rectangle1 = new Rectangle((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height);
+                Rectangle rectangle1 = new Rectangle((int)NPC.position.X, (int)NPC.position.Y, NPC.width, NPC.height);
                 int maxDistance = 1000;
                 bool playerCollision = true;
                 for (int index = 0; index < 255; ++index)
@@ -166,9 +168,9 @@ namespace Emperia.Npcs.Desert
             // acceleration is exactly what it sounds like. The speed at which this NPC accelerates.
             float acceleration = 0.08f;
  
-            Vector2 npcCenter = new Vector2(npc.position.X + npc.width * 0.5f, npc.position.Y + npc.height * 0.5f);
-            float targetXPos = Main.player[npc.target].position.X + (Main.player[npc.target].width / 2);
-            float targetYPos = Main.player[npc.target].position.Y + (Main.player[npc.target].height / 2);
+            Vector2 npcCenter = new Vector2(NPC.position.X + NPC.width * 0.5f, NPC.position.Y + NPC.height * 0.5f);
+            float targetXPos = Main.player[NPC.target].position.X + (Main.player[NPC.target].width / 2);
+            float targetYPos = Main.player[NPC.target].position.Y + (Main.player[NPC.target].height / 2);
  
             float targetRoundedPosX = (float)((int)(targetXPos / 16.0) * 16);
             float targetRoundedPosY = (float)((int)(targetYPos / 16.0) * 16);
@@ -181,131 +183,131 @@ namespace Emperia.Npcs.Desert
             // If we do not have any type of collision, we want the NPC to fall down and de-accelerate along the X axis.
             if (!collision)
             {
-                npc.TargetClosest(true);
-                npc.velocity.Y = npc.velocity.Y + 0.11f;
-                if (npc.velocity.Y > speed)
-                    npc.velocity.Y = speed;
-                if (Math.Abs(npc.velocity.X) + Math.Abs(npc.velocity.Y) < speed * 0.4)
+                NPC.TargetClosest(true);
+                NPC.velocity.Y = NPC.velocity.Y + 0.11f;
+                if (NPC.velocity.Y > speed)
+                    NPC.velocity.Y = speed;
+                if (Math.Abs(NPC.velocity.X) + Math.Abs(NPC.velocity.Y) < speed * 0.4)
                 {
-                    if (npc.velocity.X < 0.0)
-                        npc.velocity.X = npc.velocity.X - acceleration * 1.1f;
+                    if (NPC.velocity.X < 0.0)
+                        NPC.velocity.X = NPC.velocity.X - acceleration * 1.1f;
                     else
-                        npc.velocity.X = npc.velocity.X + acceleration * 1.1f;
+                        NPC.velocity.X = NPC.velocity.X + acceleration * 1.1f;
                 }
-                else if (npc.velocity.Y == speed)
+                else if (NPC.velocity.Y == speed)
                 {
-                    if (npc.velocity.X < dirX)
-                        npc.velocity.X = npc.velocity.X + acceleration;
-                    else if (npc.velocity.X > dirX)
-                        npc.velocity.X = npc.velocity.X - acceleration;
+                    if (NPC.velocity.X < dirX)
+                        NPC.velocity.X = NPC.velocity.X + acceleration;
+                    else if (NPC.velocity.X > dirX)
+                        NPC.velocity.X = NPC.velocity.X - acceleration;
                 }
-                else if (npc.velocity.Y > 4.0)
+                else if (NPC.velocity.Y > 4.0)
                 {
-                    if (npc.velocity.X < 0.0)
-                        npc.velocity.X = npc.velocity.X + acceleration * 0.9f;
+                    if (NPC.velocity.X < 0.0)
+                        NPC.velocity.X = NPC.velocity.X + acceleration * 0.9f;
                     else
-                        npc.velocity.X = npc.velocity.X - acceleration * 0.9f;
+                        NPC.velocity.X = NPC.velocity.X - acceleration * 0.9f;
                 }
             }
             // Else we want to play some audio (soundDelay) and move towards our target.
             else
             {
-                if (npc.soundDelay == 0)
+                if (NPC.soundDelay == 0)
                 {
                     float num1 = length / 40f;
                     if (num1 < 10.0)
                         num1 = 10f;
                     if (num1 > 20.0)
                         num1 = 20f;
-                    npc.soundDelay = (int)num1;
-                    Main.PlaySound(15, (int)npc.position.X, (int)npc.position.Y, 1);
+                    NPC.soundDelay = (int)num1;
+                    Terraria.Audio.SoundEngine.PlaySound(15, (int)NPC.position.X, (int)NPC.position.Y, 1);
                 }
                 float absDirX = Math.Abs(dirX);
                 float absDirY = Math.Abs(dirY);
                 float newSpeed = speed / length;
                 dirX = dirX * newSpeed;
                 dirY = dirY * newSpeed;
-                if (npc.velocity.X > 0.0 && dirX > 0.0 || npc.velocity.X < 0.0 && dirX < 0.0 || (npc.velocity.Y > 0.0 && dirY > 0.0 || npc.velocity.Y < 0.0 && dirY < 0.0))
+                if (NPC.velocity.X > 0.0 && dirX > 0.0 || NPC.velocity.X < 0.0 && dirX < 0.0 || (NPC.velocity.Y > 0.0 && dirY > 0.0 || NPC.velocity.Y < 0.0 && dirY < 0.0))
                 {
-                    if (npc.velocity.X < dirX)
-                        npc.velocity.X = npc.velocity.X + acceleration;
-                    else if (npc.velocity.X > dirX)
-                        npc.velocity.X = npc.velocity.X - acceleration;
-                    if (npc.velocity.Y < dirY)
-                        npc.velocity.Y = npc.velocity.Y + acceleration;
-                    else if (npc.velocity.Y > dirY)
-                        npc.velocity.Y = npc.velocity.Y - acceleration;
-                    if (Math.Abs(dirY) < speed * 0.2 && (npc.velocity.X > 0.0 && dirX < 0.0 || npc.velocity.X < 0.0 && dirX > 0.0))
+                    if (NPC.velocity.X < dirX)
+                        NPC.velocity.X = NPC.velocity.X + acceleration;
+                    else if (NPC.velocity.X > dirX)
+                        NPC.velocity.X = NPC.velocity.X - acceleration;
+                    if (NPC.velocity.Y < dirY)
+                        NPC.velocity.Y = NPC.velocity.Y + acceleration;
+                    else if (NPC.velocity.Y > dirY)
+                        NPC.velocity.Y = NPC.velocity.Y - acceleration;
+                    if (Math.Abs(dirY) < speed * 0.2 && (NPC.velocity.X > 0.0 && dirX < 0.0 || NPC.velocity.X < 0.0 && dirX > 0.0))
                     {
-                        if (npc.velocity.Y > 0.0)
-                            npc.velocity.Y = npc.velocity.Y + acceleration * 2f;
+                        if (NPC.velocity.Y > 0.0)
+                            NPC.velocity.Y = NPC.velocity.Y + acceleration * 2f;
                         else
-                            npc.velocity.Y = npc.velocity.Y - acceleration * 2f;
+                            NPC.velocity.Y = NPC.velocity.Y - acceleration * 2f;
                     }
-                    if (Math.Abs(dirX) < speed * 0.2 && (npc.velocity.Y > 0.0 && dirY < 0.0 || npc.velocity.Y < 0.0 && dirY > 0.0))
+                    if (Math.Abs(dirX) < speed * 0.2 && (NPC.velocity.Y > 0.0 && dirY < 0.0 || NPC.velocity.Y < 0.0 && dirY > 0.0))
                     {
-                        if (npc.velocity.X > 0.0)
-                            npc.velocity.X = npc.velocity.X + acceleration * 2f;
+                        if (NPC.velocity.X > 0.0)
+                            NPC.velocity.X = NPC.velocity.X + acceleration * 2f;
                         else
-                            npc.velocity.X = npc.velocity.X - acceleration * 2f;
+                            NPC.velocity.X = NPC.velocity.X - acceleration * 2f;
                     }
                 }
                 else if (absDirX > absDirY)
                 {
-                    if (npc.velocity.X < dirX)
-                        npc.velocity.X = npc.velocity.X + acceleration * 1.1f;
-                    else if (npc.velocity.X > dirX)
-                        npc.velocity.X = npc.velocity.X - acceleration * 1.1f;
-                    if (Math.Abs(npc.velocity.X) + Math.Abs(npc.velocity.Y) < speed * 0.5)
+                    if (NPC.velocity.X < dirX)
+                        NPC.velocity.X = NPC.velocity.X + acceleration * 1.1f;
+                    else if (NPC.velocity.X > dirX)
+                        NPC.velocity.X = NPC.velocity.X - acceleration * 1.1f;
+                    if (Math.Abs(NPC.velocity.X) + Math.Abs(NPC.velocity.Y) < speed * 0.5)
                     {
-                        if (npc.velocity.Y > 0.0)
-                            npc.velocity.Y = npc.velocity.Y + acceleration;
+                        if (NPC.velocity.Y > 0.0)
+                            NPC.velocity.Y = NPC.velocity.Y + acceleration;
                         else
-                            npc.velocity.Y = npc.velocity.Y - acceleration;
+                            NPC.velocity.Y = NPC.velocity.Y - acceleration;
                     }
                 }
                 else
                 {
-                    if (npc.velocity.Y < dirY)
-                        npc.velocity.Y = npc.velocity.Y + acceleration * 1.1f;
-                    else if (npc.velocity.Y > dirY)
-                        npc.velocity.Y = npc.velocity.Y - acceleration * 1.1f;
-                    if (Math.Abs(npc.velocity.X) + Math.Abs(npc.velocity.Y) < speed * 0.5)
+                    if (NPC.velocity.Y < dirY)
+                        NPC.velocity.Y = NPC.velocity.Y + acceleration * 1.1f;
+                    else if (NPC.velocity.Y > dirY)
+                        NPC.velocity.Y = NPC.velocity.Y - acceleration * 1.1f;
+                    if (Math.Abs(NPC.velocity.X) + Math.Abs(NPC.velocity.Y) < speed * 0.5)
                     {
-                        if (npc.velocity.X > 0.0)
-                            npc.velocity.X = npc.velocity.X + acceleration;
+                        if (NPC.velocity.X > 0.0)
+                            NPC.velocity.X = NPC.velocity.X + acceleration;
                         else
-                            npc.velocity.X = npc.velocity.X - acceleration;
+                            NPC.velocity.X = NPC.velocity.X - acceleration;
                     }
                 }
             }
             // Set the correct rotation for this NPC.
-            npc.rotation = (float)Math.Atan2(npc.velocity.Y, npc.velocity.X) + 1.57f;
+            NPC.rotation = (float)Math.Atan2(NPC.velocity.Y, NPC.velocity.X) + 1.57f;
            
             // Some netupdate stuff (multiplayer compatibility).
             if (collision)
             {
-                if (npc.localAI[0] != 1)
-                    npc.netUpdate = true;
-                npc.localAI[0] = 1f;
+                if (NPC.localAI[0] != 1)
+                    NPC.netUpdate = true;
+                NPC.localAI[0] = 1f;
             }
             else
             {
-                if (npc.localAI[0] != 0.0)
-                    npc.netUpdate = true;
-                npc.localAI[0] = 0.0f;
+                if (NPC.localAI[0] != 0.0)
+                    NPC.netUpdate = true;
+                NPC.localAI[0] = 0.0f;
             }
-            if ((npc.velocity.X > 0.0 && npc.oldVelocity.X < 0.0 || npc.velocity.X < 0.0 && npc.oldVelocity.X > 0.0 || (npc.velocity.Y > 0.0 && npc.oldVelocity.Y < 0.0 || npc.velocity.Y < 0.0 && npc.oldVelocity.Y > 0.0)) && !npc.justHit)
-                npc.netUpdate = true;
+            if ((NPC.velocity.X > 0.0 && NPC.oldVelocity.X < 0.0 || NPC.velocity.X < 0.0 && NPC.oldVelocity.X > 0.0 || (NPC.velocity.Y > 0.0 && NPC.oldVelocity.Y < 0.0 || NPC.velocity.Y < 0.0 && NPC.oldVelocity.Y > 0.0)) && !NPC.justHit)
+                NPC.netUpdate = true;
  
             return false;
         }
  
-        /*public override bool PreDraw(Microsoft.Xna.Framework.Graphics.SpriteBatch spriteBatch, Color drawColor)
+        /*public override bool PreDraw(Microsoft.Xna.Framework.Graphics.ref Color drawColor)
         {
-            Texture2D texture = Main.npcTexture[npc.type];
+            Texture2D texture = Main.npcTexture[NPC.type];
             Vector2 origin = new Vector2(texture.Width * 0.5f, texture.Height * 0.5f);
-            Main.spriteBatch.Draw(texture, npc.Center - Main.screenPosition, new Rectangle?(), drawColor, npc.rotation, origin, npc.scale, SpriteEffects.None, 0);
+            Main.EntitySpriteDraw(texture, NPC.Center - Main.screenPosition, new Rectangle?(), drawColor, NPC.rotation, origin, NPC.scale, SpriteEffects.None, 0);
             return false;
         }*/
 		public override float SpawnChance(NPCSpawnInfo spawnInfo)

@@ -15,29 +15,29 @@ public class GraniteHamaxe : ModItem
 		}
     public override void SetDefaults()
     {
-        item.damage = 9;
-        item.melee = true;
-        item.width = 46;
-        item.height = 46;
-        item.useTime = 16;
-        item.useAnimation = 32;
-        item.useTurn = true;
-        item.axe = 14;
-		item.hammer = 65;
-        item.useStyle = 1;
-        item.knockBack = 2f;
-        item.value = 22500;
-        item.rare = 1;
-        item.UseSound = SoundID.Item1;
-        item.autoReuse = true;
+        Item.damage = 9;
+        Item.DamageType = DamageClass.Melee;
+        Item.width = 46;
+        Item.height = 46;
+        Item.useTime = 16;
+        Item.useAnimation = 32;
+        Item.useTurn = true;
+        Item.axe = 14;
+		Item.hammer = 65;
+        Item.useStyle = 1;
+        Item.knockBack = 2f;
+        Item.value = 22500;
+        Item.rare = 1;
+        Item.UseSound = SoundID.Item1;
+        Item.autoReuse = true;
     }
 
     public override void AddRecipes()
     {
-        ModRecipe recipe = new ModRecipe(mod);
+        Recipe recipe = CreateRecipe();
         recipe.AddIngredient(null, "GraniteBar", 6);
         recipe.AddTile(TileID.Anvils);
-        recipe.SetResult(this);
-        recipe.AddRecipe();
+        recipe.Register();
+        
     }
 }}

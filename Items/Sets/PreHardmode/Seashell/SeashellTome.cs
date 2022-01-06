@@ -5,6 +5,7 @@ using Terraria.Graphics.Effects;
 using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Emperia.Projectiles;
 
 namespace Emperia.Items.Sets.PreHardmode.Seashell
 {
@@ -17,29 +18,29 @@ namespace Emperia.Items.Sets.PreHardmode.Seashell
 		}
         public override void SetDefaults()
         {
-            item.damage = 23;
-            item.magic = true;
-            item.noMelee = true;
-            item.width = 32;
-            item.height = 32;
-            item.useTime = 20;
-            item.useAnimation = 20;     
-            item.useStyle = 5;    
-            item.mana = 6;
-	        item.UseSound = SoundID.Item39;
-            item.knockBack = 3.25f;
-            item.value = 16500;        
-            item.rare = 1;
-	        item.shoot = mod.ProjectileType("Cerith"); 
-	        item.shootSpeed = 4f;
-            item.autoReuse = true;
-            //item.useTurn = true; okay i guess this makes tomes turn you around but only for one frame so dont use it lol       
+            Item.damage = 23;
+            Item.DamageType = DamageClass.Magic;
+            Item.noMelee = true;
+            Item.width = 32;
+            Item.height = 32;
+            Item.useTime = 20;
+            Item.useAnimation = 20;     
+            Item.useStyle = 5;    
+            Item.mana = 6;
+	        Item.UseSound = SoundID.Item39;
+            Item.knockBack = 3.25f;
+            Item.value = 16500;        
+            Item.rare = 1;
+	        Item.shoot = ModContent.ProjectileType<Cerith>(); 
+	        Item.shootSpeed = 4f;
+            Item.autoReuse = true;
+            //Item.useTurn = true; okay i guess this makes tomes turn you around but only for one frame so dont use it lol       
         }
 		public override bool CanUseItem(Player player)
         {
             for (int i = 0; i < 250; ++i)
             {
-                if (Main.projectile[i].active && Main.projectile[i].owner == Main.myPlayer && Main.projectile[i].type == item.shoot)
+                if (Main.projectile[i].active && Main.projectile[i].owner == Main.myPlayer && Main.projectile[i].type == Item.shoot)
                 {
                     return false;
                 }
@@ -48,13 +49,13 @@ namespace Emperia.Items.Sets.PreHardmode.Seashell
         }
         public override void AddRecipes()  //How to craft this sword
         {
-            ModRecipe recipe = new ModRecipe(mod);      
+            Recipe recipe = CreateRecipe();      
             recipe.AddIngredient(ItemID.Seashell, 4);
             recipe.AddIngredient(ItemID.Coral, 4);
             recipe.AddIngredient(null, "SeaCrystal", 1); 			
             recipe.AddTile(TileID.Anvils);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            recipe.Register();
+            
         }
     }
 }

@@ -16,30 +16,30 @@ namespace Emperia.Projectiles
 			DisplayName.SetDefault("Marble Energy");
 		}
         public override void SetDefaults()
-        {  //projectile name
-            projectile.width = 8;       //projectile width
-            projectile.height = 8;  //projectile height
-            projectile.friendly = true;      //make that the projectile will not damage you
-            projectile.magic = true;         // 
-            projectile.tileCollide = true;   //make that the projectile will be destroed if it hits the terrain
-            projectile.penetrate = 3;      //how many npc will penetrate
-            projectile.timeLeft = 100;   //how many time projectile projectile has before disepire
-            projectile.light = 0.75f;    // projectile light
-            projectile.ignoreWater = true;
-			projectile.alpha = 255;
+        {  //Projectile name
+            Projectile.width = 8;       //Projectile width
+            Projectile.height = 8;  //Projectile height
+            Projectile.friendly = true;      //make that the Projectile will not damage you
+            Projectile.DamageType = DamageClass.Magic;         // 
+            Projectile.tileCollide = true;   //make that the Projectile will be destroed if it hits the terrain
+            Projectile.penetrate = 3;      //how many NPC will penetrate
+            Projectile.timeLeft = 100;   //how many time Projectile Projectile has before disepire
+            Projectile.light = 0.75f;    // Projectile light
+            Projectile.ignoreWater = true;
+			Projectile.alpha = 255;
         }
-        public override void AI()           //projectile make that the projectile will face the corect way
+        public override void AI()           //Projectile make that the Projectile will face the corect way
         {                                                           
-			int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 66, 0f, 0f, 91, new Color(255, 255, 255), 1f);
-            Main.dust[dust].position += projectile.velocity.RotatedBy(1.57);
+			int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 66, 0f, 0f, 91, new Color(255, 255, 255), 1f);
+            Main.dust[dust].position += Projectile.velocity.RotatedBy(1.57);
             Main.dust[dust].noGravity = true;
-            Main.dust[dust].velocity = projectile.velocity.RotatedBy(0.5);
-            int dust1 = Dust.NewDust(projectile.position, projectile.width, projectile.height, 66, 0f, 0f, 91, new Color(255, 255, 255), 1f);
-            Main.dust[dust].position += projectile.velocity.RotatedBy(-1.57);
+            Main.dust[dust].velocity = Projectile.velocity.RotatedBy(0.5);
+            int dust1 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 66, 0f, 0f, 91, new Color(255, 255, 255), 1f);
+            Main.dust[dust].position += Projectile.velocity.RotatedBy(-1.57);
             Main.dust[dust1].noGravity = true;
-            Main.dust[dust1].velocity = projectile.velocity.RotatedBy(-0.5);
-            int dust2 = Dust.NewDust(projectile.position, projectile.width, projectile.height, 66, 0f, 0f, 91, new Color(255, 255, 255), 1.5f);
-            Main.dust[dust2].velocity = projectile.velocity;
+            Main.dust[dust1].velocity = Projectile.velocity.RotatedBy(-0.5);
+            int dust2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 66, 0f, 0f, 91, new Color(255, 255, 255), 1.5f);
+            Main.dust[dust2].velocity = Projectile.velocity;
             Main.dust[dust2].noGravity = true;
 
         }
@@ -49,9 +49,9 @@ namespace Emperia.Projectiles
 			{
 				Vector2 vec = Vector2.Transform(new Vector2(-10, 0), Matrix.CreateRotationZ(MathHelper.ToRadians(i)));
 				vec.Normalize();
-				int num622 = Dust.NewDust(projectile.position, projectile.width, projectile.height, 66, 0f, 0f, 91, new Color(255, 255, 255), 1.5f);
+				int num622 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 66, 0f, 0f, 91, new Color(255, 255, 255), 1.5f);
                 Main.dust[num622].velocity += (vec * 2f);
-                Main.dust[num622].velocity += projectile.velocity;
+                Main.dust[num622].velocity += Projectile.velocity;
                 Main.dust[num622].noGravity = true;
             }
 	     }

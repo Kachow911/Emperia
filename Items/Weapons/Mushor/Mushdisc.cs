@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework;
 using Terraria.ModLoader;
 using Terraria;
 using Terraria.ID;
+using Emperia.Projectiles.Mushroom;
 
 
 namespace Emperia.Items.Weapons.Mushor
@@ -20,26 +21,27 @@ namespace Emperia.Items.Weapons.Mushor
 		}
         public override void SetDefaults()
         {
-            item.damage = 32; 
-            item.thrown = true;
-            item.width = 64;
-            item.height = 64;
-            item.useTime = 20;
-            item.useAnimation = 20;
-            item.useStyle = 5;
-            item.knockBack = 3.5f;
-            item.value = 100;
-            item.rare = 3;
-            item.scale = 1f;
-			item.consumable = false;
-			item.noUseGraphic = true;
-            item.UseSound = SoundID.Item11;
-            item.autoReuse = true;
-            item.useTurn = true;    
-            item.noMelee = true;
-            item.maxStack = 1;
-            item.shoot = mod.ProjectileType("MushDisc");
-            item.shootSpeed = 7f;
+            Item.damage = 32; 
+            //Item.thrown = true;
+            Item.DamageType = DamageClass.Ranged;
+            Item.width = 64;
+            Item.height = 64;
+            Item.useTime = 20;
+            Item.useAnimation = 20;
+            Item.useStyle = 5;
+            Item.knockBack = 3.5f;
+            Item.value = 100;
+            Item.rare = 3;
+            Item.scale = 1f;
+			Item.consumable = false;
+			Item.noUseGraphic = true;
+            Item.UseSound = SoundID.Item11;
+            Item.autoReuse = true;
+            Item.useTurn = true;    
+            Item.noMelee = true;
+            Item.maxStack = 1;
+            Item.shoot = ModContent.ProjectileType<MushDisc>();
+            Item.shootSpeed = 7f;
         }
     }
 }

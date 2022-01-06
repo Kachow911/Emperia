@@ -19,11 +19,11 @@ public class GoblinChest : ModItem
 		}
     public override void SetDefaults()
     {
-        item.width = 18;
-        item.height = 18;
-        item.value = 65000;
-        item.rare = 3;
-        item.defense = 7; //15
+        Item.width = 18;
+        Item.height = 18;
+        Item.value = 65000;
+        Item.rare = 3;
+        Item.defense = 7; //15
     }
 
     public override void UpdateEquip(Player player)
@@ -34,11 +34,11 @@ public class GoblinChest : ModItem
 
     public override void AddRecipes()
     {
-            ModRecipe recipe = new ModRecipe(mod);
+            Recipe recipe = CreateRecipe();
             recipe.AddIngredient(null, "GiantPlating", 6);
             recipe.AddIngredient(ItemID.IronBar, 10);
             recipe.AddTile(TileID.Anvils);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            recipe.Register();
+            
         }
 }}

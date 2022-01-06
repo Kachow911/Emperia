@@ -13,14 +13,14 @@ namespace Emperia.Projectiles.Twilight
 		bool init = false;
 		public override void SetDefaults()
 		{
-			projectile.width = 14;
-			projectile.height = 14;
-			projectile.aiStyle = 1;
-			projectile.friendly = true;
-			projectile.ranged = true;
-			projectile.penetrate = 1;
-			projectile.timeLeft = 1000;
-			projectile.tileCollide = true;
+			Projectile.width = 14;
+			Projectile.height = 14;
+			Projectile.aiStyle = 1;
+			Projectile.friendly = true;
+			Projectile.DamageType = DamageClass.Ranged;
+			Projectile.penetrate = 1;
+			Projectile.timeLeft = 1000;
+			Projectile.tileCollide = true;
 		}
 		
 		public override void SetStaticDefaults()
@@ -31,16 +31,16 @@ namespace Emperia.Projectiles.Twilight
 		
 		public override void Kill(int timeLeft)
 		{
-			Main.PlaySound(SoundID.Item10, projectile.position);
+			Terraria.Audio.SoundEngine.PlaySound(SoundID.Item10, Projectile.position);
 			for (int index1 = 4; index1 < 31; ++index1)
 			{
-				float num1 = (float)(projectile.oldVelocity.X * (30.0 / (double)index1));
-				float num2 = (float)(projectile.oldVelocity.Y * (30.0 / (double)index1));
-				int index2 = Dust.NewDust(new Vector2((float)projectile.oldPosition.X - num1, (float)projectile.oldPosition.Y - num2), 8, 8, DustID.GoldCoin, (float)projectile.oldVelocity.X, (float)projectile.oldVelocity.Y, 100, default(Color), 1.6f);
+				float num1 = (float)(Projectile.oldVelocity.X * (30.0 / (double)index1));
+				float num2 = (float)(Projectile.oldVelocity.Y * (30.0 / (double)index1));
+				int index2 = Dust.NewDust(new Vector2((float)Projectile.oldPosition.X - num1, (float)Projectile.oldPosition.Y - num2), 8, 8, DustID.GoldCoin, (float)Projectile.oldVelocity.X, (float)Projectile.oldVelocity.Y, 100, default(Color), 1.6f);
 				Main.dust[index2].noGravity = true;
 				Dust dust1 = Main.dust[index2];
 				dust1.velocity = dust1.velocity * 0.5f;
-				int index3 = Dust.NewDust(new Vector2((float)projectile.oldPosition.X - num1, (float)projectile.oldPosition.Y - num2), 8, 8, DustID.GoldCoin, (float)projectile.oldVelocity.X, (float)projectile.oldVelocity.Y, 100, default(Color), 1.3f);
+				int index3 = Dust.NewDust(new Vector2((float)Projectile.oldPosition.X - num1, (float)Projectile.oldPosition.Y - num2), 8, 8, DustID.GoldCoin, (float)Projectile.oldVelocity.X, (float)Projectile.oldVelocity.Y, 100, default(Color), 1.3f);
 				Main.dust[index3].noGravity = true;
 				Dust dust2 = Main.dust[index3];
 				dust2.velocity = dust2.velocity * 0.5f;
@@ -50,7 +50,7 @@ namespace Emperia.Projectiles.Twilight
 		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
 		{		
 
-			projectile.damage *= 2;
+			Projectile.damage *= 2;
 		}
 		
 		public override void AI()
@@ -60,12 +60,12 @@ namespace Emperia.Projectiles.Twilight
 				init = true;
 				if(Main.rand.NextBool(4))
                 {
-					projectile.penetrate = 2;
+					Projectile.penetrate = 2;
                 }
             }
 			if (Main.rand.Next(3) == 0)
 			{
-				Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, DustID.GoldCoin, 0.0f, 0.0f, 15, new Color(53f, 67f, 253f), 0.8f);
+				Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, DustID.GoldCoin, 0.0f, 0.0f, 15, new Color(53f, 67f, 253f), 0.8f);
 			}
 		}
 	}

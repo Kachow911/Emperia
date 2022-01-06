@@ -16,37 +16,37 @@ namespace Emperia.Npcs.Yeti
 			DisplayName.SetDefault("Yeti Snowball");
 		}
         public override void SetDefaults()
-        {  //projectile name
-            projectile.width = 56;       //projectile width
-            projectile.height = 56;  //projectile height
-            projectile.friendly = false;      //make that the projectile will not damage you
-            projectile.magic = true;         // 
-            projectile.tileCollide = true;   //make that the projectile will be destroed if it hits the terrain
-            projectile.penetrate = 1;      //how many npc will penetrate
-            projectile.timeLeft = 200;   //how many time projectile projectile has before disepire
-            projectile.light = 0.75f;    // projectile light
-            projectile.extraUpdates = 1;
-            projectile.ignoreWater = true;
-			projectile.hostile = true;
-			projectile.alpha = 0;
+        {  //Projectile name
+            Projectile.width = 56;       //Projectile width
+            Projectile.height = 56;  //Projectile height
+            Projectile.friendly = false;      //make that the Projectile will not damage you
+            Projectile.DamageType = DamageClass.Magic;         // 
+            Projectile.tileCollide = true;   //make that the Projectile will be destroed if it hits the terrain
+            Projectile.penetrate = 1;      //how many NPC will penetrate
+            Projectile.timeLeft = 200;   //how many time Projectile Projectile has before disepire
+            Projectile.light = 0.75f;    // Projectile light
+            Projectile.extraUpdates = 1;
+            Projectile.ignoreWater = true;
+			Projectile.hostile = true;
+			Projectile.alpha = 0;
         }
-        public override void AI()           //projectile make that the projectile will face the corect way
+        public override void AI()           //Projectile make that the Projectile will face the corect way
         {             
-		   projectile.rotation += .02f;		// |
-           projectile.velocity.Y += 0.02f;
-		   if (projectile.velocity.Y > 4)
-			   projectile.velocity.Y = 4;
+		   Projectile.rotation += .02f;		// |
+           Projectile.velocity.Y += 0.02f;
+		   if (Projectile.velocity.Y > 4)
+			   Projectile.velocity.Y = 4;
 		   if (Main.rand.NextBool(20))
-			    Dust.NewDust(projectile.Center + projectile.velocity, Main.rand.Next(1, 7), Main.rand.Next(1, 7), 51, 0, 0);
+			    Dust.NewDust(Projectile.Center + Projectile.velocity, Main.rand.Next(1, 7), Main.rand.Next(1, 7), 51, 0, 0);
 		}
 		 public override void Kill(int timeLeft)
         {
-            projectile.velocity.Y += .03f;
-			Main.PlaySound(SoundID.Item, projectile.Center, 14);
+            Projectile.velocity.Y += .03f;
+			Terraria.Audio.SoundEngine.PlaySound(SoundID.Item, Projectile.Center, 14);
 			for (int i = 0; i < Main.player.Length; i++)
             {
-                if (projectile.Distance(Main.player[i].Center) < explodeRadius)
-                    Main.player[i].Hurt(Terraria.DataStructures.PlayerDeathReason.ByProjectile(Main.player[i].whoAmI, projectile.whoAmI), 35, 0);
+                if (Projectile.Distance(Main.player[i].Center) < explodeRadius)
+                    Main.player[i].Hurt(Terraria.DataStructures.PlayerDeathReason.ByProjectile(Main.player[i].whoAmI, Projectile.whoAmI), 35, 0);
             }
 			 for (int i = 0; i < 360; i++)
             {
@@ -54,13 +54,13 @@ namespace Emperia.Npcs.Yeti
 
                 if (i % 8 == 0)
                 {   //odd
-                    Dust.NewDust(projectile.Center + vec, Main.rand.Next(1, 7), Main.rand.Next(1, 7), 51);
+                    Dust.NewDust(Projectile.Center + vec, Main.rand.Next(1, 7), Main.rand.Next(1, 7), 51);
                 }
 
                 if (i % 9 == 0)
                 {   //even
                     vec.Normalize();
-                    Dust.NewDust(projectile.Center, Main.rand.Next(1, 7), Main.rand.Next(1, 7), 192, vec.X * 2, vec.Y * 2);
+                    Dust.NewDust(Projectile.Center, Main.rand.Next(1, 7), Main.rand.Next(1, 7), 192, vec.X * 2, vec.Y * 2);
                 }
             }
 		}

@@ -22,15 +22,15 @@ namespace Emperia.Projectiles.Twilight
 		}
         public override void SetDefaults()
         {
-			projectile.width = 30;
-			projectile.height = 32;
-			projectile.aiStyle = 4;
-			projectile.friendly = true;
-			projectile.penetrate = -1;
-			projectile.tileCollide = false;
-			projectile.alpha = 255;
-			projectile.ignoreWater = true;
-			projectile.magic = true;
+			Projectile.width = 30;
+			Projectile.height = 32;
+			Projectile.aiStyle = 4;
+			Projectile.friendly = true;
+			Projectile.penetrate = -1;
+			Projectile.tileCollide = false;
+			Projectile.alpha = 255;
+			Projectile.ignoreWater = true;
+			Projectile.DamageType = DamageClass.Magic;
 		}
 
         public override void AI()
@@ -44,14 +44,14 @@ namespace Emperia.Projectiles.Twilight
 			{
 				Vector2 vec = Vector2.Transform(new Vector2(-16, 0), Matrix.CreateRotationZ(MathHelper.ToRadians(i)));
 				vec.Normalize();
-				int num622 = Dust.NewDust(projectile.position, projectile.width, projectile.height, 15, 0f, 0f, 91, new Color(255, 255, 255), 1.5f);
+				int num622 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 15, 0f, 0f, 91, new Color(255, 255, 255), 1.5f);
                 Main.dust[num622].velocity += (vec * 2f);
                 Main.dust[num622].noGravity = true;
             }*/
 	     }
        /* public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
-            projectile.Kill();
+            Projectile.Kill();
         }*/
 	
     }

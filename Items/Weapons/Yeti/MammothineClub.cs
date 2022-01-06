@@ -17,23 +17,23 @@ namespace Emperia.Items.Weapons.Yeti
 		}
         public override void SetDefaults()
         {
-            item.damage = 29;
-            item.melee = true;
-            item.width = 42;
-            item.height = 42;
-            item.useTime = 40;
-            item.useAnimation = 40;     
-            item.useStyle = 1;
-            item.knockBack = 7f;
-            item.value = 52500;        
-            item.rare = 1;
-			item.scale = 1.3f;
-            item.autoReuse = false;
-            item.useTurn = false;
-			item.UseSound = SoundID.Item1;	
-            //item.reuseDelay = 10; doesnt work!!
+            Item.damage = 29;
+            Item.DamageType = DamageClass.Melee;
+            Item.width = 42;
+            Item.height = 42;
+            Item.useTime = 40;
+            Item.useAnimation = 40;     
+            Item.useStyle = 1;
+            Item.knockBack = 7f;
+            Item.value = 52500;        
+            Item.rare = 1;
+			Item.scale = 1.3f;
+            Item.autoReuse = false;
+            Item.useTurn = false;
+			Item.UseSound = SoundID.Item1;	
+            //Item.reuseDelay = 10; doesnt work!!
         }
-        public override bool UseItem(Player player)
+        public override bool? UseItem(Player player)
         {
             MyPlayer modPlayer = player.GetModPlayer<MyPlayer>();
             if (modPlayer.clubSwing == -2) //prevents club from creating spikes if it hits an enemy frame 1
@@ -41,8 +41,9 @@ namespace Emperia.Items.Weapons.Yeti
                 modPlayer.clubSwing = -1;
             }
             else {
-                modPlayer.clubSwing = (int)(item.useTime * player.meleeSpeed) - 1;
+                modPlayer.clubSwing = (int)(Item.useTime * player.meleeSpeed) - 1;
             }
+            modPlayer.projItemOrigin = Item;
             return true;
         }
 		public override void OnHitNPC(Player player, NPC target, int damage, float knockback, bool crit)

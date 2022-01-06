@@ -12,87 +12,87 @@ namespace Emperia.Npcs.Desert
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Carapage Charger");
-			Main.npcFrameCount[npc.type] = 6;
+			Main.npcFrameCount[NPC.type] = 6;
 		}
 		
         public override void SetDefaults()
         {
-            npc.width = 42;               //this is where you put the npc sprite width.     important
-            npc.height = 32;              //this is where you put the npc sprite height.   important
-            npc.damage = 5;
-            npc.defense = 10;
-            npc.lifeMax = 1;
-            npc.knockBackResist = 0.0f;
-            npc.behindTiles = true;
-            npc.noTileCollide = true;
-            npc.netAlways = true;
-            npc.noGravity = true;
-            npc.dontCountMe = true;
-            npc.HitSound = SoundID.NPCHit1;
+            NPC.width = 42;               //this is where you put the NPC sprite width.     important
+            NPC.height = 32;              //this is where you put the NPC sprite height.   important
+            NPC.damage = 5;
+            NPC.defense = 10;
+            NPC.lifeMax = 1;
+            NPC.knockBackResist = 0.0f;
+            NPC.behindTiles = true;
+            NPC.noTileCollide = true;
+            NPC.netAlways = true;
+            NPC.noGravity = true;
+            NPC.dontCountMe = true;
+            NPC.HitSound = SoundID.NPCHit1;
            
         }
 		public override void FindFrame(int frameHeight)
 		{
-			npc.frameCounter += 0.2f;
-			npc.frameCounter %= 6; 
-			int frame = (int)npc.frameCounter; 
-			npc.frame.Y = frame * frameHeight;
+			NPC.frameCounter += 0.2f;
+			NPC.frameCounter %= 6; 
+			int frame = (int)NPC.frameCounter; 
+			NPC.frame.Y = frame * frameHeight;
 		}
         public override bool PreAI()
         {
-            if (npc.ai[3] > 0)
-                npc.realLife = (int)npc.ai[3];
-            if (npc.target < 0 || npc.target == byte.MaxValue || Main.player[npc.target].dead)
-                npc.TargetClosest(true);
-            if (Main.player[npc.target].dead && npc.timeLeft > 300)
-                npc.timeLeft = 300;
+            if (NPC.ai[3] > 0)
+                NPC.realLife = (int)NPC.ai[3];
+            if (NPC.target < 0 || NPC.target == byte.MaxValue || Main.player[NPC.target].dead)
+                NPC.TargetClosest(true);
+            if (Main.player[NPC.target].dead && NPC.timeLeft > 300)
+                NPC.timeLeft = 300;
  
             if (Main.netMode != 1)
             {
-                if (!Main.npc[(int)npc.ai[1]].active)
+                if (!Main.npc[(int)NPC.ai[1]].active)
                 {
-                    npc.life = 0;
-                    npc.HitEffect(0, 10.0);
-                    npc.active = false;
+                    NPC.life = 0;
+                    NPC.HitEffect(0, 10.0);
+                    NPC.active = false;
                     
                 }
             }
  
-            if (npc.ai[1] < (double)Main.npc.Length)
+            if (NPC.ai[1] < (double)Main.npc.Length)
             {
              
-                Vector2 npcCenter = new Vector2(npc.position.X + (float)npc.width * 0.5f, npc.position.Y + (float)npc.height * 0.5f);
+                Vector2 npcCenter = new Vector2(NPC.position.X + (float)NPC.width * 0.5f, NPC.position.Y + (float)NPC.height * 0.5f);
              
-                float dirX = Main.npc[(int)npc.ai[1]].Center.X - npcCenter.X;
-                float dirY = Main.npc[(int)npc.ai[1]].Center.Y - npcCenter.Y;
+                float dirX = Main.npc[(int)NPC.ai[1]].Center.X - npcCenter.X;
+                float dirY = Main.npc[(int)NPC.ai[1]].Center.Y - npcCenter.Y;
 
-                npc.rotation = (float)Math.Atan2(dirY, dirX) + 1.57f;
+                NPC.rotation = (float)Math.Atan2(dirY, dirX) + 1.57f;
   
                 float length = (float)Math.Sqrt(dirX * dirX + dirY * dirY) * 2;
-                float dist = (length - (float)npc.width) / length;
+                float dist = (length - (float)NPC.width) / length;
                 float posX = dirX * dist;
                 float posY = dirY * dist;
  
                 // Reset the velocity of this NPC, because we don't want it to move on its own
-                npc.velocity = Vector2.Zero;
+                NPC.velocity = Vector2.Zero;
                 // And set this NPCs position accordingly to that of this NPCs parent NPC.
-                npc.position.X = npc.position.X + posX;
-                npc.position.Y = npc.position.Y + posY;
+                NPC.position.X = NPC.position.X + posX;
+                NPC.position.Y = NPC.position.Y + posY;
             }
             return false;
         }
  
-        /*public override bool PreDraw(Microsoft.Xna.Framework.Graphics.SpriteBatch spriteBatch, Color drawColor)
+        /*public override bool PreDraw(Microsoft.Xna.Framework.Graphics.ref Color drawColor)
         {
-            Texture2D texture = Main.npcTexture[npc.type];
+            Texture2D texture = Main.npcTexture[NPC.type];
             Vector2 origin = new Vector2(texture.Width * 0.5f, texture.Height * 0.5f);
-            Main.spriteBatch.Draw(texture, npc.Center - Main.screenPosition, new Rectangle?(), drawColor, npc.rotation, origin, npc.scale, SpriteEffects.None, 0);
+            Main.EntitySpriteDraw(texture, NPC.Center - Main.screenPosition, new Rectangle?(), drawColor, NPC.rotation, origin, NPC.scale, SpriteEffects.None, 0);
             return false;
         }*/
         public override bool? DrawHealthBar(byte hbPosition, ref float scale, ref Vector2 position)
         {
  
-            return false;       //this make that the npc does not have a health bar
+            return false;       //this make that the NPC does not have a health bar
         }
     }
 }

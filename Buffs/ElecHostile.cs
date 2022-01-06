@@ -6,17 +6,17 @@ namespace Emperia.Buffs
 {
     public class ElecHostile : ModBuff
     {
-        public override void SetDefaults()
+        public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Electrified");
             Main.buffNoTimeDisplay[Type] = false;
         }
 
-        public override void Update(NPC npc, ref int buffIndex)
+        public override void Update(NPC NPC, ref int buffIndex)
         {
-            Dust.NewDust(npc.position, npc.width, npc.height, DustID.Electric);
-            npc.lifeRegen -= 30;
-            npc.GetGlobalNPC<MyNPC>().electrified = true;
+            Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Electric);
+            NPC.lifeRegen -= 30;
+            NPC.GetGlobalNPC<MyNPC>().electrified = true;
         }
     }
 }

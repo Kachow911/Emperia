@@ -6,12 +6,13 @@ using Terraria.Enums;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
+using static Terraria.ModLoader.ModContent;
 
 namespace Emperia.Tiles
 {
 	public class TwilightSapling : ModTile
 	{
-		public override void SetDefaults()
+		public override void SetStaticDefaults()
 		{
 			Main.tileFrameImportant[Type] = true;
 			Main.tileNoAttach[Type] = true;
@@ -24,7 +25,7 @@ namespace Emperia.Tiles
 			TileObjectData.newTile.CoordinateHeights = new int[]{ 16, 18 };
 			TileObjectData.newTile.CoordinateWidth = 16;
 			TileObjectData.newTile.CoordinatePadding = 2;
-			TileObjectData.newTile.AnchorValidTiles = new int[]{ mod.TileType("TwilightGrass") };
+			TileObjectData.newTile.AnchorValidTiles = new int[]{ TileType<Tiles.TwilightGrass>() };
 			TileObjectData.newTile.StyleHorizontal = true;
 			TileObjectData.newTile.DrawFlipHorizontal = true;
 			TileObjectData.newTile.WaterPlacement = LiquidPlacement.NotAllowed;
@@ -32,11 +33,12 @@ namespace Emperia.Tiles
 			TileObjectData.newTile.RandomStyleRange = 3;
 			TileObjectData.addTile(Type);
 			TileObjectData.newTile.StyleMultiplier = 3;
-			sapling = true;
+			TileID.Sets.TreeSapling[Type] = true;
+			TileID.Sets.CommonSapling[Type] = true;
 			ModTranslation name = CreateMapEntryName();
 			name.SetDefault("Sapling");
 			AddMapEntry(new Color(200, 200, 200), name);
-			adjTiles = new int[]{ TileID.Saplings };
+			AdjTiles = new int[]{ TileID.Saplings };
 		}
 		public override void RandomUpdate(int i, int j)
 		{

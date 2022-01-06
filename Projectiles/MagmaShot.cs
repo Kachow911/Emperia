@@ -17,28 +17,28 @@ namespace Emperia.Projectiles
 			DisplayName.SetDefault("Magmous Buckshot");
 		}
         public override void SetDefaults()
-        {  //projectile name
-            projectile.width = 20;       //projectile width
-            projectile.height = 28;  //projectile height
-            projectile.friendly = true;      //make that the projectile will not damage you
-			projectile.hostile = false;
-            projectile.magic = true;         // 
-            projectile.tileCollide = true;   //make that the projectile will be destroed if it hits the terrain
-            projectile.penetrate = 1;      //how many projectile will penetrate
-            projectile.timeLeft = 240;   //how many time projectile projectile has before disepire
-            projectile.light = 0f;    // projectile light
-            projectile.extraUpdates = 1;
-            projectile.ignoreWater = true;
-			projectile.alpha = 0;
+        {  //Projectile name
+            Projectile.width = 20;       //Projectile width
+            Projectile.height = 28;  //Projectile height
+            Projectile.friendly = true;      //make that the Projectile will not damage you
+			Projectile.hostile = false;
+            Projectile.DamageType = DamageClass.Magic;         // 
+            Projectile.tileCollide = true;   //make that the Projectile will be destroed if it hits the terrain
+            Projectile.penetrate = 1;      //how many Projectile will penetrate
+            Projectile.timeLeft = 240;   //how many time Projectile Projectile has before disepire
+            Projectile.light = 0f;    // Projectile light
+            Projectile.extraUpdates = 1;
+            Projectile.ignoreWater = true;
+			Projectile.alpha = 0;
         }
-        public override void AI()           //projectile make that the projectile will face the corect way
+        public override void AI()           //Projectile make that the Projectile will face the corect way
         {             
-			projectile.rotation = (float)Math.Atan2((double)projectile.velocity.Y, (double)projectile.velocity.X) + 1.57f;
+			Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + 1.57f;
         }
 		public override bool OnTileCollide(Vector2 oldVelocity)
         {
-			Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, 0, 0, mod.ProjectileType("FireBall"), projectile.damage, projectile.knockBack, projectile.owner, 0f, 0f);
-			projectile.Kill();
+			Projectile.NewProjectile(Projectile.InheritSource(Projectile), Projectile.Center.X, Projectile.Center.Y, 0, 0, ModContent.ProjectileType<FireBall>(), Projectile.damage, Projectile.knockBack, Projectile.owner, 0f, 0f);
+			Projectile.Kill();
 			return false;
 		}
 		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
@@ -49,7 +49,7 @@ namespace Emperia.Projectiles
 		{
 			for (int i = 0; i < 30; ++i)
 			{
-			  int index2 = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, 6, 0.0f, 0.0f, 6, new Color(53f, 67f, 253f), 3f);
+			  int index2 = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 6, 0.0f, 0.0f, 6, new Color(53f, 67f, 253f), 3f);
 			  Main.dust[index2].noGravity = true;
 			  Main.dust[index2].velocity *= 3f;
 			}

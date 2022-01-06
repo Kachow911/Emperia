@@ -15,72 +15,72 @@ namespace Emperia.Npcs.Yeti
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Yetiling");
-			Main.npcFrameCount[npc.type] = 6;
+			Main.npcFrameCount[NPC.type] = 6;
 		}
         public override void SetDefaults()
         {
-            npc.lifeMax = 120;
-            npc.damage = 20;
-            npc.defense = 10;
-            npc.knockBackResist = 0.4f;
-            npc.width = 48;
-            npc.height = 48;
-            npc.value = Item.buyPrice(0, 0, 20, 0);
-            npc.npcSlots = 1f;
-            npc.boss = false;
-            npc.lavaImmune = false;
-            npc.noGravity = false;
-            npc.noTileCollide = false;
-            npc.HitSound = SoundID.NPCHit1; //57 //20
-            npc.DeathSound = SoundID.NPCDeath1;
-            npc.netAlways = true;
-			npc.scale = 1f;
-			npc.aiStyle = 3;
-			aiType = 508;
+            NPC.lifeMax = 120;
+            NPC.damage = 20;
+            NPC.defense = 10;
+            NPC.knockBackResist = 0.4f;
+            NPC.width = 48;
+            NPC.height = 48;
+            NPC.value = Item.buyPrice(0, 0, 20, 0);
+            NPC.npcSlots = 1f;
+            NPC.boss = false;
+            NPC.lavaImmune = false;
+            NPC.noGravity = false;
+            NPC.noTileCollide = false;
+            NPC.HitSound = SoundID.NPCHit1; //57 //20
+            NPC.DeathSound = SoundID.NPCDeath1;
+            NPC.netAlways = true;
+			NPC.scale = 1f;
+			NPC.aiStyle = 3;
+			AIType = 508;
         }
 		public override void FindFrame(int frameHeight)
 		{	
-			npc.frameCounter += 0.2f;
-			npc.frameCounter %= 6; 
-			int frame = (int)npc.frameCounter; 
-			npc.frame.Y = frame * frameHeight; 
+			NPC.frameCounter += 0.2f;
+			NPC.frameCounter %= 6; 
+			int frame = (int)NPC.frameCounter; 
+			NPC.frame.Y = frame * frameHeight; 
 		}
 
         public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
         {
-            npc.lifeMax = 180;
-            npc.damage = 30;
+            NPC.lifeMax = 180;
+            NPC.damage = 30;
         }
 
         public override void AI()
 		{
-            Player player = Main.player[npc.target];
-            if (player.Center.Y < npc.Center.Y && npc.velocity.Y >= 0)
+            Player player = Main.player[NPC.target];
+            if (player.Center.Y < NPC.Center.Y && NPC.velocity.Y >= 0)
             {
                 aboveTimer++;
             }
             else aboveTimer = 0;
             if (aboveTimer > 90)
             {
-                npc.velocity.Y = -8;
+                NPC.velocity.Y = -8;
                 aboveTimer = 0;
             }
-            if (onGround && npc.velocity.Y <= 0)
+            if (onGround && NPC.velocity.Y <= 0)
             {
-                npc.velocity.Y *= 1.4f;
+                NPC.velocity.Y *= 1.4f;
             }
-			if (Math.Abs(npc.velocity.X) < 8f)
+			if (Math.Abs(NPC.velocity.X) < 8f)
 			{
-				if (npc.Center.X > player.Center.X)
-					npc.velocity.X -= .05f;
-				else if (npc.Center.X < player.Center.X)
-					npc.velocity.X += .05f;
+				if (NPC.Center.X > player.Center.X)
+					NPC.velocity.X -= .05f;
+				else if (NPC.Center.X < player.Center.X)
+					NPC.velocity.X += .05f;
 			}
-			if (npc.velocity.X > 0)
-				npc.spriteDirection = -1;
-			else if (npc.velocity.X < 0)
-				npc.spriteDirection = 1;
-            onGround = (npc.velocity.Y == 0);
+			if (NPC.velocity.X > 0)
+				NPC.spriteDirection = -1;
+			else if (NPC.velocity.X < 0)
+				NPC.spriteDirection = 1;
+            onGround = (NPC.velocity.Y == 0);
 		}
 		
 
@@ -88,24 +88,24 @@ namespace Emperia.Npcs.Yeti
 
        /* private void SmoothMoveToPosition(Vector2 toPosition, float addSpeed, float maxSpeed, float slowRange = 64, float slowBy = .95f)
         {
-            if (Math.Abs((toPosition - npc.Center).Length()) >= slowRange)
+            if (Math.Abs((toPosition - NPC.Center).Length()) >= slowRange)
             {
-                npc.velocity += Vector2.Normalize((toPosition - npc.Center) * addSpeed);
-                npc.velocity.X = MathHelper.Clamp(npc.velocity.X, -maxSpeed, maxSpeed);
-                npc.velocity.Y = MathHelper.Clamp(npc.velocity.Y, -maxSpeed, maxSpeed);
+                NPC.velocity += Vector2.Normalize((toPosition - NPC.Center) * addSpeed);
+                NPC.velocity.X = MathHelper.Clamp(NPC.velocity.X, -maxSpeed, maxSpeed);
+                NPC.velocity.Y = MathHelper.Clamp(NPC.velocity.Y, -maxSpeed, maxSpeed);
             }
             else
             {
-                npc.velocity *= slowBy;
+                NPC.velocity *= slowBy;
             }
         }*/
 		
-		public override void NPCLoot()
+		public override void ModifyNPCLoot(NPCLoot npcLoot)
 		{
 			Color rgb = new Color(160, 243, 255);
 			for (int i = 0; i < 360; i+=6)
             {
-				int index2 = Dust.NewDust(npc.position + new Vector2(5, 0).RotatedBy(MathHelper.ToRadians(i)), npc.width, npc.height, 76, npc.velocity.X / 5, (float) npc.velocity.Y, 0, rgb, 0.9f);
+				int index2 = Dust.NewDust(NPC.position + new Vector2(5, 0).RotatedBy(MathHelper.ToRadians(i)), NPC.width, NPC.height, 76, NPC.velocity.X / 5, (float) NPC.velocity.Y, 0, rgb, 0.9f);
 			}
 			
 			

@@ -19,26 +19,26 @@ namespace Emperia.Items.Weapons   //where is located
 		}
         public override void SetDefaults()
         {
-            item.damage = 35;
-            item.melee = true;
-            item.width = 44;
-            item.height = 44;
-            item.useTime = 21;
-            item.useAnimation = 21;     
-            item.useStyle = 5;
-            item.knockBack = 2.25f;  
-			item.crit = 6;
-            item.value = 48000;        
-            item.rare = 3;
-			item.scale = 1f;
-            item.autoReuse = true;
-            item.useTurn = false; 
-            item.channel = true;
-            item.GetGlobalItem<GItem>().noWristBrace = true;
-            item.GetGlobalItem<GItem>().noGelGauntlet = true;
+            Item.damage = 35;
+            Item.DamageType = DamageClass.Melee;
+            Item.width = 44;
+            Item.height = 44;
+            Item.useTime = 21;
+            Item.useAnimation = 21;     
+            Item.useStyle = 5;
+            Item.knockBack = 2.25f;  
+			Item.crit = 6;
+            Item.value = 48000;        
+            Item.rare = 3;
+			Item.scale = 1f;
+            Item.autoReuse = true;
+            Item.useTurn = false; 
+            Item.channel = true;
+            Item.GetGlobalItem<GItem>().noWristBrace = true;
+            Item.GetGlobalItem<GItem>().noGelGauntlet = true;
         }
 
-        int delay = 0; //checks when the item starts and stops being used
+        int delay = 0; //checks when the Item starts and stops being used
         bool unsheathe = true; //first use (important since weapon can be held indefinitely)
         bool preHit = true; //whether the weapon has hit an enemy that loop
         bool initialStrike = true; //whether the weapon has hit an enemy since the player started holding click
@@ -47,7 +47,7 @@ namespace Emperia.Items.Weapons   //where is located
         public override bool? CanHitNPC(Player player, NPC target)
 		{
             if (player.velocity.Y <= 5 || player.velocity.Y <= 11 && !initialStrike) return false;
-            else return true;
+            else return null;
         }
 
 		public override void OnHitNPC(Player player, NPC target, int damage, float knockback, bool crit)
@@ -65,10 +65,10 @@ namespace Emperia.Items.Weapons   //where is located
             if (delay == 0)
             {
                 //Main.NewText("initiated");
-                delay = (int)(item.useAnimation * player.meleeSpeed) - 1;
+                delay = (int)(Item.useAnimation * player.meleeSpeed) - 1;
                 if (unsheathe)
                 {
-				    Main.PlaySound(SoundID.Item1, player.Center);
+				    Terraria.Audio.SoundEngine.PlaySound(SoundID.Item1, player.Center);
                 }
 
                 if (firstFrameHit)
@@ -109,7 +109,7 @@ namespace Emperia.Items.Weapons   //where is located
             //hitbox.Height -= 12;
             hitbox.Width -= 13;
 		}
-        public override void UseStyle(Player player)
+        public override void UseStyle(Player player, Rectangle heldItemFrame)
         {
             player.itemRotation = 2.35f * player.direction;
             //Main.NewText(player.velocity.Y.ToString());

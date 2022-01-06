@@ -15,23 +15,23 @@ namespace Emperia.Projectiles
 			DisplayName.SetDefault("AlluringPulse");
 		}
         public override void SetDefaults()
-        {  //projectile name
-            projectile.width = 8;       //projectile width
-            projectile.height = 8;  //projectile height
-            projectile.friendly = true;      //make that the projectile will not damage you
-            projectile.magic = true;         // 
-            projectile.tileCollide = true;   //make that the projectile will be destroed if it hits the terrain
-            projectile.penetrate = 1;      //how many npc will penetrate
-            projectile.timeLeft = 120;   
-            projectile.light = 0.75f;    // projectile light
-            projectile.ignoreWater = true;
-			projectile.alpha = 255;
+        {  //Projectile name
+            Projectile.width = 8;       //Projectile width
+            Projectile.height = 8;  //Projectile height
+            Projectile.friendly = true;      //make that the Projectile will not damage you
+            Projectile.DamageType = DamageClass.Magic;         // 
+            Projectile.tileCollide = true;   //make that the Projectile will be destroed if it hits the terrain
+            Projectile.penetrate = 1;      //how many NPC will penetrate
+            Projectile.timeLeft = 120;   
+            Projectile.light = 0.75f;    // Projectile light
+            Projectile.ignoreWater = true;
+			Projectile.alpha = 255;
         }
-        public override void AI()           //projectile make that the projectile will face the corect way
+        public override void AI()           //Projectile make that the Projectile will face the corect way
         {                                                           
-			int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 248, 0f, 0f, 91, new Color(255, 255, 255), 1f); //58 dust type
+			int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 248, 0f, 0f, 91, new Color(255, 255, 255), 1f); //58 dust type
             Main.dust[dust].noGravity = true;
-            Main.dust[dust].velocity = projectile.velocity;
+            Main.dust[dust].velocity = Projectile.velocity;
             
 
         }
@@ -39,7 +39,7 @@ namespace Emperia.Projectiles
         {
 			if (!target.boss)
 			{
-				Player player = Main.player[projectile.owner];
+				Player player = Main.player[Projectile.owner];
 				double direction = Math.Atan((target.position.Y - player.position.Y) / (target.position.X - player.position.X));
 				if (player.position.X > target.position.X)
 				{

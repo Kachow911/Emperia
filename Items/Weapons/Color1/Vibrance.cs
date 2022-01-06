@@ -3,8 +3,11 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Graphics.Effects;
 using Terraria.Graphics.Shaders;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Emperia.Projectiles;
+using Emperia.Buffs;
 
 namespace Emperia.Items.Weapons.Color1
 {
@@ -17,28 +20,28 @@ namespace Emperia.Items.Weapons.Color1
 		}
         public override void SetDefaults()
         {
-            item.damage = 96;
-            item.melee = true;
-            item.width = 46;
-            item.height = 54;
-            item.useTime = 27;
-            item.useAnimation = 27;     
-            item.useStyle = 1;
-            item.knockBack = 4f;  
-			item.crit = 10;	
-            item.value = 232500;        
-            item.rare = 5;
-			item.UseSound = SoundID.Item1;
-			item.shoot = mod.ProjectileType("VibranceProj");
-			item.shootSpeed = 8f;
-			item.scale = 1f;
-            item.autoReuse = true;
-            item.useTurn = true;               
+            Item.damage = 96;
+            Item.DamageType = DamageClass.Melee;
+            Item.width = 46;
+            Item.height = 54;
+            Item.useTime = 27;
+            Item.useAnimation = 27;     
+            Item.useStyle = 1;
+            Item.knockBack = 4f;  
+			Item.crit = 10;	
+            Item.value = 232500;        
+            Item.rare = 5;
+			Item.UseSound = SoundID.Item1;
+			Item.shoot = ModContent.ProjectileType<VibranceProj>();
+			Item.shootSpeed = 8f;
+			Item.scale = 1f;
+            Item.autoReuse = true;
+            Item.useTurn = true;               
         }
 		
         public override void AddRecipes()
         {
-			ModRecipe recipe = new ModRecipe(mod);      
+			Recipe recipe = CreateRecipe();      
             recipe.AddIngredient(null, "RougeRapier", 1); 
 			recipe.AddIngredient(null, "TitianTalwar", 1); 
 			recipe.AddIngredient(null, "PearlyPrism", 1); 
@@ -46,8 +49,8 @@ namespace Emperia.Items.Weapons.Color1
 			recipe.AddIngredient(ItemID.AdamantiteBar, 2); 
 			recipe.AddIngredient(ItemID.PalladiumBar, 2); 
             recipe.AddTile(TileID.MythrilAnvil); 			
-            recipe.SetResult(this);
-            recipe.AddRecipe(); 
+            recipe.Register();
+             
 
         }
 		public override void MeleeEffects(Player player, Rectangle hitbox)
@@ -60,13 +63,13 @@ namespace Emperia.Items.Weapons.Color1
 		 public override void OnHitNPC(Player player, NPC target, int damage, float knockback, bool crit)
 		{
             if (target.boss)
-			    player.AddBuff(mod.BuffType("VermillionValor"), Main.rand.Next(420, 600) + 300);
+			    player.AddBuff(ModContent.BuffType<VermillionValor>(), Main.rand.Next(420, 600) + 300);
             else
-                player.AddBuff(mod.BuffType("VermillionValor"), Main.rand.Next(420, 600));
+                player.AddBuff(ModContent.BuffType<VermillionValor>(), Main.rand.Next(420, 600));
         }
-		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type1, ref int damage, ref float knockBack)
+		public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockBack)
 		{
-			Main.PlaySound(SoundID.Item69, player.Center);
+			Terraria.Audio.SoundEngine.PlaySound(SoundID.Item69, player.Center);
 			damage = 54;
 			return true;
 		}

@@ -18,11 +18,11 @@ public class FrostleafBody : ModItem
 		}
     public override void SetDefaults()
     {
-        item.width = 32;
-        item.height = 20;
-        item.value = 74750;
-        item.rare = 1;
-        item.defense = 4;
+        Item.width = 32;
+        Item.height = 20;
+        Item.value = 74750;
+        Item.rare = 1;
+        Item.defense = 4;
     }
 
     public override void UpdateEquip(Player player)
@@ -32,11 +32,11 @@ public class FrostleafBody : ModItem
 
     public override void AddRecipes()
     {
-      ModRecipe recipe = new ModRecipe(mod);      
+      Recipe recipe = CreateRecipe();      
             recipe.AddIngredient(null, "Frostleaf", 13); 
             recipe.AddIngredient(ItemID.BorealWood, 30); 			
             recipe.AddTile(TileID.Anvils);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            recipe.Register();
+            
     }
 }}

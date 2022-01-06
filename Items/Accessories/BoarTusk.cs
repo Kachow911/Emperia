@@ -18,23 +18,23 @@ namespace Emperia.Items.Accessories
 		}
         public override void SetDefaults()
         {
-            item.width = 30;
-            item.height = 28;
-            item.rare = 3;
-            item.value = Item.sellPrice(0, 0, 1, 0);
-            item.accessory = true;
+            Item.width = 30;
+            Item.height = 28;
+            Item.rare = 3;
+            Item.value = Item.sellPrice(0, 0, 1, 0);
+            Item.accessory = true;
         }
-        public override void UpdateAccessory(Player player, bool hideVisual)
+        public override void UpdateAccessory(Player player, bool hideVisibleAccessory)
         {
 			if (player.statDefense < 5)
 				player.statDefense = 0;
 			else 
 				player.statDefense -= 5;
 			player.moveSpeed *= 1.06f;
-			player.meleeDamage += 0.06f;
-			player.magicDamage += 0.06f;
-			player.rangedDamage += 0.06f;
-			player.thrownDamage += 0.06f;
+			player.GetDamage(DamageClass.Melee) += 0.06f;
+			player.GetDamage(DamageClass.Magic) += 0.06f;
+			player.GetDamage(DamageClass.Ranged) += 0.06f;
+			//player.thrownDamage += 0.06f;
         }
 		
     }

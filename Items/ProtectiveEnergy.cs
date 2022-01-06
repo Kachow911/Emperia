@@ -4,6 +4,7 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Emperia.Buffs;
 
 namespace Emperia.Items
 {
@@ -12,22 +13,22 @@ namespace Emperia.Items
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Metallic Energy");
-			Main.RegisterItemAnimation(item.type, new DrawAnimationVertical(6, 4));
-			ItemID.Sets.ItemIconPulse[item.type] = true;
-			ItemID.Sets.ItemNoGravity[item.type] = true;
+			Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(6, 4));
+			ItemID.Sets.ItemIconPulse[Item.type] = true;
+			ItemID.Sets.ItemNoGravity[Item.type] = true;
 		}
 
 		public override void SetDefaults()
 		{
-			item.width = 16;
-			item.height = 16;
-			item.rare = 0;
+			Item.width = 16;
+			Item.height = 16;
+			Item.rare = 0;
 		}
 		public override bool OnPickup(Player player)
 		{
-			player.AddBuff(mod.BuffType("ProtectiveBoost"), 960);
-			item.active = false;
-			Main.PlaySound(SoundID.Grab, (int)player.position.X, (int)player.position.Y, 10);
+			player.AddBuff(ModContent.BuffType<ProtectiveBoost>(), 960);
+			Item.active = false;
+			Terraria.Audio.SoundEngine.PlaySound(SoundID.Grab, (int)player.position.X, (int)player.position.Y, 10);
 			return false;
 		}
 		public override void GrabRange(Player player, ref int grabRange)
@@ -39,18 +40,18 @@ namespace Emperia.Items
 		public override void PostUpdate()
         {
 
-                Lighting.AddLight((int)((item.position.X + item.width / 2) / 16f), (int)((item.position.Y + item.height / 2) / 16f), 0.6f, 0.6f, 0.6f);
+                Lighting.AddLight((int)((Item.position.X + Item.width / 2) / 16f), (int)((Item.position.Y + Item.height / 2) / 16f), 0.6f, 0.6f, 0.6f);
         }
-		/*public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float  scale, int whoAmI) 	
+		/*public override void PostDrawInWorld(ref Color lightColor, Color alphaColor, float rotation, float  scale, int whoAmI) 	
 		{
-		Texture2D texture = mod.GetTexture("Items/ProtectiveEnergy");
-		   	spriteBatch.Draw
+		Texture2D texture = Mod.Assets.Request<Texture2D>("Items/ProtectiveEnergy").Value;
+		   	Main.EntitySpriteDraw
 		   	(
 		   		texture,
 		   		new Vector2
 		   		(
-		   			item.position.X - Main.screenPosition.X + item.width * 0.5f,
-		   			item.position.Y - Main.screenPosition.Y + item.height - texture.Height * 0.5f + 2f
+		   			Item.position.X - Main.screenPosition.X + Item.width * 0.5f,
+		   			Item.position.Y - Main.screenPosition.Y + Item.height - texture.Height * 0.5f + 2f
 		   		),
 		   		new Rectangle(0, 0, texture.Width, texture.Height),
 		   		Color.White,
@@ -58,7 +59,7 @@ namespace Emperia.Items
 		   		texture.Size() * 0.5f,
 		   		scale, 
 		   		SpriteEffects.None, 
-		   		0f 
+		   		0 
 		   	);
 		}*/
 	}

@@ -8,7 +8,7 @@ namespace Emperia.Projectiles.Granite
 {
 	public class GraniteMinion : ModProjectile
 	{
-		private int npc;
+		private int NPC;
 		bool targetNPC = false;
 		private int totalHits = 0;
 		private int curHits = 0;
@@ -21,21 +21,21 @@ namespace Emperia.Projectiles.Granite
 		bool softUnlatch = false;
 		public override void SetDefaults()
 		{
-			//projectile.CloneDefaults(ProjectileID.Spazmamini);
-			projectile.tileCollide = false;
-			projectile.ignoreWater = true;
-			projectile.tileCollide = false;
-			projectile.netImportant = true;
-			projectile.width = 26;
-			projectile.height = 26;
-			projectile.friendly = true;
-			projectile.melee = true;
-			projectile.penetrate = -1;
-			projectile.timeLeft = 1000;
-			Main.projFrames[projectile.type] = 12;
-			projectile.minionSlots = 1;
-			projectile.minion = true;
-			//aiType = -1;
+			//Projectile.CloneDefaults(ProjectileID.Spazmamini);
+			Projectile.tileCollide = false;
+			Projectile.ignoreWater = true;
+			Projectile.tileCollide = false;
+			Projectile.netImportant = true;
+			Projectile.width = 26;
+			Projectile.height = 26;
+			Projectile.friendly = true;
+			Projectile.DamageType = DamageClass.Melee;
+			Projectile.penetrate = -1;
+			Projectile.timeLeft = 1000;
+			Main.projFrames[Projectile.type] = 12;
+			Projectile.minionSlots = 1;
+			Projectile.minion = true;
+			//AIType = -1;
 			//
 
 		}
@@ -52,58 +52,58 @@ namespace Emperia.Projectiles.Granite
 				firstHits = false;
 				curHits = 0;
 			}
-			float projVelAbs = (float)Math.Sqrt((double)(projectile.velocity.X * projectile.velocity.X + projectile.velocity.Y * projectile.velocity.Y));
+			float projVelAbs = (float)Math.Sqrt((double)(Projectile.velocity.X * Projectile.velocity.X + Projectile.velocity.Y * Projectile.velocity.Y));
 			// animation
-			//projectile.frameCounter++;
+			//Projectile.frameCounter++;
 			if (projVelAbs < 2)
-				projectile.frameCounter++;
+				Projectile.frameCounter++;
 			else
-				projectile.frameCounter = (int) ((float)projectile.frameCounter + projVelAbs / 2);
-			if (projectile.frameCounter >= 6)
+				Projectile.frameCounter = (int) ((float)Projectile.frameCounter + projVelAbs / 2);
+			if (Projectile.frameCounter >= 6)
 			{
-				projectile.frameCounter = 0;
-				projectile.frame = (projectile.frame + 1) % 12;
+				Projectile.frameCounter = 0;
+				Projectile.frame = (Projectile.frame + 1) % 12;
 			}
 			//
 			retargetTimer--;
 			hitTimer++;
 			if (!init)
             {
-				projDamage = projectile.damage;
-				projectile.damage = 0;
+				projDamage = Projectile.damage;
+				Projectile.damage = 0;
 				init = true;
             }
-			bool flag64 = projectile.type == mod.ProjectileType("GraniteMinion");
+			bool flag64 = Projectile.type == ModContent.ProjectileType<GraniteMinion>();
 
-			MyPlayer modPlayer1 = Main.player[projectile.owner].GetModPlayer<MyPlayer>();
+			MyPlayer modPlayer1 = Main.player[Projectile.owner].GetModPlayer<MyPlayer>();
 			if (flag64)
 			{
-				if (Main.player[projectile.owner].dead)
+				if (Main.player[Projectile.owner].dead)
 					modPlayer1.graniteMinion = false;
 
 				if (modPlayer1.graniteMinion)
-					projectile.timeLeft = 2;
+					Projectile.timeLeft = 2;
 
 			}
 			targetNPC = false;
-			npc = -1;
+			NPC = -1;
 			for (int npcFinder = 0; npcFinder < 200; ++npcFinder)
 			{
-				if ( Main.npc[npcFinder].CanBeChasedBy(projectile, false) && Main.npc[npcFinder].GetGlobalNPC<MyNPC>().graniteMinID == projectile.whoAmI) Main.npc[npcFinder].GetGlobalNPC<MyNPC>().graniteMinID = -1;
-				if (Main.npc[npcFinder].CanBeChasedBy(projectile, false) && Collision.CanHit(projectile.Center, 1, 1, Main.npc[npcFinder].Center, 1, 1) && !(Main.npc[npcFinder].GetGlobalNPC<MyNPC>().graniteMinID != -1 && Main.npc[npcFinder].GetGlobalNPC<MyNPC>().graniteMinID != projectile.whoAmI))
+				if ( Main.npc[npcFinder].CanBeChasedBy(Projectile, false) && Main.npc[npcFinder].GetGlobalNPC<MyNPC>().graniteMinID == Projectile.whoAmI) Main.npc[npcFinder].GetGlobalNPC<MyNPC>().graniteMinID = -1;
+				if (Main.npc[npcFinder].CanBeChasedBy(Projectile, false) && Collision.CanHit(Projectile.Center, 1, 1, Main.npc[npcFinder].Center, 1, 1) && !(Main.npc[npcFinder].GetGlobalNPC<MyNPC>().graniteMinID != -1 && Main.npc[npcFinder].GetGlobalNPC<MyNPC>().graniteMinID != Projectile.whoAmI))
 				{
 					Vector2 num1 = Main.npc[npcFinder].Center;
-					float num2 = Math.Abs(projectile.Center.X - num1.X) + Math.Abs(projectile.Center.Y - num1.Y);
+					float num2 = Math.Abs(Projectile.Center.X - num1.X) + Math.Abs(Projectile.Center.Y - num1.Y);
 					if (num2 < 500f && retargetTimer < 0)
 					{
 						targetNPC = true;
-						npc = npcFinder;
+						NPC = npcFinder;
 
 					}
 					if (num2 < 75f && !initRetargDone)
                     {
 						//targetNPC = true;
-						//npc = npcFinder;
+						//NPC = npcFinder;
 						initRetargDone = true;
 						retargetTimer = -2;
 					}
@@ -112,9 +112,9 @@ namespace Emperia.Projectiles.Granite
 			}
 			if (targetNPC)
             {
-				Main.npc[npc].GetGlobalNPC<MyNPC>().graniteMinID = projectile.whoAmI;
-				//Main.npc[npc].GetGlobalNPC<MyNPC>().graniteMinionLatched = true;
-				//Main.npc[npc].GetGlobalNPC<MyNPC>().graniteMinionLatched = true;
+				Main.npc[NPC].GetGlobalNPC<MyNPC>().graniteMinID = Projectile.whoAmI;
+				//Main.npc[NPC].GetGlobalNPC<MyNPC>().graniteMinionLatched = true;
+				//Main.npc[NPC].GetGlobalNPC<MyNPC>().graniteMinionLatched = true;
 
 			}
 			if (retargetTimer < 0)
@@ -123,21 +123,21 @@ namespace Emperia.Projectiles.Granite
 			}
 			if (targetNPC && retargetTimer < 0)
             {
-				aiType = -1;
+				AIType = -1;
 				float num4 = Main.rand.Next(30, 43);
-				Vector2 vector35 = new Vector2(projectile.position.X + (float)projectile.width * 0.5f, projectile.position.Y + (float)projectile.height * 0.5f);
-				float num5 = Main.npc[npc].Center.X - vector35.X;
-				float num6 = Main.npc[npc].Center.Y - vector35.Y;
+				Vector2 vector35 = new Vector2(Projectile.position.X + (float)Projectile.width * 0.5f, Projectile.position.Y + (float)Projectile.height * 0.5f);
+				float num5 = Main.npc[NPC].Center.X - vector35.X;
+				float num6 = Main.npc[NPC].Center.Y - vector35.Y;
 				float num7 = (float)Math.Sqrt((double)(num5 * num5 + num6 * num6));
 				float num8 = num4 / num7;
 				num5 *= num8;
 				num6 *= num8;
-				projectile.velocity.X = (projectile.velocity.X * 25f + num5) / 30f;
-				projectile.velocity.Y = (projectile.velocity.Y * 25f + num6) / 30f;
+				Projectile.velocity.X = (Projectile.velocity.X * 25f + num5) / 30f;
+				Projectile.velocity.Y = (Projectile.velocity.Y * 25f + num6) / 30f;
 				if (num7 < 16f)
                 {
-					projectile.Center = Main.npc[npc].Center;
-					Main.npc[npc].GetGlobalNPC<MyNPC>().graniteMinionLatched = true;
+					Projectile.Center = Main.npc[NPC].Center;
+					Main.npc[NPC].GetGlobalNPC<MyNPC>().graniteMinionLatched = true;
 					int num310 = firstHits ? 30 : 60;
 					if (hitTimer > num310) //hit the enemy
                     {
@@ -147,57 +147,57 @@ namespace Emperia.Projectiles.Granite
 						totalHits++;
 						if (totalHits >= 8)
                         {
-							Player player = Main.player[projectile.owner];
+							Player player = Main.player[Projectile.owner];
 							MyPlayer modPlayer = player.GetModPlayer<MyPlayer>();
 							if (modPlayer.graniteSet && modPlayer.graniteTime >= 900)
 							{
 								for (int i = 0; i < Main.npc.Length; i++)
 								{
-									if (projectile.Distance(Main.npc[i].Center) < 90)
+									if (Projectile.Distance(Main.npc[i].Center) < 90)
 										Main.npc[i].StrikeNPC(projDamage / 4 * 15, 0f, 0, false, false, false);
 								}
 								for (int i = 0; i < 45; ++i)
 								{
-									int index2 = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, 15, 0.0f, 0.0f, 15, new Color(53f, 67f, 253f), 2f);
+									int index2 = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 15, 0.0f, 0.0f, 15, new Color(53f, 67f, 253f), 2f);
 									Main.dust[index2].noGravity = true;
 									Main.dust[index2].velocity *= 3.25f;
 								}
 								modPlayer.graniteTime = 0;
-								Main.PlaySound(SoundID.Item14, projectile.Center);
+								Terraria.Audio.SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
 							}
 							else
 							{
 								for (int i = 0; i < Main.npc.Length; i++)
 								{
-									if (projectile.Distance(Main.npc[i].Center) < 60)
+									if (Projectile.Distance(Main.npc[i].Center) < 60)
 										Main.npc[i].StrikeNPC(projDamage * 2 + projDamage / 2, 0f, 0, false, false, false);
 								}
 								for (int i = 0; i < 30; ++i)
 								{
-									int index2 = Dust.NewDust(new Vector2(projectile.Center.X, projectile.Center.Y), projectile.width, projectile.height, 15, 0.0f, 0.0f, 15, new Color(53f, 67f, 253f), 1.5f);
+									int index2 = Dust.NewDust(new Vector2(Projectile.Center.X, Projectile.Center.Y), Projectile.width, Projectile.height, 15, 0.0f, 0.0f, 15, new Color(53f, 67f, 253f), 1.5f);
 									Main.dust[index2].noGravity = true;
 									Main.dust[index2].velocity *= 2f;
 								}
-								Main.PlaySound(SoundID.Item10, projectile.Center);
+								Terraria.Audio.SoundEngine.PlaySound(SoundID.Item10, Projectile.Center);
 							}
-							projectile.timeLeft = 0;
-							Main.npc[npc].GetGlobalNPC<MyNPC>().graniteMinID = -1;
+							Projectile.timeLeft = 0;
+							Main.npc[NPC].GetGlobalNPC<MyNPC>().graniteMinID = -1;
 						}
 						else {
-							Main.npc[npc].StrikeNPC(firstHits ? projDamage + projDamage / 3 : projDamage, 0f, 0, false, false, false);
+							Main.npc[NPC].StrikeNPC(firstHits ? projDamage + projDamage / 3 : projDamage, 0f, 0, false, false, false);
 						}
 						int num308 = firstHits ? 5 : 3;
 						
 						if (curHits >= num308) //unlatch
                         {
-							Main.npc[npc].GetGlobalNPC<MyNPC>().graniteMinID = -1;
+							Main.npc[NPC].GetGlobalNPC<MyNPC>().graniteMinID = -1;
 							firstHits = false;
 							Vector2 perturbedSpeed = new Vector2(0, 6).RotatedByRandom(MathHelper.ToRadians(360));
-							projectile.velocity = perturbedSpeed;
+							Projectile.velocity = perturbedSpeed;
 							retargetTimer = 120;
 							curHits = 0;
 							softUnlatch = true;
-							npc = -1;
+							NPC = -1;
 							targetNPC = false;
 						}
 					}
@@ -207,41 +207,41 @@ namespace Emperia.Projectiles.Granite
             else if (retargetTimer < 0)
             {
 				float num544 = 6f;
-				Vector2 vector41 = new Vector2(projectile.position.X + (float)projectile.width * 0.5f, projectile.position.Y + (float)projectile.height * 0.5f);
-				float num545 = Main.player[projectile.owner].Center.X - vector41.X;
-				float num546 = Main.player[projectile.owner].Center.Y - vector41.Y - 60f;
+				Vector2 vector41 = new Vector2(Projectile.position.X + (float)Projectile.width * 0.5f, Projectile.position.Y + (float)Projectile.height * 0.5f);
+				float num545 = Main.player[Projectile.owner].Center.X - vector41.X;
+				float num546 = Main.player[Projectile.owner].Center.Y - vector41.Y - 60f;
 				float num547 = (float)Math.Sqrt((double)(num545 * num545 + num546 * num546));
-				if (num547 < 100f && projectile.ai[0] == 1f && !Collision.SolidCollision(projectile.position, projectile.width, projectile.height))
+				if (num547 < 100f && Projectile.ai[0] == 1f && !Collision.SolidCollision(Projectile.position, Projectile.width, Projectile.height))
 				{
-					projectile.ai[0] = 0f;
+					Projectile.ai[0] = 0f;
 				}
 				if (num547 > 2000f)
 				{
-					projectile.position.X = Main.player[projectile.owner].Center.X - (float)(projectile.width / 2);
-					projectile.position.Y = Main.player[projectile.owner].Center.Y - (float)(projectile.width / 2);
+					Projectile.position.X = Main.player[Projectile.owner].Center.X - (float)(Projectile.width / 2);
+					Projectile.position.Y = Main.player[Projectile.owner].Center.Y - (float)(Projectile.width / 2);
 				}
 				if (num547 > 70f)
 				{
 					num547 = num544 / num547;
 					num545 *= num547;
 					num546 *= num547;
-					projectile.velocity.X = (projectile.velocity.X * 20f + num545) / 21f;
-					projectile.velocity.Y = (projectile.velocity.Y * 20f + num546) / 21f;
+					Projectile.velocity.X = (Projectile.velocity.X * 20f + num545) / 21f;
+					Projectile.velocity.Y = (Projectile.velocity.Y * 20f + num546) / 21f;
 				}
 				else
 				{
-					if (projectile.velocity.X == 0f && projectile.velocity.Y == 0f)
+					if (Projectile.velocity.X == 0f && Projectile.velocity.Y == 0f)
 					{
-						projectile.velocity.X = -0.15f;
-						projectile.velocity.Y = -0.05f;
+						Projectile.velocity.X = -0.15f;
+						Projectile.velocity.Y = -0.05f;
 					}
-					projectile.velocity *= 1.01f;
+					Projectile.velocity *= 1.01f;
 				}
 			}
 			else
             {
-				aiType = -1;
-				projectile.velocity *= .97f;
+				AIType = -1;
+				Projectile.velocity *= .97f;
 				
 			}
 			
@@ -250,7 +250,7 @@ namespace Emperia.Projectiles.Granite
         {
 			for (int i = 0; i < 3; ++i)
 			{
-				int index2 = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, 15, 0.0f, 0.0f, 15, new Color(53f, 67f, 253f), 2f);
+				int index2 = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 15, 0.0f, 0.0f, 15, new Color(53f, 67f, 253f), 2f);
 				Main.dust[index2].noGravity = true;
 				Main.dust[index2].velocity *= 3.25f;
 			}

@@ -10,23 +10,23 @@ namespace Emperia.Projectiles.Desert
 	{
 		public override void SetDefaults()
 		{
-			projectile.width = 100;
-			projectile.height = 40;
-			projectile.friendly = true;
-			projectile.melee = true;
-			projectile.tileCollide = false;
-			projectile.penetrate = -1;
-			projectile.timeLeft = 2;
-			projectile.light = 0.75f;
-			//projectile.extraUpdates = 1;
-			projectile.ignoreWater = true;
-			projectile.hide = true;
+			Projectile.width = 100;
+			Projectile.height = 40;
+			Projectile.friendly = true;
+			Projectile.DamageType = DamageClass.Melee;
+			Projectile.tileCollide = false;
+			Projectile.penetrate = -1;
+			Projectile.timeLeft = 2;
+			Projectile.light = 0.75f;
+			//Projectile.extraUpdates = 1;
+			Projectile.ignoreWater = true;
+			Projectile.hide = true;
 
 		}
 
 			public override bool OnTileCollide(Vector2 oldVelocity)
 			{
-				projectile.velocity = Vector2.Zero;
+				Projectile.velocity = Vector2.Zero;
 				return false;
 			}
 		

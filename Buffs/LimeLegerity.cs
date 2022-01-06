@@ -14,14 +14,12 @@ namespace Emperia.Buffs
 {
     public class LimeLegerity : ModBuff
     {
-        public override void SetDefaults()
+        public override void SetStaticDefaults()
         {
 			DisplayName.SetDefault("Lime Legerity");
 			Description.SetDefault("20% increased movement speed and 10% increased melee speed");
             Main.buffNoSave[Type] = true;
             //Main.buffNoTimeDisplay[Type] = true;
-
-            canBeCleared = true;
         }
 
         public override void Update(Player player, ref int buffIndex)

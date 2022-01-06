@@ -16,31 +16,31 @@ namespace Emperia.Projectiles.Mushroom
 			DisplayName.SetDefault("Mushroom Gas");
 		}
         public override void SetDefaults()
-        {  //projectile name
-            projectile.width = 8;      
-            projectile.height = 8;  
-            projectile.friendly = true;      
-            projectile.magic = true;         
-            projectile.tileCollide = false;   
-            projectile.penetrate = 1;      //how many npc will penetrate
-            projectile.timeLeft = 120;   //how many time projectile projectile has before disepire
-            projectile.light = 0.5f;    // projectile light
-            projectile.extraUpdates = 1;
-            projectile.ignoreWater = true;
-			projectile.alpha = 255;
+        {  //Projectile name
+            Projectile.width = 8;      
+            Projectile.height = 8;  
+            Projectile.friendly = true;      
+            Projectile.DamageType = DamageClass.Magic;         
+            Projectile.tileCollide = false;   
+            Projectile.penetrate = 1;      //how many NPC will penetrate
+            Projectile.timeLeft = 120;   //how many time Projectile Projectile has before disepire
+            Projectile.light = 0.5f;    // Projectile light
+            Projectile.extraUpdates = 1;
+            Projectile.ignoreWater = true;
+			Projectile.alpha = 255;
         }
-        public override void AI()           //projectile make that the projectile will face the corect way
+        public override void AI()           //Projectile make that the Projectile will face the corect way
         {   		// |
 			for (int i = 0; i < 5; i++)
 			{
 				if (Main.rand.Next(3) == 0)
 				{
-					Dust.NewDust(projectile.position + new Vector2(Main.rand.Next(-explodeRadius / 2, explodeRadius / 2), Main.rand.Next(-explodeRadius / 2, explodeRadius / 2)), projectile.width, projectile.height, 20, projectile.velocity.X * 0.5f, projectile.velocity.Y * 0.5f);
+					Dust.NewDust(Projectile.position + new Vector2(Main.rand.Next(-explodeRadius / 2, explodeRadius / 2), Main.rand.Next(-explodeRadius / 2, explodeRadius / 2)), Projectile.width, Projectile.height, 20, Projectile.velocity.X * 0.5f, Projectile.velocity.Y * 0.5f);
 				}
 			}
 			for (int i = 0; i < Main.npc.Length; i++)
             {
-				if (projectile.Distance(Main.npc[i].Center) < explodeRadius && projectile.timeLeft % 24 == 0 && !Main.npc[i].townNPC)
+				if (Projectile.Distance(Main.npc[i].Center) < explodeRadius && Projectile.timeLeft % 24 == 0 && !Main.npc[i].townNPC)
                     Main.npc[i].StrikeNPC(24, 0f, 0, false, false, false);
 			}
 			

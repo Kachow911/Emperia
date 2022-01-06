@@ -18,29 +18,29 @@ public class GoblinLegs : ModItem
 		}
     public override void SetDefaults()
     {
-        item.width = 18;
-        item.height = 18;
-        item.value = 57500;
-        item.rare = 3;
-        item.defense = 5; //15
+        Item.width = 18;
+        Item.height = 18;
+        Item.value = 57500;
+        Item.rare = 3;
+        Item.defense = 5; //15
     }
 
     public override void UpdateEquip(Player player)
     {
-		player.thrownDamage += 0.03f;
-        player.meleeDamage += 0.03f;
-        player.minionDamage += 0.03f;
-        player.magicDamage += 0.03f;
-        player.rangedDamage += 0.03f;
+		//player.thrownDamage += 0.03f;
+        player.GetDamage(DamageClass.Melee) += 0.03f;
+        player.GetDamage(DamageClass.Summon) += 0.03f;
+        player.GetDamage(DamageClass.Magic) += 0.03f;
+        player.GetDamage(DamageClass.Ranged) += 0.03f;
     }
 
     public override void AddRecipes()
     {
-            ModRecipe recipe = new ModRecipe(mod);
+            Recipe recipe = CreateRecipe();
             recipe.AddIngredient(null, "GiantPlating", 4);
             recipe.AddIngredient(ItemID.IronBar, 8);
             recipe.AddTile(TileID.Anvils);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            recipe.Register();
+            
         }
 }}

@@ -17,16 +17,16 @@ public class FrostleafHead : ModItem
 		}
     public override void SetDefaults()
     {
-        item.width = 24;
-        item.height = 22;
-        item.value = 51750;
-        item.rare = 1;
-        item.defense = 3;
+        Item.width = 24;
+        Item.height = 22;
+        Item.value = 51750;
+        Item.rare = 1;
+        Item.defense = 3;
     }
 
     public override bool IsArmorSet(Item head, Item body, Item legs)
     {
-        return body.type == mod.ItemType("FrostleafBody") && legs.type == mod.ItemType("FrostleafLegs");
+        return body.type == ModContent.ItemType<FrostleafBody>() && legs.type == ModContent.ItemType<FrostleafLegs>();
     }
     
   
@@ -40,16 +40,16 @@ public class FrostleafHead : ModItem
 
     public override void UpdateEquip(Player player)
     {
-        player.allDamage += 0.04f;
+        player.GetDamage(DamageClass.Generic) += 0.04f;	
     }
     
     public override void AddRecipes()
     {
-      ModRecipe recipe = new ModRecipe(mod);      
+      Recipe recipe = CreateRecipe();      
             recipe.AddIngredient(null, "Frostleaf", 9); 
             recipe.AddIngredient(ItemID.BorealWood, 20); 			
             recipe.AddTile(TileID.Anvils);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            recipe.Register();
+            
     }
 }}

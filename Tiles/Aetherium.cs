@@ -7,17 +7,17 @@ namespace Emperia.Tiles
 {
 	public class Aetherium : ModTile
 	{
-		public override void SetDefaults()
+		public override void SetStaticDefaults()
 		{
-			Main.tileValue[Type] = 805;
+			Main.tileOreFinderPriority[Type] = 150;
 			Main.tileSolid[Type] = true;
 			Main.tileMergeDirt[Type] = true;
 			Main.tileBlockLight[Type] = true;
-			drop = mod.ItemType("Aetherium");
+			ItemDrop = ModContent.ItemType<Items.Aetherium>();
 			AddMapEntry(new Color(117, 241, 255));
-			mineResist = 5f;
-			minPick = 60;
-			soundType = 21;
+			MineResist = 5f;
+			MinPick = 60;
+			SoundType = 21;
 			Main.tileSpelunker[Type] = true;
 		}
 		

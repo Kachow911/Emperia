@@ -5,6 +5,8 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Emperia.Projectiles;
+using static Terraria.ModLoader.ModContent;
 
 namespace Emperia.Npcs.Volcano
 {
@@ -18,7 +20,7 @@ namespace Emperia.Npcs.Volcano
             BigShoot
         }
 
-        private Move move { get { return (Move)npc.ai[0]; } set { npc.ai[0] = (int)value; } }
+        private Move move { get { return (Move)NPC.ai[0]; } set { NPC.ai[0] = (int)value; } }
         private Move prevMove;
 		bool init = false;
 		private int counter = 300;
@@ -29,31 +31,31 @@ namespace Emperia.Npcs.Volcano
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Ember Tyrant");
-			Main.npcFrameCount[npc.type] = 1;
+			Main.npcFrameCount[NPC.type] = 1;
 		}
         public override void SetDefaults()
         {
-            npc.aiStyle = -1;
-            npc.lifeMax = 2500;
-            npc.damage = 75;
-            npc.defense = 20;
-            npc.knockBackResist = 0f;
-            npc.width = 94;
-            npc.height = 100;
-			npc.alpha = 0;
-            npc.value = Item.buyPrice(0, 5, 0, 0);
-            npc.npcSlots = 1f;
-            npc.boss = false;
-            npc.lavaImmune = true;
-            npc.noGravity = true;
-            npc.noTileCollide = true;
-            npc.HitSound = SoundID.NPCHit1; //57 //20
-            npc.DeathSound = SoundID.NPCDeath1;
-            npc.buffImmune[24] = true;
-			npc.ai[3] = 0; //phase: 0 is creation, 1 is first, 2 is second
-			npc.frameCounter = 0;
+            NPC.aiStyle = -1;
+            NPC.lifeMax = 2500;
+            NPC.damage = 75;
+            NPC.defense = 20;
+            NPC.knockBackResist = 0f;
+            NPC.width = 94;
+            NPC.height = 100;
+			NPC.alpha = 0;
+            NPC.value = Item.buyPrice(0, 5, 0, 0);
+            NPC.npcSlots = 1f;
+            NPC.boss = false;
+            NPC.lavaImmune = true;
+            NPC.noGravity = true;
+            NPC.noTileCollide = true;
+            NPC.HitSound = SoundID.NPCHit1; //57 //20
+            NPC.DeathSound = SoundID.NPCDeath1;
+            NPC.buffImmune[24] = true;
+			NPC.ai[3] = 0; //phase: 0 is creation, 1 is first, 2 is second
+			NPC.frameCounter = 0;
 			
-            npc.netAlways = true;
+            NPC.netAlways = true;
 
         }
 
@@ -61,15 +63,15 @@ namespace Emperia.Npcs.Volcano
 
         public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
         {
-            npc.lifeMax = 3200;
-            npc.damage = 100;
+            NPC.lifeMax = 3200;
+            NPC.damage = 100;
         }
 
         public override void AI()
         {
-			npc.dontTakeDamage = false;
-            Player player = Main.player[npc.target];
-			npc.TargetClosest(true);
+			NPC.dontTakeDamage = false;
+            Player player = Main.player[NPC.target];
+			NPC.TargetClosest(true);
 			if (!init)
 			{
 				move = Move.Hover;
@@ -77,26 +79,26 @@ namespace Emperia.Npcs.Volcano
 			}
             if (!player.active || player.dead)
 			{
-				npc.TargetClosest(false);
-				npc.velocity.X = 0;
-				npc.velocity.Y = 15;
-				npc.timeLeft = 10;
+				NPC.TargetClosest(false);
+				NPC.velocity.X = 0;
+				NPC.velocity.Y = 15;
+				NPC.timeLeft = 10;
 			}
 			
 			
 			if (move == Move.Hover)
 			{
 				counter--;
-				npc.velocity.X = 0;
-				npc.velocity.Y = 0.5f * (float)Math.Cos(MathHelper.ToRadians(counter * 2));
+				NPC.velocity.X = 0;
+				NPC.velocity.Y = 0.5f * (float)Math.Cos(MathHelper.ToRadians(counter * 2));
 				if (counter % 100 == 0)
 				{
-					Vector2 Speed = player.Center - npc.Center;
+					Vector2 Speed = player.Center - NPC.Center;
 					Speed.Normalize();
 					Speed *= 10f;
 					for (int i = 0; i < 3; i++)
 					{
-						 Projectile.NewProjectile(npc.Center.X, npc.Center.Y - 25, Speed.X * Main.rand.Next(3, 8), Speed.Y * Main.rand.Next(3, 8), mod.ProjectileType("ScorchBlastHost"), 25, 2f, player.whoAmI);
+						 Projectile.NewProjectile(NPC.GetProjectileSpawnSource(), NPC.Center.X, NPC.Center.Y - 25, Speed.X * Main.rand.Next(3, 8), Speed.Y * Main.rand.Next(3, 8), ModContent.ProjectileType<ScorchBlastHost>(), 25, 2f, player.whoAmI);
 					}
 				}
 				if (counter <= 0)
@@ -113,29 +115,29 @@ namespace Emperia.Npcs.Volcano
 			if (move == Move.Go)
 			{
 				counter++;
-                npc.noTileCollide = true;
+                NPC.noTileCollide = true;
                 SmoothMoveToPosition(targetPosition, 2f, 6f);
-				if (npc.Distance(targetPosition) < 32 || counter > 80)
+				if (NPC.Distance(targetPosition) < 32 || counter > 80)
                 {
                     SetMove(Move.Slam, 0);
-                    npc.velocity.Y = 12;
+                    NPC.velocity.Y = 12;
                     
                 }
 					
 			}
             if (move == Move.Slam)
             {
-                npc.velocity.X = 0;
-                npc.noTileCollide = false;
-                if (npc.velocity.Y <= 0)
+                NPC.velocity.X = 0;
+                NPC.noTileCollide = false;
+                if (NPC.velocity.Y <= 0)
                 {
                     for (int i = 0; i < 50; ++i) 
                     {
-                        int dust = Dust.NewDust(npc.position, npc.width, npc.height, 258);
-                        int dust1 = Dust.NewDust(npc.position, npc.width, npc.height, 258);
+                        int dust = Dust.NewDust(NPC.position, NPC.width, NPC.height, 258);
+                        int dust1 = Dust.NewDust(NPC.position, NPC.width, NPC.height, 258);
                         Main.dust[dust1].scale = 1.5f;
                         Main.dust[dust1].velocity *= 1.5f;
-                        int dust2 = Dust.NewDust(npc.position, npc.width, npc.height, 258);
+                        int dust2 = Dust.NewDust(NPC.position, NPC.width, NPC.height, 258);
                         Main.dust[dust2].scale = 1.5f;
                     }
                     SetMove(Move.Hover, 300);
@@ -145,14 +147,14 @@ namespace Emperia.Npcs.Volcano
 			{
 				if (counter == 300)
 				{
-					int n = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, mod.NPCType("EmberTyrantHead"), ai0: npc.whoAmI);
-					npc.ai[3]++;
+					int n = NPC.NewNPC((int)NPC.Center.X, (int)NPC.Center.Y, NPCType<EmberTyrantHead>(), ai0: NPC.whoAmI);
+					NPC.ai[3]++;
 				}
 				counter--;
-				npc.velocity = Vector2.Zero;
-                npc.noTileCollide = false;
-				npc.dontTakeDamage = true;
-				if (npc.ai[3] <= 0)
+				NPC.velocity = Vector2.Zero;
+                NPC.noTileCollide = false;
+				NPC.dontTakeDamage = true;
+				if (NPC.ai[3] <= 0)
 				{
 					SetMove(Move.Hover, 300);
 				}
@@ -162,7 +164,7 @@ namespace Emperia.Npcs.Volcano
 					{
 					Vector2 vec = Vector2.Transform(new Vector2(-1, 0), Matrix.CreateRotationZ(MathHelper.ToRadians(i)));
 					vec.Normalize();
-					int num622 = Dust.NewDust(new Vector2(npc.position.X, npc.position.Y), npc.width, npc.height, 258, 0f, 0f, 158, new Color(53f, 67f, 253f), 1f);
+					int num622 = Dust.NewDust(new Vector2(NPC.position.X, NPC.position.Y), NPC.width, NPC.height, 258, 0f, 0f, 158, new Color(53f, 67f, 253f), 1f);
 					Main.dust[num622].velocity += (vec *2f);
 					Main.dust[num622].noGravity = true;
 					}
@@ -179,26 +181,26 @@ namespace Emperia.Npcs.Volcano
 
         private bool IsInPhaseTwo()
         {
-            return npc.life <= npc.lifeMax * .5;    //50% hp
+            return NPC.life <= NPC.lifeMax * .5;    //50% hp
         }
         private void SmoothMoveToPosition(Vector2 toPosition, float addSpeed, float maxSpeed, float slowRange = 64, float slowBy = .95f)
         {
-            if (Math.Abs((toPosition - npc.Center).Length()) >= slowRange)
+            if (Math.Abs((toPosition - NPC.Center).Length()) >= slowRange)
             {
-                npc.velocity += Vector2.Normalize((toPosition - npc.Center) * addSpeed);
-                npc.velocity.X = MathHelper.Clamp(npc.velocity.X, -maxSpeed, maxSpeed);
-                npc.velocity.Y = MathHelper.Clamp(npc.velocity.Y, -maxSpeed, maxSpeed);
+                NPC.velocity += Vector2.Normalize((toPosition - NPC.Center) * addSpeed);
+                NPC.velocity.X = MathHelper.Clamp(NPC.velocity.X, -maxSpeed, maxSpeed);
+                NPC.velocity.Y = MathHelper.Clamp(NPC.velocity.Y, -maxSpeed, maxSpeed);
             }
             else
             {
-                npc.velocity *= slowBy;
+                NPC.velocity *= slowBy;
             }
         }
-        public override void NPCLoot()
+        public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
             if (Main.rand.Next(10) == 0)
             {
-                Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, mod.ItemType("EmberTyrantStaff"));
+                Item.NewItem((int)NPC.position.X, (int)NPC.position.Y, NPC.width, NPC.height, ModContent.ItemType<Items.Weapons.Volcano.EmberTyrantStaff>());
             }
         }
     }

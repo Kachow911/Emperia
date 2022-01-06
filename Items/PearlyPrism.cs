@@ -1,3 +1,4 @@
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -11,23 +12,23 @@ namespace Emperia.Items
 		}
 		public override void SetDefaults()
 		{
-			item.width = 24;
-			item.height = 22;
-			item.maxStack = 999;
-			item.value = 52000;
-			item.rare = 4;
+			Item.width = 24;
+			Item.height = 22;
+			Item.maxStack = 999;
+			Item.value = 52000;
+			Item.rare = 4;
 		}
 
 	public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(mod);
+			Recipe recipe = CreateRecipe();
 			recipe.AddIngredient(null, "Prism", 1);
 			recipe.AddIngredient(ItemID.CrystalShard, 20);
 			recipe.AddIngredient(ItemID.SoulofLight, 8);
 			recipe.AddIngredient(ItemID.HallowedBar, 2);
 			recipe.AddTile(TileID.AdamantiteForge);
-			recipe.SetResult(this);
-			recipe.AddRecipe();
+			recipe.Register();
+			
 		}
 	}
 }

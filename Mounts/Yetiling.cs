@@ -2,60 +2,61 @@ using System;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
+using Emperia.Buffs;
 
 namespace Emperia.Mounts
 {
-	public class Yetiling : ModMountData
+	public class Yetiling : ModMount
 	{
-		public override void SetDefaults()
+		public override void SetStaticDefaults()
 		{
-			mountData.spawnDust = 51;
-			mountData.buff = mod.BuffType("YetiMount");
-			mountData.heightBoost = 20;
-			mountData.fallDamage = 0.5f;
-			mountData.runSpeed = 6f;
-			mountData.dashSpeed = 5f;
-			mountData.flightTimeMax = 0;
-			mountData.fatigueMax = 0;
-			mountData.jumpHeight = 5;
-			mountData.acceleration = 0.19f;
-			mountData.jumpSpeed = 6f;
-			mountData.blockExtraJumps = false;
-			mountData.totalFrames = 6;
-			mountData.constantJump = true;
-			int[] array = new int[mountData.totalFrames];
+			MountData.spawnDust = 51;
+			MountData.buff = ModContent.BuffType<YetiMount>();
+			MountData.heightBoost = 20;
+			MountData.fallDamage = 0.5f;
+			MountData.runSpeed = 6f;
+			MountData.dashSpeed = 5f;
+			MountData.flightTimeMax = 0;
+			MountData.fatigueMax = 0;
+			MountData.jumpHeight = 5;
+			MountData.acceleration = 0.19f;
+			MountData.jumpSpeed = 6f;
+			MountData.blockExtraJumps = false;
+			MountData.totalFrames = 6;
+			MountData.constantJump = true;
+			int[] array = new int[MountData.totalFrames];
 			for (int l = 0; l < array.Length; l++)
 			{
 				array[l] = 20;
 			}
-			mountData.playerYOffsets = array;
-			mountData.xOffset = 11;
-			mountData.bodyFrame = 3;
-			mountData.yOffset = 6;
-			mountData.playerHeadOffset = 22;
-			mountData.standingFrameCount = 4;
-			mountData.standingFrameDelay = 12;
-			mountData.standingFrameStart = 0;
-			mountData.runningFrameCount = 4;
-			mountData.runningFrameDelay = 12;
-			mountData.runningFrameStart = 0;
-			mountData.flyingFrameCount = 0;
-			mountData.flyingFrameDelay = 0;
-			mountData.flyingFrameStart = 0;
-			mountData.inAirFrameCount = 1;
-			mountData.inAirFrameDelay = 12;
-			mountData.inAirFrameStart = 0;
-			mountData.idleFrameCount = 4;
-			mountData.idleFrameDelay = 12;
-			mountData.idleFrameStart = 0;
-			mountData.idleFrameLoop = true;
-			mountData.swimFrameCount = mountData.inAirFrameCount;
-			mountData.swimFrameDelay = mountData.inAirFrameDelay;
-			mountData.swimFrameStart = mountData.inAirFrameStart;
+			MountData.playerYOffsets = array;
+			MountData.xOffset = 11;
+			MountData.bodyFrame = 3;
+			MountData.yOffset = 6;
+			MountData.playerHeadOffset = 22;
+			MountData.standingFrameCount = 4;
+			MountData.standingFrameDelay = 12;
+			MountData.standingFrameStart = 0;
+			MountData.runningFrameCount = 4;
+			MountData.runningFrameDelay = 12;
+			MountData.runningFrameStart = 0;
+			MountData.flyingFrameCount = 0;
+			MountData.flyingFrameDelay = 0;
+			MountData.flyingFrameStart = 0;
+			MountData.inAirFrameCount = 1;
+			MountData.inAirFrameDelay = 12;
+			MountData.inAirFrameStart = 0;
+			MountData.idleFrameCount = 4;
+			MountData.idleFrameDelay = 12;
+			MountData.idleFrameStart = 0;
+			MountData.idleFrameLoop = true;
+			MountData.swimFrameCount = MountData.inAirFrameCount;
+			MountData.swimFrameDelay = MountData.inAirFrameDelay;
+			MountData.swimFrameStart = MountData.inAirFrameStart;
 			if (Main.netMode != 2)
 			{
-				mountData.textureWidth = mountData.backTexture.Width;
-				mountData.textureHeight = mountData.backTexture.Height;
+				MountData.textureWidth = MountData.backTexture.Width();
+				MountData.textureHeight = MountData.backTexture.Height(); //dont know if this works lol
 			}
 		}
 

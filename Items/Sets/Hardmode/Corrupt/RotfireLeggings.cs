@@ -19,11 +19,11 @@ public class RotfireLeggings : ModItem
 		}
     public override void SetDefaults()
     {
-        item.width = 18;
-        item.height = 18;
-        item.value = 75000;
-        item.rare = 4;
-        item.defense = 7;
+        Item.width = 18;
+        Item.height = 18;
+        Item.value = 75000;
+        Item.rare = 4;
+        Item.defense = 7;
     }
 
     public override void UpdateEquip(Player player)
@@ -33,13 +33,13 @@ public class RotfireLeggings : ModItem
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            Recipe recipe = CreateRecipe();
             recipe.AddIngredient(ItemID.RottenChunk, 5);
             recipe.AddIngredient(ItemID.CursedFlame, 10);
             recipe.AddIngredient(ItemID.SoulofNight, 2);
             recipe.AddTile(TileID.MythrilAnvil);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            recipe.Register();
+            
         }
     }
 }

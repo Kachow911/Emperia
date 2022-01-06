@@ -9,19 +9,19 @@ namespace Emperia.Projectiles.Yeti
 	public class YetiProjOne : ModProjectile
 	{
 		int projNum = 1;
-		private Point tileCoordPos { get { return new Point((int)(projectile.position.X / 16), (int)(projectile.position.Y / 16)); } }
+		private Point tileCoordPos { get { return new Point((int)(Projectile.position.X / 16), (int)(Projectile.position.Y / 16)); } }
 		public override void SetDefaults()
 		{
-			projectile.width = 16;
-            projectile.height = 16;
-            projectile.friendly = false;
-            projectile.melee = true;
-            projectile.tileCollide = false;
-            projectile.penetrate = -1;
-            projectile.timeLeft = 120;
-            projectile.light = 0.75f;
-            projectile.extraUpdates = 1;
-            projectile.ignoreWater = true;
+			Projectile.width = 16;
+            Projectile.height = 16;
+            Projectile.friendly = false;
+            Projectile.DamageType = DamageClass.Melee;
+            Projectile.tileCollide = false;
+            Projectile.penetrate = -1;
+            Projectile.timeLeft = 120;
+            Projectile.light = 0.75f;
+            Projectile.extraUpdates = 1;
+            Projectile.ignoreWater = true;
 
 		}
 		
@@ -29,13 +29,13 @@ namespace Emperia.Projectiles.Yeti
 
 		public override void AI()
 		{
-			projectile.velocity.Y = 0;
+			Projectile.velocity.Y = 0;
             bool foundbelow = false;
             for (int i = 0; i < 16; i++)
             {
                 Tile below = Framing.GetTileSafely(tileCoordPos.X, tileCoordPos.Y + i);
 
-                if (below.active() && below.collisionType > 0)
+                if (below.IsActive && below.CollisionType > 0)
                 {
                     if (i == 0) //if it's inside the tile
                     {
@@ -44,38 +44,37 @@ namespace Emperia.Projectiles.Yeti
                         {
                             Tile above = Framing.GetTileSafely(tileCoordPos.X, tileCoordPos.Y - j);
 
-                            if (!above.active())
+                            if (!above.IsActive)
                             {
-                                projectile.position.Y = (tileCoordPos.Y - j) * 16;
+                                Projectile.position.Y = (tileCoordPos.Y - j) * 16;
                                 foundabove = true;
                                 break;
                             }
                         }
 
                         if (!foundabove)
-                            projectile.Kill();
+                            Projectile.Kill();
                         //else break; //we can safely break since if foundabove == true it'll already be above tiles.
                     }
                     else
                     {
-                        projectile.position.Y = (tileCoordPos.Y + i - 1) * 16;
+                        Projectile.position.Y = (tileCoordPos.Y + i - 1) * 16;
                         foundbelow = true;
                         break;
                     }
                 }
             }
             if (!foundbelow)    //this will only be the case if it's inside a tile.
-                projectile.Kill();
+                Projectile.Kill();
 			
-			if (projectile.timeLeft % 10 == 0)
+			if (Projectile.timeLeft % 10 == 0)
 			{
 				if (projNum % 2 == 0)
-					Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, 0, 1, mod.ProjectileType("IcicleA"), 25, 1, Main.myPlayer, 0, 0);
+					Projectile.NewProjectile(Projectile.InheritSource(Projectile), Projectile.Center.X, Projectile.Center.Y, 0, 1, ModContent.ProjectileType<IcicleA>(), 25, 1, Main.myPlayer, 0, 0);
 				else
-					Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, 0, 1, mod.ProjectileType("IcicleB"), 25, 1, Main.myPlayer, 0, 0);
+					Projectile.NewProjectile(Projectile.InheritSource(Projectile), Projectile.Center.X, Projectile.Center.Y, 0, 1, ModContent.ProjectileType<IcicleB>(), 25, 1, Main.myPlayer, 0, 0);
 				projNum++;
-				Main.PlaySound(SoundLoader.customSoundType, projectile.position, mod.GetSoundSlot(SoundType.Custom, "Sounds/Icicle"));
-
+				//Terraria.Audio.SoundEngine.PlaySound(Projectile.position, SoundLoader.GetSoundSlot(SoundType.Custom, "Sounds/Icicle"));
 			}
 		}
 	}

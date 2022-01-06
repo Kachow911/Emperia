@@ -16,7 +16,7 @@ namespace Emperia.Projectiles
     public class TideProj2 : ModProjectile
     {
         private const float explodeRadius = 32;
-        private float rotate { get { return projectile.ai[1]; } set { projectile.ai[1] = value; } }
+        private float rotate { get { return Projectile.ai[1]; } set { Projectile.ai[1] = value; } }
 		private float rotate2 = 0;
         Color rgb = new Color(83, 66, 180);
         public override void SetStaticDefaults()
@@ -25,37 +25,37 @@ namespace Emperia.Projectiles
 		}
         public override void SetDefaults()
         {
-            projectile.width = 16;
-            projectile.height = 16;
-            projectile.friendly = true;
-            //projectile.hostile = true;
-            projectile.tileCollide = false;
-            projectile.penetrate = 1;
-            projectile.timeLeft = 600;
-            projectile.light = 0.75f;
-            projectile.extraUpdates = 1;
-            projectile.ignoreWater = true;
-			projectile.alpha = 75;
-            projectile.aiStyle = -1;
+            Projectile.width = 16;
+            Projectile.height = 16;
+            Projectile.friendly = true;
+            //Projectile.hostile = true;
+            Projectile.tileCollide = false;
+            Projectile.penetrate = 1;
+            Projectile.timeLeft = 600;
+            Projectile.light = 0.75f;
+            Projectile.extraUpdates = 1;
+            Projectile.ignoreWater = true;
+			Projectile.alpha = 75;
+            Projectile.aiStyle = -1;
         }
 
         public override void AI()
 		{
-			Player player = Main.player[projectile.owner];
+			Player player = Main.player[Projectile.owner];
             Vector2 rotatePosition = Vector2.Transform(new Vector2(128, 0), Matrix.CreateRotationZ(MathHelper.ToRadians(rotate * 60 + rotate2))) + player.Center;
-            projectile.Center = rotatePosition;
+            Projectile.Center = rotatePosition;
 
             rotate2 += 1f;
-            int index2 = Dust.NewDust(new Vector2((float)(projectile.position.X + 4.0), (float)(projectile.position.Y + 4.0)), projectile.width - 8, projectile.height - 8, 76, (float)(projectile.velocity.X * 0.200000002980232), (float)(projectile.velocity.Y * 0.200000002980232), 0, rgb, 0.9f);
-            Main.dust[index2].position = projectile.Center;
+            int index2 = Dust.NewDust(new Vector2((float)(Projectile.position.X + 4.0), (float)(Projectile.position.Y + 4.0)), Projectile.width - 8, Projectile.height - 8, 76, (float)(Projectile.velocity.X * 0.200000002980232), (float)(Projectile.velocity.Y * 0.200000002980232), 0, rgb, 0.9f);
+            Main.dust[index2].position = Projectile.Center;
             Main.dust[index2].noGravity = true;
-            Main.dust[index2].velocity = projectile.velocity * 0.5f;
+            Main.dust[index2].velocity = Projectile.velocity * 0.5f;
 
         }
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
-            projectile.Kill();
+            Projectile.Kill();
         }
 		
     }

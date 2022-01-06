@@ -14,14 +14,12 @@ namespace Emperia.Buffs
 {
     public class SaffronSadism : ModBuff
     {
-        public override void SetDefaults()
+        public override void SetStaticDefaults()
         {
 			DisplayName.SetDefault("Saffron Sadism");
 			Description.SetDefault("15% increased movement speed");
             Main.buffNoSave[Type] = true;
             //Main.buffNoTimeDisplay[Type] = true;
-
-            canBeCleared = true;
         }
 
         public override void Update(Player player, ref int buffIndex)

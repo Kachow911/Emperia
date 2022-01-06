@@ -12,41 +12,40 @@ namespace Emperia.Projectiles.Granite
 		private bool hitGround;
 		public override void SetDefaults()
 		{
-			projectile.CloneDefaults(ProjectileID.PainterPaintball);
-			projectile.friendly = true;
-			projectile.penetrate = -1;
-			projectile.timeLeft = 225;
-			projectile.alpha = 0;
-			projectile.damage = 0;
+			Projectile.CloneDefaults(ProjectileID.PainterPaintball);
+			Projectile.friendly = true;
+			Projectile.penetrate = -1;
+			Projectile.timeLeft = 225;
+			Projectile.alpha = 0;
+			Projectile.damage = 0;
 		}
 		public override void AI()
 		{
-			projectile.alpha = 0;
+			Projectile.alpha = 0;
 			if (Main.rand.NextBool(20))
 			{
 				Color rgb = new Color(135,206,250);
-				int index2 = Dust.NewDust(projectile.position, projectile.width, projectile.height, 240, (float) projectile.velocity.X, (float) projectile.velocity.Y, 0, rgb, 0.9f);
+				int index2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 240, (float) Projectile.velocity.X, (float) Projectile.velocity.Y, 0, rgb, 0.9f);
 			}
-			projectile.velocity.Y += .3f;
+			Projectile.velocity.Y += .3f;
 			if (!hitGround)
-				projectile.rotation += Main.rand.Next(10) * .01f;
+				Projectile.rotation += Main.rand.Next(10) * .01f;
 		}
 		public override bool OnTileCollide(Vector2 oldVelocity)
 		{
-			projectile.alpha = 255;
+			Projectile.alpha = 255;
 			if (!hitGround)
 			{
-				Gore.NewGore(projectile.position, new Vector2(Main.rand.Next(-2, 2), -5), mod.GetGoreSlot("Gores/GraniteCanister"), 1f);
+				Gore.NewGore(Projectile.position, new Vector2(Main.rand.Next(-2, 2), -5), ModContent.Find<ModGore>("Gores/GraniteCanister").Type, 1f);
 			}	
 			hitGround = true;
-			projectile.velocity = Vector2.Zero;
+			Projectile.velocity = Vector2.Zero;
 			
 			return false;
 			
 		}
-		public override bool PreDrawExtras(SpriteBatch spriteBatch)
+        public override bool PreDrawExtras()
 		{
-
 			return true;
 		}
 	}

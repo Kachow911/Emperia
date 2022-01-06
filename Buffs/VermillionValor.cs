@@ -14,14 +14,12 @@ namespace Emperia.Buffs
 {
     public class VermillionValor : ModBuff
     {
-        public override void SetDefaults()
+        public override void SetStaticDefaults()
         {
 			DisplayName.SetDefault("Vermillion Valor");
 			Description.SetDefault("13% increased critical hit damage and defense increased by 4");
             Main.buffNoSave[Type] = true;
             //Main.buffNoTimeDisplay[Type] = true;
-
-            canBeCleared = true;
         }
 
         public override void Update(Player player, ref int buffIndex)

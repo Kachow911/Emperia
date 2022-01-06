@@ -3,13 +3,9 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
 using Terraria.ID;
-using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
 using System.Collections.Generic;
-using System;
+using Emperia.Projectiles.Yeti;
 
 namespace Emperia.Items.Weapons.Yeti
 {
@@ -18,22 +14,22 @@ namespace Emperia.Items.Weapons.Yeti
 		public override void SetDefaults()
 		{
 
-			item.damage = 24;
-			item.magic = true;
-			item.noMelee = true;
-			item.width = 22;
-			item.height = 24;
-			item.useTime = 45;
-			item.useAnimation = 45;
-			item.useStyle = 5;
-			item.knockBack = 4;
-			item.value = 52500;
-			item.rare = 1;
-			item.UseSound = SoundID.Item28;
-			item.autoReuse = false;
-			item.shoot = mod.ProjectileType("IceCrystal");
-			item.shootSpeed = 5f;
-			item.mana = 26;
+			Item.damage = 24;
+			Item.DamageType = DamageClass.Magic;
+			Item.noMelee = true;
+			Item.width = 22;
+			Item.height = 24;
+			Item.useTime = 45;
+			Item.useAnimation = 45;
+			Item.useStyle = 5;
+			Item.knockBack = 4;
+			Item.value = 52500;
+			Item.rare = 1;
+			Item.UseSound = SoundID.Item28;
+			Item.autoReuse = false;
+			Item.shoot = ModContent.ProjectileType<IceCrystal>();
+			Item.shootSpeed = 5f;
+			Item.mana = 26;
 		}
 
    		public override void SetStaticDefaults()

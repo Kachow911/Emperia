@@ -5,6 +5,7 @@ using Terraria.Graphics.Effects;
 using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Emperia.Projectiles;
 
 namespace Emperia.Items.Sets.Hardmode.Mystique   //where is located
 {
@@ -17,22 +18,22 @@ namespace Emperia.Items.Sets.Hardmode.Mystique   //where is located
 		}
         public override void SetDefaults()
         {
-			item.damage = 63;            
-            item.melee = true;            //if it's melee
-            item.width = 64;              //Sword width
-            item.height = 64;             //Sword height
-            item.useTime = 28;          //how fast 
-            item.useAnimation = 28;     
-            item.useStyle = 1;        //Style is how this item is used, 1 is the style of the sword
-            item.knockBack = 5f;      //Sword knockback
-            item.value = 100;        
-            item.rare = 6;
-			item.scale = 1f;
-			item.UseSound = SoundID.Item18;
-			//item.shoot = mod.ProjectileType("Leafy");
-			item.shootSpeed = 8f;
-            item.autoReuse = true;   //if it's capable of autoswing.
-            item.useTurn = true;            
+			Item.damage = 63;            
+            Item.DamageType = DamageClass.Melee;            //if it's melee
+            Item.width = 64;              //Sword width
+            Item.height = 64;             //Sword height
+            Item.useTime = 28;          //how fast 
+            Item.useAnimation = 28;     
+            Item.useStyle = 1;        //Style is how this Item is used, 1 is the style of the sword
+            Item.knockBack = 5f;      //Sword knockback
+            Item.value = 100;        
+            Item.rare = 6;
+			Item.scale = 1f;
+			Item.UseSound = SoundID.Item18;
+			//Item.shoot = ModContent.ProjectileType<Leafy>();
+			Item.shootSpeed = 8f;
+            Item.autoReuse = true;   //if it's capable of autoswing.
+            Item.useTurn = true;            
         }
 		public override void OnHitNPC(Player player, NPC target, int damage, float knockback, bool crit)
 		{
@@ -49,7 +50,7 @@ namespace Emperia.Items.Sets.Hardmode.Mystique   //where is located
 				{
 				
 					Vector2 perturbedSpeed = new Vector2(0, 3).RotatedBy(MathHelper.ToRadians(90 + 30 * i));
-					Projectile.NewProjectile(target.Center.X, target.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, mod.ProjectileType("HomingLeaf"), damage / 3, 1, Main.myPlayer, 0, 0);
+					Projectile.NewProjectile(player.GetProjectileSource_Item(Item), target.Center.X, target.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, ModContent.ProjectileType<HomingLeaf>(), damage / 3, 1, Main.myPlayer, 0, 0);
 				
 				}
 			}

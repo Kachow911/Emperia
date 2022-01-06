@@ -11,13 +11,14 @@ namespace Emperia.Projectiles
 	{
 		public override void SetDefaults()
 		{
-			projectile.width = 15;
-			projectile.height = 23;
-			//projectile.aiStyle = 1;
-			projectile.friendly = true;
-			projectile.penetrate = -1;
-			projectile.thrown = true;
-			projectile.timeLeft = 360;
+			Projectile.width = 15;
+			Projectile.height = 23;
+			//Projectile.aiStyle = 1;
+			Projectile.friendly = true;
+			Projectile.penetrate = -1;
+			Projectile.DamageType = DamageClass.Ranged;
+//was thrown pre 1.4
+			Projectile.timeLeft = 360;
 		}
 		
 		public override void SetStaticDefaults()
@@ -27,23 +28,23 @@ namespace Emperia.Projectiles
 		
 		public override void Kill(int timeLeft)
 		{
-			if (Main.rand.Next(4) == 0 && projectile.noDropItem == false)
-        	{
-        		Item.NewItem((int)projectile.position.X, (int)projectile.position.Y, projectile.width, projectile.height, mod.ItemType("SandstormDagger"));
-        	}
+			//if (Main.rand.Next(4) == 0 && Projectile.noDropItem == false)
+        	//{
+        	//	Item.NewItem((int)Projectile.position.X, (int)Projectile.position.Y, Projectile.width, Projectile.height, ModContent.ItemType<SandstormDagger>());
+        	//}
 			 for (int i = 0; i < 360; i += 10)
 				{
 					Vector2 vec = Vector2.Transform(new Vector2(-10, 0), Matrix.CreateRotationZ(MathHelper.ToRadians(i)));
 					vec.Normalize();
-					int num622 = Dust.NewDust(new Vector2(projectile.position.X, (float) ((double) projectile.position.Y + (double) projectile.height - 16.0)), projectile.width, 16, 85, 0.0f, 0.0f, 0, new Color(), 1f);
+					int num622 = Dust.NewDust(new Vector2(Projectile.position.X, (float) ((double) Projectile.position.Y + (double) Projectile.height - 16.0)), Projectile.width, 16, 85, 0.0f, 0.0f, 0, new Color(), 1f);
 					Main.dust[num622].velocity += (vec *0.2f);
 				}
 		}
 
 		public override void AI()
 		{
-			projectile.rotation = (float)Math.Atan2((double)projectile.velocity.Y, (double)projectile.velocity.X) + 1.57f;
-			projectile.velocity.Y += 0.2f;
+			Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + 1.57f;
+			Projectile.velocity.Y += 0.2f;
 		}
 		
 		

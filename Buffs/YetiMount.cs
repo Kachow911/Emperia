@@ -1,12 +1,14 @@
 using Terraria;
 using Terraria.ModLoader;
+
+using Emperia.Mounts;
 using static Terraria.ModLoader.ModContent;
 
 namespace Emperia.Buffs
 {
 	public class YetiMount : ModBuff
 	{
-		public override void SetDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Yetiling");
 			Description.SetDefault("The Yetiling is a pretty chill dude");

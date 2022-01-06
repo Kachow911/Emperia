@@ -15,42 +15,42 @@ namespace Emperia.Projectiles.Mushroom
 		}
         public override void SetDefaults()
         {
-            projectile.width = 25;
-            projectile.height = 25;
-            projectile.friendly = true;
-            projectile.magic = true;
-            projectile.penetrate = -1;
-            projectile.aiStyle = 2;
-            projectile.timeLeft = 180;
-            aiType = 48;
+            Projectile.width = 25;
+            Projectile.height = 25;
+            Projectile.friendly = true;
+            Projectile.DamageType = DamageClass.Magic;
+            Projectile.penetrate = -1;
+            Projectile.aiStyle = 2;
+            Projectile.timeLeft = 180;
+            AIType = 48;
         }
         
         public override void AI()
         {
         	if (Main.rand.Next(5) == 0)
             {
-            	Dust.NewDust(projectile.position + projectile.velocity, projectile.width, projectile.height, 41, projectile.velocity.X * 0.15f, projectile.velocity.Y * 0.15f);
+            	Dust.NewDust(Projectile.position + Projectile.velocity, Projectile.width, Projectile.height, 41, Projectile.velocity.X * 0.15f, Projectile.velocity.Y * 0.15f);
             }
         }
 		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
-			Player player = Main.player[projectile.owner];
+			Player player = Main.player[Projectile.owner];
 			player.statMana+=5;
 			player.ManaEffect(5);
-			Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, 0, 0, mod.ProjectileType("FlaskEnemyEffect"), 0, projectile.knockBack, projectile.owner, 0f, 0f);
-			projectile.Kill();
+			Projectile.NewProjectile(Projectile.InheritSource(Projectile), Projectile.Center.X, Projectile.Center.Y, 0, 0, ModContent.ProjectileType<FlaskEnemyEffect>(), 0, Projectile.knockBack, Projectile.owner, 0f, 0f);
+			Projectile.Kill();
 		}
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
-			Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, 0, 0, mod.ProjectileType("FlaskTileEffect"), projectile.damage, projectile.knockBack, projectile.owner, 0f, 0f);
-			projectile.Kill();
+			Projectile.NewProjectile(Projectile.InheritSource(Projectile), Projectile.Center.X, Projectile.Center.Y, 0, 0, ModContent.ProjectileType<FlaskTileEffect>(), Projectile.damage, Projectile.knockBack, Projectile.owner, 0f, 0f);
+			Projectile.Kill();
 			return false;
 		}
         public override void Kill(int timeLeft)
         {
-        	Main.PlaySound(SoundID.Item, projectile.Center, 107);  
+        	Terraria.Audio.SoundEngine.PlaySound(SoundID.Item, Projectile.Center, 107);  
         }
-        public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough)
+        public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)
         {
             fallThrough = false;
             return true;

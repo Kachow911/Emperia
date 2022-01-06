@@ -15,31 +15,31 @@ public class SeashellPickaxe : ModItem
 		}
     public override void SetDefaults()
     {
-        item.damage = 5;
-        item.melee = true;
-        item.width = 46;
-        item.height = 46;
-        item.useTime = 23;
-        item.useAnimation = 23;
-        item.useTurn = true;
-        item.pick = 45;
-        item.useStyle = 1;
-        item.knockBack = 2f;
-        item.value = 1770;
-        item.rare = 2;
-        item.UseSound = SoundID.Item1;
-        item.autoReuse = true;
+        Item.damage = 5;
+        Item.DamageType = DamageClass.Melee;
+        Item.width = 46;
+        Item.height = 46;
+        Item.useTime = 23;
+        Item.useAnimation = 23;
+        Item.useTurn = true;
+        Item.pick = 45;
+        Item.useStyle = 1;
+        Item.knockBack = 2f;
+        Item.value = 1770;
+        Item.rare = 2;
+        Item.UseSound = SoundID.Item1;
+        Item.autoReuse = true;
     }
 
      public override void AddRecipes()  //How to craft this sword
         {
-            ModRecipe recipe = new ModRecipe(mod);      
+            Recipe recipe = CreateRecipe();      
             recipe.AddIngredient(ItemID.Seashell, 2);
             recipe.AddIngredient(ItemID.Coral, 2);
             recipe.AddIngredient(null, "SeaCrystal", 1); 			
             recipe.AddTile(TileID.Anvils);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            recipe.Register();
+            
 
         }
 }}

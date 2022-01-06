@@ -18,24 +18,24 @@ namespace Emperia.Projectiles.Yeti
 		}
         public override void SetDefaults()
         {
-            projectile.width = 6;       //projectile width
-            projectile.height = 6;  //projectile height
-            projectile.hostile = false;      //make that the projectile will not damage you
-			projectile.friendly = true;
-            projectile.ranged = true;         // 
-            projectile.tileCollide = true;   //make that the projectile will be destroed if it hits the terrain
-            projectile.penetrate = 1;      //how many projectile will penetrate
-            projectile.timeLeft = 300;   //how many time projectile projectile has before disepire
-            projectile.light = 0f;    // projectile light
-            projectile.ignoreWater = false;
-			projectile.alpha = 0;
+            Projectile.width = 6;       //Projectile width
+            Projectile.height = 6;  //Projectile height
+            Projectile.hostile = false;      //make that the Projectile will not damage you
+			Projectile.friendly = true;
+            Projectile.DamageType = DamageClass.Ranged;         // 
+            Projectile.tileCollide = true;   //make that the Projectile will be destroed if it hits the terrain
+            Projectile.penetrate = 1;      //how many Projectile will penetrate
+            Projectile.timeLeft = 300;   //how many time Projectile Projectile has before disepire
+            Projectile.light = 0f;    // Projectile light
+            Projectile.ignoreWater = false;
+			Projectile.alpha = 0;
         }
         public override void AI()
         {
-            projectile.rotation = (float)Math.Atan2((double)projectile.velocity.Y, (double)projectile.velocity.X) + 1.57f;
+            Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + 1.57f;
             if (Main.rand.NextBool(4))
 			{
-				int index2 = Dust.NewDust(projectile.oldPosition, projectile.width, projectile.height, 68, (float) projectile.velocity.X, (float) projectile.velocity.Y, 0, default(Color), 0.9f);
+				int index2 = Dust.NewDust(Projectile.oldPosition, Projectile.width, Projectile.height, 68, (float) Projectile.velocity.X, (float) Projectile.velocity.Y, 0, default(Color), 0.9f);
 				Main.dust[index2].noGravity = true;
 			}
         }
@@ -45,18 +45,18 @@ namespace Emperia.Projectiles.Yeti
             {
 			    target.AddBuff(BuffID.Frostburn, 120);
             }
-            Vector2 perturbedSpeed = new Vector2(projectile.velocity.X * 0.6f, projectile.velocity.Y * 0.6f).RotatedByRandom(MathHelper.ToRadians(10));
-            Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, mod.ProjectileType("IceShardTiny"), projectile.damage / 3 , 0, Main.myPlayer, 0, 0);
+            Vector2 perturbedSpeed = new Vector2(Projectile.velocity.X * 0.6f, Projectile.velocity.Y * 0.6f).RotatedByRandom(MathHelper.ToRadians(10));
+            Projectile.NewProjectile(Projectile.InheritSource(Projectile), Projectile.Center.X, Projectile.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, ModContent.ProjectileType<IceShardTiny>(), Projectile.damage / 3 , 0, Main.myPlayer, 0, 0);
 
 		}
         public override void Kill(int timeLeft)
 		{
 			for (int i = 0; i < 3; i++)
 			{
-				int index2 = Dust.NewDust(projectile.position, projectile.width, projectile.height, 68, (float) projectile.velocity.X / 10, (float) projectile.velocity.Y / 10, 0, default(Color), 0.9f);
+				int index2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 68, (float) Projectile.velocity.X / 10, (float) Projectile.velocity.Y / 10, 0, default(Color), 0.9f);
 
             }
-            Main.PlaySound(SoundID.Item27, projectile.Center);
+            Terraria.Audio.SoundEngine.PlaySound(SoundID.Item27, Projectile.Center);
 		}
     }
 }

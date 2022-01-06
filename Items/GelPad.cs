@@ -18,15 +18,15 @@ namespace Emperia.Items
 		}
         public override void SetDefaults()
         {
-            item.width = 20;
-            item.height = 20;
-            item.rare = 1;
-            item.value = 1750;
+            Item.width = 20;
+            Item.height = 20;
+            Item.rare = 1;
+            Item.value = 1750;
         }
 
-		public virtual bool CanApply(Item item)
+		public virtual bool CanApply(Item Item)
 		{
-            if (item.GetGlobalItem<GItem>().isGauntlet == true && item.GetGlobalItem<GItem>().gelPad == false)
+            if (Item.GetGlobalItem<GItem>().isGauntlet == true && Item.GetGlobalItem<GItem>().gelPad == false)
             {
                 return true;
             }
@@ -35,23 +35,23 @@ namespace Emperia.Items
 
 		public sealed override bool CanRightClick()
 		{
-			Item item = Main.LocalPlayer.HeldItem;
-            return CanApply(item);
+			Item Item = Main.LocalPlayer.HeldItem;
+            return CanApply(Item);
 		}
 
 		public override void RightClick(Player player)
 		{
-            Item item = Main.LocalPlayer.HeldItem;
-            item.GetGlobalItem<GItem>().gelPad = true;
+            Item Item = Main.LocalPlayer.HeldItem;
+            Item.GetGlobalItem<GItem>().gelPad = true;
 		}
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            Recipe recipe = CreateRecipe();
             recipe.AddIngredient(ItemID.Gel, 40);
             recipe.AddIngredient(ItemID.PinkGel, 10); //or some twilight forest related drop mayhaps
             recipe.AddTile(TileID.Solidifier);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            recipe.Register();
+            
         }
     }
 }

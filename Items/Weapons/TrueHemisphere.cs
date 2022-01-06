@@ -2,6 +2,7 @@
 using Terraria.ModLoader;
 using Terraria;
 using Microsoft.Xna.Framework;
+using Emperia.Projectiles;
 
 namespace Emperia.Items.Weapons
 {
@@ -9,43 +10,43 @@ namespace Emperia.Items.Weapons
 	{
 		public override void SetStaticDefaults()
 		{
-			ItemID.Sets.Yoyo[item.type] = true;
-			ItemID.Sets.GamepadExtraRange[item.type] = 18;
-			ItemID.Sets.GamepadSmartQuickReach[item.type] = true;
+			ItemID.Sets.Yoyo[Item.type] = true;
+			ItemID.Sets.GamepadExtraRange[Item.type] = 18;
+			ItemID.Sets.GamepadSmartQuickReach[Item.type] = true;
 			DisplayName.SetDefault("True Hemisphere");
 		}
 
 		public override void SetDefaults()
 		{
-			item.useStyle = 5;
-			item.width = 24;
-			item.height = 24;
-			item.noUseGraphic = true;
-			item.UseSound = SoundID.Item1;
-			item.melee = true;
-			item.channel = true;
-			item.noMelee = true;
-			item.shoot = mod.ProjectileType("TrueHemisphereProj");
-			item.useAnimation = 22;
-			item.useTime = 22;
-			item.shootSpeed = 16f;
-			item.knockBack = 6f;
-			item.damage = 72;
-			item.value = Item.sellPrice(0, 12, 20, 0);
-			item.rare = 7;
+			Item.useStyle = 5;
+			Item.width = 24;
+			Item.height = 24;
+			Item.noUseGraphic = true;
+			Item.UseSound = SoundID.Item1;
+			Item.DamageType = DamageClass.Melee;
+			Item.channel = true;
+			Item.noMelee = true;
+			Item.shoot = ModContent.ProjectileType<TrueHemisphereProj>();
+			Item.useAnimation = 22;
+			Item.useTime = 22;
+			Item.shootSpeed = 16f;
+			Item.knockBack = 6f;
+			Item.damage = 72;
+			Item.value = Item.sellPrice(0, 12, 20, 0);
+			Item.rare = 7;
 		}
 			
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(mod);
+			Recipe recipe = CreateRecipe();
 			recipe.AddIngredient(null, "Hemisphere", 1);
 			recipe.AddIngredient(ItemID.SoulofMight, 5);
 			recipe.AddIngredient(ItemID.SoulofFright, 5);
 			recipe.AddIngredient(ItemID.SoulofSight, 5);
 			recipe.AddIngredient(ItemID.CursedFlame, 15);
 			recipe.AddTile(TileID.MythrilAnvil);
-			recipe.SetResult(this);
-			recipe.AddRecipe();
+			recipe.Register();
+			
 		}
 	}
 }

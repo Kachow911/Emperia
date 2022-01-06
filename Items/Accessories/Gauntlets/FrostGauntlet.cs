@@ -18,34 +18,34 @@ namespace Emperia.Items.Accessories.Gauntlets
 		}
         public override void SetDefaults()
         {
-            item.width = 30;
-            item.height = 28;
-            item.rare = 2;
-            item.value = Item.sellPrice(0, 0, 1, 0);
-            item.defense = 0;
-            item.accessory = true;
-            item.GetGlobalItem<GItem>().isGauntlet = true;
+            Item.width = 30;
+            Item.height = 28;
+            Item.rare = 2;
+            Item.value = Item.sellPrice(0, 0, 1, 0);
+            Item.defense = 0;
+            Item.accessory = true;
+            Item.GetGlobalItem<GItem>().isGauntlet = true;
         }
-        public override void UpdateAccessory(Player player, bool hideVisual)
+        public override void UpdateAccessory(Player player, bool hideVisibleAccessory)
         {
 			player.GetModPlayer<MyPlayer>().frostGauntlet = true;
         }
 		public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            Recipe recipe = CreateRecipe();
             recipe.AddIngredient(null, "WoodweaversGauntlet", 1);
             recipe.AddIngredient(ItemID.IceBlock, 20);
 			recipe.AddIngredient(ItemID.DemoniteBar, 10);
             recipe.AddTile(TileID.Anvils);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
-            recipe = new ModRecipe(mod);
+            recipe.Register();
+            
+            recipe = CreateRecipe();
             recipe.AddIngredient(null, "WoodweaversGauntlet", 1);
             recipe.AddIngredient(ItemID.IceBlock, 20);
             recipe.AddIngredient(ItemID.CrimtaneBar, 10);
             recipe.AddTile(TileID.Anvils);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            recipe.Register();
+            
         }
     }
 }

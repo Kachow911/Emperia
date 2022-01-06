@@ -5,13 +5,9 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent.UI.Chat;
-using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
-using System.Collections.Generic;
-using System;
+using System; 
+using Emperia.Projectiles;
 
 namespace Emperia.Items.Sets.PreHardmode.Scoria    
 {
@@ -20,26 +16,26 @@ namespace Emperia.Items.Sets.PreHardmode.Scoria
 		public override void SetDefaults()
 		{
 
-			item.damage = 26;
-			item.noMelee = true;
-			item.noUseGraphic = false;
-			item.magic = true;
-			item.scale = 1f;
-			item.width = 40;
-			item.height = 40;
-			item.useTime = 30;
-			item.useAnimation = 30;
-			item.useStyle = 5;
-			item.knockBack = 3f;
+			Item.damage = 26;
+			Item.noMelee = true;
+			Item.noUseGraphic = false;
+			Item.DamageType = DamageClass.Magic;
+			Item.scale = 1f;
+			Item.width = 40;
+			Item.height = 40;
+			Item.useTime = 30;
+			Item.useAnimation = 30;
+			Item.useStyle = 5;
+			Item.knockBack = 3f;
 
-			Item.staff[item.type] = true; //this makes the useStyle animate as a staff instead of as a gun
-			item.rare = 3;
-			item.value = Item.sellPrice(0, 0, 40, 0);
-			item.UseSound = SoundID.Item43;
-			item.autoReuse = true;
-			item.shootSpeed = 7f;
-			item.mana = 7;
-			item.shoot = mod.ProjectileType("ScorchBlast");
+			Item.staff[Item.type] = true; //this makes the useStyle animate as a staff instead of as a gun
+			Item.rare = 3;
+			Item.value = Item.sellPrice(0, 0, 40, 0);
+			Item.UseSound = SoundID.Item43;
+			Item.autoReuse = true;
+			Item.shootSpeed = 7f;
+			Item.mana = 7;
+			Item.shoot = ModContent.ProjectileType<ScorchBlast>();
 		}
 
         public override void SetStaticDefaults()
@@ -47,11 +43,11 @@ namespace Emperia.Items.Sets.PreHardmode.Scoria
             DisplayName.SetDefault("Scoria Crystal");
             Tooltip.SetDefault("Shoots scorch blasts");
 		}
-        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+        public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockBack)
         {
            for (int i = 0; i < 2; i++)
            {
-               Projectile.NewProjectile(position.X, position.Y, speedX * Main.rand.Next(3, 8), speedY * Main.rand.Next(3, 8), type, damage, knockBack, player.whoAmI);
+               Projectile.NewProjectile(source, position.X, position.Y, velocity.X * Main.rand.Next(3, 8), velocity.Y * Main.rand.Next(3, 8), type, damage, knockBack, player.whoAmI);
            }
             return false;
         }

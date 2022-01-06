@@ -5,6 +5,7 @@ using Terraria.Graphics.Effects;
 using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Emperia.Buffs;
 
 namespace Emperia.Items.Weapons.Color1   //where is located
 {
@@ -17,32 +18,32 @@ namespace Emperia.Items.Weapons.Color1   //where is located
 		}
         public override void SetDefaults()
         {
-            item.damage = 35;
-            item.melee = true;
-            item.width = 44;
-            item.height = 44;
-            item.useTime = 21;
-            item.useAnimation = 21;     
-            item.useStyle = 1;
-            item.knockBack = 2.25f;  
-			item.crit = 6;
-            item.value = 48000;        
-            item.rare = 3;
-			item.UseSound = SoundID.Item1;
-			item.scale = 1f;
-            item.autoReuse = false;
-            item.useTurn = true;
+            Item.damage = 35;
+            Item.DamageType = DamageClass.Melee;
+            Item.width = 44;
+            Item.height = 44;
+            Item.useTime = 21;
+            Item.useAnimation = 21;     
+            Item.useStyle = 1;
+            Item.knockBack = 2.25f;  
+			Item.crit = 6;
+            Item.value = 48000;        
+            Item.rare = 3;
+			Item.UseSound = SoundID.Item1;
+			Item.scale = 1f;
+            Item.autoReuse = false;
+            Item.useTurn = true;
         }
 		
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);      
+            Recipe recipe = CreateRecipe();      
             recipe.AddIngredient(null, "Prism", 1); 
 			recipe.AddIngredient(ItemID.Ruby, 8); 
 			recipe.AddIngredient(ItemID.RedHusk, 1); 
             recipe.AddTile(TileID.Anvils);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            recipe.Register();
+            
 
         }
 		public override void MeleeEffects(Player player, Rectangle hitbox)
@@ -55,9 +56,9 @@ namespace Emperia.Items.Weapons.Color1   //where is located
 		public override void OnHitNPC(Player player, NPC target, int damage, float knockback, bool crit)
 		{
             if (target.boss)
-			    player.AddBuff(mod.BuffType("RougeRage"), Main.rand.Next(360, 600) + 300);
+			    player.AddBuff(ModContent.BuffType<RougeRage>(), Main.rand.Next(360, 600) + 300);
             else
-                player.AddBuff(mod.BuffType("RougeRage"), Main.rand.Next(360, 600));
+                player.AddBuff(ModContent.BuffType<RougeRage>(), Main.rand.Next(360, 600));
         }
     }
 }

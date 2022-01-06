@@ -14,28 +14,28 @@ namespace Emperia.Projectiles.Corrupt
 		}
 		public override void SetDefaults()
 		{
-			projectile.width = 20;       //projectile width
-			projectile.height = 20;  //projectile height
-			projectile.friendly = true;      //make that the projectile will not damage you
-			projectile.ranged = true;         // 
-			projectile.tileCollide = true;   //make that the projectile will be destroed if it hits the terrain
-			projectile.penetrate = 1;      //how many npc will penetrate
-			projectile.timeLeft = 240;
-			projectile.ignoreWater = true;
-			projectile.alpha = 255;
+			Projectile.width = 20;       //Projectile width
+			Projectile.height = 20;  //Projectile height
+			Projectile.friendly = true;      //make that the Projectile will not damage you
+			Projectile.DamageType = DamageClass.Ranged;         // 
+			Projectile.tileCollide = true;   //make that the Projectile will be destroed if it hits the terrain
+			Projectile.penetrate = 1;      //how many NPC will penetrate
+			Projectile.timeLeft = 240;
+			Projectile.ignoreWater = true;
+			Projectile.alpha = 255;
 		}
 		
 	
 
 		public override void AI()
 		{
-			projectile.velocity *= .97f;
+			Projectile.velocity *= .97f;
 			for (int i = 0; i < 2; i++)
 			{
-				int num = Dust.NewDust(projectile.Center, 26, 26, 75, 0f, 0f, 0, default(Color), 1.5f);
+				int num = Dust.NewDust(Projectile.Center, 26, 26, 75, 0f, 0f, 0, default(Color), 1.5f);
 				Main.dust[num].alpha = 0;
-				Main.dust[num].position.X = projectile.Center.X - projectile.velocity.X / 10f * (float)i;
-				Main.dust[num].position.Y = projectile.Center.Y - projectile.velocity.Y / 10f * (float)i;
+				Main.dust[num].position.X = Projectile.Center.X - Projectile.velocity.X / 10f * (float)i;
+				Main.dust[num].position.Y = Projectile.Center.Y - Projectile.velocity.Y / 10f * (float)i;
 				Main.dust[num].noGravity = true;
 			}
 		}

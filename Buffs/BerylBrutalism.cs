@@ -14,14 +14,12 @@ namespace Emperia.Buffs
 {
     public class BerylBrutalism : ModBuff
     {
-        public override void SetDefaults()
+        public override void SetStaticDefaults()
         {
 			DisplayName.SetDefault("Beryl Brutalism");
 			Description.SetDefault("8% increased melee speed");
             Main.buffNoSave[Type] = true;
             //Main.buffNoTimeDisplay[Type] = true;
-
-            canBeCleared = true;
         }
 
         public override void Update(Player player, ref int buffIndex)

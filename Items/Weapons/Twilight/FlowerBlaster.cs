@@ -1,16 +1,12 @@
-	using Terraria;
+using Terraria;
 using System;
 using Terraria.ID;
 using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
 using System.Collections.Generic;
-using System;
+using Emperia.Projectiles;
 
  
 namespace Emperia.Items.Weapons.Twilight  
@@ -23,21 +19,21 @@ namespace Emperia.Items.Weapons.Twilight
 		}
         public override void SetDefaults()
         {  
-            item.damage = 16;  
-            item.ranged = true;    
-            item.width = 50; 
-            item.height = 28;    
-            item.useTime = 16;   
-            item.useAnimation = 16;     
-            item.useStyle = 5;  
-            item.noMelee = true; 
-            item.knockBack = 0.75f; 
-            item.UseSound = SoundID.Item17; 
-            item.value = 33000;
-            item.rare = 3;   
-            item.autoReuse = true;  
-            item.shoot = mod.ProjectileType("PowPetal");   
-            item.shootSpeed = 8f; 
+            Item.damage = 16;  
+            Item.DamageType = DamageClass.Ranged;    
+            Item.width = 50; 
+            Item.height = 28;    
+            Item.useTime = 16;   
+            Item.useAnimation = 16;     
+            Item.useStyle = 5;  
+            Item.noMelee = true; 
+            Item.knockBack = 0.75f; 
+            Item.UseSound = SoundID.Item17; 
+            Item.value = 33000;
+            Item.rare = 3;   
+            Item.autoReuse = true;  
+            Item.shoot = ModContent.ProjectileType<PowPetal>();   
+            Item.shootSpeed = 8f; 
         }
 	
 		public override Vector2? HoldoutOffset()
@@ -48,14 +44,14 @@ namespace Emperia.Items.Weapons.Twilight
 		public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float  scale, int whoAmI) 	
 		{
 			Texture2D texture;
-			texture = Main.itemTexture[item.type];
-			spriteBatch.Draw
+			//texture = GameContent.TextureAssets.Item[Item.type].Value;
+			Main.EntitySpriteDraw
 			(
-				mod.GetTexture("Glowmasks/fbGlowmask"),
+				texture = Mod.Assets.Request<Texture2D>("Glowmasks/fbGlowmask").Value,
 				new Vector2
 				(
-					item.position.X - Main.screenPosition.X + item.width * 0.5f,
-					item.position.Y - Main.screenPosition.Y + item.height - texture.Height * 0.5f + 2f
+					Item.position.X - Main.screenPosition.X + Item.width * 0.5f,
+					Item.position.Y - Main.screenPosition.Y + Item.height - texture.Height * 0.5f + 2f
 				),
 				new Rectangle(0, 0, texture.Width, texture.Height),
 				Color.White,
@@ -63,7 +59,7 @@ namespace Emperia.Items.Weapons.Twilight
 				texture.Size() * 0.5f,
 				scale, 
 				SpriteEffects.None, 
-				0f
+				0
 			);
 		}
     }

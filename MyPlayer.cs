@@ -13,14 +13,22 @@ using Terraria.DataStructures;
 using Terraria.Graphics.Shaders;
 using Terraria.ModLoader.IO;
 using Terraria.GameInput;
+using static Terraria.Audio.SoundEngine;
 using Emperia;
 using Emperia.Projectiles;
+using Emperia.Projectiles.Yeti;
+using Emperia.Projectiles.Plants;
+using Emperia.Projectiles.Desert;
+using Emperia.Projectiles.Mushroom;
+using Emperia.Buffs;
+using Emperia.Items;
+using Emperia.Items.Weapons;
 
 namespace Emperia
 {
-    public class MyPlayer : ModPlayer
-    {
-		public float gauntletBonus = 0; 
+	public class MyPlayer : ModPlayer
+	{
+		public float gauntletBonus = 0;
 
 		public bool ZoneGrotto = false;
 		public bool ZoneVolcano = false;
@@ -34,39 +42,42 @@ namespace Emperia
 		public bool defenseInsignia = false;
 		public bool isMellowProjectile = false;
 		public bool slightKnockback = false;
-        public bool doubleKnockback = false;
-        public bool sharkMinion = false;
+		public bool doubleKnockback = false;
+		public bool sharkMinion = false;
 		public bool graniteMinion = false;
 		public bool EmberTyrant = false;
-        public bool ancientPelt = false;
+		public bool ancientPelt = false;
 		public bool eruptionBottle = false;
 		public bool sporeFriend = false;
 		private bool dashActive = false;
 		public bool goblinSet = false;
-        public bool aquaticSet = false;
-        public bool yetiMount = false;
+		//public bool aquaticSet = false;
+		public Item aquaticSet = null;
+		public bool yetiMount = false;
 		public bool woodGauntlet = false;
 		public float gelGauntlet = 0f;
 		public bool metalGauntlet = false;
 		public bool magicGauntlet = false;
 		public bool boneGauntlet = false;
 		public bool bloodGauntlet = false;
-        public bool frostGauntlet = false;
-        public bool meteorGauntlet = false;
+		public bool frostGauntlet = false;
+		public bool meteorGauntlet = false;
 		public bool ferocityGauntlet = false;
 		public bool thermalGauntlet = false;
 		public bool floralGauntlet = false;
-		public bool terraGauntlet = false;
+		//public bool terraGauntlet = false;
+		public Item terraGauntlet = null;
 		public bool wristBrace = false;
-        public bool renewedLife = false;
+		public bool renewedLife = false;
 		public bool breakingPoint = false;
 		public bool forestSetMelee = false;
 		public bool forestSetRanged = false;
 		public bool forestSetMage = false;
-        public bool forestSetThrown = false;
-        public bool forestSetSummon = false;
+		public bool forestSetThrown = false;
+		public bool forestSetSummon = false;
 		public bool graniteSet = false;
-		public bool carapaceSet = false;
+		//public bool carapaceSet = false;
+		public Item carapaceSet = null;
 		public bool rotfireSet = false;
 		public bool bloodboilSet = false;
 		public bool lightningSet = false;
@@ -82,7 +93,7 @@ namespace Emperia
 		bool velocityPos = false;
 		public int dayVergeProjTime = 0;
 		bool canJump = false;
-        bool placedPlant = false;
+		bool placedPlant = false;
 		bool changedVelocity;
 		bool clickedLeft = false;
 		bool clickedRight = false;
@@ -103,7 +114,7 @@ namespace Emperia
 		private int peltCounter = 120;
 		private int peltRadius = 256;
 		public int bloodstainedDmg = 0;
-		
+
 		private int forestSetMeleeCooldown = 60;
 		int SporeHealCooldown = 60;
 		int ferocityTime = 0;
@@ -116,16 +127,19 @@ namespace Emperia
 		public int frostFangTimer = 0;
 		public int fastFallLength = 0;
 		public Rectangle swordHitbox = new Rectangle(0, 0, 0, 0); //value taken from GlobalItem
-				
-        public override void ResetEffects()
-        {
+
+		public Item projItemOrigin = null;
+
+		public Vector2 velocityBoost = Vector2.Zero;
+		public override void ResetEffects()
+		{
 			gauntletBonus = 0;
-		EmperialWorld.respawnFull = false;
+			EmperialWorld.respawnFull = false;
 			chillsteelSet = false;
 			bloodboilSet = false;
 			lightningSet = false;
 			rotfireSet = false;
-			carapaceSet = false;
+			//carapaceSet = false;
 			EmberTyrant = false;
 			breakingPoint = false;
 			woodGauntlet = false;
@@ -134,18 +148,19 @@ namespace Emperia
 			magicGauntlet = false;
 			boneGauntlet = false;
 			bloodGauntlet = false;
-			terraGauntlet = false;
+			//terraGauntlet = false;
+			terraGauntlet = null;
 			wristBrace = false;
 			floralGauntlet = false;
 			lunarDash = false;
 			thermalGauntlet = false;
 			ferocityGauntlet = false;
-            meteorGauntlet = false;
-            doubleKnockback = false;
-            renewedLife = false;
-            frostGauntlet = false;
-            eruptionBottle = false;
-            sharkMinion = false;
+			meteorGauntlet = false;
+			doubleKnockback = false;
+			renewedLife = false;
+			frostGauntlet = false;
+			eruptionBottle = false;
+			sharkMinion = false;
 			graniteMinion = false;
 			cursedDash = false;
 			yetiMount = false;
@@ -159,65 +174,62 @@ namespace Emperia
 			defenseInsignia = false;
 			goblinSet = false;
 			ancientPelt = false;
-            aquaticSet = false;
+			//aquaticSet = false;
+			aquaticSet = null;
 			forestSetMelee = false;
 			forestSetRanged = false;
 			forestSetMage = false;
-            forestSetThrown = false;
-            forestSetSummon = false;
+			forestSetThrown = false;
+			forestSetSummon = false;
 			graniteSet = false;
 			frostleafSet = false;
 			frostFang = false;
 			warlockTorc = false;
 			arcaneShieldHold = false;
 			arcaneShieldRaised = false;
-			
-            sporeBuffCount = 0;
-			//bloodstainedDmg = 0;
-        }
-		public override void UpdateBiomes()
-		{
-			ZoneVolcano = EmperialWorld.VolcanoTiles > 250;
-			ZoneGrotto = EmperialWorld.GrottoTiles > 100;
+
+			sporeBuffCount = 0;
+            //bloodstainedDmg = 0;
+
+            projItemOrigin = null;
+			carapaceSet = null;
 		}
-		
-        public override void UpdateBiomeVisuals()
+		public override float UseTimeMultiplier(Item Item)
 		{
-			player.ManageSpecialBiomeVisuals("Emperia:Volcano", ZoneVolcano);
+			if (Item.type == ModContent.ItemType<Escargun>() && (eschargo >= 0))
+			{
+				return 1.25f;
+			}
+			return 1f;
 		}
-		public override float UseTimeMultiplier(Item item)
-        {
-            if (item.type == mod.ItemType("Escargun") && (eschargo >= 0))
-            {
-                return 1.25f;
-            }
-            return 1f;
-        }
-        public override void CatchFish(Item fishingRod, Item bait, int power, int liquidType, int poolSize, int worldLayer, int questFish, ref int caughtType, ref bool junk)
+
+        /*public override void CatchFish(FishingAttempt attempt, ref int itemDrop, ref int npcSpawn, ref AdvancedPopupRequest sonar, ref Vector2 sonarPosition)
+        //public override void CatchFish(Item fishingRod, Item bait, int power, int liquidType, int poolSize, int worldLayer, int questFish, ref int caughtType)
 		{
-			if (junk)
-				{
-					return;
-				}
+			//if (junk)
+			//{
+			//	return;
+			//}
 			if (Main.hardMode && worldLayer == 0 && liquidType == 0)
 			{
 				int icarusChance = Convert.ToInt32(12 - power / 30); //(15 - power / 20); more basic but less fair with low power, 10 / 50 to make more common
-				//string chanceText = icarusChance.ToString();
-				//Main.NewText(chanceText, 255, 240, 20, false);
+																	 //string chanceText = icarusChance.ToString();
+																	 //Main.NewText(chanceText, 255, 240, 20, false);
 				if (Main.rand.NextBool(icarusChance))
 				{
-					caughtType = mod.ItemType("Icarusfish");
+					caughtType = ModContent.ItemType<Icarusfish>();
 				}
 			}
-		}
-        public override void PostUpdate()
-        {
-			if (graniteMinion) { player.maxMinions += 1; } //first minion is free
-			if (iceCannonLoad < 0)
-			{
-				iceCannonLoad++;
-				if (iceCannonLoad == -1) iceCannonLoad = 2;
-			}
+		}*/
+		public override void PostUpdate()
+		{
+			//Main.NewText(terraGauntlet.ToString());
+			if (graniteMinion) { Player.maxMinions += 1; } //first minion is free
+            if (iceCannonLoad < 0)
+            {
+                iceCannonLoad++;
+                if (iceCannonLoad == -1) iceCannonLoad = 2;
+            }
 			if (clubSwing > 0)
 			{
 				clubSwing--;
@@ -225,26 +237,26 @@ namespace Emperia
 			if (clubSwing == 0)
 			{
 				clubSwing = -1;
-				int clubSwingDamage = player.GetWeaponDamage(player.inventory[player.selectedItem]) / 3;
-				if (player.velocity.Y == 0 && !player.mount.Active)
+				int clubSwingDamage = Player.GetWeaponDamage(Player.inventory[Player.selectedItem]) / 3;
+				if (Player.velocity.Y == 0 && !Player.mount.Active)
 				{
-					Main.PlaySound(SoundID.Item, player.Center, 27);  		
+					PlaySound(SoundID.Item, Player.Center, 27);
 					Vector2 perturbedSpeed;
-					perturbedSpeed = new Vector2(2 * player.direction, 0);
-					Projectile.NewProjectile(player.position.X + 75 * player.direction, player.Bottom.Y - 10, perturbedSpeed.X, perturbedSpeed.Y, mod.ProjectileType("IceSpikePre"), clubSwingDamage, 1, Main.myPlayer, 0, 0);
+					perturbedSpeed = new Vector2(2 * Player.direction, 0);
+					Projectile.NewProjectile(Player.GetProjectileSource_Item(projItemOrigin), Player.position.X + 75 * Player.direction, Player.Bottom.Y - 10, perturbedSpeed.X, perturbedSpeed.Y, ModContent.ProjectileType<IceSpikePre>(), clubSwingDamage, 1, Main.myPlayer, 0, 0);
 				}
 			}
 			if (!lightningSet)
 				lightningDamage = 0;
 			if (lightningSet && lightningDamage >= 500)
-            {
-				player.AddBuff(mod.BuffType("Supercharged"), 300);
+			{
+				Player.AddBuff(ModContent.BuffType<Supercharged>(), 300);
 				for (int i = 0; i < 360; i++)
 				{
 					Vector2 vec = Vector2.Transform(new Vector2(-15, 0), Matrix.CreateRotationZ(MathHelper.ToRadians(i)));
 					if (i % 20 == 0)
 					{
-						int b = Dust.NewDust(player.Center, Main.rand.Next(1, 7), Main.rand.Next(1, 7), 226);
+						int b = Dust.NewDust(Player.Center, Main.rand.Next(1, 7), Main.rand.Next(1, 7), 226);
 						Main.dust[b].noGravity = true;
 						Main.dust[b].velocity = vec;
 					}
@@ -256,9 +268,9 @@ namespace Emperia
 			if (forestSetMage && primalRageTime >= 0)
 			{
 				primalRageTime--;
-                if (primalRageTime % 5 == 0)
-                    player.statMana += 2;
-                
+				if (primalRageTime % 5 == 0)
+					Player.statMana += 2;
+
 			}
 			if (forestSetMelee)
 			{
@@ -266,10 +278,10 @@ namespace Emperia
 				forestSetMeleeCooldown--;
 				for (int i = 0; i < 200; i++)
 				{
-					if (player.Distance(Main.npc[i].Center) < 64 && forestSetMeleeCooldown <= 0 && !Main.npc[i].boss && !Main.npc[i].townNPC)
+					if (Player.Distance(Main.npc[i].Center) < 64 && forestSetMeleeCooldown <= 0 && !Main.npc[i].boss && !Main.npc[i].townNPC)
 					{
 						forestSetMeleeCooldown = 120;
-						Vector2 direction = player.Center - Main.npc[i].Center;
+						Vector2 direction = Player.Center - Main.npc[i].Center;
 						direction.Normalize();
 						Main.npc[i].velocity = (-direction) * 8f;
 						doWave = true;
@@ -281,8 +293,8 @@ namespace Emperia
 					for (int j = 0; j < 90; j++)
 					{
 						Vector2 perturbedSpeed = new Vector2(0, 3).RotatedBy(MathHelper.ToRadians(4 * j));
-						Color rgb = new Color(50,205,50);
-						int index3 = Dust.NewDust(player.Center, 8, 8, 63, (float)0, (float)0, 0, rgb, 1.1f);
+						Color rgb = new Color(50, 205, 50);
+						int index3 = Dust.NewDust(Player.Center, 8, 8, 63, (float)0, (float)0, 0, rgb, 1.1f);
 						Main.dust[index3].velocity = perturbedSpeed;
 					}
 					doWave = false;
@@ -290,55 +302,55 @@ namespace Emperia
 			}
 			if (eruptionBottle)
 			{
-				if (player.velocity.Y == 0 && player.releaseJump)
+				if (Player.velocity.Y == 0 && Player.releaseJump)
 				{
 					canJump = true;
 				}
-				if (player.controlJump && canJump && player.velocity.Y != 0)
+				if (Player.controlJump && canJump && Player.velocity.Y != 0)
 				{
 					for (int i = 0; i < 50; ++i) //Create dust after teleport
 					{
-						int dust = Dust.NewDust(player.position, player.width, player.height, 6);
-						int dust1 = Dust.NewDust(player.position, player.width, player.height,6);
+						int dust = Dust.NewDust(Player.position, Player.width, Player.height, 6);
+						int dust1 = Dust.NewDust(Player.position, Player.width, Player.height, 6);
 						Main.dust[dust1].scale = 0.8f;
 						Main.dust[dust1].velocity *= 1.5f;
 					}
-					player.velocity.Y = -17f;
+					Player.velocity.Y = -17f;
 					canJump = false;
 				}
 			}
-			if (aquaticSet)
-            {
-                 for (int i = (int) player.position.X / 16 - 25; i < (int)player.position.X / 16 + 25; i++)
-                 {
-                      for (int j = (int)player.position.Y / 16 - 25; j < (int)player.position.Y / 16 + 25; j++)
-                      {
-                          if (!Main.tile[i, j - 1].active() && Main.tile[i, j].active() && Main.rand.NextBool(5000) && !(Main.tile[i, j].type == TileID.Trees))
-                          {
-                            int egg = Main.rand.Next(3);
-                            int type;
-                            if (egg == 0) type = mod.ProjectileType("plant1");
-                            else if (egg == 1) type = mod.ProjectileType("plant2");
-                            else type = mod.ProjectileType("plant3");
-                            Projectile.NewProjectile(i * 16 , j * 16 - 14, 0, 0, type, 0, 1, Main.myPlayer, 0, 0);
-                           }
+			if (aquaticSet != null)
+			{
+				for (int i = (int)Player.position.X / 16 - 25; i < (int)Player.position.X / 16 + 25; i++)
+				{
+					for (int j = (int)Player.position.Y / 16 - 25; j < (int)Player.position.Y / 16 + 25; j++)
+					{
+						if (!Main.tile[i, j - 1].IsActive && Main.tile[i, j].IsActive && Main.rand.NextBool(5000) && !(Main.tile[i, j].type == TileID.Trees))
+						{
+							int egg = Main.rand.Next(3);
+							int type;
+							if (egg == 0) type = ModContent.ProjectileType<plant1>();
+							else if (egg == 1) type = ModContent.ProjectileType<plant2>();
+							else type = ModContent.ProjectileType<plant3>();
+							Projectile.NewProjectile(new ProjectileSource_Item(Player, aquaticSet), i * 16, j * 16 - 14, 0, 0, type, 0, 1, Main.myPlayer, 0, 0);
+						}
 
-                       }
-                    }
-                }
-            
+					}
+				}
+			}
+
 			dashDelay--;
 			if (dashDelay >= 70)
 			{
-				player.velocity.X *= .95f;
-				int dust = Dust.NewDust(player.position, player.width, player.height, 75, 0f, 0f, 91, new Color(2, 249, 2), 1.5f);
+				Player.velocity.X *= .95f;
+				int dust = Dust.NewDust(Player.position, Player.width, Player.height, 75, 0f, 0f, 91, new Color(2, 249, 2), 1.5f);
 				Main.dust[dust].velocity = Vector2.Zero;
 				Main.dust[dust].noGravity = true;
 				//if (dashDelay % 3 == 0)
 				{
 					for (int i = 0; i < 200; i++)
 					{
-						if (player.Hitbox.Intersects(Main.npc[i].Hitbox) && !hitEnemies.Contains(i) && Main.npc[i].life > 2)
+						if (Player.Hitbox.Intersects(Main.npc[i].Hitbox) && !hitEnemies.Contains(i) && Main.npc[i].life > 2)
 						{
 							hitEnemies.Add(i);
 							Main.npc[i].StrikeNPC(60, 0f, 0, false, false, false);
@@ -346,8 +358,8 @@ namespace Emperia
 							if (!changedVelocity)
 							{
 								changedVelocity = true;
-								player.velocity.X = (-3  * player.velocity.X) / 4;
-								player.velocity.Y -= 5;
+								Player.velocity.X = (-3 * Player.velocity.X) / 4;
+								Player.velocity.Y -= 5;
 							}
 						}
 					}
@@ -359,44 +371,44 @@ namespace Emperia
 				leftPresses = 0;
 				rightPresses = 0;
 			}
-			if (player.releaseLeft && clickedLeft)
+			if (Player.releaseLeft && clickedLeft)
 			{
 				pressTime = 16;
 				leftPresses++;
 			}
-			if (player.releaseRight && clickedRight)
+			if (Player.releaseRight && clickedRight)
 			{
 				pressTime = 16;
 				rightPresses++;
 			}
-			
+
 
 			if (leftPresses >= 2 && dashDelay <= 0 && (cursedDash || lunarDash) && leftPresses > rightPresses)
 			{
-				
+
 				pressTime = 0;
 				//leftPresses = 0;
 				if (!lunarDash)
 				{
 					changedVelocity = false;
 					hitEnemies = new List<int>();
-					player.velocity.X = -19f;
+					Player.velocity.X = -19f;
 					dashDelay = 100;
 					for (int i = 0; i < 50; ++i) //Create dust after teleport
 					{
-						int dust = Dust.NewDust(player.position, player.width, player.height, 75);
-						int dust1 = Dust.NewDust(player.position, player.width, player.height, 75);
+						int dust = Dust.NewDust(Player.position, Player.width, Player.height, 75);
+						int dust1 = Dust.NewDust(Player.position, Player.width, Player.height, 75);
 						Main.dust[dust1].scale = 0.8f;
 						Main.dust[dust1].velocity *= 2f;
 						Main.dust[dust1].noGravity = true;
 					}
-					
+
 				}
 				else
 				{
 					Color rgb = new Color(0, 0, 0);
 					hitEnemies = new List<int>();
-					player.velocity.X = -22f;
+					Player.velocity.X = -22f;
 					dashDelay = 100;
 					for (int i = 0; i < 50; ++i) //Create dust after teleport
 					{
@@ -405,8 +417,8 @@ namespace Emperia
 						else if (ex == 1) rgb = new Color(254, 105, 47);
 						else if (ex == 2) rgb = new Color(0, 242, 170);
 						else if (ex == 3) rgb = new Color(104, 214, 255);
-						int index3 = Dust.NewDust(player.position, 8, 8, 76, 0, 0, 0, rgb, 1.1f);
-						int index4 = Dust.NewDust(player.position, 8, 8, 76, (float)player.velocity.X, (float)player.velocity.Y, 0, rgb, 1.1f);
+						int index3 = Dust.NewDust(Player.position, 8, 8, 76, 0, 0, 0, rgb, 1.1f);
+						int index4 = Dust.NewDust(Player.position, 8, 8, 76, (float)Player.velocity.X, (float)Player.velocity.Y, 0, rgb, 1.1f);
 						Main.dust[index4].scale = 0.8f;
 						Main.dust[index4].velocity *= 2f;
 						Main.dust[index4].noGravity = true;
@@ -415,19 +427,19 @@ namespace Emperia
 			}
 			if (rightPresses >= 2 && dashDelay <= 0 && (cursedDash || lunarDash) && rightPresses > leftPresses)
 			{
-				
+
 				pressTime = 0;
 				//rightPresses = 0;
 				if (!lunarDash)
 				{
 					changedVelocity = false;
 					hitEnemies = new List<int>();
-					player.velocity.X = 19f;
+					Player.velocity.X = 19f;
 					dashDelay = 100;
 					for (int i = 0; i < 50; ++i) //Create dust after teleport
 					{
-						int dust = Dust.NewDust(player.position, player.width, player.height, 75);
-						int dust1 = Dust.NewDust(player.position, player.width, player.height, 75);
+						int dust = Dust.NewDust(Player.position, Player.width, Player.height, 75);
+						int dust1 = Dust.NewDust(Player.position, Player.width, Player.height, 75);
 						Main.dust[dust1].scale = 0.8f;
 						Main.dust[dust1].velocity *= 2f;
 						Main.dust[dust1].noGravity = true;
@@ -437,7 +449,7 @@ namespace Emperia
 				{
 					Color rgb = new Color(0, 0, 0);
 					hitEnemies = new List<int>();
-					player.velocity.X = 20f;
+					Player.velocity.X = 20f;
 					dashDelay = 100;
 					for (int i = 0; i < 50; ++i) //Create dust after teleport
 					{
@@ -446,14 +458,14 @@ namespace Emperia
 						else if (ex == 1) rgb = new Color(254, 105, 47);
 						else if (ex == 2) rgb = new Color(0, 242, 170);
 						else if (ex == 3) rgb = new Color(104, 214, 255);
-						int index3 = Dust.NewDust(player.position, 8, 8, 76, 0, 0, 0, rgb, 1.1f);
-						int index4 = Dust.NewDust(player.position, 8, 8, 76, (float)player.velocity.X, (float)player.velocity.Y, 0, rgb, 1.1f);
+						int index3 = Dust.NewDust(Player.position, 8, 8, 76, 0, 0, 0, rgb, 1.1f);
+						int index4 = Dust.NewDust(Player.position, 8, 8, 76, (float)Player.velocity.X, (float)Player.velocity.Y, 0, rgb, 1.1f);
 						Main.dust[index4].scale = 0.8f;
 						Main.dust[index4].velocity *= 2f;
 						Main.dust[index4].noGravity = true;
 					}
 				}
-		
+
 			}
 			if (pressTime <= 0)
 			{
@@ -461,14 +473,14 @@ namespace Emperia
 				rightPresses = 0;
 			}
 
-			if (forbiddenOath && player.statLife <= player.statLifeMax2 / 2)
+			if (forbiddenOath && Player.statLife <= Player.statLifeMax2 / 2)
 			{
 				OathCooldown--;
 			}
 			if (OathCooldown <= 0)
 			{
-				player.HealEffect(20);
-				player.statLife += 20;
+				Player.HealEffect(20);
+				Player.statLife += 20;
 				OathCooldown = 720;
 			}
 			if (ancientPelt)
@@ -478,50 +490,51 @@ namespace Emperia
 				{
 					peltCounter = 120;
 					Color rgb = new Color(160, 243, 255);
-					for (int i = 0; i < 360; i+= 6)
+					for (int i = 0; i < 360; i += 6)
 					{
 						Vector2 Position = new Vector2(0, -256).RotatedBy(MathHelper.ToRadians(i));
-						int dust = Dust.NewDust(player.Center + Position, player.width / 8, player.height / 8, 76, 0f, 0f, 0, rgb, 1.5f);
+						int dust = Dust.NewDust(Player.Center + Position, Player.width / 8, Player.height / 8, 76, 0f, 0f, 0, rgb, 1.5f);
 						Main.dust[dust].noGravity = true;
 					}
 					for (int i = 0; i < Main.npc.Length; i++)
-                    {
-			            if (player.Distance(Main.npc[i].Center) < peltRadius)
+					{
+						if (Player.Distance(Main.npc[i].Center) < peltRadius)
 						{
 							Main.npc[i].AddBuff(BuffID.Chilled, 120);
 							Main.npc[i].AddBuff(BuffID.Frostburn, 120);
-			            }
+						}
 					}
 				}
 			}
 			if (yetiMount)
 			{
 				yetiCooldown--;
-				for (int npcFinder = 0; npcFinder <200; ++npcFinder)
+				for (int npcFinder = 0; npcFinder < 200; ++npcFinder)
 				{
-				
-					if (player.Distance(Main.npc[npcFinder].Center) < 256 && yetiCooldown <= 0)
+
+					if (Player.Distance(Main.npc[npcFinder].Center) < 256 && yetiCooldown <= 0)
 					{
 						yetiCooldown = 30;
-						Vector2 direction = Main.npc[npcFinder].Center - player.Center - new Vector2(0, 16);
+						Vector2 direction = Main.npc[npcFinder].Center - Player.Center - new Vector2(0, 16);
 						direction.Normalize();
-						Projectile.NewProjectile(player.Center.X, player.Center.Y + 16, direction.X * 7f, direction.Y * 7f, ProjectileID.SnowBallFriendly, 25, 1, Main.myPlayer, 0, 0);  
+						//Projectile.NewProjectile(GetProjectileSource_Mount(terraGauntlet), Player.Center.X, Player.Center.Y + 16, direction.X * 7f, direction.Y * 7f, ProjectileID.SnowBallFriendly, 25, 1, Main.myPlayer, 0, 0);
+						//i believe the fix for this is to put the projectile fire code in the mount as the game handles that automatically
 					}
-			    }
+				}
 			}
 			clickedLeft = false;
 			clickedRight = false;
 			dashDelay--;
-			if (player.controlLeft) clickedLeft = true;
-			if (player.controlRight) clickedRight = true;
-			if (vileTimer > 0) 
+			if (Player.controlLeft) clickedLeft = true;
+			if (Player.controlRight) clickedRight = true;
+			if (vileTimer > 0)
 			{
 				vileTimer--;
-				if (vileTimer == 0) 
+				if (vileTimer == 0)
 				{
-			        player.statLife += 130;
-           			player.HealEffect(130);
-					Main.PlaySound(SoundID.Item4, player.Center);
+					Player.statLife += 130;
+					Player.HealEffect(130);
+					PlaySound(SoundID.Item4, Player.Center);
 				}
 			}
 			if (eschargo >= 0)
@@ -532,31 +545,34 @@ namespace Emperia
 			{
 				eschargo = -10;
 			}
-			if (player.HasBuff(mod.BuffType("Waxwing")))
+			if (Player.HasBuff(ModContent.BuffType<Waxwing>()))
 			{
-				if (player.wingTime == player.wingTimeMax)
+				if (Player.wingTime == Player.wingTimeMax)
 				{
-					player.wingTime *= 0.9f;//maybe 30% boost but 15% reduction?
+					Player.wingTime *= 0.9f;//maybe 30% boost but 15% reduction?
 				}
 			}
-			if (frostFang == true && player.velocity.Y == 0 && player.velocity.X == 0)
+			if (frostFang == true && Player.velocity.Y == 0 && Player.velocity.X == 0)
 			{
 				frostFangTimer++;
 			}
 			else if (frostFangTimer >= 0) frostFangTimer = 0;
 			else frostFangTimer++;
-			if (frostFangTimer >= 60) 
+			if (frostFangTimer >= 60)
 			{
-				for (int k = 0; k < 200; k++) {
-					NPC npc = Main.npc[k];
-					if (npc.CanBeChasedBy(player, false) && npc.knockBackResist > 0f) {
-						float distance = Vector2.Distance(npc.Center, player.Center);
-						if ((distance < 200) && Collision.CanHitLine(player.position, player.width, player.height, npc.position, npc.width, npc.height)) {
+				for (int k = 0; k < 200; k++)
+				{
+					NPC NPC = Main.npc[k];
+					if (NPC.CanBeChasedBy(Player, false) && NPC.knockBackResist > 0f)
+					{
+						float distance = Vector2.Distance(NPC.Center, Player.Center);
+						if ((distance < 200) && Collision.CanHitLine(Player.position, Player.width, Player.height, NPC.position, NPC.width, NPC.height))
+						{
 							//distance 400
-							Main.NewText("yeet2", 255, 240, 20, false);	
-							npc.AddBuff(mod.BuffType("Cryogenized"), 120);	
+							//Main.NewText("yeet2", 255, 240, 20, false);	
+							NPC.AddBuff(ModContent.BuffType<Cryogenized>(), 120);
 							frostFangTimer = -420;
-							k = 200;				
+							k = 200;
 						}
 					}
 				}
@@ -566,120 +582,125 @@ namespace Emperia
 			if (manaOverdoseTime > 0) manaOverdoseTime--;
 			if (arcaneShieldRaised)
 			{
-				player.bodyFrame.Y = player.bodyFrame.Height * 10;
-				if (player.velocity.Y == 0) player.velocity.X -= player.velocity.X / 15;
-				else player.velocity.X -= player.velocity.X / 50;
+				Player.bodyFrame.Y = Player.bodyFrame.Height * 10;
+				if (Player.velocity.Y == 0) Player.velocity.X -= Player.velocity.X / 15;
+				else Player.velocity.X -= Player.velocity.X / 50;
 			}
-        }
+			if (velocityBoost != Vector2.Zero)
+			{
+				Player.velocity -= velocityBoost;
+				velocityBoost = Vector2.Zero;
+			}
+		}
 		public override void PostUpdateEquips()
 		{
-			if (warlockTorc) 
+			if (warlockTorc)
 			{
 				//reduces mana by a third, rounded up
-				player.statManaMax2 -= (player.statManaMax2 / 3) - ((player.statManaMax2 / 3) % 20);
+				Player.statManaMax2 -= (Player.statManaMax2 / 3) - ((Player.statManaMax2 / 3) % 20);
 				//reduces any mana over 200 by another third (but calculated after decrease, so numbers are adjusted accordingly) - change to / 3 to buff
-				if (player.statManaMax2 > 140) player.statManaMax2 -= ((player.statManaMax2 - 140) / 2) - (((player.statManaMax2 - 140) / 2) % 20);
+				if (Player.statManaMax2 > 140) Player.statManaMax2 -= ((Player.statManaMax2 - 140) / 2) - (((Player.statManaMax2 - 140) / 2) % 20);
 			}
 		}
 		public override void ProcessTriggers(TriggersSet triggersSet)
-        {
+		{
 
 		}
-		public override void ModifyHitByNPC(NPC npc, ref int damage, ref bool crit)
+		public override void ModifyHitByNPC(NPC NPC, ref int damage, ref bool crit)
 		{
-			if (player.HasBuff(mod.BuffType("SkullBuff")))
+			if (Player.HasBuff(ModContent.BuffType<SkullBuff>()))
 			{
 				damage /= 2;
-				player.ClearBuff(mod.BuffType("SkullBuff"));
+				Player.ClearBuff(ModContent.BuffType<SkullBuff>());
 			}
 		}
 		public override bool PreKill(double damage, int hitDirection, bool pvp, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource)
-        {
+		{
 			return true;
 		}
-		public override bool PreHurt(bool pvp, bool quiet, ref int damage, ref int hitDirection, ref bool crit, ref bool customDamage, ref bool playSound, ref bool genGore,ref PlayerDeathReason damageSource)		
-        {
+		public override bool PreHurt(bool pvp, bool quiet, ref int damage, ref int hitDirection, ref bool crit, ref bool customDamage, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource)
+		{
 			return dashDelay <= 70;
 		}
 		public override void PreUpdate()
 		{
-			if (carapaceSet && poundTime == 0)
+			if (carapaceSet != null && poundTime == 0)
 			{
 				if (Main.rand.Next(20) < carapaceTime / 60)
 				{
-					int dust = Dust.NewDust(player.position, player.width, player.height, mod.DustType("CarapaceDust"));
+					int dust = Dust.NewDust(Player.position, Player.width, Player.height, ModContent.DustType<Dusts.CarapaceDust>());
 				}
 				if (carapaceTime == 479)
 				{
-					//int dust = Dust.NewDust(player.position, player.width, player.height, 262);
+					//int dust = Dust.NewDust(Player.position, Player.width, Player.height, 262);
 					//Main.dust[dust].noGravity = true;
-					Main.PlaySound(SoundID.MaxMana, player.Center); //change sound
+					PlaySound(SoundID.MaxMana, Player.Center); //change sound
 				}
 			}
-			if (carapaceSet && carapaceTime < 480)
+			if (carapaceSet != null && carapaceTime < 480)
 				carapaceTime++;
-			if (carapaceSet && carapaceTime == 480 && player.controlDown && player.velocity.Y != 0 && !player.mount.Active)
+			if (carapaceSet != null && carapaceTime == 480 && Player.controlDown && Player.velocity.Y != 0 && !Player.mount.Active)
 			{
 				poundTime = 10;
 				carapaceTime = 0;
 			}
-			if (poundTime > 0 && player.velocity.Y != 0)
+			if (poundTime > 0 && Player.velocity.Y != 0)
 			{
-				int dust = Dust.NewDust(new Vector2(player.position.X, (float)((double)player.position.Y + (double)player.height - 16.0)), player.width, 16, mod.DustType("CarapaceDust"), 0.0f, 0.0f, 0, new Color(), 1.5f);
+				int dust = Dust.NewDust(new Vector2(Player.position.X, (float)((double)Player.position.Y + (double)Player.height - 16.0)), Player.width, 16, ModContent.DustType<Dusts.CarapaceDust>(), 0.0f, 0.0f, 0, new Color(), 1.5f);
 				Main.dust[dust].velocity *= 0.1f;
-				Main.dust[dust].velocity += player.velocity * 0.2f;
-				Main.dust[dust].position.X = player.Center.X + 4f + (float)Main.rand.Next(-2, 3);
-				Main.dust[dust].position.Y = player.Center.Y + (float)Main.rand.Next(-2, 3);
+				Main.dust[dust].velocity += Player.velocity * 0.2f;
+				Main.dust[dust].position.X = Player.Center.X + 4f + (float)Main.rand.Next(-2, 3);
+				Main.dust[dust].position.Y = Player.Center.Y + (float)Main.rand.Next(-2, 3);
 				Main.dust[dust].noGravity = true;
-				player.velocity.Y = 36f;
-				player.maxFallSpeed = 36f;
+				Player.velocity.Y = 36f;
+				Player.maxFallSpeed = 36f;
 				poundTime--;
 			}
-			if (carapaceSet && poundTime > 0 && player.velocity.Y == 0)
-            {
-				for (int i = -12; i < 12; i+=3)
-                {
-					int dust = Dust.NewDust(new Vector2(player.position.X + i, (float)((double)player.position.Y + player.height - 12)), player.width, 16, mod.DustType("CarapaceDust"), 0.0f, 0.0f, 0, new Color(), 1.5f);
+			if (carapaceSet != null && poundTime > 0 && Player.velocity.Y == 0)
+			{
+				for (int i = -12; i < 12; i += 3)
+				{
+					int dust = Dust.NewDust(new Vector2(Player.position.X + i, (float)((double)Player.position.Y + Player.height - 12)), Player.width, 16, ModContent.DustType<Dusts.CarapaceDust>(), 0.0f, 0.0f, 0, new Color(), 1.5f);
 					//Main.dust[dust].velocity = new Vector2(i/4, -1);
 					Main.dust[dust].velocity = new Vector2(i / 7, 0);
 				}
-				Projectile.NewProjectile(player.Center.X, player.Center.Y, 2 * player.direction, 0, mod.ProjectileType("DesertBurrow"), 8, 0, Main.myPlayer, 0, 0);
-           		Main.PlaySound(SoundID.NPCHit11, player.Center);
+				Projectile.NewProjectile(new ProjectileSource_Item(Player, carapaceSet), Player.Center.X, Player.Center.Y, 2 * Player.direction, 0, ModContent.ProjectileType<DesertBurrow>(), 8, 0, Main.myPlayer, 0, 0);
+				PlaySound(SoundID.NPCHit11, Player.Center);
 				poundTime = 0;
-            }
-			//velocityPos = (player.velocity.Y > 0);
+			}
+			//velocityPos = (Player.velocity.Y > 0);
 			{
 				{
 					{
 						if (terraTime > 0)
 						{
-							player.statDefense += 15;
-							player.thrownDamage += 0.08f;
-							player.meleeDamage += 0.08f;
-							player.minionDamage += 0.08f;
-							player.magicDamage += 0.08f;
-							player.rangedDamage += 0.08f;
-							player.moveSpeed += 0.25f;
+							Player.statDefense += 15;
+							//Player.thrownDamage += 0.08f;
+							Player.GetDamage(DamageClass.Melee) += 0.08f;
+							Player.GetDamage(DamageClass.Summon) += 0.08f;
+							Player.GetDamage(DamageClass.Magic) += 0.08f;
+							Player.GetDamage(DamageClass.Ranged) += 0.08f;
+							Player.moveSpeed += 0.25f;
 						}
 						if (ferocityTime > 0)
 						{
-							player.statDefense += 5;
-							player.thrownDamage += 0.05f;
-							player.meleeDamage += 0.05f;
-							player.minionDamage += 0.05f;
-							player.magicDamage += 0.05f;
-							player.rangedDamage += 0.05f;
-							player.moveSpeed += 0.20f;
+							Player.statDefense += 5;
+							//Player.thrownDamage += 0.05f;
+							Player.GetDamage(DamageClass.Melee) += 0.05f;
+							Player.GetDamage(DamageClass.Summon) += 0.05f;
+							Player.GetDamage(DamageClass.Magic) += 0.05f;
+							Player.GetDamage(DamageClass.Ranged) += 0.05f;
+							Player.moveSpeed += 0.20f;
 						}
 						SporeHealCooldown--;
 						if (SporeHealCooldown <= 0)
 						{
-							if (sporeBuffCount > 0 && player.active && !player.dead)
+							if (sporeBuffCount > 0 && Player.active && !Player.dead)
 							{
 								if (sporeBuffCount > 6)
 									sporeBuffCount = 6;
-								player.statLife += sporeBuffCount;
-								player.HealEffect(sporeBuffCount);
+								Player.statLife += sporeBuffCount;
+								Player.HealEffect(sporeBuffCount);
 							}
 							SporeHealCooldown = 120;
 						}
@@ -688,84 +709,84 @@ namespace Emperia
 			}
 			if (fastFallLength > 0)
 			{
-				player.maxFallSpeed = 20f;
+				Player.maxFallSpeed = 20f;
 				fastFallLength--;
 			}
 		}
-		
-       
 
-        public override void UpdateBadLifeRegen()
-        {
-          
-        }
+
+
+		public override void UpdateBadLifeRegen()
+		{
+
+		}
 		public override void OnRespawn(Player player)
 		{
 			if (EmperialWorld.respawnFull)
-            {
-				player.statLife = player.statLifeMax2;
-				player.statMana = player.statManaMax2;
-				
+			{
+				Player.statLife = Player.statLifeMax2;
+				Player.statMana = Player.statManaMax2;
+
 			}
 		}
 		public override void Hurt(bool pvp, bool quiet, double damage, int hitDirection, bool crit)
 		{
 			graniteTime = 0;
-			if (terraGauntlet)
+			if (terraGauntlet != null)
 				terraTime = 180;
 			for (int i = 0; i < Main.projectile.Length; i++)
-            {
-				if (Main.projectile[i].type == mod.ProjectileType("Needle") || Main.projectile[i].type == mod.ProjectileType("HauntedRevolver"))
+			{
+				if (Main.projectile[i].type == ModContent.ProjectileType<Needle>() || Main.projectile[i].type == ModContent.ProjectileType<HauntedRevolver>())
 					Main.projectile[i].Kill();
 			}
 			if (thermalGauntlet)
-            {
-                Vector2 placePosition = player.Center + new Vector2(Main.rand.Next(-100, 100), -500);
-                Vector2 direction = player.Center - placePosition;
-                int p = Projectile.NewProjectile(placePosition.X, placePosition.Y, direction.X * 12f, direction.Y * 12f, ProjectileID.Meteor1, 60, 1, Main.myPlayer, 0, 0);
-                Main.projectile[p].friendly = true;
-                Main.projectile[p].hostile = false;
-                Main.projectile[p].scale = 0.7f;
-            }
-			if (player.HasBuff(mod.BuffType("Bloodstained")))
+			{
+				Vector2 placePosition = Player.Center + new Vector2(Main.rand.Next(-100, 100), -500);
+				Vector2 direction = Player.Center - placePosition;
+				int p = Projectile.NewProjectile(Player.GetProjectileSource_Accessory(terraGauntlet), placePosition.X, placePosition.Y, direction.X * 12f, direction.Y * 12f, ProjectileID.Meteor1, 60, 1, Main.myPlayer, 0, 0);
+				Main.projectile[p].friendly = true;
+				Main.projectile[p].hostile = false;
+				Main.projectile[p].scale = 0.7f;
+			}
+			if (Player.HasBuff(ModContent.BuffType<Bloodstained>()))
 			{
 				bloodstainedDmg = (int)damage;
-				player.AddBuff(mod.BuffType("Bloodstained2"), 600);
-				player.ClearBuff(mod.BuffType("Bloodstained"));
+				Player.AddBuff(ModContent.BuffType<Bloodstained2>(), 600);
+				Player.ClearBuff(ModContent.BuffType<Bloodstained>());
 			}
-			else if (player.HasBuff(mod.BuffType("Bloodstained2")))
+			/*else if (Player.HasBuff(ModContent.BuffType<Bloodstained2>()))
 			{
 				bloodstainedDmg = 0;
-				player.ClearBuff(mod.BuffType("Bloodstained2"));
-			}
+				Player.ClearBuff(ModContent.BuffType<Bloodstained2>());
+			}*/ //nerf for bloodstained gauntlet, could also make it reduce the buff timer
 		}
-		public override void ModifyHitNPC (Item item, NPC target, ref int damage, ref float knockback, ref bool crit)
+		public override void ModifyHitNPC(Item Item, NPC target, ref int damage, ref float knockback, ref bool crit)
 		{
 			if (gauntletBonus > 0)
 			{
 				double itemLength = Math.Sqrt(swordHitbox.Width * swordHitbox.Width + swordHitbox.Height * swordHitbox.Height) * 0.85 - 5f; //makes bonus damage not op at tip
 				Vector2 closestPoint = target.Center;
-				if ((target.Center.Y - target.height / 4) > player.Center.Y)
-					{
-						closestPoint.Y = target.Top.Y;
-					}
-				else if ((target.Center.Y + target.height / 4) < player.Center.Y)
-					{
-						closestPoint.Y = target.Bottom.Y;
-					}
-				if ((target.Center.X - target.width / 4) > player.Center.X)
-					{
-						closestPoint.X = target.Left.X;
-					}
-				else if ((target.Center.X + target.width / 4) < player.Center.X)
-					{
-						closestPoint.X = target.Right.X;
-					}
-					double distance = Vector2.Distance(player.Center, closestPoint);
-					double distanceMult = (itemLength - distance) / itemLength; 
-					//Main.NewText((((distanceMult > .65f) ? .65f : distanceMult) + .35f).ToString());
-					//Main.NewText(Vector2.Distance(player.Center, closestPoint).ToString());
-					double damageMult = gauntletBonus * (((distanceMult > .65f) ? .65f : distanceMult) + .35f); //caps damage multiplier at 65% distance
+				if ((target.Center.Y - target.height / 4) > Player.Center.Y)
+				{
+					closestPoint.Y = target.Top.Y;
+				}
+				else if ((target.Center.Y + target.height / 4) < Player.Center.Y)
+				{
+					closestPoint.Y = target.Bottom.Y;
+				}
+				if ((target.Center.X - target.width / 4) > Player.Center.X)
+				{
+					closestPoint.X = target.Left.X;
+				}
+				else if ((target.Center.X + target.width / 4) < Player.Center.X)
+				{
+					closestPoint.X = target.Right.X;
+				}
+				double distance = Vector2.Distance(Player.Center, closestPoint);
+				double distanceMult = (itemLength - distance) / itemLength;
+				//Main.NewText((((distanceMult > .65f) ? .65f : distanceMult) + .35f).ToString());
+				//Main.NewText(Vector2.Distance(Player.Center, closestPoint).ToString());
+				double damageMult = gauntletBonus * (((distanceMult > .65f) ? .65f : distanceMult) + .35f); //caps damage multiplier at 65% distance
 				{
 					if ((target.width + target.height / 2) > 48) //this is for big enemies or bosses
 					{
@@ -780,18 +801,18 @@ namespace Emperia
 			}
 			if (slightKnockback)
 			{
-				knockback *= 1.1f;	
+				knockback *= 1.1f;
 			}
-            if (item.type == mod.ItemType("LifesFate") && renewedLife)
-            {
-                damage = (int) ((float) damage * 1.15f);
-            }
-			
-            if (doubleKnockback)
-            {
-                knockback *= 2f;
-            }
-			if ((ferocityGauntlet || terraGauntlet) && Main.rand.Next(10) == 0)
+			if (Item.type == ModContent.ItemType<LifesFate>() && renewedLife)
+			{
+				damage = (int)((float)damage * 1.15f);
+			}
+
+			if (doubleKnockback)
+			{
+				knockback *= 2f;
+			}
+			if ((ferocityGauntlet || terraGauntlet != null) && Main.rand.Next(10) == 0)
 				damage *= 2;
 			if (crit && rougeRage)
 			{
@@ -801,30 +822,31 @@ namespace Emperia
 			{
 				damage = damage += ((damage * 13) / 100);
 			}
-        }
-		public override void OnHitNPC (Item item, NPC target, int damage, float knockback, bool crit)
+		}
+		public override void OnHitNPC(Item Item, NPC target, int damage, float knockback, bool crit)
 		{
-			if (target.life <= 0 && terraGauntlet)
-            {
-                for (int i = 0; i < Main.rand.Next(3, 6); i++)
-			    {
-                    Vector2 perturbedSpeed = new Vector2(0, 4).RotatedByRandom(MathHelper.ToRadians(360));
-                    int p = Projectile.NewProjectile(target.Center.X, target.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, mod.ProjectileType("TerraBoltHost"), 75, 1, Main.myPlayer, 0, 0);
-               }
-            }
+			if (target.life <= 0 && terraGauntlet != null)
+			{
+				//Item item = this.terraGauntletItem;
+				for (int i = 0; i < Main.rand.Next(3, 6); i++)
+				{
+					Vector2 perturbedSpeed = new Vector2(0, 4).RotatedByRandom(MathHelper.ToRadians(360));
+					int p = Projectile.NewProjectile(Player.GetProjectileSource_Accessory(terraGauntlet), target.Center.X, target.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, ModContent.ProjectileType<Projectiles.TerraG.TerraBoltHost>(), 75, 1, Main.myPlayer, 0, 0);
+				}
+			}
 			if (floralGauntlet && Main.rand.Next(20) == 0)
 			{
 				int lifeToHeal = damage;
 				if (lifeToHeal > 25)
 					lifeToHeal = 25;
-				player.statLife += lifeToHeal;
-				player.HealEffect(lifeToHeal);
+				Player.statLife += lifeToHeal;
+				Player.HealEffect(lifeToHeal);
 			}
 			if (ferocityGauntlet)
 			{
 				ferocityTime = 180;
 			}
-			if (crit && target.life <= 0 && deathTalisman && !target.HasBuff(mod.BuffType("FatesDemise")))
+			if (crit && target.life <= 0 && deathTalisman && !target.HasBuff(ModContent.BuffType<FatesDemise>()))
 			{
 				int damage1 = 0;
 				if (target.lifeMax > 1500)
@@ -838,216 +860,222 @@ namespace Emperia
 				for (int i = 0; i < 6; i++)
 				{
 					Vector2 perturbedSpeed = new Vector2(4, 4).RotatedByRandom(MathHelper.ToRadians(360));
-					Projectile.NewProjectile(target.Center.X, target.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, mod.ProjectileType("FatesFlames"), damage1, 1, Main.myPlayer, 0, 0);
-					Main.PlaySound(SoundID.NPCDeath52, target.Center);
+					Projectile.NewProjectile(Player.GetProjectileSource_Accessory(terraGauntlet), target.Center.X, target.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, ModContent.ProjectileType<FatesFlames>(), damage1, 1, Main.myPlayer, 0, 0);
+					PlaySound(SoundID.NPCDeath52, target.Center);
 				}
 			}
 			if (breakingPoint)
 			{
-				target.AddBuff(BuffID.OnFire,240);
+				target.AddBuff(BuffID.OnFire, 240);
 			}
-            if (meteorGauntlet)
-            {
-                target.AddBuff(BuffID.OnFire, 120);
-                if (Main.rand.Next(3) == 0)
-                {
-                    Vector2 placePosition = target.Center + new Vector2(Main.rand.Next(-100, 100), -500);
-                    Vector2 direction = target.Center - placePosition;
-                    int p = Projectile.NewProjectile(placePosition.X, placePosition.Y, direction.X * 12f, direction.Y * 12f, ProjectileID.Meteor1, 30, 1, Main.myPlayer, 0, 0);
-                    Main.projectile[p].friendly = true;
-                    Main.projectile[p].hostile = false;
-                    Main.projectile[p].scale = 0.7f;
-                }
-            }
+			if (meteorGauntlet)
+			{
+				target.AddBuff(BuffID.OnFire, 120);
+				if (Main.rand.Next(3) == 0)
+				{
+					Vector2 placePosition = target.Center + new Vector2(Main.rand.Next(-100, 100), -500);
+					Vector2 direction = target.Center - placePosition;
+					int p = Projectile.NewProjectile(Player.GetProjectileSource_Accessory(terraGauntlet), placePosition.X, placePosition.Y, direction.X * 12f, direction.Y * 12f, ProjectileID.Meteor1, 30, 1, Main.myPlayer, 0, 0);
+					Main.projectile[p].friendly = true;
+					Main.projectile[p].hostile = false;
+					Main.projectile[p].scale = 0.7f;
+				}
+			}
 			if (thermalGauntlet)
 			{
 				if (target.life <= 0)
-                {
-                    for (int i = 0; i < Main.rand.Next(3, 6); i++)
-                    {
+				{
+					for (int i = 0; i < Main.rand.Next(3, 6); i++)
+					{
 						int type = 0;
 						int x = Main.rand.Next(2);
-						if (x == 0) type = mod.ProjectileType("ThermalBoltCold");
-						if (x == 1) type = mod.ProjectileType("ThermalBoltHot");
-                        Vector2 perturbedSpeed = new Vector2(0, 4).RotatedByRandom(MathHelper.ToRadians(360));
-                        int p = Projectile.NewProjectile(target.Center.X, target.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, type, 20, 1, Main.myPlayer, 0, 0);
-                    }
-                }
-                else
-                {
+						if (x == 0) type = ModContent.ProjectileType<ThermalBoltCold>();
+						if (x == 1) type = ModContent.ProjectileType<ThermalBoltHot>();
+						Vector2 perturbedSpeed = new Vector2(0, 4).RotatedByRandom(MathHelper.ToRadians(360));
+						int p = Projectile.NewProjectile(Player.GetProjectileSource_Accessory(terraGauntlet), target.Center.X, target.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, type, 20, 1, Main.myPlayer, 0, 0);
+					}
+				}
+				else
+				{
 					target.AddBuff(BuffID.OnFire, 180);
 					target.AddBuff(BuffID.Frostburn, 180);
-                    if (Main.rand.NextBool(7) && !target.boss)
-                    {
-                        target.AddBuff(mod.BuffType("Frozen"), 120);
-                    }
-                }
+					if (Main.rand.NextBool(7) && !target.boss)
+					{
+						target.AddBuff(ModContent.BuffType<Frozen>(), 120);
+					}
+				}
 			}
-			if (terraGauntlet)
+			if (terraGauntlet != null)
 			{
 				target.AddBuff(BuffID.OnFire, 180);
 				target.AddBuff(BuffID.Frostburn, 180);
 				target.AddBuff(BuffID.ShadowFlame, 180);
-				
+
 			}
-            if (frostGauntlet)
-            {
-                if (target.life <= 0)
-                {
-                    for (int i = 0; i < Main.rand.Next(2, 4); i++)
-                    {
-                        Vector2 perturbedSpeed = new Vector2(0, 4).RotatedByRandom(MathHelper.ToRadians(360));
-                        int p = Projectile.NewProjectile(target.Center.X, target.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, mod.ProjectileType("IceShard2"), 20, 1, Main.myPlayer, 0, 0);
-                    }
-                }
-                else
-                {
-                    if (Main.rand.NextBool(10) && !target.boss)
-                    {
-                        target.AddBuff(mod.BuffType("Frozen"), 120);
-                    }
-                }
-            }
+			if (frostGauntlet)
+			{
+				if (target.life <= 0)
+				{
+					for (int i = 0; i < Main.rand.Next(2, 4); i++)
+					{
+						Vector2 perturbedSpeed = new Vector2(0, 4).RotatedByRandom(MathHelper.ToRadians(360));
+						int p = Projectile.NewProjectile(Player.GetProjectileSource_Accessory(terraGauntlet), target.Center.X, target.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, ModContent.ProjectileType<IceShard2>(), 20, 1, Main.myPlayer, 0, 0);
+					}
+				}
+				else
+				{
+					if (Main.rand.NextBool(10) && !target.boss)
+					{
+						target.AddBuff(ModContent.BuffType<Frozen>(), 120);
+					}
+				}
+			}
 			if (woodGauntlet)
 			{
-				Vector2 rotVector = target.Center - player.Center;
+				Vector2 rotVector = target.Center - Player.Center;
 				if (Main.rand.Next(6 + (30 / damage)) == 0)
 				{
 					rotVector.Normalize();
-					Projectile.NewProjectile(player.Center.X, player.Center.Y, rotVector.X * 10f, rotVector.Y * 10f, mod.ProjectileType("Splinter"), 8, knockback, Main.myPlayer, 0, 0);
+					Projectile.NewProjectile(Player.GetProjectileSource_Accessory(terraGauntlet), Player.Center.X, Player.Center.Y, rotVector.X * 10f, rotVector.Y * 10f, ModContent.ProjectileType<Splinter>(), 8, knockback, Main.myPlayer, 0, 0);
 				}
 			}
-			if (gelGauntlet > 0 && target.knockBackResist == 0f && !item.GetGlobalItem<GItem>().noGelGauntlet)
+			if (gelGauntlet > 0 && target.knockBackResist == 0f && !Item.GetGlobalItem<GItem>().noGelGauntlet)
 			{
 				Vector2 closestPoint = target.Center;
-				if ((target.Center.Y - target.height / 4) > player.Center.Y)
-					{
-						closestPoint.Y = target.Top.Y;
-					}
-				else if ((target.Center.Y + target.height / 4) < player.Center.Y)
-					{
-						closestPoint.Y = target.Bottom.Y;
-					}
-				if ((target.Center.X - target.width / 4) > player.Center.X)
-					{
-						closestPoint.X = target.Left.X;
-					}
-				else if ((target.Center.X + target.width / 4) < player.Center.X)
-					{
-						closestPoint.X = target.Right.X;
-					}
-				float distance = Vector2.Distance(player.Center, closestPoint);
-				Vector2 direction = player.Center - target.Center;
+				if ((target.Center.Y - target.height / 4) > Player.Center.Y)
+				{
+					closestPoint.Y = target.Top.Y;
+				}
+				else if ((target.Center.Y + target.height / 4) < Player.Center.Y)
+				{
+					closestPoint.Y = target.Bottom.Y;
+				}
+				if ((target.Center.X - target.width / 4) > Player.Center.X)
+				{
+					closestPoint.X = target.Left.X;
+				}
+				else if ((target.Center.X + target.width / 4) < Player.Center.X)
+				{
+					closestPoint.X = target.Right.X;
+				}
+				float distance = Vector2.Distance(Player.Center, closestPoint);
+				Vector2 direction = Player.Center - target.Center;
 				direction.Normalize();
 				Vector2 oldSpeedFactor = Vector2.Zero;
-				if (player.velocity.X > 7f) oldSpeedFactor.X = 7f;
-				else if (player.velocity.X < -7f) oldSpeedFactor.X = -7f;
-				else oldSpeedFactor.X = player.velocity.X;
-				if (player.velocity.Y > 7f) oldSpeedFactor.Y = 7f;
-				else if (player.velocity.Y < -7f) oldSpeedFactor.Y = -7f;
-				else oldSpeedFactor.Y = player.velocity.Y;
-				player.velocity.Y = (direction.Y * gelGauntlet) + oldSpeedFactor.Y / 2;
-				player.velocity.X = (direction.X * (7f - (distance / 100)) * gelGauntlet) + oldSpeedFactor.X / 2;
+				if (Player.velocity.X > 7f) oldSpeedFactor.X = 7f;
+				else if (Player.velocity.X < -7f) oldSpeedFactor.X = -7f;
+				else oldSpeedFactor.X = Player.velocity.X;
+				if (Player.velocity.Y > 7f) oldSpeedFactor.Y = 7f;
+				else if (Player.velocity.Y < -7f) oldSpeedFactor.Y = -7f;
+				else oldSpeedFactor.Y = Player.velocity.Y;
+				Player.velocity.Y = (direction.Y * gelGauntlet) + oldSpeedFactor.Y / 2;
+				Player.velocity.X = (direction.X * (7f - (distance / 100)) * gelGauntlet) + oldSpeedFactor.X / 2;
 
 
-				//player.velocity.Y = direction.Y * gelGauntlet;
-				//player.velocity.X = direction.X * (7f - (distance / 100)) * gelGauntlet;
-				
+				//Player.velocity.Y = direction.Y * gelGauntlet;
+				//Player.velocity.X = direction.X * (7f - (distance / 100)) * gelGauntlet;
+
 				//old formula, doesn't calculate for disance
-				/*Vector2 direction = player.Center - target.Center;
+				/*Vector2 direction = Player.Center - target.Center;
 				direction.Normalize();
-				player.velocity.Y = direction.Y;
+				Player.velocity.Y = direction.Y;
 				float minimumSpeed = 2f;
 				if (direction.X < 0) { minimumSpeed = -2f; }
-				player.velocity.X = direction.X * (5f) + minimumSpeed;
+				Player.velocity.X = direction.X * (5f) + minimumSpeed;
 				*/
 			}
 			if (metalGauntlet)
 			{
-			    player.AddBuff(mod.BuffType("AlloyArmor"), 90);	
+				Player.AddBuff(ModContent.BuffType<AlloyArmor>(), 90);
 			}
 			if (magicGauntlet)
 			{
-				if (Main.rand.Next(8 + (60 / damage)) == 0 || target.life <= 0 && Main.rand.Next(3)== 0) { //chance based on damage and if the attack killed
+				if (Main.rand.Next(8 + (60 / damage)) == 0 || target.life <= 0 && Main.rand.Next(3) == 0)
+				{ //chance based on damage and if the attack killed
 					NPC chosenNPC = target;
-					for (int k = 0; k < 200; k++) {
-						NPC npc = Main.npc[k];
-						if (npc.CanBeChasedBy(player, false)) {
-							float distance = Vector2.Distance(npc.Center, player.Center);
-							if (distance < 400 && chosenNPC == target || distance < 400 && npc.life > chosenNPC.life && npc != target) { //finds the highest hp enemy besides the target
-								chosenNPC = npc;	
+					for (int k = 0; k < 200; k++)
+					{
+						NPC NPC = Main.npc[k];
+						if (NPC.CanBeChasedBy(Player, false))
+						{
+							float distance = Vector2.Distance(NPC.Center, Player.Center);
+							if (distance < 400 && chosenNPC == target || distance < 400 && NPC.life > chosenNPC.life && NPC != target)
+							{ //finds the highest hp enemy besides the target
+								chosenNPC = NPC;
 							}
 						}
 						if (k == 199 && chosenNPC != target)
 						{
 							float xPosition = chosenNPC.Left.X - 30f;
 							float projDirection = 0.1f;
-							if (chosenNPC.Center.X < player.Center.X) {
+							if (chosenNPC.Center.X < Player.Center.X)
+							{
 								xPosition = chosenNPC.Right.X + 30f;
 								projDirection = -0.1f;
 							}
-							Projectile.NewProjectile(xPosition, chosenNPC.Center.Y - 35f, projDirection, 0, mod.ProjectileType("EnchantedBlade"), 40, 4f, player.whoAmI);
-							Main.PlaySound(SoundID.Item, chosenNPC.Center, 8);  		
+							Projectile.NewProjectile(Player.GetProjectileSource_Accessory(terraGauntlet), xPosition, chosenNPC.Center.Y - 35f, projDirection, 0, ModContent.ProjectileType<EnchantedBlade>(), 40, 4f, Player.whoAmI);
+							PlaySound(SoundID.Item, chosenNPC.Center, 8);
 						}
 					}
 				}
 			}
-			if (boneGauntlet && !player.HasBuff(mod.BuffType("SkullBuff")))
+			if (boneGauntlet && !Player.HasBuff(ModContent.BuffType<SkullBuff>()))
 			{
 				if (Main.rand.Next(30 + (160 / damage)) == 0)
 				{
-					Projectile.NewProjectile(player.Center.X, player.Center.Y, 0, 0, mod.ProjectileType("GauntletSkull"), 0, 4f, player.whoAmI);
-					player.AddBuff(mod.BuffType("SkullBuff"), 1200);
-					Main.PlaySound(SoundID.Item8, player.Center);
+					Projectile.NewProjectile(Player.GetProjectileSource_Accessory(terraGauntlet), Player.Center.X, Player.Center.Y, 0, 0, ModContent.ProjectileType<GauntletSkull>(), 0, 4f, Player.whoAmI);
+					Player.AddBuff(ModContent.BuffType<SkullBuff>(), 1200);
+					PlaySound(SoundID.Item8, Player.Center);
 				}
 			}
-			if (bloodGauntlet && !player.HasBuff(mod.BuffType("Bloodstained")) && !player.HasBuff(mod.BuffType("Bloodstained2")))
+			if (bloodGauntlet && !Player.HasBuff(ModContent.BuffType<Bloodstained>()) && !Player.HasBuff(ModContent.BuffType<Bloodstained2>()))
 			{
 				if (Main.rand.Next(25 + (240 / damage)) == 0) //this can somehow sometimes divide by zero? i dont see how onhit can activate if damage is 0
 				{
-					player.AddBuff(mod.BuffType("Bloodstained"), 1200);
-					Main.PlaySound(SoundID.Item8, player.Center);
+					Player.AddBuff(ModContent.BuffType<Bloodstained>(), 1200);
+					PlaySound(SoundID.Item8, Player.Center);
 				}
-			}	
-			if (bloodGauntlet && player.HasBuff(mod.BuffType("Bloodstained2")))
+			}
+			if (bloodGauntlet && Player.HasBuff(ModContent.BuffType<Bloodstained2>()))
 			{
 				if (bloodstainedDmg >= damage / 2)
 				{
-					player.statLife += damage / 2;
-                	player.HealEffect(damage / 2);
+					Player.statLife += damage / 2;
+					Player.HealEffect(damage / 2);
 					bloodstainedDmg -= damage / 2;
 				}
-				else 
+				else
 				{
-					player.statLife += bloodstainedDmg;
-                	player.HealEffect(bloodstainedDmg);
-					bloodstainedDmg	= 0;
-					player.ClearBuff(mod.BuffType("Bloodstained2"));
-					Main.PlaySound(SoundID.Item28, player.Center);
+					Player.statLife += bloodstainedDmg;
+					Player.HealEffect(bloodstainedDmg);
+					bloodstainedDmg = 0;
+					Player.ClearBuff(ModContent.BuffType<Bloodstained2>());
+					PlaySound(SoundID.Item28, Player.Center);
 				}
 
-			}			
-            if (crit && item.type == mod.ItemType("LifesFate"))
-            {
-                player.AddBuff(mod.BuffType("LifesFateBuff"), Main.rand.Next(840, 960));
-            }
-            if (item.type == mod.ItemType("LifesFate") && renewedLife)
-            {
-                int x = Main.rand.Next(1, 3);
-                player.statLife += x;
-                player.HealEffect(x);
-            }
+			}
+			if (crit && Item.type == ModContent.ItemType<LifesFate>())
+			{
+				Player.AddBuff(ModContent.BuffType<LifesFateBuff>(), Main.rand.Next(840, 960));
+			}
+			if (Item.type == ModContent.ItemType<LifesFate>() && renewedLife)
+			{
+				int x = Main.rand.Next(1, 3);
+				Player.statLife += x;
+				Player.HealEffect(x);
+			}
 			if (crit && deathTalisman)
 			{
-				target.AddBuff(mod.BuffType("FatesDemise"), 720);
+				target.AddBuff(ModContent.BuffType<FatesDemise>(), 720);
+				target.GetGlobalNPC<MyNPC>().fateSource = Player;
 			}
-			if (defenseInsignia)
+            if (defenseInsignia)
 			{
 				int increasedChance = damage / 50;
 				if (increasedChance > 8) increasedChance = 8;
 				if (Main.rand.NextFloat(80) <= (2 + increasedChance))
 				{
-					Item.NewItem((int)target.position.X, (int)target.position.Y, target.width, target.height, mod.ItemType("ProtectiveEnergy"));
+					Item.NewItem((int)target.position.X, (int)target.position.Y, target.width, target.height, ModContent.ItemType<ProtectiveEnergy>());
 				}
 			}
 			if (crit && sporeFriend && Main.rand.NextBool(3))
@@ -1056,53 +1084,53 @@ namespace Emperia
 				{
 					for (int i = 0; i < 6; i++)
 					{
-						Projectile.NewProjectile(player.Center.X, player.Center.Y, 0, 0, mod.ProjectileType("HelpfulSpore"), 30, 0, player.whoAmI, ai1: i);
+						Projectile.NewProjectile(Player.GetProjectileSource_Accessory(terraGauntlet), Player.Center.X, Player.Center.Y, 0, 0, ModContent.ProjectileType<HelpfulSpore>(), 30, 0, Player.whoAmI, ai1: i);
 						sporeCount++;
 					}
 				}
-				player.AddBuff(mod.BuffType("Spored"), 2);
-				
+				Player.AddBuff(ModContent.BuffType<Spored>(), 2);
+
 			}
-			if (goblinSet) player.AddBuff(mod.BuffType("GoblinsCelerity"), 180);
+			if (goblinSet) Player.AddBuff(ModContent.BuffType<GoblinsCelerity>(), 180);
 		}
-		public override void OnHitNPCWithProj (Projectile projectile, NPC target, int damage, float knockback, bool crit)
+		public override void OnHitNPCWithProj(Projectile Projectile, NPC target, int damage, float knockback, bool crit)
 		{
-			if (projectile.magic && forestSetMage && Main.rand.Next(10) == 0)
+			if (Projectile.CountsAsClass(DamageClass.Magic) && forestSetMage && Main.rand.Next(10) == 0)
 			{
 				primalRageTime = 600;
 			}
 			if (breakingPoint)
 			{
-				target.AddBuff(BuffID.OnFire,240);
+				target.AddBuff(BuffID.OnFire, 240);
 			}
-			if (terraGauntlet)
+			if (terraGauntlet != null)
 			{
 				target.AddBuff(BuffID.OnFire, 180);
 				target.AddBuff(BuffID.Frostburn, 180);
 				target.AddBuff(BuffID.ShadowFlame, 180);
-				
+
 			}
 			if (floralGauntlet && Main.rand.Next(20) == 0)
 			{
 				int lifeToHeal = damage;
 				if (lifeToHeal > 25)
 					lifeToHeal = 25;
-				player.statLife += lifeToHeal;
-				player.HealEffect(lifeToHeal);
+				Player.statLife += lifeToHeal;
+				Player.HealEffect(lifeToHeal);
 			}
-			if (target.life <= 0 && terraGauntlet)
-            {
-                for (int i = 0; i < Main.rand.Next(3, 6); i++)
-			    {
-                    Vector2 perturbedSpeed = new Vector2(0, 4).RotatedByRandom(MathHelper.ToRadians(360));
-                    int p = Projectile.NewProjectile(target.Center.X, target.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, mod.ProjectileType("TerraBoltHost"), 75, 1, Main.myPlayer, 0, 0);
-               }
-            }
+			if (target.life <= 0 && terraGauntlet != null)
+			{
+				for (int i = 0; i < Main.rand.Next(3, 6); i++)
+				{
+					Vector2 perturbedSpeed = new Vector2(0, 4).RotatedByRandom(MathHelper.ToRadians(360));
+					int p = Projectile.NewProjectile(Player.GetProjectileSource_Accessory(terraGauntlet), target.Center.X, target.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, ModContent.ProjectileType<Projectiles.TerraG.TerraBoltHost>(), 75, 1, Main.myPlayer, 0, 0);
+				}
+			}
 			if (ferocityGauntlet)
 			{
 				ferocityTime = 180;
 			}
-			if (crit && target.life <= 0 && deathTalisman && !target.HasBuff(mod.BuffType("FatesDemise")))
+			if (crit && target.life <= 0 && deathTalisman && !target.HasBuff(ModContent.BuffType<FatesDemise>()))
 			{
 				int damage1 = 0;
 				if (target.lifeMax > 1500)
@@ -1116,68 +1144,69 @@ namespace Emperia
 				for (int i = 0; i < 6; i++)
 				{
 					Vector2 perturbedSpeed = new Vector2(4, 4).RotatedByRandom(MathHelper.ToRadians(360));
-					Projectile.NewProjectile(target.Center.X, target.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, mod.ProjectileType("FatesFlames"), damage1, 1, Main.myPlayer, 0, 0);
-					Main.PlaySound(SoundID.NPCDeath52, target.Center);
+					Projectile.NewProjectile(Player.GetProjectileSource_Accessory(terraGauntlet), target.Center.X, target.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, ModContent.ProjectileType<FatesFlames>(), damage1, 1, Main.myPlayer, 0, 0);
+					PlaySound(SoundID.NPCDeath52, target.Center);
 				}
 			}
-            if (meteorGauntlet)
-            {
-                target.AddBuff(BuffID.OnFire, 120);
-                if (Main.rand.Next(3) == 0)
-                {
-                    Vector2 placePosition = target.Center + new Vector2(Main.rand.Next(-100, 100), -500);
-                    Vector2 direction = target.Center - placePosition;
-                    int p = Projectile.NewProjectile(placePosition.X, placePosition.Y, direction.X * 12f, direction.Y * 12f, ProjectileID.Meteor1, 30, 1, Main.myPlayer, 0, 0);
-                    Main.projectile[p].friendly = true;
-                    Main.projectile[p].hostile = false;
-                    Main.projectile[p].scale = 0.7f;
-                }
-            }
-            if (frostGauntlet)
-            {
-                if (target.life <= 0)
-                {
-                    for (int i = 0; i < Main.rand.Next(2, 4); i++)
-                    {
-                        Vector2 perturbedSpeed = new Vector2(0, 6).RotatedByRandom(MathHelper.ToRadians(360));
-                        int p = Projectile.NewProjectile(target.Center.X, target.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, mod.ProjectileType("IceShard2"), 20, 1, Main.myPlayer, 0, 0);
-                    }
-                }
-                else
-                {
-                    if (Main.rand.NextBool(10) && !target.boss)
-                    {
-                        target.AddBuff(mod.BuffType("Frozen"), 120);
-                    }
-                }
-            }
+			if (meteorGauntlet)
+			{
+				target.AddBuff(BuffID.OnFire, 120);
+				if (Main.rand.Next(3) == 0)
+				{
+					Vector2 placePosition = target.Center + new Vector2(Main.rand.Next(-100, 100), -500);
+					Vector2 direction = target.Center - placePosition;
+					int p = Projectile.NewProjectile(Player.GetProjectileSource_Accessory(terraGauntlet), placePosition.X, placePosition.Y, direction.X * 12f, direction.Y * 12f, ProjectileID.Meteor1, 30, 1, Main.myPlayer, 0, 0);
+					Main.projectile[p].friendly = true;
+					Main.projectile[p].hostile = false;
+					Main.projectile[p].scale = 0.7f;
+				}
+			}
+			if (frostGauntlet)
+			{
+				if (target.life <= 0)
+				{
+					for (int i = 0; i < Main.rand.Next(2, 4); i++)
+					{
+						Vector2 perturbedSpeed = new Vector2(0, 6).RotatedByRandom(MathHelper.ToRadians(360));
+						int p = Projectile.NewProjectile(Player.GetProjectileSource_Accessory(terraGauntlet), target.Center.X, target.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, ModContent.ProjectileType<IceShard2>(), 20, 1, Main.myPlayer, 0, 0);
+					}
+				}
+				else
+				{
+					if (Main.rand.NextBool(10) && !target.boss)
+					{
+						target.AddBuff(ModContent.BuffType<Frozen>(), 120);
+					}
+				}
+			}
 			if (thermalGauntlet)
 			{
 				if (target.life <= 0)
-                {
-                    for (int i = 0; i < Main.rand.Next(3, 6); i++)
-                    {
+				{
+					for (int i = 0; i < Main.rand.Next(3, 6); i++)
+					{
 						int type = 0;
 						int x = Main.rand.Next(2);
-						if (x == 0) type = mod.ProjectileType("ThermalBoltCold");
-						if (x == 1) type = mod.ProjectileType("ThermalBoltHot");
-                        Vector2 perturbedSpeed = new Vector2(0, 4).RotatedByRandom(MathHelper.ToRadians(360));
-                        int p = Projectile.NewProjectile(target.Center.X, target.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, type, 20, 1, Main.myPlayer, 0, 0);
-                    }
-                }
-                else
-                {
+						if (x == 0) type = ModContent.ProjectileType<ThermalBoltCold>();
+						if (x == 1) type = ModContent.ProjectileType<ThermalBoltHot>();
+						Vector2 perturbedSpeed = new Vector2(0, 4).RotatedByRandom(MathHelper.ToRadians(360));
+						int p = Projectile.NewProjectile(Player.GetProjectileSource_Accessory(terraGauntlet), target.Center.X, target.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, type, 20, 1, Main.myPlayer, 0, 0);
+					}
+				}
+				else
+				{
 					target.AddBuff(BuffID.OnFire, 180);
 					target.AddBuff(BuffID.Frostburn, 180);
-                    if (Main.rand.NextBool(7) && !target.boss)
-                    {
-                        target.AddBuff(mod.BuffType("Frozen"), 120);
-                    }
-                }
+					if (Main.rand.NextBool(7) && !target.boss)
+					{
+						target.AddBuff(ModContent.BuffType<Frozen>(), 120);
+					}
+				}
 			}
 			if (crit && deathTalisman)
 			{
-				target.AddBuff(mod.BuffType("FatesDemise"), 720);
+				target.AddBuff(ModContent.BuffType<FatesDemise>(), 720);
+				target.GetGlobalNPC<MyNPC>().fateSource = Player;
 			}
 			if (defenseInsignia)
 			{
@@ -1185,7 +1214,7 @@ namespace Emperia
 				if (increasedChance > 9) increasedChance = 9;
 				if (Main.rand.NextFloat(80) <= (1 + increasedChance))
 				{
-					Item.NewItem((int)target.position.X, (int)target.position.Y, target.width, target.height, mod.ItemType("ProtectiveEnergy"));
+					Item.NewItem((int)target.position.X, (int)target.position.Y, target.width, target.height, ModContent.ItemType<ProtectiveEnergy>());
 				}
 			}
 			if (crit && sporeFriend && Main.rand.NextBool(3))
@@ -1194,25 +1223,25 @@ namespace Emperia
 				{
 					for (int i = 0; i < 6; i++)
 					{
-						Projectile.NewProjectile(player.Center.X, player.Center.Y, 0, 0, mod.ProjectileType("HelpfulSpore"), 30, 0, player.whoAmI, ai1: i);
+						Projectile.NewProjectile(Player.GetProjectileSource_Accessory(terraGauntlet), Player.Center.X, Player.Center.Y, 0, 0, ModContent.ProjectileType<HelpfulSpore>(), 30, 0, Player.whoAmI, ai1: i);
 						sporeCount++;
 					}
 				}
-				player.AddBuff(mod.BuffType("Spored"), 2);
+				Player.AddBuff(ModContent.BuffType<Spored>(), 2);
 			}
 		}
-		
-		public override void ModifyHitNPCWithProj (Projectile projectile, NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
+
+		public override void ModifyHitNPCWithProj(Projectile Projectile, NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
 		{
 			if (slightKnockback)
 			{
 				knockback *= 1.1f;
 			}
-            if (doubleKnockback)
-            {
-                knockback *= 2f;
-            }
-			if ((ferocityGauntlet || terraGauntlet) && Main.rand.Next(10) == 0)
+			if (doubleKnockback)
+			{
+				knockback *= 2f;
+			}
+			if ((ferocityGauntlet || terraGauntlet != null) && Main.rand.Next(10) == 0)
 				damage *= 2;
 			if (crit && rougeRage)
 			{
@@ -1222,15 +1251,47 @@ namespace Emperia
 			{
 				damage = damage += ((damage * 13) / 100);
 			}
-        }
+		}
 		public override void PreUpdateMovement()
 		{
-
-        }
-		public override void FrameEffects() {
-			if (arcaneShieldHold) {
-				player.shield = (sbyte)mod.GetEquipSlot("ArcaneShield", EquipType.Shield);
-			}			
+			if (velocityBoost != Vector2.Zero)
+			{
+				if (Player.velocity.Y > 0 && velocityBoost.Y < 0) Player.velocity.Y = -0.1f;
+				//Main.NewText(Player.velocity.ToString());
+				Player.velocity += velocityBoost;
+				//Main.NewText(velocityBoost.ToString(), 0);
+				//Main.NewText(Player.velocity.ToString());
+			}
 		}
+		public override void FrameEffects()
+		{
+			if (arcaneShieldHold)
+			{
+				Player.shield = (sbyte)Mod.GetEquipSlot("ArcaneShield", EquipType.Shield);
+			}
+		}
+		//public override void ApplyEquipFunctional(int itemSlot, Item currentItem)
+		//{
+		//	if (currentItem.type == ModContent.ItemType<Items.Accessories.Gauntlets.BloodGauntlet>())
+		//	{
+		//		terraGauntlet2 = currentItem;
+		//	}
+		//}
+		public override void UpdateEquips()
+		{
+			for (int i = 3; i <= (8 + Player.GetAmountOfExtraAccessorySlotsToShow()); i++)
+            {
+                //Main.NewText(Player.armor[i].type.ToString());
+                //Main.NewText(ModContent.ItemType<Items.Accessories.Gauntlets.PrimordialGauntlet>().ToString());
+                if (Player.armor[i].type == ModContent.ItemType<Items.Accessories.Gauntlets.PrimordialGauntlet>()) { terraGauntlet = Player.armor[i]; }
+				//if (Player.armor[i].type == ModContent.ItemType<Items.Accessories.Gauntlets.PrimordialGauntlet>()); { Main.NewText("yuup"); }
+
+                //if (Player.armor[i].type == ModContent.ItemType<Items.Accessories.Gauntlets.EnchantedGauntlet>()); { terraGauntlet2 = Player.armor[i]; }
+                //if (Player.armor[i].type == ModContent.ItemType<Items.Accessories.Gauntlets.WoodweaversGauntlet>()); { terraGauntlet2 = Player.armor[i]; }
+
+                //IMPORTANT TODO: if primordial gauntlet works as expected, change other accessories.
+
+            }
+        }
     }
 }

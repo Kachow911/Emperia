@@ -2,6 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
+using Emperia.Projectiles.Skeleton;
 
 
 namespace Emperia.Items.Weapons.Skeletron
@@ -10,22 +11,22 @@ namespace Emperia.Items.Weapons.Skeletron
     {
         public override void SetDefaults()
         {
-            item.damage = 25;
-            item.noUseGraphic = true;
-            item.useTime = 22;
-            item.useAnimation = 22;
-            item.melee = true;
-            item.width = 18;
-            item.height = 40;
-            item.shoot = mod.ProjectileType("BoneWhipProj");
-            item.shootSpeed = 13f;
-            item.useStyle = 1;
-            item.knockBack = 5f;
-            item.value = Item.sellPrice(0, 0, 60, 0);
-            item.rare = 3;
-            item.UseSound = SoundID.Item1;
-            item.autoReuse = true;
-			item.consumable = false;
+            Item.damage = 25;
+            Item.noUseGraphic = true;
+            Item.useTime = 22;
+            Item.useAnimation = 22;
+            Item.DamageType = DamageClass.Melee;
+            Item.width = 18;
+            Item.height = 40;
+            Item.shoot = ModContent.ProjectileType<BoneWhipProj>();
+            Item.shootSpeed = 13f;
+            Item.useStyle = 1;
+            Item.knockBack = 5f;
+            Item.value = Item.sellPrice(0, 0, 60, 0);
+            Item.rare = 3;
+            Item.UseSound = SoundID.Item1;
+            Item.autoReuse = true;
+			Item.consumable = false;
         }
 
         public override void SetStaticDefaults()
@@ -38,7 +39,7 @@ namespace Emperia.Items.Weapons.Skeletron
 			int count= 0;
             for (int i = 0; i < 255; ++i)
             {
-                if (Main.projectile[i].active && Main.projectile[i].owner == Main.myPlayer && Main.projectile[i].type == mod.ProjectileType("BoneWhipProj"))
+                if (Main.projectile[i].active && Main.projectile[i].owner == Main.myPlayer && Main.projectile[i].type == ModContent.ProjectileType<BoneWhipProj>())
                 {
                     count++;
                 }

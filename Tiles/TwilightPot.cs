@@ -9,7 +9,7 @@ namespace Emperia.Tiles
 {
 	public class TwilightPot : ModTile
 	{
-		public override void SetDefaults()
+		public override void SetStaticDefaults()
 		{
 			Main.tileFrameImportant[Type] = true;
 			Main.tileCut[Type] = true;
@@ -19,7 +19,7 @@ namespace Emperia.Tiles
 			TileObjectData.newTile.Origin = Point16.Zero;
 			TileObjectData.addTile(Type);
 
-			soundType = SoundID.Shatter;
+			SoundType = SoundID.Shatter;
 		}
 
 		public override void KillMultiTile(int i, int j, int frameX, int frameY)

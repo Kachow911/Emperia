@@ -14,22 +14,20 @@ namespace Emperia.Buffs
 {
     public class Bloodstained : ModBuff
     {
-        public override void SetDefaults()
+        public override void SetStaticDefaults()
         {
 			DisplayName.SetDefault("Bloodstained");
 			Description.SetDefault("Your next damage taken can be healed back");
             Main.buffNoSave[Type] = true;
-            canBeCleared = true;
         }
     }
     public class Bloodstained2 : ModBuff
     {
-        public override void SetDefaults()
+        public override void SetStaticDefaults()
         {
 			DisplayName.SetDefault("Rally!");
 			Description.SetDefault("Deal damage with sword strikes to rally back the damage taken!");
             Main.buffNoSave[Type] = true;
-            canBeCleared = true;
         }
 
         public override void Update(Player player, ref int buffIndex)

@@ -1,9 +1,11 @@
 using Terraria;
 using System;
 using Terraria.ID;
+using Terraria.DataStructures;
 using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using Terraria.ModLoader;
+using Emperia.Projectiles;
 
 namespace Emperia.Items.Sets.PreHardmode.Seashell
 {
@@ -16,39 +18,39 @@ namespace Emperia.Items.Sets.PreHardmode.Seashell
 		}
         public override void SetDefaults()
         {
-            item.damage = 13;
-            item.noMelee = true;
-            item.ranged = true;
-            item.width = 69;
-            item.height = 40;
-		 	item.useAnimation = 22;
-			item.useTime = 22;
-            item.useStyle = 5;
-            item.shoot = 3;
-            item.useAmmo = ItemID.WoodenArrow;
-            item.knockBack = 1;
-            item.value = 24000;
-            item.rare = 1;
-            item.autoReuse = false;
-            item.shootSpeed = 11f;
-			item.UseSound = SoundID.Item5; 
+            Item.damage = 13;
+            Item.noMelee = true;
+            Item.DamageType = DamageClass.Ranged;
+            Item.width = 69;
+            Item.height = 40;
+		 	Item.useAnimation = 22;
+			Item.useTime = 22;
+            Item.useStyle = 5;
+            Item.shoot = 3;
+            Item.useAmmo = ItemID.WoodenArrow;
+            Item.knockBack = 1;
+            Item.value = 24000;
+            Item.rare = 1;
+            Item.autoReuse = false;
+            Item.shootSpeed = 11f;
+			Item.UseSound = SoundID.Item5; 
 
         }
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);      
+            Recipe recipe = CreateRecipe();      
             recipe.AddIngredient(ItemID.Seashell, 4);
             recipe.AddIngredient(ItemID.Coral, 4);
             recipe.AddIngredient(null, "SeaCrystal", 1); 		
             recipe.AddTile(TileID.Anvils);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            recipe.Register();
+            
         }
-		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+		public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockBack)
 		{
             if (type == ProjectileID.WoodenArrowFriendly)
 			{
-				type = mod.ProjectileType("CoralBurstMain");
+				type = ModContent.ProjectileType<CoralBurstMain>();
                 damage = (int)(damage * 0.70f);
 			}
 			return true;  

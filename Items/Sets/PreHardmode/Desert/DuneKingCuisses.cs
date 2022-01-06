@@ -19,11 +19,11 @@ public class DuneKingCuisses : ModItem
 		}
     public override void SetDefaults()
     {
-        item.width = 18;
-        item.height = 18;
-        item.value = 75000;
-        item.rare = 2;
-        item.defense = 6;
+        Item.width = 18;
+        Item.height = 18;
+        Item.value = 75000;
+        Item.rare = 2;
+        Item.defense = 6;
     }
 
     public override void UpdateEquip(Player player)
@@ -33,12 +33,12 @@ public class DuneKingCuisses : ModItem
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            Recipe recipe = CreateRecipe();
             recipe.AddIngredient(null, "AridScale", 4);
             recipe.AddIngredient(null, "DesertEye", 2);
             recipe.AddTile(TileID.Anvils);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            recipe.Register();
+            
 
         }
     }

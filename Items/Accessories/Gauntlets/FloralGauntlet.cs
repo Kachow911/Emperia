@@ -18,21 +18,21 @@ namespace Emperia.Items.Accessories.Gauntlets
 		}
         public override void SetDefaults()
         {
-            item.width = 30;
-            item.height = 28;
-            item.rare = 5;
-            item.value = Item.sellPrice(0, 5, 0, 0);
-            item.accessory = true;
-            item.GetGlobalItem<GItem>().isGauntlet = true;
+            Item.width = 30;
+            Item.height = 28;
+            Item.rare = 5;
+            Item.value = Item.sellPrice(0, 5, 0, 0);
+            Item.accessory = true;
+            Item.GetGlobalItem<GItem>().isGauntlet = true;
         }
-        public override void UpdateAccessory(Player player, bool hideVisual)
+        public override void UpdateAccessory(Player player, bool hideVisibleAccessory)
         {
 			player.GetModPlayer<MyPlayer>().floralGauntlet = true;
-			player.thrownDamage += 0.08f;
-			player.meleeDamage += 0.08f;
-			player.minionDamage += 0.08f;
-			player.magicDamage += 0.08f;
-			player.rangedDamage += 0.08f;
+			//player.thrownDamage += 0.08f;
+			player.GetDamage(DamageClass.Melee) += 0.08f;
+			player.GetDamage(DamageClass.Summon) += 0.08f;
+			player.GetDamage(DamageClass.Magic) += 0.08f;
+			player.GetDamage(DamageClass.Ranged) += 0.08f;
 			player.statLifeMax2 += 75;
         }
     }

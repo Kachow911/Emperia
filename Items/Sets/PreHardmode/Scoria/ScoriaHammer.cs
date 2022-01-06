@@ -19,20 +19,20 @@ namespace Emperia.Items.Sets.PreHardmode.Scoria
 
         public override void SetDefaults()
         {
-            item.width = 38;
-            item.height = 30;
-            item.value = 5000;
-            item.rare = 3;
-            item.hammer = 75;
-            item.damage = 20;
-            item.knockBack = 4;
-            item.useStyle = 1;
-            item.useTime = 20;
-            item.useAnimation = 25;
-            item.melee = true;
-            item.useTurn = true;
-            item.autoReuse = true;
-            item.UseSound = SoundID.Item1;
+            Item.width = 38;
+            Item.height = 30;
+            Item.value = 5000;
+            Item.rare = 3;
+            Item.hammer = 75;
+            Item.damage = 20;
+            Item.knockBack = 4;
+            Item.useStyle = 1;
+            Item.useTime = 20;
+            Item.useAnimation = 25;
+            Item.DamageType = DamageClass.Melee;
+            Item.useTurn = true;
+            Item.autoReuse = true;
+            Item.UseSound = SoundID.Item1;
         }
 		public override void MeleeEffects(Player player, Rectangle hitbox)
         {

@@ -17,16 +17,16 @@ public class GoblinHelm : ModItem
 		}
     public override void SetDefaults()
     {
-        item.width = 18;
-        item.height = 18;
-        item.value = 50000;
-        item.rare = 3;
-        item.defense = 5; //15
+        Item.width = 18;
+        Item.height = 18;
+        Item.value = 50000;
+        Item.rare = 3;
+        Item.defense = 5; //15
     }
 
     public override bool IsArmorSet(Item head, Item body, Item legs)
     {
-        return body.type == mod.ItemType("GoblinChest") && legs.type == mod.ItemType("GoblinLegs");
+        return body.type == ModContent.ItemType<GoblinChest>() && legs.type == ModContent.ItemType<GoblinLegs>();
     }
     
   
@@ -39,19 +39,16 @@ public class GoblinHelm : ModItem
     
     public override void UpdateEquip(Player player)
     {
-		player.meleeCrit += 4;
-		player.thrownCrit += 4;
-		player.rangedCrit += 4;
-		player.magicCrit += 4;
+			player.GetCritChance(DamageClass.Generic) += 4;
     }
     
     public override void AddRecipes()
     {
-         ModRecipe recipe = new ModRecipe(mod);
+         Recipe recipe = CreateRecipe();
          recipe.AddIngredient(null, "GiantPlating", 4);
          recipe.AddIngredient(ItemID.IronBar, 8); 			
          recipe.AddTile(TileID.Anvils); 			
-         recipe.SetResult(this);
-         recipe.AddRecipe();
+         recipe.Register();
+         
     }
 }}

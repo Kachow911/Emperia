@@ -1,33 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
-using System.Collections.Generic;
-using System.IO;
 using Terraria;
 using Terraria.ID;
-using Terraria.ModLoader;
-using Terraria.ModLoader.IO;
-using Terraria.Utilities;
-using Emperia;
-using Terraria;
-using Terraria.ID;
-using Terraria.Enums;
-using Terraria.ModLoader;
-using Terraria.ObjectData;
 using Terraria.DataStructures;
-using System.IO;
 using System;
-using System.Linq;
-using System.Collections.Generic;
-using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
-using Terraria.World.Generation;
-using Microsoft.Xna.Framework;
-using Terraria.GameContent.Generation;
-using Terraria.ModLoader.IO;
-using System.Reflection;
-using Terraria.Utilities;
-using System.Runtime.Serialization.Formatters.Binary;
-using Emperia;
 
 namespace Emperia
 {
@@ -89,16 +64,16 @@ namespace Emperia
 						Tile tile = Main.tile[i, j];
 						if (type == 0)
 						{
-							tile.active(false);
+							tile.IsActive = false;
 							continue;
 						}
-						if (overRide || !tile.active())
+						if (overRide || !tile.IsActive)
 							tile.type = type;
 						if (addTile)
 						{
-							tile.active(true);
-							tile.liquid = 0;
-							tile.lava(false);
+							tile.IsActive = true;
+							tile.LiquidType = 0;
+							//tile.lava(false);
 						}
 					}
 				}

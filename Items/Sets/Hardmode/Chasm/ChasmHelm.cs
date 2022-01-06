@@ -15,15 +15,15 @@ namespace Emperia.Items.Sets.Hardmode.Chasm
 		}
     	public override void UpdateEquip(Player player)
     	{
-    		player.meleeDamage *= 1.12f;
-			player.meleeCrit += 12;
+    		player.GetDamage(DamageClass.Melee) *= 1.12f;
+			player.GetCritChance(DamageClass.Melee) += 12;
     	}
 		public override void SetDefaults() {
-			item.width = 22;
-			item.height = 26;
-			item.value = 41000;
-			item.rare = 5;
-			item.defense = 12;
+			Item.width = 22;
+			Item.height = 26;
+			Item.value = 41000;
+			Item.rare = 5;
+			Item.defense = 12;
 		}
 	}
 }

@@ -7,6 +7,7 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Emperia.Projectiles;
 
 namespace Emperia.Npcs
 {
@@ -19,42 +20,42 @@ namespace Emperia.Npcs
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Forest Spirit");
-			Main.npcFrameCount[npc.type] = 3;
+			Main.npcFrameCount[NPC.type] = 3;
 		}
 
 		public override void SetDefaults()
 		{
-			npc.lifeMax = 160;
-			npc.damage = 25;
-			npc.defense = 0;
-			npc.width = 28;
-			npc.height = 26;
-			npc.aiStyle = -1;
-			npc.knockBackResist = 0f;
-			animationType = 81;
-			npc.npcSlots = 1f;
-			npc.HitSound = SoundID.NPCHit1;
-			npc.DeathSound = SoundID.NPCDeath4;
-			npc.noTileCollide = true;
-			npc.value = Item.buyPrice(0, 0, 7, 8);
+			NPC.lifeMax = 160;
+			NPC.damage = 25;
+			NPC.defense = 0;
+			NPC.width = 28;
+			NPC.height = 26;
+			NPC.aiStyle = -1;
+			NPC.knockBackResist = 0f;
+			AnimationType = 81;
+			NPC.npcSlots = 1f;
+			NPC.HitSound = SoundID.NPCHit1;
+			NPC.DeathSound = SoundID.NPCDeath4;
+			NPC.noTileCollide = true;
+			NPC.value = Item.buyPrice(0, 0, 7, 8);
 		}
 		/*public override void FindFrame(int frameHeight)
         {
-            npc.frameCounter++;
-            npc.frame.Y = 32 * (int)(npc.frameCounter / frameTimer);
+            NPC.frameCounter++;
+            NPC.frame.Y = 32 * (int)(NPC.frameCounter / frameTimer);
 
-            if (npc.frameCounter > 3 * frameTimer)
-                npc.frameCounter = 0;
+            if (NPC.frameCounter > 3 * frameTimer)
+                NPC.frameCounter = 0;
         }*/
 		public override void AI()
         {
-			npc.TargetClosest(true);
-			Player player = Main.player[npc.target];
-			Vector2 direction = (player.Center + new Vector2(0, -player.height) - npc.Center);
+			NPC.TargetClosest(true);
+			Player player = Main.player[NPC.target];
+			Vector2 direction = (player.Center + new Vector2(0, -player.height) - NPC.Center);
 			direction.Normalize();
-			npc.velocity = direction * speed;
-            npc.velocity.X = MathHelper.Clamp(npc.velocity.X, -speedMax, speedMax);
-            npc.velocity.Y = MathHelper.Clamp(npc.velocity.Y, -speedMax, speedMax);
+			NPC.velocity = direction * speed;
+            NPC.velocity.X = MathHelper.Clamp(NPC.velocity.X, -speedMax, speedMax);
+            NPC.velocity.Y = MathHelper.Clamp(NPC.velocity.Y, -speedMax, speedMax);
 			counter++;
 			if (counter % 180 == 0)
 			{
@@ -62,21 +63,21 @@ namespace Emperia.Npcs
 				{
 				
 					Vector2 perturbedSpeed = new Vector2(0, 3).RotatedBy(MathHelper.ToRadians(90 + 30 * i));
-					Projectile.NewProjectile(npc.Center.X, npc.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, mod.ProjectileType("EnemyNeedle"), npc.damage / 3, 1, Main.myPlayer, 0, 0);
+					Projectile.NewProjectile(NPC.GetProjectileSpawnSource(), NPC.Center.X, NPC.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, ModContent.ProjectileType<EnemyNeedle>(), NPC.damage / 3, 1, Main.myPlayer, 0, 0);
 				
 				}
 			}
-			npc.frameCounter++;
-            npc.frame.Y = 32 * (int)(npc.frameCounter / frameTimer);
+			NPC.frameCounter++;
+            NPC.frame.Y = 32 * (int)(NPC.frameCounter / frameTimer);
 
-            if (npc.frameCounter > 3 * frameTimer)
-                npc.frameCounter = 0;
+            if (NPC.frameCounter > 3 * frameTimer)
+                NPC.frameCounter = 0;
         }
 		
 		public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
 		{
-			npc.lifeMax = Convert.ToInt32(npc.lifeMax * 1.4);
-			npc.damage = Convert.ToInt32(npc.damage * 1.4);
+			NPC.lifeMax = Convert.ToInt32(NPC.lifeMax * 1.4);
+			NPC.damage = Convert.ToInt32(NPC.damage * 1.4);
 		}
 		public override float SpawnChance(NPCSpawnInfo spawnInfo)
 		{

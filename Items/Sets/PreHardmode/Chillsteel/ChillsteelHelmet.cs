@@ -18,16 +18,16 @@ public class ChillsteelHelmet : ModItem
 		}
     public override void SetDefaults()
     {
-        item.width = 18;
-        item.height = 18;
-        item.value = 140000;
-        item.rare = 2;
-        item.defense = 4;
+        Item.width = 18;
+        Item.height = 18;
+        Item.value = 140000;
+        Item.rare = 2;
+        Item.defense = 4;
     }
 
     public override bool IsArmorSet(Item head, Item body, Item legs)
     {
-        return body.type == mod.ItemType("ChillsteelChestplate") && legs.type == mod.ItemType("ChillsteelGreaves");
+        return body.type == ModContent.ItemType<ChillsteelChestplate>() && legs.type == ModContent.ItemType<ChillsteelGreaves>();
     }
     
     public override void UpdateArmorSet(Player player)
@@ -40,17 +40,17 @@ public class ChillsteelHelmet : ModItem
     
     public override void UpdateEquip(Player player)
     {
-            player.rangedDamage *= 1.04f;
+            player.GetDamage(DamageClass.Ranged) *= 1.04f;
     }
 
         /*public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            Recipe recipe = CreateRecipe();
             recipe.AddIngredient(null, "AridScale", 4);
             recipe.AddIngredient(null, "DesertEye", 2);
             recipe.AddTile(TileID.Anvils);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            recipe.Register();
+            
 
         }*/
     }

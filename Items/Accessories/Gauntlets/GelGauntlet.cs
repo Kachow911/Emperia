@@ -18,15 +18,15 @@ namespace Emperia.Items.Accessories.Gauntlets
 		}
         public override void SetDefaults()
         {
-            item.width = 30;
-            item.height = 28;
-            item.rare = 1;
-            item.value = 3750;
-            item.accessory = true;
-            //item.alpha = 50;
-            item.GetGlobalItem<GItem>().isGauntlet = true;
+            Item.width = 30;
+            Item.height = 28;
+            Item.rare = 1;
+            Item.value = 3750;
+            Item.accessory = true;
+            //Item.alpha = 50;
+            Item.GetGlobalItem<GItem>().isGauntlet = true;
         }
-        public override void UpdateAccessory(Player player, bool hideVisual)
+        public override void UpdateAccessory(Player player, bool hideVisibleAccessory)
         {
             player.GetModPlayer<MyPlayer>().gauntletBonus = 0.25f;
             player.GetModPlayer<MyPlayer>().gelGauntlet = 1f;
@@ -34,13 +34,13 @@ namespace Emperia.Items.Accessories.Gauntlets
         }
 		public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            Recipe recipe = CreateRecipe();
             recipe.AddIngredient(null, "WoodweaversGauntlet", 1);
             recipe.AddIngredient(null, "WristBrace", 1);
             recipe.AddIngredient(ItemID.Gel, 40);
             recipe.AddTile(TileID.Anvils);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            recipe.Register();
+            
         }
     }
 }

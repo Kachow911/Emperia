@@ -4,6 +4,7 @@ using Terraria.ID;
 using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using Terraria.ModLoader;
+using Terraria.DataStructures;
 
 namespace Emperia.Items.Sets.Hardmode.Ethereal
 {
@@ -17,33 +18,32 @@ namespace Emperia.Items.Sets.Hardmode.Ethereal
 		}
         public override void SetDefaults()
         {
-            item.damage = 38;
-            item.noMelee = true;
-            item.ranged = true;
-            item.width = 30;
-            item.height = 40;
-            item.useTime = 15;
-            item.useAnimation = 15;
-            item.useStyle = 5;
-            item.shoot = 3;
-            item.useAmmo = ItemID.WoodenArrow;
-            item.knockBack = 1;
-            item.value = 22500;
-            item.rare = 4;
-            item.autoReuse = true;
-            item.shootSpeed = 12f;
-			item.UseSound = SoundID.Item5; 
+            Item.damage = 38;
+            Item.noMelee = true;
+            Item.DamageType = DamageClass.Ranged;
+            Item.width = 30;
+            Item.height = 40;
+            Item.useTime = 15;
+            Item.useAnimation = 15;
+            Item.useStyle = 5;
+            Item.shoot = 3;
+            Item.useAmmo = ItemID.WoodenArrow;
+            Item.knockBack = 1;
+            Item.value = 22500;
+            Item.rare = 4;
+            Item.autoReuse = true;
+            Item.shootSpeed = 12f;
+			Item.UseSound = SoundID.Item5; 
         }
 
-		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+		public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockBack)
 		{
 			if (type == ProjectileID.WoodenArrowFriendly)
             {
-                type = mod.ProjectileType("EtherealArrow");
+                type = ModContent.ProjectileType<Projectiles.Ethereal.EtherealArrow>();
             }
-			Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedBy(MathHelper.ToRadians(Main.rand.Next(-20, 20)));
-			speedX = perturbedSpeed.X;
-			speedY = perturbedSpeed.Y;
+			Vector2 perturbedSpeed = velocity.RotatedBy(MathHelper.ToRadians(Main.rand.Next(-20, 20)));
+			velocity = perturbedSpeed;
 			return true;
 
 		}

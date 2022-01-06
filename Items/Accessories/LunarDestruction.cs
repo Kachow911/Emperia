@@ -17,17 +17,17 @@ public class LunarDestruction : ModItem
 		}
 	public override void SetDefaults()
 	{
-		item.damage = 60;
-		item.melee = true;
-		item.defense = 10;
-		item.width = 38;
-		item.height = 44;
-		item.value = 1800000;
-		item.expert = true;
-		item.accessory = true;
+		Item.damage = 60;
+		Item.DamageType = DamageClass.Melee;
+		Item.defense = 10;
+		Item.width = 38;
+		Item.height = 44;
+		Item.value = 1800000;
+		Item.expert = true;
+		Item.accessory = true;
 	}
 	
-	public override void UpdateAccessory(Player player, bool hideVisual)
+	public override void UpdateAccessory(Player player, bool hideVisibleAccessory)
 	{
 	
 		MyPlayer modPlayer = player.GetModPlayer<MyPlayer>();
@@ -36,7 +36,7 @@ public class LunarDestruction : ModItem
 	}
 	 public override void AddRecipes()  //How to craft this sword
      {
-		ModRecipe recipe = new ModRecipe(mod);
+		Recipe recipe = CreateRecipe();
 		recipe.AddIngredient(null, "RetinalBane", 1);
 		recipe.AddIngredient(ItemID.FragmentSolar, 5);
 		recipe.AddIngredient(ItemID.FragmentVortex, 5);
@@ -44,8 +44,8 @@ public class LunarDestruction : ModItem
 		recipe.AddIngredient(ItemID.FragmentStardust, 5);
 		recipe.AddIngredient(ItemID.LunarBar, 10);
         recipe.AddTile(TileID.LunarCraftingStation); 			
-        recipe.SetResult(this);
-        recipe.AddRecipe(); 
+        recipe.Register();
+         
 
      }
 

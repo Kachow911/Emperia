@@ -1,15 +1,7 @@
-using System;
-using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
 using Terraria.ID;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
-using System.Collections.Generic;
-using System;
+using Emperia.Projectiles;
 
 namespace Emperia.Items.Weapons
 {
@@ -18,37 +10,37 @@ namespace Emperia.Items.Weapons
 		public override void SetDefaults()
 		{
 
-			item.damage = 15;
-			item.magic = true;
-			item.width = 22;
-			item.height = 18;
-			item.useTime = 18;
-			item.useAnimation = 18;
-			item.useStyle = 5;
-			item.knockBack = 0;
-			item.value = 22500;
-			item.rare = 2;
-			item.UseSound = SoundID.Item20;
-			item.autoReuse = true;
-			item.shoot = mod.ProjectileType("AlluringPulse");
-			//item.shoot = mod.ProjectileType("FlameTendril");
-			item.shootSpeed = 8f;
-			item.mana = 7;
+			Item.damage = 15;
+			Item.DamageType = DamageClass.Magic;
+			Item.width = 22;
+			Item.height = 18;
+			Item.useTime = 18;
+			Item.useAnimation = 18;
+			Item.useStyle = 5;
+			Item.knockBack = 0;
+			Item.value = 22500;
+			Item.rare = 2;
+			Item.UseSound = SoundID.Item20;
+			Item.autoReuse = true;
+			Item.shoot = ModContent.ProjectileType<AlluringPulse>();
+			//Item.shoot = ModContent.ProjectileType<FlameTendril>();
+			Item.shootSpeed = 8f;
+			Item.mana = 7;
 		}
 
     public override void SetStaticDefaults()
     {
       DisplayName.SetDefault("Alluring Blossom");
 	  Tooltip.SetDefault("Shoots forth a pulse of pink energy that pulls enemies towards you");
-	Item.staff[item.type] = true;
+	Item.staff[Item.type] = true;
     }
 	/*public override void AddRecipes()
     {
-        ModRecipe recipe = new ModRecipe(mod);
+        Recipe recipe = CreateRecipe();
         recipe.AddIngredient(null, "MarbleBar", 9);
         recipe.AddTile(TileID.Anvils);
-        recipe.SetResult(this);
-        recipe.AddRecipe();
+        recipe.Register();
+        
     }*/
 	}
 }

@@ -7,13 +7,7 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
-using System.Collections.Generic;
-using System;
+using Emperia.Projectiles.Corrupt;
 
 namespace Emperia.Items.Sets.Hardmode.Corrupt
 {
@@ -22,24 +16,24 @@ namespace Emperia.Items.Sets.Hardmode.Corrupt
 		public override void SetDefaults()
 		{
 
-			item.damage = 53;
-			item.magic = true;
-			item.mana = 15;
-			item.width = 25;
-			item.height = 26;
-			item.useTime = 12;
-			item.UseSound = SoundID.Item43;
-			item.useAnimation = 36;
-			item.reuseDelay = 14;
-			item.useStyle = 5;
-			Item.staff[item.type] = true;
-			item.noMelee = true;
-			item.knockBack = 2.5f;
-			item.value = 6500;
-			item.rare = 4;
-			item.autoReuse = false;
-			item.shoot = mod.ProjectileType("CursedFlame1");
-			item.shootSpeed = 12f;
+			Item.damage = 53;
+			Item.DamageType = DamageClass.Magic;
+			Item.mana = 15;
+			Item.width = 25;
+			Item.height = 26;
+			Item.useTime = 12;
+			Item.UseSound = SoundID.Item43;
+			Item.useAnimation = 36;
+			Item.reuseDelay = 14;
+			Item.useStyle = 5;
+			Item.staff[Item.type] = true;
+			Item.noMelee = true;
+			Item.knockBack = 2.5f;
+			Item.value = 6500;
+			Item.rare = 4;
+			Item.autoReuse = false;
+			Item.shoot = ModContent.ProjectileType<CursedFlame1>();
+			Item.shootSpeed = 12f;
 		}
 		
 
@@ -51,13 +45,13 @@ namespace Emperia.Items.Sets.Hardmode.Corrupt
 
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(mod);
+			Recipe recipe = CreateRecipe();
 			recipe.AddIngredient(ItemID.RottenChunk, 2);
 			recipe.AddIngredient(ItemID.CursedFlame, 10);
 			recipe.AddIngredient(ItemID.SoulofNight, 1);
 			recipe.AddTile(TileID.MythrilAnvil);
-			recipe.SetResult(this);
-			recipe.AddRecipe();
+			recipe.Register();
+			
 		}
 	}
 }

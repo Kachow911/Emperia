@@ -27,56 +27,56 @@ namespace Emperia.Npcs.SeaCrab
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Seashell Hermit");
-			Main.npcFrameCount[npc.type] = 7;
+			Main.npcFrameCount[NPC.type] = 7;
 		}
         public override void SetDefaults()
         {
-            npc.lifeMax = 720;
-            npc.damage = 15;
-            npc.defense = 3;
-            npc.knockBackResist = 0.6f;
-            npc.width = 56;
-            npc.height = 62;
-            npc.value = Item.buyPrice(0, 0, 20, 0);
-            npc.npcSlots = 1f;
-            npc.boss = false;
-            npc.lavaImmune = false;
-            npc.noGravity = false;
-            npc.noTileCollide = false;
-            npc.HitSound = SoundID.NPCHit1; //57 //20
-            npc.DeathSound = SoundID.NPCDeath1;
-            npc.netAlways = true;
-			npc.scale = 1f;
-			npc.friendly = true;
-			npc.aiStyle = 7;
+            NPC.lifeMax = 720;
+            NPC.damage = 15;
+            NPC.defense = 3;
+            NPC.knockBackResist = 0.6f;
+            NPC.width = 56;
+            NPC.height = 62;
+            NPC.value = Item.buyPrice(0, 0, 20, 0);
+            NPC.npcSlots = 1f;
+            NPC.boss = false;
+            NPC.lavaImmune = false;
+            NPC.noGravity = false;
+            NPC.noTileCollide = false;
+            NPC.HitSound = SoundID.NPCHit1; //57 //20
+            NPC.DeathSound = SoundID.NPCDeath1;
+            NPC.netAlways = true;
+			NPC.scale = 1f;
+			NPC.friendly = true;
+			NPC.aiStyle = 7;
         }
 		public override void FindFrame(int frameHeight)
 		{	
 			if (move == Move.Walk)
 			{
-				npc.frameCounter += 0.2f;
-				npc.frameCounter %= 4;
-				int frame = (int)npc.frameCounter;
-				npc.frame.Y = frame * frameHeight;
+				NPC.frameCounter += 0.2f;
+				NPC.frameCounter %= 4;
+				int frame = (int)NPC.frameCounter;
+				NPC.frame.Y = frame * frameHeight;
 			}
 			else if (move == Move.Walk)
             {
-				npc.frameCounter += 0.07f;
-				npc.frameCounter %= 3;
-				int frame = (int)npc.frameCounter + 4;
-				npc.frame.Y = frame * frameHeight;
+				NPC.frameCounter += 0.07f;
+				NPC.frameCounter %= 3;
+				int frame = (int)NPC.frameCounter + 4;
+				NPC.frame.Y = frame * frameHeight;
 			}
 		}
 
         public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
         {
-            npc.lifeMax = 1000;
-            npc.damage = 20;
+            NPC.lifeMax = 1000;
+            NPC.damage = 20;
         }
 
         public override void AI()
 		{
-			Player player = Main.player[npc.target];
+			Player player = Main.player[NPC.target];
 			if (!init)
 			{
 				SetMove(Move.Walk, Main.rand.Next(300, 400));
@@ -86,15 +86,15 @@ namespace Emperia.Npcs.SeaCrab
 			{
 				Main.NewText("Big");
 				counter--;
-				npc.aiStyle = 3;
-				aiType = 508;
-				if (npc.velocity.X > 0)
+				NPC.aiStyle = 3;
+				AIType = 508;
+				if (NPC.velocity.X > 0)
 				{
-					npc.spriteDirection = 1;
+					NPC.spriteDirection = 1;
 				}
-				else if (npc.velocity.X < 0)
+				else if (NPC.velocity.X < 0)
 				{
-					npc.spriteDirection = -1;
+					NPC.spriteDirection = -1;
 				}
 				if (counter <= 0)
 				{
@@ -104,15 +104,15 @@ namespace Emperia.Npcs.SeaCrab
 			else if (move == Move.ShellSpinAnim)
 			{
 				counter--;
-				if (player.Center.X > npc.Center.X)
+				if (player.Center.X > NPC.Center.X)
 				{
-					npc.spriteDirection = 1;
+					NPC.spriteDirection = 1;
 				}
 				else
 				{
-					npc.spriteDirection = -1;
+					NPC.spriteDirection = -1;
 				}
-				npc.velocity = Vector2.Zero;
+				NPC.velocity = Vector2.Zero;
 				if (counter <= 0)
 				{
 					
@@ -140,18 +140,18 @@ namespace Emperia.Npcs.SeaCrab
 
        /* private void SmoothMoveToPosition(Vector2 toPosition, float addSpeed, float maxSpeed, float slowRange = 64, float slowBy = .95f)
         {
-            if (Math.Abs((toPosition - npc.Center).Length()) >= slowRange)
+            if (Math.Abs((toPosition - NPC.Center).Length()) >= slowRange)
             {
-                npc.velocity += Vector2.Normalize((toPosition - npc.Center) * addSpeed);
-                npc.velocity.X = MathHelper.Clamp(npc.velocity.X, -maxSpeed, maxSpeed);
-                npc.velocity.Y = MathHelper.Clamp(npc.velocity.Y, -maxSpeed, maxSpeed);
+                NPC.velocity += Vector2.Normalize((toPosition - NPC.Center) * addSpeed);
+                NPC.velocity.X = MathHelper.Clamp(NPC.velocity.X, -maxSpeed, maxSpeed);
+                NPC.velocity.Y = MathHelper.Clamp(NPC.velocity.Y, -maxSpeed, maxSpeed);
             }
             else
             {
-                npc.velocity *= slowBy;
+                NPC.velocity *= slowBy;
             }
         }*/
-		public override void NPCLoot()
+		public override void ModifyNPCLoot(NPCLoot npcLoot)
 		{
 			
 		}

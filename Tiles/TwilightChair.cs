@@ -9,7 +9,7 @@ namespace Emperia.Tiles
 {
 	public class TwilightChair : ModTile
 	{
-		public override void SetDefaults()
+		public override void SetStaticDefaults()
 		{
 			Main.tileFrameImportant[Type] = true;
 			Main.tileNoAttach[Type] = true;
@@ -23,8 +23,8 @@ namespace Emperia.Tiles
 			TileObjectData.addAlternate(1);
 			TileObjectData.addTile(Type);
 			AddToArray(ref TileID.Sets.RoomNeeds.CountsAsChair);
-			disableSmartCursor = true;
-			adjTiles = new int[] { TileID.Chairs };
+			TileID.Sets.DisableSmartCursor[Type] = true;
+			AdjTiles = new int[] { TileID.Chairs };
 		}
 	}
 }

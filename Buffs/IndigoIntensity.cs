@@ -14,21 +14,19 @@ namespace Emperia.Buffs
 {
     public class IndigoIntensity : ModBuff
     {
-        public override void SetDefaults()
+        public override void SetStaticDefaults()
         {
 			DisplayName.SetDefault("Indigo Intensity");
 			Description.SetDefault("8% increased melee damage and life regeneration increased by 1.5");
             Main.buffNoSave[Type] = true;
             //Main.buffNoTimeDisplay[Type] = true;
-
-            canBeCleared = true;
         }
 
         public override void Update(Player player, ref int buffIndex)
         {
 			MyPlayer p = player.GetModPlayer<MyPlayer>();
 			
-			player.meleeDamage *= 1.08f;
+			player.GetDamage(DamageClass.Melee) *= 1.08f;
 			player.lifeRegen += 1; //1 hp is added every 2 seconds in MyPlayer.cs
 			if (Main.rand.Next(2) == 0)
 			{

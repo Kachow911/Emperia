@@ -18,16 +18,16 @@ namespace Emperia.Items
 
 		public override void SetDefaults()
 		{
-			item.width = 16;
-			item.height = 16;
-			item.rare = 3;
-			item.maxStack = 1;
-			item.noUseGraphic = true;
-			item.useStyle = 4;
-			item.value = Item.sellPrice(0, 0, 1, 0);
-			item.useTime = item.useAnimation = 20;
-			item.consumable = true;
-			item.autoReuse = true;
+			Item.width = 16;
+			Item.height = 16;
+			Item.rare = 3;
+			Item.maxStack = 1;
+			Item.noUseGraphic = true;
+			Item.useStyle = 4;
+			Item.value = Item.sellPrice(0, 0, 1, 0);
+			Item.useTime = Item.useAnimation = 20;
+			Item.consumable = true;
+			Item.autoReuse = true;
 
 		}
 		public override bool CanUseItem(Player player)
@@ -39,7 +39,7 @@ namespace Emperia.Items
 			return true;
 		}
 		bool sandText = false;
-		public override bool UseItem(Player player)
+		public override bool? UseItem(Player player)
 		{
 			if (!sandText)
 			{

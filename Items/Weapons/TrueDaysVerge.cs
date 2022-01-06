@@ -5,6 +5,8 @@ using Terraria.Graphics.Effects;
 using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.DataStructures;
+using Emperia.Projectiles.TrueDaysVerge;
 
 namespace Emperia.Items.Weapons  //where is located
 {
@@ -17,33 +19,33 @@ namespace Emperia.Items.Weapons  //where is located
 		}
         public override void SetDefaults()
         {   //Sword name
-            item.damage = 89;            //Sword damage
-            item.melee = true;            //if it's melee
-            item.width = 32;              //Sword width
-            item.height = 32;             //Sword height
-            item.useTime = 33;          //how fast 
-            item.useAnimation = 33;     
-            item.useStyle = 1;        //Style is how this item is used, 1 is the style of the sword
-            item.knockBack = 5.5f;  
-			item.crit = 4;			//Sword knockback
-            item.value = 100;        
-            item.rare = 5;
-			item.UseSound = SoundID.Item1;
-			item.shoot = mod.ProjectileType("TrueBlueSword");
-			item.shootSpeed = 10f;
-			item.scale = 1f;
-            item.autoReuse = true;   //if it's capable of autoswing.
-            item.useTurn = true;             //projectile speed                 
+            Item.damage = 89;            //Sword damage
+            Item.DamageType = DamageClass.Melee;            //if it's melee
+            Item.width = 32;              //Sword width
+            Item.height = 32;             //Sword height
+            Item.useTime = 33;          //how fast 
+            Item.useAnimation = 33;     
+            Item.useStyle = 1;        //Style is how this Item is used, 1 is the style of the sword
+            Item.knockBack = 5.5f;  
+			Item.crit = 4;			//Sword knockback
+            Item.value = 100;        
+            Item.rare = 5;
+			Item.UseSound = SoundID.Item1;
+			Item.shoot = ModContent.ProjectileType<TrueBlueSword>();
+			Item.shootSpeed = 10f;
+			Item.scale = 1f;
+            Item.autoReuse = true;   //if it's capable of autoswing.
+            Item.useTurn = true;             //Projectile speed                 
         }
 		
         public override void AddRecipes()  //How to craft this sword
         {
-			ModRecipe recipe = new ModRecipe(mod);      
+			Recipe recipe = CreateRecipe();      
             recipe.AddIngredient(null, "DaysVerge", 1); 
 			recipe.AddIngredient(ItemID.BrokenHeroSword, 1);
             recipe.AddTile(TileID.MythrilAnvil); 			
-            recipe.SetResult(this);
-            recipe.AddRecipe(); 
+            recipe.Register();
+             
 
         }
 		public override void MeleeEffects(Player player, Rectangle hitbox)
@@ -59,12 +61,12 @@ namespace Emperia.Items.Weapons  //where is located
 			}
 		}
 		
-		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type1, ref int damage, ref float knockBack)
+        public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockBack)
 		{
 			if (Main.rand.Next(2) == 0)
-					type1 = mod.ProjectileType("TrueBlueSword");
+					type = ModContent.ProjectileType<TrueBlueSword>();
 				else
-					type1 = mod.ProjectileType("TruePinkSword");
+					type = ModContent.ProjectileType<TruePinkSword>();
 			return true;
 		}
     }

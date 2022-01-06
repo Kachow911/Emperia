@@ -6,7 +6,7 @@ namespace Emperia.Tiles.Volcano
 {
 	public class MoltenOre : ModTile
 	{
-		public override void SetDefaults()
+		public override void SetStaticDefaults()
 		{
 			Main.tileSpelunker[Type] = true;
 			Main.tileSolid[Type] = true;
@@ -14,13 +14,13 @@ namespace Emperia.Tiles.Volcano
 			Main.tileMergeDirt[Type] = true;
 			Main.tileBlockLight[Type] = true;
 			Main.tileLighted[Type] = true;
-			drop = mod.ItemType("MagmousOre");  
+			//ItemDrop = ModContent.ItemType<MagmousOre>();  
 			ModTranslation name = CreateMapEntryName();
 			name.SetDefault("Magmous Ore");
 			AddMapEntry(new Color(240, 20, 20), name);
-			soundType = 21;
-			minPick = 75;
-			dustType = 6;
+			SoundType = 21;
+			MinPick = 75;
+			DustType = 6;
 
 		}
 

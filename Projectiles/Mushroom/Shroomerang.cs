@@ -9,8 +9,8 @@ namespace Emperia.Projectiles.Mushroom
     {
         public override void SetDefaults()
         {
-            projectile.CloneDefaults(106);
-            aiType = 106;
+            Projectile.CloneDefaults(106);
+            AIType = 106;
         }
 
         public override void SetStaticDefaults()
@@ -18,7 +18,7 @@ namespace Emperia.Projectiles.Mushroom
             DisplayName.SetDefault("Shroomerang");
         }
 
-        public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough)
+        public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)
 		{
 			width = 10;
 			height = 10;
@@ -37,7 +37,7 @@ namespace Emperia.Projectiles.Mushroom
 				{
 				
 					Vector2 perturbedSpeed = new Vector2(0, 3).RotatedBy(MathHelper.ToRadians(90 + 60 * i));
-					Projectile.NewProjectile(target.Center.X, target.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, mod.ProjectileType("EnchantedMushroom"), damage / 3, 1, Main.myPlayer, 0, 0);
+					Projectile.NewProjectile(Projectile.InheritSource(Projectile), target.Center.X, target.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, ModContent.ProjectileType<EnchantedMushroom>(), damage / 3, 1, Main.myPlayer, 0, 0);
 				
 				}
 			}

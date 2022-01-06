@@ -10,13 +10,13 @@ namespace Emperia.Projectiles
 	{
 		public override void SetDefaults()
 		{
-			projectile.CloneDefaults(ProjectileID.PainterPaintball);
+			Projectile.CloneDefaults(ProjectileID.PainterPaintball);
 
-			projectile.friendly = false;
-			projectile.hostile = true;
-			projectile.penetrate = -1;
-			projectile.melee = true;
-			projectile.timeLeft = 225;
+			Projectile.friendly = false;
+			Projectile.hostile = true;
+			Projectile.penetrate = -1;
+			Projectile.DamageType = DamageClass.Melee;
+			Projectile.timeLeft = 225;
 
 		}
 		
@@ -24,16 +24,16 @@ namespace Emperia.Projectiles
 
 		public override void AI()
 		{
-			projectile.ai[1] ++;
+			Projectile.ai[1] ++;
 			int x1 = Main.rand.Next(7);
 			if (Main.rand.Next(2) == 0)
             {
-				int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 258);
+				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 258);
 			}
 		}
 			public override bool OnTileCollide(Vector2 oldVelocity)
 			{
-				projectile.velocity = Vector2.Zero;
+				Projectile.velocity = Vector2.Zero;
 				return false;
 			}
 		

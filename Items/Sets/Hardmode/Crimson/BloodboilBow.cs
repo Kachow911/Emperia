@@ -4,6 +4,8 @@ using Terraria.ID;
 using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using Terraria.ModLoader;
+using Terraria.DataStructures;
+using Emperia.Projectiles.Crimson;
 
 namespace Emperia.Items.Sets.Hardmode.Crimson
 {
@@ -17,42 +19,45 @@ namespace Emperia.Items.Sets.Hardmode.Crimson
 		}
         public override void SetDefaults()
         {
-            item.damage = 25;
-            item.noMelee = true;
-            item.ranged = true;
-            item.width = 30;
-            item.height = 40;
-            item.useTime = 28;
-            item.useAnimation = 29;
-            item.useStyle = 5;
-            item.shoot = 3;
-            item.useAmmo = ItemID.WoodenArrow;
-            item.knockBack = 1;
-            item.value = 22500;
-            item.rare = 4;
-            item.autoReuse = false;
-            item.shootSpeed = 12f;
-			item.UseSound = SoundID.Item5; 
+            Item.damage = 25;
+            Item.noMelee = true;
+            Item.DamageType = DamageClass.Ranged;
+            Item.width = 30;
+            Item.height = 40;
+            Item.useTime = 28;
+            Item.useAnimation = 28;
+            Item.useStyle = 5;
+            Item.shoot = 3;
+            Item.useAmmo = ItemID.WoodenArrow;
+            Item.knockBack = 1;
+            Item.value = 22500;
+            Item.rare = 4;
+            Item.autoReuse = false;
+            Item.shootSpeed = 12f;
+			Item.UseSound = SoundID.Item5; 
         }
-
-		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+		public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockBack)
 		{
 			if (type == ProjectileID.WoodenArrowFriendly)
 			{
-				type = mod.ProjectileType("BigBubble");
+				type = ModContent.ProjectileType<BigBubble>();
 				int numberProjectiles = 3;
 				for (int i = 0; i < numberProjectiles; i++)
 				{
-					Vector2 perturbedSpeed = new Vector2(speedX, speedY);
+					Vector2 perturbedSpeed = velocity;
 					//float speedFact = (float)Main.rand.Next(2, 15) / 10;
-					Projectile.NewProjectile(position.X - (speedX * i), position.Y - (speedY * i), perturbedSpeed.X, perturbedSpeed.Y , type, damage, knockBack, player.whoAmI);
+					Projectile.NewProjectile(new ProjectileSource_Item(player, Item), position.X - (velocity.X * i), position.Y - (velocity.Y * i), perturbedSpeed.X, perturbedSpeed.Y, type, damage, knockBack, player.whoAmI);
 				}
 			}
+			return;
+		}
+		public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockBack)
+		{
 			return true;
 
 		}
 
-		public override bool ConsumeAmmo(Player player)
+		public override bool CanConsumeAmmo(Player player)
 		{
 			return !(Main.rand.Next(3) == 0);
 		}
@@ -64,13 +69,13 @@ namespace Emperia.Items.Sets.Hardmode.Crimson
 		
         public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(mod);
+			Recipe recipe = CreateRecipe();
 			recipe.AddIngredient(ItemID.Vertebrae, 2);
 			recipe.AddIngredient(ItemID.Ichor, 10);
 			recipe.AddIngredient(ItemID.SoulofNight, 1);
 			recipe.AddTile(TileID.MythrilAnvil);
-			recipe.SetResult(this);
-			recipe.AddRecipe();
+			recipe.Register();
+			
 		}
     }
 }

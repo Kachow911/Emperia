@@ -2,6 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
+using Emperia.Buffs;
 
 namespace Emperia.Items
 {
@@ -15,30 +16,30 @@ namespace Emperia.Items
 
         public override void SetDefaults()
         {
-            item.width = 20;
-            item.height = 32;
-            item.useStyle = 2;
-            item.useAnimation = 17;
-            item.useTime = 17;
-            item.useTurn = true;
-            item.UseSound = SoundID.Item3;
-            item.maxStack = 30;
-            item.consumable = true;
-            item.rare = 1;
-            item.value = 4000;
-            item.buffType = (mod.BuffType("Goliath"));
-            item.buffTime = 18000;
+            Item.width = 20;
+            Item.height = 32;
+            Item.useStyle = 2;
+            Item.useAnimation = 17;
+            Item.useTime = 17;
+            Item.useTurn = true;
+            Item.UseSound = SoundID.Item3;
+            Item.maxStack = 30;
+            Item.consumable = true;
+            Item.rare = 1;
+            Item.value = 4000;
+            Item.buffType = (ModContent.BuffType<Goliath>());
+            Item.buffTime = 21600;
         }
 
         public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(mod);
+			Recipe recipe = CreateRecipe();
 			recipe.AddIngredient(ItemID.BottledWater);
 			recipe.AddIngredient(null, "Icarusfish");
 			recipe.AddIngredient(ItemID.Shiverthorn); 
 			recipe.AddTile(TileID.Bottles);
-			recipe.SetResult(this);
-			recipe.AddRecipe();
+			recipe.Register();
+			
 		}
     }
 }

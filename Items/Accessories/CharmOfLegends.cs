@@ -18,13 +18,13 @@ namespace Emperia.Items.Accessories
 		}
         public override void SetDefaults()
         {
-            item.width = 30;
-            item.height = 28;
-            item.rare = 5;
-            item.value = 1080000;
-            item.accessory = true;
+            Item.width = 30;
+            Item.height = 28;
+            Item.rare = 5;
+            Item.value = 1080000;
+            Item.accessory = true;
         }
-        public override void UpdateAccessory(Player player, bool hideVisual)
+        public override void UpdateAccessory(Player player, bool hideVisibleAccessory)
         {
 			player.GetModPlayer<MyPlayer>().vitalityCrystal = true;
 			player.GetModPlayer<MyPlayer>().forbiddenOath = true;
@@ -34,13 +34,14 @@ namespace Emperia.Items.Accessories
         }
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(mod);
+			Recipe recipe = CreateRecipe();
 			recipe.AddIngredient(ItemID.CharmofMyths, 1);
 			recipe.AddIngredient(null, "VitalityCrystal", 1);
 			recipe.AddIngredient(null, "ForbiddenOath", 1);
 			recipe.AddTile(TileID.TinkerersWorkbench);
-			recipe.SetResult(this);
-			recipe.AddRecipe();
+			recipe.Register();
+			//recipe.Register();
+			//
 	
 		}
 		

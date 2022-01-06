@@ -11,21 +11,21 @@ namespace Emperia.Projectiles.Stratos
 		int timer = 0;
 		public override void SetStaticDefaults()
 		{
-			ProjectileID.Sets.YoyosLifeTimeMultiplier[projectile.type] = 8f;
-			ProjectileID.Sets.YoyosMaximumRange[projectile.type] = 350f;
-			ProjectileID.Sets.YoyosTopSpeed[projectile.type] = 10f;
+			ProjectileID.Sets.YoyosLifeTimeMultiplier[Projectile.type] = 8f;
+			ProjectileID.Sets.YoyosMaximumRange[Projectile.type] = 350f;
+			ProjectileID.Sets.YoyosTopSpeed[Projectile.type] = 10f;
 		}
 
 		public override void SetDefaults()
 		{
-			projectile.extraUpdates = 0;
-			projectile.width = 16;
-			projectile.height = 16;
-			projectile.aiStyle = 99;
-			projectile.friendly = true;
-			projectile.penetrate = -1;
-			projectile.melee = true;
-			projectile.scale = 1f;
+			Projectile.extraUpdates = 0;
+			Projectile.width = 16;
+			Projectile.height = 16;
+			Projectile.aiStyle = 99;
+			Projectile.friendly = true;
+			Projectile.penetrate = -1;
+			Projectile.DamageType = DamageClass.Melee;
+			Projectile.scale = 1f;
 		}
 		
 		public override void AI()
@@ -33,7 +33,7 @@ namespace Emperia.Projectiles.Stratos
 			timer ++;
 			Vector2 perturbedSpeed = new Vector2(0, 3).RotatedByRandom(MathHelper.ToRadians(360));
 			if (timer % 25 == 0)
-				Projectile.NewProjectile(projectile.position.X, projectile.position.Y, perturbedSpeed.X, perturbedSpeed.Y, mod.ProjectileType("StratosSpark"), projectile.damage, projectile.knockBack, projectile.owner, 0, 0);
+				Projectile.NewProjectile(Projectile.InheritSource(Projectile), Projectile.position.X, Projectile.position.Y, perturbedSpeed.X, perturbedSpeed.Y, ModContent.ProjectileType<StratosSpark>(), Projectile.damage, Projectile.knockBack, Projectile.owner, 0, 0);
 		}
 		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
 		{

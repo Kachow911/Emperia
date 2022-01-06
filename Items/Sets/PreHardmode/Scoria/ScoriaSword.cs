@@ -17,22 +17,22 @@ namespace Emperia.Items.Sets.PreHardmode.Scoria //where is located
         }
         public override void SetDefaults()
         {   //Sword name
-            item.damage = 28;            //Sword damage
-            item.melee = true;            //if it's melee
-            item.width = 16;              //Sword width
-            item.height = 16;             //Sword height
-            item.useTime = 27;          //how fast 
-            item.useAnimation = 27;
-            item.useStyle = 1;        //Style is how this item is used, 1 is the style of the sword
-            item.knockBack = 3.5f;      //Sword knockback
-            item.value = 100;
-            item.rare = 3;
-            item.scale = 1f;
-            item.autoReuse = true;   //if it's capable of autoswing.
-            item.useTurn = true;             //projectile speed
-            item.UseSound = SoundID.Item1;
+            Item.damage = 28;            //Sword damage
+            Item.DamageType = DamageClass.Melee;            //if it's melee
+            Item.width = 16;              //Sword width
+            Item.height = 16;             //Sword height
+            Item.useTime = 27;          //how fast 
+            Item.useAnimation = 27;
+            Item.useStyle = 1;        //Style is how this Item is used, 1 is the style of the sword
+            Item.knockBack = 3.5f;      //Sword knockback
+            Item.value = 100;
+            Item.rare = 3;
+            Item.scale = 1f;
+            Item.autoReuse = true;   //if it's capable of autoswing.
+            Item.useTurn = true;             //Projectile speed
+            Item.UseSound = SoundID.Item1;
         }
-        public override bool UseItem(Player player)
+        public override bool? UseItem(Player player)
         {
 
             return true;

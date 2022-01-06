@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.DataStructures;
 
 namespace Emperia.Items.Sets.Hardmode.Jungle
 {
@@ -14,60 +15,60 @@ namespace Emperia.Items.Sets.Hardmode.Jungle
 
 		public override void SetDefaults()
 		{
-			item.damage = 22;
-			item.ranged = true;
-			item.width = 40;
-			item.height = 20;
-			item.useTime = 23;
-			item.useAnimation = 23;
-			item.useStyle = 5;
-			item.noMelee = true; //so the item's animation doesn't do damage
-			item.knockBack = 3;
-			item.value = 10000;
-			item.rare = 4;
-			item.UseSound = SoundID.Item11;
-			item.autoReuse = true;
-			item.shoot = 10; //idk why but all the guns in the vanilla source have this
-			item.shootSpeed = 16f;
-			item.useAmmo = AmmoID.Bullet;
+			Item.damage = 22;
+			Item.DamageType = DamageClass.Ranged;
+			Item.width = 40;
+			Item.height = 20;
+			Item.useTime = 23;
+			Item.useAnimation = 23;
+			Item.useStyle = 5;
+			Item.noMelee = true; //so the Item's animation doesn't do damage
+			Item.knockBack = 3;
+			Item.value = 10000;
+			Item.rare = 4;
+			Item.UseSound = SoundID.Item11;
+			Item.autoReuse = true;
+			Item.shoot = 10; //idk why but all the guns in the vanilla source have this
+			Item.shootSpeed = 16f;
+			Item.useAmmo = AmmoID.Bullet;
 		}
 
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(mod);
+			Recipe recipe = CreateRecipe();
 			recipe.AddIngredient(null, "JungleMaterial", 5);
 			recipe.AddIngredient(ItemID.AdamantiteBar, 2);
 			recipe.AddIngredient(ItemID.SoulofNight, 2);
 			recipe.AddIngredient(ItemID.SoulofLight, 2);
 			recipe.AddTile(TileID.MythrilAnvil);
-			recipe.SetResult(this);
-			recipe.AddRecipe();
-			recipe = new ModRecipe(mod);
+			recipe.Register();
+			
+			recipe = CreateRecipe();
 			recipe.AddIngredient(null, "JungleMaterial", 5);
 			recipe.AddIngredient(ItemID.TitaniumBar, 2);
 			recipe.AddIngredient(ItemID.SoulofNight, 2);
 			recipe.AddIngredient(ItemID.SoulofLight, 2);
 			recipe.AddTile(TileID.MythrilAnvil);
-			recipe.SetResult(this);
-			recipe.AddRecipe();
+			recipe.Register();
+			
 		}
 
 		 
-		public override bool ConsumeAmmo(Player player)
+		public override bool CanConsumeAmmo(Player player)
 		{
 			return Main.rand.NextFloat() >= .1f;
 		}
 
 
-		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+		public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockBack)
 		{
 			int numberProjectiles = 3;
 			for (int i = 0; i < numberProjectiles; i++)
 			{
-				Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(5)); // 30 degree spread.
-				Projectile.NewProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, type, damage, knockBack, player.whoAmI);
+				Vector2 perturbedSpeed = velocity.RotatedByRandom(MathHelper.ToRadians(5)); // 30 degree spread.
+				Projectile.NewProjectile(source, position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, type, damage, knockBack, player.whoAmI);
 			}
-			return false; // return false because we don't want tmodloader to shoot projectile
+			return false; // return false because we don't want tmodloader to shoot Projectile
 		}
 
 

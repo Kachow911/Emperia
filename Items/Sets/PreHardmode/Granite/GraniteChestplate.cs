@@ -19,29 +19,26 @@ public class GraniteChestplate : ModItem
 		}
     public override void SetDefaults()
     {
-        item.width = 18;
-        item.height = 18;
-        item.value = 210000;
-        item.rare = 2;
-        item.defense = 8;
+        Item.width = 18;
+        Item.height = 18;
+        Item.value = 210000;
+        Item.rare = 2;
+        Item.defense = 8;
     }
 
     public override void UpdateEquip(Player player)
     {
         player.maxMinions += 1;
-        player.meleeCrit += 2;
-		player.magicCrit += 2;
-		player.rangedCrit += 2;
-		player.thrownCrit += 2;
+		player.GetCritChance(DamageClass.Generic) += 2;
     }
 
     public override void AddRecipes()
     {
-        ModRecipe recipe = new ModRecipe(mod);
+        Recipe recipe = CreateRecipe();
         recipe.AddIngredient(null, "GraniteBar", 12);
         recipe.AddRecipeGroup("Emperia:EvilHide", 9);
         recipe.AddTile(TileID.Anvils);
-        recipe.SetResult(this);
-        recipe.AddRecipe();
+        recipe.Register();
+        
     }
 }}

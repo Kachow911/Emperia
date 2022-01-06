@@ -1,12 +1,13 @@
 using System;
 using Terraria;
 using Terraria.ModLoader;
+using Emperia.Projectiles.Granite;
 
 namespace Emperia.Buffs
 {
 	public class GraniteMinionBuff : ModBuff
 	{
-		public override void SetDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Granite Elemental");
 			Description.SetDefault("The granite elemental will fight for you");
@@ -17,7 +18,7 @@ namespace Emperia.Buffs
 		public override void Update(Player player, ref int buffIndex)
 		{
 			MyPlayer modPlayer = player.GetModPlayer<MyPlayer>();
-			if (player.ownedProjectileCounts[mod.ProjectileType("GraniteMinion")] > 0)
+			if (player.ownedProjectileCounts[ModContent.ProjectileType<GraniteMinion>()] > 0)
 			{
 				modPlayer.graniteMinion = true;
 			}

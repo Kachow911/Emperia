@@ -8,7 +8,7 @@ namespace Emperia.Tiles
 {
 	public class VitalityCrystalTile : ModTile
 	{
-		public override void SetDefaults()
+		public override void SetStaticDefaults()
 		{
 			Main.tileFrameImportant[Type] = true;
 			TileObjectData.addTile(Type);
@@ -20,7 +20,7 @@ namespace Emperia.Tiles
 			Main.tileBlockLight[Type] = true;
 			Main.tileLighted[Type] = false;
 			TileObjectData.addTile(Type);
-			drop = mod.ItemType("VitalityCrystal");
+			ItemDrop = ModContent.ItemType<Items.Accessories.VitalityCrystal>();
 			TileObjectData.newTile.CoordinateHeights = new int[]
 			{
 				16,
@@ -35,7 +35,7 @@ namespace Emperia.Tiles
 		
 		public override void KillMultiTile(int i, int j, int frameX, int frameY)
 		{
-			Main.PlaySound(2, i * 16, j * 16, 27);
+			Terraria.Audio.SoundEngine.PlaySound(2, i * 16, j * 16, 27);
 		} 
 		
 	}

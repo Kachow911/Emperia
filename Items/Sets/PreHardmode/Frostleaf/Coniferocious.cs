@@ -5,6 +5,8 @@ using Terraria.Graphics.Effects;
 using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.DataStructures;
+using Emperia.Projectiles.Yeti;
 
 namespace Emperia.Items.Sets.PreHardmode.Frostleaf
 {
@@ -17,33 +19,32 @@ namespace Emperia.Items.Sets.PreHardmode.Frostleaf
 		}
         public override void SetDefaults()
         {
-            item.width = 20;
-            item.height = 20;
-			item.damage = 14;
-			item.melee = true;
-            item.useStyle = 1;
-            item.noUseGraphic = true;
-            item.noMelee = true;
-			item.useTime = 18;
-            item.useAnimation = 18;
-            item.useTurn = true;
-            item.autoReuse = false;
-			item.knockBack = 6f;
-            item.value = 24000;        
-            item.rare = 1;
-            item.autoReuse = false;
-            item.shoot = mod.ProjectileType("ConiferociousProj");
-            item.shootSpeed = 9f;
-            item.UseSound = SoundID.Item1;
+            Item.width = 20;
+            Item.height = 20;
+			Item.damage = 14;
+			Item.DamageType = DamageClass.Melee;
+            Item.useStyle = 1;
+            Item.noUseGraphic = true;
+            Item.noMelee = true;
+			Item.useTime = 18;
+            Item.useAnimation = 18;
+            Item.useTurn = true;
+            Item.autoReuse = false;
+			Item.knockBack = 6f;
+            Item.value = 24000;        
+            Item.rare = 1;
+            Item.autoReuse = false;
+            Item.shoot = ModContent.ProjectileType<ConiferociousProj>();
+            Item.shootSpeed = 9f;
+            Item.UseSound = SoundID.Item1;
         }
         int pineconeCharge = 0;
-        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+        public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockBack)
         {
             pineconeCharge++;
             if(pineconeCharge >= 4)
             {
-                Vector2 perturbedSpeed = new Vector2(speedX * 1.4f, speedY * 1.4f);
-				Projectile.NewProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, mod.ProjectileType("PineconeGrenade"), damage * 2, knockBack + 1f, player.whoAmI);
+				Projectile.NewProjectile(source, position.X, position.Y, velocity.X * 1.4f, velocity.Y * 1.4f, ModContent.ProjectileType<PineconeGrenade>(), damage * 2, knockBack + 1f, player.whoAmI);
                 pineconeCharge = 0;
             }
             return true;
@@ -52,7 +53,7 @@ namespace Emperia.Items.Sets.PreHardmode.Frostleaf
         {
             for (int i = 0; i < 250; ++i)
             {
-                if (Main.projectile[i].active && Main.projectile[i].owner == Main.myPlayer && Main.projectile[i].type == item.shoot)
+                if (Main.projectile[i].active && Main.projectile[i].owner == Main.myPlayer && Main.projectile[i].type == Item.shoot)
                 {
                     return false;
                 }
@@ -61,12 +62,12 @@ namespace Emperia.Items.Sets.PreHardmode.Frostleaf
         }
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);      
+            Recipe recipe = CreateRecipe();      
             recipe.AddIngredient(null, "Frostleaf", 7); 
             recipe.AddIngredient(ItemID.BorealWood, 15); 			
             recipe.AddTile(TileID.Anvils);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            recipe.Register();
+            
         }
 	}
 }

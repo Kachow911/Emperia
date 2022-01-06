@@ -4,6 +4,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
+using Terraria.GameContent;
 
 namespace Emperia.Projectiles.Yeti
 {
@@ -15,25 +16,26 @@ namespace Emperia.Projectiles.Yeti
 		float rotation;
 	    public override void SetDefaults()
 		{
-			projectile.scale = 1.2f;
-			projectile.width = 18;
-			projectile.height = 52;
-			projectile.aiStyle = 1;
-			projectile.friendly = true;
-			projectile.penetrate = 2;
-			projectile.thrown = true;
-			projectile.ignoreWater = true;
-			aiType = ProjectileID.JavelinFriendly;
+			Projectile.scale = 1.2f;
+			Projectile.width = 18;
+			Projectile.height = 52;
+			Projectile.aiStyle = 1;
+			Projectile.friendly = true;
+			Projectile.penetrate = 2;
+			Projectile.DamageType = DamageClass.Ranged;
+//was thrown pre 1.4
+			Projectile.ignoreWater = true;
+			AIType = ProjectileID.JavelinFriendly;
 		}
 
 	    public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Hunter's Spear");
-            ProjectileID.Sets.TrailCacheLength[projectile.type] = 3;
-            ProjectileID.Sets.TrailingMode[projectile.type] = 0;
+            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 3;
+            ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
 		}
 
-	    public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough)
+	    public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)
 		{
 			width = 10;
 			height = 10;
@@ -53,24 +55,27 @@ namespace Emperia.Projectiles.Yeti
 
                 if (i % 8 == 0)
                 {   //odd
-                    Dust.NewDust(projectile.Center + vec, Main.rand.Next(1, 7), Main.rand.Next(1, 7), 51);
+                    Dust.NewDust(Projectile.Center + vec, Main.rand.Next(1, 7), Main.rand.Next(1, 7), 51);
                 }
 
                 if (i % 9 == 0)
                 {   //even
                     vec.Normalize();
-                    Dust.NewDust(projectile.Center, Main.rand.Next(1, 7), Main.rand.Next(1, 7),51, vec.X * 2, vec.Y * 2);
+                    Dust.NewDust(Projectile.Center, Main.rand.Next(1, 7), Main.rand.Next(1, 7),51, vec.X * 2, vec.Y * 2);
                 }
             }
 		}
-	    public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
+	    public override bool PreDraw(ref Color lightColor)
         {
-            Vector2 drawOrigin = new Vector2(Main.projectileTexture[projectile.type].Width * 0.5f, projectile.height * 0.5f);
-            for(int k = 0; k < projectile.oldPos.Length; k++)
+			Main.instance.LoadProjectile(Projectile.type);
+			Texture2D texture = TextureAssets.Projectile[Projectile.type].Value;
+
+            Vector2 drawOrigin = new Vector2(texture.Width * 0.5f, Projectile.height * 0.5f);
+            for(int k = 0; k < Projectile.oldPos.Length; k++)
             {
-                Vector2 drawPos = projectile.oldPos[k] - Main.screenPosition + drawOrigin + new Vector2(0f, projectile.gfxOffY);
-                Color color = projectile.GetAlpha(lightColor) * ((float)(projectile.oldPos.Length - k) / (float)projectile.oldPos.Length);
-                spriteBatch.Draw(Main.projectileTexture[projectile.type], drawPos, null, color, projectile.rotation, drawOrigin, projectile.scale, SpriteEffects.None, 0f);
+                Vector2 drawPos = Projectile.oldPos[k] - Main.screenPosition + drawOrigin + new Vector2(0f, Projectile.gfxOffY);
+                Color color = Projectile.GetAlpha(lightColor) * ((float)(Projectile.oldPos.Length - k) / (float)Projectile.oldPos.Length);
+                Main.EntitySpriteDraw(texture, drawPos, null, color, Projectile.rotation, drawOrigin, Projectile.scale, SpriteEffects.None, 0);
             }
             return true;
         }

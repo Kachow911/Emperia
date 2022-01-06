@@ -3,6 +3,8 @@ using System;
 using Microsoft.Xna.Framework;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Emperia.Projectiles;
+
 
 namespace Emperia.Items.Sets.PreHardmode.FrousForest
 {
@@ -17,24 +19,24 @@ namespace Emperia.Items.Sets.PreHardmode.FrousForest
 
         public override void SetDefaults()
         {
-            item.damage = 22;
-            item.magic = true;
-            item.mana = 13;
-            item.width = 46;
-            item.height = 46;
-            item.useTime = 25;
-            item.useAnimation = 25;
-            item.useStyle = 5;
-            Item.staff[item.type] = true;
-            item.noMelee = true;
-            item.knockBack = 0;
-            item.value = Terraria.Item.sellPrice(0, 0, 50, 0);
-            item.rare = 3;
-            item.UseSound = SoundID.Item34;
-            item.autoReuse = false;
-            item.shoot = mod.ProjectileType("AutumnProj");
-            item.shootSpeed = 8f;
-            item.autoReuse = false;
+            Item.damage = 22;
+            Item.DamageType = DamageClass.Magic;
+            Item.mana = 13;
+            Item.width = 46;
+            Item.height = 46;
+            Item.useTime = 25;
+            Item.useAnimation = 25;
+            Item.useStyle = 5;
+            Item.staff[Item.type] = true;
+            Item.noMelee = true;
+            Item.knockBack = 0;
+            Item.value = Terraria.Item.sellPrice(0, 0, 50, 0);
+            Item.rare = 3;
+            Item.UseSound = SoundID.Item34;
+            Item.autoReuse = false;
+            Item.shoot = ModContent.ProjectileType<AutumnProj>();
+            Item.shootSpeed = 8f;
+            Item.autoReuse = false;
         }
     }
 }

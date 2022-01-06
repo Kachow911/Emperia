@@ -17,14 +17,14 @@ public class FrostFangEarring : ModItem
 		}
 	public override void SetDefaults()
 	{
-		item.width = 18;
-		item.height = 32;
-		item.value = 400000;
-		item.rare = 5;
-		item.accessory = true;
+		Item.width = 18;
+		Item.height = 32;
+		Item.value = 400000;
+		Item.rare = 5;
+		Item.accessory = true;
 	}
 	
-	public override void UpdateAccessory(Player player, bool hideVisual)
+	public override void UpdateAccessory(Player player, bool hideVisibleAccessory)
 	{
 		MyPlayer modPlayer = player.GetModPlayer<MyPlayer>();
 		modPlayer.frostFang = true;

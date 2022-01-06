@@ -20,29 +20,29 @@ namespace Emperia.Projectiles.Mushroom
 		}
         public override void SetDefaults()
         {
-            projectile.width = 25;
-            projectile.height = 25;
-            projectile.friendly = true;
-            projectile.ranged = true;
-            projectile.penetrate = 1;
-            projectile.aiStyle = 2;
-            projectile.timeLeft = 180;
-            aiType = 48;
+            Projectile.width = 25;
+            Projectile.height = 25;
+            Projectile.friendly = true;
+            Projectile.DamageType = DamageClass.Ranged;
+            Projectile.penetrate = 1;
+            Projectile.aiStyle = 2;
+            Projectile.timeLeft = 180;
+            AIType = 48;
         }
         
         public override void AI()
         {
         	
-            	Dust.NewDust(projectile.position, projectile.width, projectile.height, 41, projectile.velocity.X * 0.15f, projectile.velocity.Y * 0.15f);
+            	Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 41, Projectile.velocity.X * 0.15f, Projectile.velocity.Y * 0.15f);
                 if (doPull) 
 				{
-					projectile.velocity.X = 0;
-					projectile.velocity.Y = 0;
+					Projectile.velocity.X = 0;
+					Projectile.velocity.Y = 0;
 					for (int i = 0; i < Main.npc.Length; i++)
                     {
-			            if (projectile.Distance(Main.npc[i].Center) < pullRadius)
+			            if (Projectile.Distance(Main.npc[i].Center) < pullRadius)
 						{
-							Vector2 pullVectorThingy = projectile.Center - Main.npc[i].Center;
+							Vector2 pullVectorThingy = Projectile.Center - Main.npc[i].Center;
 							if (Main.npc[i].boss = false)
 								Main.npc[i].velocity = pullVectorThingy * 0.05f;
 			            }
@@ -51,8 +51,8 @@ namespace Emperia.Projectiles.Mushroom
         }
 		 public override bool OnTileCollide(Vector2 oldVelocity)
         {
-			projectile.velocity.X = 0;
-			projectile.velocity.Y = 0;
+			Projectile.velocity.X = 0;
+			Projectile.velocity.Y = 0;
 			
 			doPull = true;
             return false;
@@ -61,8 +61,8 @@ namespace Emperia.Projectiles.Mushroom
         {
 			 for (int i = 0; i < Main.npc.Length; i++)
             {
-				if (projectile.Distance(Main.npc[i].Center) < explodeRadius)
-                    Main.npc[i].StrikeNPC(projectile.damage, 0f, 0, false, false, false);
+				if (Projectile.Distance(Main.npc[i].Center) < explodeRadius)
+                    Main.npc[i].StrikeNPC(Projectile.damage, 0f, 0, false, false, false);
 			}
         	 for (int i = 0; i < 360; i++)
             {
@@ -70,18 +70,18 @@ namespace Emperia.Projectiles.Mushroom
 
                 if (i % 8 == 0)
                 {   //odd
-                    Dust.NewDust(projectile.Center + vec, Main.rand.Next(1, 7), Main.rand.Next(1, 7), 20);
+                    Dust.NewDust(Projectile.Center + vec, Main.rand.Next(1, 7), Main.rand.Next(1, 7), 20);
                 }
 
                 if (i % 9 == 0)
                 {   //even
                     vec.Normalize();
-                    Dust.NewDust(projectile.Center, Main.rand.Next(1, 7), Main.rand.Next(1, 7), 20, vec.X * 2, vec.Y * 2);
+                    Dust.NewDust(Projectile.Center, Main.rand.Next(1, 7), Main.rand.Next(1, 7), 20, vec.X * 2, vec.Y * 2);
                 }
             }
 
-            Main.PlaySound(SoundID.Item, projectile.Center, 14);    //bomb explosion sound
-            Main.PlaySound(SoundID.Item, projectile.Center, 21);    //swishy sound
+            Terraria.Audio.SoundEngine.PlaySound(SoundID.Item, Projectile.Center, 14);    //bomb explosion sound
+            Terraria.Audio.SoundEngine.PlaySound(SoundID.Item, Projectile.Center, 21);    //swishy sound
 		}
     }
 }

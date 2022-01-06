@@ -4,6 +4,7 @@ using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
 
 using Emperia.Npcs.Mushor;
+using Emperia.Items.Weapons.Mushor;
 
 namespace Emperia.Items
 {
@@ -18,15 +19,15 @@ namespace Emperia.Items
 
 		public override void SetDefaults()
 		{
-			item.width = 20;
-			item.height = 20;
-			item.rare = -2;
+			Item.width = 20;
+			Item.height = 20;
+			Item.rare = -2;
 
-			item.maxStack = 30;
+			Item.maxStack = 30;
 
-			item.expert = true;
+			Item.expert = true;
 		}
-		//public override int BossBagNPC => NPCType<Mushor>();
+		//public override int BossBagNPC => NPCType<<Mushor>();
 		public override bool CanRightClick()
 		{
 			return true;
@@ -34,27 +35,27 @@ namespace Emperia.Items
 
 		public override void RightClick(Player player)
 		{
-			if (Main.rand.Next(6) == 0)
+			//if (Main.rand.Next(6) == 0)
+			//{
+			//	player.QuickSpawnItem(ModContent.ItemType<MushorMask>());
+			//}
+			if (Main.rand.Next(3) != 0)
 			{
-				player.QuickSpawnItem(mod.ItemType("MushorMask"));
+				player.QuickSpawnItem(ModContent.ItemType<Shroomer>());
 			}
 			if (Main.rand.Next(3) != 0)
 			{
-				player.QuickSpawnItem(mod.ItemType("Shroomer"));
+				player.QuickSpawnItem(ModContent.ItemType<Mushdisc>());
 			}
 			if (Main.rand.Next(3) != 0)
 			{
-				player.QuickSpawnItem(mod.ItemType("Mushdisc"));
+				player.QuickSpawnItem(ModContent.ItemType<Shroomflask>());
 			}
 			if (Main.rand.Next(3) != 0)
 			{
-				player.QuickSpawnItem(mod.ItemType("Shroomflask"));
+				player.QuickSpawnItem(ModContent.ItemType<Shroomerang>());
 			}
-			if (Main.rand.Next(3) != 0)
-			{
-				player.QuickSpawnItem(mod.ItemType("Shroomerang"));
-			}
-			player.QuickSpawnItem(mod.ItemType("MycelialShield"));
+			player.QuickSpawnItem(ModContent.ItemType<Items.Accessories.MycelialShield>());
 			
 		}
 	}

@@ -3,6 +3,9 @@ using System;
 using Microsoft.Xna.Framework;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.DataStructures;
+using Emperia.Projectiles.Desert;
+
 
 namespace Emperia.Items.Sets.PreHardmode.Desert
 {
@@ -17,25 +20,25 @@ namespace Emperia.Items.Sets.PreHardmode.Desert
 
         public override void SetDefaults()
         {
-            item.damage = 15;
-            item.magic = true;
-            item.mana = 9;
-            item.width = 52;
-            item.height = 60;
-            item.useTime = 30;
-            item.useAnimation = 30;
-            item.useStyle = 5;
-            Item.staff[item.type] = true;
-            item.noMelee = true;
-            item.knockBack = 0;
-            item.value = Terraria.Item.sellPrice(0, 0, 50, 0);
-            item.rare = 3;
-            item.UseSound = SoundID.Item34;
-            item.autoReuse = true;
-            item.shoot = mod.ProjectileType("DesertWorm");
-            item.shootSpeed = 8f;
+            Item.damage = 15;
+            Item.DamageType = DamageClass.Magic;
+            Item.mana = 9;
+            Item.width = 52;
+            Item.height = 60;
+            Item.useTime = 30;
+            Item.useAnimation = 30;
+            Item.useStyle = 5;
+            Item.staff[Item.type] = true;
+            Item.noMelee = true;
+            Item.knockBack = 0;
+            Item.value = Terraria.Item.sellPrice(0, 0, 50, 0);
+            Item.rare = 3;
+            Item.UseSound = SoundID.Item34;
+            Item.autoReuse = true;
+            Item.shoot = ModContent.ProjectileType<DesertWorm>();
+            Item.shootSpeed = 8f;
         }
-		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type1, ref int damage, ref float knockBack)
+		public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockBack)
 		{
 			float speedFactor;
 			float damageFactor;
@@ -47,17 +50,17 @@ namespace Emperia.Items.Sets.PreHardmode.Desert
 					speedFactor = 15.5f;
 					damageFactor = 1f;
 
-				Projectile.NewProjectile(placePosition.X, placePosition.Y, direction.X * speedFactor, direction.Y * speedFactor, type1, damage, 1, Main.myPlayer, 0, 0);
+				Projectile.NewProjectile(source, placePosition.X, placePosition.Y, direction.X * speedFactor, direction.Y * speedFactor, type, damage, 1, Main.myPlayer, 0, 0);
 			}
 			return false;
 		}
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
+            Recipe recipe = CreateRecipe();
             recipe.AddIngredient(null, "DesertEye", 3);
             recipe.AddTile(TileID.Anvils);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            recipe.Register();
+            
 
         }
     }

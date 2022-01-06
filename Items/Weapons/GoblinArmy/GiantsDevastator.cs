@@ -5,6 +5,7 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Emperia.Projectiles;
  
 namespace Emperia.Items.Weapons.GoblinArmy        
 {
@@ -17,32 +18,32 @@ namespace Emperia.Items.Weapons.GoblinArmy
 		}
         public override void SetDefaults()
         {  
-            item.damage = 45;  
-            item.ranged = true;    
-            item.width = 42; 
-            item.height = 16;    
-            item.useAnimation = 25;
-			item.useTime = 25;
-			item.reuseDelay = 80;
-            item.useStyle = 5;  
-            item.noMelee = true; 
-            item.knockBack = 4f; 
-            item.value = 255000;
-            item.rare = 3;   
-            item.autoReuse = false;  
-            item.shoot = mod.ProjectileType("GoblinRocket");   
-            item.shootSpeed =9f; 
+            Item.damage = 45;  
+            Item.DamageType = DamageClass.Ranged;    
+            Item.width = 42; 
+            Item.height = 16;    
+            Item.useAnimation = 25;
+			Item.useTime = 25;
+			Item.reuseDelay = 80;
+            Item.useStyle = 5;  
+            Item.noMelee = true; 
+            Item.knockBack = 4f; 
+            Item.value = 255000;
+            Item.rare = 3;   
+            Item.autoReuse = false;  
+            Item.shoot = ModContent.ProjectileType<GoblinRocket>();   
+            Item.shootSpeed =9f; 
         }
  
-		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+		public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockBack)
 		{
 			int numberProjectiles = 1; 
 			for (int i = 0; i < numberProjectiles; i++)
 			{
-				Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(5)); 
-				Projectile.NewProjectile(position.X, position.Y, perturbedSpeed.X * 2, perturbedSpeed.Y * 2, type, damage, knockBack, player.whoAmI);
+				Vector2 perturbedSpeed = velocity.RotatedByRandom(MathHelper.ToRadians(5)); 
+				Projectile.NewProjectile(source, position.X, position.Y, perturbedSpeed.X * 2, perturbedSpeed.Y * 2, type, damage, knockBack, player.whoAmI);
 			}
-			Main.PlaySound(SoundID.Item5, player.position);
+			Terraria.Audio.SoundEngine.PlaySound(SoundID.Item5, player.position);
 			return false; 
 		}
 		public override Vector2? HoldoutOffset()

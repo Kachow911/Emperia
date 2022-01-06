@@ -17,21 +17,21 @@ public class AncientPelt : ModItem
 		}
 	public override void SetDefaults()
 	{
-		item.width = 38;
-		item.height = 44;
-		item.value = 50000;
-		item.expert = true;
-		item.accessory = true;
+		Item.width = 38;
+		Item.height = 44;
+		Item.value = 50000;
+		Item.expert = true;
+		Item.accessory = true;
 	}
 	
-	public override void UpdateAccessory(Player player, bool hideVisual)
+	public override void UpdateAccessory(Player player, bool hideVisibleAccessory)
 	{
 		if (player.ZoneSnow)
 		{
-			player.meleeDamage += 0.05f;
-			player.magicDamage += 0.05f;
-			player.rangedDamage += 0.05f;
-			player.thrownDamage += 0.05f;
+			player.GetDamage(DamageClass.Melee) += 0.05f;
+			player.GetDamage(DamageClass.Magic) += 0.05f;
+			player.GetDamage(DamageClass.Ranged) += 0.05f;
+			//player.thrownDamage += 0.05f;
 		}
 		MyPlayer modPlayer = player.GetModPlayer<MyPlayer>();
 		modPlayer.ancientPelt = true;

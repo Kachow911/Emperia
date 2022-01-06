@@ -16,32 +16,32 @@ namespace Emperia.Items.Weapons
 		}
         public override void SetDefaults()
         {  
-            item.damage = 11;  
-            item.ranged = true;    
-            item.width = 42; 
-            item.height = 16;    
-            item.useTime = 6;   
-            item.useAnimation = 20;     
-            item.useStyle = 5;  
-            item.noMelee = true; 
-            item.knockBack = 3.25f; 
-            item.UseSound = SoundID.Item34; 
-            item.value = Item.buyPrice(0, 10, 0, 0);
-            item.rare = 6;   
-            item.autoReuse = true;  
-            item.shoot = 85;   
-            item.shootSpeed = 4.5f; 
-            item.useAmmo = AmmoID.Gel;
-			item.reuseDelay = 20;
+            Item.damage = 11;  
+            Item.DamageType = DamageClass.Ranged;    
+            Item.width = 42; 
+            Item.height = 16;    
+            Item.useTime = 6;   
+            Item.useAnimation = 20;     
+            Item.useStyle = 5;  
+            Item.noMelee = true; 
+            Item.knockBack = 3.25f; 
+            Item.UseSound = SoundID.Item34; 
+            Item.value = Item.buyPrice(0, 10, 0, 0);
+            Item.rare = 6;   
+            Item.autoReuse = true;  
+            Item.shoot = 85;   
+            Item.shootSpeed = 4.5f; 
+            Item.useAmmo = AmmoID.Gel;
+			Item.reuseDelay = 20;
         }
  
 		public override void AddRecipes()
         {
-                ModRecipe recipe = new ModRecipe(mod);
+                Recipe recipe = CreateRecipe();
                 recipe.AddIngredient(ItemID.IllegalGunParts, 1);
 				recipe.AddIngredient(ItemID.Gel, 50);
-                recipe.SetResult(this);
-                recipe.AddRecipe();
+                recipe.Register();
+                
         }
 		public override Vector2? HoldoutOffset()
 		{

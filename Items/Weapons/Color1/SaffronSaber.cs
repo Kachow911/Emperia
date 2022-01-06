@@ -5,6 +5,7 @@ using Terraria.Graphics.Effects;
 using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Emperia.Buffs;
 
 namespace Emperia.Items.Weapons.Color1
 {
@@ -17,21 +18,21 @@ namespace Emperia.Items.Weapons.Color1
 		}
         public override void SetDefaults()
         {
-            item.damage = 32;
-            item.melee = true;
-            item.width = 36;
-            item.height = 40;
-            item.useTime = 18;
-            item.useAnimation = 18;     
-            item.useStyle = 1;
-            item.knockBack = 2f;  
-			item.crit = 2;
-            item.value = 48000;        
-            item.rare = 3;
-			item.scale = 1f;
-			item.UseSound = SoundID.Item1;
-            item.autoReuse = true;
-            item.useTurn = true;                
+            Item.damage = 32;
+            Item.DamageType = DamageClass.Melee;
+            Item.width = 36;
+            Item.height = 40;
+            Item.useTime = 18;
+            Item.useAnimation = 18;     
+            Item.useStyle = 1;
+            Item.knockBack = 2f;  
+			Item.crit = 2;
+            Item.value = 48000;        
+            Item.rare = 3;
+			Item.scale = 1f;
+			Item.UseSound = SoundID.Item1;
+            Item.autoReuse = true;
+            Item.useTurn = true;                
         }
 		public override void MeleeEffects(Player player, Rectangle hitbox)
 		{
@@ -42,21 +43,21 @@ namespace Emperia.Items.Weapons.Color1
 		}
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);      
+            Recipe recipe = CreateRecipe();      
             recipe.AddIngredient(null, "Prism", 1); 
 			recipe.AddIngredient(ItemID.Topaz, 8); 
 			recipe.AddIngredient(ItemID.YellowMarigold, 1); 
             recipe.AddTile(TileID.Anvils);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            recipe.Register();
+            
 
         }
 		 public override void OnHitNPC(Player player, NPC target, int damage, float knockback, bool crit)
 		{
             if (target.boss)
-			    player.AddBuff(mod.BuffType("SaffronSadism"), Main.rand.Next(360, 600) + 300);
+			    player.AddBuff(ModContent.BuffType<SaffronSadism>(), Main.rand.Next(360, 600) + 300);
             else
-                player.AddBuff(mod.BuffType("SaffronSadism"), Main.rand.Next(360, 600));
+                player.AddBuff(ModContent.BuffType<SaffronSadism>(), Main.rand.Next(360, 600));
         }
     }
 }

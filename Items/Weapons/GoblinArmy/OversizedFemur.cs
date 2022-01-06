@@ -2,6 +2,8 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.DataStructures;
+using Emperia.Projectiles;
  
 namespace Emperia.Items.Weapons.GoblinArmy
 {
@@ -14,20 +16,20 @@ namespace Emperia.Items.Weapons.GoblinArmy
 		}
         public override void SetDefaults()
         {
-            item.damage = 32;
-            item.melee = true;
-            item.width = 46;
-            item.height = 66;
-            item.useTime = 34;
-            item.useAnimation = 34;
-            item.useStyle = 1;
-            item.knockBack = 4;
-            item.value = 10000;
-            item.shoot = mod.ProjectileType("FemurProj");
-            item.shootSpeed = 7f;
-            item.rare = 2;
-            item.autoReuse = true;
-            item.useTurn = true;
+            Item.damage = 32;
+            Item.DamageType = DamageClass.Melee;
+            Item.width = 46;
+            Item.height = 66;
+            Item.useTime = 34;
+            Item.useAnimation = 34;
+            Item.useStyle = 1;
+            Item.knockBack = 4;
+            Item.value = 10000;
+            Item.shoot = ModContent.ProjectileType<FemurProj>();
+            Item.shootSpeed = 7f;
+            Item.rare = 2;
+            Item.autoReuse = true;
+            Item.useTurn = true;
  
  
         }
@@ -44,15 +46,15 @@ namespace Emperia.Items.Weapons.GoblinArmy
             { 
                 for (int i = 0; i < Main.projectile.Length; i++)
 			{
-                if (Main.projectile[i].active && Main.projectile[i].owner == Main.myPlayer && Main.projectile[i].type == item.shoot)
+                if (Main.projectile[i].active && Main.projectile[i].owner == Main.myPlayer && Main.projectile[i].type == Item.shoot)
                 {
 					
                     return false;
-					item.noUseGraphic = false;
+					Item.noUseGraphic = false;
                 } 
 				else {
-					item.noUseGraphic = true;
-                    item.noMelee = true;
+					Item.noUseGraphic = true;
+                    Item.noMelee = true;
 				    return true;
 					
 				}
@@ -62,14 +64,14 @@ namespace Emperia.Items.Weapons.GoblinArmy
                 
             }
            else {
-                 item.noUseGraphic = false;
-				 item.noMelee = false;
+                 Item.noUseGraphic = false;
+				 Item.noMelee = false;
                 return base.CanUseItem(player);
 		   }
-           item.noUseGraphic = false;
+           Item.noUseGraphic = false;
         }
 	
-		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+		public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockBack)
 		{
 			if (player.altFunctionUse == 2)     //2 is right click
             { 

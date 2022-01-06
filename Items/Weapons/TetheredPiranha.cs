@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Emperia.Projectiles;
 
 namespace Emperia.Items.Weapons
 {
@@ -16,30 +17,30 @@ namespace Emperia.Items.Weapons
 		}
 		public override void SetDefaults()
 		{
-			item.damage = 15;
-            item.crit = 2;
-			item.melee = true;
-			item.width = 22;
-			item.height = 22;
-			item.useTime = 26;
-			item.useAnimation = 26;
-			item.useStyle = 5;
-			item.knockBack = 1;
-			item.value = 1000;
-			item.rare = 2;
-			item.UseSound = SoundID.Item1;
-			item.noUseGraphic = true;
-			item.noMelee = true;
-			item.shoot = mod.ProjectileType("PiranhaProjectile");
-            item.shootSpeed = 8f;
-			item.channel = true;
+			Item.damage = 15;
+            Item.crit = 2;
+			Item.DamageType = DamageClass.Melee;
+			Item.width = 22;
+			Item.height = 22;
+			Item.useTime = 26;
+			Item.useAnimation = 26;
+			Item.useStyle = 5;
+			Item.knockBack = 1;
+			Item.value = 1000;
+			Item.rare = 2;
+			Item.UseSound = SoundID.Item1;
+			Item.noUseGraphic = true;
+			Item.noMelee = true;
+			Item.shoot = ModContent.ProjectileType<PiranhaProjectile>();
+            Item.shootSpeed = 8f;
+			Item.channel = true;
         }
 		
 		public override bool CanUseItem(Player player)
         {
             for (int i = 0; i < 1000; ++i)
             {
-                if (Main.projectile[i].active && Main.projectile[i].owner == Main.myPlayer && Main.projectile[i].type == item.shoot)
+                if (Main.projectile[i].active && Main.projectile[i].owner == Main.myPlayer && Main.projectile[i].type == Item.shoot)
                 {
                     return false;
                 }

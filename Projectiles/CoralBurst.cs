@@ -5,6 +5,8 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using System.Collections.Generic;
 using System;
+using Emperia.Projectiles;
+using static Terraria.Audio.SoundEngine;
 
 namespace Emperia.Projectiles
 {
@@ -14,13 +16,13 @@ namespace Emperia.Projectiles
 		bool init = false;
 		public override void SetDefaults()
 		{
-			projectile.width = 8;
-			projectile.height = 8;
-			projectile.friendly = true;
-			projectile.ranged = true;
-			projectile.penetrate = -1;
-			projectile.timeLeft = 15;
-			projectile.tileCollide = true;
+			Projectile.width = 8;
+			Projectile.height = 8;
+			Projectile.friendly = true;
+			Projectile.DamageType = DamageClass.Ranged;
+			Projectile.penetrate = -1;
+			Projectile.timeLeft = 15;
+			Projectile.tileCollide = true;
 		}
 		
 		public override void SetStaticDefaults()
@@ -31,14 +33,14 @@ namespace Emperia.Projectiles
 		{
 			if (!init)
 			{
-				burstVel = projectile.velocity;
-				projectile.velocity = Vector2.Zero;
+				burstVel = Projectile.velocity;
+				Projectile.velocity = Vector2.Zero;
 				init = true;
 			}
-			Player player = Main.player[projectile.owner];
-			if (projectile.timeLeft % 5 == 0)
+			Player player = Main.player[Projectile.owner];
+			if (Projectile.timeLeft % 5 == 0)
 			{
-				Projectile.NewProjectile(player.Center.X, player.Center.Y, burstVel.X, burstVel.Y, mod.ProjectileType("CoralBurst"), projectile.damage, projectile.knockBack, Main.myPlayer, 0, 0);
+				Projectile.NewProjectile(Projectile.InheritSource(Projectile), player.Center.X, player.Center.Y, burstVel.X, burstVel.Y, ModContent.ProjectileType<CoralBurst>(), Projectile.damage, Projectile.knockBack, Main.myPlayer, 0, 0);
 			}
 		}
 		public override bool? CanHitNPC(NPC target)
@@ -50,14 +52,14 @@ namespace Emperia.Projectiles
 	{
 		public override void SetDefaults()
 		{
-			//projectile.damage = 10;
-			projectile.width = 8;
-			projectile.height = 8;
-			projectile.friendly = true;
-			projectile.ranged = true;
-			projectile.penetrate = 1;
-			projectile.timeLeft = 20;
-			projectile.tileCollide = true;
+			//Projectile.damage = 10;
+			Projectile.width = 8;
+			Projectile.height = 8;
+			Projectile.friendly = true;
+			Projectile.DamageType = DamageClass.Ranged;
+			Projectile.penetrate = 1;
+			Projectile.timeLeft = 20;
+			Projectile.tileCollide = true;
 		}
 		
 		public override void SetStaticDefaults()
@@ -69,28 +71,28 @@ namespace Emperia.Projectiles
 		{
 			for (int i = 0; i < 2; ++i)
 			{
-				int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 46, projectile.velocity.X / 2, projectile.velocity.Y / 2, 0, default(Color), 0.65f);
+				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 46, Projectile.velocity.X / 2, Projectile.velocity.Y / 2, 0, default(Color), 0.65f);
                 Main.dust[dust].noGravity = false;
 			}
 		}
 		public override void AI()
 		{
-			projectile.rotation = (float)Math.Atan2((double)projectile.velocity.Y, (double)projectile.velocity.X) + 1.57f;
+			Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + 1.57f;
 		}
 		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
 		{	
-			Main.PlaySound(SoundID.Dig, projectile.position);
+			PlaySound(SoundID.Dig, Projectile.position);
 			for (int i = 0; i < 3; i++)
 			{
-				Dust.NewDust(projectile.position, projectile.width, projectile.height, 46, (float) projectile.velocity.X / 5, (float) projectile.velocity.Y / 5, 0, default(Color), 0.8f);
+				Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 46, (float) Projectile.velocity.X / 5, (float) Projectile.velocity.Y / 5, 0, default(Color), 0.8f);
             }
 		}
 		public override bool OnTileCollide(Vector2 oldVelocity)
 		{
-			Main.PlaySound(SoundID.Dig, projectile.position);
+			PlaySound(SoundID.Dig, Projectile.position);
 			for (int i = 0; i < 3; i++)
 			{
-				Dust.NewDust(projectile.position, projectile.width, projectile.height, 46, (float) projectile.velocity.X / 5, (float) projectile.velocity.Y / 5, 0, default(Color), 0.8f);
+				Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 46, (float) Projectile.velocity.X / 5, (float) Projectile.velocity.Y / 5, 0, default(Color), 0.8f);
             }
 			return true;		
 		}
