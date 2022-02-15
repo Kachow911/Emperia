@@ -202,9 +202,21 @@ namespace Emperia
 			}
 			return 1f;
 		}
+<<<<<<< Updated upstream
 
         /*public override void CatchFish(FishingAttempt attempt, ref int itemDrop, ref int npcSpawn, ref AdvancedPopupRequest sonar, ref Vector2 sonarPosition)
         //public override void CatchFish(Item fishingRod, Item bait, int power, int liquidType, int poolSize, int worldLayer, int questFish, ref int caughtType)
+=======
+		public override float UseTimeMultiplier(Item Item)
+        {
+            if (Item.type == mod.ItemType("Escargun") && (eschargo >= 0))
+            {
+                return 1.25f;
+            }
+            return 1f;
+        }
+        public override void CatchFish(Item fishingRod, Item bait, int power, int liquidType, int poolSize, int worldLayer, int questFish, ref int caughtType, ref bool junk)
+>>>>>>> Stashed changes
 		{
 			//if (junk)
 			//{
@@ -278,14 +290,21 @@ namespace Emperia
 				forestSetMeleeCooldown--;
 				for (int i = 0; i < 200; i++)
 				{
+<<<<<<< Updated upstream
 					if (Player.Distance(Main.npc[i].Center) < 64 && forestSetMeleeCooldown <= 0 && !Main.npc[i].boss && !Main.npc[i].townNPC)
 					{
 						forestSetMeleeCooldown = 120;
 						Vector2 direction = Player.Center - Main.npc[i].Center;
+=======
+					if (player.Distance(Main.NPC[i].Center) < 64 && forestSetMeleeCooldown <= 0 && !Main.NPC[i].boss && !Main.NPC[i].townNPC)
+					{
+						forestSetMeleeCooldown = 120;
+						Vector2 direction = player.Center - Main.NPC[i].Center;
+>>>>>>> Stashed changes
 						direction.Normalize();
-						Main.npc[i].velocity = (-direction) * 8f;
+						Main.NPC[i].velocity = (-direction) * 8f;
 						doWave = true;
-						Main.npc[i].StrikeNPC(10, 0f, 0, false, false, false);
+						Main.NPC[i].StrikeNPC(10, 0f, 0, false, false, false);
 					}
 				}
 				if (doWave)
@@ -350,11 +369,15 @@ namespace Emperia
 				{
 					for (int i = 0; i < 200; i++)
 					{
+<<<<<<< Updated upstream
 						if (Player.Hitbox.Intersects(Main.npc[i].Hitbox) && !hitEnemies.Contains(i) && Main.npc[i].life > 2)
+=======
+						if (player.Hitbox.Intersects(Main.NPC[i].Hitbox) && !hitEnemies.Contains(i) && Main.NPC[i].life > 2)
+>>>>>>> Stashed changes
 						{
 							hitEnemies.Add(i);
-							Main.npc[i].StrikeNPC(60, 0f, 0, false, false, false);
-							Main.npc[i].AddBuff(BuffID.CursedInferno, 120);
+							Main.NPC[i].StrikeNPC(60, 0f, 0, false, false, false);
+							Main.NPC[i].AddBuff(BuffID.CursedInferno, 120);
 							if (!changedVelocity)
 							{
 								changedVelocity = true;
@@ -496,6 +519,7 @@ namespace Emperia
 						int dust = Dust.NewDust(Player.Center + Position, Player.width / 8, Player.height / 8, 76, 0f, 0f, 0, rgb, 1.5f);
 						Main.dust[dust].noGravity = true;
 					}
+<<<<<<< Updated upstream
 					for (int i = 0; i < Main.npc.Length; i++)
 					{
 						if (Player.Distance(Main.npc[i].Center) < peltRadius)
@@ -503,6 +527,15 @@ namespace Emperia
 							Main.npc[i].AddBuff(BuffID.Chilled, 120);
 							Main.npc[i].AddBuff(BuffID.Frostburn, 120);
 						}
+=======
+					for (int i = 0; i < Main.NPC.Length; i++)
+                    {
+			            if (player.Distance(Main.NPC[i].Center) < peltRadius)
+						{
+							Main.NPC[i].AddBuff(BuffID.Chilled, 120);
+							Main.NPC[i].AddBuff(BuffID.Frostburn, 120);
+			            }
+>>>>>>> Stashed changes
 					}
 				}
 			}
@@ -511,11 +544,19 @@ namespace Emperia
 				yetiCooldown--;
 				for (int npcFinder = 0; npcFinder < 200; ++npcFinder)
 				{
+<<<<<<< Updated upstream
 
 					if (Player.Distance(Main.npc[npcFinder].Center) < 256 && yetiCooldown <= 0)
 					{
 						yetiCooldown = 30;
 						Vector2 direction = Main.npc[npcFinder].Center - Player.Center - new Vector2(0, 16);
+=======
+				
+					if (player.Distance(Main.NPC[npcFinder].Center) < 256 && yetiCooldown <= 0)
+					{
+						yetiCooldown = 30;
+						Vector2 direction = Main.NPC[npcFinder].Center - player.Center - new Vector2(0, 16);
+>>>>>>> Stashed changes
 						direction.Normalize();
 						//Projectile.NewProjectile(GetProjectileSource_Mount(terraGauntlet), Player.Center.X, Player.Center.Y + 16, direction.X * 7f, direction.Y * 7f, ProjectileID.SnowBallFriendly, 25, 1, Main.myPlayer, 0, 0);
 						//i believe the fix for this is to put the projectile fire code in the mount as the game handles that automatically
@@ -560,6 +601,7 @@ namespace Emperia
 			else frostFangTimer++;
 			if (frostFangTimer >= 60)
 			{
+<<<<<<< Updated upstream
 				for (int k = 0; k < 200; k++)
 				{
 					NPC NPC = Main.npc[k];
@@ -571,6 +613,16 @@ namespace Emperia
 							//distance 400
 							//Main.NewText("yeet2", 255, 240, 20, false);	
 							NPC.AddBuff(ModContent.BuffType<Cryogenized>(), 120);
+=======
+				for (int k = 0; k < 200; k++) {
+					NPC NPC = Main.NPC[k];
+					if (NPC.CanBeChasedBy(player, false) && NPC.knockBackResist > 0f) {
+						float distance = Vector2.Distance(NPC.Center, player.Center);
+						if ((distance < 200) && Collision.CanHitLine(player.position, player.width, player.height, NPC.position, NPC.width, NPC.height)) {
+							//distance 400
+							Main.NewText("yeet2", 255, 240, 20, false);	
+							NPC.AddBuff(mod.BuffType("Cryogenized"), 120);	
+>>>>>>> Stashed changes
 							frostFangTimer = -420;
 							k = 200;
 						}
@@ -734,6 +786,7 @@ namespace Emperia
 			graniteTime = 0;
 			if (terraGauntlet != null)
 				terraTime = 180;
+<<<<<<< Updated upstream
 			for (int i = 0; i < Main.projectile.Length; i++)
 			{
 				if (Main.projectile[i].type == ModContent.ProjectileType<Needle>() || Main.projectile[i].type == ModContent.ProjectileType<HauntedRevolver>())
@@ -749,6 +802,23 @@ namespace Emperia
 				Main.projectile[p].scale = 0.7f;
 			}
 			if (Player.HasBuff(ModContent.BuffType<Bloodstained>()))
+=======
+			for (int i = 0; i < Main.Projectile.Length; i++)
+            {
+				if (Main.Projectile[i].type == mod.ProjectileType("Needle") || Main.Projectile[i].type == mod.ProjectileType("HauntedRevolver"))
+					Main.Projectile[i].Kill();
+			}
+			if (thermalGauntlet)
+            {
+                Vector2 placePosition = player.Center + new Vector2(Main.rand.Next(-100, 100), -500);
+                Vector2 direction = player.Center - placePosition;
+                int p = Projectile.NewProjectile(placePosition.X, placePosition.Y, direction.X * 12f, direction.Y * 12f, ProjectileID.Meteor1, 60, 1, Main.myPlayer, 0, 0);
+                Main.Projectile[p].friendly = true;
+                Main.Projectile[p].hostile = false;
+                Main.Projectile[p].scale = 0.7f;
+            }
+			if (player.HasBuff(mod.BuffType("Bloodstained")))
+>>>>>>> Stashed changes
 			{
 				bloodstainedDmg = (int)damage;
 				Player.AddBuff(ModContent.BuffType<Bloodstained2>(), 600);
@@ -760,7 +830,11 @@ namespace Emperia
 				Player.ClearBuff(ModContent.BuffType<Bloodstained2>());
 			}*/ //nerf for bloodstained gauntlet, could also make it reduce the buff timer
 		}
+<<<<<<< Updated upstream
 		public override void ModifyHitNPC(Item Item, NPC target, ref int damage, ref float knockback, ref bool crit)
+=======
+		public override void ModifyHitNPC (Item Item, NPC target, ref int damage, ref float knockback, ref bool crit)
+>>>>>>> Stashed changes
 		{
 			if (gauntletBonus > 0)
 			{
@@ -803,6 +877,7 @@ namespace Emperia
 			{
 				knockback *= 1.1f;
 			}
+<<<<<<< Updated upstream
 			if (Item.type == ModContent.ItemType<LifesFate>() && renewedLife)
 			{
 				damage = (int)((float)damage * 1.15f);
@@ -813,6 +888,18 @@ namespace Emperia
 				knockback *= 2f;
 			}
 			if ((ferocityGauntlet || terraGauntlet != null) && Main.rand.Next(10) == 0)
+=======
+            if (Item.type == mod.ItemType("LifesFate") && renewedLife)
+            {
+                damage = (int) ((float) damage * 1.15f);
+            }
+			
+            if (doubleKnockback)
+            {
+                knockback *= 2f;
+            }
+			if ((ferocityGauntlet || terraGauntlet) && Main.rand.Next(10) == 0)
+>>>>>>> Stashed changes
 				damage *= 2;
 			if (crit && rougeRage)
 			{
@@ -822,8 +909,13 @@ namespace Emperia
 			{
 				damage = damage += ((damage * 13) / 100);
 			}
+<<<<<<< Updated upstream
 		}
 		public override void OnHitNPC(Item Item, NPC target, int damage, float knockback, bool crit)
+=======
+        }
+		public override void OnHitNPC (Item Item, NPC target, int damage, float knockback, bool crit)
+>>>>>>> Stashed changes
 		{
 			if (target.life <= 0 && terraGauntlet != null)
 			{
@@ -881,6 +973,22 @@ namespace Emperia
 					Main.projectile[p].scale = 0.7f;
 				}
 			}
+<<<<<<< Updated upstream
+=======
+            if (meteorGauntlet)
+            {
+                target.AddBuff(BuffID.OnFire, 120);
+                if (Main.rand.Next(3) == 0)
+                {
+                    Vector2 placePosition = target.Center + new Vector2(Main.rand.Next(-100, 100), -500);
+                    Vector2 direction = target.Center - placePosition;
+                    int p = Projectile.NewProjectile(placePosition.X, placePosition.Y, direction.X * 12f, direction.Y * 12f, ProjectileID.Meteor1, 30, 1, Main.myPlayer, 0, 0);
+                    Main.Projectile[p].friendly = true;
+                    Main.Projectile[p].hostile = false;
+                    Main.Projectile[p].scale = 0.7f;
+                }
+            }
+>>>>>>> Stashed changes
 			if (thermalGauntlet)
 			{
 				if (target.life <= 0)
@@ -993,6 +1101,7 @@ namespace Emperia
 				if (Main.rand.Next(8 + (60 / damage)) == 0 || target.life <= 0 && Main.rand.Next(3) == 0)
 				{ //chance based on damage and if the attack killed
 					NPC chosenNPC = target;
+<<<<<<< Updated upstream
 					for (int k = 0; k < 200; k++)
 					{
 						NPC NPC = Main.npc[k];
@@ -1002,6 +1111,14 @@ namespace Emperia
 							if (distance < 400 && chosenNPC == target || distance < 400 && NPC.life > chosenNPC.life && NPC != target)
 							{ //finds the highest hp enemy besides the target
 								chosenNPC = NPC;
+=======
+					for (int k = 0; k < 200; k++) {
+						NPC NPC = Main.NPC[k];
+						if (NPC.CanBeChasedBy(player, false)) {
+							float distance = Vector2.Distance(NPC.Center, player.Center);
+							if (distance < 400 && chosenNPC == target || distance < 400 && NPC.life > chosenNPC.life && NPC != target) { //finds the highest hp enemy besides the target
+								chosenNPC = NPC;	
+>>>>>>> Stashed changes
 							}
 						}
 						if (k == 199 && chosenNPC != target)
@@ -1053,6 +1170,7 @@ namespace Emperia
 					PlaySound(SoundID.Item28, Player.Center);
 				}
 
+<<<<<<< Updated upstream
 			}
 			if (crit && Item.type == ModContent.ItemType<LifesFate>())
 			{
@@ -1064,6 +1182,19 @@ namespace Emperia
 				Player.statLife += x;
 				Player.HealEffect(x);
 			}
+=======
+			}			
+            if (crit && Item.type == mod.ItemType("LifesFate"))
+            {
+                player.AddBuff(mod.BuffType("LifesFateBuff"), Main.rand.Next(840, 960));
+            }
+            if (Item.type == mod.ItemType("LifesFate") && renewedLife)
+            {
+                int x = Main.rand.Next(1, 3);
+                player.statLife += x;
+                player.HealEffect(x);
+            }
+>>>>>>> Stashed changes
 			if (crit && deathTalisman)
 			{
 				target.AddBuff(ModContent.BuffType<FatesDemise>(), 720);
@@ -1093,9 +1224,15 @@ namespace Emperia
 			}
 			if (goblinSet) Player.AddBuff(ModContent.BuffType<GoblinsCelerity>(), 180);
 		}
+<<<<<<< Updated upstream
 		public override void OnHitNPCWithProj(Projectile Projectile, NPC target, int damage, float knockback, bool crit)
 		{
 			if (Projectile.CountsAsClass(DamageClass.Magic) && forestSetMage && Main.rand.Next(10) == 0)
+=======
+		public override void OnHitNPCWithProj (Projectile Projectile, NPC target, int damage, float knockback, bool crit)
+		{
+			if (Projectile.magic && forestSetMage && Main.rand.Next(10) == 0)
+>>>>>>> Stashed changes
 			{
 				primalRageTime = 600;
 			}
@@ -1179,6 +1316,40 @@ namespace Emperia
 					}
 				}
 			}
+<<<<<<< Updated upstream
+=======
+            if (meteorGauntlet)
+            {
+                target.AddBuff(BuffID.OnFire, 120);
+                if (Main.rand.Next(3) == 0)
+                {
+                    Vector2 placePosition = target.Center + new Vector2(Main.rand.Next(-100, 100), -500);
+                    Vector2 direction = target.Center - placePosition;
+                    int p = Projectile.NewProjectile(placePosition.X, placePosition.Y, direction.X * 12f, direction.Y * 12f, ProjectileID.Meteor1, 30, 1, Main.myPlayer, 0, 0);
+                    Main.Projectile[p].friendly = true;
+                    Main.Projectile[p].hostile = false;
+                    Main.Projectile[p].scale = 0.7f;
+                }
+            }
+            if (frostGauntlet)
+            {
+                if (target.life <= 0)
+                {
+                    for (int i = 0; i < Main.rand.Next(2, 4); i++)
+                    {
+                        Vector2 perturbedSpeed = new Vector2(0, 6).RotatedByRandom(MathHelper.ToRadians(360));
+                        int p = Projectile.NewProjectile(target.Center.X, target.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, mod.ProjectileType("IceShard2"), 20, 1, Main.myPlayer, 0, 0);
+                    }
+                }
+                else
+                {
+                    if (Main.rand.NextBool(10) && !target.boss)
+                    {
+                        target.AddBuff(mod.BuffType("Frozen"), 120);
+                    }
+                }
+            }
+>>>>>>> Stashed changes
 			if (thermalGauntlet)
 			{
 				if (target.life <= 0)
@@ -1230,8 +1401,13 @@ namespace Emperia
 				Player.AddBuff(ModContent.BuffType<Spored>(), 2);
 			}
 		}
+<<<<<<< Updated upstream
 
 		public override void ModifyHitNPCWithProj(Projectile Projectile, NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
+=======
+		
+		public override void ModifyHitNPCWithProj (Projectile Projectile, NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
+>>>>>>> Stashed changes
 		{
 			if (slightKnockback)
 			{

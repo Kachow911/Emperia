@@ -30,11 +30,18 @@ namespace Emperia
 		}
 		public bool scoriaExplosion = false;
         public bool chillEffect = false;
+<<<<<<< Updated upstream
         public NPC latchedNPC;
         public override void ModifyHitNPC(Projectile Projectile,NPC target,ref int damage,ref float knockback,ref bool crit,ref int hitDirection)
         {
             Player player = Main.player[Projectile.owner];
             if (player.GetModPlayer<MyPlayer>().forestSetThrown && Projectile.CountsAsClass(DamageClass.Ranged))//Projectile.thrown
+=======
+        public override void ModifyHitNPC(Projectile Projectile,NPC target,ref int damage,ref float knockback,ref bool crit,ref int hitDirection)
+        {
+            Player player = Main.player[Projectile.owner];
+            if (player.GetModPlayer<MyPlayer>().forestSetThrown && Projectile.thrown)
+>>>>>>> Stashed changes
             {
                 if (Main.rand.Next(4) == 0)
                 {
@@ -47,7 +54,11 @@ namespace Emperia
         public override void OnHitNPC(Projectile Projectile, NPC target, int damage, float knockback, bool crit)
         {
             Player player = Main.player[Projectile.owner];
+<<<<<<< Updated upstream
             if (target.life <= 0 && Projectile.CountsAsClass(DamageClass.Ranged) && player.GetModPlayer<MyPlayer>().rotfireSet) //Projectile.thrown
+=======
+            if (target.life <= 0 && Projectile.thrown && player.GetModPlayer<MyPlayer>().rotfireSet)
+>>>>>>> Stashed changes
             {
                 for (int i = 0; i < 6; i++)
                 {
@@ -57,7 +68,11 @@ namespace Emperia
 
                 }
             }
+<<<<<<< Updated upstream
             if (target.life <= 0 && Projectile.CountsAsClass(DamageClass.Magic) && player.GetModPlayer<MyPlayer>().bloodboilSet)
+=======
+            if (target.life <= 0 && Projectile.magic && player.GetModPlayer<MyPlayer>().bloodboilSet)
+>>>>>>> Stashed changes
             {
                 for (int i = 0; i < 4; i++)
                 {
@@ -72,7 +87,11 @@ namespace Emperia
                 target.GetGlobalNPC<MyNPC>().chillStacks += 1;
                 target.AddBuff(ModContent.BuffType<CrushingFreeze>(), 300);
             }
+<<<<<<< Updated upstream
             if (player.GetModPlayer<MyPlayer>().chillsteelSet && Projectile.CountsAsClass(DamageClass.Ranged))
+=======
+            if (player.GetModPlayer<MyPlayer>().chillsteelSet && Projectile.ranged)
+>>>>>>> Stashed changes
             { 
                 target.AddBuff(BuffID.Frostburn, 300);
             }
@@ -102,11 +121,19 @@ namespace Emperia
                     num624 = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 258, 0f, 0f, 100, default(Color));
                     Main.dust[num624].velocity *= 2f;
                 }
+<<<<<<< Updated upstream
                 PlaySound(2, (int)Projectile.position.X, (int)Projectile.position.Y, 14);
                 for (int i = 0; i < Main.npc.Length; i++)
                 {
                     if (Projectile.Distance(Main.npc[i].Center) < 64 && !Main.npc[i].townNPC)
                         Main.npc[i].StrikeNPC(Projectile.damage / 2, 0f, 0, false, false, false);
+=======
+                Main.PlaySound(2, (int)Projectile.position.X, (int)Projectile.position.Y, 14);
+                for (int i = 0; i < Main.NPC.Length; i++)
+                {
+                    if (Projectile.Distance(Main.NPC[i].Center) < 64 && !Main.NPC[i].townNPC)
+                        Main.NPC[i].StrikeNPC(Projectile.damage / 2, 0f, 0, false, false, false);
+>>>>>>> Stashed changes
                 }
       
 			}

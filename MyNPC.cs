@@ -60,11 +60,16 @@ namespace Emperia
 		
 		public List<int> etherealDamages = new List<int>();
 		public List<int> etherealCounts = new List<int>();
+<<<<<<< Updated upstream
 		public Projectile etherealSource = null;
 
 		public Player fateSource = null;
 
 public override void ResetEffects(NPC NPC)
+=======
+		
+        public override void ResetEffects(NPC NPC)
+>>>>>>> Stashed changes
         {
             cuttingLeaves = false;
 			electrified = false;
@@ -87,7 +92,11 @@ public override void ResetEffects(NPC NPC)
 		{
 			if (type == NPCID.Merchant)
 			{
+<<<<<<< Updated upstream
 				shop.item[nextSlot].SetDefaults(ModContent.ItemType<Lasagna>());
+=======
+				shop.Item[nextSlot].SetDefaults(mod.ItemType("Lasagna"));
+>>>>>>> Stashed changes
 				nextSlot++;
 
 			}
@@ -132,7 +141,11 @@ public override void ResetEffects(NPC NPC)
 			if (etherealTimer >= 20)
 			{
 				if (etherealDamages.Count > 0)
+<<<<<<< Updated upstream
 						Projectile.NewProjectile(Projectile.InheritSource(etherealSource), NPC.Center.X, NPC.Center.Y, 0f, 0f, ModContent.ProjectileType<EtherealFlux>(), 0, 0, Main.myPlayer, 0, 0);
+=======
+						Projectile.NewProjectile(NPC.Center.X, NPC.Center.Y, 0f, 0f, mod.ProjectileType("EtherealFlux"), 0, 0, Main.myPlayer, 0, 0);
+>>>>>>> Stashed changes
 				etherealTimer = 0;
 				List<int> newEtherealCounts = new List<int>();
 				List<int> newEtherealDamages = new List<int>();
@@ -243,6 +256,7 @@ public override void ResetEffects(NPC NPC)
 			if (NPC.collideY == true && maceSlam >= 0)
 			{
 				maceSlam = 0;
+<<<<<<< Updated upstream
 				PlaySound(SoundID.Item14, NPC.Center);
                 for (int i = 0; i < Main.npc.Length; i++)
                 {
@@ -252,22 +266,94 @@ public override void ResetEffects(NPC NPC)
 				for (int i = 0; i < 15; ++i)
 				{
 					int index2 = Dust.NewDust(NPC.Center, NPC.width, NPC.height, ModContent.DustType<Dusts.CarapaceDust>(), 0.0f, 0.0f, 15, new Color(53f, 67f, 253f), 1.5f);
+=======
+				Main.PlaySound(SoundID.Item14, NPC.Center);
+                for (int i = 0; i < Main.NPC.Length; i++)
+                {
+                    if (NPC.Distance(Main.NPC[i].Center) < 1 && !Main.NPC[i].townNPC)
+                        Main.NPC[i].StrikeNPC(maceSlamDamage, 0f, 0, false, false, false);
+                }
+				for (int i = 0; i < 15; ++i)
+				{
+					int index2 = Dust.NewDust(NPC.Center, NPC.width, NPC.height, mod.DustType("CarapaceDust"), 0.0f, 0.0f, 15, new Color(53f, 67f, 253f), 1.5f);
+>>>>>>> Stashed changes
 					Main.dust[index2].noGravity = true;
 					Main.dust[index2].velocity *= 2f;
 				}
 			}
 		}
+<<<<<<< Updated upstream
         public override void OnKill(NPC NPC)
         {
 			if (moreCoins)
 			{
 				NPC.value += NPC.value += Item.buyPrice(0, 0, 10, 0);
+=======
+		public override void NPCLoot(NPC NPC)  
+        {
+            if (scoriaExplosion)
+            {
+                int expDamage = NPC.lifeMax / 5;
+                if (expDamage > 50)
+                {
+                    expDamage = 50;
+                }
+
+                for (int num621 = 0; num621 < 20; num621++)
+                {
+                    int num622 = Dust.NewDust(new Vector2(NPC.position.X, NPC.position.Y), NPC.width, NPC.height, 258, 0f, 0f, 100, default(Color));
+                    Main.dust[num622].velocity *= 3f;
+                    if (Main.rand.Next(2) == 0)
+                    {
+                        Main.dust[num622].scale = 0.5f;
+                        Main.dust[num622].fadeIn = 1f + (float)Main.rand.Next(10) * 0.1f;
+                    }
+                }
+                for (int num623 = 0; num623 < 35; num623++)
+                {
+                    int num624 = Dust.NewDust(new Vector2(NPC.position.X, NPC.position.Y), NPC.width, NPC.height, 258, 0f, 0f, 100, default(Color));
+                    Main.dust[num624].noGravity = true;
+                    Main.dust[num624].velocity *= 5f;
+                    num624 = Dust.NewDust(new Vector2(NPC.position.X, NPC.position.Y), NPC.width, NPC.height, 258, 0f, 0f, 100, default(Color));
+                    Main.dust[num624].velocity *= 2f;
+                }
+                Main.PlaySound(2, (int)NPC.position.X, (int)NPC.position.Y, 14);
+                for (int i = 0; i < Main.NPC.Length; i++)
+                {
+                    if (NPC.Distance(Main.NPC[i].Center) < 64 && !Main.NPC[i].townNPC)
+                        Main.NPC[i].StrikeNPC(expDamage, 0f, 0, false, false, false);
+                }
+            }
+			if (!Main.expertMode && NPC.type == NPCID.SkeletronHead)
+			{
+				int x = Main.rand.Next(3);
+				if (x == 0)
+				{
+					Item.NewItem((int)NPC.position.X, (int)NPC.position.Y, NPC.width, NPC.height, mod.ItemType("Skelebow")); 
+				}
+				else if (x == 1)
+				{
+					Item.NewItem((int)NPC.position.X, (int)NPC.position.Y, NPC.width, NPC.height, mod.ItemType("NecromanticFlame")); 
+				}
+				else if (x == 2)
+				{
+					Item.NewItem((int)NPC.position.X, (int)NPC.position.Y, NPC.width, NPC.height, mod.ItemType("BoneWhip")); 
+				}
+			}
+			/*if (Main.expertMode)
+			{
+				if (Main.rand.Next(150) == 0) 
+				{
+					Item.NewItem((int)NPC.position.X, (int)NPC.position.Y, NPC.width, NPC.height, mod.ItemType("FireBlade")); 
+				}
+>>>>>>> Stashed changes
 			}
 			if (scoriaExplosion)
 			{
 				int expDamage = NPC.lifeMax / 5;
 				if (expDamage > 50)
 				{
+<<<<<<< Updated upstream
 					expDamage = 50;
 				}
 
@@ -296,6 +382,46 @@ public override void ResetEffects(NPC NPC)
 						Main.npc[i].StrikeNPC(expDamage, 0f, 0, false, false, false);
 				}
 			}
+=======
+					Item.NewItem((int)NPC.position.X, (int)NPC.position.Y, NPC.width, NPC.height, mod.ItemType("FireBlade")); 
+				}
+			}*/
+			//change this to be obtained another way
+			if(NPC.type == 82)
+			{
+				if ((!Main.expertMode && Main.rand.Next(50) == 0) || (Main.expertMode && Main.rand.Next(40) == 0)) 
+				{
+					Item.NewItem((int)NPC.position.X, (int)NPC.position.Y, NPC.width, NPC.height, mod.ItemType("DeathTalisman")); 
+				}
+			}
+			if (NPC.type == 53 || NPC.type == 536 || NPC.type == 489 || NPC.type == 490 || NPC.type == 47 || NPC.type == 464 || NPC.type == 57 || NPC.type == 465 || NPC.type == 168 || NPC.type == 470 || NPC.type == 109)
+			{
+				if ((!Main.expertMode && Main.rand.Next(100) == 0) || (Main.expertMode && Main.rand.Next(65) == 0))
+				{
+					Item.NewItem((int)NPC.position.X, (int)NPC.position.Y, NPC.width, NPC.height, mod.ItemType("ForbiddenOath")); 
+				}			
+			}
+			if(NPC.type == 58)
+			{
+				if (Main.rand.Next(50) == 0) 
+				{
+					Item.NewItem((int)NPC.position.X, (int)NPC.position.Y, NPC.width, NPC.height, mod.ItemType("TetheredPiranha")); 
+				}
+			}
+			if(NPC.type == 122)
+			{
+				if (Main.rand.Next(75) == 0) 
+				{
+					Item.NewItem((int)NPC.position.X, (int)NPC.position.Y, NPC.width, NPC.height, mod.ItemType("Escargun")); 
+				}
+			}
+			if (!EmperialWorld.downedEye && NPC.type == 4)
+			{
+				Item.NewItem((int)NPC.position.X, (int)NPC.position.Y, NPC.width, NPC.height, mod.ItemType("SetStone"));
+				EmperialWorld.downedEye = true;
+			}
+
+>>>>>>> Stashed changes
 			if (fatesDemise)
 			{
 				int damage1 = 0;
@@ -310,9 +436,15 @@ public override void ResetEffects(NPC NPC)
 				for (int i = 0; i < 6; i++)
 				{
 					Vector2 perturbedSpeed = new Vector2(4, 4).RotatedByRandom(MathHelper.ToRadians(360));
+<<<<<<< Updated upstream
 					Projectile.NewProjectile(fateSource.GetProjectileSource_Buff(NPC.FindBuffIndex(ModContent.BuffType<Buffs.FatesDemise>())), NPC.Center.X, NPC.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, ModContent.ProjectileType<FatesFlames>(), damage1, 1, Main.myPlayer, 0, 0);
 				}
 				PlaySound(SoundID.NPCDeath52, NPC.Center);
+=======
+					Projectile.NewProjectile(NPC.Center.X, NPC.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, mod.ProjectileType("FatesFlames"), damage1, 1, Main.myPlayer, 0, 0);	
+				}
+				Main.PlaySound(SoundID.NPCDeath52, NPC.Center);
+>>>>>>> Stashed changes
 				//this code also exists in FatesFlames and MyPlayer, be sure to make all changes consistent
 			}
 			//if (NPC.type == 4)
@@ -321,8 +453,15 @@ public override void ResetEffects(NPC NPC)
 			//}
 			//if (NPC.type == 3) { Main.NewText(EmperialWorld.downedEye.ToString());}
 		}
+<<<<<<< Updated upstream
 
         public override void ModifyNPCLoot(NPC NPC, NPCLoot npcLoot)  
+=======
+		public override void OnHitPlayer(NPC NPC, Player target, int damage, bool crit)
+		{
+		}
+		public override bool PreNPCLoot(NPC NPC)
+>>>>>>> Stashed changes
         {
 			if (NPC.type == NPCID.SkeletronHead)
 			{
@@ -336,6 +475,7 @@ public override void ResetEffects(NPC NPC)
             }
             if (NPC.type == 53 || NPC.type == 536 || NPC.type == 489 || NPC.type == 490 )
             {
+<<<<<<< Updated upstream
                 npcLoot.Add(ItemDropRule.NormalvsExpert(ModContent.ItemType<ForbiddenOath>(), 100, 65));
             }
 			if (NPC.type == 586 || NPC.type == 587)
@@ -378,6 +518,13 @@ public override void ResetEffects(NPC NPC)
 		{
 		}
 
+=======
+				NPC.value += NPC.value += Item.buyPrice(0, 0, 10, 0);
+				return true;
+			}
+			return true;
+        }
+>>>>>>> Stashed changes
 		public override void ModifyHitPlayer(NPC NPC, Player target, ref int damage, ref bool crit)
 		{
 			if (vermillionVenom)
@@ -414,11 +561,19 @@ public override void ResetEffects(NPC NPC)
 				NPC.noGravity = impaledGravity;
 				impaledGravity = true;
 			}
+<<<<<<< Updated upstream
 			if (Item.type == ModContent.ItemType<Items.Weapons.Mushor.Fungallows>()) //wip
 			{
 				if (NPC.life <= damage - NPC.defense * 0.5)
 				{
 					//Main.NewText("wow", 255, 240, 20, false);
+=======
+			if (Item.type == mod.ItemType("Fungallows")) //wip
+			{
+				if (NPC.life <= damage - NPC.defense * 0.5)
+				{
+					Main.NewText("wow", 255, 240, 20, false);
+>>>>>>> Stashed changes
 					//damage = NPC.life + NPC.defense * 0.5 - 1;
 					//NPC = target;
         	    	//NPC.GetGlobalNPC<MyNPC>().variableName = true;	

@@ -239,10 +239,10 @@ namespace Emperia
 						{
 							for (int inventoryIndex = 0; inventoryIndex < 40; inventoryIndex++)
 							{
-								if (chest.item[inventoryIndex].type == 0)
+								if (chest.Item[inventoryIndex].type == 0)
 								{
-									chest.item[inventoryIndex].SetDefaults(itemsToPlaceInGlassChestsSecondary[itemsToPlaceInGlassChestsSecondaryChoice]); //the error is at this line
-									chest.item[inventoryIndex].stack = Main.rand.Next(4, 10);
+									chest.Item[inventoryIndex].SetDefaults(itemsToPlaceInGlassChestsSecondary[itemsToPlaceInGlassChestsSecondaryChoice]); //the error is at this line
+									chest.Item[inventoryIndex].stack = Main.rand.Next(4, 10);
 									itemsToPlaceInGlassChestsSecondaryChoice = (itemsToPlaceInGlassChestsSecondaryChoice + 1) % itemsToPlaceInGlassChestsSecondary.Length;
 									break;
 								}
@@ -261,7 +261,7 @@ namespace Emperia
 					for (int inventoryIndex = 0; inventoryIndex < 40; inventoryIndex++)
 					{
 						itemsToPlaceInGlassChestsChoice = Main.rand.Next(itemsToPlaceInGlassChests.Length);
-						chest.item[0].SetDefaults(itemsToPlaceInGlassChests[itemsToPlaceInGlassChestsChoice]);
+						chest.Item[0].SetDefaults(itemsToPlaceInGlassChests[itemsToPlaceInGlassChestsChoice]);
 						//itemsToPlaceInGlassChestsChoice = (itemsToPlaceInGlassChestsChoice + 1) % itemsToPlaceInGlassChests.Length;
 						break;
 					}

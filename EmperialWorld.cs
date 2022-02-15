@@ -484,10 +484,15 @@ namespace Emperia
                 {
                     for (int inventoryIndex = 0; inventoryIndex < 40; inventoryIndex++)
                     {
-                        if (chest.item[inventoryIndex].type == 0)
+                        if (chest.Item[inventoryIndex].type == 0)
                         {   //first empty inventory slot
+<<<<<<< Updated upstream
                             chest.item[inventoryIndex].SetDefaults(ModContent.ItemType<Items.Sets.PreHardmode.Granite.GraniteBar>());
 							chest.item[inventoryIndex].stack = WorldGen.genRand.Next(8, 12);
+=======
+                            chest.Item[inventoryIndex].SetDefaults(mod.ItemType("GraniteBar"));
+							chest.Item[inventoryIndex].stack = WorldGen.genRand.Next(8, 12);
+>>>>>>> Stashed changes
                             break;
                         }
                     }
