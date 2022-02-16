@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
@@ -12,8 +13,8 @@ namespace Emperia.Items {
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Platform Layer");//Platform-O-Matic (steel box with sandwich shaped top and a conveyor belt mouth, red dot n green dot, gets held out, conveyor belt is animated)
-			Tooltip.SetDefault("Places platforms with increased speed and range\nCan automatically extend a row of platforms horizontally");
+			DisplayName.SetDefault("Deplatformer");
+			Tooltip.SetDefault("Can chop a row of several platforms all at once");
 		}
 		public override void SetDefaults()
 		{
@@ -36,11 +37,21 @@ namespace Emperia.Items {
 		public int nextChoppedY;
 		public int initialPlayerDirection;
 
-		public override float UseTimeMultiplier(Player player)
-		{
-			return player.tileSpeed;
+        //public override float UseTimeMultiplier(Player player) woops this breaks it also it must need an unmodified speed?
+        //{
+        //	return player.tileSpeed;
+        //}
+
+        public override void ModifyTooltips(List<TooltipLine> tooltips)
+        {
+			TooltipLine damage = tooltips.FirstOrDefault(x => x.Name == "Damage" && x.mod == "Terraria");
+			if (damage != null) tooltips.Remove(damage);
+			TooltipLine crit = tooltips.FirstOrDefault(x => x.Name == "CritChance" && x.mod == "Terraria");
+			if (crit != null) tooltips.Remove(crit);
+			TooltipLine kback = tooltips.FirstOrDefault(x => x.Name == "Knockback" && x.mod == "Terraria");
+			if (kback != null) tooltips.Remove(kback);
 		}
-        public override bool? UseItem(Player player)
+		public override bool? UseItem(Player player)
 		{
 			int tileX = (int)(Main.MouseWorld.X / 16);
 			int tileY = (int)(Main.MouseWorld.Y / 16);
@@ -66,7 +77,7 @@ namespace Emperia.Items {
 
 			if (Math.Abs(cursorDistanceX) <= rangeX && Math.Abs(cursorDistanceY) <= rangeY) // that last one should not need to be a condition by any means but i fucking swear i got -2 ammo once and i cant recreate it
             {
-                if (TileID.Sets.Platforms[Framing.GetTileSafely(tileX, tileY).type] == true)
+                if (TileID.Sets.Platforms[Framing.GetTileSafely(tileX, tileY).TileType] == true)
                 {
 					player.PickTile(tileX, tileY, 59);
 					nextChoppedX = tileX + 1 * player.direction;
@@ -88,7 +99,7 @@ namespace Emperia.Items {
         {
 			if (player.itemAnimation % 3 == 0 && nextChoppedX != null)
 			{
-				if (TileID.Sets.Platforms[Framing.GetTileSafely((int)nextChoppedX, nextChoppedY).type] == true)
+				if (TileID.Sets.Platforms[Framing.GetTileSafely((int)nextChoppedX, nextChoppedY).TileType] == true)
 				{
 					player.PickTile((int)nextChoppedX, nextChoppedY, 59);
 					nextChoppedX += 1 * initialPlayerDirection;

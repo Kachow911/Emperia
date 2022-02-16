@@ -35,7 +35,7 @@ namespace Emperia.Projectiles.Yeti
             {
                 Tile below = Framing.GetTileSafely(tileCoordPos.X, tileCoordPos.Y + i);
 
-                if (below.IsActive && below.CollisionType > 0)
+                if (below.HasTile && Main.tileSolid[below.TileType]) //&& below.CollisionType > 0)
                 {
                     if (i == 0) //if it's inside the tile
                     {
@@ -44,7 +44,7 @@ namespace Emperia.Projectiles.Yeti
                         {
                             Tile above = Framing.GetTileSafely(tileCoordPos.X, tileCoordPos.Y - j);
 
-                            if (!above.IsActive)
+                            if (!above.HasTile)
                             {
                                 Projectile.position.Y = (tileCoordPos.Y - j) * 16;
                                 foundabove = true;

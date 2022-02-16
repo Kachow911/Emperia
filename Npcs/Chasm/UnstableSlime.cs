@@ -78,7 +78,7 @@ namespace Emperia.Npcs.Chasm
 		{
 			int x = spawnInfo.spawnTileX;
 			int y = spawnInfo.spawnTileY;
-			int tile = Main.tile[x, y].type;
+			int tile = Main.tile[x, y].TileType;
 			return (tile == ModContent.TileType<Tiles.AphoticStone>() || tile == ModContent.TileType<Tiles.GloomStone>()) ? 0.80f : 0;
 		}
 		

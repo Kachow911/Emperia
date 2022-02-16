@@ -87,7 +87,7 @@ namespace Emperia.Npcs.Yeti
 		{
 			int x = spawnInfo.spawnTileX;
 			int y = spawnInfo.spawnTileY;
-			int tile = Main.tile[x, y].type;
+			int tile = Main.tile[x, y].TileType;
 			return spawnInfo.player.ZoneSnow ? 0.05f : 0;
 		}
 		public override void ModifyNPCLoot(NPCLoot npcLoot)

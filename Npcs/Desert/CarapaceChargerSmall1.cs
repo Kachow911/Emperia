@@ -111,7 +111,7 @@ namespace Emperia.Npcs.Desert
             {
                 for (int j = minTilePosY; j < maxTilePosY; ++j)
                 {
-                    if (Main.tile[i, j] != null && (Main.tile[i, j].IsActiveUnactuated && (Main.tileSolid[(int)Main.tile[i, j].type] || Main.tileSolidTop[(int)Main.tile[i, j].type] && (int)Main.tile[i, j].frameY == 0) || (int)Main.tile[i, j].LiquidType > 64))
+                    if (Main.tile[i, j] != null && (Main.tile[i, j].HasUnactuatedTile && (Main.tileSolid[(int)Main.tile[i, j].TileType] || Main.tileSolidTop[(int)Main.tile[i, j].TileType] && (int)Main.tile[i, j].TileFrameY == 0) || (int)Main.tile[i, j].LiquidType > 64))
                     {
                         Vector2 vector2;
                         vector2.X = (float)(i * 16);
@@ -120,7 +120,7 @@ namespace Emperia.Npcs.Desert
                         {
 							colliding = true;
                             collision = true;
-                            if (Main.rand.Next(100) == 0 && Main.tile[i, j].IsActiveUnactuated)
+                            if (Main.rand.Next(100) == 0 && Main.tile[i, j].HasUnactuatedTile)
                                 WorldGen.KillTile(i, j, true, true, false);
                         }
 						else
@@ -314,7 +314,7 @@ namespace Emperia.Npcs.Desert
 		{
 			int x = spawnInfo.spawnTileX;
 			int y = spawnInfo.spawnTileY;
-			int tile = Main.tile[x, y].type;
+			int tile = Main.tile[x, y].TileType;
 			return spawnInfo.player.ZoneDesert ? 0.02f : 0;
 		}
         public override bool? DrawHealthBar(byte hbPosition, ref float scale, ref Vector2 position)

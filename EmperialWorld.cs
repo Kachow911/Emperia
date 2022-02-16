@@ -39,7 +39,6 @@ namespace Emperia
 
 		public static bool downedEye = false;
 		public static bool respawnFull = false;
-
 		public override void NetSend(BinaryWriter writer)
 		{
 			BitsByte flags = new BitsByte();
@@ -136,7 +135,7 @@ namespace Emperia
 				{
 					for (int j = y; j < y + TwilightHeight; j++)
 					{
-						switch (Main.tile[i, j].type)
+						switch (Main.tile[i, j].TileType)
 						{
 							case TileID.Ebonsand:
 							case TileID.Ebonstone:
@@ -154,14 +153,14 @@ namespace Emperia
 								break;
 						}
 
-						if (!Main.tile[i, j].IsActive)
+						if (!Main.tile[i, j].HasTile)
 							airCount++;
 					}
 				}
 			} while (badTileCount > 100 && airCount > 200 && tries < 500);
 
 			// find a spot on the ground
-			while (!Main.tile[x, y].IsActive)
+			while (!Main.tile[x, y].HasTile)
 				y++;
 
 			y -= 100; // move it 100 tiles up to accomodate for elevated terrain
@@ -169,15 +168,15 @@ namespace Emperia
 			{
 				int offset = (j - y) / 2;
 
-				if (Main.tile[x + offset, j].IsActive)
+				if (Main.tile[x + offset, j].HasTile)
 					WorldGen.TileRunner(x + offset, j, WorldGen.genRand.Next(8, 14), 15, ModContent.TileType<TwilightStone>(), true, overRide: true);
 
 				for (int i = x + offset; i < x + TwilightWidth - offset; i++)
 				{
-					if (!Main.tile[i, j].IsActive)
+					if (!Main.tile[i, j].HasTile)
 						continue;
 
-					switch (Main.tile[i, j].type)
+					switch (Main.tile[i, j].TileType)
 					{
 						case TileID.Grass:
 						case TileID.JungleGrass:
@@ -189,22 +188,22 @@ namespace Emperia
 						case TileID.Sand:
 						case TileID.SnowBlock:
 						case TileID.IceBlock:
-							Main.tile[i, j].type = (ushort)ModContent.TileType<TwilightDirt>();
+							Main.tile[i, j].TileType = (ushort)ModContent.TileType<TwilightDirt>();
 							break;
 
 						case TileID.Stone:
-							Main.tile[i, j].type = (ushort)ModContent.TileType<TwilightStone>();
+							Main.tile[i, j].TileType = (ushort)ModContent.TileType<TwilightStone>();
 							break;
 					}
 
-					if (Main.tile[i, j].wall == WallID.Dirt)
+					if (Main.tile[i, j].WallType == WallID.Dirt)
 					{
 						WorldGen.KillWall(i, j);
-						Main.tile[i, j].wall = (ushort)ModContent.WallType<TwilightWoodWall>();
+						Main.tile[i, j].WallType = (ushort)ModContent.WallType<TwilightWoodWall>();
 					}
 				}
 
-				if (Main.tile[x + TwilightWidth - offset, j].IsActive)
+				if (Main.tile[x + TwilightWidth - offset, j].HasTile)
 					WorldGen.TileRunner(x + TwilightWidth - offset, j, WorldGen.genRand.Next(8, 14), 15, ModContent.TileType<TwilightStone>(), true, overRide: true);
 			}
 
@@ -235,42 +234,43 @@ namespace Emperia
 					WorldGen.SpreadGrass(i, j, ModContent.TileType<TwilightDirt>(), ModContent.TileType<TwilightGrass>());
 
 					// grow the trees
-					if (j < twilightY + 130 && Main.tile[i, j].type == ModContent.TileType<TwilightGrass>())
+					if (j < twilightY + 130 && Main.tile[i, j].TileType == ModContent.TileType<TwilightGrass>())
 						WorldGen.GrowTree(i, j);
 
 					// place down some twilight pillars and bushes
-					if (IsTwilightBlock(i, j) && !Main.tile[i, j - 1].IsActive)
+					if (IsTwilightBlock(i, j) && !Main.tile[i, j - 1].HasTile)
 					{
 						if (WorldGen.genRand.Next(20) == 0)
 						{
 							int type = WorldGen.genRand.NextFloat() <= 0.4f ? ModContent.TileType<TwilightPillar>() : ModContent.TileType<TwilightBush>();
+							Tile tile1 = Main.tile[i, j];
 							//Main.tile[i, j].slope(0);
-							Main.tile[i, j].BlockType = 0;
+							tile1.BlockType = 0;
 
 							if (type == ModContent.TileType<TwilightPillar>())
 								for (int x = -3; x <= 3; x++)
-									if (Main.tile[i + x, j].IsActive)
-										Main.tile[i + x, j].type = (ushort)ModContent.TileType<TwilightStone>();
+									if (Main.tile[i + x, j].HasTile)
+										Main.tile[i + x, j].TileType = (ushort)ModContent.TileType<TwilightStone>();
 
 							WorldGen.PlaceTile(i, j - 1, type, true, style: WorldGen.genRand.Next(2));
 						}
 					}
 
 					// replace vanilla pots
-					if (Main.tile[i, j].type == TileID.Pots)
+					if (Main.tile[i, j].TileType == TileID.Pots)
 						WorldGen.PlaceTile(i, j, ModContent.TileType<TwilightPot>(), true);
 
 					// place down the flora
-					if (Main.tile[i, j].type == ModContent.TileType<TwilightGrass>()
+					if (Main.tile[i, j].TileType == ModContent.TileType<TwilightGrass>()
 						//&& Main.tile[i, j].slope() == 0
 						//&& Main.tile[i, j].BlockType != BlockType.HalfBlock
 						&& Main.tile[i, j].BlockType == 0
-						&& !Main.tile[i, j - 1].IsActive
-						&& !Main.tile[i, j - 2].IsActive)
+						&& !Main.tile[i, j - 1].HasTile
+						&& !Main.tile[i, j - 2].HasTile)
 					{
 						WorldGen.PlaceTile(i, j - 1, ModContent.TileType<TwilightFlora>(), true);
-						Main.tile[i, j - 1].frameY = (short)(WorldGen.genRand.Next(2) == 0 ? 0 : 18);
-						Main.tile[i, j - 1].frameX = (short)(Main.tile[i, j - 1].frameY == 0 ? WorldGen.genRand.Next(9) * 18 : WorldGen.genRand.Next(7) * 18);
+						Main.tile[i, j - 1].TileFrameY = (short)(WorldGen.genRand.Next(2) == 0 ? 0 : 18);
+						Main.tile[i, j - 1].TileFrameX = (short)(Main.tile[i, j - 1].TileFrameY == 0 ? WorldGen.genRand.Next(9) * 18 : WorldGen.genRand.Next(7) * 18);
 					}
 				}
 			}
@@ -281,21 +281,22 @@ namespace Emperia
 				int offset = (j - twilightY) / 2;
 				for (int i = twilightX + offset; i < twilightX + TwilightWidth - offset; i++)
 				{
-					if (!Main.tile[i, j].IsActive)
+					if (!Main.tile[i, j].HasTile)
 						continue;
 
-					switch (Main.tile[i, j].type)
+					switch (Main.tile[i, j].TileType)
 					{
 						case TileID.Dirt:
-							Main.tile[i, j].type = (ushort)ModContent.TileType<TwilightDirt>();
+							Main.tile[i, j].TileType = (ushort)ModContent.TileType<TwilightDirt>();
 							break;
 
 						case TileID.Grass:
-							Main.tile[i, j].type = (ushort)ModContent.TileType<TwilightGrass>();
+							Main.tile[i, j].TileType = (ushort)ModContent.TileType<TwilightGrass>();
 							break;
 
 						case TileID.Plants:
-							Main.tile[i, j].IsActive = false;
+							Tile tile2 = Main.tile[i, j];
+							tile2.HasTile = false;
 							break;
 					}
 				}
@@ -319,10 +320,10 @@ namespace Emperia
 				int treeX = WorldGen.genRand.Next(twilightX + 50, twilightX + TwilightWidth - 50);
 				int treeY = 250;
 
-				while (!Main.tile[treeX, treeY].IsActive)
+				while (!Main.tile[treeX, treeY].HasTile)
 					treeY++;
 
-				if (Main.tile[treeX, treeY].type == ModContent.TileType<TFWood>() || Main.tile[treeX, treeY].type == ModContent.TileType<TFLeaf>())
+				if (Main.tile[treeX, treeY].TileType == ModContent.TileType<TFWood>() || Main.tile[treeX, treeY].TileType == ModContent.TileType<TFLeaf>())
 				{
 					i--;
 					continue;
@@ -332,9 +333,9 @@ namespace Emperia
 			}
 
 			bool IsTwilightBlock(int i, int j)
-				=> Main.tile[i, j].type == ModContent.TileType<TwilightGrass>()
-				|| Main.tile[i, j].type == ModContent.TileType<TwilightDirt>()
-				|| Main.tile[i, j].type == ModContent.TileType<TwilightStone>();
+				=> Main.tile[i, j].TileType == ModContent.TileType<TwilightGrass>()
+				|| Main.tile[i, j].TileType == ModContent.TileType<TwilightDirt>()
+				|| Main.tile[i, j].TileType == ModContent.TileType<TwilightStone>();
 		}
 
 		public static void GenerateUndergroundRoom(int i, int j)
@@ -347,22 +348,23 @@ namespace Emperia
 			{
 				for (int y = j; y < j + height; y++)
 				{
+					Tile tile3 = Main.tile[x, y];
 					if (x == i || x == i + width - 1 || y == j)
 						WorldGen.TileRunner(x, y, 2f, 2, ModContent.TileType<TwilightBrick>(), true);
 					else if (y == j + height - 1)
 					{
-						Main.tile[x, y].type = (ushort)ModContent.TileType<TwilightBrick>();
-						Main.tile[x, y].IsActive = true;
+						tile3.TileType = (ushort)ModContent.TileType<TwilightBrick>();
+						tile3.HasTile = true;
 						//Main.tile[x, y].slope(0);
-						Main.tile[x, y].BlockType = 0;
+						tile3.BlockType = 0;
 					}
 					else
-						Main.tile[x, y].IsActive = false;
+						tile3.HasTile = false;
 
 					WorldGen.SquareTileFrame(x, y);
 
-					if (!Main.tile[x, y].IsActive)
-						Main.tile[x, y].wall = (ushort)ModContent.WallType<TwilightBrickWall>();
+					if (!Main.tile[x, y].HasTile)
+						Main.tile[x, y].WallType = (ushort)ModContent.WallType<TwilightBrickWall>();
 				}
 			}
 
@@ -379,7 +381,7 @@ namespace Emperia
 
 			int chestX = WorldGen.genRand.Next(i + 2, i + width - 2);
 
-			while (Main.tile[chestX, floorY].IsActive || Main.tile[chestX + 1, floorY].IsActive)
+			while (Main.tile[chestX, floorY].HasTile || Main.tile[chestX + 1, floorY].HasTile)
 				chestX = WorldGen.genRand.Next(i + 2, i + width - 2);
 
 			// using Main.chest[chestID], you can add whatever items you want
@@ -387,7 +389,7 @@ namespace Emperia
 
 
 			for (int x = i + 2; x < i + width - 2; x++)
-				if (!Main.tile[x, floorY].IsActive && !Main.tile[x + 1, floorY].IsActive && WorldGen.genRand.Next(3) == 0)
+				if (!Main.tile[x, floorY].HasTile && !Main.tile[x + 1, floorY].HasTile && WorldGen.genRand.Next(3) == 0)
 					WorldGen.PlaceTile(x, floorY - 1, ModContent.TileType<TwilightPot>(), true);
 		}
 
@@ -439,7 +441,7 @@ namespace Emperia
 				x += 50 + WorldGen.genRand.Next(201);
 				int y = twilightY - TwilightSize / 4;
 
-				while (!Main.tile[x, y].IsActive)
+				while (!Main.tile[x, y].HasTile)
 					y++;
 
 				TileRunnerTree tr = new TileRunnerTree(new Vector2(x, y));
@@ -455,7 +457,7 @@ namespace Emperia
 					{
 						int x2 = x - 9 + j * 6;
 						int y2 = y;
-						while (!Main.tile[x2, y2].IsActive)
+						while (!Main.tile[x2, y2].HasTile)
 							y2++;
 						trs[j] = new TileRunnerCave(new Vector2(x, y), new Vector2(x2, y2), 4, true);
 						trs[j].steps = 40;
@@ -480,19 +482,14 @@ namespace Emperia
             for (int chestIndex = 0; chestIndex < 1000; chestIndex++)
             {
                 Chest chest = Main.chest[chestIndex];
-                if (chest != null && Main.tile[chest.x, chest.y].type == TileID.Containers && Main.tile[chest.x, chest.y].frameX == 50 * 36) //2 * 36 == locked dungeon chest
+                if (chest != null && Main.tile[chest.x, chest.y].TileType == TileID.Containers && Main.tile[chest.x, chest.y].TileFrameX == 50 * 36) //2 * 36 == locked dungeon chest
                 {
                     for (int inventoryIndex = 0; inventoryIndex < 40; inventoryIndex++)
                     {
-                        if (chest.Item[inventoryIndex].type == 0)
+                        if (chest.item[inventoryIndex].type == 0)
                         {   //first empty inventory slot
-<<<<<<< Updated upstream
                             chest.item[inventoryIndex].SetDefaults(ModContent.ItemType<Items.Sets.PreHardmode.Granite.GraniteBar>());
 							chest.item[inventoryIndex].stack = WorldGen.genRand.Next(8, 12);
-=======
-                            chest.Item[inventoryIndex].SetDefaults(mod.ItemType("GraniteBar"));
-							chest.Item[inventoryIndex].stack = WorldGen.genRand.Next(8, 12);
->>>>>>> Stashed changes
                             break;
                         }
                     }

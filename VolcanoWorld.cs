@@ -87,7 +87,7 @@ namespace Emperia
 				{ 
 					int orex= x + Main.rand.Next(-75, 75);
 					int orey = y + Main.rand.Next(-20, 300);
-					if (Main.tile[orex, orey].type == TileType<Tiles.Volcano.VolcanoTile>())
+					if (Main.tile[orex, orey].TileType == TileType<Tiles.Volcano.VolcanoTile>())
 					{
 						WorldGen.TileRunner(orex, orey, (double)WorldGen.genRand.Next(3, 6), WorldGen.genRand.Next(3, 6), TileType<Tiles.Volcano.MoltenOre>(), false, 0f, 0f, false, true);
 					}				   // A = x, B = y.
@@ -125,7 +125,7 @@ namespace Emperia
                     int[] TileArray = { TileID.BlueDungeonBrick, TileID.GreenDungeonBrick, TileID.PinkDungeonBrick, TileID.Cloud, TileID.RainCloud, 147, 53, 40, 199, 23, 25, 203 };
                     for (int ohgodilovememes = 0; ohgodilovememes < TileArray.Length - 1; ohgodilovememes++)
                     {
-                        if (Main.tile[i, j].type == (ushort)TileArray[ohgodilovememes])
+                        if (Main.tile[i, j].TileType == (ushort)TileArray[ohgodilovememes])
                         {
                             return false;
                         }
@@ -160,12 +160,12 @@ namespace Emperia
 					for (int x = xSpawn - vLength / 2; x <= xSpawn + vLength / 2; x++)
 					{
 						WorldGen.KillWall(x, y);
-						if (Main.tile[x, y] != null && Main.tile[x, y].IsActive)
+						if (Main.tile[x, y] != null && Main.tile[x, y].HasTile)
 						{
-                            if (Main.tile[x, y].type == TileID.Trees)
+                            if (Main.tile[x, y].TileType == TileID.Trees)
                                 WorldGen.KillTile(x, y);
                             else
-							    Main.tile[x, y].type = (ushort)ModContent.TileType<VolcanoTile>();
+							    Main.tile[x, y].TileType = (ushort)ModContent.TileType<VolcanoTile>();
 							if (Framing.GetTileSafely(x,y-1).type==0 && Main.rand.NextBool(3))
 							{
 								Main.tile[x, y-1].LiquidType = 255;
@@ -183,7 +183,7 @@ namespace Emperia
                         else if (y > yAxis + 20)
                         {
                             Main.tile[x, y].active(true);
-                            Main.tile[x, y].type = (ushort) ModContent.TileType<VolcanoTile>();
+                            Main.tile[x, y].TileType = (ushort) ModContent.TileType<VolcanoTile>();
                         }
                         
 
@@ -235,14 +235,14 @@ namespace Emperia
 					for (int chestIndex = 0; chestIndex < 1000; chestIndex++)
 					{
 						Chest chest = Main.chest[chestIndex];
-						if (chest != null && Main.tile[chest.x, chest.y].type == TileType<Tiles.Volcano.VolcanoChest>())
+						if (chest != null && Main.tile[chest.x, chest.y].TileType == TileType<Tiles.Volcano.VolcanoChest>())
 						{
 							for (int inventoryIndex = 0; inventoryIndex < 40; inventoryIndex++)
 							{
-								if (chest.Item[inventoryIndex].type == 0)
+								if (chest.item[inventoryIndex].type == 0)
 								{
-									chest.Item[inventoryIndex].SetDefaults(itemsToPlaceInGlassChestsSecondary[itemsToPlaceInGlassChestsSecondaryChoice]); //the error is at this line
-									chest.Item[inventoryIndex].stack = Main.rand.Next(4, 10);
+									chest.item[inventoryIndex].SetDefaults(itemsToPlaceInGlassChestsSecondary[itemsToPlaceInGlassChestsSecondaryChoice]); //the error is at this line
+									chest.item[inventoryIndex].stack = Main.rand.Next(4, 10);
 									itemsToPlaceInGlassChestsSecondaryChoice = (itemsToPlaceInGlassChestsSecondaryChoice + 1) % itemsToPlaceInGlassChestsSecondary.Length;
 									break;
 								}
@@ -256,12 +256,12 @@ namespace Emperia
 			for (int chestIndex = 0; chestIndex < 1000; chestIndex++)
 			{
 				Chest chest = Main.chest[chestIndex];
-				if (chest != null && Main.tile[chest.x, chest.y].type/*.frameX == 47 * 36*/ == TileType<Tiles.Volcano.VolcanoChest>()) // if glass chest
+				if (chest != null && Main.tile[chest.x, chest.y].TileType/*.frameX == 47 * 36*/ == TileType<Tiles.Volcano.VolcanoChest>()) // if glass chest
 				{
 					for (int inventoryIndex = 0; inventoryIndex < 40; inventoryIndex++)
 					{
 						itemsToPlaceInGlassChestsChoice = Main.rand.Next(itemsToPlaceInGlassChests.Length);
-						chest.Item[0].SetDefaults(itemsToPlaceInGlassChests[itemsToPlaceInGlassChestsChoice]);
+						chest.item[0].SetDefaults(itemsToPlaceInGlassChests[itemsToPlaceInGlassChestsChoice]);
 						//itemsToPlaceInGlassChestsChoice = (itemsToPlaceInGlassChestsChoice + 1) % itemsToPlaceInGlassChests.Length;
 						break;
 					}

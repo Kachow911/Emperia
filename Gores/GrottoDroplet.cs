@@ -33,7 +33,7 @@ namespace Emperia.Gores
 			{
 				int tileX = (int)(gore.position.X / 16f);
 				int tileY = (int)(gore.position.Y / 16f) - 1;
-				if (WorldGen.InWorld(tileX, tileY) && !Main.tile[tileX, tileY].IsActive)
+				if (WorldGen.InWorld(tileX, tileY) && !Main.tile[tileX, tileY].HasTile)
 				{
 					gore.active = false;
 				}

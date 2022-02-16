@@ -27,11 +27,11 @@ namespace Emperia.Tiles
 
 			Tile tile = Main.tile[i, j];
 
-			if (tile.frameY == 18)
+			if (tile.TileFrameY == 18)
 			{
 				offset.Y -= 12;
 			}
-			Main.EntitySpriteDraw(Mod.Assets.Request<Texture2D>("Tiles.TwilightFlora").Value, new Vector2(i, j) * 16 - Main.screenPosition + offset, new Rectangle(tile.frameX, tile.frameY, 16, tile.frameY == 18 ? 28 : 16), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0);
+			Main.EntitySpriteDraw(Mod.Assets.Request<Texture2D>("Tiles.TwilightFlora").Value, new Vector2(i, j) * 16 - Main.screenPosition + offset, new Rectangle(tile.TileFrameX, tile.TileFrameY, 16, tile.TileFrameY == 18 ? 28 : 16), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0);
 			return false;
 		}
 	}

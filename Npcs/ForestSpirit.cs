@@ -83,7 +83,7 @@ namespace Emperia.Npcs
 		{
 			int x = spawnInfo.spawnTileX;
 			int y = spawnInfo.spawnTileY;
-			int tile = (int)Main.tile[x, y].type;
+			int tile = (int)Main.tile[x, y].TileType;
 			return (tile == TileID.Dirt || tile == TileID.Grass) && NPC.downedBoss2 ? 0.05f : 0f;
 		}
 		

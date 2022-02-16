@@ -64,14 +64,14 @@ namespace Emperia
 						Tile tile = Main.tile[i, j];
 						if (type == 0)
 						{
-							tile.IsActive = false;
+							tile.HasTile = false;
 							continue;
 						}
-						if (overRide || !tile.IsActive)
-							tile.type = type;
+						if (overRide || !tile.HasTile)
+							tile.TileType = type;
 						if (addTile)
 						{
-							tile.IsActive = true;
+							tile.HasTile = true;
 							tile.LiquidType = 0;
 							//tile.lava(false);
 						}

@@ -54,17 +54,17 @@ namespace Emperia.Tiles
                 int num = 0;
                 while ((double)num < Main.maxTilesY)
                 {
-                    if (Main.tile[k, num].IsActive)
+                    if (Main.tile[k, num].HasTile)
                     {
-                        if (flag2 && Main.tile[k, num].type == TileID.Dirt)
+                        if (flag2 && Main.tile[k, num].TileType == TileID.Dirt)
                         {
                             try
                             {
-                                WorldGen.SpreadGrass(k, num, TileID.Dirt, ModContent.TileType<Tiles.TwilightGrass>(), true, Main.tile[k, num].Color);
+                                WorldGen.SpreadGrass(k, num, TileID.Dirt, ModContent.TileType<Tiles.TwilightGrass>(), true, Main.tile[k, num].TileColor);
                             }
                             catch
                             {
-                                WorldGen.SpreadGrass(k, num, TileID.Dirt, ModContent.TileType<Tiles.TwilightGrass>(), true, Main.tile[k, num].Color);
+                                WorldGen.SpreadGrass(k, num, TileID.Dirt, ModContent.TileType<Tiles.TwilightGrass>(), true, Main.tile[k, num].TileColor);
                             }
                         }
                         if ((double)num > WorldGen.worldSurfaceHigh)
@@ -73,7 +73,7 @@ namespace Emperia.Tiles
                         }
                         flag2 = false;
                     }
-                    else if (Main.tile[k, num].wall == 0)
+                    else if (Main.tile[k, num].WallType == 0)
                     {
                         flag2 = true;
                     }

@@ -138,7 +138,7 @@ namespace Emperia.Npcs.Twilight
 		{
 			int x = spawnInfo.spawnTileX;
 			int y = spawnInfo.spawnTileY;
-			int tile = Main.tile[x, y].type;
+			int tile = Main.tile[x, y].TileType;
 			return 0f;
 		}
 		

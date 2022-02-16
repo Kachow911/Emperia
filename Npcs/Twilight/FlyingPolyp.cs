@@ -96,7 +96,7 @@ namespace Emperia.Npcs.Twilight
 				int[] Tiles = { ModContent.TileType<Tiles.TwilightGrass>(), ModContent.TileType<Tiles.TFWood>(), ModContent.TileType<Tiles.TFLeaf>() };
 				SpawnTiles = Tiles;
 			}
-			return SpawnTiles.Contains(Main.tile[spawnInfo.spawnTileX, spawnInfo.spawnTileY].type) && !spawnInfo.playerSafe && !spawnInfo.invasion ? 2f : 0f;
+			return SpawnTiles.Contains(Main.tile[spawnInfo.spawnTileX, spawnInfo.spawnTileY].TileType) && !spawnInfo.playerSafe && !spawnInfo.invasion ? 2f : 0f;
 		}
 
 		public override void HitEffect(int hitDirection, double damage)

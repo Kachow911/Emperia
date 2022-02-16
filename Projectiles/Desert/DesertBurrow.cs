@@ -57,7 +57,7 @@ namespace Emperia.Projectiles.Desert
             {
                 Tile below = Framing.GetTileSafely(tileCoordPos.X, tileCoordPos.Y + i);
 
-                if (below.IsActive && below.CollisionType > 0)
+                if (below.HasTile && Main.tileSolid[below.TileType])
                 {
                     if (i == 0) //if it's inside the tile
                     {
@@ -66,7 +66,7 @@ namespace Emperia.Projectiles.Desert
                         {
                             Tile above = Framing.GetTileSafely(tileCoordPos.X, tileCoordPos.Y - j);
 
-                            if (!above.IsActive)
+                            if (!above.HasTile)
                             {
                                 Projectile.position.Y = (tileCoordPos.Y - j) * 16 + 6;
                                 foundabove = true;

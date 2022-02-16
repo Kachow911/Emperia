@@ -30,7 +30,6 @@ namespace Emperia
 		public bool isGauntlet = false;
 		public bool noWristBrace = false;
 		public bool noGelGauntlet = false;
-<<<<<<< Updated upstream
 
 		public override void SetDefaults(Item item)
 		{
@@ -53,16 +52,6 @@ namespace Emperia
 			else return true;
 		}
 		public override bool? UseItem(Item Item, Player player)
-=======
-		public override bool CanUseItem(Item Item, Player player)
-        {
-			MyPlayer modPlayer = player.GetModPlayer<MyPlayer>();
-			if (Item.healMana > 0 && player.HasBuff(mod.BuffType("ManaOverdose"))) return false;
-			if (Item.type == 293 && modPlayer.warlockTorc) return false;
-			else return true;
-		}
-		public override bool UseItem(Item Item, Player player)
->>>>>>> Stashed changes
         {
 			MyPlayer modPlayer = player.GetModPlayer<MyPlayer>();
 			if (Item.potion == true)
@@ -73,11 +62,7 @@ namespace Emperia
 					player.HealEffect(25);
 				}
 			}
-<<<<<<< Updated upstream
 			if (Item.type == 5 || Item.type == ModContent.ItemType<MushroomPlatter>() || Item.type == ModContent.ItemType<MushroomPlatterCrim>())
-=======
-			if (Item.type == 5 || Item.type == mod.ItemType("MushroomPlatter") || Item.type == mod.ItemType("MushroomPlatterCrim"))
->>>>>>> Stashed changes
 			{
 				if (modPlayer.frostleafSet)
 				{
@@ -134,15 +119,9 @@ namespace Emperia
 				}
 			}
 		}
-<<<<<<< Updated upstream
         public override bool Shoot(Item item, Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockBack)
 		{
 			if (item.CountsAsClass(DamageClass.Ranged) && player.GetModPlayer<MyPlayer>().forestSetRanged)
-=======
-		public override bool Shoot(Item Item, Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockback)
-		{
-			if (Item.ranged && player.GetModPlayer<MyPlayer>().forestSetRanged)
->>>>>>> Stashed changes
 			{
 				forestSetShots--;
 				if (forestSetShots == 0)
@@ -156,22 +135,14 @@ namespace Emperia
 			return true;
 			
 		}
-<<<<<<< Updated upstream
         /*public override bool ConsumeItem(Item Item, Player player)
-=======
-        public override bool ConsumeItem(Item Item, Player player)
->>>>>>> Stashed changes
         {
             if (Item.thrown && player.GetModPlayer<MyPlayer>().forestSetThrown)
             {
                 return (Main.rand.Next(3) != 0);
             }
             return true;
-<<<<<<< Updated upstream
         }*/
-=======
-        }
->>>>>>> Stashed changes
 		public override void VerticalWingSpeeds(Item Item, Player player, ref float ascentWhenFalling, ref float ascentWhenRising, ref float maxCanAscendMultiplier, ref float maxAscentMultiplier, ref float constantAscend)
         {
             if (player.HasBuff(ModContent.BuffType<Waxwing>()))
@@ -223,7 +194,6 @@ namespace Emperia
 			}*/
 			return;
         }
-<<<<<<< Updated upstream
 
         public override void HoldItem(Item Item, Player player)
         { //only bug here is when reforging items. might get janky if other mods have scale adjusting stuff. might want decrease the effect on items with already high scales.
@@ -236,29 +206,14 @@ namespace Emperia
 					baseScale = Item.scale;
 				}
 				else
-=======
-		public override void ModifyTooltips(Item Item, List<TooltipLine> tooltips) {
-			MyPlayer modPlayer = Main.player[Item.owner].GetModPlayer<MyPlayer>();
-			if (Item.GetGlobalItem<GItem>().gelPad) {
-				TooltipLine line = new TooltipLine(mod, "x", "Gel Pad"); //no clue what the first string does here, gives the tooltip a name for other code to reference?
-				line.overrideColor = new Color(150, 150, 255);
-				TooltipLine line2 = new TooltipLine(mod, "x2", "Sword strikes on knockback-immune foes bounce you slightly back\nRight Click to detach");
-				tooltips.Add(line);
-				tooltips.Add(line2);
-				if (Item.type == mod.ItemType("GelGauntlet"))
->>>>>>> Stashed changes
 				{
 					if (Item.scale == baseScale) Item.scale *= 1.2f;
 				}
 			}
-<<<<<<< Updated upstream
 		}
         public override void ModifyTooltips(Item Item, List<TooltipLine> tooltips)
         {
 			if (!Main.gameMenu) //i hope this works as intended but otherwise the mouseover on the main menu social media icons crashes
-=======
-			if (Item.type == 293 && modPlayer.warlockTorc) 
->>>>>>> Stashed changes
 			{
 				MyPlayer modPlayer = Main.player[Item.playerIndexTheItemIsReservedFor].GetModPlayer<MyPlayer>(); //because this is outside the index of the array
 				if (Item.GetGlobalItem<GItem>().gelPad)
@@ -286,7 +241,6 @@ namespace Emperia
 				}*/
 			}
 		}
-<<<<<<< Updated upstream
 		//public override bool NeedsSaving(Item Item)
 		//{
 		//	return gelPad;
@@ -299,19 +253,6 @@ namespace Emperia
 		}
 
 		public override void LoadData(Item Item, TagCompound tag) {
-=======
-		public override bool NeedsSaving(Item Item)
-		{
-			return gelPad;
-		}
-		public override TagCompound Save(Item Item) {
-			TagCompound saveData = new TagCompound();
-			saveData.Add("gelPad", gelPad);
-			return saveData;
-		}
-
-		public override void Load(Item Item, TagCompound tag) {
->>>>>>> Stashed changes
 			gelPad = tag.GetBool("gelPad");
 		}
 
@@ -324,23 +265,14 @@ namespace Emperia
             if (Item.GetGlobalItem<GItem>().gelPad == true)
 			{
 				Item.GetGlobalItem<GItem>().gelPad = false;
-<<<<<<< Updated upstream
 				Item.NewItem(player.getRect(), ModContent.ItemType<GelPad>());
 				Item gauntletCopy = Main.item[Item.NewItem(player.getRect(), Item.type)];
-=======
-				Item.NewItem(player.getRect(), mod.ItemType("GelPad"));
-				Item gauntletCopy = Main.Item[Item.NewItem(player.getRect(), Item.type)];
->>>>>>> Stashed changes
 				gauntletCopy.prefix = Item.prefix;
 				gauntletCopy.rare = Item.rare;
 				gauntletCopy.value = Item.value;
 			}
 		}
-<<<<<<< Updated upstream
 		public override void UpdateAccessory(Item Item, Player player, bool hideVisibleAccessory)
-=======
-		public override void UpdateAccessory(Item Item, Player player, bool hideVisual)
->>>>>>> Stashed changes
         {
 			MyPlayer modPlayer = player.GetModPlayer<MyPlayer>();
 			if (Item.GetGlobalItem<GItem>().gelPad == true && modPlayer.gelGauntlet < 1)

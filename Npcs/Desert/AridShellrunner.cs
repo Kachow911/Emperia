@@ -89,7 +89,7 @@ namespace Emperia.Npcs.Desert
 		{
 			int x = spawnInfo.spawnTileX;
 			int y = spawnInfo.spawnTileY;
-			int tile = Main.tile[x, y].type;
+			int tile = Main.tile[x, y].TileType;
 			return spawnInfo.player.ZoneDesert ? 0.1f : 0;
 		}
 

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
@@ -7,48 +8,103 @@ using Terraria.ID;
 using Terraria.ModLoader;
 
 
-namespace Emperia.Items {
-	public class PlatformLayer : ModItem
+
+namespace Emperia.Items;
+public class PlatformLayer : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Platform Layer");//Platform-O-Matic (steel box with sandwich shaped top and a conveyor belt mouth, red dot n green dot, gets held out, conveyor belt is animated)
-			Tooltip.SetDefault("Places platforms with increased speed and range\nCan automatically extend a row of platforms horizontally");
-		}
-		public override void SetDefaults()
+			DisplayName.SetDefault("Platform-O-Matic");
+			Tooltip.SetDefault("Places platforms with increased speed and range\nCan automatically extend a row of platforms horizontally\nRight Click to switch to chopping mode");
+			Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(6, 6) { NotActuallyAnimating = true });
+        }
+        public override void SetDefaults()
 		{
 			Item.width = 46;
 			Item.height = 46;
+			Item.noUseGraphic = true;
 			Item.useTime = 8; // 7?
 			Item.useAnimation = 8;
-			//Item.useTurn = false;
 			Item.useStyle = 5;
 			Item.value = 50000;
 			Item.rare = 2;
 			Item.autoReuse = true;
-			Item.shoot = ProjectileID.WoodenArrowFriendly; //complete placeholder, only does this because it makes the item consume ammo
+			Item.shoot = ProjectileID.WoodenArrowFriendly; //this is the only way i can find to make the item consume ammo
 			Item.useAmmo = ItemID.WoodPlatform;
+			//Item.useTurn = false;
+
+			Item.noMelee = false;
+			Item.damage = 1;
+
 		}
 
-		public Item chosenPlatform;
+		public int useMode = 1;
+
+		public Item chosenPlatform; //set in globalitem pickammo
 		public int initialPlayerDirection;
 
+	    public int? nextChoppedX;
+		public int nextChoppedY;
+		public override void ModifyTooltips(List<TooltipLine> tooltips)
+		{
+			TooltipLine damage = tooltips.FirstOrDefault(x => x.Name == "Damage" && x.mod == "Terraria");
+			if (damage != null) tooltips.Remove(damage);
+			TooltipLine crit = tooltips.FirstOrDefault(x => x.Name == "CritChance" && x.mod == "Terraria");
+			if (crit != null) tooltips.Remove(crit);
+			TooltipLine kback = tooltips.FirstOrDefault(x => x.Name == "Knockback" && x.mod == "Terraria");
+			if (kback != null) tooltips.Remove(kback);
+			TooltipLine speed = tooltips.FirstOrDefault(x => x.Name == "Speed" && x.mod == "Terraria");
+			if (speed != null) tooltips.Remove(speed);
+		}
 		public override bool CanConsumeAmmo(Player player)
 		{
 			return false;
 		}
-        public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+    public override bool CanUseItem(Player player)
+    {
+		if (player.altFunctionUse == 2) //allows alt click and chop mode to be used even when out of platforms (ammo)
+		{
+			if (useMode == 1) Item.useAmmo = ItemID.None;
+			else if (useMode == 2) Item.useAmmo = ItemID.WoodPlatform;
+		}
+		return base.CanUseItem(player);
+	}
+    public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
 			player.direction = initialPlayerDirection;
 			//Main.NewText(initialPlayerDirection.ToString());
 			return false;
         }
-        public override float UseTimeMultiplier(Player player)
+        public override float UseSpeedMultiplier(Player player) //usespeedmultiplier divides instead of multiplying use time, so im getting the multiplicative inverse of everything
 		{
-			return player.tileSpeed;
+			if (player.altFunctionUse == 2) return (1 / 1.5f);
+			if (useMode == 1) return (1 / player.tileSpeed);
+			if (useMode == 2) return (1 / 4.25f);
+			return base.UseSpeedMultiplier(player);
 		}
-        public override bool? UseItem(Player player)
+		public override bool AltFunctionUse(Player player)
 		{
+		    return true;
+		}
+		public override bool? UseItem(Player player)
+		{
+
+			for (int i = 0; i < 251; ++i) //makes visual use sprite
+			{
+				if (i == 250)
+				{
+					int p = Projectile.NewProjectile(player.GetProjectileSource_Item(Item), player.Center.X, player.Center.Y, 0f, 0f, ModContent.ProjectileType<PlatformLayerVisual>(), 0, 0, Main.myPlayer, 0, 0);
+					(Main.projectile[p].ModProjectile as PlatformLayerVisual).useMode = useMode;
+				}
+				if (Main.projectile[i].active && Main.projectile[i].owner == Main.myPlayer && Main.projectile[i].type == ModContent.ProjectileType<PlatformLayerVisual>()) i = 251;
+			}
+
+			if (player.altFunctionUse == 2)
+			{
+				if (useMode == 1) useMode = 2;
+				else useMode = 1;
+			}
+
 			int tileX = (int)(Main.MouseWorld.X / 16);
 			int tileY = (int)(Main.MouseWorld.Y / 16);
 			int rangeX = Player.tileRangeX + player.blockRange; //accounts for both tool specific range and building specific range
@@ -59,59 +115,177 @@ namespace Emperia.Items {
 			int cursorDistanceY = tileY - playerTileY;
 			initialPlayerDirection = player.direction;
 
-
-            if (Math.Abs(cursorDistanceX) <= rangeX && Math.Abs(cursorDistanceY) <= rangeY && chosenPlatform.stack > 0) // that last one should not need to be a condition by any means but i fucking swear i got -2 ammo once and i cant recreate it
-            {
-                if (!Framing.GetTileSafely(tileX, tileY).IsActive || Main.tileCut[Framing.GetTileSafely(tileX, tileY).type] == true)
-                {
-                    if (Framing.GetTileSafely(tileX, tileY).wall != 0)
-                    {
-						if (Main.tileCut[Framing.GetTileSafely(tileX, tileY).type] == true) //i dont think this can spawn bait
+			if (useMode == 1 && player.altFunctionUse != 2)
+			{
+				if (Math.Abs(cursorDistanceX) <= rangeX && Math.Abs(cursorDistanceY) <= rangeY && chosenPlatform.stack > 0) // that last one should not need to be a condition by any means but i fucking swear i got -2 ammo once and i cant recreate it
+				{
+					if (!Framing.GetTileSafely(tileX, tileY).HasTile || Main.tileCut[Framing.GetTileSafely(tileX, tileY).TileType] == true || TileID.Sets.BreakableWhenPlacing[Framing.GetTileSafely(tileX, tileY).TileType] == true)
+					{
+						if (Framing.GetTileSafely(tileX, tileY).WallType != 0)
 						{
-							WorldGen.KillTile_MakeTileDust(tileX, tileY, Framing.GetTileSafely(tileX, tileY));
-							WorldGen.KillTile_PlaySounds(tileX, tileY, false, Framing.GetTileSafely(tileX, tileY));
-						}
-						WorldGen.PlaceTile(tileX, tileY, chosenPlatform.createTile, false, true, -1, chosenPlatform.placeStyle);
-						chosenPlatform.stack--;
-                        return true;
-                    }
-                    for (int i = -1; i <= 1; i++) //idk if theres a smarter way to do this but this runs through the neighboring 3x3 tiles to see if it can place
-                    {
-                        for (int h = -1; h <= 1; h++)
-                        {
-                            if (Framing.GetTileSafely(tileX + i, tileY + h).IsActive)
-                            {
-								if (Main.tileCut[Framing.GetTileSafely(tileX, tileY).type] == true)
-                                {
-									WorldGen.KillTile_MakeTileDust(tileX, tileY, Framing.GetTileSafely(tileX, tileY));
-									WorldGen.KillTile_PlaySounds(tileX, tileY, false, Framing.GetTileSafely(tileX, tileY)); 
-								}
-								WorldGen.PlaceTile(tileX, tileY, chosenPlatform.createTile, false, true, -1, chosenPlatform.placeStyle);
-								chosenPlatform.stack--;
-								return true;
-                            }
-                        }
-                    }
-                }
-                if (TileID.Sets.Platforms[Framing.GetTileSafely(tileX, tileY).type])
-                {
-                    for (int i = 1; i <= rangeX + 2 - cursorDistanceX * player.direction; i++) //bonus 2 range because it seems nice
-                    {
-                        if (!Framing.GetTileSafely(tileX + i * player.direction, tileY).IsActive || Main.tileCut[Framing.GetTileSafely(tileX + i * player.direction, tileY).type] == true) //needs to mine/kill tile if cuttable
-                        {
-							if (Main.tileCut[Framing.GetTileSafely(tileX + i * player.direction, tileY).type] == true) 
+							if (Main.tileCut[Framing.GetTileSafely(tileX, tileY).TileType] == true) //i still dont think this can spawn bait (multitiles can spawn bait from adjacent blocks as they count separately)
 							{
-								WorldGen.KillTile_MakeTileDust(tileX + i * player.direction, tileY, Framing.GetTileSafely(tileX, tileY));
-								WorldGen.KillTile_PlaySounds(tileX + i * player.direction, tileY, false, Framing.GetTileSafely(tileX, tileY));
+								WorldGen.KillTile_MakeTileDust(tileX, tileY, Framing.GetTileSafely(tileX, tileY));
+								WorldGen.KillTile_PlaySounds(tileX, tileY, false, Framing.GetTileSafely(tileX, tileY));
 							}
-							WorldGen.PlaceTile(tileX + i * player.direction, tileY, chosenPlatform.createTile, false, true, -1, chosenPlatform.placeStyle);
+							WorldGen.PlaceTile(tileX, tileY, chosenPlatform.createTile, false, true, -1, chosenPlatform.placeStyle);
 							chosenPlatform.stack--;
 							return true;
-                        }
-                    }
-                }
+						}
+
+						for (int i = -1; i <= 1; i++) //runs through the neighboring 3x3 tiles to see if it can place
+						{
+							for (int h = -1; h <= 1; h++)
+							{
+								if (Framing.GetTileSafely(tileX + i, tileY + h).HasTile)
+								{
+									if (Framing.GetTileSafely(tileX, tileY).HasTile)
+									{
+										WorldGen.KillTile_MakeTileDust(tileX, tileY, Framing.GetTileSafely(tileX, tileY));
+										WorldGen.KillTile_PlaySounds(tileX, tileY, false, Framing.GetTileSafely(tileX, tileY));
+										//WorldGen.KillTile_GetItemDrops(tileX, tileY, Main.tile[tileX, tileY], Main.tile[tileX, tileY].type.dropItem); 
+								}
+									WorldGen.PlaceTile(tileX, tileY, chosenPlatform.createTile, false, true, -1, chosenPlatform.placeStyle);
+									chosenPlatform.stack--;
+									return true;
+								}
+							}
+						}
+					}
+					if (TileID.Sets.Platforms[Framing.GetTileSafely(tileX, tileY).TileType])
+					{
+						for (int i = 1; i <= rangeX + 2 - cursorDistanceX * player.direction; i++) //bonus 2 range, as a treat
+						{
+							if (!Framing.GetTileSafely(tileX + i * player.direction, tileY).HasTile || Main.tileCut[Framing.GetTileSafely(tileX + i * player.direction, tileY).TileType] == true || TileID.Sets.BreakableWhenPlacing[Framing.GetTileSafely(tileX + i * player.direction, tileY).TileType] == true)
+							{
+								if (Framing.GetTileSafely(tileX + i * player.direction, tileY).HasTile)
+								{
+									WorldGen.KillTile_MakeTileDust(tileX + i * player.direction, tileY, Framing.GetTileSafely(tileX, tileY));
+									WorldGen.KillTile_PlaySounds(tileX + i * player.direction, tileY, false, Framing.GetTileSafely(tileX, tileY));
+								}
+								WorldGen.PlaceTile(tileX + i * player.direction, tileY, chosenPlatform.createTile, false, true, -1, chosenPlatform.placeStyle);
+								chosenPlatform.stack--;
+								return true;
+							}
+						}
+					}
+				}
             }
+
+			if (useMode == 2 && player.altFunctionUse != 2)
+			{
+				nextChoppedX = null;
+	
+				/*if (Main.MouseWorld.X > player.position.X && player.direction == -1)
+				{
+					player.direction = 1;
+					Item.useTurn = false;
+				}
+				if (Main.MouseWorld.X < player.position.X && player.direction == 1)
+				{
+					player.direction = -1;
+					Item.useTurn = false;
+				}*/
+	
+				if (Math.Abs(cursorDistanceX) <= rangeX && Math.Abs(cursorDistanceY) <= rangeY)
+				{
+					if (TileID.Sets.Platforms[Framing.GetTileSafely(tileX, tileY).TileType] == true)
+					{
+						player.PickTile(tileX, tileY, 59);
+						nextChoppedX = tileX + 1 * player.direction;
+						nextChoppedY = tileY;
+						initialPlayerDirection = player.direction;
+						/*for (int i = 1; i <= rangeX + 2 - cursorDistanceX * player.direction; i++) //bonus 2 range because it seems nice
+	                    {
+	                        if (TileID.Sets.Platforms[Framing.GetTileSafely(tileX + i * player.direction, tileY).type] == true)
+	                        {
+								player.PickTile(tileX + i * player.direction, tileY, 59);
+	                        }
+	                    }*/
+						//return true;
+					}
+				}
+				return true;
+			}
 			return true;
 		}
+	    public override void MeleeEffects(Player player, Rectangle hitbox)
+        {
+			if (player.itemAnimation % 3 == 0 && nextChoppedX != null && useMode == 2 && player.altFunctionUse != 2)
+			{
+				if (TileID.Sets.Platforms[Framing.GetTileSafely((int)nextChoppedX, nextChoppedY).TileType] == true)
+				{
+					player.PickTile((int)nextChoppedX, nextChoppedY, 59);
+					nextChoppedX += 1 * initialPlayerDirection;
+				}
+				else nextChoppedX = null;
+			}
+		}
+        public override bool? CanHitNPC(Player player, NPC target)
+        {
+            return false;
+        }
     }
+	public class PlatformLayerVisual : ModProjectile
+	{
+
+		public override void SetDefaults()
+		{
+			Projectile.damage = 0;
+			Projectile.width = 34;
+			Projectile.height = 24;
+			Projectile.tileCollide = false; 
+			Main.projFrames[Projectile.type] = 6;
+		}
+		public int useMode = 1;
+		bool init = false;
+
+
+		public override void AI()
+		{
+			Player player = Main.player[Projectile.owner];
+			if (player.itemTime == 0) Projectile.Kill();
+			player.heldProj = Projectile.whoAmI;
+			
+			if (!init && useMode == 2)
+			{
+				Projectile.frame = 3;
+				init = true;
+			}
+			
+			Projectile.frameCounter++;
+			if (Projectile.frameCounter >= 6)
+			{
+				Projectile.frameCounter = 0;
+				if (player.altFunctionUse == 2) Projectile.frame = Projectile.frame = (Projectile.frame + 3) % 6;
+				else if (useMode == 1) Projectile.frame = (Projectile.frame + 1) % 3;
+				else if (useMode == 2) Projectile.frame = (Projectile.frame + 1) % 3 + 3;
+				//Main.NewText(Projectile.frame.ToString());
+			}
+
+			Vector2 offset = new Vector2(player.direction * 19, player.gravDir * -5); //code beneath this adapted from vanilla medusa head projectile
+			Vector2 mouseDirection = Main.screenPosition + new Vector2((float)Main.mouseX, (float)Main.mouseY) - player.Center; //depending on the side of the player the mouse is, the sprite wobbles?? why??
+			if (player.gravDir == -1f)
+			{
+				mouseDirection.Y = (float)(Main.screenHeight - Main.mouseY) + Main.screenPosition.Y - player.Center.Y;
+				offset.Y -= 18;
+			}
+			mouseDirection = new Vector2((float)Math.Sign((mouseDirection.X == 0f) ? ((float)player.direction) : mouseDirection.X), 0f); //simplifies to either be 1 or -1
+			//if (velocity.X != base.velocity.X || velocity.Y != base.velocity.Y)
+			//{
+			//	this.netUpdate = true;
+			//}
+			Projectile.velocity = mouseDirection; //no idea why this works, maybe OffsetsPlayerOnhand code checks projectile velocity to decide its direction?
+			Vector2 value = Main.OffsetsPlayerOnhand[player.bodyFrame.Y / 56] * 2f;
+			if (player.direction != 1)
+			{
+				value.X = (float)player.bodyFrame.Width - value.X;
+			}
+			value -= (player.bodyFrame.Size() - new Vector2((float)player.width, 42f)) / 2f;
+			Projectile.Center = (player.position + value + offset - mouseDirection).Floor();
+			Projectile.gfxOffY = player.gfxOffY;
+			Projectile.spriteDirection = player.direction;
+			//Projectile.rotation = ((player.gravDir == 1f) ? 0f : ((float)Math.PI));
+		}
 }
+

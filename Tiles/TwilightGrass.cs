@@ -46,7 +46,7 @@ namespace Emperia.Tiles
             if (!effectOnly)
             {
                 fail = true;
-                Main.tile[i, j].type = TileID.Dirt;
+                Main.tile[i, j].TileType = TileID.Dirt;
                 WorldGen.SquareTileFrame(i, j, true);
 			
             }
@@ -69,7 +69,7 @@ namespace Emperia.Tiles
 
         public override void RandomUpdate(int i, int j)
         {
-            if (!Framing.GetTileSafely(i, j - 1).IsActive)// && Main.rand.Next(40) == 0)
+            if (!Framing.GetTileSafely(i, j - 1).HasTile)// && Main.rand.Next(40) == 0)
             {
                 TwilightGrass.PlaceObject(i, j - 1, TileType<Tiles.TwilightFlora>());
                 NetMessage.SendObjectPlacment(-1, i, j - 1, TileType<Tiles.TwilightFlora>(), 0, 0, -1, -1);
@@ -83,17 +83,17 @@ namespace Emperia.Tiles
                 int num = 0;
                 while ((double)num < Main.maxTilesY)
                 {
-                    if (Main.tile[k, num].IsActive)
+                    if (Main.tile[k, num].HasTile)
                     {
-                        if (flag2 && Main.tile[k, num].type == TileID.Dirt)
+                        if (flag2 && Main.tile[k, num].TileType == TileID.Dirt)
                         {
                             try
                             {
-                                WorldGen.SpreadGrass(k, num, TileID.Dirt, TileType<Tiles.TwilightGrass>(), true, Main.tile[k, num].Color);
+                                WorldGen.SpreadGrass(k, num, TileID.Dirt, TileType<Tiles.TwilightGrass>(), true, Main.tile[k, num].TileColor);
                             }
                             catch
                             {
-                                WorldGen.SpreadGrass(k, num, TileID.Dirt, TileType<Tiles.TwilightGrass>(), true, Main.tile[k, num].Color);
+                                WorldGen.SpreadGrass(k, num, TileID.Dirt, TileType<Tiles.TwilightGrass>(), true, Main.tile[k, num].TileColor);
                             }
                         }
                         if ((double)num > WorldGen.worldSurfaceHigh)
@@ -102,7 +102,7 @@ namespace Emperia.Tiles
                         }
                         flag2 = false;
                     }
-                    else if (Main.tile[k, num].wall == 0)
+                    else if (Main.tile[k, num].WallType == 0)
                     {
                         flag2 = true;
                     }
