@@ -37,7 +37,7 @@ namespace Emperia.Items.Sets.Hardmode.Crimson
             Item.shoot = ModContent.ProjectileType<BigBubble>();
             Item.shootSpeed = 12;
         }
-        public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockBack)
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockBack)
         {
             if (Main.rand.NextBool(7))
             {

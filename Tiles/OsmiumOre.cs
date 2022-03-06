@@ -27,7 +27,7 @@ namespace Emperia.Tiles
 			return false;
 		}
 
-        public override bool Dangersense(int i, int j, Player player)
+        public override bool IsTileDangerous(int i, int j, Player player)
         {
 			//Color color = Main.LocalPlayer.dangerSense ? new Color(255, 50, 50, Main.mouseTextColor) : Lighting.GetColor(i, j);
 			return true;

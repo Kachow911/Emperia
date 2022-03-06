@@ -41,7 +41,7 @@ namespace Emperia.Items.Sets.Hardmode.Jungle
 		  DisplayName.SetDefault("Primal Staff");
 		  Tooltip.SetDefault("Fires a spread of slow spheres");
 		}
-		public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockBack)
+		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockBack)
 		{
 			float numberProjectiles = 3;
 			float rotation = MathHelper.ToRadians(15);

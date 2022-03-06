@@ -71,7 +71,7 @@ namespace Emperia.Items.Weapons.GoblinArmy
            Item.noUseGraphic = false;
         }
 	
-		public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockBack)
+		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockBack)
 		{
 			if (player.altFunctionUse == 2)     //2 is right click
             { 

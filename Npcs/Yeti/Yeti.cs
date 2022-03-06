@@ -62,7 +62,7 @@ namespace Emperia.Npcs.Yeti
             NPC.buffImmune[24] = true;
             NPC.netAlways = true;
 			NPC.scale = 2f;
-			BossBag = ModContent.ItemType<Items.YetiBag>();
+			//BossBag = ModContent.ItemType<Items.YetiBag>();
         }
 		public override void FindFrame(int frameHeight)
 		{
@@ -123,7 +123,7 @@ namespace Emperia.Npcs.Yeti
 			counter3++;
 			if (IsBelowPhaseTwoThreshhold() && !phase2Active)
 			{
-				NPC.NewNPC((int)NPC.Center.X + Main.rand.Next(-200, 200), (int)NPC.Center.Y - 150, NPCType<Yetiling>());
+				NPC.NewNPC(NPC.GetSpawnSourceForNPCFromNPCAI(), (int)NPC.Center.X + Main.rand.Next(-200, 200), (int)NPC.Center.Y - 150, NPCType<Yetiling>());
 				phase2Active = true;
 			}
 			if (NPC.velocity.X < 0)
@@ -163,7 +163,7 @@ namespace Emperia.Npcs.Yeti
 						Color rgb = new Color(255, 255, 255);
 						int index2 = Dust.NewDust(NPC.position + new Vector2(i, NPC.height), NPC.width, NPC.height, 76, NPC.velocity.X / 5, (float)NPC.velocity.Y, 0, rgb, 0.9f);
 					}
-					NPC.NewNPC((int)NPC.Center.X + Main.rand.Next(-75, 75), (int)NPC.Center.Y + NPC.height - 58, NPCType<YetilingInit>());
+					NPC.NewNPC(NPC.GetSpawnSourceForNPCFromNPCAI(), (int)NPC.Center.X + Main.rand.Next(-75, 75), (int)NPC.Center.Y + NPC.height - 58, NPCType<YetilingInit>());
 					SetMove(Move.Walk, remainingTime);
 					remainingTime = 0;
 				}
@@ -186,7 +186,7 @@ namespace Emperia.Npcs.Yeti
 					{
 
 						Vector2 perturbedSpeed = new Vector2(0, 3).RotatedBy(MathHelper.ToRadians(Main.rand.Next(30) + 30 * i)) * 1.8f;
-						Projectile.NewProjectile(NPC.GetProjectileSpawnSource(), NPC.Center.X, NPC.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, ModContent.ProjectileType<IcicleC>(), NPC.damage / 2, 1, Main.myPlayer, 0, 0);
+						Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), NPC.Center.X, NPC.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, ModContent.ProjectileType<IcicleC>(), NPC.damage / 2, 1, Main.myPlayer, 0, 0);
 
 					}
 					SetMove(Move.Walk, remainingTime);
@@ -306,8 +306,8 @@ namespace Emperia.Npcs.Yeti
 					{
 						int index2 = Dust.NewDust(NPC.position + new Vector2(i, 0), NPC.width, NPC.height, 76, NPC.velocity.X / 5, (float) NPC.velocity.Y, 0, rgb, 0.9f);
 					}
-					Projectile.NewProjectile(NPC.GetProjectileSpawnSource(), NPC.Center.X, NPC.Center.Y + NPC.height / 2, 2, 0, ModContent.ProjectileType<YetiProjOne>(), 0, 1, Main.myPlayer, 0, 0);
-					Projectile.NewProjectile(NPC.GetProjectileSpawnSource(), NPC.Center.X, NPC.Center.Y + NPC.height / 2, -2, 0, ModContent.ProjectileType<YetiProjOne>(), 0, 1, Main.myPlayer, 0, 0);
+					Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), NPC.Center.X, NPC.Center.Y + NPC.height / 2, 2, 0, ModContent.ProjectileType<YetiProjOne>(), 0, 1, Main.myPlayer, 0, 0);
+					Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), NPC.Center.X, NPC.Center.Y + NPC.height / 2, -2, 0, ModContent.ProjectileType<YetiProjOne>(), 0, 1, Main.myPlayer, 0, 0);
 					//go back lool
 				}
 			}
@@ -334,7 +334,7 @@ namespace Emperia.Npcs.Yeti
 					Vector2 direction = Main.player[NPC.target].Center + new Vector2(0, -115) - placePosition;
 					direction.Normalize();
 					direction *= 9f;
-					Projectile.NewProjectile(NPC.GetProjectileSpawnSource(), NPC.Center.X, NPC.Center.Y - NPC.height/2, direction.X, direction.Y, ModContent.ProjectileType<YetiSnowball>(), NPC.damage / 2, 1, Main.myPlayer, 0, 0);
+					Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), NPC.Center.X, NPC.Center.Y - NPC.height/2, direction.X, direction.Y, ModContent.ProjectileType<YetiSnowball>(), NPC.damage / 2, 1, Main.myPlayer, 0, 0);
 					
 				}
 			}
@@ -391,37 +391,38 @@ namespace Emperia.Npcs.Yeti
 			//}
 			if (Main.expertMode)
 			{
-				NPC.DropBossBags();
+				Item.NewItem(NPC.GetItemSource_Loot(), (int)NPC.position.X, (int)NPC.position.Y, NPC.width, NPC.height, ModContent.ItemType<Items.YetiBag>());
+				//NPC.DropBossBags();
 			}
 			else
 			{
 				
 				if (Main.rand.Next(2) == 0)
 				{
-					Item.NewItem((int)NPC.position.X, (int)NPC.position.Y, NPC.width, NPC.height, ModContent.ItemType<MammothineClub>());
+					Item.NewItem(NPC.GetItemSource_Loot(), (int)NPC.position.X, (int)NPC.position.Y, NPC.width, NPC.height, ModContent.ItemType<MammothineClub>());
 				}
 				if (Main.rand.Next(2) == 0)
 				{
-					Item.NewItem((int)NPC.position.X, (int)NPC.position.Y, NPC.width, NPC.height, ModContent.ItemType<Items.Weapons.Yeti.HuntersSpear>());
+					Item.NewItem(NPC.GetItemSource_Loot(), (int)NPC.position.X, (int)NPC.position.Y, NPC.width, NPC.height, ModContent.ItemType<Items.Weapons.Yeti.HuntersSpear>());
 				}
 				if (Main.rand.Next(2) == 0)
 				{
-					Item.NewItem((int)NPC.position.X, (int)NPC.position.Y, NPC.width, NPC.height, ModContent.ItemType<IcicleCannon>());
+					Item.NewItem(NPC.GetItemSource_Loot(), (int)NPC.position.X, (int)NPC.position.Y, NPC.width, NPC.height, ModContent.ItemType<IcicleCannon>());
 				}
 				
 				if (Main.rand.Next(7) == 0)
 				{
-					Item.NewItem((int)NPC.position.X, (int)NPC.position.Y, NPC.width, NPC.height, ModContent.ItemType<Items.Armor.YetiMask>());
+					Item.NewItem(NPC.GetItemSource_Loot(), (int)NPC.position.X, (int)NPC.position.Y, NPC.width, NPC.height, ModContent.ItemType<Items.Armor.YetiMask>());
 				}
 				if (Main.rand.Next(10) == 0)
 				{
-				Item.NewItem((int)NPC.position.X, (int)NPC.position.Y, NPC.width, NPC.height, ModContent.ItemType<Items.ChilledFootprint>());
+				Item.NewItem(NPC.GetItemSource_Loot(), (int)NPC.position.X, (int)NPC.position.Y, NPC.width, NPC.height, ModContent.ItemType<Items.ChilledFootprint>());
 				}
 				if (Main.rand.Next(2) == 0)
 				{
-				Item.NewItem((int)NPC.position.X, (int)NPC.position.Y, NPC.width, NPC.height, ModContent.ItemType<ArcticIncantation>());
+				Item.NewItem(NPC.GetItemSource_Loot(), (int)NPC.position.X, (int)NPC.position.Y, NPC.width, NPC.height, ModContent.ItemType<ArcticIncantation>());
 				}
-				Item.NewItem((int)NPC.position.X, (int)NPC.position.Y, NPC.width, NPC.height, ModContent.ItemType<Items.Sets.PreHardmode.Frostleaf.Frostleaf>(), Main.rand.Next(20, 30)); 
+				Item.NewItem(NPC.GetItemSource_Loot(), (int)NPC.position.X, (int)NPC.position.Y, NPC.width, NPC.height, ModContent.ItemType<Items.Sets.PreHardmode.Frostleaf.Frostleaf>(), Main.rand.Next(20, 30)); 
 			}
 		}
         

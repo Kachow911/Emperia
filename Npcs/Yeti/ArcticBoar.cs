@@ -99,11 +99,11 @@ namespace Emperia.Npcs.Yeti
 			}
 			if (Main.rand.Next(3) == 0)
 			{
-				Item.NewItem((int)NPC.position.X, (int)NPC.position.Y, NPC.width, NPC.height, ModContent.ItemType<Items.GelidHide>());
+				Item.NewItem(NPC.GetItemSource_Loot(), (int)NPC.position.X, (int)NPC.position.Y, NPC.width, NPC.height, ModContent.ItemType<Items.GelidHide>());
 			}
 			if (Main.rand.Next(10) == 0)
 			{
-				Item.NewItem((int)NPC.position.X, (int)NPC.position.Y, NPC.width, NPC.height, ModContent.ItemType<Items.Accessories.BoarTusk>());
+				Item.NewItem(NPC.GetItemSource_Loot(), (int)NPC.position.X, (int)NPC.position.Y, NPC.width, NPC.height, ModContent.ItemType<Items.Accessories.BoarTusk>());
 			}
 		}
         

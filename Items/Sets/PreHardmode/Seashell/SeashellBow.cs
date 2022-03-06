@@ -46,7 +46,7 @@ namespace Emperia.Items.Sets.PreHardmode.Seashell
             recipe.Register();
             
         }
-		public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockBack)
+		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockBack)
 		{
             if (type == ProjectileID.WoodenArrowFriendly)
 			{

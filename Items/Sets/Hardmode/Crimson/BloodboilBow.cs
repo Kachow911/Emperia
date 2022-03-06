@@ -46,12 +46,12 @@ namespace Emperia.Items.Sets.Hardmode.Crimson
 				{
 					Vector2 perturbedSpeed = velocity;
 					//float speedFact = (float)Main.rand.Next(2, 15) / 10;
-					Projectile.NewProjectile(new ProjectileSource_Item(player, Item), position.X - (velocity.X * i), position.Y - (velocity.Y * i), perturbedSpeed.X, perturbedSpeed.Y, type, damage, knockBack, player.whoAmI);
+					Projectile.NewProjectile(player.GetProjectileSource_Item(Item), position.X - (velocity.X * i), position.Y - (velocity.Y * i), perturbedSpeed.X, perturbedSpeed.Y, type, damage, knockBack, player.whoAmI);
 				}
 			}
 			return;
 		}
-		public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockBack)
+		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockBack)
 		{
 			return true;
 

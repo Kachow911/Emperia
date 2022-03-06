@@ -63,7 +63,7 @@ namespace Emperia.Npcs
 				{
 				
 					Vector2 perturbedSpeed = new Vector2(0, 3).RotatedBy(MathHelper.ToRadians(90 + 30 * i));
-					Projectile.NewProjectile(NPC.GetProjectileSpawnSource(), NPC.Center.X, NPC.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, ModContent.ProjectileType<EnemyNeedle>(), NPC.damage / 3, 1, Main.myPlayer, 0, 0);
+					Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), NPC.Center.X, NPC.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, ModContent.ProjectileType<EnemyNeedle>(), NPC.damage / 3, 1, Main.myPlayer, 0, 0);
 				
 				}
 			}

@@ -34,7 +34,7 @@ namespace Emperia.Items.Sets.Hardmode.Jungle
             Item.shootSpeed = 10f;
 			Item.UseSound = SoundID.Item5; 
         }
-		public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockBack)
+		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockBack)
 		{
 			float numberProjectiles = 4; 
 			float rotation = MathHelper.ToRadians(20);

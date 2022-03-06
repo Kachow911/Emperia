@@ -23,6 +23,9 @@ using Emperia.Projectiles.Mushroom;
 using Emperia.Buffs;
 using Emperia.Items;
 using Emperia.Items.Weapons;
+using Emperia.Items.Sets.PreHardmode.Aquatic;
+using Emperia.Items.Sets.PreHardmode.Desert;
+using Emperia.Items.Accessories;
 
 namespace Emperia
 {
@@ -334,7 +337,7 @@ namespace Emperia
 							if (egg == 0) type = ModContent.ProjectileType<plant1>();
 							else if (egg == 1) type = ModContent.ProjectileType<plant2>();
 							else type = ModContent.ProjectileType<plant3>();
-							Projectile.NewProjectile(new ProjectileSource_Item(Player, aquaticSet), i * 16, j * 16 - 14, 0, 0, type, 0, 1, Main.myPlayer, 0, 0);
+							Projectile.NewProjectile(Player.GetProjectileSource_SetBonus(ModContent.ItemType<AquaticFaceGuard>()), i * 16, j * 16 - 14, 0, 0, type, 0, 1, Main.myPlayer, 0, 0);
 						}
 
 					}
@@ -667,7 +670,7 @@ namespace Emperia
 					//Main.dust[dust].velocity = new Vector2(i/4, -1);
 					Main.dust[dust].velocity = new Vector2(i / 7, 0);
 				}
-				Projectile.NewProjectile(new ProjectileSource_Item(Player, carapaceSet), Player.Center.X, Player.Center.Y, 2 * Player.direction, 0, ModContent.ProjectileType<DesertBurrow>(), 8, 0, Main.myPlayer, 0, 0);
+				Projectile.NewProjectile(Player.GetProjectileSource_SetBonus(ModContent.ItemType<DuneKingMaw>()), Player.Center.X, Player.Center.Y, 2 * Player.direction, 0, ModContent.ProjectileType<DesertBurrow>(), 8, 0, Main.myPlayer, 0, 0);
 				PlaySound(SoundID.NPCHit11, Player.Center);
 				poundTime = 0;
 			}
@@ -1084,7 +1087,7 @@ namespace Emperia
 				if (increasedChance > 8) increasedChance = 8;
 				if (Main.rand.NextFloat(80) <= (2 + increasedChance))
 				{
-					Item.NewItem((int)target.position.X, (int)target.position.Y, target.width, target.height, ModContent.ItemType<ProtectiveEnergy>());
+					Item.NewItem(Player.GetItemSource_OnHit(target, ModContent.ItemType<InsigniaofDefense>()), (int)target.position.X, (int)target.position.Y, target.width, target.height, ModContent.ItemType<ProtectiveEnergy>());
 				}
 			}
 			if (crit && sporeFriend && Main.rand.NextBool(3))
@@ -1223,7 +1226,7 @@ namespace Emperia
 				if (increasedChance > 9) increasedChance = 9;
 				if (Main.rand.NextFloat(80) <= (1 + increasedChance))
 				{
-					Item.NewItem((int)target.position.X, (int)target.position.Y, target.width, target.height, ModContent.ItemType<ProtectiveEnergy>());
+					Item.NewItem(Player.GetItemSource_OnHit(target, ModContent.ItemType<InsigniaofDefense>()), (int)target.position.X, (int)target.position.Y, target.width, target.height, ModContent.ItemType<ProtectiveEnergy>());
 				}
 			}
 			if (crit && sporeFriend && Main.rand.NextBool(3))

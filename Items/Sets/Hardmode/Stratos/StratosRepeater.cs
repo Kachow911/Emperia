@@ -36,7 +36,7 @@ namespace Emperia.Items.Sets.Hardmode.Stratos
 			Item.UseSound = SoundID.Item5; 
         }
 		
-		public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockBack)
+		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockBack)
 		{
             Vector2 placePosition = player.Center + new Vector2(Main.rand.Next(-100, 100), -player.height - Main.rand.Next(50));
             Vector2 direction = Main.MouseWorld - placePosition;

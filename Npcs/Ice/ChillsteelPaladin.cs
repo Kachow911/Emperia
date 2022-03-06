@@ -120,7 +120,7 @@ namespace Emperia.Npcs.Ice
 						Vector2 placePosition = NPC.Center + new Vector2(Main.rand.Next(-100, 100), -NPC.height - Main.rand.Next(50));
 						Vector2 direction = Main.player[NPC.target].Center - placePosition;
 						direction.Normalize();
-						Projectile.NewProjectile(NPC.GetProjectileSpawnSource(), placePosition.X, placePosition.Y, direction.X * 12f, direction.Y * 12f, type, 15, 1, Main.myPlayer, 0, 0);
+						Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), placePosition.X, placePosition.Y, direction.X * 12f, direction.Y * 12f, type, 15, 1, Main.myPlayer, 0, 0);
 					}
 					SetMove(Move.Walk, 300);
 

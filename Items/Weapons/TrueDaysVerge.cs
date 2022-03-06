@@ -61,7 +61,7 @@ namespace Emperia.Items.Weapons  //where is located
 			}
 		}
 		
-        public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockBack)
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockBack)
 		{
 			if (Main.rand.Next(2) == 0)
 					type = ModContent.ProjectileType<TrueBlueSword>();

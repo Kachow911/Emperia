@@ -74,7 +74,7 @@ namespace Emperia.Npcs.Kraken
 				DepthMineTimer--;
 				if (DepthMineTimer <= 0)
 				{
-					NPC.NewNPC((int)NPC.Center.X + Main.rand.Next(-400, 400), (int)NPC.Center.Y + Main.rand.Next(-400, 400), NPCType<DepthCharge>());
+					NPC.NewNPC(NPC.GetSpawnSourceForNPCFromNPCAI(), (int)NPC.Center.X + Main.rand.Next(-400, 400), (int)NPC.Center.Y + Main.rand.Next(-400, 400), NPCType<DepthCharge>());
 					DepthMineTimer = 80;
 				}
 				
@@ -128,11 +128,11 @@ namespace Emperia.Npcs.Kraken
 				{
 					Vector2 direction = Main.player[NPC.target].Center - NPC.Center;
 					direction.Normalize();
-					Projectile.NewProjectile(NPC.GetProjectileSpawnSource(), NPC.Center.X, NPC.Center.Y, direction.X * 10f, direction.Y * 10f, ModContent.ProjectileType<InkShot>(), 40, 1, Main.myPlayer, 0, 0);	
+					Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), NPC.Center.X, NPC.Center.Y, direction.X * 10f, direction.Y * 10f, ModContent.ProjectileType<InkShot>(), 40, 1, Main.myPlayer, 0, 0);	
 				}
 				if (phase == 2)
 				{
-					Projectile.NewProjectile(NPC.GetProjectileSpawnSource(), NPC.Center.X + Main.rand.Next(-400, 400), NPC.Center.Y - 400, 0, 10f, ModContent.ProjectileType<InkShot>(), 25, 1, Main.myPlayer, 0, 0);
+					Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), NPC.Center.X + Main.rand.Next(-400, 400), NPC.Center.Y - 400, 0, 10f, ModContent.ProjectileType<InkShot>(), 25, 1, Main.myPlayer, 0, 0);
 				}
 				counter--;
 				if (counter <= 0)
@@ -210,7 +210,7 @@ namespace Emperia.Npcs.Kraken
 				{
 					Vector2 direction = Main.player[NPC.target].Center - NPC.Center;
 					direction.Normalize();
-					Projectile.NewProjectile(NPC.GetProjectileSpawnSource(), NPC.Center.X, NPC.Center.Y, direction.X * 10f, direction.Y * 10f, ModContent.ProjectileType<InkShot>(), 80, 1, Main.myPlayer, 0, 0);	
+					Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), NPC.Center.X, NPC.Center.Y, direction.X * 10f, direction.Y * 10f, ModContent.ProjectileType<InkShot>(), 80, 1, Main.myPlayer, 0, 0);	
 				}
 				counter--;
 				if (counter <= 0)

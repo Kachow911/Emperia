@@ -36,7 +36,7 @@ namespace Emperia.Items.Weapons.Inquisitor
             Item.shootSpeed = 8f;
             Item.useAmmo = AmmoID.Bullet;
         }
-		public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockBack)
+		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockBack)
         {
             count++;
             if (count >= 3)

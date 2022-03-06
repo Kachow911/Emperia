@@ -39,7 +39,7 @@ namespace Emperia.Items.Sets.Hardmode.Stratos
       DisplayName.SetDefault("Stratos Spellbook");
 	  Tooltip.SetDefault("Cycles between firing different stratos chunks, each one more powerful than the last");
     }
-	public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockBack)
+	public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockBack)
 	{
 		if (count == 0)
 		{

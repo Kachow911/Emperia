@@ -67,7 +67,7 @@ namespace Emperia.Items.Weapons.Color1
             else
                 player.AddBuff(ModContent.BuffType<VermillionValor>(), Main.rand.Next(420, 600));
         }
-		public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockBack)
+		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockBack)
 		{
 			Terraria.Audio.SoundEngine.PlaySound(SoundID.Item69, player.Center);
 			damage = 54;

@@ -36,7 +36,7 @@ namespace Emperia.Items.Weapons.Volcano
 			Item.useAmmo = AmmoID.Bullet;
         }
  
-		public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockBack)
+		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockBack)
 		{
 			Terraria.Audio.SoundEngine.PlaySound(SoundID.Item14, player.position);
 			for (int index = 0; index < 10; ++index)

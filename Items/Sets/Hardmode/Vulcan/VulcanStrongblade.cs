@@ -36,7 +36,7 @@ namespace Emperia.Items.Sets.Hardmode.Vulcan   //where is located
             Item.autoReuse = true;   //if it's capable of autoswing.
             Item.useTurn = true;            
         }
-		public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockBack)
+		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockBack)
         {
            for (int i = 0; i < 2 + Main.rand.Next(2); i++)
            {

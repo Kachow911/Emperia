@@ -78,7 +78,7 @@ namespace Emperia.Npcs
                     Vector2 placePosition1 = NPC.Center;
                     Vector2 direction1 = player.Center - placePosition1;
                     direction1.Normalize();
-                    Projectile.NewProjectile(NPC.GetProjectileSpawnSource(), placePosition1.X, placePosition1.Y, direction1.X * 10f, direction1.Y * 10f, ModContent.ProjectileType<DemonBrainProj>(), 22, 1, Main.myPlayer, 0, 0);
+                    Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), placePosition1.X, placePosition1.Y, direction1.X * 10f, direction1.Y * 10f, ModContent.ProjectileType<DemonBrainProj>(), 22, 1, Main.myPlayer, 0, 0);
                 }
             }
 

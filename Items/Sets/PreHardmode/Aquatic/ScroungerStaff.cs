@@ -54,7 +54,7 @@ namespace Emperia.Items.Sets.PreHardmode.Aquatic
         }*/
 
         //might be handled by vanilla now, unsure
-		public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockBack)
+		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockBack)
         {
             position = Main.MouseWorld;
             //speedX = speedY = 0;

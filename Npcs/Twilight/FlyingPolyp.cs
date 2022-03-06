@@ -80,7 +80,7 @@ namespace Emperia.Npcs.Twilight
 					{
 
 						Vector2 perturbedSpeed = new Vector2(-3, 0).RotatedBy(MathHelper.ToRadians(36 * i));
-						int n = NPC.NewNPC((int)NPC.Center.X, (int)NPC.Center.Y - 30, NPCType<PolypMinion>());
+						int n = NPC.NewNPC(NPC.GetSpawnSourceForNPCFromNPCAI(), (int)NPC.Center.X, (int)NPC.Center.Y - 30, NPCType<PolypMinion>());
 						Main.npc[n].velocity = perturbedSpeed * 2f;
 					}
 					counter = 0;

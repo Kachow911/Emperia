@@ -39,7 +39,7 @@ namespace Emperia.Items.Weapons
             Item.mana = 7;  
         }
         int shootAngle = 0;
-		public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockBack)
+		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockBack)
 		{
 			Vector2 perturbedSpeed = velocity.RotatedBy(MathHelper.ToRadians(((shootAngle % 2 == 0) ? 0 : (shootAngle * 5))));
             MyPlayer modPlayer = player.GetModPlayer<MyPlayer>();

@@ -58,7 +58,7 @@ namespace Emperia.Npcs.Yeti
                     Color rgb = new Color(255, 255, 255);
                     int index2 = Dust.NewDust(NPC.Center, NPC.width, NPC.height, 76, NPC.velocity.X / 5, (float)NPC.velocity.Y, 0, rgb, 0.9f);
                 }
-                NPC.NewNPC((int)NPC.Center.X, (int)NPC.Center.Y, NPCType<Yetiling>());
+                NPC.NewNPC(NPC.GetSpawnSourceForNPCFromNPCAI(), (int)NPC.Center.X, (int)NPC.Center.Y, NPCType<Yetiling>());
                 NPC.life = 0;
             }
 		}

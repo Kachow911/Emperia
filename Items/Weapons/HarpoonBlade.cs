@@ -63,7 +63,7 @@ namespace Emperia.Items.Weapons
         {
             if (delay > 0) delay--;
         }
-        public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockBack)
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockBack)
         {
             //maybe make this halfway through the swing in meleeeffects?
             int hooksOut = 0;
@@ -120,7 +120,7 @@ namespace Emperia.Items.Weapons
                     Terraria.Audio.SoundEngine.PlaySound(SoundID.Coins, player.Center);
                     Vector2 direction = Main.MouseWorld - player.Center;
                     direction.Normalize();
-                    //Shoot(player, new ProjectileSource_Item_WithAmmo(player, Item), player.position, Item.shootSpeed, Item.shoot, Item.damage, Item.knockBack);//Projectile.NewProjectile(new ProjectileSource_Item(player, Item), position.X - (velocity.X * i), position.Y - (velocity.Y * i), perturbedSpeed.X, perturbedSpeed.Y, type, damage, knockBack, player.whoAmI);
+                    //Shoot(player, new EntitySource_ItemUse_WithAmmo(player, Item), player.position, Item.shootSpeed, Item.shoot, Item.damage, Item.knockBack);//Projectile.NewProjectile(new ProjectileSource_Item(player, Item), position.X - (velocity.X * i), position.Y - (velocity.Y * i), perturbedSpeed.X, perturbedSpeed.Y, type, damage, knockBack, player.whoAmI);
                     Projectile.NewProjectile(player.GetProjectileSource_Item(Item), player.Center.X, player.Center.Y, direction.X * Item.shootSpeed, direction.Y * Item.shootSpeed, Item.shoot, Item.damage, 1, Main.myPlayer, 0, 0);
                 }
             }

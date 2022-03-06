@@ -33,7 +33,7 @@ namespace Emperia.Tiles
 
 			var (chosenItem, dropAmount) = possibleDrops[Main.rand.Next(possibleDrops.Length)];
 
-			Item.NewItem(i * 16, j * 16, 32, 32, chosenItem, dropAmount);
+			Item.NewItem(WorldGen.GetItemSource_FromTileBreak(i, j), i * 16, j * 16, 32, 32, chosenItem, dropAmount);
 		}
 	}
 }

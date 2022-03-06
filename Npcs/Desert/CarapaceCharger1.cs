@@ -52,7 +52,7 @@ namespace Emperia.Npcs.Desert
 		{
 			if (Main.rand.Next(2) == 0)
 				{
-					Item.NewItem((int)NPC.position.X, (int)NPC.position.Y, NPC.width, NPC.height, ModContent.ItemType<Items.Sets.PreHardmode.Desert.PolishedSandstone>(), Main.rand.Next(1, 4));
+					Item.NewItem(NPC.GetItemSource_Loot(), (int)NPC.position.X, (int)NPC.position.Y, NPC.width, NPC.height, ModContent.ItemType<Items.Sets.PreHardmode.Desert.PolishedSandstone>(), Main.rand.Next(1, 4));
 				}
 		}
         public override bool PreAI()
@@ -80,12 +80,12 @@ namespace Emperia.Npcs.Desert
                         // to set the parent of this new NPC. The parent of the new NPC (may it be a tail or body part)
                         // will determine the movement of this new NPC.
                         // Under there, we also set the realLife value of the new NPC, because of what is explained above.
-                        latestNPC = NPC.NewNPC((int)NPC.Center.X, (int)NPC.Center.Y, NPCType<CarapaceCharger2>(), NPC.whoAmI, 0, latestNPC);
+                        latestNPC = NPC.NewNPC(NPC.GetSpawnSourceForNPCFromNPCAI(), (int)NPC.Center.X, (int)NPC.Center.Y, NPCType<CarapaceCharger2>(), NPC.whoAmI, 0, latestNPC);
                         Main.npc[(int)latestNPC].realLife = NPC.whoAmI;
                         Main.npc[(int)latestNPC].ai[3] = NPC.whoAmI;
                     }
                     // When we're out of that loop, we want to 'close' the worm with a tail part!
-                    latestNPC = NPC.NewNPC((int)NPC.Center.X, (int)NPC.Center.Y, NPCType<CarapaceCharger3>(), NPC.whoAmI, 0, latestNPC);
+                    latestNPC = NPC.NewNPC(NPC.GetSpawnSourceForNPCFromNPCAI(), (int)NPC.Center.X, (int)NPC.Center.Y, NPCType<CarapaceCharger3>(), NPC.whoAmI, 0, latestNPC);
                     Main.npc[(int)latestNPC].realLife = NPC.whoAmI;
                     Main.npc[(int)latestNPC].ai[3] = NPC.whoAmI;
  
@@ -134,7 +134,7 @@ namespace Emperia.Npcs.Desert
 								Vector2 perturbedSpeed = new Vector2(0, -5).RotatedByRandom(MathHelper.ToRadians(45));
                                 if (Main.rand.NextBool(2))
                                 {
-                                    int p = Projectile.NewProjectile(NPC.GetProjectileSpawnSource(), NPC.Center.X, NPC.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, ModContent.ProjectileType<SandBlock>(), NPC.damage / 3, 1, Main.myPlayer, 0, 0);
+                                    int p = Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), NPC.Center.X, NPC.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, ModContent.ProjectileType<SandBlock>(), NPC.damage / 3, 1, Main.myPlayer, 0, 0);
                                     Main.projectile[p].rotation = MathHelper.ToRadians(Main.rand.Next(360));
                                 }
 								colliding = false;

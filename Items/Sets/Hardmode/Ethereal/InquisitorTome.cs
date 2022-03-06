@@ -39,7 +39,7 @@ namespace Emperia.Items.Sets.Hardmode.Ethereal
       DisplayName.SetDefault("Inquisitor Spellbook");
 	  Tooltip.SetDefault("Summons ethereal bolts to attack your foes");
     }
-	public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockBack)
+	public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockBack)
 	{
 		Vector2 placePosition = Main.MouseWorld + new Vector2(0, 150).RotatedByRandom(MathHelper.ToRadians(360));
 		Vector2 direction = Main.MouseWorld - placePosition;

@@ -123,14 +123,14 @@ namespace Emperia.Npcs.GoblinArmy
 							Vector2 placePosition1 = new Vector2(player.Center.X + 100 * i, player.Center.Y - 600);
 							Vector2 direction1 = player.Center - placePosition1;
 							direction1.Normalize();
-							Projectile.NewProjectile(NPC.GetProjectileSpawnSource(), placePosition1.X, placePosition1.Y, direction1.X * 10f, direction1.Y * 10f, ModContent.ProjectileType<ShadowBoltHostile>(), 10, 1, Main.myPlayer, 0, 0);
+							Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), placePosition1.X, placePosition1.Y, direction1.X * 10f, direction1.Y * 10f, ModContent.ProjectileType<ShadowBoltHostile>(), 10, 1, Main.myPlayer, 0, 0);
 						}
 					}
 					else
 					{
 						Vector2 direction = Main.player[NPC.target].Center - placePosition;
 						direction.Normalize();
-						int p = Projectile.NewProjectile(NPC.GetProjectileSpawnSource(), placePosition.X, placePosition.Y, direction.X * 8f, direction.Y * 8f, ModContent.ProjectileType<ShadowBoltHostile>(), 22, 1, Main.myPlayer, 0, 0);
+						int p = Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), placePosition.X, placePosition.Y, direction.X * 8f, direction.Y * 8f, ModContent.ProjectileType<ShadowBoltHostile>(), 22, 1, Main.myPlayer, 0, 0);
 					}
 					
 				}

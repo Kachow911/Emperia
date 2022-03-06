@@ -112,8 +112,8 @@ namespace Emperia.Npcs.GoblinArmy
 				
 				Gore.NewGore(NPC.position, new Vector2(0, -2), ModContent.Find<ModGore>("Gores/BattleRam").Type, 1f);
 				NPC.life = 0;
-				NPC.NewNPC((int)NPC.Center.X + 25, (int)NPC.Center.Y, NPCType<GoblinRamCarrier>());
-				NPC.NewNPC((int)NPC.Center.X - 50, (int)NPC.Center.Y, NPCType<GoblinRamCarrier>());
+				NPC.NewNPC(NPC.GetSpawnSourceForNPCFromNPCAI(), (int)NPC.Center.X + 25, (int)NPC.Center.Y, NPCType<GoblinRamCarrier>());
+				NPC.NewNPC(NPC.GetSpawnSourceForNPCFromNPCAI(), (int)NPC.Center.X - 50, (int)NPC.Center.Y, NPCType<GoblinRamCarrier>());
 			}
 		}
 		public override float SpawnChance(NPCSpawnInfo spawnInfo)
@@ -152,8 +152,8 @@ namespace Emperia.Npcs.GoblinArmy
 		}
         public override void ModifyNPCLoot(NPCLoot npcLoot)
 		{
-			NPC.NewNPC((int)NPC.Center.X + 25, (int)NPC.Center.Y, NPCType<GoblinRamCarrier>());
-			NPC.NewNPC((int)NPC.Center.X - 50, (int)NPC.Center.Y, NPCType<GoblinRamCarrier>());
+			NPC.NewNPC(NPC.GetSpawnSourceForNPCFromNPCAI(), (int)NPC.Center.X + 25, (int)NPC.Center.Y, NPCType<GoblinRamCarrier>());
+			NPC.NewNPC(NPC.GetSpawnSourceForNPCFromNPCAI(), (int)NPC.Center.X - 50, (int)NPC.Center.Y, NPCType<GoblinRamCarrier>());
 		}
         
     }

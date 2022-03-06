@@ -107,19 +107,19 @@ namespace Emperia
 				int x = Main.rand.Next(3);
 				if (x == 0)
 				{
-					Item.NewItem((int)player.position.X, (int)player.position.Y, player.width, player.height, ModContent.ItemType<Skelebow>()); 
+					Item.NewItem(player.GetItemSource_OpenItem(arg), (int)player.position.X, (int)player.position.Y, player.width, player.height, ModContent.ItemType<Skelebow>()); 
 				}
 				else if (x == 1)
 				{
-					Item.NewItem((int)player.position.X, (int)player.position.Y, player.width, player.height, ModContent.ItemType<NecromanticFlame>()); 
+					Item.NewItem(player.GetItemSource_OpenItem(arg), (int)player.position.X, (int)player.position.Y, player.width, player.height, ModContent.ItemType<NecromanticFlame>()); 
 				}
 				else if (x == 2)
 				{
-					Item.NewItem((int)player.position.X, (int)player.position.Y, player.width, player.height, ModContent.ItemType<BoneWhip>()); 
+					Item.NewItem(player.GetItemSource_OpenItem(arg), (int)player.position.X, (int)player.position.Y, player.width, player.height, ModContent.ItemType<BoneWhip>()); 
 				}
 			}
 		}
-        public override bool Shoot(Item item, Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockBack)
+        public override bool Shoot(Item item, Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockBack)
 		{
 			if (item.CountsAsClass(DamageClass.Ranged) && player.GetModPlayer<MyPlayer>().forestSetRanged)
 			{
@@ -258,15 +258,16 @@ namespace Emperia
 
 		public sealed override bool CanRightClick(Item Item)
 		{
-			return gelPad;
+			if (gelPad) return true;
+			else return base.CanRightClick(Item);
 		}
 		public override void RightClick(Item Item, Player player)
 		{
             if (Item.GetGlobalItem<GItem>().gelPad == true)
 			{
 				Item.GetGlobalItem<GItem>().gelPad = false;
-				Item.NewItem(player.getRect(), ModContent.ItemType<GelPad>());
-				Item gauntletCopy = Main.item[Item.NewItem(player.getRect(), Item.type)];
+				Item.NewItem(player.GetItemSource_OpenItem(Item.type), player.getRect(), ModContent.ItemType<GelPad>()); //These are probably bad choices for item sources
+				Item gauntletCopy = Main.item[Item.NewItem(player.GetItemSource_OpenItem(Item.type), player.getRect(), Item.type)]; //
 				gauntletCopy.prefix = Item.prefix;
 				gauntletCopy.rare = Item.rare;
 				gauntletCopy.value = Item.value;

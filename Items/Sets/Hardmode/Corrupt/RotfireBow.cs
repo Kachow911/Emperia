@@ -37,7 +37,7 @@ namespace Emperia.Items.Sets.Hardmode.Corrupt
 			Item.UseSound = SoundID.Item5; 
         }
 
-		public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockBack)
+		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockBack)
 		{
 			Vector2 perturbedSpeed = velocity.RotatedBy(MathHelper.ToRadians(Main.rand.Next(-20, 20)));
 			Projectile.NewProjectile(source, position.X, position.Y, perturbedSpeed.X / 2, perturbedSpeed.Y / 2, ModContent.ProjectileType<FireBallCursed2>(), damage, knockBack, player.whoAmI);

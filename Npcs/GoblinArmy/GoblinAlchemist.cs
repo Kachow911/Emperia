@@ -118,7 +118,7 @@ namespace Emperia.Npcs.GoblinArmy
 					Vector2 placePosition = NPC.Center + new Vector2(0, -NPC.height / 2);
 					Vector2 direction = Main.player[NPC.target].Center - placePosition;
 					direction.Normalize();
-					Projectile.NewProjectile(NPC.GetProjectileSpawnSource(), NPC.Center.X, NPC.Center.Y - NPC.height/2, direction.X * 12f, direction.Y * 12f, type, 70, 1, Main.myPlayer, 0, 0);
+					Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), NPC.Center.X, NPC.Center.Y - NPC.height/2, direction.X * 12f, direction.Y * 12f, type, 70, 1, Main.myPlayer, 0, 0);
 					
 				}
 			}
@@ -158,7 +158,7 @@ namespace Emperia.Npcs.GoblinArmy
 		{
 			if (Main.rand.Next(10) == 0)
 				{
-					Item.NewItem((int)NPC.position.X, (int)NPC.position.Y, NPC.width, NPC.height, ModContent.ItemType<Items.Weapons.GoblinArmy.AlchemistFlask>());
+					Item.NewItem(NPC.GetItemSource_Loot(), (int)NPC.position.X, (int)NPC.position.Y, NPC.width, NPC.height, ModContent.ItemType<Items.Weapons.GoblinArmy.AlchemistFlask>());
 				}
 		}
         

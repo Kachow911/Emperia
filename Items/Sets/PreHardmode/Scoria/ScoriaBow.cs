@@ -35,7 +35,7 @@ namespace Emperia.Items.Sets.PreHardmode.Scoria
 			Item.UseSound = SoundID.Item5; 
         }
 		
-		public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockBack)
+		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockBack)
 		{
 			int p = Projectile.NewProjectile(source, position.X, position.Y, velocity.X, velocity.Y, type, damage, knockBack, player.whoAmI);
 			Main.projectile[p].GetGlobalProjectile<MyProjectile>().scoriaExplosion = true;

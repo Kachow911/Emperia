@@ -56,7 +56,7 @@ namespace Emperia.Items.Sets.Hardmode.Jungle  //where is located
 			recipe.Register();
 			
 		}
-		public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockBack)
+		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockBack)
         {
 			for (int i = 0; i < 3; i++)
 			{

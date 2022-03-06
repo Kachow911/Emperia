@@ -103,7 +103,7 @@ namespace Emperia.Npcs.Mushor
 				{
 					Vector2 direction = (Main.player[NPC.target].Center - NPC.Center).RotatedBy(MathHelper.ToRadians(Main.rand.Next(-10, 10)));
 					direction.Normalize();
-					Projectile.NewProjectile(NPC.GetProjectileSpawnSource(), NPC.Center.X, NPC.Center.Y, direction.X * 8f, direction.Y * 8f, ModContent.ProjectileType<BigShroom>(), 30, 1, Main.myPlayer, 0, 0);
+					Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), NPC.Center.X, NPC.Center.Y, direction.X * 8f, direction.Y * 8f, ModContent.ProjectileType<BigShroom>(), 30, 1, Main.myPlayer, 0, 0);
 					shooting = false;
 					
 				}

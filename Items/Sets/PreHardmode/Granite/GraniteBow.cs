@@ -44,7 +44,7 @@ namespace Emperia.Items.Sets.PreHardmode.Granite
 				damage = (int)(damage * 1.2);
 			}
 		}*/
-        public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockBack)
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockBack)
 		{
 			if (counter == 3)
 			{

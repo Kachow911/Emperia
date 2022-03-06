@@ -5,6 +5,7 @@ using static Terraria.ModLoader.ModContent;
 
 using Emperia.Npcs.Mushor;
 using Emperia.Items.Weapons.Mushor;
+using Terraria.DataStructures;
 
 namespace Emperia.Items
 {
@@ -39,23 +40,24 @@ namespace Emperia.Items
 			//{
 			//	player.QuickSpawnItem(ModContent.ItemType<MushorMask>());
 			//}
+			IEntitySource source = player.GetItemSource_OpenItem(ModContent.ItemType<MushorBag>());
 			if (Main.rand.Next(3) != 0)
 			{
-				player.QuickSpawnItem(ModContent.ItemType<Shroomer>());
+				player.QuickSpawnItem(source, ModContent.ItemType<Shroomer>());
 			}
 			if (Main.rand.Next(3) != 0)
 			{
-				player.QuickSpawnItem(ModContent.ItemType<Mushdisc>());
+				player.QuickSpawnItem(source, ModContent.ItemType<Mushdisc>());
 			}
 			if (Main.rand.Next(3) != 0)
 			{
-				player.QuickSpawnItem(ModContent.ItemType<Shroomflask>());
+				player.QuickSpawnItem(source, ModContent.ItemType<Shroomflask>());
 			}
 			if (Main.rand.Next(3) != 0)
 			{
-				player.QuickSpawnItem(ModContent.ItemType<Shroomerang>());
+				player.QuickSpawnItem(source, ModContent.ItemType<Shroomerang>());
 			}
-			player.QuickSpawnItem(ModContent.ItemType<Items.Accessories.MycelialShield>());
+			player.QuickSpawnItem(source, ModContent.ItemType<Items.Accessories.MycelialShield>());
 			
 		}
 	}
