@@ -197,6 +197,7 @@ namespace Emperia
 
         public override void HoldItem(Item Item, Player player)
         { //only bug here is when reforging items. might get janky if other mods have scale adjusting stuff. might want decrease the effect on items with already high scales.
+			//yeah it temporarily changes modifier tooltips
 			if (!Item.noMelee)
 			{
 				if (baseScale == 0) baseScale = Item.scale;

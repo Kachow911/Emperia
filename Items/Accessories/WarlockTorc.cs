@@ -16,7 +16,7 @@ namespace Emperia.Items.Accessories
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Warlock's Torc");
-			Tooltip.SetDefault("15% increased magic damage\nDecreases maximum mana significantly\nIncreases susceptibility to mana sickness\nTightens around the neck when certain mana potions draw near, preventing their use");//Increased susceptibility to mana sickness when worn
+			Tooltip.SetDefault("15% increased magic damage\nDecreases maximum mana significantly\nIncreases susceptibility to mana sickness\nTightens around the neck when certain magic potions draw near, preventing their use");//Increased susceptibility to mana sickness when worn
 		}
         public override void SetDefaults()
         {

@@ -3,7 +3,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using System.Collections.Generic;
-using Emperia.Projectiles.Yeti;
+using Emperia.Projectiles;
 
 
 namespace Emperia.Tiles
@@ -34,65 +34,48 @@ namespace Emperia.Tiles
         }
         public override void NearbyEffects(int i, int j, bool closer)
 		{
+			Vector2 tileCenter = new Vector2(i * 16 + 8, j * 16 + 8);
+			Player player = Main.player[Player.FindClosest(tileCenter, 16, 16)];
+            float playerDistance = (tileCenter - player.Center).Length();
 
-			//if (Tile.GetGlobalTile<GTile>().gelPad)
-			//Tile[] osmiumUnchecked = new Tile[100];
-			//Tile[] osmiumChecked = new Tile[100];
-			//List<Tile> osmiumUnchecked = new List<Tile>();
-			//closer = true; this seemingly makes no difference
-			Vector2 tilePos = new Vector2(i * 16 + 8, j * 16 + 8);
-			//Vector2 tile = new Vector2(i, j);
-			//Player player = MyPlayer;
-			Player player = Main.player[Player.FindClosest(tilePos, 16, 16)];
-            float distance = (tilePos - player.Center).Length();
-
-			NPC closestNPC = null;
-			float npcDistance;
+			NPC closestNPC = null; //will be null unless an NPC is within range of a tile
+			float npcDistance = 244; //+144 to account for spikes spawned from osmium up to 10 tiles away
 			for (int k = 0; k < Main.maxNPCs; k++)
 			{
-				if ((tilePos - Main.npc[k].Center).Length() < 100 && Main.npc[k].active)
+				if ((tileCenter - Main.npc[k].Center).Length() <= npcDistance && Main.npc[k].active)
                 {
                     closestNPC = Main.npc[k];
-					npcDistance = (tilePos - Main.npc[k].Center).Length();
+					npcDistance = (tileCenter - Main.npc[k].Center).Length(); //theoretically there could be a list of NPCs within range but this is good enough
 				}
             }
 
-			Vector2 playerTile = new Vector2((int)player.Center.X / 16, (int)player.Center.Y / 16);
 			Vector2 closestTile = new Vector2(i, j);
-
 			MyPlayer modPlayer = player.GetModPlayer<MyPlayer>();
+
 			if (modPlayer.osmiumCooldown > 0) return;
 				
-				if (closestNPC != null)
+				if (closestNPC != null) //this runs more often than it needs to if an NPC is to the left of or beneath the osmium ore, since the +144 distance range only needs to account for additional tiles above or to the right
 				{
 					Vector2 npcTile = new Vector2((int)closestNPC.Center.X / 16, (int)closestNPC.Center.Y / 16);
-					for (int g = 0; g <= 10; g++) //since nearbyeffects always starts from upper left we can be sure this checks all relevant tiles
+					for (int g = 0; g <= 10; g++) //Checks all relevant tiles in a 10x10 to set closestTile. Nearbyeffects starts from bottom? left 
 					{
 						for (int h = 0; h <= 10; h++)
 						{
 							if (Framing.GetTileSafely(i + g, j + h).TileType == ModContent.TileType<OsmiumOre>())
 							{
-								if ((new Vector2(i + g, j + h) - npcTile).Length() < (closestTile - npcTile).Length()) closestTile = new Vector2(i + g, j + h);
+								if ((new Vector2(i + g, j + h) - npcTile).Length() < (closestTile - npcTile).Length())
+								{
+									closestTile = new Vector2(i + g, j + h);
+									npcDistance = (closestTile - npcTile).Length(); //necessary to check if the distance is under 100 rather than under 244 later
+								}
 							}
 						}
 					}
-					Projectile.NewProjectile(Wiring.GetProjectileSource((int)closestTile.X, (int)closestTile.Y), closestTile * 16, closestNPC.Center - closestTile * 16, 1, 30, -2, player.whoAmI);
-					modPlayer.osmiumCooldown = 60;
 				}
-				else if (distance < 100)
+				else if (playerDistance < 100)
 				{
-				/*for (int g = -1; g <= 1; g++) //idk if theres a smarter way to do this but this runs through the neighboring 3x3 tiles to see if it can place
-				{
-					for (int h = -1; h <= 1; h++)
-					{
-						if (Framing.GetTileSafely(i + g, j + h).type == ModContent.TileType<OsmiumOre>())
-						{
-							//osmiumUnchecked.Add(Framing.GetTileSafely(i + g, j + h));
-							Main.NewText("congrats");
-                        }
-					}
-				}*/
-					for (int g = 0; g <= 10; g++) //since nearbyeffects always starts from upper left we can be sure this checks all relevant tiles
+					Vector2 playerTile = new Vector2((int)player.Center.X / 16, (int)player.Center.Y / 16);
+					for (int g = 0; g <= 10; g++) //Checks all relevant tiles in a 10x10 to set closestTile. Nearbyeffects starts from bottom? left 
 					{
 						for (int h = 0; h <= 10; h++)
 						{
@@ -102,12 +85,26 @@ namespace Emperia.Tiles
 							}
 						}
 					}
-							//ModContent.TileType<OsmiumOre>();
-							//Main.NewText(Framing.GetTileSafely(i, j).type.ToString());
-							//Projectile.NewProjectile(Wiring.GetProjectileSource(i, j), tilePos, player.Center - tilePos, 498, 30, 8);
-							Projectile.NewProjectile(Wiring.GetProjectileSource((int)closestTile.X, (int)closestTile.Y), closestTile * 16, player.Center - closestTile * 16, 498, 30, 8);
-							modPlayer.osmiumCooldown = 60;
+				}
+				if (closestNPC != null && npcDistance < 100)
+				{ 
+					//Main.NewText(npcDistance.ToString());
+					//Main.NewText((closestTile - new Vector2((int)closestNPC.Center.X / 16, (int)closestNPC.Center.Y / 16)).Length().ToString(), 0);
+					int spike = Projectile.NewProjectile(Wiring.GetProjectileSource((int)closestTile.X, (int)closestTile.Y), closestTile * 16 + new Vector2(0, 8), Vector2.Zero, ModContent.ProjectileType<OsmiumSpike>(), 30, -2, player.whoAmI);
+					Main.projectile[spike].rotation = (closestTile * 16 + new Vector2(8, 8) - closestNPC.Center).ToRotation() - 1.57f;
+					Main.projectile[spike].position += new Vector2(-48, -48) * Vector2.Normalize(closestTile * 16 + new Vector2(8, 8) - closestNPC.Center);
+					Main.projectile[spike].friendly = true;
+					modPlayer.osmiumCooldown = 60;
+				}
+				else if (playerDistance < 100)
+			    {
+					int spike = Projectile.NewProjectile(Wiring.GetProjectileSource((int)closestTile.X, (int)closestTile.Y), closestTile * 16 + new Vector2(0, 8), Vector2.Zero, ModContent.ProjectileType<OsmiumSpike>(), 30, -2, player.whoAmI);
+					Main.projectile[spike].rotation = (closestTile * 16 + new Vector2(8, 8) - player.Center).ToRotation() - 1.57f;
+					Main.projectile[spike].position += new Vector2(-48, -48) * Vector2.Normalize(closestTile * 16 + new Vector2(8, 8) - player.Center);
+					Main.projectile[spike].hostile = true;
+					modPlayer.osmiumCooldown = 60;
 				}
 		}
 	}
+	//should make tiles in range tileentities at some point, so they update every frame, probably
 }

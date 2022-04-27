@@ -1,6 +1,6 @@
 Emperia intends to provide high - quality content to the game of Terraria. 
 Developers / People who have helped include:
-MiningdiamondsvIII
+MingCate
 52mos
 Sal
 Nomis
@@ -11,3 +11,4 @@ Nao
 Vaikyia
 MonsterBot
 UnFusion :)))))
+Additional sound effects from zapsplat.com
