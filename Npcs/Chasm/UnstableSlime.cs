@@ -76,8 +76,8 @@ namespace Emperia.Npcs.Chasm
 		
 		public override float SpawnChance(NPCSpawnInfo spawnInfo)
 		{
-			int x = spawnInfo.spawnTileX;
-			int y = spawnInfo.spawnTileY;
+			int x = spawnInfo.SpawnTileX;
+			int y = spawnInfo.SpawnTileY;
 			int tile = Main.tile[x, y].TileType;
 			return (tile == ModContent.TileType<Tiles.AphoticStone>() || tile == ModContent.TileType<Tiles.GloomStone>()) ? 0.80f : 0;
 		}

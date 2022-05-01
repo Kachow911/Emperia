@@ -80,7 +80,7 @@ namespace Emperia.Npcs.Twilight
 					{
 
 						Vector2 perturbedSpeed = new Vector2(-3, 0).RotatedBy(MathHelper.ToRadians(36 * i));
-						int n = NPC.NewNPC(NPC.GetSpawnSourceForNPCFromNPCAI(), (int)NPC.Center.X, (int)NPC.Center.Y - 30, NPCType<PolypMinion>());
+						int n = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y - 30, NPCType<PolypMinion>());
 						Main.npc[n].velocity = perturbedSpeed * 2f;
 					}
 					counter = 0;
@@ -96,16 +96,16 @@ namespace Emperia.Npcs.Twilight
 				int[] Tiles = { ModContent.TileType<Tiles.TwilightGrass>(), ModContent.TileType<Tiles.TFWood>(), ModContent.TileType<Tiles.TFLeaf>() };
 				SpawnTiles = Tiles;
 			}
-			return SpawnTiles.Contains(Main.tile[spawnInfo.spawnTileX, spawnInfo.spawnTileY].TileType) && !spawnInfo.playerSafe && !spawnInfo.invasion ? 2f : 0f;
+			return SpawnTiles.Contains(Main.tile[spawnInfo.SpawnTileX, spawnInfo.SpawnTileY].TileType) && !spawnInfo.PlayerSafe && !spawnInfo.Invasion ? 2f : 0f;
 		}
 
 		public override void HitEffect(int hitDirection, double damage)
 		{
 			if (NPC.life <= 0)
 			{
-				Gore.NewGore(NPC.position, NPC.velocity, 13);
-				Gore.NewGore(NPC.position, NPC.velocity, 12);
-				Gore.NewGore(NPC.position, NPC.velocity, 11);
+				Gore.NewGore(NPC.GetSource_FromAI(), NPC.position, NPC.velocity, 13); //this should be getsource_onhurt but how do you get an attacker source and who cares
+				Gore.NewGore(NPC.GetSource_FromAI(), NPC.position, NPC.velocity, 12); //also there should be getsource_hiteffect for cases like this but it just doesnt exist
+				Gore.NewGore(NPC.GetSource_FromAI(), NPC.position, NPC.velocity, 11);
 			}
 		}
 

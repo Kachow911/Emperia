@@ -71,8 +71,8 @@ namespace Emperia.Items.Sets.PreHardmode.Seashell
 		public override void ModifyHitNPC (Player player, NPC target, ref int damage, ref float knockback, ref bool crit)
 		{
             MyPlayer modPlayer = player.GetModPlayer<MyPlayer>();
-            modPlayer.seaBladeTimer = (int)(Item.useAnimation * player.meleeSpeed) + 10;
-            if (firstHit || player.itemAnimation + 1 == (int)(Item.useAnimation * player.meleeSpeed))
+            modPlayer.seaBladeTimer = (int)(Item.useAnimation * player.GetAttackSpeed(DamageClass.Melee)) + 10;
+            if (firstHit || player.itemAnimation + 1 == (int)(Item.useAnimation * player.GetAttackSpeed(DamageClass.Melee)))
             {
 
                 firstHit = false;
@@ -93,7 +93,7 @@ namespace Emperia.Items.Sets.PreHardmode.Seashell
                     }*/
 			        Vector2 direction = target.Center - player.Center;
 			        direction.Normalize();
-                    Projectile.NewProjectile(player.GetProjectileSource_Item(Item), player.Center.X, player.Center.Y, direction.X * 5f, direction.Y * 5f, ModContent.ProjectileType<CoralShard>(), damage * 2, 1, Main.myPlayer, 0, 0);
+                    Projectile.NewProjectile(player.GetSource_ItemUse(Item), player.Center.X, player.Center.Y, direction.X * 5f, direction.Y * 5f, ModContent.ProjectileType<CoralShard>(), damage * 2, 1, Main.myPlayer, 0, 0);
                     //Main.NewText(modPlayer.seaBladeCount.ToString());
                 }
                 else { 
@@ -101,7 +101,7 @@ namespace Emperia.Items.Sets.PreHardmode.Seashell
                     //Main.NewText(modPlayer.seaBladeCount.ToString());
                 }
             }
-            if (player.itemAnimation + 1 == (int)(Item.useAnimation * player.meleeSpeed))
+            if (player.itemAnimation + 1 == (int)(Item.useAnimation * player.GetAttackSpeed(DamageClass.Melee)))
             {
                 forSomeUngodlyReasonUseItemRunsAfterOnHitNPCSoThisMakesTheCodeWorkIfYouHitOnTheFirstFrame = true;
             }

@@ -146,14 +146,14 @@ namespace Emperia
             {
 				int vLength = WorldGen.genRand.Next(400, 450);
 				int xSpawn = 0;
-				int yAxis = Main.spawnTileY;
+				int yAxis = Main.SpawnTileY;
                 if (Terraria.Main.dungeonX > Main.maxTilesX / 2) //rightside dungeon
 				{
-					xSpawn = WorldGen.genRand.Next(Main.spawnTileX - 400, Main.spawnTileX - 100);
+					xSpawn = WorldGen.genRand.Next(Main.SpawnTileX - 400, Main.SpawnTileX - 100);
 				}
 				else //leftside dungeon
 				{
-					xSpawn = WorldGen.genRand.Next(Main.spawnTileX + 100, Main.spawnTileX + 400);
+					xSpawn = WorldGen.genRand.Next(Main.SpawnTileX + 100, Main.SpawnTileX + 400);
 				}
 				for (int y = 0; y < yAxis + 200; y++)
 				{

@@ -47,7 +47,7 @@ namespace Emperia.Items.Sets.PreHardmode.FrousForest   //where is located
 				Vector2 placePosition = target.Center + new Vector2(0, 128).RotatedBy(MathHelper.ToRadians(45 * i));
                 Vector2 speed = (target.Center + 4 * target.velocity) - placePosition;
                 speed.Normalize();
-				int p = Projectile.NewProjectile(player.GetProjectileSource_Item(Item), placePosition.X, placePosition.Y, speed.X * 10f, speed.Y * 10f, ModContent.ProjectileType<VineLeaf2>(), 10, 2f, Main.myPlayer, 0, 0);
+				int p = Projectile.NewProjectile(player.GetSource_ItemUse(Item), placePosition.X, placePosition.Y, speed.X * 10f, speed.Y * 10f, ModContent.ProjectileType<VineLeaf2>(), 10, 2f, Main.myPlayer, 0, 0);
                 Main.projectile[p].penetrate = 1;
                 Main.projectile[p].tileCollide = false;
                 Main.projectile[p].velocity = new Vector2(speed.X * 5f, speed.Y * 5f);

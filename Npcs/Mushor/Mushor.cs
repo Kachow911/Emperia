@@ -190,7 +190,7 @@ namespace Emperia.Npcs.Mushor
 				{
 					Vector2 direction = (Main.player[NPC.target].Center - NPC.Center).RotatedBy(MathHelper.ToRadians(-10 + 10 * i));
 					direction.Normalize();
-					Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), NPC.Center.X, NPC.Center.Y, direction.X * 7f, direction.Y * 7f, ModContent.ProjectileType<ExplodeMushroom>(), 30, 1, Main.myPlayer, 0, 0);	
+					Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X, NPC.Center.Y, direction.X * 7f, direction.Y * 7f, ModContent.ProjectileType<ExplodeMushroom>(), 30, 1, Main.myPlayer, 0, 0);	
 				}
 				
 				if (counter <= 0)
@@ -211,9 +211,9 @@ namespace Emperia.Npcs.Mushor
 				if (counter % 60 == 0)
 				{
 					if (Main.rand.NextBool(3))
-						NPC.NewNPC(NPC.GetSpawnSourceForNPCFromNPCAI(), (int)NPC.Center.X + Main.rand.Next(-200, 200), (int)NPC.Center.Y + Main.rand.Next(-200, 200), NPCType<MushorMinionShoot>());
+						NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X + Main.rand.Next(-200, 200), (int)NPC.Center.Y + Main.rand.Next(-200, 200), NPCType<MushorMinionShoot>());
 					else																												 
-						NPC.NewNPC(NPC.GetSpawnSourceForNPCFromNPCAI(), (int)NPC.Center.X + Main.rand.Next(-200, 200), (int)NPC.Center.Y + Main.rand.Next(-200, 200), NPCType<MushorMinionExplode>());
+						NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X + Main.rand.Next(-200, 200), (int)NPC.Center.Y + Main.rand.Next(-200, 200), NPCType<MushorMinionExplode>());
 				}
 				counter--;
 				if (counter <= 0)
@@ -231,7 +231,7 @@ namespace Emperia.Npcs.Mushor
                 {
                     if (Main.netMode != 1)
                     {
-					int n = NPC.NewNPC(NPC.GetSpawnSourceForNPCFromNPCAI(), (int)NPC.Center.X, (int)NPC.Center.Y, NPCType<MushorMinionShield>(), ai0: NPC.whoAmI, ai1: shieldCount);
+					int n = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y, NPCType<MushorMinionShield>(), ai0: NPC.whoAmI, ai1: shieldCount);
 						shieldCount++;
                         NPC.ai[3]++;
 						Main.npc[n].ai[3] = counter;
@@ -252,14 +252,14 @@ namespace Emperia.Npcs.Mushor
 				{
 					for (int i = 0; i < 10; i++)
 					{
-						Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), player.Center.X - 300, player.Center.Y - 500 + 100 * i, 5f, 0, ModContent.ProjectileType<BigShroom2>(), 30, 1, Main.myPlayer, 0, 0);	
+						Projectile.NewProjectile(NPC.GetSource_FromAI(), player.Center.X - 300, player.Center.Y - 500 + 100 * i, 5f, 0, ModContent.ProjectileType<BigShroom2>(), 30, 1, Main.myPlayer, 0, 0);	
 					}
 				}
 				else
 				{
 					for (int i = 0; i < 10; i++)
 					{
-						Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), player.Center.X + 300, player.Center.Y - 500 + 100 * i, -5f, 0, ModContent.ProjectileType<BigShroom2>(), 30, 1, Main.myPlayer, 0, 0);	
+						Projectile.NewProjectile(NPC.GetSource_FromAI(), player.Center.X + 300, player.Center.Y - 500 + 100 * i, -5f, 0, ModContent.ProjectileType<BigShroom2>(), 30, 1, Main.myPlayer, 0, 0);	
 					}
 				}
 				SetMove(Move.Chase, 80);
@@ -311,7 +311,7 @@ namespace Emperia.Npcs.Mushor
 			//}
 			if (Main.expertMode)
 			{
-				Item.NewItem(NPC.GetItemSource_Loot(), (int)NPC.position.X, (int)NPC.position.Y, NPC.width, NPC.height, ModContent.ItemType<Items.MushorBag>());
+				Item.NewItem(NPC.GetSource_Loot(), (int)NPC.position.X, (int)NPC.position.Y, NPC.width, NPC.height, ModContent.ItemType<Items.MushorBag>());
 				//NPC.DropBossBags();
 			}
 			else
@@ -319,15 +319,15 @@ namespace Emperia.Npcs.Mushor
 				
 				if (Main.rand.Next(2) == 0)
 				{
-					Item.NewItem(NPC.GetItemSource_Loot(), (int)NPC.position.X, (int)NPC.position.Y, NPC.width, NPC.height, ModContent.ItemType<Shroomer>());
+					Item.NewItem(NPC.GetSource_Loot(), (int)NPC.position.X, (int)NPC.position.Y, NPC.width, NPC.height, ModContent.ItemType<Shroomer>());
 				}
 				if (Main.rand.Next(2) == 0)
 				{
-					Item.NewItem(NPC.GetItemSource_Loot(), (int)NPC.position.X, (int)NPC.position.Y, NPC.width, NPC.height, ModContent.ItemType<Items.Weapons.Mushor.Shroomerang>());
+					Item.NewItem(NPC.GetSource_Loot(), (int)NPC.position.X, (int)NPC.position.Y, NPC.width, NPC.height, ModContent.ItemType<Items.Weapons.Mushor.Shroomerang>());
 				}
 				if (Main.rand.Next(2) == 0)
 				{
-					Item.NewItem(NPC.GetItemSource_Loot(), (int)NPC.position.X, (int)NPC.position.Y, NPC.width, NPC.height, ModContent.ItemType<Shroomflask>());
+					Item.NewItem(NPC.GetSource_Loot(), (int)NPC.position.X, (int)NPC.position.Y, NPC.width, NPC.height, ModContent.ItemType<Shroomflask>());
 				}
 				
 				//if (Main.rand.Next(7) == 0)
@@ -336,7 +336,7 @@ namespace Emperia.Npcs.Mushor
 				//}
 				if (Main.rand.Next(2) == 0)
 				{
-				Item.NewItem(NPC.GetItemSource_Loot(), (int)NPC.position.X, (int)NPC.position.Y, NPC.width, NPC.height, ModContent.ItemType<Mushdisc>());
+				Item.NewItem(NPC.GetSource_Loot(), (int)NPC.position.X, (int)NPC.position.Y, NPC.width, NPC.height, ModContent.ItemType<Mushdisc>());
 				}
 			}
 		}

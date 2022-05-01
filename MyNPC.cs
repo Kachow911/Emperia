@@ -320,7 +320,7 @@ public override void ResetEffects(NPC NPC)
 				for (int i = 0; i < 6; i++)
 				{
 					Vector2 perturbedSpeed = new Vector2(4, 4).RotatedByRandom(MathHelper.ToRadians(360));
-					Projectile.NewProjectile(fateSource.GetProjectileSource_Buff(NPC.FindBuffIndex(ModContent.BuffType<Buffs.FatesDemise>())), NPC.Center.X, NPC.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, ModContent.ProjectileType<FatesFlames>(), damage1, 1, Main.myPlayer, 0, 0);
+					Projectile.NewProjectile(fateSource.GetSource_Buff(NPC.FindBuffIndex(ModContent.BuffType<Buffs.FatesDemise>())), NPC.Center.X, NPC.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, ModContent.ProjectileType<FatesFlames>(), damage1, 1, Main.myPlayer, 0, 0);
 				}
 				PlaySound(SoundID.NPCDeath52, NPC.Center);
 				//this code also exists in FatesFlames and MyPlayer, be sure to make all changes consistent

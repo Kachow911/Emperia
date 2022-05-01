@@ -227,7 +227,7 @@ namespace Emperia
 			}
 		}*/
 		public override void PostUpdate()
-		{
+        {
 			//Main.NewText(terraGauntlet.ToString());
 			if (graniteMinion) { Player.maxMinions += 1; } //first minion is free
             if (iceCannonLoad < 0)
@@ -248,7 +248,7 @@ namespace Emperia
 					PlaySound(SoundID.Item, Player.Center, 27);
 					Vector2 perturbedSpeed;
 					perturbedSpeed = new Vector2(2 * Player.direction, 0);
-					Projectile.NewProjectile(Player.GetProjectileSource_Item(projItemOrigin), Player.position.X + 75 * Player.direction, Player.Bottom.Y - 10, perturbedSpeed.X, perturbedSpeed.Y, ModContent.ProjectileType<IceSpikePre>(), clubSwingDamage, 1, Main.myPlayer, 0, 0);
+					Projectile.NewProjectile(Player.GetSource_ItemUse(projItemOrigin), Player.position.X + 75 * Player.direction, Player.Bottom.Y - 10, perturbedSpeed.X, perturbedSpeed.Y, ModContent.ProjectileType<IceSpikePre>(), clubSwingDamage, 1, Main.myPlayer, 0, 0);
 				}
 			}
 			if (!lightningSet)
@@ -337,7 +337,7 @@ namespace Emperia
 							if (egg == 0) type = ModContent.ProjectileType<plant1>();
 							else if (egg == 1) type = ModContent.ProjectileType<plant2>();
 							else type = ModContent.ProjectileType<plant3>();
-							Projectile.NewProjectile(Player.GetProjectileSource_SetBonus(ModContent.ItemType<AquaticFaceGuard>()), i * 16, j * 16 - 14, 0, 0, type, 0, 1, Main.myPlayer, 0, 0);
+							Projectile.NewProjectile(Player.GetSource_Misc(ModContent.ItemType<AquaticFaceGuard>().ToString()), i * 16, j * 16 - 14, 0, 0, type, 0, 1, Main.myPlayer, 0, 0);
 						}
 
 					}
@@ -670,7 +670,7 @@ namespace Emperia
 					//Main.dust[dust].velocity = new Vector2(i/4, -1);
 					Main.dust[dust].velocity = new Vector2(i / 7, 0);
 				}
-				Projectile.NewProjectile(Player.GetProjectileSource_SetBonus(ModContent.ItemType<DuneKingMaw>()), Player.Center.X, Player.Center.Y, 2 * Player.direction, 0, ModContent.ProjectileType<DesertBurrow>(), 8, 0, Main.myPlayer, 0, 0);
+				Projectile.NewProjectile(Player.GetSource_Misc(ModContent.ItemType<DuneKingMaw>().ToString()), Player.Center.X, Player.Center.Y, 2 * Player.direction, 0, ModContent.ProjectileType<DesertBurrow>(), 8, 0, Main.myPlayer, 0, 0);
 				PlaySound(SoundID.NPCHit11, Player.Center);
 				poundTime = 0;
 			}
@@ -755,7 +755,7 @@ namespace Emperia
 			{
 				Vector2 placePosition = Player.Center + new Vector2(Main.rand.Next(-100, 100), -500);
 				Vector2 direction = Player.Center - placePosition;
-				int p = Projectile.NewProjectile(Player.GetProjectileSource_Accessory(terraGauntlet), placePosition.X, placePosition.Y, direction.X * 12f, direction.Y * 12f, ProjectileID.Meteor1, 60, 1, Main.myPlayer, 0, 0);
+				int p = Projectile.NewProjectile(Player.GetSource_Accessory(terraGauntlet), placePosition.X, placePosition.Y, direction.X * 12f, direction.Y * 12f, ProjectileID.Meteor1, 60, 1, Main.myPlayer, 0, 0);
 				Main.projectile[p].friendly = true;
 				Main.projectile[p].hostile = false;
 				Main.projectile[p].scale = 0.7f;
@@ -843,7 +843,7 @@ namespace Emperia
 				for (int i = 0; i < Main.rand.Next(3, 6); i++)
 				{
 					Vector2 perturbedSpeed = new Vector2(0, 4).RotatedByRandom(MathHelper.ToRadians(360));
-					int p = Projectile.NewProjectile(Player.GetProjectileSource_Accessory(terraGauntlet), target.Center.X, target.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, ModContent.ProjectileType<Projectiles.TerraG.TerraBoltHost>(), 75, 1, Main.myPlayer, 0, 0);
+					int p = Projectile.NewProjectile(Player.GetSource_Accessory(terraGauntlet), target.Center.X, target.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, ModContent.ProjectileType<Projectiles.TerraG.TerraBoltHost>(), 75, 1, Main.myPlayer, 0, 0);
 				}
 			}
 			if (floralGauntlet && Main.rand.Next(20) == 0)
@@ -872,7 +872,7 @@ namespace Emperia
 				for (int i = 0; i < 6; i++)
 				{
 					Vector2 perturbedSpeed = new Vector2(4, 4).RotatedByRandom(MathHelper.ToRadians(360));
-					Projectile.NewProjectile(Player.GetProjectileSource_Accessory(terraGauntlet), target.Center.X, target.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, ModContent.ProjectileType<FatesFlames>(), damage1, 1, Main.myPlayer, 0, 0);
+					Projectile.NewProjectile(Player.GetSource_Accessory(terraGauntlet), target.Center.X, target.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, ModContent.ProjectileType<FatesFlames>(), damage1, 1, Main.myPlayer, 0, 0);
 					PlaySound(SoundID.NPCDeath52, target.Center);
 				}
 			}
@@ -887,7 +887,7 @@ namespace Emperia
 				{
 					Vector2 placePosition = target.Center + new Vector2(Main.rand.Next(-100, 100), -500);
 					Vector2 direction = target.Center - placePosition;
-					int p = Projectile.NewProjectile(Player.GetProjectileSource_Accessory(terraGauntlet), placePosition.X, placePosition.Y, direction.X * 12f, direction.Y * 12f, ProjectileID.Meteor1, 30, 1, Main.myPlayer, 0, 0);
+					int p = Projectile.NewProjectile(Player.GetSource_Accessory(terraGauntlet), placePosition.X, placePosition.Y, direction.X * 12f, direction.Y * 12f, ProjectileID.Meteor1, 30, 1, Main.myPlayer, 0, 0);
 					Main.projectile[p].friendly = true;
 					Main.projectile[p].hostile = false;
 					Main.projectile[p].scale = 0.7f;
@@ -904,7 +904,7 @@ namespace Emperia
 						if (x == 0) type = ModContent.ProjectileType<ThermalBoltCold>();
 						if (x == 1) type = ModContent.ProjectileType<ThermalBoltHot>();
 						Vector2 perturbedSpeed = new Vector2(0, 4).RotatedByRandom(MathHelper.ToRadians(360));
-						int p = Projectile.NewProjectile(Player.GetProjectileSource_Accessory(terraGauntlet), target.Center.X, target.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, type, 20, 1, Main.myPlayer, 0, 0);
+						int p = Projectile.NewProjectile(Player.GetSource_Accessory(terraGauntlet), target.Center.X, target.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, type, 20, 1, Main.myPlayer, 0, 0);
 					}
 				}
 				else
@@ -931,7 +931,7 @@ namespace Emperia
 					for (int i = 0; i < Main.rand.Next(2, 4); i++)
 					{
 						Vector2 perturbedSpeed = new Vector2(0, 4).RotatedByRandom(MathHelper.ToRadians(360));
-						int p = Projectile.NewProjectile(Player.GetProjectileSource_Accessory(terraGauntlet), target.Center.X, target.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, ModContent.ProjectileType<IceShard2>(), 20, 1, Main.myPlayer, 0, 0);
+						int p = Projectile.NewProjectile(Player.GetSource_Accessory(terraGauntlet), target.Center.X, target.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, ModContent.ProjectileType<IceShard2>(), 20, 1, Main.myPlayer, 0, 0);
 					}
 				}
 				else
@@ -948,7 +948,7 @@ namespace Emperia
 				if (Main.rand.Next(6 + (30 / damage)) == 0)
 				{
 					rotVector.Normalize();
-					Projectile.NewProjectile(Player.GetProjectileSource_Accessory(terraGauntlet), Player.Center.X, Player.Center.Y, rotVector.X * 10f, rotVector.Y * 10f, ModContent.ProjectileType<Splinter>(), 8, knockback, Main.myPlayer, 0, 0);
+					Projectile.NewProjectile(Player.GetSource_Accessory(terraGauntlet), Player.Center.X, Player.Center.Y, rotVector.X * 10f, rotVector.Y * 10f, ModContent.ProjectileType<Splinter>(), 8, knockback, Main.myPlayer, 0, 0);
 				}
 			}
 			if (gelGauntlet > 0 && target.knockBackResist == 0f && !Item.GetGlobalItem<GItem>().noGelGauntlet)
@@ -1025,7 +1025,7 @@ namespace Emperia
 								xPosition = chosenNPC.Right.X + 30f;
 								projDirection = -0.1f;
 							}
-							Projectile.NewProjectile(Player.GetProjectileSource_Accessory(terraGauntlet), xPosition, chosenNPC.Center.Y - 35f, projDirection, 0, ModContent.ProjectileType<EnchantedBlade>(), 40, 4f, Player.whoAmI);
+							Projectile.NewProjectile(Player.GetSource_Accessory(terraGauntlet), xPosition, chosenNPC.Center.Y - 35f, projDirection, 0, ModContent.ProjectileType<EnchantedBlade>(), 40, 4f, Player.whoAmI);
 							PlaySound(SoundID.Item, chosenNPC.Center, 8);
 						}
 					}
@@ -1035,7 +1035,7 @@ namespace Emperia
 			{
 				if (Main.rand.Next(30 + (160 / damage)) == 0)
 				{
-					Projectile.NewProjectile(Player.GetProjectileSource_Accessory(terraGauntlet), Player.Center.X, Player.Center.Y, 0, 0, ModContent.ProjectileType<GauntletSkull>(), 0, 4f, Player.whoAmI);
+					Projectile.NewProjectile(Player.GetSource_Accessory(terraGauntlet), Player.Center.X, Player.Center.Y, 0, 0, ModContent.ProjectileType<GauntletSkull>(), 0, 4f, Player.whoAmI);
 					Player.AddBuff(ModContent.BuffType<SkullBuff>(), 1200);
 					PlaySound(SoundID.Item8, Player.Center);
 				}
@@ -1087,7 +1087,7 @@ namespace Emperia
 				if (increasedChance > 8) increasedChance = 8;
 				if (Main.rand.NextFloat(80) <= (2 + increasedChance))
 				{
-					Item.NewItem(Player.GetItemSource_OnHit(target, ModContent.ItemType<InsigniaofDefense>()), (int)target.position.X, (int)target.position.Y, target.width, target.height, ModContent.ItemType<ProtectiveEnergy>());
+					Item.NewItem(Player.GetSource_OnHit(target, ModContent.ItemType<InsigniaofDefense>().ToString()), (int)target.position.X, (int)target.position.Y, target.width, target.height, ModContent.ItemType<ProtectiveEnergy>());
 				}
 			}
 			if (crit && sporeFriend && Main.rand.NextBool(3))
@@ -1096,7 +1096,7 @@ namespace Emperia
 				{
 					for (int i = 0; i < 6; i++)
 					{
-						Projectile.NewProjectile(Player.GetProjectileSource_Accessory(terraGauntlet), Player.Center.X, Player.Center.Y, 0, 0, ModContent.ProjectileType<HelpfulSpore>(), 30, 0, Player.whoAmI, ai1: i);
+						Projectile.NewProjectile(Player.GetSource_Accessory(terraGauntlet), Player.Center.X, Player.Center.Y, 0, 0, ModContent.ProjectileType<HelpfulSpore>(), 30, 0, Player.whoAmI, ai1: i);
 						sporeCount++;
 					}
 				}
@@ -1135,7 +1135,7 @@ namespace Emperia
 				for (int i = 0; i < Main.rand.Next(3, 6); i++)
 				{
 					Vector2 perturbedSpeed = new Vector2(0, 4).RotatedByRandom(MathHelper.ToRadians(360));
-					int p = Projectile.NewProjectile(Player.GetProjectileSource_Accessory(terraGauntlet), target.Center.X, target.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, ModContent.ProjectileType<Projectiles.TerraG.TerraBoltHost>(), 75, 1, Main.myPlayer, 0, 0);
+					int p = Projectile.NewProjectile(Player.GetSource_Accessory(terraGauntlet), target.Center.X, target.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, ModContent.ProjectileType<Projectiles.TerraG.TerraBoltHost>(), 75, 1, Main.myPlayer, 0, 0);
 				}
 			}
 			if (ferocityGauntlet)
@@ -1156,7 +1156,7 @@ namespace Emperia
 				for (int i = 0; i < 6; i++)
 				{
 					Vector2 perturbedSpeed = new Vector2(4, 4).RotatedByRandom(MathHelper.ToRadians(360));
-					Projectile.NewProjectile(Player.GetProjectileSource_Accessory(terraGauntlet), target.Center.X, target.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, ModContent.ProjectileType<FatesFlames>(), damage1, 1, Main.myPlayer, 0, 0);
+					Projectile.NewProjectile(Player.GetSource_Accessory(terraGauntlet), target.Center.X, target.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, ModContent.ProjectileType<FatesFlames>(), damage1, 1, Main.myPlayer, 0, 0);
 					PlaySound(SoundID.NPCDeath52, target.Center);
 				}
 			}
@@ -1167,7 +1167,7 @@ namespace Emperia
 				{
 					Vector2 placePosition = target.Center + new Vector2(Main.rand.Next(-100, 100), -500);
 					Vector2 direction = target.Center - placePosition;
-					int p = Projectile.NewProjectile(Player.GetProjectileSource_Accessory(terraGauntlet), placePosition.X, placePosition.Y, direction.X * 12f, direction.Y * 12f, ProjectileID.Meteor1, 30, 1, Main.myPlayer, 0, 0);
+					int p = Projectile.NewProjectile(Player.GetSource_Accessory(terraGauntlet), placePosition.X, placePosition.Y, direction.X * 12f, direction.Y * 12f, ProjectileID.Meteor1, 30, 1, Main.myPlayer, 0, 0);
 					Main.projectile[p].friendly = true;
 					Main.projectile[p].hostile = false;
 					Main.projectile[p].scale = 0.7f;
@@ -1180,7 +1180,7 @@ namespace Emperia
 					for (int i = 0; i < Main.rand.Next(2, 4); i++)
 					{
 						Vector2 perturbedSpeed = new Vector2(0, 6).RotatedByRandom(MathHelper.ToRadians(360));
-						int p = Projectile.NewProjectile(Player.GetProjectileSource_Accessory(terraGauntlet), target.Center.X, target.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, ModContent.ProjectileType<IceShard2>(), 20, 1, Main.myPlayer, 0, 0);
+						int p = Projectile.NewProjectile(Player.GetSource_Accessory(terraGauntlet), target.Center.X, target.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, ModContent.ProjectileType<IceShard2>(), 20, 1, Main.myPlayer, 0, 0);
 					}
 				}
 				else
@@ -1202,7 +1202,7 @@ namespace Emperia
 						if (x == 0) type = ModContent.ProjectileType<ThermalBoltCold>();
 						if (x == 1) type = ModContent.ProjectileType<ThermalBoltHot>();
 						Vector2 perturbedSpeed = new Vector2(0, 4).RotatedByRandom(MathHelper.ToRadians(360));
-						int p = Projectile.NewProjectile(Player.GetProjectileSource_Accessory(terraGauntlet), target.Center.X, target.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, type, 20, 1, Main.myPlayer, 0, 0);
+						int p = Projectile.NewProjectile(Player.GetSource_Accessory(terraGauntlet), target.Center.X, target.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, type, 20, 1, Main.myPlayer, 0, 0);
 					}
 				}
 				else
@@ -1226,7 +1226,7 @@ namespace Emperia
 				if (increasedChance > 9) increasedChance = 9;
 				if (Main.rand.NextFloat(80) <= (1 + increasedChance))
 				{
-					Item.NewItem(Player.GetItemSource_OnHit(target, ModContent.ItemType<InsigniaofDefense>()), (int)target.position.X, (int)target.position.Y, target.width, target.height, ModContent.ItemType<ProtectiveEnergy>());
+					Item.NewItem(Player.GetSource_OnHit(target, ModContent.ItemType<InsigniaofDefense>().ToString()), (int)target.position.X, (int)target.position.Y, target.width, target.height, ModContent.ItemType<ProtectiveEnergy>());
 				}
 			}
 			if (crit && sporeFriend && Main.rand.NextBool(3))
@@ -1235,7 +1235,7 @@ namespace Emperia
 				{
 					for (int i = 0; i < 6; i++)
 					{
-						Projectile.NewProjectile(Player.GetProjectileSource_Accessory(terraGauntlet), Player.Center.X, Player.Center.Y, 0, 0, ModContent.ProjectileType<HelpfulSpore>(), 30, 0, Player.whoAmI, ai1: i);
+						Projectile.NewProjectile(Player.GetSource_Accessory(terraGauntlet), Player.Center.X, Player.Center.Y, 0, 0, ModContent.ProjectileType<HelpfulSpore>(), 30, 0, Player.whoAmI, ai1: i);
 						sporeCount++;
 					}
 				}

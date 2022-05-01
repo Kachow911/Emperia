@@ -44,11 +44,11 @@ namespace Emperia.Items {
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
-			TooltipLine damage = tooltips.FirstOrDefault(x => x.Name == "Damage" && x.mod == "Terraria");
+			TooltipLine damage = tooltips.FirstOrDefault(x => x.Name == "Damage" && x.Mod == "Terraria");
 			if (damage != null) tooltips.Remove(damage);
-			TooltipLine crit = tooltips.FirstOrDefault(x => x.Name == "CritChance" && x.mod == "Terraria");
+			TooltipLine crit = tooltips.FirstOrDefault(x => x.Name == "CritChance" && x.Mod == "Terraria");
 			if (crit != null) tooltips.Remove(crit);
-			TooltipLine kback = tooltips.FirstOrDefault(x => x.Name == "Knockback" && x.mod == "Terraria");
+			TooltipLine kback = tooltips.FirstOrDefault(x => x.Name == "Knockback" && x.Mod == "Terraria");
 			if (kback != null) tooltips.Remove(kback);
 		}
 		public override bool? UseItem(Player player)

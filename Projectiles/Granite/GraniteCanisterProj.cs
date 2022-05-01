@@ -36,7 +36,7 @@ namespace Emperia.Projectiles.Granite
 			Projectile.alpha = 255;
 			if (!hitGround)
 			{
-				Gore.NewGore(Projectile.position, new Vector2(Main.rand.Next(-2, 2), -5), ModContent.Find<ModGore>("Gores/GraniteCanister").Type, 1f);
+				Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.position, new Vector2(Main.rand.Next(-2, 2), -5), ModContent.Find<ModGore>("Gores/GraniteCanister").Type, 1f);
 			}	
 			hitGround = true;
 			Projectile.velocity = Vector2.Zero;

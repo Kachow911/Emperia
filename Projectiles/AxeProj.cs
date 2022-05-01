@@ -56,7 +56,7 @@ namespace Emperia.Projectiles
 		{
             Terraria.Audio.SoundEngine.PlaySound(SoundID.Dig, (int)Projectile.position.X, (int)Projectile.position.Y, 27);
             if (Main.rand.Next(0, 4) == 0)
-				Item.NewItem(Projectile.GetItemSource_DropAsItem(), (int)Projectile.position.X, (int)Projectile.position.Y, Projectile.width, Projectile.height, ModContent.ItemType<Items.Weapons.BarbarianWaraxe>(), 1, false, 0, false, false);
+				Item.NewItem(Projectile.GetSource_DropAsItem(), (int)Projectile.position.X, (int)Projectile.position.Y, Projectile.width, Projectile.height, ModContent.ItemType<Items.Weapons.BarbarianWaraxe>(), 1, false, 0, false, false);
 			for (int i = 0; i < 5; i++)
 			{
 				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 7);

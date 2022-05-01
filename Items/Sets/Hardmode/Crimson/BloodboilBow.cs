@@ -46,7 +46,7 @@ namespace Emperia.Items.Sets.Hardmode.Crimson
 				{
 					Vector2 perturbedSpeed = velocity;
 					//float speedFact = (float)Main.rand.Next(2, 15) / 10;
-					Projectile.NewProjectile(player.GetProjectileSource_Item(Item), position.X - (velocity.X * i), position.Y - (velocity.Y * i), perturbedSpeed.X, perturbedSpeed.Y, type, damage, knockBack, player.whoAmI);
+					Projectile.NewProjectile(player.GetSource_ItemUse(Item), position.X - (velocity.X * i), position.Y - (velocity.Y * i), perturbedSpeed.X, perturbedSpeed.Y, type, damage, knockBack, player.whoAmI); //should also be getsource_itemuse_withpotential ammo. Too bad!
 				}
 			}
 			return;

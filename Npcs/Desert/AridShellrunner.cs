@@ -87,10 +87,10 @@ namespace Emperia.Npcs.Desert
         }*/
 		public override float SpawnChance(NPCSpawnInfo spawnInfo)
 		{
-			int x = spawnInfo.spawnTileX;
-			int y = spawnInfo.spawnTileY;
+			int x = spawnInfo.SpawnTileX;
+			int y = spawnInfo.SpawnTileY;
 			int tile = Main.tile[x, y].TileType;
-			return spawnInfo.player.ZoneDesert ? 0.1f : 0;
+			return spawnInfo.Player.ZoneDesert ? 0.1f : 0;
 		}
 
         public override void OnKill()

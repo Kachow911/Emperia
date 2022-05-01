@@ -66,7 +66,7 @@ namespace Emperia.Items.Weapons.Twilight
 			{
 				string text1 = target.life.ToString();
 				string text2 = target.lifeMax.ToString();
-				Projectile.NewProjectile(player.GetProjectileSource_Item(Item), player.Center.X + Main.rand.Next(-250, 15), player.Center.Y + Main.rand.Next(-300, 300), 0, 0, ModContent.ProjectileType<LeechEye>(), 25, 1, Main.myPlayer, 60, 0);
+				Projectile.NewProjectile(player.GetSource_ItemUse(Item), player.Center.X + Main.rand.Next(-250, 15), player.Center.Y + Main.rand.Next(-300, 300), 0, 0, ModContent.ProjectileType<LeechEye>(), 25, 1, Main.myPlayer, 60, 0);
 				Terraria.Audio.SoundEngine.PlaySound(SoundID.NPCHit36, target.Center);
 			}
 			//if (Main.rand.Next(3) == 0)

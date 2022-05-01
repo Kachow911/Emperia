@@ -55,7 +55,7 @@ namespace Emperia.Items.Weapons
             if (delay == 0)
             {
                 //Main.NewText("initiated");
-                delay = (int)(Item.useAnimation * player.meleeSpeed) - 1;
+                delay = (int)(Item.useAnimation * player.GetAttackSpeed(DamageClass.Melee)) - 1;
                 Terraria.Audio.SoundEngine.PlaySound(SoundID.Item1, player.Center);
             }
 

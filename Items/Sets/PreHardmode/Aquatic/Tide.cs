@@ -50,7 +50,7 @@ namespace Emperia.Items.Sets.PreHardmode.Aquatic  //where is located
 				velocity = 2;
 			else
 				velocity = -2;
-			Projectile.NewProjectile(player.GetProjectileSource_Item(Item), target.Center.X, target.Center.Y, velocity, 0, ModContent.ProjectileType<TideProj2>(), 0, 1, Main.myPlayer, 0, 0);
+			Projectile.NewProjectile(player.GetSource_ItemUse(Item), target.Center.X, target.Center.Y, velocity, 0, ModContent.ProjectileType<TideProj2>(), 0, 1, Main.myPlayer, 0, 0);
 		}
     }
 }

@@ -50,7 +50,7 @@ namespace Emperia.Items.Sets.Hardmode.Mystique   //where is located
 				{
 				
 					Vector2 perturbedSpeed = new Vector2(0, 3).RotatedBy(MathHelper.ToRadians(90 + 30 * i));
-					Projectile.NewProjectile(player.GetProjectileSource_Item(Item), target.Center.X, target.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, ModContent.ProjectileType<HomingLeaf>(), damage / 3, 1, Main.myPlayer, 0, 0);
+					Projectile.NewProjectile(player.GetSource_ItemUse(Item), target.Center.X, target.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, ModContent.ProjectileType<HomingLeaf>(), damage / 3, 1, Main.myPlayer, 0, 0);
 				
 				}
 			}

@@ -57,9 +57,9 @@ namespace Emperia.Npcs.Chasm
 				direction1.Normalize();
 				direction2.Normalize();
 				direction3.Normalize();
-				Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), NPC.Center.X, NPC.Center.Y, direction1.X * 30f, direction1.Y * 30f, ModContent.ProjectileType<InkShot>(), 45, 1, Main.myPlayer, 0, 0);
-				Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), NPC.Center.X, NPC.Center.Y, direction1.X * 30f, direction2.Y * 30f, ModContent.ProjectileType<InkShot>(), 45, 1, Main.myPlayer, 0, 0);
-				Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), NPC.Center.X, NPC.Center.Y, direction1.X * 30f, direction3.Y * 30f, ModContent.ProjectileType<InkShot>(), 45, 1, Main.myPlayer, 0, 0);
+				Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X, NPC.Center.Y, direction1.X * 30f, direction1.Y * 30f, ModContent.ProjectileType<InkShot>(), 45, 1, Main.myPlayer, 0, 0);
+				Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X, NPC.Center.Y, direction1.X * 30f, direction2.Y * 30f, ModContent.ProjectileType<InkShot>(), 45, 1, Main.myPlayer, 0, 0);
+				Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X, NPC.Center.Y, direction1.X * 30f, direction3.Y * 30f, ModContent.ProjectileType<InkShot>(), 45, 1, Main.myPlayer, 0, 0);
 				counter = 100;
 			}
 			 NPC.frameCounter++;

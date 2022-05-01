@@ -40,7 +40,7 @@ public class AquaticFaceGuard : ModItem
     
     public override void UpdateEquip(Player player)
     {
-            player.armorPenetration += 6;
+            player.GetArmorPenetration(DamageClass.Melee) += 6;
         }
     
     public override void AddRecipes()

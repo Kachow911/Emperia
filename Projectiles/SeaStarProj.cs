@@ -55,7 +55,7 @@ namespace Emperia.Projectiles
 		public override void Kill(int timeLeft)
 		{
 			if (Main.rand.Next(0, 4) == 0)
-				Item.NewItem(Projectile.GetItemSource_DropAsItem(), (int)Projectile.position.X, (int)Projectile.position.Y, Projectile.width, Projectile.height, ModContent.ItemType<Items.Sets.PreHardmode.Aquatic.SeaStar>(), 1, false, 0, false, false);
+				Item.NewItem(Projectile.GetSource_DropAsItem(), (int)Projectile.position.X, (int)Projectile.position.Y, Projectile.width, Projectile.height, ModContent.ItemType<Items.Sets.PreHardmode.Aquatic.SeaStar>(), 1, false, 0, false, false);
 
 			for (int i = 0; i < 8; ++i)
 			{

@@ -87,7 +87,7 @@ namespace Emperia.Items.Weapons
 					speedFactor = 9.5f;
 					damageFactor = 2;
 				}
-				int p = Projectile.NewProjectile(player.GetProjectileSource_Item(Item), placePosition.X, placePosition.Y, direction.X * speedFactor, direction.Y * speedFactor, type, damage * damageFactor, 1, Main.myPlayer, 0, 0);
+				int p = Projectile.NewProjectile(player.GetSource_ItemUse(Item), placePosition.X, placePosition.Y, direction.X * speedFactor, direction.Y * speedFactor, type, damage * damageFactor, 1, Main.myPlayer, 0, 0);
 				Main.projectile[p].usesLocalNPCImmunity = false;
 				PlaySound(SoundID.Item9, Main.projectile[p].position);
 				canSummon = false;

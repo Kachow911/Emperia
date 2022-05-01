@@ -41,7 +41,7 @@ namespace Emperia.Projectiles.Yeti
             }
             for (int i = 0; i < 4; i++)
             {
-                Gore.NewGore(Projectile.position, new Vector2(0.25f, 0.25f).RotatedByRandom(MathHelper.ToRadians(360)), Main.rand.Next(61, 63), 1f);
+                Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.position, new Vector2(0.25f, 0.25f).RotatedByRandom(MathHelper.ToRadians(360)), Main.rand.Next(61, 63), 1f);
             }
             Terraria.Audio.SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
 		}

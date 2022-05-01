@@ -42,7 +42,7 @@ namespace Emperia.Items.Sets.PreHardmode.Granite   //where is located
 		Rectangle hiltHitbox = Rectangle.Empty;
 		public override void UseItemHitbox(Player player, ref Rectangle hitbox, ref bool noHitbox)
 		{
-			if (player.itemAnimation == (int)(Item.useAnimation * player.meleeSpeed))
+			if (player.itemAnimation == (int)(Item.useAnimation * player.GetAttackSpeed(DamageClass.Melee)))
 			{
 				currentHitbox = 0;
 				lastFrameWidth = hitbox.Width;
@@ -79,7 +79,7 @@ namespace Emperia.Items.Sets.PreHardmode.Granite   //where is located
 			{
 				for (int g = 0; g <= hiltHitbox.Height; g += 2)
 				{
-					Projectile.NewProjectile(player.GetProjectileSource_Item(Item), new Vector2(hiltHitbox.Left + h, hiltHitbox.Top + g), Vector2.Zero, ModContent.ProjectileType<RedPixel>(), 0, 0);
+					Projectile.NewProjectile(player.GetSource_Item(Item), new Vector2(hiltHitbox.Left + h, hiltHitbox.Top + g), Vector2.Zero, ModContent.ProjectileType<RedPixel>(), 0, 0);
 				}
 			}*/
 

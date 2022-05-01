@@ -107,15 +107,15 @@ namespace Emperia
 				int x = Main.rand.Next(3);
 				if (x == 0)
 				{
-					Item.NewItem(player.GetItemSource_OpenItem(arg), (int)player.position.X, (int)player.position.Y, player.width, player.height, ModContent.ItemType<Skelebow>()); 
+					Item.NewItem(player.GetSource_OpenItem(arg), (int)player.position.X, (int)player.position.Y, player.width, player.height, ModContent.ItemType<Skelebow>()); 
 				}
 				else if (x == 1)
 				{
-					Item.NewItem(player.GetItemSource_OpenItem(arg), (int)player.position.X, (int)player.position.Y, player.width, player.height, ModContent.ItemType<NecromanticFlame>()); 
+					Item.NewItem(player.GetSource_OpenItem(arg), (int)player.position.X, (int)player.position.Y, player.width, player.height, ModContent.ItemType<NecromanticFlame>()); 
 				}
 				else if (x == 2)
 				{
-					Item.NewItem(player.GetItemSource_OpenItem(arg), (int)player.position.X, (int)player.position.Y, player.width, player.height, ModContent.ItemType<BoneWhip>()); 
+					Item.NewItem(player.GetSource_OpenItem(arg), (int)player.position.X, (int)player.position.Y, player.width, player.height, ModContent.ItemType<BoneWhip>()); 
 				}
 			}
 		}
@@ -168,7 +168,7 @@ namespace Emperia
 			delay--;
             if (delay == 0)
             {
-				delay = (int)(Item.useAnimation * player.meleeSpeed) - 1;
+				delay = (int)(Item.useAnimation * player.GetAttackSpeed(DamageClass.Melee)) - 1;
 				if (modPlayer.gauntletBonus > 0)
 				{ 
 					modPlayer.swordHitbox.Width = hitbox.Height;
@@ -220,7 +220,7 @@ namespace Emperia
 				if (Item.GetGlobalItem<GItem>().gelPad)
 				{
 					TooltipLine line = new TooltipLine(Mod, "x", "Gel Pad"); //no clue what the first string does here, gives the tooltip a name for other code to reference?
-					line.overrideColor = new Color(150, 150, 255);
+					line.OverrideColor = new Color(150, 150, 255);
 					TooltipLine line2 = new TooltipLine(Mod, "x2", "Sword strikes on knockback-immune foes bounce you slightly back\nRight Click to detach");
 					tooltips.Add(line);
 					tooltips.Add(line2);
@@ -267,8 +267,8 @@ namespace Emperia
             if (Item.GetGlobalItem<GItem>().gelPad == true)
 			{
 				Item.GetGlobalItem<GItem>().gelPad = false;
-				Item.NewItem(player.GetItemSource_OpenItem(Item.type), player.getRect(), ModContent.ItemType<GelPad>()); //These are probably bad choices for item sources
-				Item gauntletCopy = Main.item[Item.NewItem(player.GetItemSource_OpenItem(Item.type), player.getRect(), Item.type)]; //
+				Item.NewItem(player.GetSource_OpenItem(Item.type), player.getRect(), ModContent.ItemType<GelPad>()); //These are probably bad choices for item sources
+				Item gauntletCopy = Main.item[Item.NewItem(player.GetSource_OpenItem(Item.type), player.getRect(), Item.type)]; //
 				gauntletCopy.prefix = Item.prefix;
 				gauntletCopy.rare = Item.rare;
 				gauntletCopy.value = Item.value;

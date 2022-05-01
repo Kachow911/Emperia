@@ -39,7 +39,7 @@ namespace Emperia.Npcs
 		{
 			if (Main.rand.Next(2) == 1)
 			{
-				Item.NewItem(NPC.GetItemSource_Loot(), (int)NPC.position.X, (int)NPC.position.Y, NPC.width, NPC.height, ModContent.ItemType<Items.AquaticScale>(), Main.rand.Next(2, 4));
+				Item.NewItem(NPC.GetSource_Loot(), (int)NPC.position.X, (int)NPC.position.Y, NPC.width, NPC.height, ModContent.ItemType<Items.AquaticScale>(), Main.rand.Next(2, 4));
 			}
 		}
 

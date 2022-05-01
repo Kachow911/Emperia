@@ -66,7 +66,7 @@ namespace Emperia.Npcs.Inquisitor
 				Vector2 placePosition = NPC.Center;
 				Vector2 direction = (Main.player[NPC.target].Center - placePosition);
 				direction.Normalize();
-				Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), placePosition.X, placePosition.Y, direction.X * 7f, direction.Y * 7f, ModContent.ProjectileType<TearEnemy>(), 30, 1, Main.myPlayer, 0, 0);
+				Projectile.NewProjectile(NPC.GetSource_FromAI(), placePosition.X, placePosition.Y, direction.X * 7f, direction.Y * 7f, ModContent.ProjectileType<TearEnemy>(), 30, 1, Main.myPlayer, 0, 0);
 			}
         }
     }

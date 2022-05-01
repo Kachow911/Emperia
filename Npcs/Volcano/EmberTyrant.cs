@@ -98,7 +98,7 @@ namespace Emperia.Npcs.Volcano
 					Speed *= 10f;
 					for (int i = 0; i < 3; i++)
 					{
-						 Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), NPC.Center.X, NPC.Center.Y - 25, Speed.X * Main.rand.Next(3, 8), Speed.Y * Main.rand.Next(3, 8), ModContent.ProjectileType<ScorchBlastHost>(), 25, 2f, player.whoAmI);
+						 Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X, NPC.Center.Y - 25, Speed.X * Main.rand.Next(3, 8), Speed.Y * Main.rand.Next(3, 8), ModContent.ProjectileType<ScorchBlastHost>(), 25, 2f, player.whoAmI);
 					}
 				}
 				if (counter <= 0)
@@ -147,7 +147,7 @@ namespace Emperia.Npcs.Volcano
 			{
 				if (counter == 300)
 				{
-					int n = NPC.NewNPC(NPC.GetSpawnSourceForNPCFromNPCAI(), (int)NPC.Center.X, (int)NPC.Center.Y, NPCType<EmberTyrantHead>(), ai0: NPC.whoAmI);
+					int n = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y, NPCType<EmberTyrantHead>(), ai0: NPC.whoAmI);
 					NPC.ai[3]++;
 				}
 				counter--;
@@ -200,7 +200,7 @@ namespace Emperia.Npcs.Volcano
         {
             if (Main.rand.Next(10) == 0)
             {
-                Item.NewItem(NPC.GetItemSource_Loot(), (int)NPC.position.X, (int)NPC.position.Y, NPC.width, NPC.height, ModContent.ItemType<Items.Weapons.Volcano.EmberTyrantStaff>());
+                Item.NewItem(NPC.GetSource_Loot(), (int)NPC.position.X, (int)NPC.position.Y, NPC.width, NPC.height, ModContent.ItemType<Items.Weapons.Volcano.EmberTyrantStaff>());
             }
         }
     }

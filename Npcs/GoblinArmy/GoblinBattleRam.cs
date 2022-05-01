@@ -110,16 +110,16 @@ namespace Emperia.Npcs.GoblinArmy
 					int index2 = Dust.NewDust(NPC.Center + new Vector2(i, 0), NPC.width, NPC.height, 76, NPC.velocity.X / 5, (float) NPC.velocity.Y, 0, rgb, 0.9f);
 				}
 				
-				Gore.NewGore(NPC.position, new Vector2(0, -2), ModContent.Find<ModGore>("Gores/BattleRam").Type, 1f);
+				Gore.NewGore(NPC.GetSource_OnHit(target), NPC.position, new Vector2(0, -2), ModContent.Find<ModGore>("Gores/BattleRam").Type, 1f);
 				NPC.life = 0;
-				NPC.NewNPC(NPC.GetSpawnSourceForNPCFromNPCAI(), (int)NPC.Center.X + 25, (int)NPC.Center.Y, NPCType<GoblinRamCarrier>());
-				NPC.NewNPC(NPC.GetSpawnSourceForNPCFromNPCAI(), (int)NPC.Center.X - 50, (int)NPC.Center.Y, NPCType<GoblinRamCarrier>());
+				NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X + 25, (int)NPC.Center.Y, NPCType<GoblinRamCarrier>());
+				NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X - 50, (int)NPC.Center.Y, NPCType<GoblinRamCarrier>());
 			}
 		}
 		public override float SpawnChance(NPCSpawnInfo spawnInfo)
 		{
-			int x = spawnInfo.spawnTileX;
-			int y = spawnInfo.spawnTileY;
+			int x = spawnInfo.SpawnTileX;
+			int y = spawnInfo.SpawnTileY;
 			int tile = Main.tile[x, y].TileType;
 			return Main.invasionType == 1 ? 0.08f : 0;
 		}
@@ -148,12 +148,12 @@ namespace Emperia.Npcs.GoblinArmy
 				int index2 = Dust.NewDust(NPC.Center + new Vector2(i, 0), NPC.width, NPC.height, 76, NPC.velocity.X / 5, (float)NPC.velocity.Y, 0, rgb, 0.9f);
 			}
 
-			Gore.NewGore(NPC.position, new Vector2(0, -2), ModContent.Find<ModGore>("Gores/BattleRam").Type, 1f);
+			Gore.NewGore(NPC.GetSource_Death(), NPC.position, new Vector2(0, -2), ModContent.Find<ModGore>("Gores/BattleRam").Type, 1f);
 		}
         public override void ModifyNPCLoot(NPCLoot npcLoot)
 		{
-			NPC.NewNPC(NPC.GetSpawnSourceForNPCFromNPCAI(), (int)NPC.Center.X + 25, (int)NPC.Center.Y, NPCType<GoblinRamCarrier>());
-			NPC.NewNPC(NPC.GetSpawnSourceForNPCFromNPCAI(), (int)NPC.Center.X - 50, (int)NPC.Center.Y, NPCType<GoblinRamCarrier>());
+			NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X + 25, (int)NPC.Center.Y, NPCType<GoblinRamCarrier>());
+			NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X - 50, (int)NPC.Center.Y, NPCType<GoblinRamCarrier>());
 		}
         
     }

@@ -41,7 +41,7 @@ namespace Emperia.Items.Weapons.Yeti
                 modPlayer.clubSwing = -1;
             }
             else {
-                modPlayer.clubSwing = (int)(Item.useTime * player.meleeSpeed) - 1;
+                modPlayer.clubSwing = (int)(Item.useTime * player.GetAttackSpeed(DamageClass.Melee)) - 1;
             }
             modPlayer.projItemOrigin = Item;
             return true;

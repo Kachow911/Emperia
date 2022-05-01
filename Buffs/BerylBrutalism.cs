@@ -24,7 +24,7 @@ namespace Emperia.Buffs
 
         public override void Update(Player player, ref int buffIndex)
         {
-            player.meleeSpeed += 0.08f;
+            player.GetAttackSpeed(DamageClass.Melee) += 0.08f;
         }
     }
 }

@@ -46,7 +46,7 @@ namespace Emperia.Projectiles
         }
         public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection) {
             Player player = Main.player[Projectile.owner];
-			if (!crit && Main.rand.Next(100 - player.GetCritChance(DamageClass.Melee)) < 4)
+			if (!crit && Main.rand.Next(100 - (int)player.GetCritChance(DamageClass.Melee)) < 4)
             {
 				crit = true;
 			}

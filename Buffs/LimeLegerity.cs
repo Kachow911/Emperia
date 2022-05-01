@@ -27,7 +27,7 @@ namespace Emperia.Buffs
 			MyPlayer p = player.GetModPlayer<MyPlayer>();
 			
 			player.moveSpeed *= 1.20f;
-			player.meleeSpeed *= 1.10f;
+            player.GetAttackSpeed(DamageClass.Melee) *= 1.10f;
 			if (Main.rand.Next(2) == 0)
 			{
 				int dust = Dust.NewDust(new Vector2(player.Center.X, player.Center.Y), 20, 20, 75);

@@ -47,13 +47,13 @@ public class PlatformLayer : ModItem
 		public int nextChoppedY;
 		public override void ModifyTooltips(List<TooltipLine> tooltips)
 		{
-			TooltipLine damage = tooltips.FirstOrDefault(x => x.Name == "Damage" && x.mod == "Terraria");
+			TooltipLine damage = tooltips.FirstOrDefault(x => x.Name == "Damage" && x.Mod == "Terraria");
 			if (damage != null) tooltips.Remove(damage);
-			TooltipLine crit = tooltips.FirstOrDefault(x => x.Name == "CritChance" && x.mod == "Terraria");
+			TooltipLine crit = tooltips.FirstOrDefault(x => x.Name == "CritChance" && x.Mod == "Terraria");
 			if (crit != null) tooltips.Remove(crit);
-			TooltipLine kback = tooltips.FirstOrDefault(x => x.Name == "Knockback" && x.mod == "Terraria");
+			TooltipLine kback = tooltips.FirstOrDefault(x => x.Name == "Knockback" && x.Mod == "Terraria");
 			if (kback != null) tooltips.Remove(kback);
-			TooltipLine speed = tooltips.FirstOrDefault(x => x.Name == "Speed" && x.mod == "Terraria");
+			TooltipLine speed = tooltips.FirstOrDefault(x => x.Name == "Speed" && x.Mod == "Terraria");
 			if (speed != null) tooltips.Remove(speed);
 		}
 		public override bool CanConsumeAmmo(Player player)
@@ -93,7 +93,7 @@ public class PlatformLayer : ModItem
 			{
 				if (i == 250)
 				{
-					int p = Projectile.NewProjectile(player.GetProjectileSource_Item(Item), player.Center.X, player.Center.Y, 0f, 0f, ModContent.ProjectileType<PlatformLayerVisual>(), 0, 0, Main.myPlayer, 0, 0);
+					int p = Projectile.NewProjectile(player.GetSource_ItemUse(Item), player.Center.X, player.Center.Y, 0f, 0f, ModContent.ProjectileType<PlatformLayerVisual>(), 0, 0, Main.myPlayer, 0, 0);
 					(Main.projectile[p].ModProjectile as PlatformLayerVisual).useMode = useMode;
 				}
 				if (Main.projectile[i].active && Main.projectile[i].owner == Main.myPlayer && Main.projectile[i].type == ModContent.ProjectileType<PlatformLayerVisual>()) i = 251;

@@ -36,7 +36,7 @@ namespace Emperia.Items
 
 		public override void RightClick(Player player)
 		{
-			IEntitySource source = player.GetItemSource_OpenItem(ModContent.ItemType<YetiBag>());
+			IEntitySource source = player.GetSource_OpenItem(ModContent.ItemType<YetiBag>());
 			if (Main.rand.Next(2) == 0)
 			{
 				player.QuickSpawnItem(source, ModContent.ItemType<Items.Armor.YetiMask>());

@@ -29,7 +29,7 @@ public class GoblinChest : ModItem
     public override void UpdateEquip(Player player)
     {
         player.moveSpeed += 0.03f;
-		player.meleeSpeed += 0.03f;
+		player.GetAttackSpeed(DamageClass.Melee) += 0.03f;
     }
 
     public override void AddRecipes()

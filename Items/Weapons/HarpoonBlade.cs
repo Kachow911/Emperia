@@ -121,7 +121,7 @@ namespace Emperia.Items.Weapons
                     Vector2 direction = Main.MouseWorld - player.Center;
                     direction.Normalize();
                     //Shoot(player, new EntitySource_ItemUse_WithAmmo(player, Item), player.position, Item.shootSpeed, Item.shoot, Item.damage, Item.knockBack);//Projectile.NewProjectile(new ProjectileSource_Item(player, Item), position.X - (velocity.X * i), position.Y - (velocity.Y * i), perturbedSpeed.X, perturbedSpeed.Y, type, damage, knockBack, player.whoAmI);
-                    Projectile.NewProjectile(player.GetProjectileSource_Item(Item), player.Center.X, player.Center.Y, direction.X * Item.shootSpeed, direction.Y * Item.shootSpeed, Item.shoot, Item.damage, 1, Main.myPlayer, 0, 0);
+                    Projectile.NewProjectile(player.GetSource_Item(Item), player.Center.X, player.Center.Y, direction.X * Item.shootSpeed, direction.Y * Item.shootSpeed, Item.shoot, Item.damage, 1, Main.myPlayer, 0, 0);
                 }
             }
 

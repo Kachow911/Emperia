@@ -80,9 +80,9 @@ namespace Emperia.Npcs.GoblinArmy
 			goblinCounter--;
 			if (goblinCounter <= 0)
             {
-				NPC.NewNPC(NPC.GetSpawnSourceForNPCFromNPCAI(), (int)NPC.Center.X + Main.rand.Next(-25, 25), (int)NPC.Center.Y + 40, NPCType<GoblinRamCarrier>());
-				NPC.NewNPC(NPC.GetSpawnSourceForNPCFromNPCAI(), (int)NPC.Center.X + Main.rand.Next(-25, 25), (int)NPC.Center.Y + 40, NPCType<GoblinRamCarrier>());
-				NPC.NewNPC(NPC.GetSpawnSourceForNPCFromNPCAI(), (int)NPC.Center.X + Main.rand.Next(-25, 25), (int)NPC.Center.Y + 40, NPCType<GoblinRamCarrier>());
+				NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X + Main.rand.Next(-25, 25), (int)NPC.Center.Y + 40, NPCType<GoblinRamCarrier>());
+				NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X + Main.rand.Next(-25, 25), (int)NPC.Center.Y + 40, NPCType<GoblinRamCarrier>());
+				NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X + Main.rand.Next(-25, 25), (int)NPC.Center.Y + 40, NPCType<GoblinRamCarrier>());
 				goblinCounter = 600;
             }
 			if (NPC.velocity.X < 0)
@@ -137,7 +137,7 @@ namespace Emperia.Npcs.GoblinArmy
 						int index3 = Dust.NewDust(placePosition, NPC.width, NPC.height, 6, 0.0f, 0.0f, 100, new Color(), 1.5f);
 						Main.dust[index3].velocity *= 2f;
 					}
-					Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), NPC.Center.X, NPC.Center.Y - NPC.height/2, direction.X * 12f, direction.Y * 12f, ModContent.ProjectileType<GoblinBomb>(), NPC.damage / 3, 1, Main.myPlayer, 0, 0);
+					Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X, NPC.Center.Y - NPC.height/2, direction.X * 12f, direction.Y * 12f, ModContent.ProjectileType<GoblinBomb>(), NPC.damage / 3, 1, Main.myPlayer, 0, 0);
 					
 				}
 			}
@@ -173,20 +173,20 @@ namespace Emperia.Npcs.GoblinArmy
 		}
 		public override float SpawnChance(NPCSpawnInfo spawnInfo)
 		{
-			int x = spawnInfo.spawnTileX;
-			int y = spawnInfo.spawnTileY;
+			int x = spawnInfo.SpawnTileX;
+			int y = spawnInfo.SpawnTileY;
 			int tile = Main.tile[x, y].TileType;
 			return Main.invasionType == 1 ? 0.02f : 0;
 		}
 
         public override void OnKill()
         {
-			Gore.NewGore(NPC.position, NPC.velocity, ModContent.Find<ModGore>("Gores/Goblin/GoblinGiantGoreHead").Type, 1f);
-			Gore.NewGore(NPC.position, NPC.velocity, ModContent.Find<ModGore>("Gores/Goblin/GoblinGiantGoreLeg").Type, 1f);
-			Gore.NewGore(NPC.position, NPC.velocity, ModContent.Find<ModGore>("Gores/Goblin/GoblinGiantGoreArm").Type, 1f);
-			Gore.NewGore(NPC.position, NPC.velocity, ModContent.Find<ModGore>("Gores/Goblin/GoblinGiantGoreCannon_4").Type, 1f);
-			Gore.NewGore(NPC.position, NPC.velocity, ModContent.Find<ModGore>("Gores/Goblin/GoblinGiantGoreCannon_3").Type, 1f);
-			Gore.NewGore(NPC.position, NPC.velocity, ModContent.Find<ModGore>("Gores/Goblin/GoblinGiantGoreCannon_1").Type, 1f);
+			Gore.NewGore(NPC.GetSource_Death(), NPC.position, NPC.velocity, ModContent.Find<ModGore>("Gores/Goblin/GoblinGiantGoreHead").Type, 1f);
+			Gore.NewGore(NPC.GetSource_Death(), NPC.position, NPC.velocity, ModContent.Find<ModGore>("Gores/Goblin/GoblinGiantGoreLeg").Type, 1f);
+			Gore.NewGore(NPC.GetSource_Death(), NPC.position, NPC.velocity, ModContent.Find<ModGore>("Gores/Goblin/GoblinGiantGoreArm").Type, 1f);
+			Gore.NewGore(NPC.GetSource_Death(), NPC.position, NPC.velocity, ModContent.Find<ModGore>("Gores/Goblin/GoblinGiantGoreCannon_4").Type, 1f);
+			Gore.NewGore(NPC.GetSource_Death(), NPC.position, NPC.velocity, ModContent.Find<ModGore>("Gores/Goblin/GoblinGiantGoreCannon_3").Type, 1f);
+			Gore.NewGore(NPC.GetSource_Death(), NPC.position, NPC.velocity, ModContent.Find<ModGore>("Gores/Goblin/GoblinGiantGoreCannon_1").Type, 1f);
 
 			for (int i = 0; i < 25; i++)
 			{
@@ -196,23 +196,23 @@ namespace Emperia.Npcs.GoblinArmy
 		}
         public override void ModifyNPCLoot(NPCLoot npcLoot)
 		{
-			Item.NewItem(NPC.GetItemSource_Loot(), (int)NPC.position.X, (int)NPC.position.Y, NPC.width, NPC.height, ModContent.ItemType<Items.GiantPlating>(), Main.rand.Next(3, 8));
+			Item.NewItem(NPC.GetSource_Loot(), (int)NPC.position.X, (int)NPC.position.Y, NPC.width, NPC.height, ModContent.ItemType<Items.GiantPlating>(), Main.rand.Next(3, 8));
 				
 				if (Main.rand.Next(5) == 0)
 				{
-					Item.NewItem(NPC.GetItemSource_Loot(), (int)NPC.position.X, (int)NPC.position.Y, NPC.width, NPC.height, ModContent.ItemType<GiantsDagger>());
+					Item.NewItem(NPC.GetSource_Loot(), (int)NPC.position.X, (int)NPC.position.Y, NPC.width, NPC.height, ModContent.ItemType<GiantsDagger>());
 				}
 				if (Main.rand.Next(5) == 0)
 				{
-				Item.NewItem(NPC.GetItemSource_Loot(), (int)NPC.position.X, (int)NPC.position.Y, NPC.width, NPC.height, ModContent.ItemType<GiantsDevastator>());
+				Item.NewItem(NPC.GetSource_Loot(), (int)NPC.position.X, (int)NPC.position.Y, NPC.width, NPC.height, ModContent.ItemType<GiantsDevastator>());
 				}
 				if (Main.rand.Next(5) == 0)
 				{
-				Item.NewItem(NPC.GetItemSource_Loot(), (int)NPC.position.X, (int)NPC.position.Y, NPC.width, NPC.height, ModContent.ItemType<OversizedFemur>());
+				Item.NewItem(NPC.GetSource_Loot(), (int)NPC.position.X, (int)NPC.position.Y, NPC.width, NPC.height, ModContent.ItemType<OversizedFemur>());
 				}
 			if (Main.rand.Next(5) == 0)
 			{
-				Item.NewItem(NPC.GetItemSource_Loot(), (int)NPC.position.X, (int)NPC.position.Y, NPC.width, NPC.height, ModContent.ItemType<GiantsHead>());
+				Item.NewItem(NPC.GetSource_Loot(), (int)NPC.position.X, (int)NPC.position.Y, NPC.width, NPC.height, ModContent.ItemType<GiantsHead>());
 			}
 		}
 

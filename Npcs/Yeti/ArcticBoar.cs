@@ -85,10 +85,10 @@ namespace Emperia.Npcs.Yeti
         }*/
 		public override float SpawnChance(NPCSpawnInfo spawnInfo)
 		{
-			int x = spawnInfo.spawnTileX;
-			int y = spawnInfo.spawnTileY;
+			int x = spawnInfo.SpawnTileX;
+			int y = spawnInfo.SpawnTileY;
 			int tile = Main.tile[x, y].TileType;
-			return spawnInfo.player.ZoneSnow ? 0.05f : 0;
+			return spawnInfo.Player.ZoneSnow ? 0.05f : 0;
 		}
 		public override void ModifyNPCLoot(NPCLoot npcLoot)
 		{
@@ -99,11 +99,11 @@ namespace Emperia.Npcs.Yeti
 			}
 			if (Main.rand.Next(3) == 0)
 			{
-				Item.NewItem(NPC.GetItemSource_Loot(), (int)NPC.position.X, (int)NPC.position.Y, NPC.width, NPC.height, ModContent.ItemType<Items.GelidHide>());
+				Item.NewItem(NPC.GetSource_Loot(), (int)NPC.position.X, (int)NPC.position.Y, NPC.width, NPC.height, ModContent.ItemType<Items.GelidHide>());
 			}
 			if (Main.rand.Next(10) == 0)
 			{
-				Item.NewItem(NPC.GetItemSource_Loot(), (int)NPC.position.X, (int)NPC.position.Y, NPC.width, NPC.height, ModContent.ItemType<Items.Accessories.BoarTusk>());
+				Item.NewItem(NPC.GetSource_Loot(), (int)NPC.position.X, (int)NPC.position.Y, NPC.width, NPC.height, ModContent.ItemType<Items.Accessories.BoarTusk>());
 			}
 		}
         

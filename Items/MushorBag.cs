@@ -40,7 +40,7 @@ namespace Emperia.Items
 			//{
 			//	player.QuickSpawnItem(ModContent.ItemType<MushorMask>());
 			//}
-			IEntitySource source = player.GetItemSource_OpenItem(ModContent.ItemType<MushorBag>());
+			IEntitySource source = player.GetSource_OpenItem(ModContent.ItemType<MushorBag>());
 			if (Main.rand.Next(3) != 0)
 			{
 				player.QuickSpawnItem(source, ModContent.ItemType<Shroomer>());

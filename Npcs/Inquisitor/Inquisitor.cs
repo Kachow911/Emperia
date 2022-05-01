@@ -94,20 +94,20 @@ namespace Emperia.Npcs.Inquisitor
 			
 			if (masksToSpawn > 0)
 			{
-				NPC.NewNPC(NPC.GetSpawnSourceForNPCFromNPCAI(), (int)NPC.Center.X, (int)NPC.Center.Y, NPCType<AgonyMask>(), ai0: NPC.whoAmI, ai1: masksToSpawn);
+				NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y, NPCType<AgonyMask>(), ai0: NPC.whoAmI, ai1: masksToSpawn);
 				masksToSpawn--;
 			}
             if (NPC.ai[3] == 0 && IsInPhaseOne())
             {
 				SetMove(Move.Hover, 240);
-                NPC.NewNPC(NPC.GetSpawnSourceForNPCFromNPCAI(), (int)NPC.Center.X - 20, (int)NPC.Center.Y, NPCType<EocPuppet>(), ai0: player.whoAmI, ai1: NPC.whoAmI);
+                NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X - 20, (int)NPC.Center.Y, NPCType<EocPuppet>(), ai0: player.whoAmI, ai1: NPC.whoAmI);
                 /*NPC.NewNPC((int)NPC.Center.X + 20, (int)NPC.Center.Y, NPCType<<AgonyMask>(), ai0: player.whoAmI, ai1: NPC.whoAmI);*/
                 NPC.ai[3] = 1;
 				masksToSpawn = numMasks;
             } else if (NPC.ai[3] == 1 && IsInPhaseTwo())
 			{
 				SetMove(Move.Shoot, 480);
-				NPC.NewNPC(NPC.GetSpawnSourceForNPCFromNPCAI(), (int)NPC.Center.X - 20, (int)NPC.Center.Y, NPCType<EocPuppet>(), ai0: player.whoAmI, ai1: NPC.whoAmI);
+				NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X - 20, (int)NPC.Center.Y, NPCType<EocPuppet>(), ai0: player.whoAmI, ai1: NPC.whoAmI);
 				NPC.ai[3] = 2;
 				numMasks *= 3;
 				masksToSpawn = numMasks;
@@ -169,7 +169,7 @@ namespace Emperia.Npcs.Inquisitor
 					Vector2 placePosition = NPC.Center + new Vector2(0, -100).RotatedByRandom(MathHelper.ToRadians(360));
 					Vector2 direction = (Main.player[NPC.target].Center - placePosition);
 					direction.Normalize();
-					Projectile.NewProjectile(NPC.GetSpawnSource_ForProjectile(), placePosition.X, placePosition.Y, direction.X * 7f, direction.Y * 7f, ModContent.ProjectileType<FearBolt>(), 30, 1, Main.myPlayer, 0, 0);	
+					Projectile.NewProjectile(NPC.GetSource_FromAI(), placePosition.X, placePosition.Y, direction.X * 7f, direction.Y * 7f, ModContent.ProjectileType<FearBolt>(), 30, 1, Main.myPlayer, 0, 0);	
 				}
 				if (counter <= 0)
 				{

@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -7,8 +8,8 @@ namespace Emperia.Gores
 {
 	public class GrottoDroplet : ModGore
 	{
-		public override void OnSpawn(Gore gore)
-		{
+        public override void OnSpawn(Gore gore, IEntitySource source)
+        {
 			//gore.Frame = 15;
 			gore.behindTiles = true;
 			gore.timeLeft = Gore.goreTime * 3;
