@@ -16,6 +16,10 @@ namespace Emperia.Items.Sets.PreHardmode.Seashell
 			Item.maxStack = 999;
 			Item.value = 20000;
 			Item.rare = 1;
+			Item.createTile = ModContent.TileType<Tiles.SeaCrystalTile>();
+			Item.useTime = 10;
+			Item.useAnimation = 10;
+			Item.useStyle = ItemUseStyleID.Swing;
 		}
 	}
 }

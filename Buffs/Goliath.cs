@@ -10,7 +10,7 @@ namespace Emperia.Buffs
         public override void SetStaticDefaults()
         {
 			DisplayName.SetDefault("Goliath");
-			Description.SetDefault("20% increased sword size");
+			Description.SetDefault("20% increased sword size and 10% increased sword damage");
             Main.buffNoSave[Type] = true;
         }
     }

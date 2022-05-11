@@ -96,7 +96,7 @@ namespace Emperia
 			{
 				Item defaultStats = new Item();
 				defaultStats.SetDefaults(Item.type);
-				if (defaultStats.useTurn == true) { Item.useTurn = true; }
+				if (defaultStats.useTurn == true) Item.useTurn = true;
 			}
 			return base.UseItem(Item, player);
 		}

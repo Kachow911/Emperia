@@ -1,5 +1,4 @@
 ﻿using System;
-using System.IO;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -7,6 +6,10 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Emperia.Items.Sets.PreHardmode.Seashell;
 using Terraria.GameContent.ItemDropRules;
+using static Terraria.Audio.SoundEngine;
+using Terraria.DataStructures;
+
+
 
 
 namespace Emperia.Npcs.SeaCrab
@@ -16,12 +19,15 @@ namespace Emperia.Npcs.SeaCrab
 		
 		private enum Move
         {
+		   Emerge,
 		   Walk,
 		   ShellSpinAnim, 
 		   ShellSpin,
 		   ShellSpinAnimB,
 		   ShellSpinB,
 		   ShellSpinOutAnim,
+		   BurrowAnim,
+		   Burrow,
 		   Aggro
         }
 		private int counter = 0;
@@ -32,30 +38,34 @@ namespace Emperia.Npcs.SeaCrab
 		private bool init;
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Seashell Hermit");
+			DisplayName.SetDefault("Crystacean");
 			Main.npcFrameCount[NPC.type] = 7;
+			NPCDebuffImmunityData debuffData = new NPCDebuffImmunityData
+			{
+				SpecificallyImmuneTo = new int[] { BuffID.Frostburn, } //frostburn arrows just make this boss comparatively easy lol
+			};
+			NPCID.Sets.DebuffImmunitySets.Add(Type, debuffData);
 		}
-        public override void SetDefaults()
+		public override void SetDefaults()
         {
-            NPC.lifeMax = 860;
-            NPC.damage = 23;
-            NPC.defense = 10;
-            NPC.knockBackResist = 0.6f;
-            NPC.width = 38;
+            NPC.lifeMax = 1340;
+            NPC.damage = 20;
+            NPC.defense = 14;
+			NPC.knockBackResist = 0f;
+			NPC.width = 36;
             NPC.height = 38;
             NPC.value = 4000;
-            NPC.npcSlots = 1f;
+            NPC.npcSlots = 5f;
             NPC.boss = false;
             NPC.lavaImmune = true;
             NPC.noGravity = false;
             NPC.noTileCollide = false;
-            NPC.HitSound = SoundID.NPCHit1; //57 //20 //antlion, derpling
-            NPC.DeathSound = SoundID.NPCDeath1;
+            NPC.HitSound = SoundID.NPCHit22; //antlion 31, derpling 22, giant shelly 38
+            NPC.DeathSound = SoundID.NPCDeath25;
             NPC.netAlways = true;
 			NPC.scale = 1.2f;
-			//NPC.friendly = true;
-			//NPC.aiStyle = 3;
-			NPC.knockBackResist = 0f;
+			NPC.despawnEncouraged = false;
+			DrawOffsetY = 0.5f;
         }
 		public override void FindFrame(int frameHeight)
 		{	
@@ -66,7 +76,7 @@ namespace Emperia.Npcs.SeaCrab
 				int frame = (int)NPC.frameCounter;
 				NPC.frame.Y = frame * frameHeight;
 			}
-			else if (move == Move.ShellSpinAnim && counter <= 8 || move == Move.ShellSpinOutAnim && counter <= 8 || move == Move.ShellSpinAnimB && counter <= 8)
+			else if (move == Move.ShellSpinAnim && counter <= 8 || move == Move.ShellSpinAnimB && counter <= 8 || move == Move.ShellSpinOutAnim && counter <= 12)
 			{
 				int frame = 4;
 				NPC.frame.Y = frame * frameHeight;
@@ -77,97 +87,234 @@ namespace Emperia.Npcs.SeaCrab
 				NPC.frameCounter += 0.08f;
 				NPC.frame.Y = (int)NPC.frameCounter % 4 * frameHeight;
 			}
-			else if (move == Move.ShellSpin || move == Move.ShellSpinB || move == Move.ShellSpinOutAnim)
+			else if (move == Move.ShellSpin || move == Move.ShellSpinB)
 			{
 				NPC.frameCounter += 0.05f + 0.02f * Math.Abs(NPC.velocity.X);
 				NPC.frameCounter %= 2;
 				int frame = (int)NPC.frameCounter + 5;
 				NPC.frame.Y = frame * frameHeight;
 			}
+			else if (move == Move.ShellSpinOutAnim)
+			{
+				NPC.frameCounter += 0.05f * (0.01f * (40 + counter));
+				NPC.frameCounter %= 2;
+				int frame = (int)NPC.frameCounter + 5;
+				NPC.frame.Y = frame * frameHeight;
+			}
+			else if (move == Move.Burrow || move == Move.Emerge)
+			{
+				NPC.frameCounter += 0.15f;
+				NPC.frameCounter %= 2;
+				int frame = (int)NPC.frameCounter + 5;
+				NPC.frame.Y = frame * frameHeight;
+			}
 		}
 
-        public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
+		public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
         {
-            NPC.lifeMax = 1240;
-            NPC.damage = 36;
-        }
+            NPC.lifeMax = 1840;
+            NPC.damage = 25;
+			if (Main.masterMode)
+            {
+				NPC.lifeMax = 2240;
+				NPC.damage = 35;
+			}
+			damageScale = NPC.damage;
+			if (numPlayers < 10) NPC.lifeMax = (int)(NPC.lifeMax * (0.5f + (0.5f * numPlayers))); //this may be unnecessary considering sea crystal drop isn't client side. maybe it should be
+		}
+
 		Vector2 crabHitbox = Vector2.Zero;
 		Vector2 shellHitbox = Vector2.Zero;
+		float heightDifference = 0;
 
-		float noVanillaAIJump;
-		float oldVelocityX = 0;
+		float noVanillaAIJump; //removes any Y velocity given by the vanilla aiStyle 3 attempting to jump
+		float oldVelocityX = 0; //removes deceleration caused by vanilla AI
 		Vector2 oldPos;
-        public override bool PreAI()
+
+        float? preJumpHeight;
+		float? jumpPeak;
+        bool trapped = false;
+
+		float speedScale = 1;
+		float damageScale;
+
+		int burrowStage = 0;
+		int emergeDelay = 0;
+		int? randomDelay = null;
+
+        int spinChance = 80;
+		int spinBChance;
+		int burrowChance = 20;
+
+		bool lockedDirection = false;
+
+		bool inShell = false;
+
+		bool notEmerging = false;
+		public override bool PreAI()
         {
 			noVanillaAIJump = NPC.velocity.Y;
 			return true;
         }
         public override void AI()
 		{
-			NPC.aiStyle = 3;
 			Player player = Main.player[NPC.target];
 			NPC.velocity.Y = noVanillaAIJump;
 			NPC.velocity.X = oldVelocityX;
+			NPC.DiscourageDespawn(200);
 			if (!init)
             {
-                crabHitbox = new Vector2(NPC.width, NPC.height);
-                shellHitbox = new Vector2(NPC.width * 0.7f, NPC.height * 0.85f);
-				SetMove(Move.Walk, Main.rand.Next(300, 400));
+				NPC.aiStyle = 3;
+				crabHitbox = new Vector2(NPC.width, NPC.height);
+                shellHitbox = new Vector2(NPC.width * 0.7f, NPC.height * 0.95f); //previous height was 0.85
+				heightDifference = crabHitbox.Y - shellHitbox.Y;
+				PlaySound(SoundID.NPCHit23, NPC.Center);
+				SetMove(Move.Emerge, 44);
 				init = true;
 			}
-			if (player.Center.X > NPC.Center.X)
+			if (Main.expertMode)
+			{
+				speedScale = 1 + (float)(NPC.lifeMax - NPC.life) / NPC.lifeMax / 4; //set to / 10 if too hard
+				NPC.damage = (int)(damageScale * (1 + (float)(NPC.lifeMax - NPC.life) / NPC.lifeMax / 1.75f)); //set to / 2 if too hard
+			}
+
+			if (player.Center.X > NPC.Center.X && !lockedDirection)
 			{
 				NPC.direction = 1;
 			}
-			else
+			else if (!lockedDirection)
 			{
 				NPC.direction = -1;
 			}
-			if (Math.Abs(NPC.velocity.X) < 3.3f)
+			if (move != Move.ShellSpinOutAnim && Math.Abs(NPC.velocity.X) < 3.1f * (1 + (speedScale - 1) / 2)) //so speedscale has a weaker effect on walking
 			{
-				NPC.velocity.X += 0.1f * NPC.direction;
-				if (Math.Abs(NPC.velocity.X) > 3.3f)
-                {
-					NPC.velocity.X = 3.3f * NPC.direction;
+				NPC.velocity.X += (move != Move.ShellSpinOutAnim ? 0.1f : 0.07f) * NPC.direction;
+				if (Math.Abs(NPC.velocity.X) > 3.1f * (1 + (speedScale - 1) / 2)) NPC.velocity.X = 3.1f * NPC.direction * (1 + (speedScale - 1) / 2);
+			}
+			if (NPC.velocity.X * NPC.direction < 0) NPC.velocity.X *=  0.98f; //runs if velocity.x and npc.direction are different directions. yes this could just be two if statements. math!
+			
+			//Main.NewText(NPC.velocity.X.ToString(), 0);
+
+			if (move == Move.Emerge) //rises up. only happens when spawning
+            {
+				counter--;
+				NPC.width = (int)shellHitbox.X;
+				NPC.height = (int)shellHitbox.Y;
+				NPC.noTileCollide = true;
+				NPC.behindTiles = true;
+				NPC.noGravity = true;
+				NPC.aiStyle = 0;
+				if (NPC.velocity.Y > 0) NPC.velocity.Y = -0.03f;
+				else NPC.velocity.Y -= 0.03f;
+				NPC.velocity.X = 0;
+				if (counter <= 0)
+				{
+					NPC.width = (int)crabHitbox.X;
+					NPC.height = (int)crabHitbox.Y;
+					NPC.position.Y -= heightDifference;
+					NPC.position.X -= 7;
+					NPC.noTileCollide = false;
+					NPC.behindTiles = false;
+					NPC.noGravity = false;
+					NPC.aiStyle = 3;
+					SetMove(Move.ShellSpinOutAnim, 50);
 				}
 			}
-			if (NPC.velocity.X * NPC.direction < 0) NPC.velocity.X *= 0.98f; //runs if velocity.x and npc.direction are different directions. yes this could just be two if statements. math!
-			//Main.NewText(NPC.velocity.X.ToString(), 0);
-			if (move == Move.Walk) 
+			if (move == Move.Walk)
 			{
 				counter--;
-				//if (Math.Abs(player.Center.X - NPC.Center.X) > 112) counter--; if ranged has too easy of a time
-				if (NPC.velocity.Y == 0 && player.Bottom.Y + 32 < NPC.Bottom.Y && Math.Abs(player.Center.X - NPC.Center.X) < 112 || oldPos == NPC.position)
-                {
-					NPC.velocity.Y = -9f;
-                }
+				if (player.dead) counter = 0;
+
+				int chosenMove = Main.rand.Next(100) + 1;
+				int lostChancePercent;
+
 				if (counter <= 0 && NPC.velocity.Y == 0)
 				{
-					if (Main.rand.NextBool(3)) SetMove(Move.ShellSpinAnimB, 80);
-					else SetMove(Move.ShellSpinAnim, 24);
+					if (trapped || player.dead)
+					{
+						SetMove(Move.BurrowAnim, 24);
+						trapped = false;
+						lostChancePercent = (int)Math.Floor(burrowChance / 6f) * 2;
+						burrowChance -= lostChancePercent;
+					}
+					else
+					{
+						//makes his move pool less random. while testing i found if it was true random he often didn't use all his attacks
+						if (chosenMove <= spinBChance && NPC.life <= NPC.lifeMax - 200)
+                        {
+							SetMove(Move.ShellSpinAnimB, 80);
+							lostChancePercent = (int)Math.Floor(spinBChance / 6f) * 2;
+							spinBChance -= lostChancePercent;
+						}
+						else if (chosenMove <= spinBChance + burrowChance && NPC.life <= NPC.lifeMax - 400) 
+						{
+							SetMove(Move.BurrowAnim, 24);
+							//if (NPC.life <= NPC.lifeMax / 2) lostChancePercent = (int)Math.Floor(spinBChance / 8f) * 2;
+							//else lostChancePercent = (int)Math.Floor(burrowChance / 6f) * 2;
+							lostChancePercent = (int)Math.Floor(burrowChance / 8f) * 2;
+							burrowChance -= lostChancePercent;
+						}
+						else
+						{
+							SetMove(Move.ShellSpinAnim, 24);
+							lostChancePercent = (int)Math.Floor(spinChance / 6f) * 2;
+							spinChance -= lostChancePercent;
+						}
+					}
+					if (move != Move.ShellSpinAnim) spinChance += lostChancePercent / 2 ;
+					if (move != Move.ShellSpinAnimB) spinBChance += lostChancePercent / 2;
+					if (move != Move.BurrowAnim) burrowChance += lostChancePercent / 2;
+					/*Main.NewText(move.ToString());
+					Main.NewText(spinChance.ToString(), 0);
+					Main.NewText(spinBChance.ToString(), 0, 0);
+					Main.NewText(burrowChance.ToString(), 50, 50, 100);*/
+				}
+				//everything below in walk is just stuff to help it prevent being cheesed or getting stuck
+				else if (NPC.velocity.Y == 0 && player.Bottom.Y + 32 < NPC.Bottom.Y && Math.Abs(player.Center.X - NPC.Center.X) < 112 || oldPos == NPC.position && NPC.collideX) //if on the ground and player is close and above it, or if it's stuck on a wall
+				{
+					if (preJumpHeight != null && Math.Abs((float)preJumpHeight - NPC.Bottom.Y) <= 16 && NPC.Bottom.Y - 128 > player.Bottom.Y) trapped = true; //if attempting to jump, and at the same height (or within a block) it was before its previous jump, and the player is further than its jump height out of reach
+					preJumpHeight = NPC.Bottom.Y;
+					jumpPeak = NPC.Bottom.Y;
+					NPC.velocity.Y = -9f;
+				}
+				else if (Math.Abs(player.Center.X - NPC.Center.X) > 144 && NPC.velocity.Y == 0 && Math.Abs(NPC.velocity.X) < 4 && Math.Abs(NPC.velocity.X) > 3) // lunge to chase far away players
+				{
+					NPC.velocity.Y = -3.5f;
+					NPC.velocity.X = 4.5f * NPC.direction * (Math.Abs(player.Center.X - NPC.Center.X) / 144);
+					if (Math.Abs(NPC.velocity.X) > 6.75f) NPC.velocity.X = 6.75f * NPC.direction;
+				}
+				if (Math.Abs(NPC.velocity.X) > 3.1f * (1 + (speedScale - 1) / 2)) NPC.velocity.X *= 0.994f;
+
+
+				if (jumpPeak != null && NPC.Bottom.Y < jumpPeak) jumpPeak = NPC.Bottom.Y;
+				if (jumpPeak != null && NPC.Bottom.Y > jumpPeak)
+				{
+					if (NPC.collideY) trapped = true; //if it bonks its head mid-jump //just, if (collideY && NPC.velocity < 0) might work ?
+					jumpPeak = null;
+				}
+				if (NPC.velocity.Y == 0 && NPC.Bottom.Y < player.Top.Y && Math.Abs(player.Center.X - NPC.Center.X) < 32)
+				{
+					trapped = true; //if it's above the player, on ground, can't get down, and the player is close horizontally
 				}
 			}
-			else if (move == Move.ShellSpinAnim)
+            else if (move == Move.ShellSpinAnim)
 			{
 				counter--;
 				NPC.velocity.X *= 0.95f;
 				if (counter <= 0)
 				{
-					SetMove(Move.ShellSpin, 600);
+					SetMove(Move.ShellSpin, 300);
 					NPC.width = (int)shellHitbox.X;
 					NPC.height = (int)shellHitbox.Y;
+					NPC.position.Y += heightDifference;
 				}
 			}
 			else if (move == Move.ShellSpin)
 			{
 				counter--;
-
-				if (Math.Abs(NPC.velocity.X) < 7) NPC.velocity.X += 0.08f * NPC.direction;
-				
-				if (counter <= 0)
-				{
-					SetMove(Move.ShellSpinOutAnim, 30);
-				}
+				if (Math.Abs(NPC.velocity.X) < 8 * speedScale) NPC.velocity.X += 0.13f * NPC.direction * speedScale;
+				if (counter <= 0 && NPC.velocity.Y == 0 && Math.Abs(NPC.velocity.X) < 1 || counter < -100) SetMove(Move.ShellSpinOutAnim, 120);
+				else if (oldPos == NPC.position && NPC.collideX) NPC.velocity.Y = -9f;
 			}
 			else if (move == Move.ShellSpinAnimB)
 			{
@@ -178,40 +325,192 @@ namespace Emperia.Npcs.SeaCrab
 					NPC.velocity.Y = -5f;
 					NPC.velocity.X = 2.8f * NPC.direction;
 				}
-				//Main.NewText(counter.ToString());
 				if (counter <= 0)
 				{
-					SetMove(Move.ShellSpinB, 600);
+					SetMove(Move.ShellSpinB, 300);
 					NPC.width = (int)shellHitbox.X;
 					NPC.height = (int)shellHitbox.Y;
+					NPC.position.Y += heightDifference;
 				}
 			}
 			else if (move == Move.ShellSpinB)
 			{
 				counter--;
+				if (Math.Abs(NPC.velocity.X) < 7 * speedScale) NPC.velocity.X += 0.08f * NPC.direction * speedScale;
 
-				if (Math.Abs(NPC.velocity.X) < 7) NPC.velocity.X += 0.06f * NPC.direction;
-				if (NPC.velocity.Y == 0 && Math.Abs(player.Center.X - NPC.Center.X) < 64)
+				if (counter <= 0 && NPC.velocity.Y == 0 && Math.Abs(NPC.velocity.X) < 1.25f || counter < -120) SetMove(Move.ShellSpinOutAnim, 120);
+				else if (NPC.velocity.Y == 0 && Math.Abs(player.Center.X - NPC.Center.X) < 64) //&& Math.Abs(NPC.velocity.X) > 2)
 				{
-					NPC.velocity.Y = -8f;
+					NPC.velocity.Y = -8.5f;
 				}
-
-				if (counter <= 0)
-				{
-					SetMove(Move.ShellSpinOutAnim, 30);
-				}
+				else if (oldPos == NPC.position && NPC.collideX) NPC.velocity.Y = -9f;
 			}
 			else if (move == Move.ShellSpinOutAnim)
 			{
 				counter--;
 				NPC.velocity.X *= 0.95f;
-
+				//NPC.aiStyle = 0;
+				if (counter > 12 && notEmerging)
+                {
+					if (counter % 3 == 0)
+					{
+						int dust1 = Dust.NewDust(new Vector2(NPC.position.X - (int)(NPC.width * 0.2f), NPC.position.Y), (int)(NPC.width * 1.4f), NPC.height, 267, 0.0f, -2.75f, 0, new Color(60, 255, 20), 1.1f);
+						Main.dust[dust1].noGravity = true;
+						Main.dust[dust1].velocity.X = 0f;
+					}
+					/*if (counter % 3 == 0)
+					{
+						int dust1 = Dust.NewDust(new Vector2(NPC.position.X - (int)(NPC.width * 0.2f), NPC.position.Y), (int)(NPC.width * 1.4f), NPC.height, 284, 0.0f, -2.75f, 0, new Color(120, 255, 10), 1.25f);
+						Main.dust[dust1].noGravity = true;
+						Main.dust[dust1].velocity.X = 0f;
+					}*/
+					NPC.ReflectProjectiles(NPC.Hitbox);
+					NPC.reflectsProjectiles = true;
+				}
+				else NPC.reflectsProjectiles = false;
 				if (counter <= 0)
 				{
+					//NPC.aiStyle = 3;
 					NPC.width = (int)crabHitbox.X;
 					NPC.height = (int)crabHitbox.Y;
+					NPC.position.Y -= heightDifference + 1;
+					notEmerging = true;
 					SetMove(Move.Walk, Main.rand.Next(300, 400));
 				}
+			}
+			else if (move == Move.BurrowAnim)
+			{
+				counter--;
+				NPC.velocity.X *= 0.95f;
+				if (counter <= 0)
+				{
+					SetMove(Move.Burrow, 1000);
+					NPC.width = (int)shellHitbox.X;
+					NPC.height = (int)shellHitbox.Y;
+					NPC.position.Y += heightDifference;
+
+					NPC.noTileCollide = true;
+					NPC.noGravity = true;
+					NPC.behindTiles = true;
+					NPC.aiStyle = 0;
+
+					burrowStage = 1;
+				}
+			}
+			else if (move == Move.Burrow)
+			{
+				counter--;
+				float emergePointX = player.Center.X + (25 * player.velocity.X); //crab emerges a bit ahead of the player after a delay. this code is meant to make it emerge with where the player will end up after the delay, accounting for speed //28 for randomdelay
+				//if (player.velocity.X != 0) emergePointX += (player.velocity.X > 0 ? 14 : -14); //this gives a small extra to make it easier if you're moving slow. idk if needed
+				if (player.dead) emergePointX = Main.maxTilesX * 16 - ((Main.maxTilesX * 16 - player.Center.X < Main.maxTilesX * 16 / 2) ? 0 : Main.maxTilesX * 16); //my most evil and fucked up code yet. makes crab burrow to closest world edge. one line, baby
+
+
+				if (burrowStage != 3) NPC.velocity.X = 0;
+
+				if (counter % (20 - (int)Math.Abs(NPC.velocity.X) / 2) == 0) //i dont think this can divide by zero but
+				{
+					if (Submerged() != 1) PlaySound(15, NPC.Center);
+				}	
+
+				switch (burrowStage)
+				{
+					case 1: //tunnel down
+						NPC.velocity.Y += 0.075f;
+						if (counter == 965) burrowStage++;
+					break;
+					case 2: //if still in open air, tunnel down until underground
+						if (Submerged() == 0) burrowStage++;
+						else NPC.velocity.Y += 0.3f;
+					break;
+					case 3: //move horizontally to track the player
+						NPC.aiStyle = 3;
+						NPC.velocity.Y = 0;
+						if (Math.Abs(emergePointX - NPC.Center.X) < Math.Abs(emergePointX - player.Center.X) + 16) lockedDirection = true;
+						else lockedDirection = false;
+
+						if (Math.Abs(NPC.velocity.X) < 20) NPC.velocity.X += 0.4f * NPC.direction;
+						if (Submerged() != 0) NPC.position.Y += (5 - Submerged()) * 16;
+						//Main.NewText(randomDelay.ToString());
+						if (randomDelay != null && randomDelay > 0) randomDelay--;
+						if (Math.Abs(emergePointX - NPC.Center.X) < 16) //when within range of player, lock into emergePointX position, rise, raise dust at the surface
+				        {
+							//NPC.position.X = emergePointX - NPC.width / 2;
+							//NPC.velocity.X = 0;
+							//if (randomDelay == null) randomDelay = Main.rand.Next(60);
+							//else if (randomDelay <= 0)
+							{
+								randomDelay = null;
+								NPC.position.X = emergePointX - NPC.width / 2;
+								NPC.velocity.X = 0;
+								lockedDirection = false;
+								emergeDelay = counter;
+
+								int surfaceHeight = Submerged(1, 100) - 2;
+								for (int x = -1; x <= 2; x++)
+								{
+									Tile tile = Framing.GetTileSafely((int)(NPC.BottomLeft.X / 16) + x, (int)(NPC.BottomLeft.Y / 16) - surfaceHeight);
+									for (int i = 0; i <= 9; i++)
+									{
+										Dust dust = Main.dust[WorldGen.KillTile_MakeTileDust((int)(NPC.BottomLeft.X / 16) + x, (int)(NPC.BottomLeft.Y / 16) - surfaceHeight, tile)];
+										dust.velocity.X = Main.rand.NextFloat(-1, 1);
+										dust.velocity.Y = Main.rand.NextFloat(-2, -8);
+										if (i % 2 == 0)
+										{
+											Dust dust2 = Main.dust[WorldGen.KillTile_MakeTileDust((int)(NPC.BottomLeft.X / 16) + x, (int)(NPC.BottomLeft.Y / 16) - surfaceHeight, tile)];
+											dust2.velocity.X = Main.rand.NextFloat(-2f, 2f);
+											dust2.velocity.Y = -2f;
+										}
+									}
+									PlaySound(SoundID.NPCHit23, NPC.Center);
+								}
+								burrowStage++;
+							}
+						}
+					break;
+					case 4: //wait, then rise up to player position, speed scaling with how far above the player is to make sure it hits
+						if (emergeDelay - 18 > counter) //if (emergeDelay - (int)(18 / speedScale ) > counter) Maybe... Maybe. //21 for randomdelay
+						{
+							if (Submerged() == 1)
+							{
+								NPC.behindTiles = false;
+								PlaySound(15, NPC.Center); // technically this can run a bunch of times but in practice it wont due to sound effect limits
+							}
+							if (NPC.Bottom.Y > player.Bottom.Y)
+							{
+								NPC.velocity.Y = -16f * (NPC.Center.Y - player.Center.Y) / 50;
+								if (NPC.velocity.Y > -9f) NPC.velocity.Y = -10f;
+							}
+							else burrowStage++;
+						}
+					break;
+					case 5:
+						NPC.noTileCollide = false;
+						NPC.noGravity = false;
+						NPC.behindTiles = false;
+						lockedDirection = false;
+						if (NPC.velocity.Y == 0) counter = 0;
+					break;
+				}
+				if (counter == 180)
+                {
+					//Main.NewText("This message should never ever display", 255, 0, 0);
+					NPC.aiStyle = 3;
+					burrowStage = 4;
+                }				
+				if (counter <= 0) SetMove(Move.ShellSpinOutAnim, 120);
+			}
+
+			if (move == Move.ShellSpin || move == Move.ShellSpinB || move == Move.ShellSpinOutAnim && counter >= 12|| move == Move.Burrow || move == Move.Emerge)
+			{
+				inShell = true;
+				NPC.HitSound = SoundID.NPCHit2;
+				NPC.defense = 14;
+			}
+			else
+			{
+				inShell = false;
+				NPC.HitSound = SoundID.NPCHit22;
+				NPC.defense = 8;
 			}
 
 			//Main.NewText(NPC.velocity.X.ToString(), 255, 0);
@@ -220,13 +519,99 @@ namespace Emperia.Npcs.SeaCrab
 			NPC.spriteDirection = NPC.direction * -1;
 		}
 
+		private int Submerged(int xLimit = 4, int yLimit = 4)
+        {
+			for (int y = 1; y <= yLimit; y++)
+			{
+				for (int x = 1; x <= xLimit; x++)
+				{
+					Tile tile = Framing.GetTileSafely((int)(NPC.BottomLeft.X / 16) + x - 1, (int)(NPC.BottomLeft.Y / 16) - y + 1);
+					if (tile.HasTile && Main.tileSolid[tile.TileType])
+					{
+						//Main.NewText(tile.ToString(), 50);
+						//Projectile.NewProjectile(NPC.GetSource_FromAI(), new Vector2(16 * ((int)(NPC.BottomLeft.X / 16) + x - 1), 16 * ((int)(NPC.BottomLeft.Y / 16) - y + 1)), Vector2.Zero, ModContent.ProjectileType<RedPixel>(), 0, 0);
+					}
+					else return y;
+				}
+			}
+			return 0;
+		}
+
 		private void SetMove(Move toMove, int counter)
         {
             prevMove = move;
             move = toMove;
             this.counter = counter;
 		}
-		public override float SpawnChance(NPCSpawnInfo spawnInfo)
+
+        /*public override void ModifyHitByProjectile(Projectile projectile, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
+        {
+			if (inShell)
+            {
+				damage = (int)(damage * 0.8f);
+				//Main.NewText();
+            }
+		}*/
+        public override void ModifyHitByItem(Player player, Item item, ref int damage, ref float knockback, ref bool crit)
+        {
+			if (inShell)
+			{
+				NPC.defense = 8;
+				PlaySound(SoundID.NPCHit22, NPC.Center);
+				//damage += 3;
+				//Main.NewText();
+			}
+		}
+
+        public override bool? DrawHealthBar(byte hbPosition, ref float scale, ref Vector2 position)
+		{
+			return !NPC.behindTiles;
+		}
+
+		public override bool? CanFallThroughPlatforms()
+		{
+			if (Main.player[NPC.target].Bottom.Y - 16 > NPC.Bottom.Y)
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+
+			}
+		}
+        public override void HitEffect(int hitDirection, double damage)
+		{
+			if (Main.netMode == NetmodeID.Server)
+			{
+				return;
+			}
+
+			if (NPC.life <= 0)
+			{
+				int headGoreType = Mod.Find<ModGore>("SeaCrab_Head").Type;
+				int shellGoreType = Mod.Find<ModGore>("SeaCrab_Shell").Type;
+				int clawGoreType = Mod.Find<ModGore>("SeaCrab_Claw").Type;
+				int legsGoreType1 = Mod.Find<ModGore>("SeaCrab_Legs1").Type;
+				int legsGoreType2 = Mod.Find<ModGore>("SeaCrab_Legs2").Type;
+				var entitySource = NPC.GetSource_Death();
+				Gore.NewGore(entitySource, NPC.position, new Vector2(Main.rand.Next(-5, 5), Main.rand.Next(-5, 5)), headGoreType, NPC.scale);
+				Gore.NewGore(entitySource, NPC.position, new Vector2(Main.rand.Next(-5, 5), Main.rand.Next(-5, 5)), shellGoreType, NPC.scale);
+				Gore.NewGore(entitySource, NPC.position, new Vector2(Main.rand.Next(-5, 5), Main.rand.Next(-5, 5)), clawGoreType, NPC.scale);
+				Gore.NewGore(entitySource, NPC.position, new Vector2(Main.rand.Next(-5, 5), Main.rand.Next(-5, 5)), legsGoreType1, NPC.scale);
+				Gore.NewGore(entitySource, NPC.position, new Vector2(Main.rand.Next(-5, 5), Main.rand.Next(-5, 5)), legsGoreType2, NPC.scale);
+			}
+		}
+		public override void ModifyNPCLoot(NPCLoot npcLoot)
+		{
+			npcLoot.Add(ItemDropRule.BossBag(ModContent.ItemType<SeaCrystal>()));
+
+			LeadingConditionRule notExpertRule = new LeadingConditionRule(new Conditions.NotExpert());
+			notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<SeaCrystal>()));
+			npcLoot.Add(notExpertRule);
+
+		}
+		public override float SpawnChance(NPCSpawnInfo spawnInfo) // can delete?
 		{
 			int x = spawnInfo.SpawnTileX;
 			int y = spawnInfo.SpawnTileY;
@@ -234,14 +619,7 @@ namespace Emperia.Npcs.SeaCrab
 			return 0f;
 		}
 
-        public override void OnHitPlayer(Player target, int damage, bool crit)
-        {
-			if (move == Move.ShellSpin) counter = 0;
-				
-		}
-
-
-        /* private void SmoothMoveToPosition(Vector2 toPosition, float addSpeed, float maxSpeed, float slowRange = 64, float slowBy = .95f)
+		/* private void SmoothMoveToPosition(Vector2 toPosition, float addSpeed, float maxSpeed, float slowRange = 64, float slowBy = .95f)
          {
              if (Math.Abs((toPosition - NPC.Center).Length()) >= slowRange)
              {
@@ -254,9 +632,5 @@ namespace Emperia.Npcs.SeaCrab
                  NPC.velocity *= slowBy;
              }
          }*/
-        public override void ModifyNPCLoot(NPCLoot npcLoot)
-		{
-			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<SeaCrystal>()));
-		}
 	}
 }

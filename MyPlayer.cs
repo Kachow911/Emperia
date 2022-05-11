@@ -834,6 +834,7 @@ namespace Emperia
 			{
 				damage = damage += ((damage * 13) / 100);
 			}
+			if (Player.HasBuff(ModContent.BuffType<Goliath>())) damage = (int)(damage * 1.1f);
 		}
 		public override void OnHitNPC(Item Item, NPC target, int damage, float knockback, bool crit)
 		{
@@ -948,7 +949,7 @@ namespace Emperia
 				if (Main.rand.Next(6 + (30 / damage)) == 0)
 				{
 					rotVector.Normalize();
-					Projectile.NewProjectile(Player.GetSource_Accessory(terraGauntlet), Player.Center.X, Player.Center.Y, rotVector.X * 10f, rotVector.Y * 10f, ModContent.ProjectileType<Splinter>(), 8, knockback, Main.myPlayer, 0, 0);
+					Projectile.NewProjectile(Player.GetSource_Misc("Woodweaver Gauntlet"), Player.Center.X, Player.Center.Y, rotVector.X * 10f, rotVector.Y * 10f, ModContent.ProjectileType<Splinter>(), 7, knockback, Main.myPlayer, 0, 0);
 				}
 			}
 			if (gelGauntlet > 0 && target.knockBackResist == 0f && !Item.GetGlobalItem<GItem>().noGelGauntlet)

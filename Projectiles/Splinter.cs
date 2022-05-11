@@ -24,6 +24,7 @@ namespace Emperia.Projectiles
             Projectile.penetrate = 1;
             Projectile.timeLeft = 80;
             Projectile.extraUpdates = 0;
+            Projectile.ArmorPenetration = 6;
         }
         public override void AI()
         {
