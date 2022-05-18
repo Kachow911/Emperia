@@ -26,6 +26,7 @@ using Emperia.Items.Weapons;
 using Emperia.Items.Sets.PreHardmode.Aquatic;
 using Emperia.Items.Sets.PreHardmode.Desert;
 using Emperia.Items.Accessories;
+using Emperia.Items.Sets.PreHardmode.Seashell;
 
 namespace Emperia
 {
@@ -136,6 +137,9 @@ namespace Emperia
 		public Item projItemOrigin = null;
 
 		public Vector2 velocityBoost = Vector2.Zero;
+
+		public Tile targetedTilePreMine;
+		public bool targetedTileIsSpelunker = false;
 		public override void ResetEffects()
 		{
 			gauntletBonus = 0;
@@ -227,7 +231,11 @@ namespace Emperia
 			}
 		}*/
 		public override void PostUpdate()
-        {
+		{
+			targetedTilePreMine = Framing.GetTileSafely(Player.tileTargetX, Player.tileTargetY);
+			targetedTileIsSpelunker = (Main.tileSpelunker[targetedTilePreMine.TileType]);
+			//Main.NewText(Player.trident.ToString());
+
 			//Main.NewText(terraGauntlet.ToString());
 			if (graniteMinion) { Player.maxMinions += 1; } //first minion is free
             if (iceCannonLoad < 0)
@@ -1267,6 +1275,7 @@ namespace Emperia
 		}
 		public override void PreUpdateMovement()
 		{
+			if ((Player.inventory[Player.selectedItem].type == ModContent.ItemType<SeashellPickaxe>() || Player.inventory[Player.selectedItem].type == ModContent.ItemType<SeashellHamaxe>()) && (!Player.mount.Active || !Player.mount.Cart)) Player.trident = true;
 			if (velocityBoost != Vector2.Zero)
 			{
 				if (Player.velocity.Y > 0 && velocityBoost.Y < 0) Player.velocity.Y = -0.1f;

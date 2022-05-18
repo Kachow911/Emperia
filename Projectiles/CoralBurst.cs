@@ -45,7 +45,7 @@ namespace Emperia.Projectiles
 		}
 		public override bool? CanHitNPC(NPC target)
 		{
-			return true;
+			return false;
 		}
 	}
 	public class CoralBurst : ModProjectile

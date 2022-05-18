@@ -27,7 +27,7 @@ namespace Emperia.Items.Sets.PreHardmode.Seashell
             Item.useAnimation = 25;     
             Item.useStyle = 1;
             Item.knockBack = 3.5f;
-            Item.value = 100;        
+            Item.value = 24000;
             Item.rare = 1;
 			Item.scale = 1f;
             Item.autoReuse = true;

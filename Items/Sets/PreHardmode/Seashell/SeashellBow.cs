@@ -46,7 +46,15 @@ namespace Emperia.Items.Sets.PreHardmode.Seashell
             recipe.Register();
             
         }
-		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockBack)
+        public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
+		{
+            if (type == ProjectileID.WoodenArrowFriendly)
+            {
+                type = ModContent.ProjectileType<CoralBurstMain>();
+                damage = (int)(damage * 0.70f);
+            }
+        }
+		/*public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockBack)
 		{
             if (type == ProjectileID.WoodenArrowFriendly)
 			{
@@ -54,7 +62,7 @@ namespace Emperia.Items.Sets.PreHardmode.Seashell
                 damage = (int)(damage * 0.70f);
 			}
 			return true;  
-		}
+		}*/
         public override Vector2? HoldoutOffset()
 		{
 			return new Vector2(0, 0);

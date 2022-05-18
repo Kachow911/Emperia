@@ -113,11 +113,11 @@ namespace Emperia.Npcs.SeaCrab
 		public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
         {
             NPC.lifeMax = 1840;
-            NPC.damage = 25;
+            NPC.damage = 23;
 			if (Main.masterMode)
             {
 				NPC.lifeMax = 2240;
-				NPC.damage = 35;
+				NPC.damage = 30;
 			}
 			damageScale = NPC.damage;
 			if (numPlayers < 10) NPC.lifeMax = (int)(NPC.lifeMax * (0.5f + (0.5f * numPlayers))); //this may be unnecessary considering sea crystal drop isn't client side. maybe it should be
@@ -175,7 +175,7 @@ namespace Emperia.Npcs.SeaCrab
 			if (Main.expertMode)
 			{
 				speedScale = 1 + (float)(NPC.lifeMax - NPC.life) / NPC.lifeMax / 4; //set to / 10 if too hard
-				NPC.damage = (int)(damageScale * (1 + (float)(NPC.lifeMax - NPC.life) / NPC.lifeMax / 1.75f)); //set to / 2 if too hard
+				NPC.damage = (int)(damageScale * (1 + (float)(NPC.lifeMax - NPC.life) / NPC.lifeMax / 1.5f)); //set to / 2 if too hard
 			}
 
 			if (player.Center.X > NPC.Center.X && !lockedDirection)
@@ -192,312 +192,323 @@ namespace Emperia.Npcs.SeaCrab
 				if (Math.Abs(NPC.velocity.X) > 3.1f * (1 + (speedScale - 1) / 2)) NPC.velocity.X = 3.1f * NPC.direction * (1 + (speedScale - 1) / 2);
 			}
 			if (NPC.velocity.X * NPC.direction < 0) NPC.velocity.X *=  0.98f; //runs if velocity.x and npc.direction are different directions. yes this could just be two if statements. math!
-			
+
 			//Main.NewText(NPC.velocity.X.ToString(), 0);
-
-			if (move == Move.Emerge) //rises up. only happens when spawning
+			switch (move)
             {
-				counter--;
-				NPC.width = (int)shellHitbox.X;
-				NPC.height = (int)shellHitbox.Y;
-				NPC.noTileCollide = true;
-				NPC.behindTiles = true;
-				NPC.noGravity = true;
-				NPC.aiStyle = 0;
-				if (NPC.velocity.Y > 0) NPC.velocity.Y = -0.03f;
-				else NPC.velocity.Y -= 0.03f;
-				NPC.velocity.X = 0;
-				if (counter <= 0)
+				case Move.Emerge: //rises up. only happens when spawning
 				{
-					NPC.width = (int)crabHitbox.X;
-					NPC.height = (int)crabHitbox.Y;
-					NPC.position.Y -= heightDifference;
-					NPC.position.X -= 7;
-					NPC.noTileCollide = false;
-					NPC.behindTiles = false;
-					NPC.noGravity = false;
-					NPC.aiStyle = 3;
-					SetMove(Move.ShellSpinOutAnim, 50);
-				}
-			}
-			if (move == Move.Walk)
-			{
-				counter--;
-				if (player.dead) counter = 0;
-
-				int chosenMove = Main.rand.Next(100) + 1;
-				int lostChancePercent;
-
-				if (counter <= 0 && NPC.velocity.Y == 0)
-				{
-					if (trapped || player.dead)
+					counter--;
+					NPC.width = (int)shellHitbox.X;
+					NPC.height = (int)shellHitbox.Y;
+					NPC.noTileCollide = true;
+					NPC.behindTiles = true;
+					NPC.noGravity = true;
+					NPC.aiStyle = 0;
+					if (NPC.velocity.Y > 0) NPC.velocity.Y = -0.03f;
+					else NPC.velocity.Y -= 0.03f;
+					NPC.velocity.X = 0;
+					if (counter <= 0)
 					{
-						SetMove(Move.BurrowAnim, 24);
-						trapped = false;
-						lostChancePercent = (int)Math.Floor(burrowChance / 6f) * 2;
-						burrowChance -= lostChancePercent;
+						NPC.width = (int)crabHitbox.X;
+						NPC.height = (int)crabHitbox.Y;
+						NPC.position.Y -= heightDifference;
+						NPC.position.X -= 7;
+						NPC.noTileCollide = false;
+						NPC.behindTiles = false;
+						NPC.noGravity = false;
+						NPC.aiStyle = 3;
+						SetMove(Move.ShellSpinOutAnim, 50);
 					}
-					else
+					break;
+				}
+				case Move.Walk:
+				{
+					counter--;
+					if (player.dead) counter = 0;
+				
+					int chosenMove = Main.rand.Next(100) + 1;
+					int lostChancePercent;
+				
+					if (counter <= 0 && NPC.velocity.Y == 0)
 					{
-						//makes his move pool less random. while testing i found if it was true random he often didn't use all his attacks
-						if (chosenMove <= spinBChance && NPC.life <= NPC.lifeMax - 200)
-                        {
-							SetMove(Move.ShellSpinAnimB, 80);
-							lostChancePercent = (int)Math.Floor(spinBChance / 6f) * 2;
-							spinBChance -= lostChancePercent;
-						}
-						else if (chosenMove <= spinBChance + burrowChance && NPC.life <= NPC.lifeMax - 400) 
+						if (trapped || player.dead)
 						{
 							SetMove(Move.BurrowAnim, 24);
-							//if (NPC.life <= NPC.lifeMax / 2) lostChancePercent = (int)Math.Floor(spinBChance / 8f) * 2;
-							//else lostChancePercent = (int)Math.Floor(burrowChance / 6f) * 2;
-							lostChancePercent = (int)Math.Floor(burrowChance / 8f) * 2;
+							trapped = false;
+							lostChancePercent = (int)Math.Floor(burrowChance / 6f) * 2;
 							burrowChance -= lostChancePercent;
 						}
 						else
 						{
-							SetMove(Move.ShellSpinAnim, 24);
-							lostChancePercent = (int)Math.Floor(spinChance / 6f) * 2;
-							spinChance -= lostChancePercent;
-						}
-					}
-					if (move != Move.ShellSpinAnim) spinChance += lostChancePercent / 2 ;
-					if (move != Move.ShellSpinAnimB) spinBChance += lostChancePercent / 2;
-					if (move != Move.BurrowAnim) burrowChance += lostChancePercent / 2;
-					/*Main.NewText(move.ToString());
-					Main.NewText(spinChance.ToString(), 0);
-					Main.NewText(spinBChance.ToString(), 0, 0);
-					Main.NewText(burrowChance.ToString(), 50, 50, 100);*/
-				}
-				//everything below in walk is just stuff to help it prevent being cheesed or getting stuck
-				else if (NPC.velocity.Y == 0 && player.Bottom.Y + 32 < NPC.Bottom.Y && Math.Abs(player.Center.X - NPC.Center.X) < 112 || oldPos == NPC.position && NPC.collideX) //if on the ground and player is close and above it, or if it's stuck on a wall
-				{
-					if (preJumpHeight != null && Math.Abs((float)preJumpHeight - NPC.Bottom.Y) <= 16 && NPC.Bottom.Y - 128 > player.Bottom.Y) trapped = true; //if attempting to jump, and at the same height (or within a block) it was before its previous jump, and the player is further than its jump height out of reach
-					preJumpHeight = NPC.Bottom.Y;
-					jumpPeak = NPC.Bottom.Y;
-					NPC.velocity.Y = -9f;
-				}
-				else if (Math.Abs(player.Center.X - NPC.Center.X) > 144 && NPC.velocity.Y == 0 && Math.Abs(NPC.velocity.X) < 4 && Math.Abs(NPC.velocity.X) > 3) // lunge to chase far away players
-				{
-					NPC.velocity.Y = -3.5f;
-					NPC.velocity.X = 4.5f * NPC.direction * (Math.Abs(player.Center.X - NPC.Center.X) / 144);
-					if (Math.Abs(NPC.velocity.X) > 6.75f) NPC.velocity.X = 6.75f * NPC.direction;
-				}
-				if (Math.Abs(NPC.velocity.X) > 3.1f * (1 + (speedScale - 1) / 2)) NPC.velocity.X *= 0.994f;
-
-
-				if (jumpPeak != null && NPC.Bottom.Y < jumpPeak) jumpPeak = NPC.Bottom.Y;
-				if (jumpPeak != null && NPC.Bottom.Y > jumpPeak)
-				{
-					if (NPC.collideY) trapped = true; //if it bonks its head mid-jump //just, if (collideY && NPC.velocity < 0) might work ?
-					jumpPeak = null;
-				}
-				if (NPC.velocity.Y == 0 && NPC.Bottom.Y < player.Top.Y && Math.Abs(player.Center.X - NPC.Center.X) < 32)
-				{
-					trapped = true; //if it's above the player, on ground, can't get down, and the player is close horizontally
-				}
-			}
-            else if (move == Move.ShellSpinAnim)
-			{
-				counter--;
-				NPC.velocity.X *= 0.95f;
-				if (counter <= 0)
-				{
-					SetMove(Move.ShellSpin, 300);
-					NPC.width = (int)shellHitbox.X;
-					NPC.height = (int)shellHitbox.Y;
-					NPC.position.Y += heightDifference;
-				}
-			}
-			else if (move == Move.ShellSpin)
-			{
-				counter--;
-				if (Math.Abs(NPC.velocity.X) < 8 * speedScale) NPC.velocity.X += 0.13f * NPC.direction * speedScale;
-				if (counter <= 0 && NPC.velocity.Y == 0 && Math.Abs(NPC.velocity.X) < 1 || counter < -100) SetMove(Move.ShellSpinOutAnim, 120);
-				else if (oldPos == NPC.position && NPC.collideX) NPC.velocity.Y = -9f;
-			}
-			else if (move == Move.ShellSpinAnimB)
-			{
-				counter--;
-				if (counter > 36) NPC.velocity.X *= 0.95f;
-				if (counter == 36)
-				{
-					NPC.velocity.Y = -5f;
-					NPC.velocity.X = 2.8f * NPC.direction;
-				}
-				if (counter <= 0)
-				{
-					SetMove(Move.ShellSpinB, 300);
-					NPC.width = (int)shellHitbox.X;
-					NPC.height = (int)shellHitbox.Y;
-					NPC.position.Y += heightDifference;
-				}
-			}
-			else if (move == Move.ShellSpinB)
-			{
-				counter--;
-				if (Math.Abs(NPC.velocity.X) < 7 * speedScale) NPC.velocity.X += 0.08f * NPC.direction * speedScale;
-
-				if (counter <= 0 && NPC.velocity.Y == 0 && Math.Abs(NPC.velocity.X) < 1.25f || counter < -120) SetMove(Move.ShellSpinOutAnim, 120);
-				else if (NPC.velocity.Y == 0 && Math.Abs(player.Center.X - NPC.Center.X) < 64) //&& Math.Abs(NPC.velocity.X) > 2)
-				{
-					NPC.velocity.Y = -8.5f;
-				}
-				else if (oldPos == NPC.position && NPC.collideX) NPC.velocity.Y = -9f;
-			}
-			else if (move == Move.ShellSpinOutAnim)
-			{
-				counter--;
-				NPC.velocity.X *= 0.95f;
-				//NPC.aiStyle = 0;
-				if (counter > 12 && notEmerging)
-                {
-					if (counter % 3 == 0)
-					{
-						int dust1 = Dust.NewDust(new Vector2(NPC.position.X - (int)(NPC.width * 0.2f), NPC.position.Y), (int)(NPC.width * 1.4f), NPC.height, 267, 0.0f, -2.75f, 0, new Color(60, 255, 20), 1.1f);
-						Main.dust[dust1].noGravity = true;
-						Main.dust[dust1].velocity.X = 0f;
-					}
-					/*if (counter % 3 == 0)
-					{
-						int dust1 = Dust.NewDust(new Vector2(NPC.position.X - (int)(NPC.width * 0.2f), NPC.position.Y), (int)(NPC.width * 1.4f), NPC.height, 284, 0.0f, -2.75f, 0, new Color(120, 255, 10), 1.25f);
-						Main.dust[dust1].noGravity = true;
-						Main.dust[dust1].velocity.X = 0f;
-					}*/
-					NPC.ReflectProjectiles(NPC.Hitbox);
-					NPC.reflectsProjectiles = true;
-				}
-				else NPC.reflectsProjectiles = false;
-				if (counter <= 0)
-				{
-					//NPC.aiStyle = 3;
-					NPC.width = (int)crabHitbox.X;
-					NPC.height = (int)crabHitbox.Y;
-					NPC.position.Y -= heightDifference + 1;
-					notEmerging = true;
-					SetMove(Move.Walk, Main.rand.Next(300, 400));
-				}
-			}
-			else if (move == Move.BurrowAnim)
-			{
-				counter--;
-				NPC.velocity.X *= 0.95f;
-				if (counter <= 0)
-				{
-					SetMove(Move.Burrow, 1000);
-					NPC.width = (int)shellHitbox.X;
-					NPC.height = (int)shellHitbox.Y;
-					NPC.position.Y += heightDifference;
-
-					NPC.noTileCollide = true;
-					NPC.noGravity = true;
-					NPC.behindTiles = true;
-					NPC.aiStyle = 0;
-
-					burrowStage = 1;
-				}
-			}
-			else if (move == Move.Burrow)
-			{
-				counter--;
-				float emergePointX = player.Center.X + (25 * player.velocity.X); //crab emerges a bit ahead of the player after a delay. this code is meant to make it emerge with where the player will end up after the delay, accounting for speed //28 for randomdelay
-				//if (player.velocity.X != 0) emergePointX += (player.velocity.X > 0 ? 14 : -14); //this gives a small extra to make it easier if you're moving slow. idk if needed
-				if (player.dead) emergePointX = Main.maxTilesX * 16 - ((Main.maxTilesX * 16 - player.Center.X < Main.maxTilesX * 16 / 2) ? 0 : Main.maxTilesX * 16); //my most evil and fucked up code yet. makes crab burrow to closest world edge. one line, baby
-
-
-				if (burrowStage != 3) NPC.velocity.X = 0;
-
-				if (counter % (20 - (int)Math.Abs(NPC.velocity.X) / 2) == 0) //i dont think this can divide by zero but
-				{
-					if (Submerged() != 1) PlaySound(15, NPC.Center);
-				}	
-
-				switch (burrowStage)
-				{
-					case 1: //tunnel down
-						NPC.velocity.Y += 0.075f;
-						if (counter == 965) burrowStage++;
-					break;
-					case 2: //if still in open air, tunnel down until underground
-						if (Submerged() == 0) burrowStage++;
-						else NPC.velocity.Y += 0.3f;
-					break;
-					case 3: //move horizontally to track the player
-						NPC.aiStyle = 3;
-						NPC.velocity.Y = 0;
-						if (Math.Abs(emergePointX - NPC.Center.X) < Math.Abs(emergePointX - player.Center.X) + 16) lockedDirection = true;
-						else lockedDirection = false;
-
-						if (Math.Abs(NPC.velocity.X) < 20) NPC.velocity.X += 0.4f * NPC.direction;
-						if (Submerged() != 0) NPC.position.Y += (5 - Submerged()) * 16;
-						//Main.NewText(randomDelay.ToString());
-						if (randomDelay != null && randomDelay > 0) randomDelay--;
-						if (Math.Abs(emergePointX - NPC.Center.X) < 16) //when within range of player, lock into emergePointX position, rise, raise dust at the surface
-				        {
-							//NPC.position.X = emergePointX - NPC.width / 2;
-							//NPC.velocity.X = 0;
-							//if (randomDelay == null) randomDelay = Main.rand.Next(60);
-							//else if (randomDelay <= 0)
+							//makes his move pool less random. while testing i found if it was true random he often didn't use all his attacks
+							if (chosenMove <= spinBChance && NPC.life <= NPC.lifeMax - 200)
+				            {
+								SetMove(Move.ShellSpinAnimB, 90);
+								lostChancePercent = (int)Math.Floor(spinBChance / 6f) * 2;
+								spinBChance -= lostChancePercent;
+							}
+							else if (chosenMove <= spinBChance + burrowChance && NPC.life <= NPC.lifeMax - 400) 
 							{
-								randomDelay = null;
-								NPC.position.X = emergePointX - NPC.width / 2;
-								NPC.velocity.X = 0;
-								lockedDirection = false;
-								emergeDelay = counter;
-
-								int surfaceHeight = Submerged(1, 100) - 2;
-								for (int x = -1; x <= 2; x++)
-								{
-									Tile tile = Framing.GetTileSafely((int)(NPC.BottomLeft.X / 16) + x, (int)(NPC.BottomLeft.Y / 16) - surfaceHeight);
-									for (int i = 0; i <= 9; i++)
-									{
-										Dust dust = Main.dust[WorldGen.KillTile_MakeTileDust((int)(NPC.BottomLeft.X / 16) + x, (int)(NPC.BottomLeft.Y / 16) - surfaceHeight, tile)];
-										dust.velocity.X = Main.rand.NextFloat(-1, 1);
-										dust.velocity.Y = Main.rand.NextFloat(-2, -8);
-										if (i % 2 == 0)
-										{
-											Dust dust2 = Main.dust[WorldGen.KillTile_MakeTileDust((int)(NPC.BottomLeft.X / 16) + x, (int)(NPC.BottomLeft.Y / 16) - surfaceHeight, tile)];
-											dust2.velocity.X = Main.rand.NextFloat(-2f, 2f);
-											dust2.velocity.Y = -2f;
-										}
-									}
-									PlaySound(SoundID.NPCHit23, NPC.Center);
-								}
-								burrowStage++;
+								SetMove(Move.BurrowAnim, 24);
+								//if (NPC.life <= NPC.lifeMax / 2) lostChancePercent = (int)Math.Floor(spinBChance / 8f) * 2;
+								//else lostChancePercent = (int)Math.Floor(burrowChance / 6f) * 2;
+								lostChancePercent = (int)Math.Floor(burrowChance / 8f) * 2;
+								burrowChance -= lostChancePercent;
+							}
+							else
+							{
+								SetMove(Move.ShellSpinAnim, 24);
+								lostChancePercent = (int)Math.Floor(spinChance / 6f) * 2;
+								spinChance -= lostChancePercent;
 							}
 						}
+						if (move != Move.ShellSpinAnim) spinChance += lostChancePercent / 2 ;
+						if (move != Move.ShellSpinAnimB) spinBChance += lostChancePercent / 2;
+						if (move != Move.BurrowAnim) burrowChance += lostChancePercent / 2;
+						/*Main.NewText(move.ToString());
+						Main.NewText(spinChance.ToString(), 0);
+						Main.NewText(spinBChance.ToString(), 0, 0);
+						Main.NewText(burrowChance.ToString(), 50, 50, 100);*/
+					}
+					//everything below in walk is just stuff to help it prevent being cheesed or getting stuck
+					else if (NPC.velocity.Y == 0 && player.Bottom.Y + 32 < NPC.Bottom.Y && Math.Abs(player.Center.X - NPC.Center.X) < 112 || oldPos == NPC.position && NPC.collideX) //if on the ground and player is close and above it, or if it's stuck on a wall
+					{
+						if (preJumpHeight != null && Math.Abs((float)preJumpHeight - NPC.Bottom.Y) <= 16 && NPC.Bottom.Y - 128 > player.Bottom.Y) trapped = true; //if attempting to jump, and at the same height (or within a block) it was before its previous jump, and the player is further than its jump height out of reach
+						preJumpHeight = NPC.Bottom.Y;
+						jumpPeak = NPC.Bottom.Y;
+						NPC.velocity.Y = -9f;
+					}
+					else if (Math.Abs(player.Center.X - NPC.Center.X) > 144 && NPC.velocity.Y == 0 && Math.Abs(NPC.velocity.X) < 4 && Math.Abs(NPC.velocity.X) > 3) // lunge to chase far away players
+					{
+						NPC.velocity.Y = -3.5f;
+						NPC.velocity.X = 4.5f * NPC.direction * (Math.Abs(player.Center.X - NPC.Center.X) / 144);
+						if (Math.Abs(NPC.velocity.X) > 6.75f) NPC.velocity.X = 6.75f * NPC.direction;
+					}
+					if (Math.Abs(NPC.velocity.X) > 3.1f * (1 + (speedScale - 1) / 2)) NPC.velocity.X *= 0.994f;
+				
+				
+					if (jumpPeak != null && NPC.Bottom.Y < jumpPeak) jumpPeak = NPC.Bottom.Y;
+					if (jumpPeak != null && NPC.Bottom.Y > jumpPeak)
+					{
+						if (NPC.collideY) trapped = true; //if it bonks its head mid-jump //just, if (collideY && NPC.velocity < 0) might work ?
+						jumpPeak = null;
+					}
+					if (NPC.velocity.Y == 0 && NPC.Bottom.Y < player.Top.Y && Math.Abs(player.Center.X - NPC.Center.X) < 32)
+					{
+						trapped = true; //if it's above the player, on ground, can't get down, and the player is close horizontally
+					}
 					break;
-					case 4: //wait, then rise up to player position, speed scaling with how far above the player is to make sure it hits
-						if (emergeDelay - 18 > counter) //if (emergeDelay - (int)(18 / speedScale ) > counter) Maybe... Maybe. //21 for randomdelay
+				}
+				case Move.ShellSpinAnim:
+				{
+					counter--;
+					NPC.velocity.X *= 0.95f;
+					if (counter <= 0)
+					{
+						SetMove(Move.ShellSpin, 300);
+						NPC.width = (int)shellHitbox.X;
+						NPC.height = (int)shellHitbox.Y;
+						NPC.position.Y += heightDifference;
+					}
+					break;
+				}
+				case Move.ShellSpin:
+				{
+					counter--;
+					if (Math.Abs(NPC.velocity.X) < 8 * speedScale) NPC.velocity.X += 0.13f * NPC.direction * speedScale;
+					if (counter <= 0 && NPC.velocity.Y == 0 && Math.Abs(NPC.velocity.X) < 1 || counter < -100) SetMove(Move.ShellSpinOutAnim, 120);
+					else if (oldPos == NPC.position && NPC.collideX) NPC.velocity.Y = -9f;
+					break;
+				}
+				case Move.ShellSpinAnimB:
+				{
+					counter--;
+					if (counter > 36) NPC.velocity.X *= 0.95f;
+					if (counter == 36)
+					{
+						NPC.velocity.Y = -5.5f;
+						NPC.velocity.X = 2.8f * NPC.direction;
+					}
+					if (counter <= 0)
+					{
+						SetMove(Move.ShellSpinB, 300);
+						NPC.width = (int)shellHitbox.X;
+						NPC.height = (int)shellHitbox.Y;
+						NPC.position.Y += heightDifference;
+					}
+					break;
+				}
+				case Move.ShellSpinB:
+				{
+					counter--;
+					if (Math.Abs(NPC.velocity.X) < 7 * speedScale) NPC.velocity.X += 0.08f * NPC.direction * speedScale;
+				
+					if (counter <= 0 && NPC.velocity.Y == 0 && Math.Abs(NPC.velocity.X) < 1.25f || counter < -120) SetMove(Move.ShellSpinOutAnim, 120);
+					else if (NPC.velocity.Y == 0 && Math.Abs(player.Center.X - NPC.Center.X) < 64) //&& Math.Abs(NPC.velocity.X) > 2)
+					{
+						NPC.velocity.Y = -8.5f;
+					}
+					else if (oldPos == NPC.position && NPC.collideX) NPC.velocity.Y = -9f;
+					break;
+				}
+				case Move.ShellSpinOutAnim:
+				{
+					counter--;
+					NPC.velocity.X *= 0.95f;
+					//NPC.aiStyle = 0;
+					if (counter > 12 && notEmerging)
+				    {
+						if (counter % 3 == 0)
 						{
-							if (Submerged() == 1)
-							{
-								NPC.behindTiles = false;
-								PlaySound(15, NPC.Center); // technically this can run a bunch of times but in practice it wont due to sound effect limits
-							}
-							if (NPC.Bottom.Y > player.Bottom.Y)
-							{
-								NPC.velocity.Y = -16f * (NPC.Center.Y - player.Center.Y) / 50;
-								if (NPC.velocity.Y > -9f) NPC.velocity.Y = -10f;
-							}
-							else burrowStage++;
+							int dust1 = Dust.NewDust(new Vector2(NPC.position.X - (int)(NPC.width * 0.2f), NPC.position.Y), (int)(NPC.width * 1.4f), NPC.height, 267, 0.0f, -2.75f, 0, new Color(60, 255, 20), 1.1f);
+							Main.dust[dust1].noGravity = true;
+							Main.dust[dust1].velocity.X = 0f;
 						}
-					break;
-					case 5:
-						NPC.noTileCollide = false;
-						NPC.noGravity = false;
-						NPC.behindTiles = false;
-						lockedDirection = false;
-						if (NPC.velocity.Y == 0) counter = 0;
+						/*if (counter % 3 == 0)
+						{
+							int dust1 = Dust.NewDust(new Vector2(NPC.position.X - (int)(NPC.width * 0.2f), NPC.position.Y), (int)(NPC.width * 1.4f), NPC.height, 284, 0.0f, -2.75f, 0, new Color(120, 255, 10), 1.25f);
+							Main.dust[dust1].noGravity = true;
+							Main.dust[dust1].velocity.X = 0f;
+						}*/
+						NPC.ReflectProjectiles(NPC.Hitbox);
+						NPC.reflectsProjectiles = true;
+					}
+					else NPC.reflectsProjectiles = false;
+					if (counter <= 0)
+					{
+						//NPC.aiStyle = 3;
+						NPC.width = (int)crabHitbox.X;
+						NPC.height = (int)crabHitbox.Y;
+						NPC.position.Y -= heightDifference + 1;
+						notEmerging = true;
+						SetMove(Move.Walk, Main.rand.Next(300, 400));
+					}
 					break;
 				}
-				if (counter == 180)
-                {
-					//Main.NewText("This message should never ever display", 255, 0, 0);
-					NPC.aiStyle = 3;
-					burrowStage = 4;
-                }				
-				if (counter <= 0) SetMove(Move.ShellSpinOutAnim, 120);
+				case Move.BurrowAnim:
+				{
+					counter--;
+					NPC.velocity.X *= 0.95f;
+					if (counter <= 0)
+					{
+						SetMove(Move.Burrow, 1000);
+						NPC.width = (int)shellHitbox.X;
+						NPC.height = (int)shellHitbox.Y;
+						NPC.position.Y += heightDifference;
+				
+						NPC.noTileCollide = true;
+						NPC.noGravity = true;
+						NPC.behindTiles = true;
+						NPC.aiStyle = 0;
+				
+						burrowStage = 1;
+					}
+					break;
+				}
+				case Move.Burrow:
+				{
+					counter--;
+					float emergePointX = player.Center.X + (25 * player.velocity.X); //crab emerges a bit ahead of the player after a delay. this code is meant to make it emerge with where the player will end up after the delay, accounting for speed //28 for randomdelay
+					//if (player.velocity.X != 0) emergePointX += (player.velocity.X > 0 ? 14 : -14); //this gives a small extra to make it easier if you're moving slow. idk if needed
+					if (player.dead) emergePointX = Main.maxTilesX * 16 - ((Main.maxTilesX * 16 - player.Center.X < Main.maxTilesX * 16 / 2) ? 0 : Main.maxTilesX * 16); //my most evil and fucked up code yet. makes crab burrow to closest world edge. one line, baby
+				
+				
+					if (burrowStage != 3) NPC.velocity.X = 0;
+				
+					if (counter % (20 - (int)Math.Abs(NPC.velocity.X) / 2) == 0) //i dont think this can divide by zero but
+					{
+						if (Submerged() != 1) PlaySound(15, NPC.Center);
+					}	
+				
+					switch (burrowStage)
+					{
+						case 1: //tunnel down
+							NPC.velocity.Y += 0.075f;
+							if (counter == 965) burrowStage++;
+						break;
+						case 2: //if still in open air, tunnel down until underground
+							if (Submerged() == 0 && counter <= 950) burrowStage++;
+							else if (Submerged() != 0) NPC.velocity.Y += 0.3f;
+						break;
+						case 3: //move horizontally to track the player
+							NPC.aiStyle = 3;
+							NPC.velocity.Y = 0;
+							if (Math.Abs(emergePointX - NPC.Center.X) < Math.Abs(emergePointX - player.Center.X) + 16) lockedDirection = true;
+							else lockedDirection = false;
+				
+							if (Math.Abs(NPC.velocity.X) < 20) NPC.velocity.X += 0.4f * NPC.direction;
+							if (Submerged() != 0) NPC.position.Y += (5 - Submerged()) * 16;
+							//Main.NewText(randomDelay.ToString());
+							if (randomDelay != null && randomDelay > 0) randomDelay--;
+							if (Math.Abs(emergePointX - NPC.Center.X) < 16) //when within range of player, lock into emergePointX position, rise, raise dust at the surface
+					        {
+								//NPC.position.X = emergePointX - NPC.width / 2;
+								//NPC.velocity.X = 0;
+								//if (randomDelay == null) randomDelay = Main.rand.Next(60);
+								//else if (randomDelay <= 0)
+								{
+									randomDelay = null;
+									NPC.position.X = emergePointX - NPC.width / 2;
+									NPC.velocity.X = 0;
+									lockedDirection = false;
+									emergeDelay = counter;
+				
+									int surfaceHeight = Submerged(1, 100) - 2;
+									for (int x = -1; x <= 2; x++)
+									{
+										Tile tile = Framing.GetTileSafely((int)(NPC.BottomLeft.X / 16) + x, (int)(NPC.BottomLeft.Y / 16) - surfaceHeight);
+										for (int i = 0; i <= 9; i++)
+										{
+											Dust dust = Main.dust[WorldGen.KillTile_MakeTileDust((int)(NPC.BottomLeft.X / 16) + x, (int)(NPC.BottomLeft.Y / 16) - surfaceHeight, tile)];
+											dust.velocity.X = Main.rand.NextFloat(-1, 1);
+											dust.velocity.Y = Main.rand.NextFloat(-2, -8);
+											if (i % 2 == 0)
+											{
+												Dust dust2 = Main.dust[WorldGen.KillTile_MakeTileDust((int)(NPC.BottomLeft.X / 16) + x, (int)(NPC.BottomLeft.Y / 16) - surfaceHeight, tile)];
+												dust2.velocity.X = Main.rand.NextFloat(-2f, 2f);
+												dust2.velocity.Y = -2f;
+											}
+										}
+										PlaySound(SoundID.NPCHit23, NPC.Center);
+									}
+									burrowStage++;
+								}
+							}
+						break;
+						case 4: //wait, then rise up to player position, speed scaling with how far above the player is to make sure it hits
+							if (emergeDelay - 18 > counter) //if (emergeDelay - (int)(18 / speedScale ) > counter) Maybe... Maybe. //21 for randomdelay
+							{
+								if (Submerged() == 1)
+								{
+									NPC.behindTiles = false;
+									PlaySound(15, NPC.Center); // technically this can run a bunch of times but in practice it wont due to sound effect limits
+								}
+								if (NPC.Bottom.Y > player.Bottom.Y)
+								{
+									NPC.velocity.Y = -16f * (NPC.Center.Y - player.Center.Y) / 50;
+									if (NPC.velocity.Y > -9f) NPC.velocity.Y = -10f;
+								}
+								else burrowStage++;
+							}
+						break;
+						case 5:
+							NPC.noTileCollide = false;
+							NPC.noGravity = false;
+							NPC.behindTiles = false;
+							lockedDirection = false;
+							if (NPC.velocity.Y == 0) counter = 0;
+						break;
+					}
+					if (counter == 180)
+				    {
+						//Main.NewText("This message should never ever display", 255, 0, 0);
+						NPC.aiStyle = 3;
+						burrowStage = 4;
+				    }				
+					if (counter <= 0) SetMove(Move.ShellSpinOutAnim, 120);
+					break;
+				}
 			}
 
 			if (move == Move.ShellSpin || move == Move.ShellSpinB || move == Move.ShellSpinOutAnim && counter >= 12|| move == Move.Burrow || move == Move.Emerge)

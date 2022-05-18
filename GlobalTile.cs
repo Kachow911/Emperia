@@ -8,6 +8,7 @@ using Terraria.WorldBuilding;
 using Microsoft.Xna.Framework;
 using Terraria.GameContent.Generation;
 using static Terraria.ModLoader.ModContent;
+using Emperia.Items.Sets.PreHardmode.Seashell;
 
 namespace Emperia
 {
@@ -22,5 +23,12 @@ namespace Emperia
 			}
 				
 		}
-	}
+        /*public override void KillTile(int i, int j, int type, ref bool fail, ref bool effectOnly, ref bool noItem)
+        {
+			//Player player = Main.LocalPlayer;
+			//if (player != null && player.HeldItem.type == ModContent.ItemType<SeashellPickaxe>()) Main.NewText("swag");
+			//if (Main.tileSpelunker[Framing.GetTileSafely(i, j).TileType]) Main.NewText(player.itemAnimation.ToString());
+			//Main.NewText(player.itemAnimation.ToString());
+		}*/
+    }
 }
