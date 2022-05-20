@@ -139,7 +139,11 @@ namespace Emperia
 		public Vector2 velocityBoost = Vector2.Zero;
 
 		public Tile targetedTilePreMine;
+		public Tile[,] tilesAroundCursor = new Tile[3, 3]; //also PreMine
+		public int[,] wallsAroundCursorPre = new int[3, 3];
+		public int targetedWallTypePre = 0;
 		public bool targetedTileIsSpelunker = false;
+
 		public override void ResetEffects()
 		{
 			gauntletBonus = 0;
@@ -232,8 +236,19 @@ namespace Emperia
 		}*/
 		public override void PostUpdate()
 		{
+			targetedWallTypePre = targetedTilePreMine.WallType;
 			targetedTilePreMine = Framing.GetTileSafely(Player.tileTargetX, Player.tileTargetY);
-			targetedTileIsSpelunker = (Main.tileSpelunker[targetedTilePreMine.TileType]);
+			targetedTileIsSpelunker = Main.tileSpelunker[targetedTilePreMine.TileType];
+			for (int x = - 1; x < 2; x++)
+			{
+				for (int y = - 1; y < + 2; y++)
+				{
+					Tile tile = (Tile)tilesAroundCursor.GetValue(x + 1, y + 1);
+					//wallsAroundCursorSubset.SetValue(Collision.HitWallSubstep(Player.tileTargetX + x, Player.tileTargetY + y ), x + 1, y + 1);
+					wallsAroundCursorPre.SetValue(tile.WallType, x + 1, y + 1);
+					tilesAroundCursor.SetValue(Framing.GetTileSafely(Player.tileTargetX + x, Player.tileTargetY + y), x + 1, y + 1);
+				}
+			}
 			//Main.NewText(Player.trident.ToString());
 
 			//Main.NewText(terraGauntlet.ToString());

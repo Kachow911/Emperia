@@ -121,6 +121,7 @@ namespace Emperia.Npcs.SeaCrab
 			}
 			damageScale = NPC.damage;
 			if (numPlayers < 10) NPC.lifeMax = (int)(NPC.lifeMax * (0.5f + (0.5f * numPlayers))); //this may be unnecessary considering sea crystal drop isn't client side. maybe it should be
+			else NPC.lifeMax = (int)(NPC.lifeMax * (0.5f + (0.5f * 10)));
 		}
 
 		Vector2 crabHitbox = Vector2.Zero;
