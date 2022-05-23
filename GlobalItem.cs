@@ -79,18 +79,17 @@ namespace Emperia
 			{
 				player.AddBuff(BuffID.ManaSickness, 900);
 			}
-			if (modPlayer.wristBrace && !Item.noMelee && Main.mouseLeft && !Item.GetGlobalItem<GItem>().noWristBrace)//janky!!!!
+			if (modPlayer.wristBrace && !Item.noMelee && player.controlUseItem && !Item.GetGlobalItem<GItem>().noWristBrace && player.itemAnimation == player.itemAnimationMax)//janky!!!!
 			{
 				if (Main.MouseWorld.X > player.position.X && player.direction == -1)
 				{
 					player.direction = 1;
-					Item.useTurn = false; 
 				}
 				if (Main.MouseWorld.X < player.position.X && player.direction == 1)
 				{
 					player.direction = -1;
-					Item.useTurn = false;
 				}
+				Item.useTurn = false;
 			}
 			if (!modPlayer.wristBrace && !Item.noMelee) //fixes Item.useTurn from the previous block :)
 			{
@@ -198,7 +197,7 @@ namespace Emperia
         public override void HoldItem(Item Item, Player player)
         { //only bug here is when reforging items. might get janky if other mods have scale adjusting stuff. might want decrease the effect on items with already high scales.
 			//yeah it temporarily changes modifier tooltips
-			if (!Item.noMelee)
+			if (!Item.noMelee && Item.damage > 0)
 			{
 				if (baseScale == 0) baseScale = Item.scale;
 				if (!player.HasBuff(ModContent.BuffType<Goliath>()))

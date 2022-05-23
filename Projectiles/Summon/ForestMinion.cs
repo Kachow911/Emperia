@@ -57,7 +57,7 @@ namespace Emperia.Projectiles.Summon
 			rotate2 += 2f;
 			for (int i = 0; i < 200; i++)
 			{
-				if (player.Distance(Main.npc[i].Center) < 400f && !Main.npc[i].townNPC && Main.npc[i].life >= 1 && Main.npc[i].type != NPCID.TargetDummy)
+				if (player.Distance(Main.npc[i].Center) < 400f && !Main.npc[i].townNPC && Main.npc[i].life >= 1 && Main.npc[i].GetGlobalNPC<MyNPC>().IsNormalEnemy(Main.npc[i]))
 				{
 					if (timeFromLastShot > 60)
 					{

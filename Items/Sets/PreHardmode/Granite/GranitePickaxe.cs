@@ -22,8 +22,8 @@ public class GranitePickaxe : ModItem
         Item.DamageType = DamageClass.Melee;
         Item.width = 46;
         Item.height = 46;
-        Item.useTime = 16;
-        Item.useAnimation = 16;
+        Item.useTime = 15;
+        Item.useAnimation = 15;
         Item.useTurn = true;
         Item.pick = 59;
         Item.useStyle = 1;

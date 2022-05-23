@@ -2,6 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
+using Microsoft.Xna.Framework;
 
 namespace Emperia.Items
 {
@@ -11,12 +12,13 @@ namespace Emperia.Items
         {
             DisplayName.SetDefault("Vile Vial");
             Tooltip.SetDefault("Inflicts poison briefly before healing\n10 second duration");
+            ItemID.Sets.DrinkParticleColors[Item.type] = new Color[2] { new Color(151, 105, 214), new Color(87, 40, 152) };
         }
         public override void SetDefaults()
         {
             Item.width = 20;
             Item.height = 28;
-            Item.useStyle = 2;
+            Item.useStyle = 9;
             Item.useAnimation = 17;
             Item.useTime = 17;
             Item.useTurn = true;
@@ -24,7 +26,7 @@ namespace Emperia.Items
             Item.maxStack = 30;
             Item.consumable = true;
             Item.rare = 1;
-            Item.value = 1750;
+            Item.value = 1250;
         	Item.healLife = 130;
             Item.potion = true;
         }

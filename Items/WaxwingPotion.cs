@@ -3,6 +3,8 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Emperia.Buffs;
 using static Terraria.ModLoader.ModContent;
+using Microsoft.Xna.Framework;
+
 
 namespace Emperia.Items
 {
@@ -12,13 +14,14 @@ namespace Emperia.Items
         {
             DisplayName.SetDefault("Waxwing Potion");
             Tooltip.SetDefault("Increases wing speed by 25%, but decreases flight time by 10%");
+            ItemID.Sets.DrinkParticleColors[Item.type] = new Color[2] { new Color(115, 222, 242), new Color(58, 114, 201) };
         }
 
         public override void SetDefaults()
         {
             Item.width = 28;
             Item.height = 30;
-            Item.useStyle = 2;
+            Item.useStyle = 9;
             Item.useAnimation = 17;
             Item.useTime = 17;
             Item.useTurn = true;
@@ -26,7 +29,7 @@ namespace Emperia.Items
             Item.maxStack = 30;
             Item.consumable = true;
             Item.rare = 1;
-            Item.value = 2250;
+            Item.value = 1000;
             Item.buffType = (ModContent.BuffType<Waxwing>());
             Item.buffTime = 21600;
         }

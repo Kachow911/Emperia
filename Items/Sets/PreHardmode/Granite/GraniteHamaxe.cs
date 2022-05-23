@@ -15,7 +15,8 @@ public class GraniteHamaxe : ModItem
 	public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Granite Hamaxe");
-		}
+            Tooltip.SetDefault("Enhanced destructive abilties when used while wearing granite armor");
+        }
     public override void SetDefaults()
     {
         Item.damage = 9;
@@ -111,20 +112,20 @@ public class GraniteHamaxe : ModItem
                                 {
                                     for (int y = -radius; y <= radius; y++)
                                     {
-                                        Tile tile = Framing.GetTileSafely(i + x, j + y);
-                                        if (radius + 1 >= Math.Abs(x) + Math.Abs(y) && tile.WallType > 0 && Collision.HitWallSubstep(i + x, j + y))
+                                        Tile tile = Framing.GetTileSafely(wX + x, wY + y);
+                                        if (radius + 1 >= Math.Abs(x) + Math.Abs(y) && tile.WallType > 0 && Collision.HitWallSubstep(wX + x, wY + y))
                                         {
-                                            WorldGen.KillWall(i + x, j + y); //explode boooom
+                                            WorldGen.KillWall(wX + x, wY + y); //explode boooom
                                             for (int d = 0; d < 2; d++)
                                             {
-                                                int index2 = Dust.NewDust(new Vector2((i + x) * 16 + 8, (j + y) * 16 + 8), 16, 16, 15, 0.0f, 0.0f, 15, new Color(53f, 67f, 253f), 2f);
+                                                int index2 = Dust.NewDust(new Vector2((wX + x) * 16 + 8, (wY + y) * 16 + 8), 16, 16, 15, 0.0f, 0.0f, 15, new Color(53f, 67f, 253f), 2f);
                                                 Main.dust[index2].noGravity = true;
                                                 Main.dust[index2].velocity *= 3f;
                                             }
                                         }
                                     }
                                 }
-                                PlaySound(2, i * 16, j * 16, 14);
+                                PlaySound(2, wX * 16, wY * 16, 14);
                                 modPlayer.graniteTime = 0;
                             }
                         }

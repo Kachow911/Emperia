@@ -8,7 +8,8 @@ using Emperia.Items.Sets.PreHardmode.Seashell;
 using Terraria.GameContent.ItemDropRules;
 using static Terraria.Audio.SoundEngine;
 using Terraria.DataStructures;
-
+using Terraria.GameContent.Bestiary;
+using System.Collections.Generic;
 
 
 
@@ -45,12 +46,19 @@ namespace Emperia.Npcs.SeaCrab
 				SpecificallyImmuneTo = new int[] { BuffID.Frostburn, } //frostburn arrows just make this boss comparatively easy lol
 			};
 			NPCID.Sets.DebuffImmunitySets.Add(Type, debuffData);
+			NPCID.Sets.CantTakeLunchMoney[Type] = true;
+			//NPCID.Sets.ShouldBeCountedAsBoss[Type] = true;
+			NPCID.Sets.NPCBestiaryDrawModifiers drawModifiers = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
+			{
+				Velocity = -1f, // Draws the NPC in the bestiary as if its walking +1 tiles in the x direction
+				Direction = -1 // -1 is left and 1 is right. NPCs are drawn facing the left by default but ExamplePerson will be drawn facing the right
+			};
 		}
 		public override void SetDefaults()
         {
             NPC.lifeMax = 1340;
             NPC.damage = 20;
-            NPC.defense = 14;
+            NPC.defense = 16;
 			NPC.knockBackResist = 0f;
 			NPC.width = 36;
             NPC.height = 38;
@@ -69,9 +77,9 @@ namespace Emperia.Npcs.SeaCrab
         }
 		public override void FindFrame(int frameHeight)
 		{	
-			if (move == Move.Walk)
+			if (move == Move.Walk || NPC.IsABestiaryIconDummy)
 			{
-				NPC.frameCounter += 0.2f;
+				NPC.frameCounter += 0.175f;
 				NPC.frameCounter %= 4;
 				int frame = (int)NPC.frameCounter;
 				NPC.frame.Y = frame * frameHeight;
@@ -189,7 +197,7 @@ namespace Emperia.Npcs.SeaCrab
 			}
 			if (move != Move.ShellSpinOutAnim && Math.Abs(NPC.velocity.X) < 3.1f * (1 + (speedScale - 1) / 2)) //so speedscale has a weaker effect on walking
 			{
-				NPC.velocity.X += (move != Move.ShellSpinOutAnim ? 0.1f : 0.07f) * NPC.direction;
+				NPC.velocity.X += (move != Move.Walk ? 0.1f : 0.08f) * NPC.direction;
 				if (Math.Abs(NPC.velocity.X) > 3.1f * (1 + (speedScale - 1) / 2)) NPC.velocity.X = 3.1f * NPC.direction * (1 + (speedScale - 1) / 2);
 			}
 			if (NPC.velocity.X * NPC.direction < 0) NPC.velocity.X *=  0.98f; //runs if velocity.x and npc.direction are different directions. yes this could just be two if statements. math!
@@ -416,10 +424,10 @@ namespace Emperia.Npcs.SeaCrab
 				
 				
 					if (burrowStage != 3) NPC.velocity.X = 0;
-				
-					if (counter % (20 - (int)Math.Abs(NPC.velocity.X) / 2) == 0) //i dont think this can divide by zero but
+					
+					if (counter % 20 == 0 || counter % 10 == 0 && Math.Abs(NPC.velocity.X) > 7) //i dont think this can divide by zero but
 					{
-						if (Submerged() != 1) PlaySound(15, NPC.Center);
+						if (Submerged() != 1 && burrowStage < 4) PlaySound(15, NPC.Center);
 					}	
 				
 					switch (burrowStage)
@@ -441,7 +449,7 @@ namespace Emperia.Npcs.SeaCrab
 							if (Math.Abs(NPC.velocity.X) < 20) NPC.velocity.X += 0.4f * NPC.direction;
 							if (Submerged() != 0) NPC.position.Y += (5 - Submerged()) * 16;
 							//Main.NewText(randomDelay.ToString());
-							if (randomDelay != null && randomDelay > 0) randomDelay--;
+							if (randomDelay != null && randomDelay > 0) randomDelay--; //randomdelay i took out. it does nothing rn
 							if (Math.Abs(emergePointX - NPC.Center.X) < 16) //when within range of player, lock into emergePointX position, rise, raise dust at the surface
 					        {
 								//NPC.position.X = emergePointX - NPC.width / 2;
@@ -472,6 +480,7 @@ namespace Emperia.Npcs.SeaCrab
 											}
 										}
 										PlaySound(SoundID.NPCHit23, NPC.Center);
+										PlaySound(15, NPC.Center);
 									}
 									burrowStage++;
 								}
@@ -482,8 +491,8 @@ namespace Emperia.Npcs.SeaCrab
 							{
 								if (Submerged() == 1)
 								{
+									if (NPC.behindTiles) PlaySound(15, NPC.Center);
 									NPC.behindTiles = false;
-									PlaySound(15, NPC.Center); // technically this can run a bunch of times but in practice it wont due to sound effect limits
 								}
 								if (NPC.Bottom.Y > player.Bottom.Y)
 								{
@@ -516,7 +525,7 @@ namespace Emperia.Npcs.SeaCrab
 			{
 				inShell = true;
 				NPC.HitSound = SoundID.NPCHit2;
-				NPC.defense = 14;
+				NPC.defense = 16;
 			}
 			else
 			{
@@ -644,5 +653,15 @@ namespace Emperia.Npcs.SeaCrab
                  NPC.velocity *= slowBy;
              }
          }*/
+		public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
+		{
+			// Makes it so whenever you beat the boss associated with it, it will also get unlocked immediately
+			bestiaryEntry.UIInfoProvider = new CommonEnemyUICollectionInfoProvider(ContentSamples.NpcBestiaryCreditIdsByNpcNetIds[ModContent.NPCType<SeaCrab>()], quickUnlock: true);
+
+			bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> {
+				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Ocean,
+				new FlavorTextBestiaryInfoElement("This giant crab likes to slumber under a layer of sand, but the crystal embedded in the tip of its shell pokes out, luring many an unsuspecting adventurer to their demise.")
+			});
+		}
 	}
 }

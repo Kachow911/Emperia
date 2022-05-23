@@ -34,21 +34,11 @@ namespace Emperia.Projectiles
 		{
 			Player player = Main.player[Projectile.owner];
             MyPlayer modPlayer = player.GetModPlayer<MyPlayer>();
-			if (modPlayer.eschargo < 0 && crit)
+			if (modPlayer.eschargo < 0 && crit && target.GetGlobalNPC<MyNPC>().IsNormalEnemy(target))
 			{
-				if (target.type == NPCID.TargetDummy)
-				{
-					return;
-				}
-				else
-				{
-					modPlayer.eschargo += 1;
-					if (modPlayer.eschargo == 0) 
-					{
-						Terraria.Audio.SoundEngine.PlaySound(SoundID.Item4, player.Center);
 						//CombatText.NewText(new Rectangle((int)player.position.X, (int)player.position.Y - 20, player.width, player.height), Color.HotPink, "Charged!", false, false);
-					}
-				}
+				modPlayer.eschargo += 1;
+                if (modPlayer.eschargo == 0) Terraria.Audio.SoundEngine.PlaySound(SoundID.Item4, player.Center);
 			}
 		}
 		public override bool PreDraw(ref Color lightColor) {
@@ -63,5 +53,5 @@ namespace Emperia.Projectiles
 			}
 			return true;
 		}
-	}
+    }
 }

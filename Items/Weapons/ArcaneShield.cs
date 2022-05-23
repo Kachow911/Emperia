@@ -8,6 +8,7 @@ using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static Terraria.Audio.SoundEngine;
+using System.Linq;
 
 namespace Emperia.Items.Weapons
 {
@@ -39,6 +40,11 @@ namespace Emperia.Items.Weapons
         int delay = 0; //checks when the Item starts and stops being used
         bool delaySet = false;
 
+        public override void ModifyTooltips(List<TooltipLine> tooltips)
+        {
+            TooltipLine vanity = tooltips.FirstOrDefault(x => x.Name == "VanityLegal" && x.Mod == "Terraria");
+            if (vanity != null) tooltips.Remove(vanity);
+        }
         public override bool? CanHitNPC(Player player, NPC target)
 		{
             if (delay >= 17 && delay <= 25) return null;
@@ -62,7 +68,7 @@ namespace Emperia.Items.Weapons
             //-4 & -8 w/o speed reduction
             if (target.boss) player.velocity.X = -10f * player.direction;
             else player.velocity.X = -6f * player.direction;
-            if (target.type != NPCID.TargetDummy)
+            if (target.GetGlobalNPC<MyNPC>().IsNormalEnemy(target))
             {
                 player.statMana += 60;
                 player.ManaEffect(60);

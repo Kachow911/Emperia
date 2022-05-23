@@ -2,6 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
+using Microsoft.Xna.Framework;
 
 namespace Emperia.Items
 {
@@ -11,13 +12,14 @@ namespace Emperia.Items
         {
             DisplayName.SetDefault("Cactus Juice");
             Tooltip.SetDefault("Gives swiftness\n1 minute duration");
+            ItemID.Sets.DrinkParticleColors[Item.type] = new Color[2] { new Color(159, 206, 29), new Color(104, 82, 61) };
         }
 
         public override void SetDefaults()
         {
             Item.width = 20;
             Item.height = 26;
-            Item.useStyle = 2;
+            Item.useStyle = 9;
             Item.useAnimation = 17;
             Item.useTime = 17;
             Item.useTurn = true;
@@ -25,7 +27,7 @@ namespace Emperia.Items
             Item.maxStack = 30;
             Item.consumable = true;
             Item.rare = 1;
-            Item.value = 1750;
+            Item.value = 750;
             Item.healLife = 50;
             Item.potion = true;
 

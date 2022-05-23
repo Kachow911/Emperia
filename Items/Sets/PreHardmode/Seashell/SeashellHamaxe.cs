@@ -27,8 +27,8 @@ public class SeashellHamaxe : ModItem
 		Item.hammer = 70;
         Item.useStyle = 1;
         Item.knockBack = 5.5f;
-        Item.value = 24000;
-        Item.rare = 2;
+        Item.value = 19000;
+        Item.rare = 1;
         Item.UseSound = SoundID.Item1;
         Item.autoReuse = true;
         

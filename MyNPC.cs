@@ -127,7 +127,11 @@ public override void ResetEffects(NPC NPC)
 			}
             
         }
-		public override bool PreAI(NPC NPC)
+        /*public override void SetDefaults(NPC npc)
+        {
+
+        }*/
+        public override bool PreAI(NPC NPC)
 		{
 			if (cryogenized == true)
 			{
@@ -207,7 +211,7 @@ public override void ResetEffects(NPC NPC)
 			{
 				
 			}
-			if (sporeStorm && !(NPC.type == 488))
+			if (sporeStorm && IsNormalEnemy(NPC))
 			{
 				Player player = Main.player[NPC.target];
 				MyPlayer modPlayer = player.GetModPlayer<MyPlayer>();
@@ -266,6 +270,10 @@ public override void ResetEffects(NPC NPC)
 					Main.dust[index2].velocity *= 2f;
 				}
 			}
+			/*if (NPC.type == NPCID.KingSlime)
+			{
+				NPC.width = (int)(NPC.height * 1.75f);
+			}*/
 		}
         public override void OnKill(NPC NPC)
         {
@@ -444,11 +452,18 @@ public override void ResetEffects(NPC NPC)
 				{
 					//Main.projectile[l].ModProjectile.OnTileCollide(Vector2.Zero);
 					(Main.projectile[l].ModProjectile as HarpoonBladeProj).Unchain(Main.projectile[l]);
-					NPC.StrikeNPC((int)(Main.projectile[l].damage), 0f, 0); //damage multiplied by 0.75f to nerf? make damage occur in projectile to count towards dps
+					NPC.StrikeNPC(Main.projectile[l].damage, 0f, 0); //damage multiplied by 0.75f to nerf? make damage occur in projectile to count towards dps
 					Unchained = true;
 				}
 			}
-			if (Unchained) { Terraria.Audio.SoundEngine.PlaySound(SoundID.Coins, player.Center); }
+			if (Unchained) { PlaySound(SoundID.Coins, player.Center); }
 		}
+		public bool IsNormalEnemy(NPC NPC, bool allowStatueSpawned = true)
+        {
+			if (NPC.SpawnedFromStatue && !allowStatueSpawned) return false;
+			if (NPC.type == NPCID.TargetDummy || NPC.lifeMax <= 5) return false;
+			return true;
+        }
+
 	}
 }

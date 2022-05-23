@@ -202,21 +202,13 @@ namespace Emperia
 			arcaneShieldRaised = false;
 
 			sporeBuffCount = 0;
-            //bloodstainedDmg = 0;
+			//bloodstainedDmg = 0;
 
-            projItemOrigin = null;
+			projItemOrigin = null;
 			carapaceSet = null;
 		}
-		public override float UseTimeMultiplier(Item Item)
-		{
-			if (Item.type == ModContent.ItemType<Escargun>() && (eschargo >= 0))
-			{
-				return 1.25f;
-			}
-			return 1f;
-		}
 
-        /*public override void CatchFish(FishingAttempt attempt, ref int itemDrop, ref int npcSpawn, ref AdvancedPopupRequest sonar, ref Vector2 sonarPosition)
+		/*public override void CatchFish(FishingAttempt attempt, ref int itemDrop, ref int npcSpawn, ref AdvancedPopupRequest sonar, ref Vector2 sonarPosition)
         //public override void CatchFish(Item fishingRod, Item bait, int power, int liquidType, int poolSize, int worldLayer, int questFish, ref int caughtType)
 		{
 			//if (junk)
@@ -239,9 +231,9 @@ namespace Emperia
 			targetedWallTypePre = targetedTilePreMine.WallType;
 			targetedTilePreMine = Framing.GetTileSafely(Player.tileTargetX, Player.tileTargetY);
 			targetedTileIsSpelunker = Main.tileSpelunker[targetedTilePreMine.TileType];
-			for (int x = - 1; x < 2; x++)
+			for (int x = -1; x < 2; x++)
 			{
-				for (int y = - 1; y < + 2; y++)
+				for (int y = -1; y < +2; y++)
 				{
 					Tile tile = (Tile)tilesAroundCursor.GetValue(x + 1, y + 1);
 					//wallsAroundCursorSubset.SetValue(Collision.HitWallSubstep(Player.tileTargetX + x, Player.tileTargetY + y ), x + 1, y + 1);
@@ -249,15 +241,15 @@ namespace Emperia
 					tilesAroundCursor.SetValue(Framing.GetTileSafely(Player.tileTargetX + x, Player.tileTargetY + y), x + 1, y + 1);
 				}
 			}
-			//Main.NewText(Player.trident.ToString());
-
+			//Main.NewText(Framing.GetTileSafely(Player.tileTargetX, Player.tileTargetY).TileFrameX + "," + Framing.GetTileSafely(Player.tileTargetX, Player.tileTargetY).TileFrameY);
+			//Main.NewText(Framing.GetTileSafely(Player.tileTargetX, Player.tileTargetY).Slope);
 			//Main.NewText(terraGauntlet.ToString());
 			if (graniteMinion) { Player.maxMinions += 1; } //first minion is free
-            if (iceCannonLoad < 0)
-            {
-                iceCannonLoad++;
-                if (iceCannonLoad == -1) iceCannonLoad = 2;
-            }
+			if (iceCannonLoad < 0)
+			{
+				iceCannonLoad++;
+				if (iceCannonLoad == -1) iceCannonLoad = 2;
+			}
 			if (clubSwing > 0)
 			{
 				clubSwing--;
@@ -565,14 +557,8 @@ namespace Emperia
 					PlaySound(SoundID.Item4, Player.Center);
 				}
 			}
-			if (eschargo >= 0)
-			{
-				eschargo++;
-			}
-			if (eschargo > 600)
-			{
-				eschargo = -10;
-			}
+			if (eschargo >= 0) eschargo++;
+			if (eschargo > 600) eschargo = -10;
 			if (Player.HasBuff(ModContent.BuffType<Waxwing>()))
 			{
 				if (Player.wingTime == Player.wingTimeMax)
@@ -838,10 +824,6 @@ namespace Emperia
 			{
 				knockback *= 1.1f;
 			}
-			if (Item.type == ModContent.ItemType<LifesFate>() && renewedLife)
-			{
-				damage = (int)((float)damage * 1.15f);
-			}
 
 			if (doubleKnockback)
 			{
@@ -1090,22 +1072,12 @@ namespace Emperia
 				}
 
 			}
-			if (crit && Item.type == ModContent.ItemType<LifesFate>())
-			{
-				Player.AddBuff(ModContent.BuffType<LifesFateBuff>(), Main.rand.Next(840, 960));
-			}
-			if (Item.type == ModContent.ItemType<LifesFate>() && renewedLife)
-			{
-				int x = Main.rand.Next(1, 3);
-				Player.statLife += x;
-				Player.HealEffect(x);
-			}
 			if (crit && deathTalisman)
 			{
 				target.AddBuff(ModContent.BuffType<FatesDemise>(), 720);
 				target.GetGlobalNPC<MyNPC>().fateSource = Player;
 			}
-            if (defenseInsignia)
+			if (defenseInsignia)
 			{
 				int increasedChance = damage / 50;
 				if (increasedChance > 8) increasedChance = 8;
@@ -1317,18 +1289,94 @@ namespace Emperia
 		public override void UpdateEquips()
 		{
 			for (int i = 3; i <= (8 + Player.GetAmountOfExtraAccessorySlotsToShow()); i++)
-            {
-                //Main.NewText(Player.armor[i].type.ToString());
-                //Main.NewText(ModContent.ItemType<Items.Accessories.Gauntlets.PrimordialGauntlet>().ToString());
-                if (Player.armor[i].type == ModContent.ItemType<Items.Accessories.Gauntlets.PrimordialGauntlet>()) { terraGauntlet = Player.armor[i]; }
+			{
+				//Main.NewText(Player.armor[i].type.ToString());
+				//Main.NewText(ModContent.ItemType<Items.Accessories.Gauntlets.PrimordialGauntlet>().ToString());
+				if (Player.armor[i].type == ModContent.ItemType<Items.Accessories.Gauntlets.PrimordialGauntlet>()) { terraGauntlet = Player.armor[i]; }
 				//if (Player.armor[i].type == ModContent.ItemType<Items.Accessories.Gauntlets.PrimordialGauntlet>()); { Main.NewText("yuup"); }
 
-                //if (Player.armor[i].type == ModContent.ItemType<Items.Accessories.Gauntlets.EnchantedGauntlet>()); { terraGauntlet2 = Player.armor[i]; }
-                //if (Player.armor[i].type == ModContent.ItemType<Items.Accessories.Gauntlets.WoodweaversGauntlet>()); { terraGauntlet2 = Player.armor[i]; }
+				//if (Player.armor[i].type == ModContent.ItemType<Items.Accessories.Gauntlets.EnchantedGauntlet>()); { terraGauntlet2 = Player.armor[i]; }
+				//if (Player.armor[i].type == ModContent.ItemType<Items.Accessories.Gauntlets.WoodweaversGauntlet>()); { terraGauntlet2 = Player.armor[i]; }
 
-                //IMPORTANT TODO: if primordial gauntlet works as expected, change other accessories.
+				//IMPORTANT TODO: if primordial gauntlet works as expected, change other accessories.
 
-            }
-        }
-    }
+			}
+		}
+		/*private static List<ushort> ItemCheck_GetTileCutIgnoreList(Item item)
+		{
+			List<ushort> result = null;
+			if (item.type == ModContent.ItemType<ArcaneShield>())
+			{
+				result = new List<ushort>(new ushort[23]
+				{
+					3, 24, 52, 61, 62, 71, 73, 74, 82, 83,
+					84, 110, 113, 115, 184, 205, 201, 519, 518, 528,
+					529, 530, 549
+				});
+			}
+			return result;
+		}
+		public override void ItemCheck_CutTiles(Item sItem, Rectangle itemRectangle, List<ushort> ignoreList)
+		{
+
+			//IL_0000: Unknown result type (might be due to invalid IL or missing references)
+			//IL_000a: Unknown result type (might be due to invalid IL or missing references)
+			//IL_0010: Unknown result type (might be due to invalid IL or missing references)
+			//IL_001d: Unknown result type (might be due to invalid IL or missing references)
+			//IL_0027: Unknown result type (might be due to invalid IL or missing references)
+			//IL_002d: Unknown result type (might be due to invalid IL or missing references)
+			int minX = itemRectangle.X / 16;
+			int maxX = (itemRectangle.X + itemRectangle.Width) / 16 + 1;
+			int minY = itemRectangle.Y / 16;
+			int maxY = (itemRectangle.Y + itemRectangle.Height) / 16 + 1;
+			Utils.ClampWithinWorld(ref minX, ref minY, ref maxX, ref maxY);
+			for (int i = minX; i < maxX; i++)
+			{
+				for (int j = minY; j < maxY; j++)
+				{
+					if (Main.tile[i, j] == null || !Main.tileCut[Main.tile[i, j].TileType] || (ignoreList != null && ignoreList.Contains(Main.tile[i, j].TileType)) || !WorldGen.CanCutTile(i, j, Terraria.Enums.TileCuttingContext.AttackMelee))
+					{
+						continue;
+					}
+					if (sItem.type == 1786)
+					{
+						int type = Main.tile[i, j].TileType;
+						WorldGen.KillTile(i, j);
+						if (!Main.tile[i, j].HasTile)
+						{
+							int num = 0;
+							if (type == 3 || type == 24 || type == 61 || type == 110 || type == 201)
+							{
+								num = Main.rand.Next(1, 3);
+							}
+							if (type == 73 || type == 74 || type == 113)
+							{
+								num = Main.rand.Next(2, 5);
+							}
+							if (num > 0)
+							{
+								int number = Item.NewItem(new EntitySource_ItemUse(Player, sItem), i * 16, j * 16, 16, 16, 1727, num);
+								if (Main.netMode == 1)
+								{
+									NetMessage.SendData(21, -1, -1, null, number, 1f);
+								}
+							}
+						}
+						if (Main.netMode == 1)
+						{
+							NetMessage.SendData(17, -1, -1, null, 0, i, j);
+						}
+					}
+					else
+					{
+						WorldGen.KillTile(i, j);
+						if (Main.netMode == 1)
+						{
+							NetMessage.SendData(17, -1, -1, null, 0, i, j);
+						}
+					}
+				}
+			}
+		}*/
+	}
 }

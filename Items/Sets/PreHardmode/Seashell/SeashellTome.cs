@@ -29,7 +29,7 @@ namespace Emperia.Items.Sets.PreHardmode.Seashell
             Item.mana = 6;
 	        Item.UseSound = SoundID.Item39;
             Item.knockBack = 3.25f;
-            Item.value = 16500;        
+            Item.value = 22000;
             Item.rare = 1;
 	        Item.shoot = ModContent.ProjectileType<Cerith>(); 
 	        Item.shootSpeed = 4f;

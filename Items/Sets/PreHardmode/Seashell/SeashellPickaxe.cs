@@ -27,8 +27,8 @@ public class SeashellPickaxe : ModItem
         Item.pick = 55;
         Item.useStyle = 1;
         Item.knockBack = 2f;
-        Item.value = 24000;
-        Item.rare = 2;
+        Item.value = 19000;
+        Item.rare = 1;
         Item.UseSound = SoundID.Item1;
         Item.autoReuse = true;
     }

@@ -39,9 +39,9 @@ namespace Emperia.Items.Weapons
             Item.mana = 7;  
         }
         int shootAngle = 0;
-		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockBack)
-		{
-			Vector2 perturbedSpeed = velocity.RotatedBy(MathHelper.ToRadians(((shootAngle % 2 == 0) ? 0 : (shootAngle * 5))));
+        public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
+        {
+            Vector2 perturbedSpeed = velocity.RotatedBy(MathHelper.ToRadians(((shootAngle % 2 == 0) ? 0 : (shootAngle * 5))));
             MyPlayer modPlayer = player.GetModPlayer<MyPlayer>();
             velocity = perturbedSpeed;
             if (shootAngle < 2 && modPlayer.eschargo < 0)
@@ -54,14 +54,19 @@ namespace Emperia.Items.Weapons
             }
             else  //loop the firing pattern
             {
-                shootAngle = -1; 
+                shootAngle = -1;
             }
-            return true;
-		}
+        }
+
         public override void ModifyManaCost(Player player, ref float reduce, ref float mult) {
-            MyPlayer modPlayer = player.GetModPlayer<MyPlayer>();
-			if (modPlayer.eschargo >= 0) mult *= 0;
+			if (player.GetModPlayer<MyPlayer>().eschargo >= 0) mult *= 0;
 		}
+
+        public override float UseSpeedMultiplier(Player player)
+        {
+            if (player.GetModPlayer<MyPlayer>().eschargo >= 0) return 1.25f;
+            return base.UseSpeedMultiplier(player);
+        }
 
         public override Vector2? HoldoutOffset()
         {

@@ -29,7 +29,7 @@ namespace Emperia.Items.Sets.PreHardmode.Seashell
             Item.shoot = 3;
             Item.useAmmo = ItemID.WoodenArrow;
             Item.knockBack = 1;
-            Item.value = 24000;
+            Item.value = 22000;
             Item.rare = 1;
             Item.autoReuse = false;
             Item.shootSpeed = 11f;
