@@ -30,7 +30,7 @@ namespace Emperia.Projectiles
 		
 		public override void Kill(int timeLeft)
 		{
-			Terraria.Audio.SoundEngine.PlaySound(2, (int)Projectile.position.X, (int)Projectile.position.Y, 10);
+			Terraria.Audio.SoundEngine.PlaySound(SoundID.Item10, Projectile.position);
 			Projectile.position.X -= (float) (Projectile.width * 3);
 			Projectile.position.Y -= (float) (Projectile.height * 3);
 			Projectile.width *= 6;

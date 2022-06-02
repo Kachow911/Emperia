@@ -97,8 +97,8 @@ namespace Emperia.Npcs.Mushor
 			if (!exploded)
 			{
 				NPC.life = 0;
-				PlaySound(SoundID.Item, NPC.Center, 14);    //bomb explosion sound
-				PlaySound(SoundID.Item, NPC.Center, 21); 
+				PlaySound(SoundID.Item14, NPC.Center);    //bomb explosion sound
+				PlaySound(SoundID.Item21, NPC.Center); 
 				for (int i = 0; i < Main.player.Length; i++)
                 {
                     Player player = Main.player[i];

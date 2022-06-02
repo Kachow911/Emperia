@@ -31,7 +31,7 @@ namespace Emperia.Projectiles.Flasks
         }
         public override void Kill(int timeLeft)
         {
-        	Terraria.Audio.SoundEngine.PlaySound(SoundID.Item, Projectile.Center, 107);  
+        	Terraria.Audio.SoundEngine.PlaySound(SoundID.Item107, Projectile.Center);  
 			for (int i = 0; i < 360; i++)
             {
                 Vector2 vec = Vector2.Transform(new Vector2(-32, 0), Matrix.CreateRotationZ(MathHelper.ToRadians(i)));

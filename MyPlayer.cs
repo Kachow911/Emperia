@@ -119,6 +119,8 @@ namespace Emperia
 		private int peltCounter = 120;
 		private int peltRadius = 256;
 		public int bloodstainedDmg = 0;
+		public int nightFlame = 0;
+		public int nightFlameLength = 0;
 
 		private int forestSetMeleeCooldown = 60;
 		int SporeHealCooldown = 60;
@@ -242,7 +244,7 @@ namespace Emperia
 				}
 			}
 			//Main.NewText(Framing.GetTileSafely(Player.tileTargetX, Player.tileTargetY).TileFrameX + "," + Framing.GetTileSafely(Player.tileTargetX, Player.tileTargetY).TileFrameY);
-			//Main.NewText(Framing.GetTileSafely(Player.tileTargetX, Player.tileTargetY).Slope);
+			//Main.NewText(Framing.GetTileSafely(Player.tileTargetX, Player.tileTargetY).TileType);
 			//Main.NewText(terraGauntlet.ToString());
 			if (graniteMinion) { Player.maxMinions += 1; } //first minion is free
 			if (iceCannonLoad < 0)
@@ -260,7 +262,7 @@ namespace Emperia
 				int clubSwingDamage = Player.GetWeaponDamage(Player.inventory[Player.selectedItem]) / 3;
 				if (Player.velocity.Y == 0 && !Player.mount.Active)
 				{
-					PlaySound(SoundID.Item, Player.Center, 27);
+					PlaySound(SoundID.Item27, Player.Center);
 					Vector2 perturbedSpeed;
 					perturbedSpeed = new Vector2(2 * Player.direction, 0);
 					Projectile.NewProjectile(Player.GetSource_ItemUse(projItemOrigin), Player.position.X + 75 * Player.direction, Player.Bottom.Y - 10, perturbedSpeed.X, perturbedSpeed.Y, ModContent.ProjectileType<IceSpikePre>(), clubSwingDamage, 1, Main.myPlayer, 0, 0);
@@ -735,13 +737,33 @@ namespace Emperia
 			}*/
 		}
 
+        public override void PostUpdateBuffs()
+        {
+			if (Player.HasBuff(ModContent.BuffType<GraniteMinionBuff>())) Player.maxMinions ++;
+		}
 
-
-		public override void UpdateBadLifeRegen()
+        public override void UpdateBadLifeRegen()
 		{
+			if (Player.HasBuff(ModContent.BuffType<NocturnalFlame>()))
+			{
+				if (Player.lifeRegen > 0) Player.lifeRegen = 0;
+				Player.lifeRegenTime = 0;
+				nightFlameLength++;
+				nightFlame = (1 + (int)Math.Floor(nightFlameLength / 600f)) * 2;
+				if (nightFlame > 10) nightFlame = 10;
+				Player.lifeRegen = -nightFlame * 2;
+			}
+			else
+			{
+				nightFlameLength = 0;
+				nightFlame = 0;
+			}
+		}
+        public override void UpdateLifeRegen()
+        {
 
 		}
-		public override void OnRespawn(Player player)
+        public override void OnRespawn(Player player)
 		{
 			if (EmperialWorld.respawnFull)
 			{
@@ -818,7 +840,7 @@ namespace Emperia
 						damage += (int)(damage * (damageMult / 2));
 					}
 				}
-				//Main.NewText(damageMult.ToString(), 255, 240, 20, false);
+				Main.NewText(damageMult.ToString(), 255, 240, 20);
 			}
 			if (slightKnockback)
 			{
@@ -1032,7 +1054,7 @@ namespace Emperia
 								projDirection = -0.1f;
 							}
 							Projectile.NewProjectile(Player.GetSource_Accessory(terraGauntlet), xPosition, chosenNPC.Center.Y - 35f, projDirection, 0, ModContent.ProjectileType<EnchantedBlade>(), 40, 4f, Player.whoAmI);
-							PlaySound(SoundID.Item, chosenNPC.Center, 8);
+							PlaySound(SoundID.Item8, chosenNPC.Center);
 						}
 					}
 				}
@@ -1276,7 +1298,7 @@ namespace Emperia
 		{
 			if (arcaneShieldHold)
 			{
-				Player.shield = (sbyte)Mod.GetEquipSlot("ArcaneShield", EquipType.Shield);
+				Player.shield = (sbyte)EquipLoader.GetEquipSlot(Mod, "ArcaneShield", EquipType.Shield);
 			}
 		}
 		//public override void ApplyEquipFunctional(int itemSlot, Item currentItem)

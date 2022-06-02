@@ -61,9 +61,10 @@ namespace Emperia.Items.Weapons
             {
                 int dust = Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, 27, player.velocity.X * 0.2f + (player.direction * 3), player.velocity.Y * 0.2f, 0, new Color(255, 0, 0), 1.4f);
                 Main.dust[dust].noGravity = true;
+                Main.dust[dust].noLight = true;
             }
-                //Main.dust[dust].velocity.X /= 2f;
-                //Main.dust[dust].velocity.Y /= 2f;
+            //Main.dust[dust].velocity.X /= 2f;
+            //Main.dust[dust].velocity.Y /= 2f;
         }
         public override void OnHitNPC(Player player, NPC target, int damage, float knockBack, bool crit)
         {
@@ -74,7 +75,7 @@ namespace Emperia.Items.Weapons
             }
             if (modPlayer.renewedLife)
             {
-                int x = Main.rand.Next(1, 4);
+                int x = Main.rand.Next(1, 3);
                 player.statLife += x;
                 player.HealEffect(x);
             }

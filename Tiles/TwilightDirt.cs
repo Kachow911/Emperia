@@ -19,7 +19,7 @@ namespace Emperia.Tiles
             AddMapEntry(new Color(61, 57, 92));
 			Main.tileBrick[Type] = true;
             ItemDrop = ModContent.ItemType<Items.Grotto.GrottoDirt>();
-			SetModTree(new TwilightTree());
+			//SetModTree(new TwilightTree());
 			DustType = 175;
             MineResist = 0.5f;
         }

@@ -46,7 +46,7 @@ namespace Emperia.Items
                 dist = 1200;
         
 			NPC.NewNPC(NPC.GetBossSpawnSource(player.whoAmI), (int)player.Center.X + dist, (int)player.Center.Y - 400, NPCType<Yeti>());
-            Terraria.Audio.SoundEngine.PlaySound(SoundID.Roar, player.position, 0);
+            Terraria.Audio.SoundEngine.PlaySound(SoundID.Roar, player.position);
 			MyPlayer modPlayer1 = Main.player[Main.myPlayer].GetModPlayer<MyPlayer>();
 
             return true;

@@ -54,7 +54,7 @@ namespace Emperia.Items.Weapons.Yeti
 						int index2 = Dust.NewDust(player.position + new Vector2(18, 0), player.width, player.height, 68, player.velocity.X / 5, player.velocity.Y, 0, default(Color), 0.9f);
 						Main.dust[index2].noGravity = true;
 					}
-					PlaySound(SoundID.Item, player.Center, 11);
+					PlaySound(SoundID.Item11, player.Center);
 					modPlayer.iceCannonLoad--;
 					return true;
 				}
@@ -89,7 +89,7 @@ namespace Emperia.Items.Weapons.Yeti
             if (player.altFunctionUse == 2) return true;
 			else return modPlayer.iceCannonLoad > 0;
         }
-		public override bool CanConsumeAmmo(Player player)
+		public override bool CanConsumeAmmo(Item ammo, Player player)
 		{
 			if (player.altFunctionUse == 2) return false;
 			else return true;

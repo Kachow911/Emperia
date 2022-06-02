@@ -102,7 +102,7 @@ namespace Emperia
                     num624 = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 258, 0f, 0f, 100, default(Color));
                     Main.dust[num624].velocity *= 2f;
                 }
-                PlaySound(2, (int)Projectile.position.X, (int)Projectile.position.Y, 14);
+                PlaySound(SoundID.Item14, Projectile.position);
                 for (int i = 0; i < Main.npc.Length; i++)
                 {
                     if (Projectile.Distance(Main.npc[i].Center) < 64 && !Main.npc[i].townNPC)

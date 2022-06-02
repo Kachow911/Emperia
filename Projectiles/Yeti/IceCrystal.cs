@@ -46,7 +46,7 @@ namespace Emperia.Projectiles.Yeti
 		}
 		public override void Kill(int timeLeft)
         {
-			Terraria.Audio.SoundEngine.PlaySound(SoundID.Item, Projectile.Center, 27);  
+			Terraria.Audio.SoundEngine.PlaySound(SoundID.Item27, Projectile.Center);  
 			for (int i = 0; i < 6; i++)
 			{
 				Vector2 perturbedSpeed = new Vector2(0, 3).RotatedBy(MathHelper.ToRadians(90 + 60 * i));

@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
 
@@ -35,7 +36,7 @@ namespace Emperia.Tiles
 		
 		public override void KillMultiTile(int i, int j, int frameX, int frameY)
 		{
-			Terraria.Audio.SoundEngine.PlaySound(2, i * 16, j * 16, 27);
+			Terraria.Audio.SoundEngine.PlaySound(SoundID.Item27, new Vector2(i * 16, j * 16));
 		} 
 		
 	}

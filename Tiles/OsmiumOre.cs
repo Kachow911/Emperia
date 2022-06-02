@@ -18,7 +18,8 @@ namespace Emperia.Tiles
 			ItemDrop = ModContent.ItemType<Items.Osmium>();
 			AddMapEntry(new Color(142, 156, 171));
 			MineResist = 4f;
-			SoundType = 21;
+			//SoundType = 21;
+			HitSound = SoundID.Tink;
 			DustType = 121;
 		}
 		

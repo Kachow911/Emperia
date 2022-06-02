@@ -54,7 +54,7 @@ namespace Emperia.Items.Sets.Hardmode.Jungle
 		}
 
 		 
-		public override bool CanConsumeAmmo(Player player)
+		public override bool CanConsumeAmmo(Item ammo, Player player)
 		{
 			return Main.rand.NextFloat() >= .1f;
 		}

@@ -65,7 +65,8 @@ namespace Emperia.Items.Sets.PreHardmode.Seashell
                 firstHit = true;
             }
             else { forSomeUngodlyReasonUseItemRunsAfterOnHitNPCSoThisMakesTheCodeWorkIfYouHitOnTheFirstFrame = false; }
-            PlaySound(2, (int)player.Center.X, (int)player.Center.Y, 1, 1f, (-0.25f + 0.15f * modPlayer.seaBladeCount)); //rises in pitch over time
+            PlaySound(SoundID.Item1 with { Pitch = -0.25f + 0.15f * modPlayer.seaBladeCount }, player.Center);
+            //PlaySound(2, (int)player.Center.X, (int)player.Center.Y, 1, 1f, (-0.25f + 0.15f * modPlayer.seaBladeCount)); //rises in pitch over time
             return true;
         }
 		public override void ModifyHitNPC (Player player, NPC target, ref int damage, ref float knockback, ref bool crit)
@@ -81,7 +82,7 @@ namespace Emperia.Items.Sets.PreHardmode.Seashell
                     if (crit) { knockback *= 1.5f; }
                     else { knockback *= 3f; }
                     knockback *= (1.4f - target.knockBackResist);//more accurate on flimsy npcs
-                    PlaySound(SoundID.Item70.WithVolume(.5f));
+                    PlaySound(SoundID.Item70 with { Volume = 0.5f }, player.Center);
                     modPlayer.seaBladeCount = 0;
                     /*for (int i = 0; i < 4; ++i)
                     {

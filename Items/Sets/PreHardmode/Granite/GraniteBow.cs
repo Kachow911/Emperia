@@ -57,7 +57,7 @@ namespace Emperia.Items.Sets.PreHardmode.Granite
 			return true;
 		}
 		
-		public override bool CanConsumeAmmo(Player player)
+		public override bool CanConsumeAmmo(Item ammo, Player player)
 		{
 			return !(counter == 3);
 		}

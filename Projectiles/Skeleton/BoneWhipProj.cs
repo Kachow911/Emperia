@@ -64,7 +64,7 @@ namespace Emperia.Projectiles.Skeleton
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
             returnTimer = 0;
-			Terraria.Audio.SoundEngine.PlaySound(0, (int)Projectile.position.X, (int)Projectile.position.Y);
+			Terraria.Audio.SoundEngine.PlaySound(SoundID.Dig, Projectile.position);
             return false;
         }
 

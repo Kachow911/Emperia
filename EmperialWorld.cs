@@ -482,18 +482,37 @@ namespace Emperia
             for (int chestIndex = 0; chestIndex < 1000; chestIndex++)
             {
                 Chest chest = Main.chest[chestIndex];
-                if (chest != null && Main.tile[chest.x, chest.y].TileType == TileID.Containers && Main.tile[chest.x, chest.y].TileFrameX == 50 * 36) //2 * 36 == locked dungeon chest
+                if (chest != null && Main.tile[chest.x, chest.y].TileType == TileID.Containers) //2 * 36 == locked dungeon chest
                 {
-                    for (int inventoryIndex = 0; inventoryIndex < 40; inventoryIndex++)
-                    {
-                        if (chest.item[inventoryIndex].type == 0)
-                        {   //first empty inventory slot
-                            chest.item[inventoryIndex].SetDefaults(ModContent.ItemType<Items.Sets.PreHardmode.Granite.GraniteBar>());
-							chest.item[inventoryIndex].stack = WorldGen.genRand.Next(8, 12);
-                            break;
-                        }
-                    }
-                }
+					switch (Main.tile[chest.x, chest.y].TileFrameX / 36)
+					{
+						case 50:
+							for (int inventoryIndex = 0; inventoryIndex < 40; inventoryIndex++)
+							{
+								if (chest.item[inventoryIndex].type == 0)
+								{   //first empty inventory slot
+									chest.item[inventoryIndex].SetDefaults(ItemType<Items.Sets.PreHardmode.Granite.GraniteBar>());
+									chest.item[inventoryIndex].stack = WorldGen.genRand.Next(8, 13);
+									break;
+								}
+							}
+							break;
+						case 0:
+							for (int inventoryIndex = 0; inventoryIndex < 40; inventoryIndex++)
+							{
+								if (chest.item[inventoryIndex].type == 0)
+								{
+									if (!WorldGen.genRand.NextBool(3))
+									{
+										chest.item[inventoryIndex].SetDefaults(ItemType<Items.GoliathPotion>());
+										chest.item[inventoryIndex].stack = WorldGen.genRand.Next(2, 4);
+									}
+									break;
+								}
+							}
+							break;
+					}
+				}
             }
 		}
 	}

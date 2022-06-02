@@ -103,7 +103,7 @@ namespace Emperia.Npcs.GoblinArmy
 		{
 			if (charging)
 			{
-				PlaySound(SoundID.Item, NPC.Center, 14);
+				PlaySound(SoundID.Item14, NPC.Center);
 				Color rgb = new Color(252, 207, 83);
 				for (int i = - 50; i < 50; i++)
 				{
@@ -141,7 +141,7 @@ namespace Emperia.Npcs.GoblinArmy
 
         public override void OnKill()
         {
-			PlaySound(SoundID.Item, NPC.Center, 14);
+			PlaySound(SoundID.Item14, NPC.Center);
 			Color rgb = new Color(252, 207, 83);
 			for (int i = -50; i < 50; i++)
 			{

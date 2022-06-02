@@ -107,14 +107,14 @@ namespace Emperia.Tiles.Volcano
 			}
 			if (player.sign >= 0)
 			{
-				PlaySound(11, -1, -1, 1);
+				PlaySound(SoundID.MenuClose);
 				player.sign = -1;
 				Main.editSign = false;
 				Main.npcChatText = "";
 			}
 			if (Main.editChest)
 			{
-				PlaySound(12, -1, -1, 1);
+				PlaySound(SoundID.MenuTick);
 				Main.editChest = false;
 				Main.npcChatText = "";
 			}
@@ -129,7 +129,7 @@ namespace Emperia.Tiles.Volcano
 				{
 					player.chest = -1;
 					Recipe.FindRecipes();
-					PlaySound(11, -1, -1, 1);
+					PlaySound(SoundID.MenuClose);
 				}
 				else
 				{
@@ -146,7 +146,7 @@ namespace Emperia.Tiles.Volcano
 					if (chest == player.chest)
 					{
 						player.chest = -1;
-						PlaySound(11, -1, -1, 1);
+						PlaySound(SoundID.MenuClose);
 					}
 					else
 					{
@@ -155,7 +155,7 @@ namespace Emperia.Tiles.Volcano
 						Main.recBigList = false;
 						player.chestX = left;
 						player.chestY = top;
-						PlaySound(player.chest < 0 ? 10 : 12, -1, -1, 1);
+						PlaySound(player.chest < 0 ? SoundID.MenuOpen : SoundID.MenuTick);
 					}
 					Recipe.FindRecipes();
 				}

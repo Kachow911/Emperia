@@ -220,7 +220,7 @@ namespace Emperia.Npcs.Desert
                     if (num1 > 20.0)
                         num1 = 20f;
                     NPC.soundDelay = (int)num1;
-                    Terraria.Audio.SoundEngine.PlaySound(15, (int)NPC.position.X, (int)NPC.position.Y, 1);
+                    Terraria.Audio.SoundEngine.PlaySound(SoundID.WormDig, NPC.position);
                 }
                 float absDirX = Math.Abs(dirX);
                 float absDirY = Math.Abs(dirY);

@@ -159,7 +159,7 @@ namespace Emperia.Npcs.Mushor
 								NPC.velocity.X = direction.X *= 20f;
 								NPC.velocity.Y = direction.Y *= 20f;
 							}
-							Terraria.Audio.SoundEngine.PlaySound(SoundID.Roar, NPC.Center, 0);    //for maximum noisyness
+							Terraria.Audio.SoundEngine.PlaySound(SoundID.Roar, NPC.Center);    //for maximum noisyness
 						}
 						else
 						{

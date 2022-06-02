@@ -54,7 +54,7 @@ namespace Emperia.Projectiles
 
         public override void Kill(int timeLeft)
 		{
-            Terraria.Audio.SoundEngine.PlaySound(SoundID.Dig, (int)Projectile.position.X, (int)Projectile.position.Y, 27);
+            Terraria.Audio.SoundEngine.PlaySound(SoundID.Dig, Projectile.position);
             if (Main.rand.Next(0, 4) == 0)
 				Item.NewItem(Projectile.GetSource_DropAsItem(), (int)Projectile.position.X, (int)Projectile.position.Y, Projectile.width, Projectile.height, ModContent.ItemType<Items.Weapons.BarbarianWaraxe>(), 1, false, 0, false, false);
 			for (int i = 0; i < 5; i++)

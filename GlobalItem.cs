@@ -13,6 +13,8 @@ using Emperia.Buffs;
 using Emperia.Items;
 using Emperia.Items.Weapons.Skeletron;
 using Emperia.Items.Accessories.Gauntlets;
+using static Terraria.Audio.SoundEngine;
+
 
 namespace Emperia
 {
@@ -31,6 +33,8 @@ namespace Emperia
 		public bool noWristBrace = false;
 		public bool noGelGauntlet = false;
 
+		public bool nightFlame = false;
+
 		public override void SetDefaults(Item item)
 		{
 			if (item.createTile != -1 && TileID.Sets.Platforms[item.createTile])
@@ -39,7 +43,7 @@ namespace Emperia
 				item.notAmmo = true;
 			}
 		}
-        public override void PickAmmo(Item weapon, Item ammo, Player player, ref int type, ref float speed, ref int damage, ref float knockback)
+        public override void PickAmmo(Item weapon, Item ammo, Player player, ref int type, ref float speed, ref StatModifier damage, ref float knockback)
         {
 			if (ammo.createTile != -1 && TileID.Sets.Platforms[ammo.createTile]) (weapon.ModItem as PlatformLayer).chosenPlatform = ammo; 
 		}
@@ -229,6 +233,14 @@ namespace Emperia
 						tooltips.Add(line3);
 					}
 				}
+				if (Item.GetGlobalItem<GItem>().nightFlame)
+				{
+					TooltipLine line = new TooltipLine(Mod, "x", "Nocturnal Flame"); //no clue what the first string does here, gives the tooltip a name for other code to reference?
+					line.OverrideColor = new Color(255, 200, 150);
+					TooltipLine line2 = new TooltipLine(Mod, "x2", "Sword strikes inflict Nocturnal Flame, a slow-burning fire that gradually increases in intensity\nRight Click to detach"); //Sword strikes inflict the slow burning Nocturnal Flame
+					tooltips.Add(line);
+					tooltips.Add(line2);
+				}
 				if (Item.type == 293 && modPlayer.warlockTorc)
 				{
 					TooltipLine line = new TooltipLine(Mod, "x", "[c/e65555:Cannot be consumed while wearing a torc]");
@@ -250,15 +262,17 @@ namespace Emperia
 			//saveData.Add("gelPad", gelPad);
 			//return saveData;
 			tag["gelPad"] = gelPad;
+			tag["nightFlame"] = nightFlame;
 		}
 
 		public override void LoadData(Item Item, TagCompound tag) {
 			gelPad = tag.GetBool("gelPad");
+			nightFlame = tag.GetBool("nightFlame");
 		}
 
 		public sealed override bool CanRightClick(Item Item)
 		{
-			if (gelPad) return true;
+			if (gelPad || nightFlame) return true;
 			else return base.CanRightClick(Item);
 		}
 		public override void RightClick(Item Item, Player player)
@@ -272,6 +286,15 @@ namespace Emperia
 				gauntletCopy.rare = Item.rare;
 				gauntletCopy.value = Item.value;
 			}
+			if (Item.GetGlobalItem<GItem>().nightFlame == true)
+			{
+				Item.GetGlobalItem<GItem>().nightFlame = false;
+				Item.NewItem(player.GetSource_OpenItem(Item.type), player.getRect(), ModContent.ItemType<NightFlame>()); //These are probably bad choices for item sources
+				Item swordCopy = Main.item[Item.NewItem(player.GetSource_OpenItem(Item.type), player.getRect(), Item.type)]; //
+				swordCopy.prefix = Item.prefix;
+				swordCopy.rare = Item.rare;
+				swordCopy.value = Item.value;
+			}
 		}
 		public override void UpdateAccessory(Item Item, Player player, bool hideVisibleAccessory)
         {
@@ -281,5 +304,59 @@ namespace Emperia
 				player.GetModPlayer<MyPlayer>().gelGauntlet = 0.6f;
 			}
         }
-	}
+
+        public override void OnCreate(Item item, ItemCreationContext context)
+        {
+			if (item.type == 273)
+			{
+				if (context is RecipeCreationContext)
+				{
+					Player player = Main.LocalPlayer;
+
+					int i = (int)((player.position.X + player.width * 0.5) / 16.0);
+					int j = (int)((player.position.Y + player.height * 0.5) / 16.0);
+					bool foundTile = false;
+					for (int x = -5; x <= 5 && !foundTile; x++)
+					{
+						for (int y = -5; y <= 5 && !foundTile; y++)
+						{
+							if (Framing.GetTileSafely(x + i, y + j).TileType == 26)
+							{
+								foundTile = true;
+								i += x;
+								j += y;
+							}
+						}
+					}
+					Tile tile = Framing.GetTileSafely(i, j);
+					Vector2 position = new Vector2(8, 8);
+					if (foundTile)
+					{
+						if (tile.TileFrameX % 54 == 0) position.X = 24;
+						if (tile.TileFrameX % 54 == 36) position.X = -8;
+						if (tile.TileFrameY == 18) position.Y = -16;
+					}
+					position += new Vector2(i * 16, j * 16);
+					int spawnedItem = Item.NewItem(item.GetSource_Misc("Crafting"), position, 1, 1, ModContent.ItemType<NightFlame>());
+					Main.item[spawnedItem].velocity.X = 0;
+					Main.item[spawnedItem].velocity.Y = -3;
+					PlaySound(SoundID.Item103, position);
+					position.X -= 16;
+					for (int x = 0; x < 8 && foundTile; x++)
+					{
+						Dust.NewDust(position, 32, 16, 14, 0f, Main.rand.NextFloat(-3f, -1f), 100, default(Color), 1.4f);
+						int dust2 = Dust.NewDust(position, 32, 16, 27, 0f, Main.rand.NextFloat(-8f, -2f), 0, default(Color), 1.3f);
+						Main.dust[dust2].noGravity = true;
+					}
+				}
+			}
+		}
+        public override void OnHitNPC(Item item, Player player, NPC target, int damage, float knockBack, bool crit)
+        {
+            if (item.type == 273 && item.GetGlobalItem<GItem>().nightFlame)
+            {
+				target.AddBuff(ModContent.BuffType<NocturnalFlame>(), 1200);
+			}
+        }
+    }
 }

@@ -3,6 +3,8 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.DataStructures;
+using Terraria.GameContent.Creative;
 using Emperia.Projectiles.Granite;
 using Emperia.Buffs;
 namespace Emperia.Items.Sets.PreHardmode.Granite
@@ -14,6 +16,9 @@ namespace Emperia.Items.Sets.PreHardmode.Granite
 			DisplayName.SetDefault("Granite Dynamo Staff");
             Tooltip.SetDefault("Summons a granite elemental to fight for you\nFires like a Projectile when first summoned\nThe first minion does not count towards your max");
 			Item.staff[Item.type] = true;
+            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            ItemID.Sets.GamepadWholeScreenUseRange[Item.type] = true;
+            ItemID.Sets.LockOnIgnoresCollision[Item.type] = true;
         }
 
 		public override void SetDefaults()
@@ -32,11 +37,17 @@ namespace Emperia.Items.Sets.PreHardmode.Granite
             Item.noMelee = true;
             Item.shoot = ModContent.ProjectileType<GraniteMinion>();
             Item.shootSpeed = 10f;
-            Item.buffType = ModContent.BuffType<GraniteMinionBuff>();
-            Item.buffTime = 3600;
+            Item.buffType = ModContent.BuffType<GraniteMinionBuff>(); //also this buff gives you +1 max minion
+            Item.buffTime = 0;
             Item.UseSound = SoundID.Item44;
         }
 
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        {
+            var projectile = Projectile.NewProjectileDirect(source, position, velocity, type, damage, knockback, Main.myPlayer);
+            projectile.originalDamage = Item.damage;
+            return false;
+        }
         public override void AddRecipes()
         {
             Recipe recipe = CreateRecipe();      

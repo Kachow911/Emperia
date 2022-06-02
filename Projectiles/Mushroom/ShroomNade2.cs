@@ -80,8 +80,8 @@ namespace Emperia.Projectiles.Mushroom
                 }
             }
 
-            Terraria.Audio.SoundEngine.PlaySound(SoundID.Item, Projectile.Center, 14);    //bomb explosion sound
-            Terraria.Audio.SoundEngine.PlaySound(SoundID.Item, Projectile.Center, 21);    //swishy sound
+            Terraria.Audio.SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);    //bomb explosion sound
+            Terraria.Audio.SoundEngine.PlaySound(SoundID.Item21, Projectile.Center);    //swishy sound
 		}
     }
 }

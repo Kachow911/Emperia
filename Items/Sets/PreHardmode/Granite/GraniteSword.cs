@@ -92,10 +92,10 @@ namespace Emperia.Items.Sets.PreHardmode.Granite   //where is located
 			MyPlayer modPlayer = player.GetModPlayer<MyPlayer>();
 			if (target.getRect().Intersects(hiltHitbox))
 			{
-				if (Main.rand.Next(100) > (Item.crit + player.GetCritChance(DamageClass.Melee) + player.GetCritChance(DamageClass.Generic) + 15)) crit = false;
+				if (Main.rand.Next(99) + 1 > (Item.crit + player.GetCritChance(DamageClass.Melee) + player.GetCritChance(DamageClass.Generic) + 15)) crit = false;
 				else crit = true;
-				if (crit && modPlayer.graniteSet && modPlayer.graniteTime >= 900) SoundEngine.PlaySound(SoundLoader.GetLegacySoundSlot("Emperia/Sounds/Custom/HeavyThud3").WithVolume(1.35f).WithPitchVariance(0.2f), player.Center);
-				else SoundEngine.PlaySound(SoundLoader.GetLegacySoundSlot("Emperia/Sounds/Custom/HeavyThud2").WithVolume(1.0f).WithPitchVariance(0.2f), player.Center);
+				if (crit && modPlayer.graniteSet && modPlayer.graniteTime >= 900) PlaySound(new SoundStyle("Emperia/Sounds/Custom/HeavyThud3") with { Volume = 1.35f, PitchVariance = 0.2f }, player.Center);
+				else PlaySound(new SoundStyle("Emperia/Sounds/Custom/HeavyThud2") with { Volume = 1.0f, PitchVariance = 0.2f }, player.Center);
 			}
 			if (crit)
 			{
@@ -116,7 +116,7 @@ namespace Emperia.Items.Sets.PreHardmode.Granite   //where is located
 				MyPlayer modPlayer = player.GetModPlayer<MyPlayer>();
 				if (modPlayer.graniteSet && modPlayer.graniteTime >= 900)
 				{
-					PlaySound(2, (int)target.position.X, (int)target.position.Y, 14);
+					PlaySound(SoundID.Item14, target.position);
 					for (int i = 0; i < Main.npc.Length; i++)
 					{
 						if (target.Distance(Main.npc[i].Center) < 126 && Main.npc[i] != target)
@@ -132,7 +132,7 @@ namespace Emperia.Items.Sets.PreHardmode.Granite   //where is located
 				}
 				else
 				{
-					PlaySound(2, (int)target.position.X, (int)target.position.Y, 10);
+					PlaySound(SoundID.Item10, target.position);
 					for (int i = 0; i < Main.npc.Length; i++)
 					{
 						if (target.Distance(Main.npc[i].Center) < 90 && Main.npc[i] != target)

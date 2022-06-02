@@ -67,7 +67,7 @@ public class SeashellPickaxe : ModItem
                 int playerTileY = (int)((player.position.Y + player.height * 0.5) / 16.0);
                 if (playerTileX >= i - Player.tileRangeX && playerTileX <= i + Player.tileRangeX && playerTileY >= j - Player.tileRangeY && playerTileY <= j + Player.tileRangeY)
                 {
-                    //TileID.Meteorite, TileID.Demonite, TileID.Crimtane lol these SUCK cus they can be broken sometimes. too lazy
+                    //TileID.Meteorite, TileID.Demonite, TileID.Crimtane lol these SUCK cus they can be broken on the surface but not underground and youd have to check lol. too lazy
                     int[] indestructibleOres = { TileID.Hellstone, TileID.Cobalt, TileID.Palladium, TileID.Mythril, TileID.Orichalcum, TileID.Adamantite, TileID.Titanium, TileID.Chlorophyte };
                     bool isIndestructible = false;
                     if (indestructibleOres.Contains(Framing.GetTileSafely(i, j).TileType) || ModContent.GetModTile(Framing.GetTileSafely(i, j).TileType) is ModTile modTile && modTile.MinPick > Item.pick || Main.tileContainer[Framing.GetTileSafely(i, j).TileType]) isIndestructible = true;

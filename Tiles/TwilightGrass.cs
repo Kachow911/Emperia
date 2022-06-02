@@ -21,14 +21,15 @@ namespace Emperia.Tiles
 			MineResist = 3f;
 			Main.tileBrick[Type] = true;
             ItemDrop = ItemID.DirtBlock;
-			SetModTree(new TwilightTree());
+			//SetModTree(new TwilightTree());
 			DustType = 72;
       
 			MinPick = 100;
       
-			SoundType = 6; //6 is grass //11 //18 is money //20 is girl sound
-      
-			SoundStyle = 6;
+			//SoundType = 6; //6 is grass //11 //18 is money //20 is girl sound
+            HitSound = SoundID.Grass;
+
+            //SoundStyle = 6;
       
 			
 			

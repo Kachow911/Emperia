@@ -16,7 +16,7 @@ namespace Emperia.Tiles.Volcano
 			AddMapEntry(new Color(109, 72, 16));
 			MineResist = 7f;
 			MinPick = 100;
-			SoundType = 21;
+			HitSound = SoundID.Tink;
 			Main.tileSpelunker[Type] = false;
 		}
 		

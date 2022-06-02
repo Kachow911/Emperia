@@ -56,7 +56,7 @@ namespace Emperia.Projectiles
         }
 		public override void Kill(int timeLeft)
         {
-            Terraria.Audio.SoundEngine.PlaySound(0, (int)Projectile.position.X, (int)Projectile.position.Y, 1, 1f, 0.0f);
+            Terraria.Audio.SoundEngine.PlaySound(SoundID.Dig, Projectile.position);
             for (int index1 = 0; index1 < 10; ++index1)
 			{
 			int index2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 76, 0.0f, 0.0f, 0, rgb, 1f);

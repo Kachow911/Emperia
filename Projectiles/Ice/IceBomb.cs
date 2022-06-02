@@ -49,7 +49,7 @@ namespace Emperia.Projectiles.Ice
 		}
 		public override void Kill(int timeLeft)
         {
-			Terraria.Audio.SoundEngine.PlaySound(SoundID.Item, Projectile.Center, 107);
+			Terraria.Audio.SoundEngine.PlaySound(SoundID.Item107, Projectile.Center);
 			for (int i = 0; i < Main.npc.Length; i++)
 			{
 				if (Projectile.Distance(Main.npc[i].Center) < 90)

@@ -19,7 +19,7 @@ namespace Emperia.Tiles
 			TileObjectData.newTile.Origin = Point16.Zero;
 			TileObjectData.addTile(Type);
 
-			SoundType = SoundID.Shatter;
+			HitSound = SoundID.Shatter;
 		}
 
 		public override void KillMultiTile(int i, int j, int frameX, int frameY)

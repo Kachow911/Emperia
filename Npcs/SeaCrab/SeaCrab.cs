@@ -58,7 +58,7 @@ namespace Emperia.Npcs.SeaCrab
         {
             NPC.lifeMax = 1340;
             NPC.damage = 20;
-            NPC.defense = 16;
+            NPC.defense = 18;
 			NPC.knockBackResist = 0f;
 			NPC.width = 36;
             NPC.height = 38;
@@ -288,11 +288,11 @@ namespace Emperia.Npcs.SeaCrab
 						jumpPeak = NPC.Bottom.Y;
 						NPC.velocity.Y = -9f;
 					}
-					else if (Math.Abs(player.Center.X - NPC.Center.X) > 144 && NPC.velocity.Y == 0 && Math.Abs(NPC.velocity.X) < 4 && Math.Abs(NPC.velocity.X) > 3) // lunge to chase far away players
+					else if (Math.Abs(player.Center.X - NPC.Center.X) > 144 && NPC.velocity.Y == 0 && Math.Abs(NPC.velocity.X) < 4.25f && Math.Abs(NPC.velocity.X) > 3) // lunge to chase far away players
 					{
 						NPC.velocity.Y = -3.5f;
-						NPC.velocity.X = 4.5f * NPC.direction * (Math.Abs(player.Center.X - NPC.Center.X) / 144);
-						if (Math.Abs(NPC.velocity.X) > 6.75f) NPC.velocity.X = 6.75f * NPC.direction;
+						NPC.velocity.X = 4.85f * NPC.direction * (Math.Abs(player.Center.X - NPC.Center.X) / 144);
+						if (Math.Abs(NPC.velocity.X) > 7f) NPC.velocity.X = 7f * NPC.direction;
 					}
 					if (Math.Abs(NPC.velocity.X) > 3.1f * (1 + (speedScale - 1) / 2)) NPC.velocity.X *= 0.994f;
 				
@@ -427,7 +427,7 @@ namespace Emperia.Npcs.SeaCrab
 					
 					if (counter % 20 == 0 || counter % 10 == 0 && Math.Abs(NPC.velocity.X) > 7) //i dont think this can divide by zero but
 					{
-						if (Submerged() != 1 && burrowStage < 4) PlaySound(15, NPC.Center);
+						if (Submerged() != 1 && burrowStage < 4) PlaySound(SoundID.WormDig, NPC.Center);
 					}	
 				
 					switch (burrowStage)
@@ -480,7 +480,7 @@ namespace Emperia.Npcs.SeaCrab
 											}
 										}
 										PlaySound(SoundID.NPCHit23, NPC.Center);
-										PlaySound(15, NPC.Center);
+										PlaySound(SoundID.WormDig, NPC.Center);
 									}
 									burrowStage++;
 								}
@@ -491,7 +491,7 @@ namespace Emperia.Npcs.SeaCrab
 							{
 								if (Submerged() == 1)
 								{
-									if (NPC.behindTiles) PlaySound(15, NPC.Center);
+									if (NPC.behindTiles) PlaySound(SoundID.WormDig, NPC.Center);
 									NPC.behindTiles = false;
 								}
 								if (NPC.Bottom.Y > player.Bottom.Y)
@@ -525,7 +525,7 @@ namespace Emperia.Npcs.SeaCrab
 			{
 				inShell = true;
 				NPC.HitSound = SoundID.NPCHit2;
-				NPC.defense = 16;
+				NPC.defense = 18;
 			}
 			else
 			{

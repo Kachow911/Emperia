@@ -16,7 +16,8 @@ namespace Emperia.Tiles
 			AddMapEntry(new Color(70, 29, 104));
 			MineResist = 4f;
 			MinPick = 209;
-			SoundType = 21;
+			HitSound = SoundID.Tink;
+			//SoundType = 21;
 			Main.tileSpelunker[Type] = true;
 		}
 		

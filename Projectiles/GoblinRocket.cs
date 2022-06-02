@@ -48,7 +48,7 @@ namespace Emperia.Projectiles
 		}
 		public override void Kill(int timeLeft)
         {
-			Terraria.Audio.SoundEngine.PlaySound(SoundID.Item, Projectile.Center, 14);
+			Terraria.Audio.SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
 			for (int i = 0; i < Main.player.Length; i++)
 			{
 				if (Projectile.Distance(Main.player[i].Center) < 32)

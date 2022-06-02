@@ -48,7 +48,7 @@ namespace Emperia.Projectiles.Mushroom
 		}
         public override void Kill(int timeLeft)
         {
-        	Terraria.Audio.SoundEngine.PlaySound(SoundID.Item, Projectile.Center, 107);  
+        	Terraria.Audio.SoundEngine.PlaySound(SoundID.Item107, Projectile.Center);  
         }
         public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)
         {

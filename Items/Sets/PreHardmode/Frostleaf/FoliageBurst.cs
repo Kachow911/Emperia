@@ -77,7 +77,7 @@ namespace Emperia.Items.Sets.PreHardmode.Frostleaf
 			}
 			return true;
 		}*/
-		public override bool CanConsumeAmmo(Player player)
+		public override bool CanConsumeAmmo(Item ammo, Player player)
 		{
 			if (!(player.altFunctionUse == 2)) return true;
 			else if (notchedArrows < 5) 

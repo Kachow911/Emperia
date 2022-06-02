@@ -56,20 +56,20 @@ public class PlatformLayer : ModItem
 			TooltipLine speed = tooltips.FirstOrDefault(x => x.Name == "Speed" && x.Mod == "Terraria");
 			if (speed != null) tooltips.Remove(speed);
 		}
-		public override bool CanConsumeAmmo(Player player)
+		public override bool CanConsumeAmmo(Item ammo, Player player)
 		{
 			return false;
 		}
-    public override bool CanUseItem(Player player)
-    {
-		if (player.altFunctionUse == 2) //allows alt click and chop mode to be used even when out of platforms (ammo)
-		{
-			if (useMode == 1) Item.useAmmo = ItemID.None;
-			else if (useMode == 2) Item.useAmmo = ItemID.WoodPlatform;
+	    public override bool CanUseItem(Player player)
+	    {
+			if (player.altFunctionUse == 2) //allows alt click and chop mode to be used even when out of platforms (ammo)
+			{
+				if (useMode == 1) Item.useAmmo = ItemID.None;
+				else if (useMode == 2) Item.useAmmo = ItemID.WoodPlatform;
+			}
+			return base.CanUseItem(player);
 		}
-		return base.CanUseItem(player);
-	}
-    public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+	    public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
 			player.direction = initialPlayerDirection;
 			//Main.NewText(initialPlayerDirection.ToString());

@@ -28,7 +28,7 @@ namespace Emperia.Items
 		{
 			player.AddBuff(ModContent.BuffType<ProtectiveBoost>(), 960);
 			Item.active = false;
-			Terraria.Audio.SoundEngine.PlaySound(SoundID.Grab, (int)player.position.X, (int)player.position.Y, 10);
+			Terraria.Audio.SoundEngine.PlaySound(SoundID.Grab, player.position);
 			return false;
 		}
 		public override void GrabRange(Player player, ref int grabRange)

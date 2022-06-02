@@ -34,9 +34,9 @@ namespace Emperia.Items.Weapons
             Item.shootSpeed = 7f; 
             Item.useAmmo = AmmoID.Gel;
         }
-		public override bool CanConsumeAmmo(Player player)
+		public override bool CanConsumeAmmo(Item ammo, Player player)
 		{
-			return Main.rand.Next(100) > 66;
+			return Main.rand.Next(99) + 1 > 66;
 		}
 		
 		public override Vector2? HoldoutOffset()

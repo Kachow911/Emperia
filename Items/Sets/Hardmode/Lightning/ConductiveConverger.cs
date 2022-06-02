@@ -51,7 +51,7 @@ namespace Emperia.Items.Sets.Hardmode.Lightning
 
 		}
 
-		public override bool CanConsumeAmmo(Player player)
+		public override bool CanConsumeAmmo(Item ammo, Player player)
 		{
 			return !(Main.rand.Next(3) == 0);
 		}

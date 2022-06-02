@@ -42,7 +42,7 @@ namespace Emperia.Npcs.Yeti
 		 public override void Kill(int timeLeft)
         {
             Projectile.velocity.Y += .03f;
-			Terraria.Audio.SoundEngine.PlaySound(SoundID.Item, Projectile.Center, 14);
+			Terraria.Audio.SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
 			for (int i = 0; i < Main.player.Length; i++)
             {
                 if (Projectile.Distance(Main.player[i].Center) < explodeRadius)

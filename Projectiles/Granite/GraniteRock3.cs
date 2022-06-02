@@ -89,7 +89,7 @@ namespace Emperia.Projectiles.Granite
 					Main.dust[index2].noGravity = true;
 					Main.dust[index2].velocity *= 2.25f;
 				}
-				Terraria.Audio.SoundEngine.PlaySound(SoundID.Item89.WithVolume(.75f), Projectile.Center);
+				Terraria.Audio.SoundEngine.PlaySound(SoundID.Item89 with { Volume = 0.75f }, Projectile.Center);
 			}
 		}
 		

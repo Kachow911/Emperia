@@ -22,6 +22,7 @@ using Emperia.Items.Weapons;
 using Emperia.Items.Weapons.Skeletron;
 using Emperia.Items.Accessories;
 using Terraria.GameContent.ItemDropRules;
+using Emperia.Buffs;
 using static Emperia.Projectiles.HarpoonBladeProj;
 
 
@@ -37,6 +38,8 @@ namespace Emperia
 		public bool indigoInfirmary = false;
 		public bool burningNight = false;
 		public bool fatesDemise = false;
+		public int nightFlame = 0;
+		public int nightFlameLength = 0;
 		public bool sporeStorm = false;
         public bool scoriaExplosion = false;
 		public bool electrified = false;
@@ -124,6 +127,19 @@ public override void ResetEffects(NPC NPC)
 			{
 				NPC.lifeRegen = -5;
 				damage = 4;
+			}
+			if (NPC.HasBuff(ModContent.BuffType<NocturnalFlame>()))
+			{
+				nightFlameLength++;
+				nightFlame = (1 + (int)Math.Floor(nightFlameLength / 600f)) * 2;
+				if (nightFlame > 10) nightFlame = 10;
+				NPC.lifeRegen = -nightFlame * 2;
+				damage = nightFlame;
+			}
+			else
+			{
+				nightFlameLength = 0;
+				nightFlame = 0;
 			}
             
         }
@@ -307,7 +323,7 @@ public override void ResetEffects(NPC NPC)
 					num624 = Dust.NewDust(new Vector2(NPC.position.X, NPC.position.Y), NPC.width, NPC.height, 258, 0f, 0f, 100, default(Color));
 					Main.dust[num624].velocity *= 2f;
 				}
-				PlaySound(2, (int)NPC.position.X, (int)NPC.position.Y, 14);
+				PlaySound(SoundID.Item14, NPC.position);
 				for (int i = 0; i < Main.npc.Length; i++)
 				{
 					if (NPC.Distance(Main.npc[i].Center) < 64 && !Main.npc[i].townNPC)

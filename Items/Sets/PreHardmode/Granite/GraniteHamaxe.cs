@@ -68,7 +68,7 @@ public class GraniteHamaxe : ModItem
                                     int index2 = Dust.NewDust(new Vector2(i * 16 + 8, j * 16 + 8), 16, 16, 15, 0.0f, 0.0f, 15, new Color(53f, 67f, 253f), 2f);
                                     Main.dust[index2].noGravity = true;
                                     Main.dust[index2].velocity *= 3f;
-                                    PlaySound(2, i * 16, j * 16, 14);
+                                    PlaySound(SoundID.Item14, new Vector2(i * 16, j * 16));
                                     modPlayer.graniteTime = 0;
                                 }
                             }
@@ -125,7 +125,7 @@ public class GraniteHamaxe : ModItem
                                         }
                                     }
                                 }
-                                PlaySound(2, wX * 16, wY * 16, 14);
+                                PlaySound(SoundID.Item14, new Vector2(wX * 16, wY * 16));
                                 modPlayer.graniteTime = 0;
                             }
                         }

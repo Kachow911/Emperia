@@ -132,7 +132,7 @@ namespace Emperia.Projectiles
 				Main.dust[dust].scale = 1.5f;
 				Main.dust[dust].noGravity = true;
 			}
-			Terraria.Audio.SoundEngine.PlaySound(0, (int)Projectile.position.X, (int)Projectile.position.Y);
+			Terraria.Audio.SoundEngine.PlaySound(SoundID.Dig, Projectile.position);
             return false;
         }
 

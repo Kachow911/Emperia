@@ -157,7 +157,7 @@ namespace Emperia.Npcs.Yeti
 				if (NPC.velocity.Y >= 0) NPC.velocity.Y *= 1.2f;
 				if (counter <= 0 && NPC.velocity.Y == 0)
 				{
-					PlaySound(SoundID.Dig, NPC.Center, 1);
+					PlaySound(SoundID.Dig, NPC.Center);
 					for (int i = -50; i < 50; i++)
 					{
 						Color rgb = new Color(255, 255, 255);
@@ -176,7 +176,7 @@ namespace Emperia.Npcs.Yeti
 				if (NPC.velocity.Y >= 0) NPC.velocity.Y *= 1.2f;
 				if (counter <= 0 && NPC.velocity.Y == 0)
 				{
-					PlaySound(SoundID.Dig, NPC.Center, 1);
+					PlaySound(SoundID.Dig, NPC.Center);
 					for (int i = -50; i < 50; i++)
 					{
 						Color rgb = new Color(160, 243, 255);
@@ -289,8 +289,8 @@ namespace Emperia.Npcs.Yeti
 					NPC.noTileCollide = false;
 				if (NPC.velocity.Y == 0)
 				{
-					PlaySound(SoundID.Dig, NPC.Center, 1);
-					PlaySound(SoundID.Item, NPC.Center, 107);
+					PlaySound(SoundID.Dig, NPC.Center);
+					PlaySound(SoundID.Item107, NPC.Center);
 					if (IsBelowPhaseTwoThreshhold())
 					{
 						walkTimer = 1;

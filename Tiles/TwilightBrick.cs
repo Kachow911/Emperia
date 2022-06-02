@@ -15,7 +15,8 @@ namespace Emperia.Tiles
 			ItemDrop = ModContent.ItemType<Items.Grotto.GrottoBrick>();
 			AddMapEntry(new Color(77, 98, 148));
 			MineResist = 1f;
-			SoundType = 21;
+			//SoundType = 21;
+			HitSound = SoundID.Tink;
 			DustType = 121;
 		}
 		

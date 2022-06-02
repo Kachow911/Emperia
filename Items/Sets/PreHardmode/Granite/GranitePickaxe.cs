@@ -84,7 +84,7 @@ public class GranitePickaxe : ModItem
                                 }
                             }
                         }
-                        PlaySound(2, i * 16, j * 16, 14);
+                        PlaySound(SoundID.Item14, new Vector2(i * 16, j * 16));
                         modPlayer.graniteTime = 0;
                     }
                 }
