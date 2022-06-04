@@ -27,7 +27,7 @@ namespace Emperia.Items.Sets.PreHardmode.Seashell
             Item.useAnimation = 20;     
             Item.useStyle = 5;    
             Item.mana = 6;
-	        Item.UseSound = SoundID.Item39;
+	        Item.UseSound = SoundID.Item101;
             Item.knockBack = 3.25f;
             Item.value = 22000;
             Item.rare = 1;

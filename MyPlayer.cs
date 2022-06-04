@@ -134,7 +134,9 @@ namespace Emperia
 		public int frostFangTimer = 0;
 		public int fastFallLength = 0;
 		public int osmiumCooldown;
-		public Rectangle swordHitbox = new Rectangle(0, 0, 0, 0); //value taken from GlobalItem
+		public Rectangle swordHitbox = new Rectangle(0, 0, 0, 0); //value taken from GlobalItem //also may not be necessary anymore
+		public Vector2 hitboxEdge;
+		public float itemLength;
 
 		public Item projItemOrigin = null;
 
@@ -807,30 +809,27 @@ namespace Emperia
 		{
 			if (gauntletBonus > 0)
 			{
-				double itemLength = Math.Sqrt(swordHitbox.Width * swordHitbox.Width + swordHitbox.Height * swordHitbox.Height) * 0.85 - 5f; //makes bonus damage not op at tip
 				Vector2 closestPoint = target.Center;
-				if ((target.Center.Y - target.height / 4) > Player.Center.Y)
-				{
-					closestPoint.Y = target.Top.Y;
-				}
-				else if ((target.Center.Y + target.height / 4) < Player.Center.Y)
-				{
-					closestPoint.Y = target.Bottom.Y;
-				}
-				if ((target.Center.X - target.width / 4) > Player.Center.X)
-				{
-					closestPoint.X = target.Left.X;
-				}
-				else if ((target.Center.X + target.width / 4) < Player.Center.X)
-				{
-					closestPoint.X = target.Right.X;
-				}
+				if (target.Top.Y > Player.Center.Y) closestPoint.Y = target.Top.Y;
+				else if (target.Bottom.Y < Player.Center.Y) closestPoint.Y = target.Bottom.Y;
+				else closestPoint.Y = Player.Center.Y;
+
+				if (target.Left.X > Player.Center.X) closestPoint.X = target.Left.X;
+				else if (target.Right.X < Player.Center.X) closestPoint.X = target.Right.X;
+				else closestPoint.X = Player.Center.X;
+				Projectile.NewProjectile(new EntitySource_Misc("heh"), closestPoint, Vector2.Zero, ModContent.ProjectileType<RedPixel>(), 0, 0);
+
+
 				double distance = Vector2.Distance(Player.Center, closestPoint);
 				double distanceMult = (itemLength - distance) / itemLength;
+				Main.NewText(itemLength);
+				Main.NewText(distance);
+				Main.NewText(distanceMult);
 				//Main.NewText((((distanceMult > .65f) ? .65f : distanceMult) + .35f).ToString());
 				//Main.NewText(Vector2.Distance(Player.Center, closestPoint).ToString());
 				double damageMult = gauntletBonus * (((distanceMult > .65f) ? .65f : distanceMult) + .35f); //caps damage multiplier at 65% distance
 				{
+					int oldDamage = damage;
 					if ((target.width + target.height / 2) > 48) //this is for big enemies or bosses
 					{
 						damage += (int)(damage * damageMult);
@@ -839,8 +838,9 @@ namespace Emperia
 					{
 						damage += (int)(damage * (damageMult / 2));
 					}
+					Main.NewText((damage - oldDamage).ToString(), 255, 240, 20);
 				}
-				Main.NewText(damageMult.ToString(), 255, 240, 20);
+				//Main.NewText(damageMult.ToString(), 255, 240, 20);
 			}
 			if (slightKnockback)
 			{

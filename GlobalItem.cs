@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using Terraria;
@@ -162,22 +163,44 @@ namespace Emperia
             }
             return;
         }
-		int delay = 1;
+		//int delay = 1;
 		//bool goliathInit = false;
 		float baseScale = 0;
+		//float longestDistance;
+
 		public override void UseItemHitbox(Item Item, Player player, ref Rectangle hitbox, ref bool noHitbox)
         {
 			MyPlayer modPlayer = player.GetModPlayer<MyPlayer>();
-			delay--;
-            if (delay == 0)
+			//delay--;
+			if (player.itemAnimation == player.itemAnimationMax)
             {
-				delay = (int)(Item.useAnimation * player.GetAttackSpeed(DamageClass.Melee)) - 1;
+				modPlayer.swordHitbox.Width = (int)Math.Ceiling(hitbox.Height * 0.785f); //0.775
+				modPlayer.swordHitbox.Height = (int)Math.Ceiling(hitbox.Height * 0.6f); //0.595
+				modPlayer.hitboxEdge = new Vector2(hitbox.X + (player.direction == 1 ? 0 : hitbox.Width), hitbox.Y);
+				modPlayer.itemLength = Vector2.Distance(player.Center, modPlayer.hitboxEdge);
+				//Main.NewText(modPlayer.swordHitbox.ToString(), 255, 0, 0);
+			}
+			/*{
+				hitboxEdge = new Vector2(hitbox.X, hitbox.Y);
+				if (player.itemAnimation == player.itemAnimationMax) longestDistance = 0;
+				if (player.itemAnimation == player.itemAnimationMax) hitboxEdge = new Vector2(hitbox.X + (player.direction == 1 ? 0 : hitbox.Width), hitbox.Y);
+				//Projectile.NewProjectile(Entity.GetSource_None(), hitboxEdge, Vector2.Zero, ModContent.ProjectileType<RedPixel>(), 0, 0);
+				if (Vector2.Distance(player.Center, hitboxEdge) > longestDistance) longestDistance = Vector2.Distance(player.Center, hitboxEdge);
+				Main.NewText(longestDistance.ToString(), 255, 0, 0);
+			}*/ //would be useful if you need more precise hitbox info ig
+
+			/*if (player.itemAnimation == 1)
+            {
+				//delay = (int)(Item.useAnimation * player.GetAttackSpeed(DamageClass.Melee)) - 1;
 				if (modPlayer.gauntletBonus > 0)
-				{ 
+				{
+					//Main.NewText((hitbox.Height / (float)modPlayer.swordHitbox.Width).ToString(), 255, 0, 180);
+					//Main.NewText(((int)((int)(hitbox.Height / 1.4f) * 1.1f) / (float)modPlayer.swordHitbox.Height).ToString(), 255, 0, 180);
 					modPlayer.swordHitbox.Width = hitbox.Height;
 					modPlayer.swordHitbox.Height = (int)((int)(hitbox.Height / 1.4f) * 1.1f);
+					Main.NewText(modPlayer.swordHitbox.ToString(), 255, 0, 0);
 				}
-            }
+            }*/ //old version, only activates last frame of a sword swing which made it worse. basically identical values
 
 			/*if (!goliathInit) //old code, was jankier
 			{
