@@ -23,15 +23,17 @@ public class GraniteLeggings : ModItem
         Item.height = 18;
         Item.value = 175000;
         Item.rare = 2;
-        Item.defense = 7;
+        Item.defense = 6;
     }
 
     public override void UpdateEquip(Player player)
     {
         player.noKnockback = true;
+        //player.npcTypeNoAggro[NPCID.GraniteFlyer] = true;
+        //player.npcTypeNoAggro[NPCID.GraniteGolem] = true;
     }
 
-    public override void AddRecipes()
+        public override void AddRecipes()
     {
         Recipe recipe = CreateRecipe();
         recipe.AddIngredient(null, "GraniteBar", 10);

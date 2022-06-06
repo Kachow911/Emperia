@@ -28,8 +28,13 @@ namespace Emperia.Items.Accessories.Gauntlets
         }
         public override void UpdateAccessory(Player player, bool hideVisibleAccessory)
         {
-            player.GetModPlayer<MyPlayer>().gauntletBonus = 0.25f;
-            player.GetModPlayer<MyPlayer>().gelGauntlet = 1f;
+            if (player.GetModPlayer<MyPlayer>().gauntletBonus < 0.25f)
+            {
+                player.GetModPlayer<MyPlayer>().gauntletBonus = 0.25f;
+                Item.GetGlobalItem<GItem>().inactiveGauntlet = false;
+            }
+            else Item.GetGlobalItem<GItem>().inactiveGauntlet = true;
+            player.GetModPlayer<MyPlayer>().gelGauntlet = 0.9f;
             player.GetModPlayer<MyPlayer>().wristBrace = true;
         }
 		public override void AddRecipes()

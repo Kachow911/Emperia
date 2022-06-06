@@ -23,7 +23,7 @@ public class GraniteChestplate : ModItem
         Item.height = 18;
         Item.value = 210000;
         Item.rare = 2;
-        Item.defense = 8;
+        Item.defense = 7;
     }
 
     public override void UpdateEquip(Player player)

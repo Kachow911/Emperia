@@ -805,31 +805,37 @@ namespace Emperia
 				Player.ClearBuff(ModContent.BuffType<Bloodstained2>());
 			}*/ //nerf for bloodstained gauntlet, could also make it reduce the buff timer
 		}
+
+		private static void FindClosestEntityPoint(Vector2 point, Entity entity, out Vector2 closestPoint)
+        {
+			closestPoint = new Vector2(entity.Center.X, entity.Center.Y);
+
+			if (entity.Top.Y > point.Y) closestPoint.Y = entity.Top.Y;
+			else if (entity.Bottom.Y < point.Y) closestPoint.Y = entity.Bottom.Y;
+			else closestPoint.Y = point.Y;
+
+			if (entity.Left.X > point.X) closestPoint.X = entity.Left.X;
+			else if (entity.Right.X < point.X) closestPoint.X = entity.Right.X;
+			else closestPoint.X = point.X;
+			//Projectile.NewProjectile(new EntitySource_Misc("heh"), closestPoint, Vector2.Zero, ModContent.ProjectileType<RedPixel>(), 0, 0);
+		}
 		public override void ModifyHitNPC(Item Item, NPC target, ref int damage, ref float knockback, ref bool crit)
 		{
 			if (gauntletBonus > 0)
 			{
-				Vector2 closestPoint = target.Center;
-				if (target.Top.Y > Player.Center.Y) closestPoint.Y = target.Top.Y;
-				else if (target.Bottom.Y < Player.Center.Y) closestPoint.Y = target.Bottom.Y;
-				else closestPoint.Y = Player.Center.Y;
+				FindClosestEntityPoint(Player.Center, target, out Vector2 closestPoint);
+				float distance = Vector2.Distance(Player.Center, closestPoint);
 
-				if (target.Left.X > Player.Center.X) closestPoint.X = target.Left.X;
-				else if (target.Right.X < Player.Center.X) closestPoint.X = target.Right.X;
-				else closestPoint.X = Player.Center.X;
-				Projectile.NewProjectile(new EntitySource_Misc("heh"), closestPoint, Vector2.Zero, ModContent.ProjectileType<RedPixel>(), 0, 0);
-
-
-				double distance = Vector2.Distance(Player.Center, closestPoint);
-				double distanceMult = (itemLength - distance) / itemLength;
-				Main.NewText(itemLength);
+				float distanceMult = ((itemLength * 0.85f) - distance) / (itemLength * 0.85f); //itemlength is based on the technical longest reach possible which almost never happens in normal gameplay; i'd rather reduce that so i can balance the damage better
+				if (distanceMult < 0) distanceMult = 0;
+				/*Main.NewText(itemLength);
 				Main.NewText(distance);
 				Main.NewText(distanceMult);
-				//Main.NewText((((distanceMult > .65f) ? .65f : distanceMult) + .35f).ToString());
-				//Main.NewText(Vector2.Distance(Player.Center, closestPoint).ToString());
-				double damageMult = gauntletBonus * (((distanceMult > .65f) ? .65f : distanceMult) + .35f); //caps damage multiplier at 65% distance
+				Main.NewText((((distanceMult > .8f) ? .8f : distanceMult) + .2f).ToString());
+				Main.NewText(Vector2.Distance(Player.Center, closestPoint).ToString());*/
+				float damageMult = gauntletBonus * (((distanceMult > .8f) ? .8f : distanceMult) + .2f); //caps damage multiplier at 65% distance
 				{
-					int oldDamage = damage;
+					//int oldDamage = damage;
 					if ((target.width + target.height / 2) > 48) //this is for big enemies or bosses
 					{
 						damage += (int)(damage * damageMult);
@@ -838,9 +844,8 @@ namespace Emperia
 					{
 						damage += (int)(damage * (damageMult / 2));
 					}
-					Main.NewText((damage - oldDamage).ToString(), 255, 240, 20);
+					//Main.NewText((damage - oldDamage).ToString(), 255, 240, 20);
 				}
-				//Main.NewText(damageMult.ToString(), 255, 240, 20);
 			}
 			if (slightKnockback)
 			{
@@ -981,39 +986,18 @@ namespace Emperia
 			}
 			if (gelGauntlet > 0 && target.knockBackResist == 0f && !Item.GetGlobalItem<GItem>().noGelGauntlet)
 			{
-				Vector2 closestPoint = target.Center;
-				if ((target.Center.Y - target.height / 4) > Player.Center.Y)
-				{
-					closestPoint.Y = target.Top.Y;
-				}
-				else if ((target.Center.Y + target.height / 4) < Player.Center.Y)
-				{
-					closestPoint.Y = target.Bottom.Y;
-				}
-				if ((target.Center.X - target.width / 4) > Player.Center.X)
-				{
-					closestPoint.X = target.Left.X;
-				}
-				else if ((target.Center.X + target.width / 4) < Player.Center.X)
-				{
-					closestPoint.X = target.Right.X;
-				}
+				FindClosestEntityPoint(Player.Center, target, out Vector2 closestPoint);
 				float distance = Vector2.Distance(Player.Center, closestPoint);
+
 				Vector2 direction = Player.Center - target.Center;
 				direction.Normalize();
-				Vector2 oldSpeedFactor = Vector2.Zero;
-				if (Player.velocity.X > 7f) oldSpeedFactor.X = 7f;
-				else if (Player.velocity.X < -7f) oldSpeedFactor.X = -7f;
-				else oldSpeedFactor.X = Player.velocity.X;
-				if (Player.velocity.Y > 7f) oldSpeedFactor.Y = 7f;
-				else if (Player.velocity.Y < -7f) oldSpeedFactor.Y = -7f;
-				else oldSpeedFactor.Y = Player.velocity.Y;
+
+				Vector2 oldSpeedFactor = Player.velocity;
+				if (Math.Abs(oldSpeedFactor.X) > 7f) oldSpeedFactor.X = 7f * Math.Sign(oldSpeedFactor.X);
+				if (Math.Abs(oldSpeedFactor.Y) > 7f) oldSpeedFactor.X = 7f * Math.Sign(oldSpeedFactor.Y);
+
 				Player.velocity.Y = (direction.Y * gelGauntlet) + oldSpeedFactor.Y / 2;
 				Player.velocity.X = (direction.X * (7f - (distance / 100)) * gelGauntlet) + oldSpeedFactor.X / 2;
-
-
-				//Player.velocity.Y = direction.Y * gelGauntlet;
-				//Player.velocity.X = direction.X * (7f - (distance / 100)) * gelGauntlet;
 
 				//old formula, doesn't calculate for disance
 				/*Vector2 direction = Player.Center - target.Center;

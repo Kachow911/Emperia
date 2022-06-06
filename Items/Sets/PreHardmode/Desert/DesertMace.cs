@@ -41,11 +41,12 @@ namespace Emperia.Items.Sets.PreHardmode.Desert
 		{
 			if (target.velocity.Y != 0 && target.noTileCollide == false && target.knockBackResist >= 0 && !target.boss)// && player.itemAnimation <= 22 if the effect is too strong
 			{
+				knockback *= 0.7f;
 				//target.velocity.Y += 12 * target.knockBackResist;
-				target.velocity.Y += 4 + (6 * target.knockBackResist);
-				NPC = target;
-            	NPC.GetGlobalNPC<MyNPC>().maceSlam = 25;
-				NPC.GetGlobalNPC<MyNPC>().maceSlamDamage = damage;
+				if (target.velocity.Y < 0) target.velocity.Y -= (target.velocity.Y < -10) ? -5f : target.velocity.Y * 0.5f;
+				target.velocity.Y += 6 + (3 * target.knockBackResist);
+            	target.GetGlobalNPC<MyNPC>().maceSlam = 25;
+				target.GetGlobalNPC<MyNPC>().maceSlamDamage = damage;
 			}
 		}
 	}

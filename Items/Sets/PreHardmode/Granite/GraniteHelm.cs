@@ -22,7 +22,7 @@ public class GraniteHelm : ModItem
         Item.height = 18;
         Item.value = 140000;
         Item.rare = 2;
-        Item.defense = 6;
+        Item.defense = 5;
     }
 
     public override bool IsArmorSet(Item head, Item body, Item legs)

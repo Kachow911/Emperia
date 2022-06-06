@@ -33,6 +33,7 @@ namespace Emperia
 		public bool isGauntlet = false;
 		public bool noWristBrace = false;
 		public bool noGelGauntlet = false;
+		public bool inactiveGauntlet = false;
 
 		public bool nightFlame = false;
 
@@ -56,7 +57,24 @@ namespace Emperia
 			if (Item.type == 293 && modPlayer.warlockTorc) return false;
 			else return true;
 		}
-		public override bool? UseItem(Item Item, Player player)
+
+        public override void UseAnimation(Item Item, Player player)
+        {
+			MyPlayer modPlayer = player.GetModPlayer<MyPlayer>();
+			if (modPlayer.wristBrace && !Item.noMelee && player.controlUseItem && !Item.GetGlobalItem<GItem>().noWristBrace)//janky!!!!
+			{
+				if (Main.MouseWorld.X > player.position.X && player.direction == -1)
+				{
+					player.direction = 1;
+				}
+				if (Main.MouseWorld.X < player.position.X && player.direction == 1)
+				{
+					player.direction = -1;
+				}
+				Item.useTurn = false;
+			}
+		}
+        public override bool? UseItem(Item Item, Player player)
         {
 			MyPlayer modPlayer = player.GetModPlayer<MyPlayer>();
 			if (Item.potion == true)
@@ -84,19 +102,7 @@ namespace Emperia
 			{
 				player.AddBuff(BuffID.ManaSickness, 900);
 			}
-			if (modPlayer.wristBrace && !Item.noMelee && player.controlUseItem && !Item.GetGlobalItem<GItem>().noWristBrace && player.itemAnimation == player.itemAnimationMax)//janky!!!!
-			{
-				if (Main.MouseWorld.X > player.position.X && player.direction == -1)
-				{
-					player.direction = 1;
-				}
-				if (Main.MouseWorld.X < player.position.X && player.direction == 1)
-				{
-					player.direction = -1;
-				}
-				Item.useTurn = false;
-			}
-			if (!modPlayer.wristBrace && !Item.noMelee) //fixes Item.useTurn from the previous block :)
+			if (!modPlayer.wristBrace && !Item.noMelee && !Item.GetGlobalItem<GItem>().noWristBrace) //fixes Item.useTurn from the previous (now UseAnimation) block :)
 			{
 				Item defaultStats = new Item();
 				defaultStats.SetDefaults(Item.type);
@@ -166,7 +172,8 @@ namespace Emperia
 		//int delay = 1;
 		//bool goliathInit = false;
 		float baseScale = 0;
-		//float longestDistance;
+		float longestDistance;
+		Vector2 hitboxEdge;
 
 		public override void UseItemHitbox(Item Item, Player player, ref Rectangle hitbox, ref bool noHitbox)
         {
@@ -174,17 +181,17 @@ namespace Emperia
 			//delay--;
 			if (player.itemAnimation == player.itemAnimationMax)
             {
-				modPlayer.swordHitbox.Width = (int)Math.Ceiling(hitbox.Height * 0.785f); //0.775
+				modPlayer.swordHitbox.Width = (int)Math.Ceiling(hitbox.Height * 0.785f); //0.775 //swordHitbox currently unused
 				modPlayer.swordHitbox.Height = (int)Math.Ceiling(hitbox.Height * 0.6f); //0.595
-				modPlayer.hitboxEdge = new Vector2(hitbox.X + (player.direction == 1 ? 0 : hitbox.Width), hitbox.Y);
+				modPlayer.hitboxEdge = new Vector2(hitbox.X + (player.direction == 1 ? hitbox.Width : 0), hitbox.Y); //swap to 0 : hitbox.Width to get true max range (measuring the point of the hitbox behind the player instead of in front)
 				modPlayer.itemLength = Vector2.Distance(player.Center, modPlayer.hitboxEdge);
 				//Main.NewText(modPlayer.swordHitbox.ToString(), 255, 0, 0);
 			}
 			/*{
 				hitboxEdge = new Vector2(hitbox.X, hitbox.Y);
 				if (player.itemAnimation == player.itemAnimationMax) longestDistance = 0;
-				if (player.itemAnimation == player.itemAnimationMax) hitboxEdge = new Vector2(hitbox.X + (player.direction == 1 ? 0 : hitbox.Width), hitbox.Y);
-				//Projectile.NewProjectile(Entity.GetSource_None(), hitboxEdge, Vector2.Zero, ModContent.ProjectileType<RedPixel>(), 0, 0);
+				hitboxEdge = new Vector2(hitbox.X + (player.direction == 1 ? hitbox.Width : 0), hitbox.Y);
+				Projectile.NewProjectile(Entity.GetSource_None(), hitboxEdge, Vector2.Zero, ModContent.ProjectileType<RedPixel>(), 0, 0);
 				if (Vector2.Distance(player.Center, hitboxEdge) > longestDistance) longestDistance = Vector2.Distance(player.Center, hitboxEdge);
 				Main.NewText(longestDistance.ToString(), 255, 0, 0);
 			}*/ //would be useful if you need more precise hitbox info ig
@@ -221,7 +228,7 @@ namespace Emperia
 			return;
         }
 
-        public override void HoldItem(Item Item, Player player)
+        /*public override void HoldItem(Item Item, Player player)
         { //only bug here is when reforging items. might get janky if other mods have scale adjusting stuff. might want decrease the effect on items with already high scales.
 			//yeah it temporarily changes modifier tooltips
 			if (!Item.noMelee && Item.damage > 0)
@@ -237,7 +244,11 @@ namespace Emperia
 					if (Item.scale == baseScale) Item.scale *= 1.2f;
 				}
 			}
-		}
+		}*/
+        public override void ModifyItemScale(Item item, Player player, ref float scale)
+        {
+			if (!item.noMelee && item.damage > 0 && player.HasBuff(ModContent.BuffType<Goliath>())) scale *= 1.2f;
+        }
         public override void ModifyTooltips(Item Item, List<TooltipLine> tooltips)
         {
 			if (!Main.gameMenu) //i hope this works as intended but otherwise the mouseover on the main menu social media icons crashes
@@ -267,6 +278,11 @@ namespace Emperia
 				if (Item.type == 293 && modPlayer.warlockTorc)
 				{
 					TooltipLine line = new TooltipLine(Mod, "x", "[c/e65555:Cannot be consumed while wearing a torc]");
+					tooltips.Add(line);
+				}
+				if (Item.GetGlobalItem<GItem>().inactiveGauntlet)
+				{
+					TooltipLine line = new TooltipLine(Mod, "x", "[c/e65555:Currently granting no damage boost, gauntlet damage bonuses do not stack]");
 					tooltips.Add(line);
 				}
 				/*if (Item.ammo == ItemID.WoodPlatform)
