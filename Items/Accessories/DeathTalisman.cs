@@ -26,7 +26,7 @@ namespace Emperia.Items.Accessories
         }
         public override void UpdateAccessory(Player player, bool hideVisibleAccessory)
         {
-			player.GetModPlayer<MyPlayer>().deathTalisman = true;
+			player.GetModPlayer<MyPlayer>().deathTalisman = Item;
             //make the effect have a 50% chance to fail when above a 20% crit chance, minus a 1 in 5 chance to always succeed (essentially nerfing high crit chance builds)
             //reduce drop rate to make it rare? probably a good idea considering how strong it is. Maybe one in 200
         }

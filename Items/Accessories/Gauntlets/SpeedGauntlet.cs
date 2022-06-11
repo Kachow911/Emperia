@@ -24,7 +24,7 @@ namespace Emperia.Items.Accessories.Gauntlets
             Item.value = Item.sellPrice(0, 0, 1, 0);
             Item.defense = 3;
             Item.accessory = true;
-            Item.GetGlobalItem<GItem>().isGauntlet = true;
+            Item.GetGlobalItem<GItem>().gauntletPower = 0.25f; //temp
         }
         public override void UpdateAccessory(Player player, bool hideVisibleAccessory)
         {

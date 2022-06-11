@@ -3,6 +3,8 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Graphics.Effects;
 using Terraria.Graphics.Shaders;
+using static Terraria.Audio.SoundEngine;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.DataStructures;
@@ -38,9 +40,6 @@ namespace Emperia.Items.Weapons
             //Item.reuseDelay = 60;
             //Item.useTurn = true;                
         }
-        int swingFrame;
-        int delay;
-
         public override void AddRecipes()
         {
             Recipe recipe = CreateRecipe();
@@ -48,20 +47,6 @@ namespace Emperia.Items.Weapons
             recipe.AddIngredient(ItemID.Cutlass);
             recipe.AddTile(TileID.MythrilAnvil);
             recipe.Register();
-        }
-        public override void OnHitNPC(Player player, NPC target, int damage, float knockback, bool crit)
-		{
-
-		}
-
-        //public override bool CanUseItem(Player player)
-        //{
-        //    return (delay < 1);
-        //}
-
-        public override void HoldItem(Player player)
-        {
-            if (delay > 0) delay--;
         }
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockBack)
         {
@@ -93,7 +78,9 @@ namespace Emperia.Items.Weapons
             if (hooksOut >= 7) return false;
             else
             {
-                Terraria.Audio.SoundEngine.PlaySound(SoundID.Coins, player.Center);
+
+                PlaySound(new SoundStyle("Emperia/Sounds/Custom/Chain") with { MaxInstances = 0 }, player.Center);
+                //PlaySound(SoundID.Coins, player.Center);
                 return true;
             }
             //return false;
@@ -101,6 +88,7 @@ namespace Emperia.Items.Weapons
         public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
         {
             damage = (int)(damage * 1.5f);
+            velocity = Vector2.Normalize(velocity) * Item.shootSpeed;
         }
         /*public override void MeleeEffects(Player player, Rectangle hitbox)
         {
@@ -133,6 +121,6 @@ namespace Emperia.Items.Weapons
             }
             Main.NewText(swingFrame.ToString());
 
-        }*/
+        }*/ //looking back this could just use player.itemanimation. could be an interesting idea if there was a weapon where it really made sense for the projectile to not come out at the start
     }
 }

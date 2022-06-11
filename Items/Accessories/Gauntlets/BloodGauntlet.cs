@@ -27,11 +27,10 @@ namespace Emperia.Items.Accessories.Gauntlets
             Item.rare = 4;
             Item.value = 280000;
             Item.accessory = true;
-            Item.GetGlobalItem<GItem>().isGauntlet = true;
+            Item.GetGlobalItem<GItem>().gauntletPower = 0.30f;
         }
         public override void UpdateAccessory(Player player, bool hideVisibleAccessory)
         {
-            player.GetModPlayer<MyPlayer>().gauntletBonus = 0.30f;
 			player.GetModPlayer<MyPlayer>().bloodGauntlet = true;
             player.GetModPlayer<MyPlayer>().wristBrace = true;
         }

@@ -2,6 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
+using Terraria.GameContent.Creative;
 
 using Emperia.Npcs.Mushor;
 using Emperia.Items.Weapons.Mushor;
@@ -11,10 +12,15 @@ namespace Emperia.Items
 {
 	public class MushorBag : ModItem
 	{
+
+		public override int BossBagNPC => NPCType<Mushor>();
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Treasure Bag");
+			DisplayName.SetDefault("Treasure Bag (Mushor)");
 			Tooltip.SetDefault("Right Click to open");
+			ItemID.Sets.BossBag[Type] = true;
+			ItemID.Sets.PreHardmodeLikeBossBag[Type] = true;
+			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 3;
 		}
 
 
@@ -23,41 +29,37 @@ namespace Emperia.Items
 			Item.width = 20;
 			Item.height = 20;
 			Item.rare = -2;
-
-			Item.maxStack = 30;
-
+			Item.maxStack = 999;
 			Item.expert = true;
 		}
-		//public override int BossBagNPC => NPCType<<Mushor>();
 		public override bool CanRightClick()
 		{
 			return true;
 		}
 
-		public override void RightClick(Player player)
+		public override void OpenBossBag(Player player)
 		{
 			//if (Main.rand.Next(6) == 0)
 			//{
 			//	player.QuickSpawnItem(ModContent.ItemType<MushorMask>());
 			//}
 			IEntitySource source = player.GetSource_OpenItem(ModContent.ItemType<MushorBag>());
-			if (Main.rand.Next(3) != 0)
+			switch (Main.rand.Next(4))
 			{
-				player.QuickSpawnItem(source, ModContent.ItemType<Shroomer>());
+				case 0:
+					player.QuickSpawnItem(source, ItemType<Shroomer>());
+					break;
+				case 1:
+					player.QuickSpawnItem(source, ItemType<Mushdisc>());
+					break;
+				case 2:
+					player.QuickSpawnItem(source, ItemType<Shroomflask>());
+					break;
+				case 3:
+					player.QuickSpawnItem(source, ItemType<Shroomerang>());
+					break;
 			}
-			if (Main.rand.Next(3) != 0)
-			{
-				player.QuickSpawnItem(source, ModContent.ItemType<Mushdisc>());
-			}
-			if (Main.rand.Next(3) != 0)
-			{
-				player.QuickSpawnItem(source, ModContent.ItemType<Shroomflask>());
-			}
-			if (Main.rand.Next(3) != 0)
-			{
-				player.QuickSpawnItem(source, ModContent.ItemType<Shroomerang>());
-			}
-			player.QuickSpawnItem(source, ModContent.ItemType<Items.Accessories.MycelialShield>());
+			player.QuickSpawnItem(source, ItemType<Items.Accessories.MycelialShield>());
 			
 		}
 	}

@@ -189,27 +189,29 @@ namespace Emperia.Projectiles
 			Vector2 playerCenter = Main.player[Projectile.owner].MountedCenter;
 			Vector2 center = Projectile.Center;
 
-
-			if (Projectile.timeLeft < 35977 && !latched && returningSpeed == 0)
-            {
-				if (sag < 150f) sag += 3f;
-            }
-			if (latched || returningSpeed > 0)
+			if (!Main.gamePaused)
 			{
-				if (sag > 20f) sag -= 20f;
-				else if (sag > 0f) sag -= sag;
-			}
-			if (returningSpeed > 0)
-            {
-				if (sag < -20f) sag += 20f;
-				else if (sag < 0f) sag -= sag;
-			}
-			if (latched && sag <= 0)
-            {
-				curveMidPoint = 0.5f;
-				if ((playerCenter - center).Length() > latchDistance) latchDistance = (playerCenter - center).Length();
-				sag = -250f * (1 - ((playerCenter - center).Length() / latchDistance));
-				if (sag < -250f) sag = -250f;
+				if (Projectile.timeLeft < 35977 && !latched && returningSpeed == 0)
+				{
+					if (sag < 150f) sag += 3f;
+				}
+				if (latched || returningSpeed > 0)
+				{
+					if (sag > 20f) sag -= 20f;
+					else if (sag > 0f) sag -= sag;
+				}
+				if (returningSpeed > 0)
+				{
+					if (sag < -20f) sag += 20f;
+					else if (sag < 0f) sag -= sag;
+				}
+				if (latched && sag <= 0)
+				{
+					curveMidPoint = 0.5f;
+					if ((playerCenter - center).Length() > latchDistance) latchDistance = (playerCenter - center).Length();
+					sag = -250f * (1 - ((playerCenter - center).Length() / latchDistance));
+					if (sag < -250f) sag = -250f;
+				}
 			}
 
 			//all this stuff up here determines the sag of the curve based on player distance and what the projectile is doing

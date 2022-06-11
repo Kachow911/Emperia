@@ -40,7 +40,7 @@ namespace Emperia
 		public bool lunarDash = false;
 		public bool rougeRage = false;
 		public bool vermillionValor = false;
-		public bool deathTalisman = false;
+		public Item deathTalisman = null;
 		public bool forbiddenOath = false;
 		public bool vitalityCrystal = false;
 		public bool defenseInsignia = false;
@@ -58,11 +58,11 @@ namespace Emperia
 		//public bool aquaticSet = false;
 		public Item aquaticSet = null;
 		public bool yetiMount = false;
-		public bool woodGauntlet = false;
+		public Item woodGauntlet = null;
 		public float gelGauntlet = 0f;
 		public bool metalGauntlet = false;
-		public bool magicGauntlet = false;
-		public bool boneGauntlet = false;
+		public Item magicGauntlet = null;
+		public Item boneGauntlet = null;
 		public bool bloodGauntlet = false;
 		public bool frostGauntlet = false;
 		public bool meteorGauntlet = false;
@@ -159,11 +159,11 @@ namespace Emperia
 			//carapaceSet = false;
 			EmberTyrant = false;
 			breakingPoint = false;
-			woodGauntlet = false;
+			woodGauntlet = null;
 			gelGauntlet = 0f;
 			metalGauntlet = false;
-			magicGauntlet = false;
-			boneGauntlet = false;
+			magicGauntlet = null;
+			boneGauntlet = null;
 			bloodGauntlet = false;
 			//terraGauntlet = false;
 			terraGauntlet = null;
@@ -185,7 +185,7 @@ namespace Emperia
 			sporeFriend = false;
 			rougeRage = false;
 			vermillionValor = false;
-			deathTalisman = false;
+			deathTalisman = null;
 			forbiddenOath = false;
 			vitalityCrystal = false;
 			defenseInsignia = false;
@@ -891,7 +891,7 @@ namespace Emperia
 			{
 				ferocityTime = 180;
 			}
-			if (crit && target.life <= 0 && deathTalisman && !target.HasBuff(ModContent.BuffType<FatesDemise>()))
+			if (crit && target.life <= 0 && deathTalisman != null && !deathTalisman.IsAir && !target.HasBuff(ModContent.BuffType<FatesDemise>()))
 			{
 				int damage1 = 0;
 				if (target.lifeMax > 1500)
@@ -975,13 +975,13 @@ namespace Emperia
 					}
 				}
 			}
-			if (woodGauntlet)
+			if (woodGauntlet != null && !woodGauntlet.IsAir)
 			{
 				Vector2 rotVector = target.Center - Player.Center;
 				if (Main.rand.Next(6 + (30 / damage)) == 0)
 				{
 					rotVector.Normalize();
-					Projectile.NewProjectile(Player.GetSource_Misc("Woodweaver Gauntlet"), Player.Center.X, Player.Center.Y, rotVector.X * 10f, rotVector.Y * 10f, ModContent.ProjectileType<Splinter>(), 7, knockback, Main.myPlayer, 0, 0);
+					Projectile.NewProjectile(Player.GetSource_Accessory(woodGauntlet), Player.Center.X, Player.Center.Y, rotVector.X * 10f, rotVector.Y * 10f, ModContent.ProjectileType<Splinter>(), 7, knockback, Main.myPlayer, 0, 0);
 				}
 			}
 			if (gelGauntlet > 0 && target.knockBackResist == 0f && !Item.GetGlobalItem<GItem>().noGelGauntlet)
@@ -1012,7 +1012,7 @@ namespace Emperia
 			{
 				Player.AddBuff(ModContent.BuffType<AlloyArmor>(), 90);
 			}
-			if (magicGauntlet)
+			if (magicGauntlet != null && !magicGauntlet.IsAir)
 			{
 				if (Main.rand.Next(8 + (60 / damage)) == 0 || target.life <= 0 && Main.rand.Next(3) == 0)
 				{ //chance based on damage and if the attack killed
@@ -1037,17 +1037,17 @@ namespace Emperia
 								xPosition = chosenNPC.Right.X + 30f;
 								projDirection = -0.1f;
 							}
-							Projectile.NewProjectile(Player.GetSource_Accessory(terraGauntlet), xPosition, chosenNPC.Center.Y - 35f, projDirection, 0, ModContent.ProjectileType<EnchantedBlade>(), 40, 4f, Player.whoAmI);
+							Projectile.NewProjectile(Player.GetSource_Accessory(magicGauntlet), xPosition, chosenNPC.Center.Y - 35f, projDirection, 0, ModContent.ProjectileType<EnchantedBlade>(), 40, 4f, Player.whoAmI);
 							PlaySound(SoundID.Item8, chosenNPC.Center);
 						}
 					}
 				}
 			}
-			if (boneGauntlet && !Player.HasBuff(ModContent.BuffType<SkullBuff>()))
+			if (boneGauntlet != null && !boneGauntlet.IsAir && !Player.HasBuff(ModContent.BuffType<SkullBuff>()))
 			{
 				if (Main.rand.Next(30 + (160 / damage)) == 0)
 				{
-					Projectile.NewProjectile(Player.GetSource_Accessory(terraGauntlet), Player.Center.X, Player.Center.Y, 0, 0, ModContent.ProjectileType<GauntletSkull>(), 0, 4f, Player.whoAmI);
+					Projectile.NewProjectile(Player.GetSource_Accessory(boneGauntlet), Player.Center.X, Player.Center.Y, 0, 0, ModContent.ProjectileType<GauntletSkull>(), 0, 4f, Player.whoAmI);
 					Player.AddBuff(ModContent.BuffType<SkullBuff>(), 1200);
 					PlaySound(SoundID.Item8, Player.Center);
 				}
@@ -1078,10 +1078,9 @@ namespace Emperia
 				}
 
 			}
-			if (crit && deathTalisman)
+			if (crit && deathTalisman != null && !deathTalisman.IsAir)
 			{
 				target.AddBuff(ModContent.BuffType<FatesDemise>(), 720);
-				target.GetGlobalNPC<MyNPC>().fateSource = Player;
 			}
 			if (defenseInsignia)
 			{
@@ -1144,7 +1143,7 @@ namespace Emperia
 			{
 				ferocityTime = 180;
 			}
-			if (crit && target.life <= 0 && deathTalisman && !target.HasBuff(ModContent.BuffType<FatesDemise>()))
+			if (crit && target.life <= 0 && deathTalisman != null && !deathTalisman.IsAir && !target.HasBuff(ModContent.BuffType<FatesDemise>()))
 			{
 				int damage1 = 0;
 				if (target.lifeMax > 1500)
@@ -1217,10 +1216,9 @@ namespace Emperia
 					}
 				}
 			}
-			if (crit && deathTalisman)
+			if (crit && deathTalisman != null && !deathTalisman.IsAir)
 			{
 				target.AddBuff(ModContent.BuffType<FatesDemise>(), 720);
-				target.GetGlobalNPC<MyNPC>().fateSource = Player;
 			}
 			if (defenseInsignia)
 			{
@@ -1294,8 +1292,20 @@ namespace Emperia
 		//}
 		public override void UpdateEquips()
 		{
+			Item strongestGauntlet = null;
 			for (int i = 3; i <= (8 + Player.GetAmountOfExtraAccessorySlotsToShow()); i++)
 			{
+				if (!Player.armor[i].IsAir && Player.armor[i].GetGlobalItem<GItem>().gauntletPower > 0)
+                {
+					if (strongestGauntlet == null) strongestGauntlet = Player.armor[i];
+					else if (strongestGauntlet.GetGlobalItem<GItem>().gauntletPower < Player.armor[i].GetGlobalItem<GItem>().gauntletPower)
+                    {
+						strongestGauntlet.GetGlobalItem<GItem>().inactiveGauntlet = true;
+						strongestGauntlet = Player.armor[i];
+					}
+					else Player.armor[i].GetGlobalItem<GItem>().inactiveGauntlet = true;
+				}
+
 				//Main.NewText(Player.armor[i].type.ToString());
 				//Main.NewText(ModContent.ItemType<Items.Accessories.Gauntlets.PrimordialGauntlet>().ToString());
 				if (Player.armor[i].type == ModContent.ItemType<Items.Accessories.Gauntlets.PrimordialGauntlet>()) { terraGauntlet = Player.armor[i]; }
@@ -1306,6 +1316,11 @@ namespace Emperia
 
 				//IMPORTANT TODO: if primordial gauntlet works as expected, change other accessories.
 
+			}
+			if (strongestGauntlet != null)
+			{
+				strongestGauntlet.GetGlobalItem<GItem>().inactiveGauntlet = false;
+				gauntletBonus = strongestGauntlet.GetGlobalItem<GItem>().gauntletPower;
 			}
 		}
 		/*private static List<ushort> ItemCheck_GetTileCutIgnoreList(Item item)

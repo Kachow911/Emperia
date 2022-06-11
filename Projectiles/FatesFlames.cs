@@ -80,7 +80,6 @@ namespace Emperia.Projectiles
             else
             {
                 target.AddBuff(ModContent.BuffType<FatesDemise>(), 720);
-				target.GetGlobalNPC<MyNPC>().fateSource = Main.player[Projectile.owner];
 			}
 		}
 

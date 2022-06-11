@@ -19,7 +19,7 @@ namespace Emperia.Items.Weapons.Yeti
             Item.DamageType = DamageClass.Ranged;
             Item.width = 18;
             Item.height = 40;
-            Item.shoot = ModContent.ProjectileType<Projectiles.Yeti.HuntersSpear>();
+            Item.shoot = ModContent.ProjectileType<HuntersSpearProj>();
             Item.shootSpeed = 8f;
             Item.useStyle = 1;
             Item.knockBack = 5f;

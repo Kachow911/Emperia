@@ -24,16 +24,10 @@ namespace Emperia.Items.Accessories.Gauntlets
             Item.value = 3750;
             Item.accessory = true;
             //Item.alpha = 50;
-            Item.GetGlobalItem<GItem>().isGauntlet = true;
+            Item.GetGlobalItem<GItem>().gauntletPower = 0.25f;
         }
         public override void UpdateAccessory(Player player, bool hideVisibleAccessory)
         {
-            if (player.GetModPlayer<MyPlayer>().gauntletBonus < 0.25f)
-            {
-                player.GetModPlayer<MyPlayer>().gauntletBonus = 0.25f;
-                Item.GetGlobalItem<GItem>().inactiveGauntlet = false;
-            }
-            else Item.GetGlobalItem<GItem>().inactiveGauntlet = true;
             player.GetModPlayer<MyPlayer>().gelGauntlet = 0.9f;
             player.GetModPlayer<MyPlayer>().wristBrace = true;
         }

@@ -7,7 +7,10 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Emperia.Projectiles.Mushroom;
 using Emperia.Items.Weapons.Mushor;
+using Emperia.Items;
 using static Terraria.ModLoader.ModContent;
+using Terraria.GameContent.ItemDropRules;
+
 
 namespace Emperia.Npcs.Mushor
 {
@@ -49,7 +52,7 @@ namespace Emperia.Npcs.Mushor
             NPC.knockBackResist = 0f;
             NPC.width = 128;
             NPC.height = 128;
-            NPC.value = Item.buyPrice(0, 8, 0, 0);
+            NPC.value = 60000;
             NPC.npcSlots = 1f;
             NPC.boss = true;
             NPC.lavaImmune = true;
@@ -305,39 +308,14 @@ namespace Emperia.Npcs.Mushor
             	Main.NewText("The guardian of the mushroom biome has fallen...", 0, 75, 161, false);
 				EmperialWorld.downedMushor = true;
 			}*/
-			//if (Main.rand.Next(10) == 0)
-			//{
-			//	Item.NewItem((int)NPC.position.X, (int)NPC.position.Y, NPC.width, NPC.height, ModContent.ItemType<MushorTrophy>());
-			//}
-			if (Main.expertMode)
+
+			npcLoot.Add(ItemDropRule.BossBag(ItemType<MushorBag>()));
+			LeadingConditionRule notExpertRule = new LeadingConditionRule(new Conditions.NotExpert());
 			{
-				Item.NewItem(NPC.GetSource_Loot(), (int)NPC.position.X, (int)NPC.position.Y, NPC.width, NPC.height, ModContent.ItemType<Items.MushorBag>());
-				//NPC.DropBossBags();
-			}
-			else
-			{
-				
-				if (Main.rand.Next(2) == 0)
-				{
-					Item.NewItem(NPC.GetSource_Loot(), (int)NPC.position.X, (int)NPC.position.Y, NPC.width, NPC.height, ModContent.ItemType<Shroomer>());
-				}
-				if (Main.rand.Next(2) == 0)
-				{
-					Item.NewItem(NPC.GetSource_Loot(), (int)NPC.position.X, (int)NPC.position.Y, NPC.width, NPC.height, ModContent.ItemType<Items.Weapons.Mushor.Shroomerang>());
-				}
-				if (Main.rand.Next(2) == 0)
-				{
-					Item.NewItem(NPC.GetSource_Loot(), (int)NPC.position.X, (int)NPC.position.Y, NPC.width, NPC.height, ModContent.ItemType<Shroomflask>());
-				}
-				
-				//if (Main.rand.Next(7) == 0)
-				//{
-				//	Item.NewItem((int)NPC.position.X, (int)NPC.position.Y, NPC.width, NPC.height, ModContent.ItemType<MushorMask>());
-				//}
-				if (Main.rand.Next(2) == 0)
-				{
-				Item.NewItem(NPC.GetSource_Loot(), (int)NPC.position.X, (int)NPC.position.Y, NPC.width, NPC.height, ModContent.ItemType<Mushdisc>());
-				}
+				notExpertRule.OnSuccess(ItemDropRule.OneFromOptionsNotScalingWithLuck(1, ItemType<Shroomer>(), ItemType<Mushdisc>(), ItemType<Shroomflask>(), ItemType<Items.Weapons.Mushor.Shroomerang>()));
+				//notExpertRule.OnSuccess(ItemDropRule.Common(ItemType<MushorMask>(), 7));
+				//notExpertRule.OnSuccess(ItemDropRule.Common(ItemType<MushorTrophy>(), 10));
+				npcLoot.Add(notExpertRule);
 			}
 		}
     }

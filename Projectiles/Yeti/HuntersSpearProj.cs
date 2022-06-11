@@ -8,7 +8,7 @@ using Terraria.GameContent;
 
 namespace Emperia.Projectiles.Yeti
 {
-	public class HuntersSpear : ModProjectile
+	public class HuntersSpearProj : ModProjectile
 	{
 		private bool hit = false;
 		Vector2 distFromEnemy;

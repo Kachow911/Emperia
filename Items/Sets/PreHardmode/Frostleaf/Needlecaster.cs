@@ -24,17 +24,18 @@ namespace Emperia.Items.Sets.PreHardmode.Frostleaf
 			Item.knockBack = 3;
             Item.value = 24000;
 			Item.rare = 1;
-			Item.UseSound = SoundID.Item20;
+			Item.UseSound = SoundID.Item17;
 			Item.autoReuse = true;
 			Item.shoot = ModContent.ProjectileType<Needle>();
 			Item.shootSpeed = 6f;
 			Item.mana = 5;
+			Item.noMelee = true;
 		}
 
     public override void SetStaticDefaults()
     {
-      DisplayName.SetDefault("Needlecaster");
-	  Tooltip.SetDefault("Releases controllable bursts of needle-like leaves");
+      DisplayName.SetDefault("Abscission");
+	  Tooltip.SetDefault("Casts controllable bursts of razor sharp leaves");
     }
     	public override void AddRecipes()
     	{

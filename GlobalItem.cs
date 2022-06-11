@@ -30,10 +30,10 @@ namespace Emperia
 
         public int forestSetShots = 2;
 		public bool gelPad = false;
-		public bool isGauntlet = false;
 		public bool noWristBrace = false;
 		public bool noGelGauntlet = false;
 		public bool inactiveGauntlet = false;
+		public float gauntletPower = 0f;
 
 		public bool nightFlame = false;
 
@@ -282,7 +282,7 @@ namespace Emperia
 				}
 				if (Item.GetGlobalItem<GItem>().inactiveGauntlet)
 				{
-					TooltipLine line = new TooltipLine(Mod, "x", "[c/e65555:Currently granting no damage boost, gauntlet damage bonuses do not stack]");
+					TooltipLine line = new TooltipLine(Mod, "x", "Currently granting no damage boost, gauntlet damage bonuses do not stack");
 					tooltips.Add(line);
 				}
 				/*if (Item.ammo == ItemID.WoodPlatform)
@@ -340,9 +340,9 @@ namespace Emperia
 			MyPlayer modPlayer = player.GetModPlayer<MyPlayer>();
 			if (Item.GetGlobalItem<GItem>().gelPad == true && modPlayer.gelGauntlet < 1)
 			{
-				player.GetModPlayer<MyPlayer>().gelGauntlet = 0.6f;
+				modPlayer.gelGauntlet = 0.6f;
 			}
-        }
+		}
 
         public override void OnCreate(Item item, ItemCreationContext context)
         {

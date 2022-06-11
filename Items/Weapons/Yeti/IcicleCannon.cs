@@ -59,19 +59,21 @@ namespace Emperia.Items.Weapons.Yeti
 					return true;
 				}
 			}
+			else
+            {
+				modPlayer.iceCannonLoad = Item.useTime * -1;
+				PlaySound(SoundID.Item28, player.Center);
+				//for (int i = 0; i < 8; i++)
+				//{
+				//	int index2 = Dust.NewDust(Vector2.Normalize(new Vector2(speedX, speedY)) * 25f + position, 16, 8, 68, player.velocity.X / 5, (float) player.velocity.Y, 0, default(Color), 1.2f);						
+				//	Main.dust[index2].noGravity = true;
+				//	Main.dust[index2].velocity *= 0f;
+				//}
+			}
 			return false;  
 		}
 		public override bool AltFunctionUse(Player player)
 		{
-			MyPlayer modPlayer = player.GetModPlayer<MyPlayer>();
-			modPlayer.iceCannonLoad = Item.useTime * -1;
-			PlaySound(SoundID.Item28, player.Center);
-			//for (int i = 0; i < 8; i++)
-			//{
-			//	int index2 = Dust.NewDust(Vector2.Normalize(new Vector2(speedX, speedY)) * 25f + position, 16, 8, 68, player.velocity.X / 5, (float) player.velocity.Y, 0, default(Color), 1.2f);						
-			//	Main.dust[index2].noGravity = true;
-			//	Main.dust[index2].velocity *= 0f;
-			//}
 			return true;
 		}
 		/*public override bool? UseItem(Player player)

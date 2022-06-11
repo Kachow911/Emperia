@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using static Terraria.Audio.SoundEngine;
 
 namespace Emperia.Projectiles.Yeti
 {
@@ -41,6 +42,11 @@ namespace Emperia.Projectiles.Yeti
             {
                 Projectile.frame = Main.rand.Next(0, 2);
                 init = true;
+            }
+            if (Projectile.soundDelay == 0)
+            {
+                Projectile.soundDelay = 40;
+                PlaySound(SoundID.Item7 with { Pitch = 0.2f, Volume = 0.8f, MaxInstances = 4}, Projectile.position);
             }
         }
 		public override void Kill(int timeLeft)

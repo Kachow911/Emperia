@@ -9,6 +9,9 @@ using Emperia.Projectiles.Yeti;
 using Emperia.Items.Weapons.Yeti;
 using static Terraria.ModLoader.ModContent;
 using static Terraria.Audio.SoundEngine;
+using Terraria.GameContent.ItemDropRules;
+using Emperia.Items;
+
 
 namespace Emperia.Npcs.Yeti
 {
@@ -51,7 +54,7 @@ namespace Emperia.Npcs.Yeti
             NPC.knockBackResist = 0f;
             NPC.width = 45;
             NPC.height = 55;
-            NPC.value = Item.buyPrice(0, 8, 0, 0);
+            NPC.value = 30000;
             NPC.npcSlots = 1f;
             NPC.boss = true;
             NPC.lavaImmune = true;
@@ -370,13 +373,27 @@ namespace Emperia.Npcs.Yeti
             this.counter = counter;
 		}
 
-        public override void OnKill()
-        {
-			Gore.NewGore(NPC.GetSource_Death(), NPC.position, NPC.velocity, ModContent.Find<ModGore>("Gores/Yeti/gore1").Type, 1f);
-			Gore.NewGore(NPC.GetSource_Death(), NPC.position, NPC.velocity, ModContent.Find<ModGore>("Gores/Yeti/gore2").Type, 1f);
-			Gore.NewGore(NPC.GetSource_Death(), NPC.position, NPC.velocity, ModContent.Find<ModGore>("Gores/Yeti/gore3").Type, 1f);
-			Gore.NewGore(NPC.GetSource_Death(), NPC.position, NPC.velocity, ModContent.Find<ModGore>("Gores/Yeti/gore4").Type, 1f);
-			Gore.NewGore(NPC.GetSource_Death(), NPC.position, NPC.velocity, ModContent.Find<ModGore>("Gores/Yeti/gore5").Type, 1f);
+		public override void HitEffect(int hitDirection, double damage)
+		{
+			if (Main.netMode == NetmodeID.Server)
+			{
+				return;
+			}
+
+			if (NPC.life <= 0)
+			{
+				int headGoreType = Mod.Find<ModGore>("yetiGore1").Type;
+				int armGoreType = Mod.Find<ModGore>("yetiGore2").Type;
+				int legGoreType1 = Mod.Find<ModGore>("yetiGore3").Type;
+				int legGoreType2 = Mod.Find<ModGore>("yetiGore4").Type;
+				int armGoreType2 = Mod.Find<ModGore>("yetiGore5").Type;
+				var entitySource = NPC.GetSource_Death();
+				Gore.NewGore(entitySource, NPC.position, NPC.velocity, headGoreType, NPC.scale * 0.5f); //the sprite is 1x1 pixels so the scale is 2f lol
+				Gore.NewGore(entitySource, NPC.position, NPC.velocity, armGoreType, NPC.scale * 0.5f);
+				Gore.NewGore(entitySource, NPC.position, NPC.velocity, legGoreType1, NPC.scale * 0.5f);
+				Gore.NewGore(entitySource, NPC.position, NPC.velocity, legGoreType2, NPC.scale * 0.5f);
+				Gore.NewGore(entitySource, NPC.position, NPC.velocity, armGoreType2, NPC.scale * 0.5f);
+			}
 		}
         public override void ModifyNPCLoot(NPCLoot npcLoot)
 		{
@@ -389,40 +406,18 @@ namespace Emperia.Npcs.Yeti
 			//{
 			//	Item.NewItem((int)NPC.position.X, (int)NPC.position.Y, NPC.width, NPC.height, ModContent.ItemType<YetiTrophy>());
 			//}
-			if (Main.expertMode)
+			npcLoot.Add(ItemDropRule.BossBag(ItemType<YetiBag>()));
+			LeadingConditionRule notExpertRule = new LeadingConditionRule(new Conditions.NotExpert());
 			{
-				Item.NewItem(NPC.GetSource_Loot(), (int)NPC.position.X, (int)NPC.position.Y, NPC.width, NPC.height, ModContent.ItemType<Items.YetiBag>());
-				//NPC.DropBossBags();
-			}
-			else
-			{
-				
-				if (Main.rand.Next(2) == 0)
-				{
-					Item.NewItem(NPC.GetSource_Loot(), (int)NPC.position.X, (int)NPC.position.Y, NPC.width, NPC.height, ModContent.ItemType<MammothineClub>());
-				}
-				if (Main.rand.Next(2) == 0)
-				{
-					Item.NewItem(NPC.GetSource_Loot(), (int)NPC.position.X, (int)NPC.position.Y, NPC.width, NPC.height, ModContent.ItemType<Items.Weapons.Yeti.HuntersSpear>());
-				}
-				if (Main.rand.Next(2) == 0)
-				{
-					Item.NewItem(NPC.GetSource_Loot(), (int)NPC.position.X, (int)NPC.position.Y, NPC.width, NPC.height, ModContent.ItemType<IcicleCannon>());
-				}
-				
-				if (Main.rand.Next(7) == 0)
-				{
-					Item.NewItem(NPC.GetSource_Loot(), (int)NPC.position.X, (int)NPC.position.Y, NPC.width, NPC.height, ModContent.ItemType<Items.Armor.YetiMask>());
-				}
-				if (Main.rand.Next(10) == 0)
-				{
-				Item.NewItem(NPC.GetSource_Loot(), (int)NPC.position.X, (int)NPC.position.Y, NPC.width, NPC.height, ModContent.ItemType<Items.ChilledFootprint>());
-				}
-				if (Main.rand.Next(2) == 0)
-				{
-				Item.NewItem(NPC.GetSource_Loot(), (int)NPC.position.X, (int)NPC.position.Y, NPC.width, NPC.height, ModContent.ItemType<ArcticIncantation>());
-				}
-				Item.NewItem(NPC.GetSource_Loot(), (int)NPC.position.X, (int)NPC.position.Y, NPC.width, NPC.height, ModContent.ItemType<Items.Sets.PreHardmode.Frostleaf.Frostleaf>(), Main.rand.Next(20, 30)); 
+				notExpertRule.OnSuccess(ItemDropRule.OneFromOptionsNotScalingWithLuck(1, ItemType<MammothineClub>(), ItemType<HuntersSpear>(), ItemType<IcicleCannon>(), ItemType<ArcticIncantation>()));
+				/*notExpertRule.OnSuccess(ItemDropRule.Common(ItemType<MammothineClub>(), 2));
+				notExpertRule.OnSuccess(ItemDropRule.Common(ItemType<HuntersSpear>(), 2));
+				notExpertRule.OnSuccess(ItemDropRule.Common(ItemType<IcicleCannon>(), 2));
+				notExpertRule.OnSuccess(ItemDropRule.Common(ItemType<ArcticIncantation>(), 2));*/
+				notExpertRule.OnSuccess(ItemDropRule.Common(ItemType<Items.Armor.YetiMask>(), 7));
+				notExpertRule.OnSuccess(ItemDropRule.Common(ItemType<ChilledFootprint>(), 10));
+				notExpertRule.OnSuccess(ItemDropRule.Common(ItemType<Items.Sets.PreHardmode.Frostleaf.Frostleaf>(), 1, 20, 30));
+				npcLoot.Add(notExpertRule);
 			}
 		}
         

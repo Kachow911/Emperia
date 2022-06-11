@@ -35,7 +35,24 @@ namespace Emperia.Items.Sets.PreHardmode.Frostleaf
             Item.autoReuse = false;
             Item.shootSpeed = 4.5f;
         }
-		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockBack)
+		public override bool? UseItem(Player player)
+		{
+			if (player.altFunctionUse == 2)
+			{
+				if (notchedArrows < 5)
+				{
+					PlaySound(SoundID.Item5, player.Center);
+					Dust.NewDust(player.position, player.width, player.height, 155, 0, 0, 0, new Color(0, 255, 0), 0.8f);
+					notchedArrows++;
+				}
+				else
+				{
+					PlaySound(SoundID.MaxMana, player.Center);
+				}
+			}
+			return true;
+		}
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockBack)
 		{
 			if (!(player.altFunctionUse == 2))
 			{
@@ -56,17 +73,6 @@ namespace Emperia.Items.Sets.PreHardmode.Frostleaf
 		}
 		public override bool AltFunctionUse(Player player)
 		{
-			
-			if (notchedArrows < 5)
-			{
-				PlaySound(SoundID.Item5, player.Center);
-				Color rgb = new Color(0, 255, 0);
-				int index2 = Dust.NewDust(player.position, player.width, player.height, 155, (float) 0, (float) 0, 0, rgb, 0.8f);
-			}
-			else
-			{
-				PlaySound(SoundID.MaxMana, player.Center);
-			}
 			return true;
 		}
 		/*public override bool? UseItem(Player player)
@@ -79,13 +85,11 @@ namespace Emperia.Items.Sets.PreHardmode.Frostleaf
 		}*/
 		public override bool CanConsumeAmmo(Item ammo, Player player)
 		{
-			if (!(player.altFunctionUse == 2)) return true;
-			else if (notchedArrows < 5) 
+			if (notchedArrows >= 5 && player.altFunctionUse == 2) 
 			{
-				notchedArrows++;
-				return true;
+				return false;
 			}
-			else return false;
+			else return base.CanConsumeAmmo(ammo, player);
 		}
 		public override Vector2? HoldoutOffset()
         {

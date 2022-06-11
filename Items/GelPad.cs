@@ -26,7 +26,7 @@ namespace Emperia.Items
 
 		public virtual bool CanApply(Item Item)
 		{
-            if (Item.GetGlobalItem<GItem>().isGauntlet == true && Item.GetGlobalItem<GItem>().gelPad == false)
+            if (Item.GetGlobalItem<GItem>().gauntletPower > 0 && Item.GetGlobalItem<GItem>().gelPad == false)
             {
                 return true;
             }
