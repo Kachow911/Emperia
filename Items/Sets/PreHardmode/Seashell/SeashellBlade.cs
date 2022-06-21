@@ -44,46 +44,43 @@ namespace Emperia.Items.Sets.PreHardmode.Seashell
             recipe.Register();
             
         }
-        /*public override bool CanUseItem(Player player)
-        {
-            MyPlayer modPlayer = player.GetModPlayer<MyPlayer>();
-            if (modPlayer.seaBladeCount == 0 && modPlayer.seaBladeTimer > 5)
-            {
-                return false;
-            }
-            else return true;
-        }*/
-        bool firstHit = false;
-        bool forSomeUngodlyReasonUseItemRunsAfterOnHitNPCSoThisMakesTheCodeWorkIfYouHitOnTheFirstFrame = false;
+
+        bool hitEnemy = false;
+        int seaBladeCount = 0;
+        int seaBladeTimer = 0;
         public override bool? UseItem(Player player)
         {
-            MyPlayer modPlayer = player.GetModPlayer<MyPlayer>();
-            //Main.NewText("new use");
-            //Main.NewText(modPlayer.seaBladeCount.ToString(), 255, 20, 20);
-            if (!forSomeUngodlyReasonUseItemRunsAfterOnHitNPCSoThisMakesTheCodeWorkIfYouHitOnTheFirstFrame)
+            if (player.itemAnimation == player.itemAnimationMax) PlaySound(SoundID.Item1 with { Pitch = -0.25f + 0.15f * seaBladeCount }, player.Center);
+            if (player.itemAnimation == 1)
             {
-                firstHit = true;
-            }
-            else { forSomeUngodlyReasonUseItemRunsAfterOnHitNPCSoThisMakesTheCodeWorkIfYouHitOnTheFirstFrame = false; }
-            PlaySound(SoundID.Item1 with { Pitch = -0.25f + 0.15f * modPlayer.seaBladeCount }, player.Center);
-            //PlaySound(2, (int)player.Center.X, (int)player.Center.Y, 1, 1f, (-0.25f + 0.15f * modPlayer.seaBladeCount)); //rises in pitch over time
-            return true;
-        }
-		public override void ModifyHitNPC (Player player, NPC target, ref int damage, ref float knockback, ref bool crit)
-		{
-            MyPlayer modPlayer = player.GetModPlayer<MyPlayer>();
-            modPlayer.seaBladeTimer = (int)(Item.useAnimation * player.GetAttackSpeed(DamageClass.Melee)) + 10;
-            if (firstHit || player.itemAnimation + 1 == (int)(Item.useAnimation * player.GetAttackSpeed(DamageClass.Melee)))
-            {
-
-                firstHit = false;
-                if (modPlayer.seaBladeCount >= 4)
+                if (hitEnemy)
                 {
+                    seaBladeCount++;
+                    seaBladeTimer = 50;
+                    //Main.NewText(seaBladeCount);
+                }
+                else seaBladeCount = 0;
+                hitEnemy = false;
+            } 
+            return null;
+        }
+        public override void UpdateInventory(Player player)
+        {
+            if (seaBladeTimer > 0) seaBladeTimer--;
+            else seaBladeCount = 0;
+        }
+        //could use holditem to reset timer
+        public override void ModifyHitNPC (Player player, NPC target, ref int damage, ref float knockback, ref bool crit)
+		{
+                hitEnemy = true;
+                if (seaBladeCount >= 4)
+                {
+                    hitEnemy = false;
                     if (crit) { knockback *= 1.5f; }
                     else { knockback *= 3f; }
                     knockback *= (1.4f - target.knockBackResist);//more accurate on flimsy npcs
                     PlaySound(SoundID.Item70 with { Volume = 0.5f }, player.Center);
-                    modPlayer.seaBladeCount = 0;
+                    seaBladeCount = 0;
                     /*for (int i = 0; i < 4; ++i)
                     {
                         //Main.NewText(((Main.rand.Next(30) + 20 * i) * (Main.rand.NextBool(2) == true ? 1 : -1)).ToString());
@@ -97,15 +94,6 @@ namespace Emperia.Items.Sets.PreHardmode.Seashell
                     Projectile.NewProjectile(player.GetSource_ItemUse(Item), player.Center.X, player.Center.Y, direction.X * 5f, direction.Y * 5f, ModContent.ProjectileType<CoralShard>(), damage * 2, 1, Main.myPlayer, 0, 0);
                     //Main.NewText(modPlayer.seaBladeCount.ToString());
                 }
-                else { 
-                    modPlayer.seaBladeCount++;
-                    //Main.NewText(modPlayer.seaBladeCount.ToString());
-                }
-            }
-            if (player.itemAnimation + 1 == (int)(Item.useAnimation * player.GetAttackSpeed(DamageClass.Melee)))
-            {
-                forSomeUngodlyReasonUseItemRunsAfterOnHitNPCSoThisMakesTheCodeWorkIfYouHitOnTheFirstFrame = true;
-            }
 			/*if (crit)
 			{
 				Vector2 placePosition = player.Center + new Vector2(0, -400);

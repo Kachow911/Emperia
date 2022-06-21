@@ -188,7 +188,6 @@ namespace Emperia.Projectiles
 		public override bool PreDraw(ref Color lightColor) {
 			Vector2 playerCenter = Main.player[Projectile.owner].MountedCenter;
 			Vector2 center = Projectile.Center;
-
 			if (!Main.gamePaused)
 			{
 				if (Projectile.timeLeft < 35977 && !latched && returningSpeed == 0)

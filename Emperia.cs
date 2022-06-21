@@ -14,12 +14,15 @@ using Terraria.DataStructures;
 using Terraria.GameContent.UI;
 using Terraria.Localization;
 using static Terraria.ModLoader.ModContent;
+using Emperia.UI;
+using Terraria.GameContent.UI.Elements;
 
 namespace Emperia
 {
 	class Emperia : Mod
 	{
         internal static Emperia instance;
+
         public Emperia()
 		{
 			/*Properties = new ModProperties()
@@ -112,6 +115,7 @@ namespace Emperia
 				SkyManager.Instance["Emperia:Volcano"] = new VolcanoSky();
 			}
         }
+
     }
     public class EmperiaMusic : ModSceneEffect
     {
@@ -126,6 +130,123 @@ namespace Emperia
                 }
                 return MusicID.ConsoleMenu; //experimental no lie
             }
+        }
+    }
+    public class EmperiaSystem : ModSystem
+    {
+        internal UserInterface MyInterface;
+        internal PaintUI MyUI;
+
+        private GameTime _lastUpdateUiGameTime;
+
+        public static bool paintUIActive;
+        public static Vector2 paintUIActivationPosition;
+        public static bool canRightClick = false;
+        public static List<UIElement> smallPaintIconList = new List<UIElement>();
+        public static List<UIElement> largePaintIconList = new List<UIElement>();
+        public static UIElement modeSwapActive = null;
+
+        public override void Load()
+        {
+            if (!Main.dedServ)
+            {
+                MyInterface = new UserInterface();
+
+                MyUI = new PaintUI(paintUIActivationPosition);
+                MyUI.Activate();
+            }
+        }
+        public override void Unload()
+        {
+            MyUI = null;
+        }
+        public override void OnWorldUnload()
+        {
+            paintUIActive = false;
+        }
+        public override void UpdateUI(GameTime gameTime)
+        {
+            _lastUpdateUiGameTime = gameTime;
+            if (MyInterface?.CurrentState != null)
+            {
+                MyInterface.Update(gameTime);
+                if (smallPaintIconList.Any())
+                {
+                    for (int i = 0; i < 32; i++)
+                    {
+                        smallPaintIconList[i].Update(gameTime);
+                    }
+                }
+                if (largePaintIconList.Any())
+                {
+                    for (int i = 0; i < largePaintIconList.Count; i++)
+                    {
+                        largePaintIconList[i].Update(gameTime); //idk why this doesnt work lol??
+                    }
+                }
+                if (modeSwapActive != null) modeSwapActive.Update(gameTime);
+            }
+
+            if (Main.LocalPlayer.inventory[Main.LocalPlayer.selectedItem].type == ItemType<Items.OldMastersPalette>())
+            {
+                if (Main.mouseRightRelease) canRightClick = true;
+
+                if (paintUIActive)
+                {
+                    if (Main.LocalPlayer.mouseInterface && (Math.Abs(Main.MouseScreen.X - paintUIActivationPosition.X) > 84 || Math.Abs(Main.MouseScreen.Y - paintUIActivationPosition.Y) > 84) || canRightClick && Main.mouseRight)
+                    {
+                        paintUIActive = false;
+                        canRightClick = false;
+                    }
+                }
+                else
+                {
+                    if (Main.mouseRight && canRightClick)
+                    {
+                        paintUIActive = true;
+                        paintUIActivationPosition = Main.MouseScreen;
+                        canRightClick = false;
+                    }
+                }
+            }
+            else paintUIActive = false;
+
+            if (!paintUIActive && MyInterface?.CurrentState != null)
+            {
+                smallPaintIconList?.Clear();
+                largePaintIconList?.Clear();
+                modeSwapActive = null;
+                HideMyUI();
+            }
+            if (paintUIActive && MyInterface?.CurrentState == null) ShowMyUI();
+        }
+        public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
+        {
+            int mouseTextIndex = layers.FindIndex(layer => layer.Name.Equals("Vanilla: Mouse Text"));
+            if (mouseTextIndex != -1)
+            {
+                layers.Insert(mouseTextIndex, new LegacyGameInterfaceLayer(
+                    "Emperia: MyInterface",
+                    delegate
+                    {
+                        if (_lastUpdateUiGameTime != null && MyInterface?.CurrentState != null)
+                        {
+                            MyInterface.Draw(Main.spriteBatch, _lastUpdateUiGameTime);
+                        }
+                        return true;
+                    },
+                       InterfaceScaleType.UI));//check if this works differently than grand design with UI scaling lmao
+            }
+        }
+        internal void ShowMyUI()
+        {
+            MyInterface?.SetState(new UI.PaintUI(paintUIActivationPosition));
+            //MyInterface?.SetState(MyUI);
+        }
+
+        internal void HideMyUI()
+        {
+            MyInterface?.SetState(null);
         }
     }
 }
