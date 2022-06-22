@@ -211,6 +211,14 @@ namespace Emperia
 			projItemOrigin = null;
 			carapaceSet = null;
 
+			//reseteffects runs almost immediately after vanilla smart cursor logic
+			{
+				if (Main.LocalPlayer.inventory[Main.LocalPlayer.selectedItem].type == ModContent.ItemType<OldMastersPalette>())
+				{
+					OldMastersPalette.SmartCursorLookup(Player, Main.LocalPlayer.inventory[Main.LocalPlayer.selectedItem]);
+                }
+			}
+
 		}
 
 		/*public override void CatchFish(FishingAttempt attempt, ref int itemDrop, ref int npcSpawn, ref AdvancedPopupRequest sonar, ref Vector2 sonarPosition)
@@ -1330,7 +1338,12 @@ namespace Emperia
 				gauntletBonus = strongestGauntlet.GetGlobalItem<GItem>().gauntletPower;
 			}
 		}
-        /*private static List<ushort> ItemCheck_GetTileCutIgnoreList(Item item)
+        public override bool PreItemCheck()
+        {
+			if (Player.cursorItemIconID != 0 || Player.inventory[58].type == ModContent.ItemType<OldMastersPalette>()) EmperiaSystem.cursorUIActive = false; //spaghettiiiii
+			return base.PreItemCheck();
+		}
+		/*private static List<ushort> ItemCheck_GetTileCutIgnoreList(Item item)
 		{
 			List<ushort> result = null;
 			if (item.type == ModContent.ItemType<ArcaneShield>())
@@ -1406,10 +1419,10 @@ namespace Emperia
 				}
 			}
 		}*/
-       /* public override bool CanUseItem(Item item)
-        {
-            if (mouseOverUI && item.type == ModContent.ItemType<OldMastersPalette>() && Player.altFunctionUse !=2 ) return false;
-			else return base.CanUseItem(item);
-        }*/
-    }
+		/* public override bool CanUseItem(Item item)
+         {
+             if (mouseOverUI && item.type == ModContent.ItemType<OldMastersPalette>() && Player.altFunctionUse !=2 ) return false;
+             else return base.CanUseItem(item);
+         }*/
+	}
 }

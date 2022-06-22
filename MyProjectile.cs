@@ -111,5 +111,39 @@ namespace Emperia
       
 			}
 		}
-	}
+        public Vector2 ApplyHeldProjOffset(Player player, int bodyFrame)//, Vector2 offset)
+        {
+            Vector2 offset = Vector2.Zero;
+            int xFrame = 0;
+            if (bodyFrame >= 7 && bodyFrame <= 8) xFrame = 1;
+            if (bodyFrame >= 14 && bodyFrame <= 17) xFrame = -1;
+            offset.X += 2 * xFrame * player.direction;
+
+            int[] upFrames = { 7, 8, 9, 14, 15, 16 }; //10, 11, 12, 13, 17, 18, 19 down
+            if (upFrames.Contains(bodyFrame)) offset.Y -= 2 * player.gravDir;
+
+            if (bodyFrame == 5)
+            {
+                offset.X -= 2 * player.direction;
+                offset.Y -= 8 * player.gravDir;
+            }
+            return offset;
+        }
+        public int ApplyHeldProjArmOffset(Player player, int bodyFrame)//, float armRotation)
+        {
+            float armRotation = 0f;
+            int xFrame = 0;
+            //if (bodyFrame >= 7 && bodyFrame <= 8) xFrame = 1;
+            if (bodyFrame >= 7 && bodyFrame <= 8) xFrame = -3;
+            if (bodyFrame >= 14 && bodyFrame <= 17) xFrame = -1;
+
+            if (xFrame != 0)
+            {
+                armRotation += -0.075f * xFrame;
+            }
+            if (bodyFrame == 5) armRotation += -0.3f;
+            //return armRotation;
+            return xFrame;
+        }
+    }
 }

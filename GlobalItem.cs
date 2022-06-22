@@ -397,5 +397,21 @@ namespace Emperia
 				target.AddBuff(ModContent.BuffType<NocturnalFlame>(), 1200);
 			}
         }
+		public bool TileInRange(Item item, Player player, int? i = null, int? j = null)
+		{
+			if (i == null) i = Player.tileTargetX;
+			if (j == null) j = Player.tileTargetY;
+			int rangeX = Player.tileRangeX + item.tileBoost;
+			int rangeY = Player.tileRangeY + item.tileBoost;
+			/*int playerTileX = (int)((player.position.X + player.width * 0.5) / 16.0);
+			int playerTileY = (int)((player.position.Y + player.height * 0.5) / 16.0);
+			if (playerTileX >= i - rangeX && playerTileX <= i + rangeX && playerTileY >= j - rangeY && playerTileY <= j + rangeY) return true;
+			else return false;*/
+			if (player.position.X / 16f - rangeX <= i && (player.position.X + player.width) / 16f + rangeX - 1f >= (float)i && player.position.Y / 16f - rangeY <= (float)j) // i dont know if the float cast does anything but im too scared to change it
+			{
+				return (player.position.Y + player.height) / 16f + rangeY - 2f >= (float)j;
+			}
+			return false;
+		}
     }
 }
