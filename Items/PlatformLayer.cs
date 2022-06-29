@@ -264,25 +264,22 @@ public class PlatformLayer : ModItem
 			}
 
 			Vector2 offset = new Vector2(player.direction * 19, player.gravDir * -5); //code beneath this adapted from vanilla medusa head projectile
-			Vector2 mouseDirection = Main.screenPosition + new Vector2((float)Main.mouseX, (float)Main.mouseY) - player.Center; //depending on the side of the player the mouse is, the sprite wobbles?? why??
 			if (player.gravDir == -1f)
 			{
-				mouseDirection.Y = (float)(Main.screenHeight - Main.mouseY) + Main.screenPosition.Y - player.Center.Y;
 				offset.Y -= 18;
 			}
-			mouseDirection = new Vector2((float)Math.Sign((mouseDirection.X == 0f) ? ((float)player.direction) : mouseDirection.X), 0f); //simplifies to either be 1 or -1
 			//if (velocity.X != base.velocity.X || velocity.Y != base.velocity.Y)
 			//{
 			//	this.netUpdate = true;
 			//}
-			Projectile.velocity = mouseDirection; //no idea why this works, maybe OffsetsPlayerOnhand code checks projectile velocity to decide its direction?
+			Projectile.velocity = player.GetModPlayer<MyPlayer>().MouseDirection(); //no idea why this works, maybe OffsetsPlayerOnhand code checks projectile velocity to decide its direction?
 			Vector2 value = Main.OffsetsPlayerOnhand[player.bodyFrame.Y / 56] * 2f;
 			if (player.direction != 1)
 			{
 				value.X = (float)player.bodyFrame.Width - value.X;
 			}
 			value -= (player.bodyFrame.Size() - new Vector2((float)player.width, 42f)) / 2f;
-			Projectile.Center = (player.position + value + offset - mouseDirection).Floor();
+			Projectile.Center = (player.position + value + offset - player.GetModPlayer<MyPlayer>().MouseDirection()).Floor();
 			Projectile.gfxOffY = player.gfxOffY;
 			Projectile.spriteDirection = player.direction;
 			//Projectile.rotation = ((player.gravDir == 1f) ? 0f : ((float)Math.PI));

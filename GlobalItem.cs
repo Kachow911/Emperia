@@ -177,6 +177,10 @@ namespace Emperia
 
 		public override void UseItemHitbox(Item Item, Player player, ref Rectangle hitbox, ref bool noHitbox)
         {
+			/*GetMeleeFrame(player);
+			Main.NewText(player.itemAnimation.ToString(), 0, 255, 255);
+			Main.NewText(hitbox.Left - player.Center.X);
+			Main.NewText(hitbox.Bottom - player.Center.Y);*/
 			MyPlayer modPlayer = player.GetModPlayer<MyPlayer>();
 			//delay--;
 			if (player.itemAnimation == player.itemAnimationMax)
@@ -413,5 +417,19 @@ namespace Emperia
 			}
 			return false;
 		}
-    }
+		/*public int GetMeleeFrame(Player player)
+		{
+			int meleeFrame = 0;
+            bool compensateByRoundingDown = false;
+			if (player.itemAnimationMax % 3 != 0) compensateByRoundingDown = true;
+            float swingFraction = ((float)player.itemAnimation + 1) / ((float)player.itemAnimationMax / 3);
+
+			if (swingFraction == 2) meleeFrame = 1;
+			if (swingFraction <= 1 || player.itemAnimation / ((float)player.itemAnimationMax / 3) <= 1 && compensateByRoundingDown) meleeFrame = 2;
+			else if (swingFraction < 2) meleeFrame = 1;
+			Main.NewText(swingFraction.ToString(), 0, 255, 0);
+			Main.NewText(meleeFrame.ToString(), 255, 0, 0);
+			return meleeFrame;
+		}*/ //when called in useitemhitbox, seems to return accurately sometimes, but when % 3 != 0, meleeframe = 1 happens 1 frame too late, so make compensatebyrounding down affect both?
+	}
 }

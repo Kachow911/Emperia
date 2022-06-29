@@ -1343,6 +1343,16 @@ namespace Emperia
 			if (Player.cursorItemIconID != 0 || Player.inventory[58].type == ModContent.ItemType<OldMastersPalette>()) EmperiaSystem.cursorUIActive = false; //spaghettiiiii
 			return base.PreItemCheck();
 		}
+		public Vector2 MouseDirection()
+        {
+			Vector2 mouseDirection = Main.screenPosition + new Vector2(Main.mouseX, Main.mouseY) - Player.Center; //depending on the side of the player the mouse is, the sprite wobbles?? why??
+			if (Player.gravDir == -1f)
+			{
+				mouseDirection.Y = (Main.screenHeight - Main.mouseY) + Main.screenPosition.Y - Player.Center.Y;
+			}
+			mouseDirection = new Vector2(Math.Sign((mouseDirection.X == 0f) ? (Player.direction) : mouseDirection.X), 0f);
+			return mouseDirection;
+		}  //simplifies to either be 1 or -1
 		/*private static List<ushort> ItemCheck_GetTileCutIgnoreList(Item item)
 		{
 			List<ushort> result = null;

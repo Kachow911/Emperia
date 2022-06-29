@@ -31,6 +31,7 @@ namespace Emperia.Items
             //Item.useTime = 10;
             //Item.useAnimation = 10;
             Item.useAnimation = 15;
+            //Item.useAnimation = 60;
             Item.useTime = 5;
             Item.useStyle = 1;
             //Item.useStyle = 5;
@@ -40,14 +41,14 @@ namespace Emperia.Items
             Item.autoReuse = true;
             //Item.UseSound = SoundID.Item64;
             Item.tileBoost = 3;
+            Item.noUseGraphic = true;
         }
 
-        internal static Rectangle[] paintPosition = { new Rectangle(16, 14, 34, 30), new Rectangle(10, 16, 34, 30), new Rectangle(4, 14, 34, 30), new Rectangle(0, 6, 34, 30), new Rectangle(2, 0, 34, 30) };
+        public static Rectangle[] paintPosition = { new Rectangle(16, 14, 34, 30), new Rectangle(10, 16, 34, 30), new Rectangle(4, 14, 34, 30), new Rectangle(0, 6, 34, 30), new Rectangle(2, 0, 34, 30) };
         public List<int> selectedColors = new List<int>();
         public int brushMode = 0;
-        public bool curatedPalette = false;
-        //public List<int> selectedCuratedColors = new List<int>();
-        public int curatedColor;
+        public bool curatedMode = false;
+        public int curatedColor = 0;
         public byte color;
         public string visualMode;
 
@@ -57,7 +58,7 @@ namespace Emperia.Items
         }
         public override void PostDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
         {
-            CuratedColorList(selectedColors);
+            //CuratedColorList(selectedColors);
             Texture2D texture = ModContent.Request<Texture2D>("Emperia/Items/Palette/OldMastersPalette_Item" + visualMode, ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
             position -= new Vector2(2, 0);
             spriteBatch.Draw(texture, position, null, drawColor, 0f, Vector2.Zero, Main.inventoryScale, SpriteEffects.None, 0f);
@@ -74,6 +75,16 @@ namespace Emperia.Items
 
                     spriteBatch.Draw(paintTexture, position, (Rectangle)paintPosition.GetValue(i), color, 0f, Vector2.Zero, Main.inventoryScale, SpriteEffects.None, 0f);
                 }
+                {
+                    int paintType = color;
+                    if (paintType != 0)
+                    {
+                        Texture2D paintTexture = GetPaintBlobTexture(paintType, 0, true);
+                        Color color = PaintToColor(paintType);
+
+                        spriteBatch.Draw(paintTexture, position, null, color, 0f, Vector2.Zero, Main.inventoryScale, SpriteEffects.None, 0f);
+                    }
+                }
             }
         }
         public override bool PreDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, ref float rotation, ref float scale, int whoAmI)
@@ -82,13 +93,11 @@ namespace Emperia.Items
         }
         public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
         {
-            CuratedColorList(selectedColors);
+            //CuratedColorList(selectedColors);
             Texture2D texture = ModContent.Request<Texture2D>("Emperia/Items/Palette/OldMastersPalette_Item" + visualMode, ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
             Vector2 position = new Vector2(Item.position.X - Main.screenPosition.X + Item.width * 0.5f, Item.position.Y - Main.screenPosition.Y + Item.height - texture.Height * 0.5f + 2f);
             spriteBatch.Draw(texture, position, null, lightColor, rotation, texture.Size() * 0.5f, scale, SpriteEffects.None, 0f);
 
-
-            Rectangle[] paintPosition = { new Rectangle(16, 14, 34, 30), new Rectangle(10, 16, 34, 30), new Rectangle(4, 14, 34, 30), new Rectangle(0, 6, 34, 30), new Rectangle(2, 0, 34, 30) };
             if (selectedColors.Any())
             {
                 int colorCount = CuratedColorList(selectedColors).Count;
@@ -102,6 +111,17 @@ namespace Emperia.Items
                     if (paintType != 31) color = color.MultiplyRGB(lightColor);
                     spriteBatch.Draw(paintTexture, position, (Rectangle)paintPosition.GetValue(i), color, rotation, texture.Size() * 0.5f, scale, SpriteEffects.None, 0f);
                 }
+                {
+                    int paintType = color;
+                    if (paintType != 0)
+                    {
+                        Texture2D paintTexture = GetPaintBlobTexture(paintType, 0, true);
+                        Color color = PaintToColor(paintType);
+
+                        if (paintType != 31) color = color.MultiplyRGB(lightColor);
+                        spriteBatch.Draw(paintTexture, position, null, color, rotation, texture.Size() * 0.5f, scale, SpriteEffects.None, 0f);
+                    }
+                }
             }
         }
         public int GetPaletteVisualOrder(int colorCount, int i)
@@ -112,7 +132,7 @@ namespace Emperia.Items
             {
                 curatedColorSlotOffset = CuratedColorList(selectedColors).IndexOf(curatedColor);
                 int paletteColorOrder = i;
-                if (curatedColorSlotOffset == -1 || !curatedPalette) paintType = CuratedColorList(selectedColors)[paletteColorOrder];
+                if (curatedColorSlotOffset == -1 || !curatedMode) paintType = CuratedColorList(selectedColors)[paletteColorOrder];
                 else
                 {
                     paletteColorOrder = (paletteColorOrder + curatedColorSlotOffset) % colorCount;
@@ -121,10 +141,11 @@ namespace Emperia.Items
             }
             return paintType;
         }
-        public Texture2D GetPaintBlobTexture(int paintType, int i)
+        public Texture2D GetPaintBlobTexture(int paintType, int i, bool forBrush = false)
         {
             int paintShape = 0;
             if (i == 2) paintShape = 1;
+            if (forBrush) paintShape = 2;
             string specialType = SpecialVFX(paintType, true);
             return ModContent.Request<Texture2D>("Emperia/Items/Palette/OldMastersPalette_Paint" + paintShape + specialType).Value;
         }
@@ -134,25 +155,27 @@ namespace Emperia.Items
             if (player.cursorItemIconID == 0 && Item.GetGlobalItem<GItem>().TileInRange(Item, player)) EmperiaSystem.canStartDrawingCursorUI = true;
             //if (Player.cursorItemIconID != 0) EmperiaSystem.cursorUIActive = false; is in ModPlayer.PreItemCheck
             color = (byte)selectedColors.LastOrDefault();
-            if (curatedPalette) color = (byte)curatedColor;
+            if (curatedMode) color = (byte)curatedColor;
             if (selectedColors.Any()) visualMode = "Blank";
 
             for (int i = 0; i < 251; ++i) //makes visual use sprite
             {
-                if (i == 250)
-                {
-                    int p = Projectile.NewProjectile(player.GetSource_ItemUse(Item), player.Center.X, player.Center.Y, 0f, 0f, ModContent.ProjectileType<OldMastersPaletteVisual>(), 0, 0, Main.myPlayer, 0, 0);
-                    //(Main.projectile[p].ModProjectile as PlatformLayerVisual).useMode = useMode;
-                }
-                if (Main.projectile[i].active && Main.projectile[i].owner == Main.myPlayer && Main.projectile[i].type == ModContent.ProjectileType<OldMastersPaletteVisual>()) i = 251;
+                if (Main.projectile[i].active && Main.projectile[i].owner == Main.myPlayer && Main.projectile[i].type == ModContent.ProjectileType<OldMastersPaletteVisual>()) break;
+                if (i == 250) Projectile.NewProjectile(player.GetSource_ItemUse(Item), player.Center.X, player.Center.Y, 0f, 0f, ModContent.ProjectileType<OldMastersPaletteVisual>(), 0, 0, Main.myPlayer, 0, 0);
             }
         }
         public override bool? UseItem(Player player)
         {
-            //Item.noUseGraphic = false;
+            if (player.itemAnimation == player.itemAnimationMax)
+            {
+                int p = Projectile.NewProjectile(player.GetSource_ItemUse(Item), player.Center.X, player.Center.Y, 0f, 0f, ModContent.ProjectileType<OldMastersPaletteBrushVisual>(), 0, 0, Main.myPlayer, 0, 0);
+                (Main.projectile[p].ModProjectile as OldMastersPaletteBrushVisual).useAnimationMax = Item.useAnimation;
+                Main.projectile[p].timeLeft = Item.useAnimation;
+            }
+
             if (Item.GetGlobalItem<GItem>().TileInRange(Item, player) == false) return false;
             if (player.itemAnimation % Item.useTime != 0 || !player.controlUseItem) return false;
-            //Terraria.GameContent.SmartCursorHelper.SmartCursorLookup(player);
+
             int i = Player.tileTargetX;
             int j = Player.tileTargetY;
             if (color != 0)
@@ -173,11 +196,6 @@ namespace Emperia.Items
             }
             return true;
         }
-        /*public override bool CanUseItem(Player player)
-        {
-            if (Item.GetGlobalItem<GItem>().TileInRange(Item, player) == false) return false;
-            return base.CanUseItem(player);
-        }*/
         public override void AddRecipes()  //How to craft this sword
         {
             Recipe recipe = CreateRecipe();
@@ -300,55 +318,35 @@ namespace Emperia.Items
         {
             Player player = Main.player[Projectile.owner];
             if (player.HeldItem.type != ModContent.ItemType<OldMastersPalette>()) Projectile.Kill();
-            //player.SetCompositeArmBack(enabled: true, Player.CompositeArmStretchAmount.Full, (float)Math.PI * -0.5f * player.direction);
             //player.heldProj = Projectile.whoAmI;
-            //player.SetCompositeArmBack(enabled: true, Player.CompositeArmStretchAmount.Quarter, (float)Math.PI * -0.5f * player.direction);
-            Vector2 offset = new Vector2(9 + player.direction * 20, player.gravDir * 23);
-            Projectile.rotation = 1.57f; //* player.direction;
+
+            Vector2 offset = new Vector2(10 + player.direction * 21, player.gravDir * 23);
+            Projectile.rotation = 1.57f;
             if (player.gravDir == -1f)
             {
                 offset.Y = 16;
                 Projectile.rotation = 4.712f;
             }
-            int bodyFrame = (player.bodyFrame.Y / player.bodyFrame.Height);
             float armRotation = -0.35f;
-            offset += Projectile.GetGlobalProjectile<MyProjectile>().ApplyHeldProjOffset(player, bodyFrame);
-            //armRotation += Projectile.GetGlobalProjectile<MyProjectile>().ApplyHeldProjArmOffset(player, bodyFrame);
-            Player.CompositeArmStretchAmount stretchAmount = (Player.CompositeArmStretchAmount)(3 + Projectile.GetGlobalProjectile<MyProjectile>().ApplyHeldProjArmOffset(player, bodyFrame));
-            //Projectile.rotation += player.direction * Projectile.GetGlobalProjectile<MyProjectile>().ApplyHeldProjRotOffset(player, bodyFrame);
-            if (bodyFrame == 5)
-            {
-                Projectile.rotation += player.direction * player.gravDir * -0.5f;
-                armRotation += -0.3f;
-            }
+            int stretchAmount = 3;
 
-            player.SetCompositeArmBack(enabled: true, stretchAmount, (float)Math.PI * armRotation * player.direction);
+            int bodyFrame = (player.bodyFrame.Y / player.bodyFrame.Height);
+            Projectile.GetGlobalProjectile<MyProjectile>().ApplyHeldProjOffsets(player, bodyFrame, ref offset, ref Projectile.rotation, ref armRotation, ref stretchAmount);
+
+            player.SetCompositeArmBack(enabled: true, (Player.CompositeArmStretchAmount)stretchAmount, (float)Math.PI * armRotation * player.direction);
 
 
             //code beneath this adapted from vanilla medusa head projectile
 
-            Vector2 mouseDirection = Main.screenPosition + new Vector2(Main.mouseX, Main.mouseY) - player.Center; //depending on the side of the player the mouse is, the sprite wobbles?? why??
-            if (player.gravDir == -1f)
-            {
-                mouseDirection.Y = (Main.screenHeight - Main.mouseY) + Main.screenPosition.Y - player.Center.Y;
-            }
-            mouseDirection = new Vector2(Math.Sign((mouseDirection.X == 0f) ? (player.direction) : mouseDirection.X), 0f); //simplifies to either be 1 or -1
             //if (velocity.X != base.velocity.X || velocity.Y != base.velocity.Y)
             //{
             //	this.netUpdate = true;
             //}
-            Projectile.velocity = mouseDirection; //no idea why this works, maybe OffsetsPlayerOnhand code checks projectile velocity to decide its direction?
-            /*Vector2 value = Main.OffsetsPlayerOffhand[player.bodyFrame.Y / 56] * 2f;
-            if (player.direction != 1)
-            {
-                value.X = (float)player.bodyFrame.Width - value.X;
-            }
-            value -= (player.bodyFrame.Size() - new Vector2((float)player.width, 42f)) / 2f;
-            value = Vector2.Zero;*/
-            Projectile.Center = (player.position /*+ value*/ + offset - mouseDirection).Floor();
+            
+            Projectile.velocity = player.GetModPlayer<MyPlayer>().MouseDirection(); //no idea why this works, maybe OffsetsPlayerOnhand code checks projectile velocity to decide its direction?
+            Projectile.Center = (player.position /*+ value*/ + offset - player.GetModPlayer<MyPlayer>().MouseDirection()).Floor();
             Projectile.gfxOffY = player.gfxOffY;
             Projectile.spriteDirection = player.direction;
-            //Projectile.rotation = ((player.gravDir == 1f) ? 0f : ((float)Math.PI));
         }
         public override bool PreDraw(ref Color lightColor)
         {
@@ -357,15 +355,14 @@ namespace Emperia.Items
             SpriteEffects direction = SpriteEffects.None;
             if (player.direction != player.gravDir) direction = SpriteEffects.FlipVertically; //more compact way of checking player direction and gravity direction at once
 
-            mastersPalette.CuratedColorList(mastersPalette.selectedColors);
+            //mastersPalette.CuratedColorList(mastersPalette.selectedColors);
             Texture2D texture = ModContent.Request<Texture2D>("Emperia/Items/Palette/OldMastersPalette_Palette" + mastersPalette.visualMode, ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
-            Vector2 position = new Vector2(Projectile.position.X - Main.screenPosition.X + Projectile.width * 0.5f, Projectile.position.Y - Main.screenPosition.Y + Projectile.height - texture.Height * 0.5f + 2f);
+            Vector2 position = new Vector2(Projectile.position.X - Main.screenPosition.X + texture.Width * 0.5f, Projectile.position.Y - Main.screenPosition.Y + Projectile.height - texture.Height * 0.5f + Projectile.gfxOffY + 2f); //not sure why 2f
             Main.EntitySpriteDraw(texture, position, null, lightColor, Projectile.rotation, texture.Size() * 0.5f, Projectile.scale, direction, 1);
 
-
-            Rectangle[] paintPosition = { new Rectangle(16, 18, 30, 26), new Rectangle(10, 20, 30, 26), new Rectangle(4, 18, 30, 26), new Rectangle(0, 10, 30, 26), new Rectangle(2, 4, 30, 26) };
             if (mastersPalette.selectedColors.Any())
             {
+                Rectangle[] paintPosition = { new Rectangle(16, 18, 30, 26), new Rectangle(10, 20, 30, 26), new Rectangle(4, 18, 30, 26), new Rectangle(0, 10, 30, 26), new Rectangle(2, 4, 30, 26) };
                 int colorCount = mastersPalette.CuratedColorList(mastersPalette.selectedColors).Count;
                 for (int i = 0; i < colorCount; i++)
                 {
@@ -380,6 +377,82 @@ namespace Emperia.Items
             }
             return true;
         }
-        //Projectile.draw
+    }
+    public class OldMastersPaletteBrushVisual : ModProjectile
+    {
+
+        public override void SetDefaults()
+        {
+            Projectile.damage = 0;
+            Projectile.width = 1;
+            Projectile.height = 1;
+            Projectile.tileCollide = false;
+            Projectile.timeLeft = 60;
+        }
+        public float useAnimationMax = 0;
+        int meleeFrame = 0;
+        static Vector2[] handPosition = { new Vector2(-7, -10), new Vector2(2, -11), new Vector2(2, 3) };
+
+
+        public override void OnSpawn(IEntitySource source)
+        {
+            DrawOriginOffsetX = -12 * Main.player[Projectile.owner].direction;
+            DrawOriginOffsetY = -30; //* (int)Main.player[Projectile.owner].gravDir;
+            if (Main.player[Projectile.owner].direction == -1) DrawOffsetX = -26;
+        }
+        public override void AI()
+        {
+            Player player = Main.player[Projectile.owner];
+            //if (!player.ItemAnimationActive) Projectile.Kill();
+            player.heldProj = Projectile.whoAmI;
+
+            switch (player.bodyFrame.Y / player.bodyFrame.Height)
+            {
+                case 1: meleeFrame = 0; break;
+                case 2: meleeFrame = 1; break;
+                case 3: meleeFrame = 2; break;
+                default: meleeFrame = 0; break;
+            }
+            Projectile.Center = player.Center + new Vector2(((Vector2)handPosition.GetValue(meleeFrame)).X * player.direction, ((Vector2)handPosition.GetValue(meleeFrame)).Y * player.gravDir);
+            Projectile.rotation = MathHelper.ToRadians(((Projectile.timeLeft - useAnimationMax / 2) / useAnimationMax * 198f) + 15) * -player.direction * player.gravDir;
+            if (player.gravDir == -1) Projectile.rotation += 1.57f * player.direction;
+
+            //code beneath this adapted from vanilla medusa head projectile
+
+            //if (velocity.X != base.velocity.X || velocity.Y != base.velocity.Y)
+            //{
+            //	this.netUpdate = true;
+            //}
+
+            Projectile.velocity = player.GetModPlayer<MyPlayer>().MouseDirection();
+            Projectile.Center = (Projectile.Center - player.GetModPlayer<MyPlayer>().MouseDirection()).Floor();
+            Projectile.gfxOffY = player.gfxOffY;
+            Projectile.spriteDirection = player.direction;
+        }
+        public override bool PreDraw(ref Color lightColor)
+        {
+            OldMastersPalette mastersPalette = Main.player[Projectile.owner].HeldItem.ModItem as OldMastersPalette; //this can return an object reference not set to isntance of object error
+            Player player = Main.player[Projectile.owner];
+            SpriteEffects direction = SpriteEffects.None;
+            if (player.direction == -1) direction = SpriteEffects.FlipHorizontally;
+
+            Texture2D texture = ModContent.Request<Texture2D>("Emperia/Items/Palette/OldMastersPalette_Brush" + mastersPalette.visualMode, ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+            Vector2 position = Projectile.position + new Vector2(texture.Width * 0.5f * player.direction, -texture.Height * 0.5f * player.gravDir).RotatedBy(Projectile.rotation) - Main.screenPosition; //not sure why 2f
+            Main.EntitySpriteDraw(texture, position, null, lightColor, Projectile.rotation, texture.Size() * 0.5f, Projectile.scale, direction, 1);
+
+            if (mastersPalette.selectedColors.Any())
+            {
+                int paintType = mastersPalette.color;
+                if (paintType != 0 && mastersPalette.brushMode != 2)
+                {
+                    Texture2D paintTexture = mastersPalette.GetPaintBlobTexture(paintType, 0, true);
+                    Color color = mastersPalette.PaintToColor(paintType);
+
+                    if (paintType != 31) color = color.MultiplyRGB(lightColor);
+                    Main.EntitySpriteDraw(paintTexture, position, new Rectangle(8, 0, 26, 30), color, Projectile.rotation, texture.Size() * 0.5f, Projectile.scale, direction, 1);
+                }
+            }
+            return true;
+        }
     }
 }

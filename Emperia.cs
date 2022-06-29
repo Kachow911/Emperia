@@ -193,7 +193,7 @@ namespace Emperia
                     {
                         for (int i = 0; i < largePaintIconList.Count; i++)
                         {
-                            largePaintIconList[i].Update(gameTime); //idk why this doesnt work lol??
+                            largePaintIconList[i].Update(gameTime);
                         }
                     }
                     if (modeSwapActive != null) modeSwapActive.Update(gameTime);
@@ -203,12 +203,15 @@ namespace Emperia
             if (Main.LocalPlayer.inventory[Main.LocalPlayer.selectedItem].type == ItemType<Items.OldMastersPalette>())
             {
                 Items.OldMastersPalette mastersPalette = Main.LocalPlayer.HeldItem.ModItem as Items.OldMastersPalette;
-
+                //if (Main.LocalPlayer.inventory[Main.LocalPlayer.selectedItem])
                 if (Main.mouseRightRelease) canRightClick = true;
 
                 if (paintUIActive)
                 {
-                    if (canRightClick && Main.mouseRight || !mastersPalette.curatedPalette && Main.LocalPlayer.mouseInterface && (Math.Abs(Main.MouseScreen.X - paintUIActivationPosition.X) > 84 || Math.Abs(Main.MouseScreen.Y - paintUIActivationPosition.Y) > 84) || mastersPalette.curatedPalette && Main.LocalPlayer.mouseInterface && Vector2.Distance(paintUIActivationPosition, Main.MouseScreen) > 64f)
+                    if (Main.mouseRight && canRightClick 
+                        || !mastersPalette.curatedMode && Main.LocalPlayer.mouseInterface && (Math.Abs(Main.MouseScreen.X - paintUIActivationPosition.X) > 84 || Math.Abs(Main.MouseScreen.Y - paintUIActivationPosition.Y) > 84)
+                        || mastersPalette.curatedMode && Main.LocalPlayer.mouseInterface && Vector2.Distance(paintUIActivationPosition, Main.MouseScreen) > 64f
+                        )
                     {
                         paintUIActive = false;
                         canRightClick = false;
@@ -226,13 +229,13 @@ namespace Emperia
             }
             else paintUIActive = false;
 
-            if (!paintUIActive && MyInterface?.CurrentState != null && MyInterface.CurrentState.ToString() == "Emperia.UI.PaintUI")
+            if (MyInterface?.CurrentState != null)
             {
-                HideMyUI();
-            }
-            if (MyInterface?.CurrentState != null && MyInterface.CurrentState.ToString() == "Emperia.UI.CursorUI")
-            {
-                if (!cursorUIActive || Main.LocalPlayer.mouseInterface)
+                if (!paintUIActive && MyInterface.CurrentState.ToString() == "Emperia.UI.PaintUI")
+                {
+                    HideMyUI();
+                }
+                else if ((!cursorUIActive || Main.LocalPlayer.mouseInterface) && MyInterface.CurrentState.ToString() == "Emperia.UI.CursorUI")
                 {
                     HideMyUI();
                 }
@@ -260,7 +263,7 @@ namespace Emperia
                         }
                         return true;
                     },
-                       InterfaceScaleType.UI));//check if this works differently than grand design with UI scaling lmao
+                       InterfaceScaleType.UI));
             }
         }
         internal void ShowMyUI(string UIType)
@@ -268,11 +271,11 @@ namespace Emperia
             if (UIType == "PaintUI")
             {
                 HideMyUI();
-                MyInterface?.SetState(new UI.PaintUI(paintUIActivationPosition));
+                MyInterface?.SetState(new PaintUI(paintUIActivationPosition));
             }
             if (UIType == "CursorUI")
             {
-                MyInterface?.SetState(new UI.CursorUI());
+                MyInterface?.SetState(new CursorUI());
                 cursorUIActive = true;
             }
             //MyInterface?.SetState(MyUI);
