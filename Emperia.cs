@@ -145,7 +145,7 @@ namespace Emperia
         public static bool canRightClick = false;
         public static List<UIElement> smallPaintIconList = new List<UIElement>();
         public static List<UIElement> largePaintIconList = new List<UIElement>();
-        public static UIElement modeSwapActive = null;
+        public static UIState CurrentPaintUI = null;
 
         public static bool cursorUIActive = false;
         public static bool canStartDrawingCursorUI = false;
@@ -156,7 +156,7 @@ namespace Emperia
             {
                 MyInterface = new UserInterface();
 
-                MyPaintUI = new PaintUI(paintUIActivationPosition);
+                MyPaintUI = new PaintUI();
                 MyPaintUI.Activate();
 
                 MyCursorUI = new CursorUI();
@@ -182,21 +182,13 @@ namespace Emperia
                 MyInterface.Update(gameTime);
                 if (paintUIActive)
                 {
-                    if (smallPaintIconList.Any())
+                    if (CurrentPaintUI != null)
                     {
-                        for (int i = 0; i < 32; i++)
+                        foreach (UIElement element in CurrentPaintUI.Children)
                         {
-                            smallPaintIconList[i].Update(gameTime);
+                            element.Update(gameTime);
                         }
                     }
-                    if (largePaintIconList.Any())
-                    {
-                        for (int i = 0; i < largePaintIconList.Count; i++)
-                        {
-                            largePaintIconList[i].Update(gameTime);
-                        }
-                    }
-                    if (modeSwapActive != null) modeSwapActive.Update(gameTime);
                 }
             }
 
@@ -271,7 +263,7 @@ namespace Emperia
             if (UIType == "PaintUI")
             {
                 HideMyUI();
-                MyInterface?.SetState(new PaintUI(paintUIActivationPosition));
+                MyInterface?.SetState(new PaintUI());
             }
             if (UIType == "CursorUI")
             {
@@ -286,7 +278,7 @@ namespace Emperia
             MyInterface?.SetState(null);
             smallPaintIconList?.Clear();
             largePaintIconList?.Clear();
-            modeSwapActive = null;
+            CurrentPaintUI = null;
 
             cursorUIActive = false;
         }

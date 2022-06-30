@@ -17,39 +17,24 @@ using Emperia.Items;
 
 namespace Emperia.UI
 {
-	// ExampleUIs visibility is toggled by typing "/coin" in chat. (See CoinCommand.cs)
-	// ExampleUI is a simple UI example showing how to use UIPanel, UIImageButton, and even a custom UIElement.
+
 	class PaintUI : UIState
 	{
-		public UIElement smallIcon;
-		public UIElement largeIcon;
-		public UIElement modeSwap;
-		public List<UIElement> smallIconList = new List<UIElement>();
-		public List<UIElement> largeIconList = new List<UIElement>();
-		Texture2D iconTexture;
-		bool mousedOver = false;
-		bool canBeClicked = true;
+        Texture2D iconTexture;
 		public bool mousedOverAny = false;
-		OldMastersPalette mastersPalette = Main.LocalPlayer.HeldItem.ModItem as OldMastersPalette;
-		public PaintUI(Vector2 paintUIActivationPosition)
-		{
-		//	paintUIActivationPosition = Vector2.Zero;
-		}
-
 		public override void OnInitialize()
 		{
+			EmperiaSystem.CurrentPaintUI = this;
 			iconTexture = ModContent.Request<Texture2D>("Emperia/UI/Icon_0", AssetRequestMode.ImmediateLoad).Value;
 			MakeSmallIcons();
 			MakeLargeIcons();
 
+			Vector2 position = paintUIActivationPosition - new Vector2(iconTexture.Width / 2, iconTexture.Height / 2);
+			UIElement mainIcon = new BrushUI(position); //ModContent.Request<Texture2D>("Emperia/UI/Icon_0")
+			MakeIcon(mainIcon, position, 40);
 			Vector2 swapPosition = paintUIActivationPosition - new Vector2(24, 28);//+ new Vector2(12, 10); // 26
-			modeSwap = new ModeSwap(swapPosition);
-			modeSwap.Left.Set(swapPosition.X, 0);
-			modeSwap.Top.Set(swapPosition.Y, 0);
-			modeSwap.Width.Set(14, 0);
-			modeSwap.Height.Set(16, 0);
-			Append(modeSwap);
-			EmperiaSystem.modeSwapActive = modeSwap;
+			UIElement modeSwap = new ModeSwap(swapPosition);
+			MakeIcon(modeSwap, swapPosition, 14, 16);
 		}
 
 		public void MakeSmallIcons()
@@ -61,21 +46,16 @@ namespace Emperia.UI
 			{
 				iconPosOnRow++;
 				if (iconPosOnRow == (int)linesPerRow.GetValue(row))
-                {
+				{
 					row++;
 					iconPosOnRow = 0;
-                }
+				}
 				Vector2 iconPosition = new Vector2(-84 + iconPosOnRow * 28, -84 + row * 28) + paintUIActivationPosition;
 				if ((int)linesPerRow.GetValue(row) == 4 && iconPosOnRow > 1) iconPosition.X += 28 * 2;
-				smallIcon = new BucketSmall(i, iconPosition); //ModContent.Request<Texture2D>("Emperia/UI/Icon_0")
-				smallIcon.Left.Set(iconPosition.X, 0);
-				smallIcon.Top.Set(iconPosition.Y, 0);
-				smallIcon.Width.Set(26, 0);
-				smallIcon.Height.Set(26, 0);
-				Append(smallIcon);
-				smallIconList.Add(smallIcon);
+				UIElement smallIcon = new BucketSmall(i, iconPosition); //ModContent.Request<Texture2D>("Emperia/UI/Icon_0")
+				MakeIcon(smallIcon, iconPosition, 26);
+				EmperiaSystem.smallPaintIconList.Add(smallIcon);
 			}
-			EmperiaSystem.smallPaintIconList = smallIconList; //this updates them
 		}
 		public void MakeLargeIcons()
 		{
@@ -87,54 +67,19 @@ namespace Emperia.UI
 				Vector2 iconPosition = iconCenter - new Vector2(iconTexture.Width / 2, iconTexture.Height / 2);
 				iconPosition.X = (int)Math.Round(iconPosition.X / 2) * 2;
 				iconPosition.Y = (int)Math.Round(iconPosition.Y / 2) * 2;
-				largeIcon = new BucketLarge(i, iconPosition);
-				largeIcon.Left.Set(iconPosition.X, 0);
-				largeIcon.Top.Set(iconPosition.Y, 0);
-				largeIcon.Width.Set(40, 0);
-				largeIcon.Height.Set(40, 0);
-				Append(largeIcon);
-				largeIconList.Add(largeIcon);
+				UIElement largeIcon = new BucketLarge(i, iconPosition);
+				MakeIcon(largeIcon, iconPosition, 40);
+				EmperiaSystem.largePaintIconList.Add(largeIcon);
 			}
-			EmperiaSystem.largePaintIconList = largeIconList; //this updates them
 		}
-
-		public override void Update(GameTime gameTime)
+		public void MakeIcon(UIElement icon, Vector2 position, int width, int height = -1)
 		{
-			if (Vector2.Distance(paintUIActivationPosition, Main.MouseScreen) < 19f)
-			{
-				mousedOver = true;
-				mousedOverAny = true;
-				Main.LocalPlayer.mouseInterface = true;
-			}
-			else
-			{
-				mousedOver = false;
-				mousedOverAny = false;
-			}
-
-			int iconType = 0;
-			if (mousedOver)
-			{
-				iconType = 1;
-				if (Main.mouseLeft && canBeClicked)
-				{
-					mastersPalette.brushMode = (mastersPalette.brushMode + 1) % 3;
-					canBeClicked = false;
-				}
-			}
-			//if (mastersPalette.brushMode == 2) iconType += 2;
-			iconTexture = ModContent.Request<Texture2D>("Emperia/UI/Icon_" + iconType).Value;
-			if (Main.mouseLeftRelease) canBeClicked = true;
-			if (mastersPalette != (Main.LocalPlayer.HeldItem.ModItem as Items.OldMastersPalette)) EmperiaSystem.paintUIActive = false; //this check only seems to work in PaintUI
-		}
-		public override void Draw(SpriteBatch spriteBatch)
-		{
-			base.Draw(spriteBatch);
-			Vector2 position = paintUIActivationPosition - new Vector2(iconTexture.Width / 2, iconTexture.Height / 2); //offsets so middle is at the middle of mouse
-
-			spriteBatch.Draw(iconTexture, position, null, Color.White);
-			Texture2D brushTexture = ModContent.Request<Texture2D>("Emperia/UI/Brush_" + mastersPalette.brushMode).Value;
-			spriteBatch.Draw(brushTexture, position, null, Color.White);
+			if (height == -1) height = width;
+			icon.Left.Set(position.X, 0);
+			icon.Top.Set(position.Y, 0);
+			icon.Width.Set(width, 0);
+			icon.Height.Set(height, 0);
+			Append(icon);
 		}
 	}
 	class PaintUIElement : UIElement
@@ -146,9 +91,10 @@ namespace Emperia.UI
 		internal bool mousedOver = false;
 		internal bool canBeClicked = true;
 		public bool visible = true;
-        public void GeneralUpdate()
-        {
+		public void GeneralUpdate()
+		{
 			iconType = 0;
+			//if (mastersPalette.brushMode == 2) iconType += 2;
 			if (Main.mouseLeftRelease) canBeClicked = true;
 		}
 		public void MouseOver(UIElement element)
@@ -156,7 +102,48 @@ namespace Emperia.UI
 			mousedOver = true;
 			(Parent as PaintUI).mousedOverAny = true;
 			Main.LocalPlayer.mouseInterface = true;
-			iconType = 1;
+			iconType += 1;
+		}
+	}
+	class BrushUI : PaintUIElement
+	{
+		public BrushUI(Vector2 pos) => position = pos;
+		OldMastersPalette mastersPalette = Main.LocalPlayer.HeldItem.ModItem as OldMastersPalette;
+		public override void OnInitialize()
+		{
+			iconTexture = ModContent.Request<Texture2D>("Emperia/UI/Icon_0", AssetRequestMode.ImmediateLoad).Value;
+		}
+		public override void Update(GameTime gameTime)
+		{
+			GeneralUpdate();
+
+			if (Vector2.Distance(paintUIActivationPosition, Main.MouseScreen) < 19f)
+			{
+				MouseOver(this);
+				if (Main.mouseLeft && canBeClicked)
+				{
+					if (Main.mouseLeft && canBeClicked)
+					{
+						mastersPalette.brushMode = (mastersPalette.brushMode + 1) % 3;
+						canBeClicked = false;
+					}
+				}
+			}
+			else
+			{
+				mousedOver = false;
+				(Parent as PaintUI).mousedOverAny = false;
+			}
+			iconTexture = ModContent.Request<Texture2D>("Emperia/UI/Icon_" + iconType).Value;
+			if (mastersPalette != (Main.LocalPlayer.HeldItem.ModItem as Items.OldMastersPalette)) EmperiaSystem.paintUIActive = false; //this check only seems to work in PaintUI
+
+		}
+		public override void Draw(SpriteBatch spriteBatch)
+		{
+			base.Draw(spriteBatch);
+			spriteBatch.Draw(iconTexture, position, null, Color.White);
+			Texture2D brushTexture = ModContent.Request<Texture2D>("Emperia/UI/Brush_" + mastersPalette.brushMode).Value;
+			spriteBatch.Draw(brushTexture, position, null, Color.White);
 		}
 	}
 	class BucketSmall : PaintUIElement
@@ -194,7 +181,13 @@ namespace Emperia.UI
 					}
 					else
 					{
-						mastersPalette.selectedColors.Clear();
+						if (mastersPalette.selectedColors.Any())
+                        {
+							mastersPalette.selectedColorsBackup = mastersPalette.selectedColors.ToList();
+							mastersPalette.selectedColors.Clear();
+						}
+						else mastersPalette.selectedColors = mastersPalette.selectedColorsBackup.ToList();
+
 					}
 					canBeClicked = false;
 				}
@@ -203,8 +196,8 @@ namespace Emperia.UI
 			{
 				mousedOver = false;
 				(Parent as PaintUI).mousedOverAny = false;
+				if (paintType == 0) canBeClicked = false;
 			}
-			//if (mastersPalette.brushMode == 2) iconType += 2;
 			iconTexture = ModContent.Request<Texture2D>("Emperia/UI/IconSmall_" + iconType).Value;
 		}
 		public override void Draw(SpriteBatch spriteBatch)
@@ -213,7 +206,7 @@ namespace Emperia.UI
 
 			base.Draw(spriteBatch);
 			Color brightness = new Color(255, 255, 255);
-			if (!mastersPalette.selectedColors.Contains(paintType))
+			if (!mastersPalette.selectedColors.Contains(paintType) && (paintType != 0 || mastersPalette.selectedColors.Any() || !mastersPalette.selectedColorsBackup.Any()))
 			{
 				brightness = new Color(150, 150, 150);
 				if (!mousedOver) brightness = new Color(80, 80, 80);
@@ -233,10 +226,8 @@ namespace Emperia.UI
 
 			if (mastersPalette.selectedColors.LastOrDefault() == paintType && paintType != 0)
             {
-				Texture2D ribbonTexture = ModContent.Request<Texture2D>("Emperia/UI/SelectedIconRibbon").Value;
+				Texture2D ribbonTexture = ModContent.Request<Texture2D>("Emperia/UI/SelectedIconRibbon_" + iconType).Value;
 				spriteBatch.Draw(ribbonTexture, position, null, Color.White);
-				Texture2D brushTexture = ModContent.Request<Texture2D>("Emperia/UI/BrushMode_0").Value;
-				spriteBatch.Draw(brushTexture, position + new Vector2(0, 2), null, Color.White);
 			}
 		}
 		internal int PaintToItemID(int PaintID)
@@ -304,7 +295,6 @@ namespace Emperia.UI
 				(Parent as PaintUI).mousedOverAny = false;
 			}
 
-			//if (mastersPalette.brushMode == 2) iconType += 2;
 			iconTexture = ModContent.Request<Texture2D>("Emperia/UI/Icon_" + iconType).Value;
 
 			string visuals = mastersPalette.SpecialVFX(paintType);
@@ -340,8 +330,8 @@ namespace Emperia.UI
 		OldMastersPalette mastersPalette = Main.LocalPlayer.HeldItem.ModItem as OldMastersPalette;
 		public override void OnInitialize()
 		{
-			iconTexture = ModContent.Request<Texture2D>("Emperia/UI/ModeSwap_0", AssetRequestMode.ImmediateLoad).Value;
-			if (!Main.gameMenu && mastersPalette.selectedColors.Any()) iconTexture = ModContent.Request<Texture2D>("Emperia/UI/ModeSwap_2").Value;
+			iconTexture = ModContent.Request<Texture2D>("Emperia/UI/ModeSwap_2", AssetRequestMode.ImmediateLoad).Value;
+			if (!Main.gameMenu && mastersPalette.selectedColors.Any()) iconTexture = ModContent.Request<Texture2D>("Emperia/UI/ModeSwap_0").Value;
 		}
 		public override void Update(GameTime gameTime)
 		{
@@ -399,12 +389,12 @@ namespace Emperia.UI
 		}
 		public override void Draw(SpriteBatch spriteBatch)
         {
-			Texture2D cursorTexture = ModContent.Request<Texture2D>("Emperia/UI/BrushMode_" + mastersPalette.brushMode).Value;
+			Texture2D cursorTexture = ModContent.Request<Texture2D>("Emperia/UI/CursorBrush_" + mastersPalette.brushMode).Value;
 			spriteBatch.Draw(cursorTexture, Main.MouseScreen + new Vector2(16, 16), null, Color.White * alpha);
 			if (mastersPalette.brushMode != 2 && mastersPalette.color != 0)
 			{
 				Color color = mastersPalette.PaintToColor(mastersPalette.color);
-				Texture2D paintTexture = ModContent.Request<Texture2D>("Emperia/UI/BrushModePaint_" + mastersPalette.brushMode + mastersPalette.SpecialVFX(mastersPalette.color)).Value;
+				Texture2D paintTexture = ModContent.Request<Texture2D>("Emperia/UI/CursorBrushPaint_" + mastersPalette.brushMode + mastersPalette.SpecialVFX(mastersPalette.color)).Value;
 				spriteBatch.Draw(paintTexture, Main.MouseScreen + new Vector2(16, 16), null, color * alpha);
 			}
 		}

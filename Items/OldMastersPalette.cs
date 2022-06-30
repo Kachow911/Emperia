@@ -46,6 +46,7 @@ namespace Emperia.Items
 
         public static Rectangle[] paintPosition = { new Rectangle(16, 14, 34, 30), new Rectangle(10, 16, 34, 30), new Rectangle(4, 14, 34, 30), new Rectangle(0, 6, 34, 30), new Rectangle(2, 0, 34, 30) };
         public List<int> selectedColors = new List<int>();
+        public List<int> selectedColorsBackup = new List<int>();
         public int brushMode = 0;
         public bool curatedMode = false;
         public int curatedColor = 0;
@@ -199,10 +200,24 @@ namespace Emperia.Items
         public override void AddRecipes()  //How to craft this sword
         {
             Recipe recipe = CreateRecipe();
-            recipe.AddIngredient(ItemID.Seashell, 2);
-            recipe.AddIngredient(ItemID.Coral, 2);
-            recipe.AddIngredient(null, "SeaCrystal", 1);
-            recipe.AddTile(TileID.Anvils);
+            recipe.AddIngredient(ItemID.Paintbrush);
+            recipe.AddIngredient(ItemID.PaintRoller);
+            recipe.AddIngredient(ItemID.PaintScraper);
+            /*for (int i = 0; i < 16; i++)
+            {
+                if (i < 12) recipe.AddIngredient(1073 + i, 400);
+                else if (i < 15) recipe.AddIngredient(1097 + (i - 12), 400);
+                else recipe.AddIngredient(1966, 400);
+            }*/
+            recipe.AddIngredient(ItemID.RedPaint, 999);
+            recipe.AddIngredient(ItemID.OrangePaint, 999);
+            recipe.AddIngredient(ItemID.YellowPaint, 999);
+            recipe.AddIngredient(ItemID.GreenPaint, 999);
+            recipe.AddIngredient(ItemID.BluePaint, 999);
+            recipe.AddIngredient(ItemID.PurplePaint, 999);
+
+            recipe.AddTile(TileID.TinkerersWorkbench);
+
             recipe.Register();
         }
         public string SpecialVFX(int paintType, bool noDeep = false)
