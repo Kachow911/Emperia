@@ -11,6 +11,8 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria.UI;
 using Emperia.UI;
 using Terraria.GameContent;
+using static Terraria.Audio.SoundEngine;
+
 
 namespace Emperia.Items
 {
@@ -28,40 +30,104 @@ namespace Emperia.Items
             Item.noMelee = true;
             Item.width = 20;
             Item.height = 20;
-            //Item.useTime = 10;
-            //Item.useAnimation = 10;
             Item.useAnimation = 15;
-            //Item.useAnimation = 60;
             Item.useTime = 5;
             Item.useStyle = 1;
-            //Item.useStyle = 5;
-            //Item.channel = true;
             Item.value = 10000;
             Item.rare = 2;
             Item.autoReuse = true;
-            //Item.UseSound = SoundID.Item64;
+            //Item.UseSound = SoundID.Item1;
             Item.tileBoost = 3;
             Item.noUseGraphic = true;
+            Item.paint = 0;
         }
 
         public static Rectangle[] paintPosition = { new Rectangle(16, 14, 34, 30), new Rectangle(10, 16, 34, 30), new Rectangle(4, 14, 34, 30), new Rectangle(0, 6, 34, 30), new Rectangle(2, 0, 34, 30) };
-        public List<int> selectedColors = new List<int>();
+        //public List<int> selectedColors = new List<int>();
+        public List<int> selectedColors = new List<int> { 26, 3, 1, 5, 8 };
         public List<int> selectedColorsBackup = new List<int>();
+        public Item[] specialPaintSlots = { null, null, null };
         public int brushMode = 0;
         public bool curatedMode = false;
         public int curatedColor = 0;
         public byte color;
         public string visualMode;
 
+        public override void HoldItem(Player player)
+        {
+            if (player.cursorItemIconID == 0 && Item.GetGlobalItem<GItem>().TileInRange(Item, player)) EmperiaSystem.canStartDrawingCursorUI = true;
+            //if (Player.cursorItemIconID != 0) EmperiaSystem.cursorUIActive = false; is in ModPlayer.PreItemCheck
+
+            for (int i = 29; i <= 31; ++i)
+            {
+                Item item = FindPaintItem(player, i);
+                specialPaintSlots[i - 29] = item;
+                if (item == null)
+                {
+                    if (selectedColors.Contains(i)) selectedColors.Remove(i);
+                    if (curatedColor == i) curatedColor = 0;
+                }
+            }
+            color = (byte)selectedColors.LastOrDefault();
+            if (curatedMode) color = (byte)curatedColor;
+            Item.paint = color;
+            if (selectedColors.Any()) visualMode = "Blank";
+
+            for (int i = 0; i < 251; ++i) //makes visual use sprite
+            {
+                if (Main.projectile[i].active && Main.projectile[i].owner == Main.myPlayer && Main.projectile[i].type == ModContent.ProjectileType<OldMastersPaletteVisual>()) break;
+                if (i == 250) Projectile.NewProjectile(player.GetSource_ItemUse(Item), player.Center.X, player.Center.Y, 0f, 0f, ModContent.ProjectileType<OldMastersPaletteVisual>(), 0, 0, Main.myPlayer, 0, 0);
+            }
+            player.GetModPlayer<MyPlayer>().noShieldSprite = true;
+        }
+        public override bool? UseItem(Player player)
+        {
+            if (player.itemAnimation == player.itemAnimationMax)
+            {
+                int p = Projectile.NewProjectile(player.GetSource_ItemUse(Item), player.Center.X, player.Center.Y, 0f, 0f, ModContent.ProjectileType<OldMastersPaletteBrushVisual>(), 0, 0, Main.myPlayer, 0, 0);
+                (Main.projectile[p].ModProjectile as OldMastersPaletteBrushVisual).useAnimationMax = Item.useAnimation;
+                Main.projectile[p].timeLeft = Item.useAnimation;
+            }
+
+            if (Item.GetGlobalItem<GItem>().TileInRange(Item, player) == false) return false;
+            if (player.itemAnimation % Item.useTime != 0 || !player.controlUseItem) return false;
+
+            int i = Player.tileTargetX;
+            int j = Player.tileTargetY;
+            if (color != 0)
+            {
+                if (brushMode == 0)
+                {
+                    if (Framing.GetTileSafely(i, j).TileColor != color)
+                    {
+                        WorldGen.paintTile(i, j, color);
+                        TryConsumePaint(color, player);
+                    }
+                }
+                if (brushMode == 1)
+                {
+                    if (Framing.GetTileSafely(i, j).WallColor != color)
+                    {
+                        WorldGen.paintWall(i, j, color);
+                        TryConsumePaint(color, player);
+                    }
+                }
+            }
+            if (brushMode == 2)
+            {
+                if (Framing.GetTileSafely(i, j).HasTile && Framing.GetTileSafely(i, j).TileColor != 0) WorldGen.paintTile(i, j, 0);
+                else if (Framing.GetTileSafely(i, j).WallType != 0 && Framing.GetTileSafely(i, j).WallColor != 0) WorldGen.paintWall(i, j, 0);
+            }
+            return true;
+        }
         public override bool PreDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
         {
             return false;
         }
         public override void PostDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
         {
-            //CuratedColorList(selectedColors);
             Texture2D texture = ModContent.Request<Texture2D>("Emperia/Items/Palette/OldMastersPalette_Item" + visualMode, ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
-            position -= new Vector2(2, 0);
+            //position -= new Vector2(2, 0);
             spriteBatch.Draw(texture, position, null, drawColor, 0f, Vector2.Zero, Main.inventoryScale, SpriteEffects.None, 0f);
 
             if (selectedColors.Any())
@@ -94,7 +160,6 @@ namespace Emperia.Items
         }
         public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
         {
-            //CuratedColorList(selectedColors);
             Texture2D texture = ModContent.Request<Texture2D>("Emperia/Items/Palette/OldMastersPalette_Item" + visualMode, ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
             Vector2 position = new Vector2(Item.position.X - Main.screenPosition.X + Item.width * 0.5f, Item.position.Y - Main.screenPosition.Y + Item.height - texture.Height * 0.5f + 2f);
             spriteBatch.Draw(texture, position, null, lightColor, rotation, texture.Size() * 0.5f, scale, SpriteEffects.None, 0f);
@@ -150,76 +215,6 @@ namespace Emperia.Items
             string specialType = SpecialVFX(paintType, true);
             return ModContent.Request<Texture2D>("Emperia/Items/Palette/OldMastersPalette_Paint" + paintShape + specialType).Value;
         }
-
-        public override void HoldItem(Player player)
-        {
-            if (player.cursorItemIconID == 0 && Item.GetGlobalItem<GItem>().TileInRange(Item, player)) EmperiaSystem.canStartDrawingCursorUI = true;
-            //if (Player.cursorItemIconID != 0) EmperiaSystem.cursorUIActive = false; is in ModPlayer.PreItemCheck
-            color = (byte)selectedColors.LastOrDefault();
-            if (curatedMode) color = (byte)curatedColor;
-            if (selectedColors.Any()) visualMode = "Blank";
-
-            for (int i = 0; i < 251; ++i) //makes visual use sprite
-            {
-                if (Main.projectile[i].active && Main.projectile[i].owner == Main.myPlayer && Main.projectile[i].type == ModContent.ProjectileType<OldMastersPaletteVisual>()) break;
-                if (i == 250) Projectile.NewProjectile(player.GetSource_ItemUse(Item), player.Center.X, player.Center.Y, 0f, 0f, ModContent.ProjectileType<OldMastersPaletteVisual>(), 0, 0, Main.myPlayer, 0, 0);
-            }
-        }
-        public override bool? UseItem(Player player)
-        {
-            if (player.itemAnimation == player.itemAnimationMax)
-            {
-                int p = Projectile.NewProjectile(player.GetSource_ItemUse(Item), player.Center.X, player.Center.Y, 0f, 0f, ModContent.ProjectileType<OldMastersPaletteBrushVisual>(), 0, 0, Main.myPlayer, 0, 0);
-                (Main.projectile[p].ModProjectile as OldMastersPaletteBrushVisual).useAnimationMax = Item.useAnimation;
-                Main.projectile[p].timeLeft = Item.useAnimation;
-            }
-
-            if (Item.GetGlobalItem<GItem>().TileInRange(Item, player) == false) return false;
-            if (player.itemAnimation % Item.useTime != 0 || !player.controlUseItem) return false;
-
-            int i = Player.tileTargetX;
-            int j = Player.tileTargetY;
-            if (color != 0)
-            {
-                if (brushMode == 0)
-                {
-                    if (Framing.GetTileSafely(i, j).TileColor != color) WorldGen.paintTile(i, j, color);
-                }
-                if (brushMode == 1)
-                {
-                    if (Framing.GetTileSafely(i, j).WallColor != color) WorldGen.paintWall(i, j, color);
-                }
-            }
-            if (brushMode == 2)
-            {
-                if (Framing.GetTileSafely(i, j).HasTile && Framing.GetTileSafely(i, j).TileColor != 0) WorldGen.paintTile(i, j, 0);
-                else if (Framing.GetTileSafely(i, j).WallType != 0 && Framing.GetTileSafely(i, j).WallColor != 0) WorldGen.paintWall(i, j, 0);
-            }
-            return true;
-        }
-        public override void AddRecipes()  //How to craft this sword
-        {
-            Recipe recipe = CreateRecipe();
-            recipe.AddIngredient(ItemID.Paintbrush);
-            recipe.AddIngredient(ItemID.PaintRoller);
-            recipe.AddIngredient(ItemID.PaintScraper);
-            /*for (int i = 0; i < 16; i++)
-            {
-                if (i < 12) recipe.AddIngredient(1073 + i, 400);
-                else if (i < 15) recipe.AddIngredient(1097 + (i - 12), 400);
-                else recipe.AddIngredient(1966, 400);
-            }*/
-            recipe.AddIngredient(ItemID.RedPaint, 999);
-            recipe.AddIngredient(ItemID.OrangePaint, 999);
-            recipe.AddIngredient(ItemID.YellowPaint, 999);
-            recipe.AddIngredient(ItemID.GreenPaint, 999);
-            recipe.AddIngredient(ItemID.BluePaint, 999);
-            recipe.AddIngredient(ItemID.PurplePaint, 999);
-
-            recipe.AddTile(TileID.TinkerersWorkbench);
-
-            recipe.Register();
-        }
         public string SpecialVFX(int paintType, bool noDeep = false)
         {
             if (!noDeep && (paintType >= 13 && paintType <= 24 || paintType == 29)) return "Deep";
@@ -250,6 +245,40 @@ namespace Emperia.Items
             }
             curatedColorList.Reverse();
             return curatedColorList;
+        }
+        internal Item FindPaintItem(Player player, int paintType)
+        {
+            Item item = null;
+            for (int i = 54; i < 58; i++)
+            {
+                if (player.inventory[i].stack > 0 && player.inventory[i].paint == paintType && player.inventory[i].type != ModContent.ItemType<OldMastersPalette>())
+                {
+                    item = player.inventory[i];
+                    return item;
+                }
+            }
+            for (int j = 0; j < 58; j++)
+            {
+                if (player.inventory[j].stack > 0 && player.inventory[j].paint == paintType && player.inventory[j].type != ModContent.ItemType<OldMastersPalette>())
+                {
+                    item = player.inventory[j];
+                    return item;
+                }
+            }
+            return item;
+        }
+        internal void TryConsumePaint(byte color, Player player)
+        {
+            if (color < 29) return;
+            Item item = specialPaintSlots[color - 29];
+            if (ItemLoader.ConsumeItem(item, player))
+            {
+                item.stack--;
+            }
+            if (item.stack <= 0)
+            {
+                item.SetDefaults();
+            }
         }
         public static void SmartCursorLookup(Player player, Item item) //ayyyyy i can barely comprehend what some of this does and im shocked it works, thanks vanilla source and gadgetbox mod open source
         {
@@ -315,6 +344,33 @@ namespace Emperia.Items
                 Main.SmartCursorY = (Player.tileTargetY = smartY);
                 Main.SmartCursorShowing = true;
             }
+        }
+        public override void AddRecipes()  //How to craft this sword
+        {
+            Recipe recipe = CreateRecipe();
+            recipe.AddIngredient(ItemID.Paintbrush);
+            recipe.AddIngredient(ItemID.PaintRoller);
+            recipe.AddIngredient(ItemID.PaintScraper);
+            /*for (int i = 0; i < 16; i++)
+            {
+                if (i < 12) recipe.AddIngredient(1073 + i, 400);
+                else if (i < 15) recipe.AddIngredient(1097 + (i - 12), 400);
+                else recipe.AddIngredient(1966, 400);
+            }*/
+            recipe.AddIngredient(ItemID.RedPaint, 999);
+            recipe.AddIngredient(ItemID.OrangePaint, 999);
+            recipe.AddIngredient(ItemID.YellowPaint, 999);
+            recipe.AddIngredient(ItemID.GreenPaint, 999);
+            recipe.AddIngredient(ItemID.BluePaint, 999);
+            recipe.AddIngredient(ItemID.PurplePaint, 999);
+
+            recipe.AddTile(TileID.TinkerersWorkbench);
+
+            recipe.Register();
+        }
+        public override bool ConsumeItem(Player player)
+        {
+            return false;
         }
     }
     public class OldMastersPaletteVisual : ModProjectile

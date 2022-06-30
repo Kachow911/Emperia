@@ -29,7 +29,7 @@ namespace Emperia.Tiles
 		{
 			return ModContent.ItemType<Items.Grotto.GrottoWood>();
 		}
-		public override int GrowthFXGore()
+		public override int TreeLeaf()
 		{
 			return ModContent.Find<ModGore>("Gores/ExampleTreeFX").Type; //Gore.NewGore(NPC.position, NPC.velocity, ModContent.Find<ModGore>("Gores/OctopusHead"), 1f);
 		}
@@ -58,7 +58,7 @@ namespace Emperia.Tiles
 			return Request<Texture2D>("Tiles/TwilightTree_Branches");
 		}
 
-		public override void SetTreeFoliageSettings(Tile tile, int xoffset, ref int treeFrame, ref int floorY, ref int topTextureFrameWidth, ref int topTextureFrameHeight)
+		public override void SetTreeFoliageSettings(Tile tile, ref int xoffset, ref int treeFrame, ref int floorY, ref int topTextureFrameWidth, ref int topTextureFrameHeight)
         {
 			//
         }

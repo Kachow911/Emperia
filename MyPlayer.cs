@@ -135,6 +135,7 @@ namespace Emperia
 		public Rectangle swordHitbox = new Rectangle(0, 0, 0, 0); //value taken from GlobalItem //also may not be necessary anymore
 		public Vector2 hitboxEdge;
 		public float itemLength;
+		public bool noShieldSprite = false;
 
 		//public bool mouseOverUI = false;
 
@@ -210,6 +211,7 @@ namespace Emperia
 
 			projItemOrigin = null;
 			carapaceSet = null;
+			noShieldSprite = false;
 
 			//reseteffects runs almost immediately after vanilla smart cursor logic
 			{
@@ -1296,6 +1298,10 @@ namespace Emperia
 			if (arcaneShieldHold)
 			{
 				Player.shield = (sbyte)EquipLoader.GetEquipSlot(Mod, "ArcaneShield", EquipType.Shield);
+			}
+			if (noShieldSprite)
+            {
+				Player.shield = (sbyte)EquipLoader.GetEquipSlot(Mod, "BlankShield", EquipType.Shield); //this is a dummy sprite that just makes nothing else cover up the palette
 			}
 		}
 		//public override void ApplyEquipFunctional(int itemSlot, Item currentItem)

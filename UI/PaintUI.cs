@@ -3,16 +3,10 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Linq;
 using Terraria;
-using Terraria.Audio;
-using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.UI;
-using Terraria.GameContent;
-using static Emperia.EmperiaSystem;
-using Terraria.GameContent.UI.Elements;
 using ReLogic.Content;
-using System.Collections.Generic;
+using static Emperia.EmperiaSystem;
 using Emperia.Items;
 
 namespace Emperia.UI
@@ -140,6 +134,7 @@ namespace Emperia.UI
 		}
 		public override void Draw(SpriteBatch spriteBatch)
 		{
+			Main.hoverItemName = "wow";
 			base.Draw(spriteBatch);
 			spriteBatch.Draw(iconTexture, position, null, Color.White);
 			Texture2D brushTexture = ModContent.Request<Texture2D>("Emperia/UI/Brush_" + mastersPalette.brushMode).Value;
@@ -156,12 +151,14 @@ namespace Emperia.UI
 		int paintType;
 		static int[] paintForPosition = new int[] { 28, 13, 14, 15, 16, 17, 27, 1, 2, 3, 4, 18, 25, 12, 5, 29, 26, 11, 6, 31, 24, 10, 9, 8, 7, 30, 23, 22, 21, 20, 19, 0 };
 		Texture2D paintTexture;
+		bool locked = false;
 
 		OldMastersPalette mastersPalette = Main.LocalPlayer.HeldItem.ModItem as OldMastersPalette;
 		public override void OnInitialize()
 		{
 			iconTexture = ModContent.Request<Texture2D>("Emperia/UI/IconSmall_0", AssetRequestMode.ImmediateLoad).Value;
 			paintType = (int)paintForPosition.GetValue(iconIndex);
+			if (!Main.gameMenu && paintType >= 29) locked = (mastersPalette.specialPaintSlots[paintType - 29] == null);
 			paintTexture = ModContent.Request<Texture2D>("Terraria/Images/Item_" + PaintToItemID(paintType)).Value;
 			if (!Main.gameMenu && mastersPalette.curatedMode) visible = false;
 		}
@@ -169,7 +166,9 @@ namespace Emperia.UI
         {
 			if (!visible) return;
 			GeneralUpdate();
-			if (Main.MouseScreen.X >= position.X && Main.MouseScreen.X <= position.X + iconTexture.Width && Main.MouseScreen.Y >= position.Y && Main.MouseScreen.Y <= position.Y + +iconTexture.Height)
+			
+			if (paintType >= 29) locked = (mastersPalette.specialPaintSlots[paintType - 29] == null);
+			if (!locked && Main.MouseScreen.X >= position.X && Main.MouseScreen.X <= position.X + iconTexture.Width && Main.MouseScreen.Y >= position.Y && Main.MouseScreen.Y <= position.Y + +iconTexture.Height)
 			{
 				MouseOver(this);
 				if (Main.mouseLeft && canBeClicked)
@@ -213,10 +212,14 @@ namespace Emperia.UI
 			}
 			spriteBatch.Draw(iconTexture, position, null, brightness);
 
-			if (brightness == new Color(150, 150, 150)) brightness = new Color(190, 190, 190); //buckets need to be brighter to be distinguishable
-			else if (brightness == new Color(80, 80, 80)) brightness = new Color(140, 140, 140);
-			var paintCrop = new Rectangle(6, 0, 14, 10);
-			spriteBatch.Draw(paintTexture, position + new Vector2(6, 10), paintCrop, brightness);
+			if (!locked)
+			{
+				if (brightness == new Color(150, 150, 150)) brightness = new Color(190, 190, 190); //buckets need to be brighter to be distinguishable
+				else if (brightness == new Color(80, 80, 80)) brightness = new Color(140, 140, 140);
+				var paintCrop = new Rectangle(6, 0, 14, 10);
+				spriteBatch.Draw(paintTexture, position + new Vector2(6, 10), paintCrop, brightness);
+			}
+			else spriteBatch.Draw(ModContent.Request<Texture2D>("Emperia/UI/LockedPaint_0").Value, position, null, brightness);
 
 			if (paintType == 0)
             {

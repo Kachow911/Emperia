@@ -15,7 +15,7 @@ using Emperia.Items;
 using Emperia.Items.Weapons.Skeletron;
 using Emperia.Items.Accessories.Gauntlets;
 using static Terraria.Audio.SoundEngine;
-
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Emperia
 {
@@ -339,7 +339,16 @@ namespace Emperia
 				swordCopy.value = Item.value;
 			}
 		}
-		public override void UpdateAccessory(Item Item, Player player, bool hideVisibleAccessory)
+        /*public override bool PreDrawInInventory(Item item, SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
+        {
+			if (item.type < 5000)
+			{
+				Texture2D itemTexture = ModContent.Request<Texture2D>("Terraria/Images/Item_" + item.type).Value;
+				spriteBatch.Draw(itemTexture, position + Vector2.One * 2, null, new Color(0, 0, 0, 100), 0f, Vector2.Zero, Main.inventoryScale, SpriteEffects.None, scale);
+			}
+			return true;
+        }*/
+        public override void UpdateAccessory(Item Item, Player player, bool hideVisibleAccessory)
         {
 			MyPlayer modPlayer = player.GetModPlayer<MyPlayer>();
 			if (Item.GetGlobalItem<GItem>().gelPad == true && modPlayer.gelGauntlet < 1)
