@@ -8,6 +8,7 @@ using Terraria.UI;
 using ReLogic.Content;
 using static Emperia.EmperiaSystem;
 using Emperia.Items;
+using Terraria.ID;
 
 namespace Emperia.UI
 {
@@ -134,7 +135,6 @@ namespace Emperia.UI
 		}
 		public override void Draw(SpriteBatch spriteBatch)
 		{
-			Main.hoverItemName = "wow";
 			base.Draw(spriteBatch);
 			spriteBatch.Draw(iconTexture, position, null, Color.White);
 			Texture2D brushTexture = ModContent.Request<Texture2D>("Emperia/UI/Brush_" + mastersPalette.brushMode).Value;
@@ -152,13 +152,15 @@ namespace Emperia.UI
 		static int[] paintForPosition = new int[] { 28, 13, 14, 15, 16, 17, 27, 1, 2, 3, 4, 18, 25, 12, 5, 29, 26, 11, 6, 31, 24, 10, 9, 8, 7, 30, 23, 22, 21, 20, 19, 0 };
 		Texture2D paintTexture;
 		bool locked = false;
+		bool showSacrificeInfo = false;
+		bool canSacrifice = false;
 
 		OldMastersPalette mastersPalette = Main.LocalPlayer.HeldItem.ModItem as OldMastersPalette;
 		public override void OnInitialize()
 		{
 			iconTexture = ModContent.Request<Texture2D>("Emperia/UI/IconSmall_0", AssetRequestMode.ImmediateLoad).Value;
 			paintType = (int)paintForPosition.GetValue(iconIndex);
-			if (!Main.gameMenu && paintType >= 29) locked = (mastersPalette.specialPaintSlots[paintType - 29] == null);
+			if (!Main.gameMenu && paintType >= 29) locked = (mastersPalette.unlockedSpecialPaints[paintType - 29] == 0);
 			paintTexture = ModContent.Request<Texture2D>("Terraria/Images/Item_" + PaintToItemID(paintType)).Value;
 			if (!Main.gameMenu && mastersPalette.curatedMode) visible = false;
 		}
@@ -166,27 +168,59 @@ namespace Emperia.UI
         {
 			if (!visible) return;
 			GeneralUpdate();
-			
-			if (paintType >= 29) locked = (mastersPalette.specialPaintSlots[paintType - 29] == null);
-			if (!locked && Main.MouseScreen.X >= position.X && Main.MouseScreen.X <= position.X + iconTexture.Width && Main.MouseScreen.Y >= position.Y && Main.MouseScreen.Y <= position.Y + +iconTexture.Height)
+
+			if (paintType >= 29 && mastersPalette.unlockedSpecialPaints[paintType - 29] == 0)
+			{
+				locked = true;
+				if (mastersPalette.FindPaintToSacrifice(Main.LocalPlayer, paintType, ref canSacrifice).Any()) showSacrificeInfo = true;
+				else showSacrificeInfo = false;
+			}
+			if ((!locked || showSacrificeInfo) && Main.MouseScreen.X >= position.X && Main.MouseScreen.X <= position.X + iconTexture.Width && Main.MouseScreen.Y >= position.Y && Main.MouseScreen.Y <= position.Y + +iconTexture.Height)
 			{
 				MouseOver(this);
+				if (showSacrificeInfo) iconType -= 1;
 				if (Main.mouseLeft && canBeClicked)
 				{
-					if (paintType > 0)
+					if (!showSacrificeInfo)
 					{
-						if (!mastersPalette.selectedColors.Contains(paintType)) mastersPalette.selectedColors.Add(paintType);
-						else mastersPalette.selectedColors.Remove(paintType);
-					}
-					else
-					{
-						if (mastersPalette.selectedColors.Any())
-                        {
-							mastersPalette.selectedColorsBackup = mastersPalette.selectedColors.ToList();
-							mastersPalette.selectedColors.Clear();
+						if (paintType > 0)
+						{
+							if (!mastersPalette.selectedColors.Contains(paintType)) mastersPalette.selectedColors.Add(paintType);
+							else mastersPalette.selectedColors.Remove(paintType);
 						}
-						else mastersPalette.selectedColors = mastersPalette.selectedColorsBackup.ToList();
+						else
+						{
+							if (mastersPalette.selectedColors.Any())
+							{
+								mastersPalette.selectedColorsBackup = mastersPalette.selectedColors.ToList();
+								mastersPalette.selectedColors.Clear();
+							}
+							else mastersPalette.selectedColors = mastersPalette.selectedColorsBackup.ToList();
 
+						}
+					}
+                    else if (canSacrifice)
+                    {
+						int requiredPaint = 999;
+						foreach (Item paint in mastersPalette.FindPaintToSacrifice(Main.LocalPlayer, paintType, ref canSacrifice))
+                        {
+							if (ItemLoader.ConsumeItem(paint, Main.LocalPlayer))
+							{
+								int amountConsumed = (paint.stack >= requiredPaint) ? requiredPaint : paint.stack;
+								paint.stack -= amountConsumed;
+								requiredPaint -= amountConsumed;
+							}
+							if (paint.stack <= 0)
+							{
+								paint.SetDefaults();
+							}
+							if (requiredPaint <= 0) break;
+						}
+						Terraria.Audio.SoundEngine.PlaySound(SoundID.Grab);
+						locked = false;
+						showSacrificeInfo = false;
+						canSacrifice = false;
+						mastersPalette.unlockedSpecialPaints[paintType - 29] = 1;
 					}
 					canBeClicked = false;
 				}
@@ -212,7 +246,7 @@ namespace Emperia.UI
 			}
 			spriteBatch.Draw(iconTexture, position, null, brightness);
 
-			if (!locked)
+			if (!locked || showSacrificeInfo)
 			{
 				if (brightness == new Color(150, 150, 150)) brightness = new Color(190, 190, 190); //buckets need to be brighter to be distinguishable
 				else if (brightness == new Color(80, 80, 80)) brightness = new Color(140, 140, 140);
@@ -231,6 +265,22 @@ namespace Emperia.UI
             {
 				Texture2D ribbonTexture = ModContent.Request<Texture2D>("Emperia/UI/SelectedIconRibbon_" + iconType).Value;
 				spriteBatch.Draw(ribbonTexture, position, null, Color.White);
+			}
+
+			if (showSacrificeInfo)
+			{
+				Texture2D sacrificeTexture = ModContent.Request<Texture2D>("Emperia/UI/LockedPaint_1").Value;
+				if (canSacrifice) sacrificeTexture = ModContent.Request<Texture2D>("Emperia/UI/LockedPaint_2").Value;
+				spriteBatch.Draw(sacrificeTexture, position, null, brightness);
+				if (mousedOver)
+				{
+					//Texture2D paintTexture = ModContent.Request<Texture2D>("Terraria/Images/Item_" + PaintToItemID(paintType)).Value;
+					//spriteBatch.Draw(paintTexture, Main.MouseScreen + new Vector2(24, 0), null, Color.White);
+					Item item = new Item();
+					item.SetDefaults(PaintToItemID(paintType));
+					if (canSacrifice) Main.hoverItemName = $"Click to unlock!\nConsumes 999 {item.Name}";
+					else Main.hoverItemName = $"Click while holding 999 {item.Name} to unlock";
+				}
 			}
 		}
 		internal int PaintToItemID(int PaintID)

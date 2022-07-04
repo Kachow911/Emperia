@@ -12,7 +12,7 @@ using Terraria.UI;
 using Emperia.UI;
 using Terraria.GameContent;
 using static Terraria.Audio.SoundEngine;
-
+using Terraria.ModLoader.IO;
 
 namespace Emperia.Items
 {
@@ -46,7 +46,8 @@ namespace Emperia.Items
         //public List<int> selectedColors = new List<int>();
         public List<int> selectedColors = new List<int> { 26, 3, 1, 5, 8 };
         public List<int> selectedColorsBackup = new List<int>();
-        public Item[] specialPaintSlots = { null, null, null };
+        //public Item[] specialPaintSlots = { null, null, null };
+        public int[] unlockedSpecialPaints = { 0, 0, 0 };
         public int brushMode = 0;
         public bool curatedMode = false;
         public int curatedColor = 0;
@@ -58,7 +59,7 @@ namespace Emperia.Items
             if (player.cursorItemIconID == 0 && Item.GetGlobalItem<GItem>().TileInRange(Item, player)) EmperiaSystem.canStartDrawingCursorUI = true;
             //if (Player.cursorItemIconID != 0) EmperiaSystem.cursorUIActive = false; is in ModPlayer.PreItemCheck
 
-            for (int i = 29; i <= 31; ++i)
+            /*for (int i = 29; i <= 31; ++i)
             {
                 Item item = FindPaintItem(player, i);
                 specialPaintSlots[i - 29] = item;
@@ -67,7 +68,7 @@ namespace Emperia.Items
                     if (selectedColors.Contains(i)) selectedColors.Remove(i);
                     if (curatedColor == i) curatedColor = 0;
                 }
-            }
+            }*/
             color = (byte)selectedColors.LastOrDefault();
             if (curatedMode) color = (byte)curatedColor;
             Item.paint = color;
@@ -101,7 +102,7 @@ namespace Emperia.Items
                     if (Framing.GetTileSafely(i, j).TileColor != color)
                     {
                         WorldGen.paintTile(i, j, color);
-                        TryConsumePaint(color, player);
+                        //TryConsumePaint(color, player);
                     }
                 }
                 if (brushMode == 1)
@@ -109,7 +110,7 @@ namespace Emperia.Items
                     if (Framing.GetTileSafely(i, j).WallColor != color)
                     {
                         WorldGen.paintWall(i, j, color);
-                        TryConsumePaint(color, player);
+                        //TryConsumePaint(color, player);
                     }
                 }
             }
@@ -246,7 +247,7 @@ namespace Emperia.Items
             curatedColorList.Reverse();
             return curatedColorList;
         }
-        internal Item FindPaintItem(Player player, int paintType)
+        /*internal Item FindPaintItem(Player player, int paintType)
         {
             Item item = null;
             for (int i = 54; i < 58; i++)
@@ -266,8 +267,40 @@ namespace Emperia.Items
                 }
             }
             return item;
+        }*/
+        internal List<Item> FindPaintToSacrifice(Player player, int paintType, ref bool fullStack)
+        {
+            List<Item> paintItems = new List<Item>();
+            int paintCount = 0;
+            for (int i = 54; i < 58; i++)
+            {
+                if (player.inventory[i].stack > 0 && player.inventory[i].paint == paintType && player.inventory[i].type != ModContent.ItemType<OldMastersPalette>())
+                {
+                    paintItems.Add(player.inventory[i]);
+                    paintCount += player.inventory[i].stack;
+                    if (paintCount >= 999)
+                    {
+                        fullStack = true;
+                        return paintItems;
+                    }
+                }
+            }
+            for (int j = 0; j < 58; j++)
+            {
+                if (player.inventory[j].stack > 0 && player.inventory[j].paint == paintType && player.inventory[j].type != ModContent.ItemType<OldMastersPalette>())
+                {
+                    paintItems.Add(player.inventory[j]);
+                    paintCount += player.inventory[j].stack;
+                    if (paintCount >= 999)
+                    {
+                        fullStack = true;
+                        return paintItems;
+                    }
+                }
+            }
+            return paintItems;
         }
-        internal void TryConsumePaint(byte color, Player player)
+        /*internal void TryConsumePaint(byte color, Player player)
         {
             if (color < 29) return;
             Item item = specialPaintSlots[color - 29];
@@ -279,7 +312,7 @@ namespace Emperia.Items
             {
                 item.SetDefaults();
             }
-        }
+        }*/
         public static void SmartCursorLookup(Player player, Item item) //ayyyyy i can barely comprehend what some of this does and im shocked it works, thanks vanilla source and gadgetbox mod open source
         {
             OldMastersPalette mastersPalette = Main.LocalPlayer.HeldItem.ModItem as OldMastersPalette;
@@ -371,6 +404,21 @@ namespace Emperia.Items
         public override bool ConsumeItem(Player player)
         {
             return false;
+        }
+        public override void SaveData(TagCompound tag)
+        {
+            tag["unlockedShadow"] = unlockedSpecialPaints[0] == 1;
+            tag["unlockedNeg"] = unlockedSpecialPaints[1] == 1;
+            tag["unlockedIllum"] = unlockedSpecialPaints[2] == 1;
+        }
+        public override void LoadData(TagCompound tag)
+        {
+            if (tag.GetBool("unlockedShadow")) unlockedSpecialPaints[0] = 1;
+            else unlockedSpecialPaints[0] = 0;
+            if (tag.GetBool("unlockedNeg")) unlockedSpecialPaints[1] = 1;
+            else unlockedSpecialPaints[1] = 0;
+            if (tag.GetBool("unlockedIllum")) unlockedSpecialPaints[2] = 1;
+            else unlockedSpecialPaints[2] = 0;
         }
     }
     public class OldMastersPaletteVisual : ModProjectile
