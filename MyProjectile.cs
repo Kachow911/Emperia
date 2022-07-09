@@ -22,7 +22,7 @@ using Emperia.Buffs;
 
 namespace Emperia
 {
-    public class MyProjectile: GlobalProjectile
+    public class GProj: GlobalProjectile
     {
 		public override bool InstancePerEntity
 		{

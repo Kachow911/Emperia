@@ -40,7 +40,7 @@ namespace Emperia.Projectiles
 			if (!latched) //
 			{
 				NPC = target;
-				Projectile.GetGlobalProjectile<MyProjectile>().latchedNPC = NPC;
+				Projectile.GetGlobalProjectile<GProj>().latchedNPC = NPC;
 				if (Projectile.velocity.X > 0 && Projectile.Center.X > NPC.Left.X || Projectile.velocity.X < 0 && Projectile.Center.X < NPC.Right.X 
 				|| Projectile.velocity.Y > 0 && Projectile.Center.Y > NPC.Top.Y || Projectile.velocity.Y < 0 && Projectile.Center.Y < NPC.Bottom.Y)
 				{ Projectile.position -= Projectile.velocity * 0.85f; } //prevents harpoons from totally covering NPCs lol

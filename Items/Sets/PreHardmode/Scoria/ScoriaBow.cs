@@ -38,7 +38,7 @@ namespace Emperia.Items.Sets.PreHardmode.Scoria
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockBack)
 		{
 			int p = Projectile.NewProjectile(source, position.X, position.Y, velocity.X, velocity.Y, type, damage, knockBack, player.whoAmI);
-			Main.projectile[p].GetGlobalProjectile<MyProjectile>().scoriaExplosion = true;
+			Main.projectile[p].GetGlobalProjectile<GProj>().scoriaExplosion = true;
 			return false;
 		}
 		

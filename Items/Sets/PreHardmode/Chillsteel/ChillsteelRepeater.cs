@@ -38,7 +38,7 @@ namespace Emperia.Items.Sets.PreHardmode.Chillsteel
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockBack)
 		{
 			int p = Projectile.NewProjectile(source, position.X, position.Y, velocity.X, velocity.Y, type, damage, knockBack, player.whoAmI);
-			Main.projectile[p].GetGlobalProjectile<MyProjectile>().chillEffect = true;
+			Main.projectile[p].GetGlobalProjectile<GProj>().chillEffect = true;
 			return false;
 		}
 		

@@ -129,7 +129,7 @@ namespace Emperia.UI
 				mousedOver = false;
 				(Parent as PaintUI).mousedOverAny = false;
 			}
-			iconTexture = ModContent.Request<Texture2D>("Emperia/UI/Icon_" + iconType).Value;
+			iconTexture = ModContent.Request<Texture2D>("Emperia/UI/Icon_" + iconType, AssetRequestMode.ImmediateLoad).Value;
 			if (mastersPalette != (Main.LocalPlayer.HeldItem.ModItem as Items.OldMastersPalette)) EmperiaSystem.paintUIActive = false; //this check only seems to work in PaintUI
 
 		}
@@ -137,7 +137,7 @@ namespace Emperia.UI
 		{
 			base.Draw(spriteBatch);
 			spriteBatch.Draw(iconTexture, position, null, Color.White);
-			Texture2D brushTexture = ModContent.Request<Texture2D>("Emperia/UI/Brush_" + mastersPalette.brushMode).Value;
+			Texture2D brushTexture = ModContent.Request<Texture2D>("Emperia/UI/Brush_" + mastersPalette.brushMode, AssetRequestMode.ImmediateLoad).Value;
 			spriteBatch.Draw(brushTexture, position, null, Color.White);
 		}
 	}
@@ -253,17 +253,17 @@ namespace Emperia.UI
 				var paintCrop = new Rectangle(6, 0, 14, 10);
 				spriteBatch.Draw(paintTexture, position + new Vector2(6, 10), paintCrop, brightness);
 			}
-			else spriteBatch.Draw(ModContent.Request<Texture2D>("Emperia/UI/LockedPaint_0").Value, position, null, brightness);
+			else spriteBatch.Draw(ModContent.Request<Texture2D>("Emperia/UI/LockedPaint_0", AssetRequestMode.ImmediateLoad).Value, position, null, brightness);
 
 			if (paintType == 0)
             {
-				Texture2D trashTexture = ModContent.Request<Texture2D>("Emperia/UI/Trash").Value;
+				Texture2D trashTexture = ModContent.Request<Texture2D>("Emperia/UI/Trash", AssetRequestMode.ImmediateLoad).Value;
 				spriteBatch.Draw(trashTexture, position, null, brightness);
 			}
 
 			if (mastersPalette.selectedColors.LastOrDefault() == paintType && paintType != 0)
             {
-				Texture2D ribbonTexture = ModContent.Request<Texture2D>("Emperia/UI/SelectedIconRibbon_" + iconType).Value;
+				Texture2D ribbonTexture = ModContent.Request<Texture2D>("Emperia/UI/SelectedIconRibbon_" + iconType, AssetRequestMode.ImmediateLoad).Value;
 				spriteBatch.Draw(ribbonTexture, position, null, Color.White);
 			}
 

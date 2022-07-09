@@ -36,6 +36,7 @@ namespace Emperia
 		public float gauntletPower = 0f;
 
 		public bool nightFlame = false;
+		public Item oldItem = null;
 
 		public override void SetDefaults(Item item)
 		{
@@ -50,6 +51,45 @@ namespace Emperia
 			if (ammo.createTile != -1 && TileID.Sets.Platforms[ammo.createTile]) (weapon.ModItem as PlatformLayer).chosenPlatform = ammo; 
 		}
 
+        /*public override void HoldItem(Item item, Player player)
+        {
+			if (!item.noMelee && item.CountsAsClass(DamageClass.Melee))
+			{
+				for (int i = 0; i < Main.recipe.Length; i++)
+				{
+					if (Main.recipe[i] != null && Main.recipe[i].HasIngredient(item.type))
+					{
+						Item recipeResult = new Item();
+						recipeResult.SetDefaults(Main.recipe[i].createItem.type);
+						bool craftedWithOneSword = true;
+						foreach (Item material in Main.recipe[i].requiredItem)
+                        {
+							if (material.type != item.type && !material.noMelee && material.CountsAsClass(DamageClass.Melee))
+                            {
+								craftedWithOneSword = false;
+								break;
+                            }
+                        }
+						if (!recipeResult.noMelee && recipeResult.CountsAsClass(DamageClass.Melee)) //&& craftedWithOneSword)
+						{
+							Item upgradedSword = recipeResult;
+							upgradedSword.GetGlobalItem<GItem>().oldItem = item;
+							for (int j = 0; j < 58; j++)
+							{
+								if (player.inventory[j] == player.HeldItem)
+								{
+									player.inventory[j] = upgradedSword;
+									Main.NewText(j);
+									break;
+								}
+							}
+							break;
+							//ItemLoader.UseItem(upgradedSword, player);
+						}
+					}
+				}
+			}
+		}*/
         public override bool CanUseItem(Item Item, Player player)
         {
 			MyPlayer modPlayer = player.GetModPlayer<MyPlayer>();

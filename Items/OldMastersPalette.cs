@@ -22,6 +22,7 @@ namespace Emperia.Items
         {
             DisplayName.SetDefault("Old Master's Palette");
             Tooltip.SetDefault("Allows ultimate control over paint!\nRight Click while holding to select paints and brush\n'The world is your canvas... literally!'");
+            ItemID.Sets.SortingPriorityPainting[Item.type] = 101;
             //GamepadWholeScreenUseRange
             //GamepadExtraRange
         }
@@ -53,6 +54,7 @@ namespace Emperia.Items
         public int curatedColor = 0;
         public byte color;
         public string visualMode;
+        public bool spectreUpgrade = false;
 
         public override void HoldItem(Player player)
         {
@@ -71,7 +73,6 @@ namespace Emperia.Items
             }*/
             color = (byte)selectedColors.LastOrDefault();
             if (curatedMode) color = (byte)curatedColor;
-            Item.paint = color;
             if (selectedColors.Any()) visualMode = "Blank";
 
             for (int i = 0; i < 251; ++i) //makes visual use sprite
@@ -80,6 +81,12 @@ namespace Emperia.Items
                 if (i == 250) Projectile.NewProjectile(player.GetSource_ItemUse(Item), player.Center.X, player.Center.Y, 0f, 0f, ModContent.ProjectileType<OldMastersPaletteVisual>(), 0, 0, Main.myPlayer, 0, 0);
             }
             player.GetModPlayer<MyPlayer>().noShieldSprite = true;
+        }
+        public override void UpdateInventory(Player player)
+        {
+            //paint sprayer compatability
+            if (player.HeldItem.type == ItemID.Paintbrush || player.HeldItem.type == ItemID.SpectrePaintbrush || player.HeldItem.type == ItemID.PaintRoller || player.HeldItem.type == ItemID.SpectrePaintRoller) Item.paint = 0;
+            else Item.paint = color;
         }
         public override bool? UseItem(Player player)
         {
@@ -378,7 +385,7 @@ namespace Emperia.Items
                 Main.SmartCursorShowing = true;
             }
         }
-        public override void AddRecipes()  //How to craft this sword
+        public override void AddRecipes()
         {
             Recipe recipe = CreateRecipe();
             recipe.AddIngredient(ItemID.Paintbrush);
@@ -410,6 +417,10 @@ namespace Emperia.Items
             tag["unlockedShadow"] = unlockedSpecialPaints[0] == 1;
             tag["unlockedNeg"] = unlockedSpecialPaints[1] == 1;
             tag["unlockedIllum"] = unlockedSpecialPaints[2] == 1;
+
+            tag["selectedColors"] = selectedColors.ToArray();
+
+            tag["spectreUpgrade"] = spectreUpgrade;
         }
         public override void LoadData(TagCompound tag)
         {
@@ -419,7 +430,55 @@ namespace Emperia.Items
             else unlockedSpecialPaints[1] = 0;
             if (tag.GetBool("unlockedIllum")) unlockedSpecialPaints[2] = 1;
             else unlockedSpecialPaints[2] = 0;
+
+            selectedColors = tag.GetIntArray("selectedColors").ToList();
+
+            color = (byte)selectedColors.LastOrDefault();
+            Item.paint = color;
+            visualMode = "Blank";
+
+            spectreUpgrade = tag.GetBool("spectreUpgrade");
+            if (spectreUpgrade)
+            {
+                Item.tileBoost += 2;
+                Item.useAnimation = 12;
+                Item.useTime = 4;
+            }
+
         }
+        public override void ModifyTooltips(List<TooltipLine> tooltips)
+        {
+            if (spectreUpgrade)
+            {
+                TooltipLine line = new TooltipLine(Mod, "Upgrade", "Spectral Paint Kit"); //no clue what the first string does here, gives the tooltip a name for other code to reference?
+                //line.OverrideColor = new Color(95, 230, 255);
+                line.OverrideColor = new Color(130, 255, 255);
+                TooltipLine line2 = new TooltipLine(Mod, "UpgradeInfo", "Increased brush range and speed\nRight Click to detach");
+                tooltips.Add(line);
+                tooltips.Add(line2);
+            }
+        }
+        public sealed override bool CanRightClick()
+        {
+            if (spectreUpgrade) return true;
+            else return base.CanRightClick();
+        }
+        public override void RightClick(Player player)
+        {
+            if (spectreUpgrade)
+            {
+                spectreUpgrade = false;
+                Item.tileBoost -= 2;
+                Item.useAnimation = 15;
+                Item.useTime = 5;
+                Item.NewItem(player.GetSource_OpenItem(Item.type), player.getRect(), ModContent.ItemType<SpectrePaintKit>()); 
+            }
+        }
+        /*public override float UseSpeedMultiplier(Player player)
+        {
+            if (spectreUpgrade) return 2.5f;
+            return base.UseSpeedMultiplier(player);
+        }*/
     }
     public class OldMastersPaletteVisual : ModProjectile
     {
@@ -430,7 +489,6 @@ namespace Emperia.Items
             Projectile.width = 30;
             Projectile.height = 26;
             Projectile.tileCollide = false;
-            //Main.projFrames[Projectile.type] = 6;
         }
 
         public override void AI()
@@ -446,11 +504,12 @@ namespace Emperia.Items
                 offset.Y = 16;
                 Projectile.rotation = 4.712f;
             }
+            Projectile.rotation += player.fullRotation;
             float armRotation = -0.35f;
             int stretchAmount = 3;
 
             int bodyFrame = (player.bodyFrame.Y / player.bodyFrame.Height);
-            Projectile.GetGlobalProjectile<MyProjectile>().ApplyHeldProjOffsets(player, bodyFrame, ref offset, ref Projectile.rotation, ref armRotation, ref stretchAmount);
+            Projectile.GetGlobalProjectile<GProj>().ApplyHeldProjOffsets(player, bodyFrame, ref offset, ref Projectile.rotation, ref armRotation, ref stretchAmount);
 
             player.SetCompositeArmBack(enabled: true, (Player.CompositeArmStretchAmount)stretchAmount, (float)Math.PI * armRotation * player.direction);
 
@@ -463,7 +522,16 @@ namespace Emperia.Items
             //}
             
             Projectile.velocity = player.GetModPlayer<MyPlayer>().MouseDirection(); //no idea why this works, maybe OffsetsPlayerOnhand code checks projectile velocity to decide its direction?
-            Projectile.Center = (player.position /*+ value*/ + offset - player.GetModPlayer<MyPlayer>().MouseDirection()).Floor();
+            Vector2 rotationOffset = new Vector2(-10, -16);
+            offset = (offset + rotationOffset).RotatedBy(player.fullRotation) - rotationOffset;
+            Projectile.Center = player.position + offset;
+            if (player.sleeping.isSleeping)
+            {
+                Vector2 posOffset;
+                player.sleeping.GetSleepingOffsetInfo(player, out posOffset);
+                Projectile.Center += posOffset;
+            }
+            Projectile.Center = (Projectile.Center - player.GetModPlayer<MyPlayer>().MouseDirection()).Floor();
             Projectile.gfxOffY = player.gfxOffY;
             Projectile.spriteDirection = player.direction;
         }
@@ -532,10 +600,9 @@ namespace Emperia.Items
                 case 3: meleeFrame = 2; break;
                 default: meleeFrame = 0; break;
             }
-            Projectile.Center = player.Center + new Vector2(((Vector2)handPosition.GetValue(meleeFrame)).X * player.direction, ((Vector2)handPosition.GetValue(meleeFrame)).Y * player.gravDir);
-            Projectile.rotation = MathHelper.ToRadians(((Projectile.timeLeft - useAnimationMax / 2) / useAnimationMax * 198f) + 15) * -player.direction * player.gravDir;
-            if (player.gravDir == -1) Projectile.rotation += 1.57f * player.direction;
-
+            Projectile.Center = player.MountedCenter + new Vector2(((Vector2)handPosition.GetValue(meleeFrame)).X * player.direction, ((Vector2)handPosition.GetValue(meleeFrame)).Y * player.gravDir);
+            Projectile.rotation = MathHelper.ToRadians(((Projectile.timeLeft - useAnimationMax / 2) / useAnimationMax * 198f) + 15) * -player.direction * player.gravDir; //rotation cannot be used in place of spriteeffects
+            Projectile.rotation += player.fullRotation;
             //code beneath this adapted from vanilla medusa head projectile
 
             //if (velocity.X != base.velocity.X || velocity.Y != base.velocity.Y)
@@ -544,6 +611,16 @@ namespace Emperia.Items
             //}
 
             Projectile.velocity = player.GetModPlayer<MyPlayer>().MouseDirection();
+
+            Vector2 rotationOffset = new Vector2(-11.5f, -11.5f);
+            Projectile.Center = ((Projectile.Center - player.position) + rotationOffset).RotatedBy(player.fullRotation) + player.position - rotationOffset;
+            if (player.sleeping.isSleeping)
+            {
+                Vector2 posOffset;
+                player.sleeping.GetSleepingOffsetInfo(player, out posOffset);
+                Projectile.Center += posOffset * 2.4f;
+                Projectile.Center += new Vector2(0, 10 + (-2 * player.direction));
+            }
             Projectile.Center = (Projectile.Center - player.GetModPlayer<MyPlayer>().MouseDirection()).Floor();
             Projectile.gfxOffY = player.gfxOffY;
             Projectile.spriteDirection = player.direction;
@@ -553,7 +630,8 @@ namespace Emperia.Items
             OldMastersPalette mastersPalette = Main.player[Projectile.owner].HeldItem.ModItem as OldMastersPalette; //this can return an object reference not set to isntance of object error
             Player player = Main.player[Projectile.owner];
             SpriteEffects direction = SpriteEffects.None;
-            if (player.direction == -1) direction = SpriteEffects.FlipHorizontally;
+            if (player.direction != player.gravDir) direction = SpriteEffects.FlipHorizontally; //more compact way of checking player direction and gravity direction at once
+            if (player.gravDir == -1) direction = 1 - direction | SpriteEffects.FlipVertically; //flips both horizontally and vertically if upside down
 
             Texture2D texture = ModContent.Request<Texture2D>("Emperia/Items/Palette/OldMastersPalette_Brush" + mastersPalette.visualMode, ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
             Vector2 position = Projectile.position + new Vector2(texture.Width * 0.5f * player.direction, -texture.Height * 0.5f * player.gravDir).RotatedBy(Projectile.rotation) - Main.screenPosition; //not sure why 2f
@@ -572,6 +650,57 @@ namespace Emperia.Items
                 }
             }
             return true;
+        }
+    }
+    public class SpectrePaintKit : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Spectral Paint Kit");
+            Tooltip.SetDefault("Right Click while holding an Old Master's Palette to increase its range and speed");
+        }
+
+        public override void SetDefaults()
+        {
+            Item.width = 16;
+            Item.height = 16;
+            Item.rare = 8;
+        }
+
+        public virtual bool CanApply(Item Item)
+        {
+            if (Item.type == ModContent.ItemType<OldMastersPalette>() && (Item.ModItem as OldMastersPalette).spectreUpgrade == false)
+            {
+                return true;
+            }
+            else return false;
+        }
+        public override Color? GetAlpha(Color lightColor)
+        {
+            return new Color(lightColor.R, lightColor.G, lightColor.B, 80); //200 light, 10 alpha
+        }
+        public sealed override bool CanRightClick()
+        {
+            Item Item = Main.LocalPlayer.HeldItem;
+            return CanApply(Item);
+        }
+
+        public override void RightClick(Player player)
+        {
+            Item Item = Main.LocalPlayer.HeldItem;
+            (Item.ModItem as OldMastersPalette).spectreUpgrade = true;
+            Item.tileBoost += 2;
+            Item.useAnimation = 12;
+            Item.useTime = 4;
+        }
+        public override void AddRecipes()
+        {
+            Recipe recipe = CreateRecipe();
+            recipe.AddIngredient(ItemID.SpectrePaintbrush);
+            recipe.AddIngredient(ItemID.SpectrePaintRoller);
+            recipe.AddIngredient(ItemID.SpectrePaintScraper);
+            recipe.AddTile(TileID.MythrilAnvil);
+            recipe.Register();
         }
     }
 }

@@ -463,7 +463,7 @@ public override void ResetEffects(NPC NPC)
 			bool Unchained = false;
 			for (int l = 0; l < 1000; l++)
 			{
-				if (Main.projectile[l].active && Main.projectile[l].owner == Main.myPlayer && Main.projectile[l].type == ModContent.ProjectileType<HarpoonBladeProj>() && Main.projectile[l].GetGlobalProjectile<MyProjectile>().latchedNPC == NPC)
+				if (Main.projectile[l].active && Main.projectile[l].owner == Main.myPlayer && Main.projectile[l].type == ModContent.ProjectileType<HarpoonBladeProj>() && Main.projectile[l].GetGlobalProjectile<GProj>().latchedNPC == NPC)
 				{
 					//Main.projectile[l].ModProjectile.OnTileCollide(Vector2.Zero);
 					(Main.projectile[l].ModProjectile as HarpoonBladeProj).Unchain(Main.projectile[l]);

@@ -16,6 +16,7 @@ using Terraria.Localization;
 using static Terraria.ModLoader.ModContent;
 using Emperia.UI;
 using Terraria.GameContent.UI.Elements;
+using Terraria.GameInput;
 
 namespace Emperia
 {
@@ -143,6 +144,7 @@ namespace Emperia
         public static bool paintUIActive;
         public static Vector2 paintUIActivationPosition;
         public static bool canRightClick = false;
+        public static int cursorIsFreeForUI = 1;
         public static List<UIElement> smallPaintIconList = new List<UIElement>();
         public static List<UIElement> largePaintIconList = new List<UIElement>();
         public static UIState CurrentPaintUI = null;
@@ -197,27 +199,33 @@ namespace Emperia
                 Items.OldMastersPalette mastersPalette = Main.LocalPlayer.HeldItem.ModItem as Items.OldMastersPalette;
                 //if (Main.LocalPlayer.inventory[Main.LocalPlayer.selectedItem])
                 if (Main.mouseRightRelease) canRightClick = true;
+                if (!PlayerInput.LockGamepadTileUseButton && Main.LocalPlayer.noThrow == 0 && !Main.HoveringOverAnNPC && Main.LocalPlayer.talkNPC == -1)
+                {
+                    if (cursorIsFreeForUI < 1) cursorIsFreeForUI++;
+                }
+                else cursorIsFreeForUI = -1;
 
                 if (paintUIActive)
                 {
-                    if (Main.mouseRight && canRightClick 
+                    if (Main.mouseRight && canRightClick && cursorIsFreeForUI == 1
                         || !mastersPalette.curatedMode && Main.LocalPlayer.mouseInterface && (Math.Abs(Main.MouseScreen.X - paintUIActivationPosition.X) > 84 || Math.Abs(Main.MouseScreen.Y - paintUIActivationPosition.Y) > 84)
                         || mastersPalette.curatedMode && Main.LocalPlayer.mouseInterface && Vector2.Distance(paintUIActivationPosition, Main.MouseScreen) > 64f
                         )
                     {
                         paintUIActive = false;
-                        canRightClick = false;
+                        //canRightClick = false;
                     }
                 }
                 else
                 {
-                    if (Main.mouseRight && canRightClick && !Main.LocalPlayer.mouseInterface)
+                    if (Main.mouseRight && canRightClick && !Main.LocalPlayer.mouseInterface && cursorIsFreeForUI == 1)
                     {
                         paintUIActive = true;
                         paintUIActivationPosition = Main.MouseScreen;
-                        canRightClick = false;
+                        //canRightClick = false;
                     }
                 }
+                if (Main.mouseRight) canRightClick = false;
             }
             else paintUIActive = false;
 

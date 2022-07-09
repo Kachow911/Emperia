@@ -59,9 +59,9 @@ namespace Emperia.Items.Weapons
                 if (Main.projectile[l].active && Main.projectile[l].owner == Main.myPlayer && Main.projectile[l].type == ModContent.ProjectileType<HarpoonBladeProj>())
                 {
                     hooksOut++;
-                    if (Main.projectile[l].GetGlobalProjectile<MyProjectile>().latchedNPC != sameLatchedNpcCheck && sameLatchedNpcCheck != null
-                    || Main.projectile[l].GetGlobalProjectile<MyProjectile>().latchedNPC == null) failedCheck = true;
-                    sameLatchedNpcCheck = Main.projectile[l].GetGlobalProjectile<MyProjectile>().latchedNPC;
+                    if (Main.projectile[l].GetGlobalProjectile<GProj>().latchedNPC != sameLatchedNpcCheck && sameLatchedNpcCheck != null
+                    || Main.projectile[l].GetGlobalProjectile<GProj>().latchedNPC == null) failedCheck = true;
+                    sameLatchedNpcCheck = Main.projectile[l].GetGlobalProjectile<GProj>().latchedNPC;
                 }
             }
             if (hooksOut == 6) Terraria.Audio.SoundEngine.PlaySound(SoundID.Item149, player.Center);

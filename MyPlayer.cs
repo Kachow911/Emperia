@@ -223,7 +223,7 @@ namespace Emperia
 
 		}
 
-		/*public override void CatchFish(FishingAttempt attempt, ref int itemDrop, ref int npcSpawn, ref AdvancedPopupRequest sonar, ref Vector2 sonarPosition)
+        /*public override void CatchFish(FishingAttempt attempt, ref int itemDrop, ref int npcSpawn, ref AdvancedPopupRequest sonar, ref Vector2 sonarPosition)
         //public override void CatchFish(Item fishingRod, Item bait, int power, int liquidType, int poolSize, int worldLayer, int questFish, ref int caughtType)
 		{
 			//if (junk)
@@ -241,10 +241,17 @@ namespace Emperia
 				}
 			}
 		}*/
-		public override void PostUpdate()
+        /*public override void DrawEffects(PlayerDrawSet drawInfo, ref float r, ref float g, ref float b, ref float a, ref bool fullBright)
+        {
+			Main.NewText(Player.position);
+			//Main.NewText(Player.VisualPosition);
+			Main.NewText(drawInfo.Position);
+			//Main.NewText(drawInfo.mountOffSet);
+			drawInfo.drawPlayer.sleeping.GetSleepingOffsetInfo(drawInfo.drawPlayer, out var posOffset2);
+			//Main.NewText(posOffset2);
+		}*/
+        public override void PostUpdate()
 		{
-			//mouseOverUI = false;
-
 			targetedWallTypePre = targetedTilePreMine.WallType;
 			targetedTilePreMine = Framing.GetTileSafely(Player.tileTargetX, Player.tileTargetY);
 			targetedTileIsSpelunker = Main.tileSpelunker[targetedTilePreMine.TileType];
