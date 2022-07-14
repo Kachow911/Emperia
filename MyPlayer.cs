@@ -661,6 +661,14 @@ namespace Emperia
 		}
 		public override void PreUpdate()
 		{
+			if (EmperiaSystem.paintUIActive)
+			{
+				if (Main.LocalPlayer.inventory[Main.LocalPlayer.selectedItem].type == ModContent.ItemType<OldMastersPalette>())
+				{
+					OldMastersPalette mastersPalette = Main.LocalPlayer.HeldItem.ModItem as OldMastersPalette;
+					if (mastersPalette.curatedMode && mastersPalette.curatedColor != 0) PlayerInput.ScrollWheelDelta = 0;
+				}
+			}
 			if (carapaceSet != null && poundTime == 0)
 			{
 				if (Main.rand.Next(20) < carapaceTime / 60)
@@ -824,7 +832,7 @@ namespace Emperia
 			}*/ //nerf for bloodstained gauntlet, could also make it reduce the buff timer
 		}
 
-		private static void FindClosestEntityPoint(Vector2 point, Entity entity, out Vector2 closestPoint)
+		public void FindClosestEntityPoint(Vector2 point, Entity entity, out Vector2 closestPoint)
         {
 			closestPoint = new Vector2(entity.Center.X, entity.Center.Y);
 

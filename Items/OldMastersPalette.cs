@@ -494,7 +494,7 @@ namespace Emperia.Items
         public override void AI()
         {
             Player player = Main.player[Projectile.owner];
-            if (player.HeldItem.type != ModContent.ItemType<OldMastersPalette>()) Projectile.Kill();
+            if (player.HeldItem.type != ModContent.ItemType<OldMastersPalette>() || player.dead) Projectile.Kill();
             //player.heldProj = Projectile.whoAmI;
 
             Vector2 offset = new Vector2(10 + player.direction * 21, player.gravDir * 23);

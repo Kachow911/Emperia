@@ -9,6 +9,7 @@ using ReLogic.Content;
 using static Emperia.EmperiaSystem;
 using Emperia.Items;
 using Terraria.ID;
+using Terraria.GameInput;
 
 namespace Emperia.UI
 {
@@ -17,6 +18,7 @@ namespace Emperia.UI
 	{
         Texture2D iconTexture;
 		public bool mousedOverAny = false;
+		public bool canScroll = true;
 		public override void OnInitialize()
 		{
 			EmperiaSystem.CurrentPaintUI = this;
@@ -65,19 +67,19 @@ namespace Emperia.UI
 				UIElement largeIcon = new BucketLarge(i, iconPosition);
 				MakeIcon(largeIcon, iconPosition, 40);
 				EmperiaSystem.largePaintIconList.Add(largeIcon);
-			}
-		}
-		public void MakeIcon(UIElement icon, Vector2 position, int width, int height = -1)
-		{
-			if (height == -1) height = width;
-			icon.Left.Set(position.X, 0);
-			icon.Top.Set(position.Y, 0);
-			icon.Width.Set(width, 0);
-			icon.Height.Set(height, 0);
-			Append(icon);
-		}
-	}
-	class PaintUIElement : UIElement
+            }
+        }
+        public void MakeIcon(UIElement icon, Vector2 position, int width, int height = -1)
+        {
+            if (height == -1) height = width;
+            icon.Left.Set(position.X, 0);
+            icon.Top.Set(position.Y, 0);
+            icon.Width.Set(width, 0);
+            icon.Height.Set(height, 0);
+            Append(icon);
+        }
+    }
+    class PaintUIElement : UIElement
 	{
 		internal Vector2 position;
 		internal Texture2D iconTexture;
@@ -111,6 +113,8 @@ namespace Emperia.UI
 		public override void Update(GameTime gameTime)
 		{
 			GeneralUpdate();
+
+			(Parent as PaintUI).canScroll = true; //this should probably not be here but you cant run update in the main PaintUI
 
 			if (Vector2.Distance(paintUIActivationPosition, Main.MouseScreen) < 19f)
 			{
@@ -311,7 +315,7 @@ namespace Emperia.UI
 
 		public override void OnInitialize()
 		{
-			visible = false;
+			if (!Main.gameMenu) visible = mastersPalette.curatedMode;
 			iconTexture = ModContent.Request<Texture2D>("Emperia/UI/Icon_0", AssetRequestMode.ImmediateLoad).Value;
 			paintType = 0;
 			bucketTexture = ModContent.Request<Texture2D>("Emperia/UI/Bucket", AssetRequestMode.ImmediateLoad).Value;
@@ -319,16 +323,17 @@ namespace Emperia.UI
 		}
 		public override void Update(GameTime gameTime)
 		{
-			if (!Main.gameMenu && mastersPalette.curatedMode && paintType > 0) visible = true;
-
-			if (mastersPalette.selectedColors.Any() && mastersPalette.selectedColors.Count > iconIndex)
-            {
-				paintType = mastersPalette.CuratedColorList(mastersPalette.selectedColors)[iconIndex];
-			}
-			else visible = false;
-
 			if (!visible) return;
 			GeneralUpdate();
+
+			if (mastersPalette.curatedColor == paintType && PlayerInput.ScrollWheelDeltaForUI != 0 && (Parent as PaintUI).canScroll)
+            {
+				int paintToScrollTo = (iconIndex - Math.Sign(PlayerInput.ScrollWheelDeltaForUI)) % (mastersPalette.CuratedColorList(mastersPalette.selectedColors).Count);
+				if (paintToScrollTo < 0) paintToScrollTo += mastersPalette.CuratedColorList(mastersPalette.selectedColors).Count;
+				mastersPalette.curatedColor = mastersPalette.CuratedColorList(mastersPalette.selectedColors)[paintToScrollTo];
+				(Parent as PaintUI).canScroll = false;
+				// PlayerInput.ScrollWheelDelta = 0; is set in ModPlayer PreUpdate()
+			}
 
 			if (Vector2.Distance(position + new Vector2(iconTexture.Width / 2, iconTexture.Height / 2), Main.MouseScreen) < 19f)
 			{
@@ -357,6 +362,14 @@ namespace Emperia.UI
 		}
 		public override void Draw(SpriteBatch spriteBatch)
 		{
+			if (!Main.gameMenu && mastersPalette.curatedMode && paintType > 0) visible = true;
+
+			if (mastersPalette.selectedColors.Any() && mastersPalette.selectedColors.Count > iconIndex)
+			{
+				paintType = mastersPalette.CuratedColorList(mastersPalette.selectedColors)[iconIndex];
+			}
+			else visible = false;
+
 			if (!visible) return;
 
 			base.Draw(spriteBatch);

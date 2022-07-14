@@ -506,6 +506,13 @@ namespace Emperia
 									{
 										chest.item[inventoryIndex].SetDefaults(ItemType<Items.GoliathPotion>());
 										chest.item[inventoryIndex].stack = WorldGen.genRand.Next(2, 4);
+										inventoryIndex++;
+										if (inventoryIndex == 40) break;
+									}
+									if (WorldGen.genRand.NextBool(2))
+									{
+										chest.item[inventoryIndex].SetDefaults(ItemType<Items.Weapons.CloudGrenade>());
+										chest.item[inventoryIndex].stack = WorldGen.genRand.Next(15, 30);
 									}
 									break;
 								}

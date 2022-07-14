@@ -182,7 +182,7 @@ namespace Emperia
             if (MyInterface?.CurrentState != null)
             {
                 MyInterface.Update(gameTime);
-                if (paintUIActive)
+                /*if (paintUIActive)
                 {
                     if (CurrentPaintUI != null)
                     {
@@ -191,7 +191,7 @@ namespace Emperia
                             element.Update(gameTime);
                         }
                     }
-                }
+                }*/
             }
 
             if (Main.LocalPlayer.inventory[Main.LocalPlayer.selectedItem].type == ItemType<Items.OldMastersPalette>())
