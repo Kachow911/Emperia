@@ -8,6 +8,7 @@ using Emperia.Items.Weapons.Yeti;
 using Emperia.Items.Accessories;
 using Terraria.DataStructures;
 using Emperia.Npcs.Yeti;
+using static Terraria.ModLoader.ModContent;
 
 namespace Emperia.Items
 {
@@ -19,7 +20,7 @@ namespace Emperia.Items
 			Tooltip.SetDefault("Right Click to open");
 			ItemID.Sets.BossBag[Type] = true;
 			ItemID.Sets.PreHardmodeLikeBossBag[Type] = true;
-			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 3;
+			//CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 3;
 		}
 
 		public override int BossBagNPC => ModContent.NPCType<Yeti>();
@@ -37,25 +38,9 @@ namespace Emperia.Items
 			return true;
 		}
 
-        public override void OpenBossBag(Player player)
+		/*public override void OpenBossBag(Player player)
         {
 			IEntitySource source = player.GetSource_OpenItem(ModContent.ItemType<YetiBag>());
-			/*if (Main.rand.Next(2) == 0)
-			{
-				player.QuickSpawnItem(source, ModContent.ItemType<ArcticIncantation>());
-			}
-			if (Main.rand.Next(2) == 0)
-			{
-				player.QuickSpawnItem(source, ModContent.ItemType<HuntersSpear>());
-			}
-			if (Main.rand.Next(2) != 0)
-			{
-				player.QuickSpawnItem(source, ModContent.ItemType<IcicleCannon>());
-			}
-			if (Main.rand.Next(2) != 0)
-			{
-				player.QuickSpawnItem(source, ModContent.ItemType<MammothineClub>());
-			}*/
 			switch (Main.rand.Next(4))
             {
 				case 0:
@@ -81,6 +66,20 @@ namespace Emperia.Items
 			}
 			player.QuickSpawnItem(source, ModContent.ItemType<AncientPelt>());
 			player.QuickSpawnItem(source, ModContent.ItemType<Sets.PreHardmode.Frostleaf.Frostleaf>(), Main.rand.Next(25, 35));
+		}*/
+		public override void ModifyItemLoot(ItemLoot itemLoot)
+		{
+			/*LeadingConditionRule notExpertRule = new LeadingConditionRule(new Conditions.NotExpert());
+			{
+				notExpertRule.OnSuccess(ItemDropRule.OneFromOptionsNotScalingWithLuck(1, ItemType<Shroomer>(), ItemType<Mushdisc>(), ItemType<Shroomflask>(), ItemType<Items.Weapons.Mushor.Shroomerang>()));
+				//notExpertRule.OnSuccess(ItemDropRule.Common(ItemType<MushorMask>(), 7));
+				//notExpertRule.OnSuccess(ItemDropRule.Common(ItemType<MushorTrophy>(), 10));
+				itemLoot.Add(notExpertRule);
+			}*/
+			//itemLoot.Add(ItemDropRule.OneFromOptionsNotScalingWithLuck(1, ItemType<Shroomer>(), ItemType<Mushdisc>(), ItemType<Shroomflask>(), ItemType<Items.Weapons.Mushor.Shroomerang>()));
+
+
+			itemLoot.Add(EmperiaDropRule.OneFromOptionsCycleThroughPerRoll("yeti", 1, ItemType<ArcticIncantation>(), ItemType<HuntersSpear>(), ItemType<IcicleCannon>(), ItemType<MammothineClub>()));
 		}
 	}
 }

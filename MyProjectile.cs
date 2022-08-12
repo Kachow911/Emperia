@@ -1,37 +1,42 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.IO;
-using System.Threading.Tasks;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
-using Terraria.DataStructures;
-using Terraria.Graphics.Shaders;
-using Terraria.ModLoader.IO;
-using Terraria.GameInput;
-using static Terraria.Audio.SoundEngine;
-using Emperia;
+﻿using Emperia.Buffs;
 using Emperia.Projectiles;
 using Emperia.Projectiles.Corrupt;
 using Emperia.Projectiles.Crimson;
-using Emperia.Buffs;
+using Emperia.Projectiles.Yeti;
+using Microsoft.Xna.Framework;
+using System;
+using System.Linq;
+using Terraria;
+using Terraria.DataStructures;
+using Terraria.ID;
+using Terraria.ModLoader;
+using static Terraria.Audio.SoundEngine;
+using static Terraria.ModLoader.ModContent;
 
 namespace Emperia
 {
-    public class GProj: GlobalProjectile
+    public class GProj : GlobalProjectile
     {
-		public override bool InstancePerEntity
-		{
-			get { return true; }
-		}
-		public bool scoriaExplosion = false;
+        public override bool InstancePerEntity
+        {
+            get { return true; }
+        }
+        public bool scoriaExplosion = false;
         public bool chillEffect = false;
         public NPC latchedNPC;
-        public override void ModifyHitNPC(Projectile Projectile,NPC target,ref int damage,ref float knockback,ref bool crit,ref int hitDirection)
+        public bool forceReflect = false;
+
+        public override void SetDefaults(Projectile proj)
+        {
+            if (proj.ModProjectile is not null && proj.ModProjectile.Mod == Emperia.instance)
+            {
+                //if (proj.damage > 0) forceReflect = true; would like to bring this back but damage isnt checked for here
+                forceReflect = true;
+                if (proj.DamageType == DamageClass.SummonMeleeSpeed || proj.minion || proj.aiStyle == 99 ||
+                proj.type == ProjectileType<Needle>() || proj.type == ProjectileType<Items.StickyHandProj>() || proj.type == ProjectileType<Splinter>() || proj.type == ProjectileType<EnchantedBlade>()) forceReflect = false;
+            }
+        }
+        public override void ModifyHitNPC(Projectile Projectile, NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
         {
             Player player = Main.player[Projectile.owner];
             if (player.GetModPlayer<MyPlayer>().forestSetThrown && Projectile.CountsAsClass(DamageClass.Ranged))//Projectile.thrown
@@ -42,7 +47,11 @@ namespace Emperia
                     //CombatText.NewText(new Rectangle((int)target.position.X, (int)target.position.Y - 20, target.width, target.height), Color.White, "Defense Ignored!", false, false);
                 }
             }
-           
+
+        }
+        public override void OnSpawn(Projectile projectile, IEntitySource source)
+        {
+            if (Main.player[projectile.owner].HasBuff(ModContent.BuffType<Goliath>()) && projectile.aiStyle == 161 ) projectile.scale *= 1.2f;
         }
         public override void OnHitNPC(Projectile Projectile, NPC target, int damage, float knockback, bool crit)
         {
@@ -73,17 +82,65 @@ namespace Emperia
                 target.AddBuff(ModContent.BuffType<CrushingFreeze>(), 300);
             }
             if (player.GetModPlayer<MyPlayer>().chillsteelSet && Projectile.CountsAsClass(DamageClass.Ranged))
-            { 
+            {
                 target.AddBuff(BuffID.Frostburn, 300);
             }
         }
+        public override bool? CanHitNPC(Projectile projectile, NPC target)
+        {
+            if (target.GetGlobalNPC<MyNPC>().reflectsProjectilesCustom && target.CanReflectProjectile(projectile) && projectile.DamageType != DamageClass.SummonMeleeSpeed)
+            {
+                TryReflectOrKillProjectile(projectile, target);
+                if (Main.player[projectile.owner].heldProj != projectile.whoAmI) return false;
+            }
+            return base.CanHitNPC(projectile, target);
+        }
 
+        public static void TryReflectOrKillProjectile(Projectile projectile, NPC target)
+        {
+            if (CanReflectCustom(projectile) && projectile.velocity != Vector2.Zero)
+            {
+                PlaySound(SoundID.Item150, projectile.position);
+                for (int i = 0; i < 3; i++)
+                {
+                    int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 31);
+                    Main.dust[dust].velocity *= 0.3f;
+                }
+                projectile.hostile = true;
+                projectile.friendly = false;
+                Vector2 vector = Main.player[projectile.owner].Center - projectile.Center;
+                vector.Normalize();
+                vector *= projectile.oldVelocity.Length();
+                projectile.velocity = new Vector2((float)Main.rand.Next(-100, 101), (float)Main.rand.Next(-100, 101));
+                projectile.velocity.Normalize();
+                projectile.velocity *= vector.Length();
+                projectile.velocity += vector * 20f;
+                projectile.velocity.Normalize();
+                projectile.velocity *= vector.Length();
+                projectile.damage /= 2; //projectile damage scales independent of its damage stat in expert/master mode when applied to player. so this is still like 3x dmg in expert
+                projectile.penetrate = 1;
+
+                if (target.GetGlobalNPC<MyNPC>().reflectVelocity != 0f) projectile.velocity *= target.GetGlobalNPC<MyNPC>().reflectVelocity;
+            }
+            //else if (projectile.tileCollide && projectile.penetrate == 1) projectile.Kill(); //breaks w boomerangs and some minions + other stuff
+            else projectile.penetrate--; //this would run each frame wouldnt it
+        }
+        public static bool CanReflectCustom(Projectile proj)
+        {
+            if (proj.active && proj.friendly && !proj.hostile && proj.damage > 0 && proj.velocity != Vector2.Zero && //unsure about the velocity check
+            (proj.aiStyle == 1 || proj.aiStyle == 2 || proj.aiStyle == 8 || proj.aiStyle == 21 || proj.aiStyle == 24 || proj.aiStyle == 28 || proj.aiStyle == 29 || proj.aiStyle == 131
+            || proj.GetGlobalProjectile<GProj>().forceReflect))
+            {
+                return true;
+            }
+            return false;
+        }
 
         public override void Kill(Projectile Projectile, int timeLeft)
-		{
-			if (scoriaExplosion)
-			{
-             
+        {
+            if (scoriaExplosion)
+            {
+
                 for (int num621 = 0; num621 < 20; num621++)
                 {
                     int num622 = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 258, 0f, 0f, 100, default(Color));
@@ -108,9 +165,9 @@ namespace Emperia
                     if (Projectile.Distance(Main.npc[i].Center) < 64 && !Main.npc[i].townNPC)
                         Main.npc[i].StrikeNPC(Projectile.damage / 2, 0f, 0, false, false, false);
                 }
-      
-			}
-		}
+
+            }
+        }
         public void ApplyHeldProjOffsets(Player player, int bodyFrame, ref Vector2 offset, ref float projRotation, ref float armRotation, ref int stretchAmount)
         {
             int xFrame = 0;

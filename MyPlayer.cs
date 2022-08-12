@@ -132,6 +132,10 @@ namespace Emperia
 		public int frostFangTimer = 0;
 		public int fastFallLength = 0;
 		public int osmiumCooldown;
+		public Vector2? sacrificingBloodCandle = null;
+		public List<Vector2> bloodCandles = new List<Vector2>();
+		public int candleSacrificing = -1;
+
 		public Rectangle swordHitbox = new Rectangle(0, 0, 0, 0); //value taken from GlobalItem //also may not be necessary anymore
 		public Vector2 hitboxEdge;
 		public float itemLength;
@@ -635,7 +639,7 @@ namespace Emperia
 			{
 				//reduces mana by a third, rounded up
 				Player.statManaMax2 -= (Player.statManaMax2 / 3) - ((Player.statManaMax2 / 3) % 20);
-				//reduces any mana over 200 by another third (but calculated after decrease, so numbers are adjusted accordingly) - change to / 3 to buff
+				//reduces any mana over 200 by another half (but calculated after decrease, so numbers are adjusted accordingly) | change to / 3 to buff
 				if (Player.statManaMax2 > 140) Player.statManaMax2 -= ((Player.statManaMax2 - 140) / 2) - (((Player.statManaMax2 - 140) / 2) % 20);
 			}
 		}
@@ -655,7 +659,7 @@ namespace Emperia
 		{
 			return true;
 		}
-		public override bool PreHurt(bool pvp, bool quiet, ref int damage, ref int hitDirection, ref bool crit, ref bool customDamage, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource)
+		public override bool PreHurt(bool pvp, bool quiet, ref int damage, ref int hitDirection, ref bool crit, ref bool customDamage, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource, ref int cooldownCounter)
 		{
 			return dashDelay <= 70;
 		}
@@ -768,9 +772,112 @@ namespace Emperia
         public override void PostUpdateBuffs()
         {
 			if (Player.HasBuff(ModContent.BuffType<GraniteMinionBuff>())) Player.maxMinions ++;
-		}
 
-        public override void UpdateBadLifeRegen()
+			if (sacrificingBloodCandle != null)
+			{
+				Vector2 bloodCandlePos = new Vector2(sacrificingBloodCandle.Value.X * 16 + 4, sacrificingBloodCandle.Value.Y * 16);
+				if (Vector2.Distance(bloodCandlePos, Player.Center) > 800)
+                {
+					sacrificingBloodCandle = null;
+					candleSacrificing = -1;
+				}
+				else
+				{
+					if (Player.statLife > 5)
+					{
+						candleSacrificing++;
+
+						if (candleSacrificing % 2 == 0)
+						{
+							Player.statLife -= 5;
+							CombatText.NewText(new Rectangle((int)Player.position.X, (int)Player.position.Y - 20, Player.width, Player.height), Color.Red, "5", false, true);
+						}
+
+						for (int d = 0; d < 3; d++)
+						{
+							Vector2 vel = bloodCandlePos - Player.Center;
+							vel.Normalize();
+							vel *= Vector2.Distance(bloodCandlePos, Player.Center) / 11;
+							Dust dust = Dust.NewDustPerfect(Player.Center, 183, vel, 0, default(Color), 1.5f);
+							dust.noGravity = true;
+							dust.fadeIn = 1.7f;
+
+							if (d == 1) dust.position -= vel * 0.33f;
+							if (d == 2) dust.position -= vel * 0.66f;
+						} //spawn 3 evenly spaced dusts
+					}
+					else
+					{
+						Main.tile[(int)sacrificingBloodCandle.Value.X, (int)sacrificingBloodCandle.Value.Y].TileFrameX = 0;
+						Tiles.BloodCandleTile.FlameSwitchFX(bloodCandlePos);
+						bloodCandles.Add((Vector2)sacrificingBloodCandle);
+						sacrificingBloodCandle = null;
+						candleSacrificing = -1;
+						//if (Player.pStone) could make it give potion sickness
+					}
+				}
+			}
+		}
+		public override void PreUpdateBuffs()
+		{
+			if (bloodCandles.Any())
+			{
+				foreach (Vector2 candle in bloodCandles.ToList())
+				{
+					Point point = new Point((int)(Player.Center.X / 16), (int)(Player.Center.Y / 16));
+					Rectangle effectRectangle = new Rectangle(point.X - Main.buffScanAreaWidth / 2, point.Y - Main.buffScanAreaHeight / 2, Main.buffScanAreaWidth, Main.buffScanAreaHeight);
+					//Rectangle tileRectangle = new Rectangle((int)candle.X, (int)candle.Y, 1, 1);
+					if (Main.tile[(int)candle.X, (int)candle.Y].TileType != ModContent.TileType<Tiles.BloodCandleTile>() || Main.tile[(int)candle.X, (int)candle.Y].TileFrameX != 0) bloodCandles.Remove(candle);
+					//else if (Vector2.Distance(Player.Center, candle * 16) < 500) //else if ()
+
+					else if (effectRectangle.Contains((int)candle.X, (int)candle.Y))
+					{
+						Player.AddBuff(ModContent.BuffType<BloodCandleBuff>(), 2);
+						Player.ClearBuff(BuffID.WaterCandle); //this is purely visual, actual spawn stuff code is in MyNPC EditSpawnRate
+					}
+					else
+					{
+						UnloadBloodCandle(candle);
+						bloodCandles.Remove(candle);
+					}
+					//Main.NewText(effectRectangle);
+					//Main.NewText(new Point((int)candle.X, (int)candle.Y));
+				}
+			}
+        }
+		//public override world
+		public override void UpdateDead()
+		{
+			UnloadBloodCandles();
+		}
+		public void UnloadBloodCandles(bool dust = true)
+		{
+			if (bloodCandles.Any())
+			{
+				foreach (Vector2 candle in bloodCandles.ToList())
+				{
+					UnloadBloodCandle(candle, dust);
+				}
+				bloodCandles.Clear();
+			}
+		}
+		public void UnloadBloodCandle(Vector2 candle, bool dust = true)
+        {
+			if (Main.tile[(int)candle.X, (int)candle.Y].TileType == ModContent.TileType<Tiles.BloodCandleTile>()) //paranoia
+			{
+				Main.tile[(int)candle.X, (int)candle.Y].TileFrameX = 18;
+				if (dust) Tiles.BloodCandleTile.FlameSwitchFX(new Vector2(candle.X * 16, candle.Y * 16));
+			}
+		}
+		public override void ModifyLuck(ref float luck)
+		{
+			if (Player.HasBuff(ModContent.BuffType<BloodCandleBuff>()))
+			{
+				luck += 0.1f;
+				//Player.luckMaximumCap += 0.1f; this doesnt reset per frame
+			}
+		}
+		public override void UpdateBadLifeRegen()
 		{
 			if (Player.HasBuff(ModContent.BuffType<NocturnalFlame>()))
 			{
@@ -779,7 +886,7 @@ namespace Emperia
 				nightFlameLength++;
 				nightFlame = (1 + (int)Math.Floor(nightFlameLength / 600f)) * 2;
 				if (nightFlame > 10) nightFlame = 10;
-				Player.lifeRegen = -nightFlame * 2;
+				Player.lifeRegen -= nightFlame * 2;
 			}
 			else
 			{
@@ -787,7 +894,7 @@ namespace Emperia
 				nightFlame = 0;
 			}
 		}
-        public override void UpdateLifeRegen()
+		public override void UpdateLifeRegen()
         {
 
 		}
@@ -800,7 +907,7 @@ namespace Emperia
 
 			}
 		}
-		public override void Hurt(bool pvp, bool quiet, double damage, int hitDirection, bool crit)
+		public override void Hurt(bool pvp, bool quiet, double damage, int hitDirection, bool crit, int cooldownCounter)
 		{
 			graniteTime = 0;
 			if (terraGauntlet != null)
@@ -896,6 +1003,28 @@ namespace Emperia
 				}
 				if (Player.HasBuff(ModContent.BuffType<Goliath>())) damage = (int)(damage * 1.1f);
 			}
+		}
+		public override void ModifyHitNPCWithProj(Projectile Projectile, NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
+		{
+			if (slightKnockback)
+			{
+				knockback *= 1.1f;
+			}
+			if (doubleKnockback)
+			{
+				knockback *= 2f;
+			}
+			if ((ferocityGauntlet || terraGauntlet != null) && Main.rand.Next(10) == 0)
+				damage *= 2;
+			if (crit && rougeRage)
+			{
+				damage = damage += (damage / 10);
+			}
+			if (crit && vermillionValor)
+			{
+				damage = damage += ((damage * 13) / 100);
+			}
+			if (Player.HasBuff(ModContent.BuffType<Goliath>()) && Projectile.aiStyle == 161) damage = (int)(damage * 1.1f);
 		}
 		public override void OnHitNPC(Item Item, NPC target, int damage, float knockback, bool crit)
 		{
@@ -1274,28 +1403,6 @@ namespace Emperia
 				Player.AddBuff(ModContent.BuffType<Spored>(), 2);
 			}
 		}
-
-		public override void ModifyHitNPCWithProj(Projectile Projectile, NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
-		{
-			if (slightKnockback)
-			{
-				knockback *= 1.1f;
-			}
-			if (doubleKnockback)
-			{
-				knockback *= 2f;
-			}
-			if ((ferocityGauntlet || terraGauntlet != null) && Main.rand.Next(10) == 0)
-				damage *= 2;
-			if (crit && rougeRage)
-			{
-				damage = damage += (damage / 10);
-			}
-			if (crit && vermillionValor)
-			{
-				damage = damage += ((damage * 13) / 100);
-			}
-		}
 		public override void PreUpdateMovement()
 		{
 			if ((Player.inventory[Player.selectedItem].type == ModContent.ItemType<SeashellPickaxe>() || Player.inventory[Player.selectedItem].type == ModContent.ItemType<SeashellHamaxe>()) && (!Player.mount.Active || !Player.mount.Cart)) Player.trident = true;
@@ -1364,7 +1471,16 @@ namespace Emperia
 			if (Player.cursorItemIconID != 0 || Player.inventory[58].type == ModContent.ItemType<OldMastersPalette>()) EmperiaSystem.cursorUIActive = false; //spaghettiiiii
 			return base.PreItemCheck();
 		}
-		public Vector2 MouseDirection()
+        public override void LoadData(TagCompound tag)
+        {
+			base.LoadData(tag);
+        }
+        public override void SaveData(TagCompound tag)
+        {
+			UnloadBloodCandles(false);
+            base.SaveData(tag);
+        }
+        public Vector2 MouseDirection()
         {
 			Vector2 mouseDirection = Main.screenPosition + new Vector2(Main.mouseX, Main.mouseY) - Player.Center; //depending on the side of the player the mouse is, the sprite wobbles?? why??
 			if (Player.gravDir == -1f)

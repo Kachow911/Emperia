@@ -57,6 +57,8 @@ namespace Emperia
 		public int impaledDirection = 0;
 		public float desertSpikeHeight = 0;
 		public bool impaledGravity = true;
+		public float reflectVelocity = 0f;
+		public bool reflectsProjectilesCustom = false;
 		public int maceSlam = 0;
 		public int maceSlamDamage = 0;
 		int InfirmaryTimer = 30;
@@ -132,7 +134,7 @@ public override void ResetEffects(NPC NPC)
 				nightFlameLength++;
 				nightFlame = (1 + (int)Math.Floor(nightFlameLength / 600f)) * 2;
 				if (nightFlame > 10) nightFlame = 10;
-				NPC.lifeRegen = -nightFlame * 2;
+				NPC.lifeRegen -= nightFlame * 2;
 				damage = nightFlame;
 			}
 			else
@@ -473,12 +475,34 @@ public override void ResetEffects(NPC NPC)
 			}
 			if (Unchained) { PlaySound(new SoundStyle("Emperia/Sounds/Custom/ChainPull"), player.Center); }
 		}
-		public bool IsNormalEnemy(NPC NPC, bool allowStatueSpawned = true)
+        public override void EditSpawnRate(Player player, ref int spawnRate, ref int maxSpawns)
+        {
+			if (player.HasBuff(ModContent.BuffType<BloodCandleBuff>()))
+			{
+				if (player.ZoneWaterCandle || player.inventory[player.selectedItem].type == 148) //cancels out water candle effect, referenced from vanilla code
+				{
+					if (!player.ZonePeaceCandle && player.inventory[player.selectedItem].type != 3117)
+					{
+						spawnRate = (int)(spawnRate / 0.75);
+						maxSpawns = (int)Math.Ceiling(maxSpawns / 1.5f);
+						if (player.ZoneWaterCandle && (player.position.Y / 16f) < Main.worldSurface * 0.34999999403953552)
+						{
+							spawnRate = (int)(spawnRate / 0.5);
+						}
+					}
+				} 
+				spawnRate = (int)(spawnRate * 0.55); // effective boost is the multiplicative inverse, so 1 / 0.55 = ~1.8
+				maxSpawns = (int)(maxSpawns * 1.75f);
+			}
+			//Main.NewText(spawnRate);
+			//Main.NewText(maxSpawns);
+		}
+        public bool IsNormalEnemy(NPC NPC, bool allowStatueSpawned = true)
         {
 			if (NPC.SpawnedFromStatue && !allowStatueSpawned) return false;
 			if (NPC.type == NPCID.TargetDummy || NPC.lifeMax <= 5) return false;
 			return true;
-        }
+		} //canbechasedby code:	if (base.active && this.chaseable && this.lifeMax > 5 && (!this.dontTakeDamage || ignoreDontTakeDamage) && !this.friendly) return !this.immortal;
 
 	}
 }

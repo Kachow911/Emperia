@@ -45,18 +45,9 @@ public class GraniteHamaxe : ModItem
                 if (delay == 0 && player.controlUseItem) //this allows the effect can trigger mid swing, since usetime != useanimation
                 {
                     delay = Item.useTime;
-                    int i = (int)(Main.MouseWorld.X / 16);
-                    int j = (int)(Main.MouseWorld.Y / 16);
-                    if (Main.SmartCursorShowing)
-                    {
-                        i = Main.SmartCursorX;
-                        j = Main.SmartCursorY;
-                    }
-                    //int rangeX = Player.tileRangeX + Item.tileBoost;
-                    //int rangeY = Player.tileRangeY + Item.tileBoost;
-                    int playerTileX = (int)((player.position.X + player.width * 0.5) / 16.0);
-                    int playerTileY = (int)((player.position.Y + player.height * 0.5) / 16.0);
-                    if (playerTileX >= i - Player.tileRangeX && playerTileX <= i + Player.tileRangeX && playerTileY >= j - Player.tileRangeY && playerTileY <= j + Player.tileRangeY) //checks if tile is within reach
+                    int i = Player.tileTargetX;
+                    int j = Player.tileTargetY;
+                    if (Item.GetGlobalItem<GItem>().TileInRange(Item, player))
                     {
                         if (Main.tileAxe[Framing.GetTileSafely(i, j).TileType]) //hits tree stump multiple times to instantly break it. could just multiply the axe power but i figure that could break progression of some modded trees
                         {

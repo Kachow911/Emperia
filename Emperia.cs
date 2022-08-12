@@ -17,12 +17,18 @@ using static Terraria.ModLoader.ModContent;
 using Emperia.UI;
 using Terraria.GameContent.UI.Elements;
 using Terraria.GameInput;
+using Terraria.GameContent.ItemDropRules;
+using Terraria.ModLoader.IO;
+using static Emperia.EmperiaSystem;
+using System.Text;
 
 namespace Emperia
 {
 	class Emperia : Mod
 	{
         internal static Emperia instance;
+
+        public static string DebugInfo;
 
         public Emperia()
 		{
@@ -34,7 +40,7 @@ namespace Emperia
                 AutoloadBackgrounds = true
             }; i believe this simply got removed*/
 		}
-		public override void AddRecipeGroups()
+		public override void AddRecipeGroups()/* tModPorter Note: Removed. Use ModSystem.AddRecipeGroups */
 		{
 			RecipeGroup group = new RecipeGroup(() => Language.GetTextValue("LegacyMisc.37") + " Palladium Bar", new int[]
 			{
@@ -116,7 +122,74 @@ namespace Emperia
 				SkyManager.Instance["Emperia:Volcano"] = new VolcanoSky();
 			}
         }
+        /*public static GlobalType GetGlobal(Entity entity)
+        {
+            if (entity is NPC) return (entity as NPC).GetGlobalNPC<MyNPC>();
+            if (entity is Item) return (entity as Item).GetGlobalItem<GItem>();
+            //if (entity is Player) return (entity as Player).GetModPlayer<MyPlayer>();
+            return null;
+        }*/
+        public static float MouseControlledFloatX(bool haveNegatives = false, int maxValue = 1)
+        {
+            float value;
+            value = (Main.MouseScreen.X / (float)(Main.screenWidth)); //varies from 0 to 1
+            value = ApplyMouseFloatParameters(value, haveNegatives, maxValue);
+            return value;
+        }
+        public static float MouseControlledFloatY(bool haveNegatives = false, int maxValue = 1)
+        {
+            float value;
+            value = (Main.MouseScreen.Y / (float)(Main.screenHeight)); //varies from 0 to 1
+            value = ApplyMouseFloatParameters(value, haveNegatives, maxValue);
+            return value;
+        }
+        internal static float ApplyMouseFloatParameters(float value, bool haveNegatives, int maxValue)
+        {
+            if (haveNegatives)
+            {
+                value *= 2;
+                value--;
+            }
+            value *= maxValue;
+            return value;
+        }
+        public static void Shuffle<T>(T[] array)
+        {
+            for (int i = array.Length - 1; i >= 0; i--)
+            {
+                Utils.Swap(ref array[Main.rand.Next(i)], ref array[i]);
+            }
+        }
+        public static int[] ShuffledArrayOfWholeNumbers(int length)
+        {
+            int[] nums = new int[length];
+            for (int i = 0; i < length; i++)
+            {
+                nums[i] = i;
+            }
+            Shuffle(nums);
+            return nums;
+        }
+        public static string ToCamelCase(string str)
+        {
+            if (string.IsNullOrWhiteSpace(str))
+                return str;
 
+            var sb = new StringBuilder();
+
+            foreach (var c in str)
+            {
+                if (char.IsWhiteSpace(c))
+                {
+                    if (sb.Length > 0)
+                        sb[0] = char.ToUpper(sb[0]);
+                }
+                else
+                    sb.Append(c);
+            }
+
+            return sb.ToString();
+        }
     }
     public class EmperiaMusic : ModSceneEffect
     {
@@ -289,6 +362,153 @@ namespace Emperia
             CurrentPaintUI = null;
 
             cursorUIActive = false;
+        }
+
+
+        public static List<LootCycle> lootCycles = new List<LootCycle>();
+        public static LootCycle mushorLootCycle;
+        public static LootCycle yetiLootCycle;
+
+        public static LootCycle GetLootCycle(string lootCycle)
+        {
+            switch (lootCycle)
+            {
+                case "mushor": return mushorLootCycle;
+                case "yeti": return yetiLootCycle;
+                default: return null;
+            }
+        }
+        public override void OnWorldLoad()
+        {
+            mushorLootCycle = new LootCycle("mushor", 4);
+            yetiLootCycle = new LootCycle("yeti", 4);
+        }
+        public class LootCycle
+        {
+            public string lootType;
+            public int index;
+            public int[] sequence;
+            public LootCycle(string lootType, int length)//, int index)
+            {
+                this.lootType = lootType;
+                this.index = 0;
+                this.sequence = Emperia.ShuffledArrayOfWholeNumbers(length);
+                lootCycles.Add(this);
+            }
+        }
+        public override void LoadWorldData(TagCompound tag)
+        {
+            List<int[]> lootCyclesSeq = tag.Get<List<int[]>>("lootCyclesSeq");
+            List<int> lootCyclesIndex = tag.Get<List<int>>("lootCyclesIndex");
+            Emperia.DebugInfo += "|P| ";
+
+            foreach (int num in mushorLootCycle.sequence)
+            {
+                Emperia.DebugInfo += num + " ";
+            }
+            foreach (LootCycle cycle in lootCycles)
+            {
+                if (!lootCyclesSeq.Any()) break;
+                cycle.sequence = lootCyclesSeq.First();
+                lootCyclesSeq.RemoveAt(0);
+                cycle.index = lootCyclesIndex.First();
+                lootCyclesIndex.RemoveAt(0);
+                Emperia.DebugInfo += "|C| ";
+            }
+            Emperia.DebugInfo += "|L| ";
+
+            foreach (int num in mushorLootCycle.sequence)
+            {
+                Emperia.DebugInfo += num + " ";
+            }
+        }
+        public override void SaveWorldData(TagCompound tag)
+        {
+            List<int[]> lootCyclesSeq = new List<int[]>();
+            List<int> lootCyclesIndex = new List<int>();
+            foreach (LootCycle cycle in lootCycles)
+            {
+                lootCyclesSeq.Add(cycle.sequence);
+                lootCyclesIndex.Add(cycle.index);
+            }
+            //tag.Add("lootCyclesSeq", lootCyclesSeq);
+            //tag.Add("lootCyclesIndex", lootCyclesIndex);
+            tag["lootCyclesSeq"] = lootCyclesSeq;
+            tag["lootCyclesIndex"] = lootCyclesIndex;
+            Emperia.DebugInfo += "|S| ";
+
+            foreach (int num in mushorLootCycle.sequence)
+            {
+                Emperia.DebugInfo += num + " ";
+            }
+            Emperia.DebugInfo += "\n";
+            lootCycles.Clear();
+        }
+    }
+    public class EmperiaDropRule
+    {
+        public static IItemDropRule OneFromOptionsCycleThroughPerRoll(string lootCycleName, int chanceDenominator, params int[] options)
+        {
+            return new OneFromOptionsCycleThroughPerRollDropRule(lootCycleName, chanceDenominator, 1, options);
+        }
+        public class OneFromOptionsCycleThroughPerRollDropRule : IItemDropRule
+        {
+            public int[] dropIds;
+
+            public int chanceDenominator;
+
+            public int chanceNumerator;
+
+            public List<IItemDropRuleChainAttempt> ChainedRules { get; private set; }
+
+            public string lootCycleName;
+            public OneFromOptionsCycleThroughPerRollDropRule(string lootCycleName, int chanceDenominator, int chanceNumerator, params int[] options)
+            {
+                this.chanceDenominator = chanceDenominator;
+                this.dropIds = options;
+                this.chanceNumerator = chanceNumerator;
+                this.ChainedRules = new List<IItemDropRuleChainAttempt>();
+                this.lootCycleName = lootCycleName;
+            }
+
+            public bool CanDrop(DropAttemptInfo info)
+            {
+                return true;
+            }
+
+            public ItemDropAttemptResult TryDroppingItem(DropAttemptInfo info)
+            {
+                ItemDropAttemptResult result;
+                if (info.rng.Next(this.chanceDenominator) < this.chanceNumerator)
+                {
+                    LootCycle lootCycle = GetLootCycle(lootCycleName);
+
+                    CommonCode.DropItem(info, this.dropIds[lootCycle.sequence[lootCycle.index % lootCycle.sequence.Length]], 1);
+
+                    lootCycle.index++;
+                    if (lootCycle.index % lootCycle.sequence.Length == 0) Emperia.Shuffle(lootCycle.sequence);
+
+                    result = default(ItemDropAttemptResult);
+                    result.State = ItemDropAttemptResultState.Success;
+                    return result;
+                }
+                result = default(ItemDropAttemptResult);
+                result.State = ItemDropAttemptResultState.FailedRandomRoll;
+                return result;
+            }
+
+            public void ReportDroprates(List<DropRateInfo> drops, DropRateInfoChainFeed ratesInfo)
+            {
+                float num = (float)this.chanceNumerator / (float)this.chanceDenominator;
+                float num2 = num * ratesInfo.parentDroprateChance;
+                float dropRate = 1f / (float)this.dropIds.Length * num2;
+                for (int i = 0; i < this.dropIds.Length; i++)
+                {
+                    drops.Add(new DropRateInfo(this.dropIds[i], 1, 1, dropRate, ratesInfo.conditions));
+                }
+                Chains.ReportDroprates(this.ChainedRules, num, drops, ratesInfo);
+
+            }
         }
     }
 }

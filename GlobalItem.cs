@@ -16,6 +16,8 @@ using Emperia.Items.Weapons.Skeletron;
 using Emperia.Items.Accessories.Gauntlets;
 using static Terraria.Audio.SoundEngine;
 using Microsoft.Xna.Framework.Graphics;
+using Terraria.GameContent.Creative;
+using Terraria.GameContent.ItemDropRules;
 
 namespace Emperia
 {
@@ -40,6 +42,29 @@ namespace Emperia
 
 		public override void SetDefaults(Item item)
 		{
+			if (item.ModItem != null && item.ModItem.Mod == Emperia.instance) // set journey mode duplication amounts
+            {
+				int dupeReq = 0;
+				if (item.maxStack == 1) dupeReq = 1;
+				else if (item.createTile != -1 && Main.tileSolid[item.createTile]) dupeReq = 100;
+				else if (item.createTile != -1 && TileID.Sets.Platforms[item.createTile]) dupeReq = 200;
+				else if (item.createTile != -1 && !Main.tileSolid[item.createTile]) dupeReq = 1; //furniture, hopefully
+				else if (item.createWall != -1) dupeReq = 400;
+				else if (item.buffType == BuffID.WellFed || item.buffType == BuffID.WellFed2 || item.buffType == BuffID.WellFed3) dupeReq = 5;
+				else if (item.potion || item.buffType != 0) dupeReq = 20;
+				else if (item.ammo != 0 || item.damage > 0) dupeReq = 99;
+				else if (item.expert) dupeReq = 3; //treasure bags
+				else dupeReq = 25; //item.material hasn't been set by the time this code runs and can't be used
+
+				if (item.type == ModContent.ItemType<GelidHide>()) dupeReq = 3; //any boss summon items need to go here
+				else if (item.type == ModContent.ItemType<Icarusfish>() || item.type == ModContent.ItemType<Items.Sets.PreHardmode.Seashell.SeaCrystal>()) dupeReq = 3; //rare materials go here. possibly automate based on sell value?
+				else if (item.type == ModContent.ItemType<Osmium>()) dupeReq = 15; //rare ores/gems
+				//aether currently doesn't work, only because it isn't functional.
+				//future support: critters = 5, gold critters = 3, wiring stuff = 5, health potions = 30 (eh), torches = 100, common materials = 99
+
+				if (dupeReq != 0) CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[item.type] = dupeReq;
+			}
+
 			if (item.createTile != -1 && TileID.Sets.Platforms[item.createTile])
 			{
 				item.ammo = ItemID.WoodPlatform;
@@ -344,8 +369,8 @@ namespace Emperia
 			//TagCompound saveData = new TagCompound();
 			//saveData.Add("gelPad", gelPad);
 			//return saveData;
-			tag["gelPad"] = gelPad;
-			tag["nightFlame"] = nightFlame;
+			if (gelPad) tag["gelPad"] = gelPad;
+			if (nightFlame) tag["nightFlame"] = nightFlame;
 		}
 
 		public override void LoadData(Item Item, TagCompound tag) {
@@ -450,6 +475,32 @@ namespace Emperia
 				target.AddBuff(ModContent.BuffType<NocturnalFlame>(), 1200);
 			}
         }
+		public override void ModifyItemLoot(Item item, ItemLoot itemLoot)
+		{
+			/*if (item.type == NPCID.Guide)
+			{
+				// RemoveWhere will remove any drop rule that matches the provided expression.
+				// To make your own expressions to remove vanilla drop rules, you'll usually have to study the original source code that adds those rules.
+				itemLoot.RemoveWhere(
+					// The following expression returns true if the following conditions are met:
+					rule => rule is ItemDropWithConditionRule drop // If the rule is an ItemDropWithConditionRule instance
+						&& drop.itemId == ItemID.GreenCap // And that instance drops a green cap
+						&& drop.condition is Conditions.NamedNPC npcNameCondition // ..And if its condition is that an npc name must match some string
+						&& npcNameCondition.neededName == "Andrew" // And the condition's string is "Andrew".
+				);
+				drop.itemId = 5;
+			}*/
+			foreach (var rule in itemLoot.Get())
+			{
+				// You must study the vanilla code to know what to objects to cast to.
+				if (rule is OneFromOptionsNotScaledWithLuckDropRule drop)
+                {
+					itemLoot.Remove(drop);
+					//item.Name
+					itemLoot.Add(EmperiaDropRule.OneFromOptionsCycleThroughPerRoll("mushor", drop.chanceDenominator, drop.dropIds));
+				}
+			}
+		}
 		public bool TileInRange(Item item, Player player, int? i = null, int? j = null)
 		{
 			if (i == null) i = Player.tileTargetX;

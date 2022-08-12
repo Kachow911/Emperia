@@ -7,6 +7,7 @@ using Terraria.GameContent.Creative;
 using Emperia.Npcs.Mushor;
 using Emperia.Items.Weapons.Mushor;
 using Terraria.DataStructures;
+using Terraria.GameContent.ItemDropRules;
 
 namespace Emperia.Items
 {
@@ -20,7 +21,7 @@ namespace Emperia.Items
 			Tooltip.SetDefault("Right Click to open");
 			ItemID.Sets.BossBag[Type] = true;
 			ItemID.Sets.PreHardmodeLikeBossBag[Type] = true;
-			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 3;
+			//CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 3;
 		}
 
 
@@ -37,7 +38,7 @@ namespace Emperia.Items
 			return true;
 		}
 
-		public override void OpenBossBag(Player player)
+        /*public override void OpenBossBag(Player player)
 		{
 			//if (Main.rand.Next(6) == 0)
 			//{
@@ -61,6 +62,20 @@ namespace Emperia.Items
 			}
 			player.QuickSpawnItem(source, ItemType<Items.Accessories.MycelialShield>());
 			
+		}*/
+        public override void ModifyItemLoot(ItemLoot itemLoot)
+        {
+			/*LeadingConditionRule notExpertRule = new LeadingConditionRule(new Conditions.NotExpert());
+			{
+				notExpertRule.OnSuccess(ItemDropRule.OneFromOptionsNotScalingWithLuck(1, ItemType<Shroomer>(), ItemType<Mushdisc>(), ItemType<Shroomflask>(), ItemType<Items.Weapons.Mushor.Shroomerang>()));
+				//notExpertRule.OnSuccess(ItemDropRule.Common(ItemType<MushorMask>(), 7));
+				//notExpertRule.OnSuccess(ItemDropRule.Common(ItemType<MushorTrophy>(), 10));
+				itemLoot.Add(notExpertRule);
+			}*/
+			//itemLoot.Add(ItemDropRule.OneFromOptionsNotScalingWithLuck(1, ItemType<Shroomer>(), ItemType<Mushdisc>(), ItemType<Shroomflask>(), ItemType<Items.Weapons.Mushor.Shroomerang>()));
+
+			
+			itemLoot.Add(EmperiaDropRule.OneFromOptionsCycleThroughPerRoll("mushor", 1, ItemType<Shroomer>(), ItemType<Mushdisc>(), ItemType<Shroomflask>(), ItemType<Items.Weapons.Mushor.Shroomerang>()));
 		}
 	}
 }

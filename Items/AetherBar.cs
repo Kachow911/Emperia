@@ -27,13 +27,13 @@ namespace Emperia.Items
 			recipe.AddTile(TileID.SkyMill);  
 			recipe.Register();
 
-			CreateRecipe(ItemID.LuckyHorseshoe);
+			/*CreateRecipe(ItemID.LuckyHorseshoe);
 			recipe.AddIngredient(null, "AetherBar", 5);
 			recipe.AddIngredient(ItemID.Feather, 3);
 			recipe.AddIngredient(ItemID.Cloud, 15);
 			recipe.AddTile(TileID.SkyMill);  
 			//recipe.SetResult(ItemID.LuckyHorseshoe);
-			recipe.Register();
+			recipe.Register();*/
 			
 			/*recipe = CreateRecipe();
 			recipe.AddIngredient(ItemID.WorkBench, 1);

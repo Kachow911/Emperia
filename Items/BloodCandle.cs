@@ -10,7 +10,7 @@ namespace Emperia.Items
 	{
 		public override void SetStaticDefaults() {
 			DisplayName.SetDefault("Blood Candle");
-			Tooltip.SetDefault("Greatly increases enemy spawn rates and brings good fortune\nKindling the flame will exact a blood sacrifice");
+			Tooltip.SetDefault("Greatly increases enemy spawn rates\nKindling the flame will exact a blood sacrifice that is said to earn fate's favor");
 		}
 
 		public override void SetDefaults() {
@@ -23,8 +23,8 @@ namespace Emperia.Items
 			Item.useTime = 15;
 			Item.useStyle = 1;
 			Item.consumable = true;
-			Item.createTile = TileType<Tiles.BloodCandle>();
-			Item.flame = true;
+			Item.createTile = TileType<Tiles.BloodCandleTile>();
+			Item.rare = 4;
 			Item.value = 120000;
 		}
 	}

@@ -11,12 +11,13 @@ using Emperia.Tiles;
 using Emperia.Walls;
 using System;
 using Terraria.GameContent.ItemDropRules;
+using Terraria.ModLoader.IO;
 
 namespace Emperia
 {
-    public class EmperialWorld : ModSystem
-    {
-	
+	public class EmperialWorld : ModSystem
+	{
+
 		public static int VolcanoTiles = 0;
 		public static int GrottoTiles = 0;
 		private static int twilightX;
@@ -56,27 +57,27 @@ namespace Emperia
 			VolcanoTiles = 0;
 			GrottoTiles = 0;
 		}
-        public override void TileCountsAvailable(ReadOnlySpan<int> tileCounts)
-        {
+		public override void TileCountsAvailable(ReadOnlySpan<int> tileCounts)
+		{
 			VolcanoTiles = tileCounts[TileType<Tiles.Volcano.VolcanoTile>()];
 			GrottoTiles = tileCounts[TileType<TwilightDirt>()] + tileCounts[TileType<TwilightBrick>()] + tileCounts[TileType<TwilightGrass>()] + tileCounts[TileType<TwilightStone>()] + tileCounts[TileType<TFWood>()] + tileCounts[TileType<TFLeaf>()];
 		}
 		public void MakeCircle(int X, int Y, int radius, int TileType)
 		{
-			
-                    for (int x = X - radius; x <= X + radius; x++)
+
+			for (int x = X - radius; x <= X + radius; x++)
+			{
+				for (int y = Y - radius; y <= Y + radius; y++)
+				{
+					if (Vector2.Distance(new Vector2(X, Y), new Vector2(x, y)) <= radius)
 					{
-                        for (int y = Y - radius; y <= Y + radius; y++)
-						{
-                            if (Vector2.Distance(new Vector2(X, Y), new Vector2(x, y)) <= radius)
-							{
-								WorldGen.KillTile(x, y);
-								WorldGen.PlaceTile(x, y, TileType);
-							}
-						}
-								
-							
+						WorldGen.KillTile(x, y);
+						WorldGen.PlaceTile(x, y, TileType);
 					}
+				}
+
+
+			}
 		}
 		public void KillCircle(int X, int Y, int radius)
 		{
@@ -462,7 +463,7 @@ namespace Emperia
 						trs[j] = new TileRunnerCave(new Vector2(x, y), new Vector2(x2, y2), 4, true);
 						trs[j].steps = 40;
 						trs[j].stepsLeft = 40;
-						trs[j].type = (ushort) TileType<TFWood>();
+						trs[j].type = (ushort)TileType<TFWood>();
 						trs[j].addTile = true;
 					}
 
@@ -478,12 +479,12 @@ namespace Emperia
 		}
 
 		public override void PostWorldGen()
-        {   //mostly copied from examplemod
-            for (int chestIndex = 0; chestIndex < 1000; chestIndex++)
-            {
-                Chest chest = Main.chest[chestIndex];
-                if (chest != null && Main.tile[chest.x, chest.y].TileType == TileID.Containers) //2 * 36 == locked dungeon chest
-                {
+		{   //mostly copied from examplemod
+			for (int chestIndex = 0; chestIndex < 1000; chestIndex++)
+			{
+				Chest chest = Main.chest[chestIndex];
+				if (chest != null && Main.tile[chest.x, chest.y].TileType == TileID.Containers) //2 * 36 == locked dungeon chest
+				{
 					switch (Main.tile[chest.x, chest.y].TileFrameX / 36)
 					{
 						case 50:
@@ -520,10 +521,45 @@ namespace Emperia
 							break;
 					}
 				}
-            }
+			}
 		}
+
+        public override void ModifyTimeRate(ref double timeRate, ref double tileUpdateRate, ref double eventUpdateRate)
+        {
+			/*double realTime = (DateTime.Now.TimeOfDay.TotalSeconds + 70200) % 86400;
+
+			double worldTime = Main.time;
+			if (!Main.dayTime) worldTime += 54000;
+
+			if ((int)worldTime != (int)realTime)
+			{
+				//Main.NewText(realTime);
+				//Main.NewText(worldTime, Color.Blue);
+				//Main.NewText(Main.time, Color.Red);
+				if (realTime > 54000)
+				{
+					realTime -= 54000;
+					Main.dayTime = false;
+				}
+				else Main.dayTime = true;
+				Main.time = realTime;
+			}
+			timeRate = 1 / 60;*/
+        }
 	}
-  
+
+		/*public class PlayerTile
+		{
+			public Player player;
+			public Vector2 tileVec;
+			public Tile tile;
+			public PlayerTile(Player player, Vector2 tile)
+			{
+				this.player = player;
+				this.tileVec = tile;
+				this.tile = Main.tile[(int)tile.X, (int)tile.Y];
+			}
+		}*/
 		public class EOCDropCondition : IItemDropRuleCondition
 		{
 			public bool CanDrop(DropAttemptInfo info) {
@@ -540,9 +576,7 @@ namespace Emperia
 			public string GetConditionDescription() {
 				return "Drops only once";
 			}
-		}
-
-       
+		}  
    }
 	
 	

@@ -52,18 +52,9 @@ public class GranitePickaxe : ModItem
                 if (delay == 0 && player.controlUseItem)
                 {
                     delay = Item.useTime;
-                    int i = (int)(Main.MouseWorld.X / 16);
-                    int j = (int)(Main.MouseWorld.Y / 16);
-                    if (Main.SmartCursorShowing)
-                    {
-                        i = Main.SmartCursorX;
-                        j = Main.SmartCursorY;
-                    }
-                    //int rangeX = Player.tileRangeX + Item.tileBoost;
-                    //int rangeY = Player.tileRangeY + Item.tileBoost;
-                    int playerTileX = (int)((player.position.X + player.width * 0.5) / 16.0);
-                    int playerTileY = (int)((player.position.Y + player.height * 0.5) / 16.0);
-                    if (playerTileX >= i - Player.tileRangeX && playerTileX <= i + Player.tileRangeX && playerTileY >= j - Player.tileRangeY && playerTileY <= j + Player.tileRangeY && Main.tileSolid[Framing.GetTileSafely(i, j).TileType])
+                    int i = Player.tileTargetX;
+                    int j = Player.tileTargetY;
+                    if (Item.GetGlobalItem<GItem>().TileInRange(Item, player) && Main.tileSolid[Framing.GetTileSafely(i, j).TileType])
                     {
                         int maxRange = 5;
                         int radius = (maxRange - 1) / 2;

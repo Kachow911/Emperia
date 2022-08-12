@@ -380,10 +380,16 @@ namespace Emperia.Npcs.SeaCrab
 							Main.dust[dust1].noGravity = true;
 							Main.dust[dust1].velocity.X = 0f;
 						}*/
-						NPC.ReflectProjectiles(NPC.Hitbox);
+						//NPC.ReflectProjectiles(NPC.Hitbox);
 						NPC.reflectsProjectiles = true;
+						NPC.GetGlobalNPC<MyNPC>().reflectsProjectilesCustom = true;
+						NPC.GetGlobalNPC<MyNPC>().reflectVelocity = 2f;
 					}
-					else NPC.reflectsProjectiles = false;
+					else {
+						NPC.reflectsProjectiles = false;
+						NPC.GetGlobalNPC<MyNPC>().reflectsProjectilesCustom = false;
+						NPC.GetGlobalNPC<MyNPC>().reflectVelocity = 0f;
+					}
 					if (counter <= 0)
 					{
 						//NPC.aiStyle = 3;
@@ -573,18 +579,27 @@ namespace Emperia.Npcs.SeaCrab
 				//Main.NewText();
             }
 		}*/
-        public override void ModifyHitByItem(Player player, Item item, ref int damage, ref float knockback, ref bool crit)
+		public override void ModifyHitByProjectile(Projectile projectile, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
+        {
+			if (Main.player[projectile.owner].heldProj == projectile.whoAmI) ModifyHitByItemOrHeldProj();
+		}
+		public override void ModifyHitByItem(Player player, Item item, ref int damage, ref float knockback, ref bool crit)
+        {
+			ModifyHitByItemOrHeldProj();
+		}
+		public void ModifyHitByItemOrHeldProj()
         {
 			if (inShell)
 			{
 				NPC.defense = 8;
+				if (move == Move.ShellSpinOutAnim && counter > 12 && notEmerging) NPC.defense = 0; //unsure about this
 				PlaySound(SoundID.NPCHit22, NPC.Center);
 				//damage += 3;
 				//Main.NewText();
 			}
 		}
 
-        public override bool? DrawHealthBar(byte hbPosition, ref float scale, ref Vector2 position)
+		public override bool? DrawHealthBar(byte hbPosition, ref float scale, ref Vector2 position)
 		{
 			return !NPC.behindTiles;
 		}

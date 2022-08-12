@@ -42,8 +42,8 @@ namespace Emperia.Items.Weapons
         }
         public override void AddRecipes()
         {
-            Recipe recipe = CreateRecipe(40);
-            recipe.AddIngredient(ItemID.Grenade, 40);
+            Recipe recipe = CreateRecipe(25);
+            recipe.AddIngredient(ItemID.Grenade, 25);
             recipe.AddIngredient(ItemID.Feather, 1);
             recipe.AddTile(TileID.SkyMill);
             recipe.AddCondition(Recipe.Condition.NearWater);
@@ -130,7 +130,7 @@ namespace Emperia.Items.Weapons
         }
         public bool TryApplyKnockback(Entity target)
         {
-            if (!target.active || target.Distance(Projectile.Center) > 112) return false;
+            if (!target.active || target.Distance(Projectile.Center) > 112 || !Collision.CanHit(Projectile.Center, 1, 1, target.Center, 1, 1)) return false;
 
             Vector2 direction = target.Center - Projectile.Center;
             if (target.velocity.Y == 0 && direction.Y > 0) direction.Y = 0; //makes grounded enemies not get knocked into the ground
