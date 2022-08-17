@@ -52,7 +52,7 @@ namespace Emperia.Items.Accessories
 			Recipe recipe = CreateRecipe();
 			recipe.AddIngredient(ItemID.ManaCrystal, 1);
 			recipe.AddIngredient(ItemID.FallenStar, 2);
-			recipe.AddRecipeGroup("Emperia:AnySilverBar", 6);
+			recipe.AddRecipeGroup("Emperia:SilverBar", 6);
 			recipe.AddTile(TileID.Anvils);
 			recipe.Register();
 			

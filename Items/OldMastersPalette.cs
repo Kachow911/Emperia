@@ -58,8 +58,8 @@ namespace Emperia.Items
 
         public override void HoldItem(Player player)
         {
-            if (player.cursorItemIconID == 0 && Item.GetGlobalItem<GItem>().TileInRange(Item, player)) EmperiaSystem.canStartDrawingCursorUI = true;
-            //if (Player.cursorItemIconID != 0) EmperiaSystem.cursorUIActive = false; is in ModPlayer.PreItemCheck
+            if (player.cursorItemIconID == 0 && Item.GetGlobalItem<GItem>().TileInRange(Item, player)) PaintUISystem.canStartDrawingCursorUI = true;
+            //if (Player.cursorItemIconID != 0) PaintUISystem.cursorUIActive = false; is in ModPlayer.PreItemCheck
 
             /*for (int i = 29; i <= 31; ++i)
             {

@@ -40,70 +40,6 @@ namespace Emperia
                 AutoloadBackgrounds = true
             }; i believe this simply got removed*/
 		}
-		public override void AddRecipeGroups()/* tModPorter Note: Removed. Use ModSystem.AddRecipeGroups */
-		{
-			RecipeGroup group = new RecipeGroup(() => Language.GetTextValue("LegacyMisc.37") + " Palladium Bar", new int[]
-			{
-			ItemID.PalladiumBar,
-			ItemID.CobaltBar
-			});
-			RecipeGroup.RegisterGroup("Emperia:PalBar", group);
-			RecipeGroup group2 = new RecipeGroup(() => Language.GetTextValue("LegacyMisc.37") + " Adamantite Bar", new int[]
-			{
-			ItemID.AdamantiteBar,
-			ItemID.TitaniumBar
-			});
-			RecipeGroup.RegisterGroup("Emperia:AdBar", group2);
-            RecipeGroup group3 = new RecipeGroup(() => Language.GetTextValue("LegacyMisc.37") + " Iron Bar", new int[]
-            {
-            ItemID.IronBar,
-            ItemID.LeadBar
-            });
-            RecipeGroup.RegisterGroup("Emperia:AnyIronBar", group3);
-            RecipeGroup group4 = new RecipeGroup(() => Language.GetTextValue("LegacyMisc.37") + " Silver Bar", new int[]
-            {
-            ItemID.SilverBar,
-            ItemID.TungstenBar
-            });
-            RecipeGroup.RegisterGroup("Emperia:AnySilverBar", group4);
-            RecipeGroup group5 = new RecipeGroup(() => Language.GetTextValue("LegacyMisc.37") + " Gold Bar", new int[]
-            {
-            ItemID.GoldBar,
-            ItemID.PlatinumBar
-            });
-            RecipeGroup.RegisterGroup("Emperia:AnyGoldBar", group5);
-			RecipeGroup group6 = new RecipeGroup(() => Language.GetTextValue("LegacyMisc.37") + " Evil Ore", new int[]
-            {
-            ItemID.DemoniteOre,
-            ItemID.CrimtaneOre
-            });
-            RecipeGroup.RegisterGroup("Emperia:EvilOre", group6);
-			RecipeGroup group7 = new RecipeGroup(() => Language.GetTextValue("LegacyMisc.37") + " Evil Hide", new int[]
-            {
-            ItemID.ShadowScale,
-            ItemID.TissueSample
-            });
-            RecipeGroup.RegisterGroup("Emperia:EvilHide", group7);
-            RecipeGroup group8 = new RecipeGroup(() => Language.GetTextValue("LegacyMisc.37") + " Copper Bar", new int[]
-            {
-            ItemID.CopperBar,
-            ItemID.TinBar
-            });
-            RecipeGroup.RegisterGroup("Emperia:AnyCopperBar", group8);
-            RecipeGroup group9 = new RecipeGroup(() => Language.GetTextValue("LegacyMisc.37") + " Evil Mushroom", new int[]
-            {
-            ItemID.VileMushroom,
-            ItemID.ViciousMushroom
-            });
-            RecipeGroup.RegisterGroup("Emperia:EvilMushroom", group9);
-            RecipeGroup group10 = new RecipeGroup(() => Language.GetTextValue("LegacyMisc.37") + " Evil Chunk", new int[]
-            {
-            ItemID.RottenChunk,
-            ItemID.Vertebrae
-            });
-            RecipeGroup.RegisterGroup("Emperia:EvilChunk", group10);
-
-        }
         /*public override void UpdateMusic(ref int music)
 		{
 			Player player = Main.LocalPlayer;
@@ -208,247 +144,111 @@ namespace Emperia
     }
     public class EmperiaSystem : ModSystem
     {
-        internal UserInterface MyInterface;
-        internal PaintUI MyPaintUI;
-        internal CursorUI MyCursorUI;
-
-        private GameTime _lastUpdateUiGameTime;
-
-        public static bool paintUIActive;
-        public static Vector2 paintUIActivationPosition;
-        public static bool canRightClick = false;
-        public static int cursorIsFreeForUI = 1;
-        public static List<UIElement> smallPaintIconList = new List<UIElement>();
-        public static List<UIElement> largePaintIconList = new List<UIElement>();
-        public static UIState CurrentPaintUI = null;
-
-        public static bool cursorUIActive = false;
-        public static bool canStartDrawingCursorUI = false;
-
-        public override void Load()
-        {
-            if (!Main.dedServ)
-            {
-                MyInterface = new UserInterface();
-
-                MyPaintUI = new PaintUI();
-                MyPaintUI.Activate();
-
-                MyCursorUI = new CursorUI();
-                MyCursorUI.Activate();
-            }
-        }
-        public override void Unload()
-        {
-            MyPaintUI = null;
-            MyCursorUI = null;
-        }
-        public override void OnWorldUnload()
-        {
-            paintUIActive = false;
-        }
-        public override void UpdateUI(GameTime gameTime)
-        {
-            //Main.NewText(paintUIActive.ToString(), 0, 255, 255);
-            //Main.NewText(cursorUIActive.ToString());
-            _lastUpdateUiGameTime = gameTime;
-            if (MyInterface?.CurrentState != null)
-            {
-                MyInterface.Update(gameTime);
-                /*if (paintUIActive)
-                {
-                    if (CurrentPaintUI != null)
-                    {
-                        foreach (UIElement element in CurrentPaintUI.Children)
-                        {
-                            element.Update(gameTime);
-                        }
-                    }
-                }*/
-            }
-
-            if (Main.LocalPlayer.inventory[Main.LocalPlayer.selectedItem].type == ItemType<Items.OldMastersPalette>())
-            {
-                Items.OldMastersPalette mastersPalette = Main.LocalPlayer.HeldItem.ModItem as Items.OldMastersPalette;
-                //if (Main.LocalPlayer.inventory[Main.LocalPlayer.selectedItem])
-                if (Main.mouseRightRelease) canRightClick = true;
-                if (!PlayerInput.LockGamepadTileUseButton && Main.LocalPlayer.noThrow == 0 && !Main.HoveringOverAnNPC && Main.LocalPlayer.talkNPC == -1)
-                {
-                    if (cursorIsFreeForUI < 1) cursorIsFreeForUI++;
-                }
-                else cursorIsFreeForUI = -1;
-
-                if (paintUIActive)
-                {
-                    if (Main.mouseRight && canRightClick && cursorIsFreeForUI == 1
-                        || !mastersPalette.curatedMode && Main.LocalPlayer.mouseInterface && (Math.Abs(Main.MouseScreen.X - paintUIActivationPosition.X) > 84 || Math.Abs(Main.MouseScreen.Y - paintUIActivationPosition.Y) > 84)
-                        || mastersPalette.curatedMode && Main.LocalPlayer.mouseInterface && Vector2.Distance(paintUIActivationPosition, Main.MouseScreen) > 64f
-                        )
-                    {
-                        paintUIActive = false;
-                        //canRightClick = false;
-                    }
-                }
-                else
-                {
-                    if (Main.mouseRight && canRightClick && !Main.LocalPlayer.mouseInterface && cursorIsFreeForUI == 1)
-                    {
-                        paintUIActive = true;
-                        paintUIActivationPosition = Main.MouseScreen;
-                        //canRightClick = false;
-                    }
-                }
-                if (Main.mouseRight) canRightClick = false;
-            }
-            else paintUIActive = false;
-
-            if (MyInterface?.CurrentState != null)
-            {
-                if (!paintUIActive && MyInterface.CurrentState.ToString() == "Emperia.UI.PaintUI")
-                {
-                    HideMyUI();
-                }
-                else if ((!cursorUIActive || Main.LocalPlayer.mouseInterface) && MyInterface.CurrentState.ToString() == "Emperia.UI.CursorUI")
-                {
-                    HideMyUI();
-                }
-            }
-
-            if (paintUIActive && (MyInterface?.CurrentState == null || cursorUIActive)) ShowMyUI("PaintUI");
-            else if (canStartDrawingCursorUI && !paintUIActive && MyInterface?.CurrentState == null && !Main.LocalPlayer.mouseInterface)
-            {
-                ShowMyUI("CursorUI");
-            }
-            canStartDrawingCursorUI = false; //use it or lose it
-        }
-        public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
-        {
-            int mouseTextIndex = layers.FindIndex(layer => layer.Name.Equals("Vanilla: Mouse Text"));
-            if (mouseTextIndex != -1)
-            {
-                layers.Insert(mouseTextIndex, new LegacyGameInterfaceLayer(
-                    "Emperia: MyInterface",
-                    delegate
-                    {
-                        if (_lastUpdateUiGameTime != null && MyInterface?.CurrentState != null)
-                        {
-                            MyInterface.Draw(Main.spriteBatch, _lastUpdateUiGameTime);
-                        }
-                        return true;
-                    },
-                       InterfaceScaleType.UI));
-            }
-        }
-        internal void ShowMyUI(string UIType)
-        {
-            if (UIType == "PaintUI")
-            {
-                HideMyUI();
-                MyInterface?.SetState(new PaintUI());
-            }
-            if (UIType == "CursorUI")
-            {
-                MyInterface?.SetState(new CursorUI());
-                cursorUIActive = true;
-            }
-            //MyInterface?.SetState(MyUI);
-        }
-
-        internal void HideMyUI()
-        {
-            MyInterface?.SetState(null);
-            smallPaintIconList?.Clear();
-            largePaintIconList?.Clear();
-            CurrentPaintUI = null;
-
-            cursorUIActive = false;
-        }
-
-
         public static List<LootCycle> lootCycles = new List<LootCycle>();
-        public static LootCycle mushorLootCycle;
-        public static LootCycle yetiLootCycle;
+        public static List<LootCycleStatic> staticLootCycles = new List<LootCycleStatic>();
 
-        public static LootCycle GetLootCycle(string lootCycle)
-        {
-            switch (lootCycle)
-            {
-                case "mushor": return mushorLootCycle;
-                case "yeti": return yetiLootCycle;
-                default: return null;
-            }
-        }
-        public override void OnWorldLoad()
-        {
-            mushorLootCycle = new LootCycle("mushor", 4);
-            yetiLootCycle = new LootCycle("yeti", 4);
-        }
         public class LootCycle
         {
-            public string lootType;
+            public string source;
             public int index;
             public int[] sequence;
-            public LootCycle(string lootType, int length)//, int index)
+            public LootCycle(string source, int length)//, int index)
             {
-                this.lootType = lootType;
+                this.source = source;
                 this.index = 0;
                 this.sequence = Emperia.ShuffledArrayOfWholeNumbers(length);
                 lootCycles.Add(this);
             }
         }
-        public override void LoadWorldData(TagCompound tag)
+        public class LootCycleStatic
         {
-            List<int[]> lootCyclesSeq = tag.Get<List<int[]>>("lootCyclesSeq");
-            List<int> lootCyclesIndex = tag.Get<List<int>>("lootCyclesIndex");
-            Emperia.DebugInfo += "|P| ";
-
-            foreach (int num in mushorLootCycle.sequence)
+            public string source;
+            public int length;
+            public LootCycleStatic(string source, int length)
             {
-                Emperia.DebugInfo += num + " ";
-            }
-            foreach (LootCycle cycle in lootCycles)
-            {
-                if (!lootCyclesSeq.Any()) break;
-                cycle.sequence = lootCyclesSeq.First();
-                lootCyclesSeq.RemoveAt(0);
-                cycle.index = lootCyclesIndex.First();
-                lootCyclesIndex.RemoveAt(0);
-                Emperia.DebugInfo += "|C| ";
-            }
-            Emperia.DebugInfo += "|L| ";
-
-            foreach (int num in mushorLootCycle.sequence)
-            {
-                Emperia.DebugInfo += num + " ";
+                this.source = source;
+                this.length = length;
+                staticLootCycles.Add(this);
             }
         }
-        public override void SaveWorldData(TagCompound tag)
+
+        public static LootCycle GetLootCycle(string lootCycleName)
         {
-            List<int[]> lootCyclesSeq = new List<int[]>();
-            List<int> lootCyclesIndex = new List<int>();
             foreach (LootCycle cycle in lootCycles)
             {
-                lootCyclesSeq.Add(cycle.sequence);
-                lootCyclesIndex.Add(cycle.index);
+                if (cycle.source == lootCycleName) return cycle;
             }
-            //tag.Add("lootCyclesSeq", lootCyclesSeq);
-            //tag.Add("lootCyclesIndex", lootCyclesIndex);
-            tag["lootCyclesSeq"] = lootCyclesSeq;
-            tag["lootCyclesIndex"] = lootCyclesIndex;
-            Emperia.DebugInfo += "|S| ";
-
-            foreach (int num in mushorLootCycle.sequence)
+            Main.NewText("Could not find loot for" + lootCycleName, Color.Red); //this should no longer ever happen
+            return null;
+        }
+        public override void OnWorldLoad()
+        {
+            foreach (LootCycleStatic staticCycle in staticLootCycles)
             {
-                Emperia.DebugInfo += num + " ";
+                //Emperia.DebugInfo += staticCycle.source + ", ";
+                new LootCycle(staticCycle.source, staticCycle.length);
             }
-            Emperia.DebugInfo += "\n";
+        }
+        public override void LoadWorldData(TagCompound tag)
+        {
+            var list = tag.GetList<TagCompound>("lootCycles");
+            foreach (var item in list)
+            {
+                string source = item.GetString("source");
+                int index = item.GetInt("index");
+                int[] sequence = item.GetIntArray("sequence");
+
+                if (lootCycles.Any(cycle => cycle.source == source))
+                {
+                    LootCycle loadedCycle = lootCycles.First(cycle => cycle.source == source);
+                    loadedCycle.index = index;
+                    loadedCycle.sequence = sequence;
+                }
+            }
+        }
+        public override void SaveWorldData(TagCompound tag) // this WILL run when the game autosaves! it's not the same as onworldunload!
+        {
+            var list = new List<TagCompound>();
+            foreach (LootCycle cycle in lootCycles)
+            {
+                list.Add(new TagCompound() {
+                    { "source", cycle.source },
+                    { "index", cycle.index },
+                    { "sequence", cycle.sequence },
+                });
+                //Emperia.DebugInfo += $"Saved {cycle.source}, ";
+            }
+            tag["lootCycles"] = list;
+        }
+        public override void OnWorldUnload()
+        {
             lootCycles.Clear();
+        }
+        public override void AddRecipeGroups()/* tModPorter Note: Removed. Use ModSystem.AddRecipeGroups */
+        {
+            MakeRecipeGroup("Silver Bar", ItemID.SilverBar, ItemID.TungstenBar);
+            MakeRecipeGroup("Copper Bar", ItemID.CopperBar, ItemID.TinBar);
+            //MakeRecipeGroup("Iron Bar", ItemID.IronBar, ItemID.LeadBar);
+            MakeRecipeGroup("Silver Bar", ItemID.SilverBar, ItemID.TungstenBar);
+            MakeRecipeGroup("Gold Bar", ItemID.GoldBar, ItemID.PlatinumBar);
+            //MakeRecipeGroup("Palladium Bar", ItemID.PalladiumBar, ItemID.CobaltBar);
+            MakeRecipeGroup("Adamantite Bar", ItemID.AdamantiteBar, ItemID.TitaniumBar);
+            MakeRecipeGroup("Evil Ore", ItemID.DemoniteOre, ItemID.CrimtaneOre);
+            MakeRecipeGroup("Evil Hide", ItemID.ShadowScale, ItemID.TissueSample);
+            MakeRecipeGroup("Evil Mushroom", ItemID.VileMushroom, ItemID.ViciousMushroom);
+            MakeRecipeGroup("Evil Chunk", ItemID.RottenChunk, ItemID.Vertebrae);
+        }
+        public void MakeRecipeGroup(string name, params int[] members)
+        {
+            RecipeGroup group = new RecipeGroup(() => Language.GetTextValue("LegacyMisc.37") + " " + name, members);
+            RecipeGroup.RegisterGroup("Emperia:" + name.Replace(" ", string.Empty), group);
         }
     }
     public class EmperiaDropRule
     {
         public static IItemDropRule OneFromOptionsCycleThroughPerRoll(string lootCycleName, int chanceDenominator, params int[] options)
         {
+            new LootCycleStatic(lootCycleName, options.Length);
             return new OneFromOptionsCycleThroughPerRollDropRule(lootCycleName, chanceDenominator, 1, options);
         }
         public class OneFromOptionsCycleThroughPerRollDropRule : IItemDropRule
@@ -484,6 +284,7 @@ namespace Emperia
                     LootCycle lootCycle = GetLootCycle(lootCycleName);
 
                     CommonCode.DropItem(info, this.dropIds[lootCycle.sequence[lootCycle.index % lootCycle.sequence.Length]], 1);
+                    DropAmmoIfNeeded(info, this.dropIds[lootCycle.sequence[lootCycle.index % lootCycle.sequence.Length]]);
 
                     lootCycle.index++;
                     if (lootCycle.index % lootCycle.sequence.Length == 0) Emperia.Shuffle(lootCycle.sequence);
@@ -496,7 +297,6 @@ namespace Emperia
                 result.State = ItemDropAttemptResultState.FailedRandomRoll;
                 return result;
             }
-
             public void ReportDroprates(List<DropRateInfo> drops, DropRateInfoChainFeed ratesInfo)
             {
                 float num = (float)this.chanceNumerator / (float)this.chanceDenominator;
@@ -508,6 +308,11 @@ namespace Emperia
                 }
                 Chains.ReportDroprates(this.ChainedRules, num, drops, ratesInfo);
 
+            }
+            private void DropAmmoIfNeeded(DropAttemptInfo info, int item)
+            {
+                if (item == ItemID.GrenadeLauncher) CommonCode.DropItem(info, ItemID.RocketI, Main.rand.Next(50, 150));
+                if (item == ItemID.Stynger) CommonCode.DropItem(info, ItemID.StyngerBolt, Main.rand.Next(60, 180)); //wiki says 60 - 100, but source code says 60 - 180 unless im misreading
             }
         }
     }

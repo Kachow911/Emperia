@@ -6,7 +6,7 @@ using Terraria;
 using Terraria.ModLoader;
 using Terraria.UI;
 using ReLogic.Content;
-using static Emperia.EmperiaSystem;
+using static Emperia.PaintUISystem;
 using Emperia.Items;
 using Terraria.ID;
 using Terraria.GameInput;
@@ -21,7 +21,7 @@ namespace Emperia.UI
 		public bool canScroll = true;
 		public override void OnInitialize()
 		{
-			EmperiaSystem.CurrentPaintUI = this;
+			PaintUISystem.CurrentPaintUI = this;
 			iconTexture = ModContent.Request<Texture2D>("Emperia/UI/Icon_0", AssetRequestMode.ImmediateLoad).Value;
 			MakeSmallIcons();
 			MakeLargeIcons();
@@ -51,7 +51,7 @@ namespace Emperia.UI
 				if ((int)linesPerRow.GetValue(row) == 4 && iconPosOnRow > 1) iconPosition.X += 28 * 2;
 				UIElement smallIcon = new BucketSmall(i, iconPosition); //ModContent.Request<Texture2D>("Emperia/UI/Icon_0")
 				MakeIcon(smallIcon, iconPosition, 26);
-				EmperiaSystem.smallPaintIconList.Add(smallIcon);
+				PaintUISystem.smallPaintIconList.Add(smallIcon);
 			}
 		}
 		public void MakeLargeIcons()
@@ -66,7 +66,7 @@ namespace Emperia.UI
 				iconPosition.Y = (int)Math.Round(iconPosition.Y / 2) * 2;
 				UIElement largeIcon = new BucketLarge(i, iconPosition);
 				MakeIcon(largeIcon, iconPosition, 40);
-				EmperiaSystem.largePaintIconList.Add(largeIcon);
+				PaintUISystem.largePaintIconList.Add(largeIcon);
             }
         }
         public void MakeIcon(UIElement icon, Vector2 position, int width, int height = -1)
@@ -134,7 +134,7 @@ namespace Emperia.UI
 				(Parent as PaintUI).mousedOverAny = false;
 			}
 			iconTexture = ModContent.Request<Texture2D>("Emperia/UI/Icon_" + iconType, AssetRequestMode.ImmediateLoad).Value;
-			if (mastersPalette != (Main.LocalPlayer.HeldItem.ModItem as Items.OldMastersPalette)) EmperiaSystem.paintUIActive = false; //this check only seems to work in PaintUI
+			if (mastersPalette != (Main.LocalPlayer.HeldItem.ModItem as Items.OldMastersPalette)) PaintUISystem.paintUIActive = false; //this check only seems to work in PaintUI
 
 		}
 		public override void Draw(SpriteBatch spriteBatch)
@@ -451,7 +451,7 @@ namespace Emperia.UI
 				if (alpha < 1) alpha += 0.0625f;
 			}
 			else if (alpha > 0) alpha -= 0.0625f;
-			if (alpha <= 0) EmperiaSystem.cursorUIActive = false;
+			if (alpha <= 0) PaintUISystem.cursorUIActive = false;
 		}
 		public override void Draw(SpriteBatch spriteBatch)
         {

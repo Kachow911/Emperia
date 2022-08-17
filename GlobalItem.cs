@@ -18,6 +18,7 @@ using static Terraria.Audio.SoundEngine;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria.GameContent.Creative;
 using Terraria.GameContent.ItemDropRules;
+using static Emperia.EmperiaSystem;
 
 namespace Emperia
 {
@@ -174,25 +175,6 @@ namespace Emperia
 				if (defaultStats.useTurn == true) Item.useTurn = true;
 			}
 			return base.UseItem(Item, player);
-		}
-		public override void OpenVanillaBag(string context, Player player, int arg)
-		{
-			if (context == "bossBag" && arg == ItemID.SkeletronBossBag)
-			{
-				int x = Main.rand.Next(3);
-				if (x == 0)
-				{
-					Item.NewItem(player.GetSource_OpenItem(arg), (int)player.position.X, (int)player.position.Y, player.width, player.height, ModContent.ItemType<Skelebow>()); 
-				}
-				else if (x == 1)
-				{
-					Item.NewItem(player.GetSource_OpenItem(arg), (int)player.position.X, (int)player.position.Y, player.width, player.height, ModContent.ItemType<NecromanticFlame>()); 
-				}
-				else if (x == 2)
-				{
-					Item.NewItem(player.GetSource_OpenItem(arg), (int)player.position.X, (int)player.position.Y, player.width, player.height, ModContent.ItemType<BoneWhip>()); 
-				}
-			}
 		}
         public override bool Shoot(Item item, Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockBack)
 		{
@@ -477,30 +459,81 @@ namespace Emperia
         }
 		public override void ModifyItemLoot(Item item, ItemLoot itemLoot)
 		{
-			/*if (item.type == NPCID.Guide)
+			if (item.type == ItemID.SkeletronBossBag)
 			{
-				// RemoveWhere will remove any drop rule that matches the provided expression.
-				// To make your own expressions to remove vanilla drop rules, you'll usually have to study the original source code that adds those rules.
-				itemLoot.RemoveWhere(
-					// The following expression returns true if the following conditions are met:
-					rule => rule is ItemDropWithConditionRule drop // If the rule is an ItemDropWithConditionRule instance
-						&& drop.itemId == ItemID.GreenCap // And that instance drops a green cap
-						&& drop.condition is Conditions.NamedNPC npcNameCondition // ..And if its condition is that an npc name must match some string
-						&& npcNameCondition.neededName == "Andrew" // And the condition's string is "Andrew".
-				);
-				drop.itemId = 5;
-			}*/
+				itemLoot.Add(ItemDropRule.OneFromOptionsNotScalingWithLuck(1, ModContent.ItemType<Skelebow>(), ModContent.ItemType<NecromanticFlame>(), ModContent.ItemType<BoneWhip>()));
+			}
 			foreach (var rule in itemLoot.Get())
 			{
-				// You must study the vanilla code to know what to objects to cast to.
-				if (rule is OneFromOptionsNotScaledWithLuckDropRule drop)
+
+				if (rule is OneFromOptionsNotScaledWithLuckDropRule drop && NameIsTreasureBag(item.Name))
                 {
 					itemLoot.Remove(drop);
-					//item.Name
-					itemLoot.Add(EmperiaDropRule.OneFromOptionsCycleThroughPerRoll("mushor", drop.chanceDenominator, drop.dropIds));
+					string bossName = TreasureBagToBossName(item.Name);
+					itemLoot.Add(EmperiaDropRule.OneFromOptionsCycleThroughPerRoll(AddNumberIfSharedName(bossName), drop.chanceDenominator, drop.dropIds));
+				}
+				else if (rule is OneFromRulesRule complexDrop) //i do think coding this inflexibly is for the best for the forseeable future.
+                {
+					/*List<int> drops = new List<int>();
+					foreach (IItemDropRule option in drop2.options)
+                    {
+						if (option is CommonDrop commonDrop)
+                        {
+							if (commonDrop.chanceDenominator == 1) drops.Add(commonDrop.itemId);
+                        }
+
+					}*/
+					int[] dropIds = null; //these WILL break any modded edits to these loot tables, though i doubt most mods will opt for that. safer way would be to add stynger/launcher then check for common drops and grab their IDs
+
+					switch (TreasureBagToBossName(item.Name)) //ammo drop is handled in OneFromOptionsCycleThroughPerRoll code
+					{ 
+						case "Plantera": dropIds = new int[] { 758, 1255, 788, 1178, 1259, 1155, 3018 }; break;
+						case "Golem": dropIds = new int[] { 1258, 1122, 899, 1248, 1295, 1296, 1297 }; break;
+					}
+					if (dropIds != null)
+					{
+						itemLoot.Remove(complexDrop);
+						string bossName = TreasureBagToBossName(item.Name);
+						itemLoot.Add(EmperiaDropRule.OneFromOptionsCycleThroughPerRoll(AddNumberIfSharedName(bossName), complexDrop.chanceDenominator, dropIds));
+					}
+				}
+			} 
+		}
+		public static bool NameIsTreasureBag(string str)
+		{
+			return (str.Length >= 14 && str.Substring(0, 14) == "Treasure Bag (");
+        }
+		public static string TreasureBagToBossName(string str)
+		{
+			if (NameIsTreasureBag(str)) return str.Substring(14, str.Length - 15);
+			else return str;
+		}
+		public static string AddNumberIfSharedName(string str)
+        {
+			int number = 1;
+            /*bool doneChecking = false;
+			while (!doneChecking)
+            {
+				doneChecking = true;
+				foreach (LootCycle cycle in lootCycles)
+                {
+					if (cycle.source == str)
+                    {
+						number++;
+						doneChecking = false;
+                    }
+                }
+            }this would be the safe way however i think they will be in order so its unnecessary to recheck*/
+			foreach (LootCycleStatic cycleStatic in staticLootCycles)
+			{
+				if (cycleStatic.source == str || cycleStatic.source == str + " " + number.ToString())
+				{
+					number++;
 				}
 			}
-		}
+			if (number > 1) str += " " + number.ToString();
+			return str;
+        }
 		public bool TileInRange(Item item, Player player, int? i = null, int? j = null)
 		{
 			if (i == null) i = Player.tileTargetX;

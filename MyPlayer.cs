@@ -665,7 +665,7 @@ namespace Emperia
 		}
 		public override void PreUpdate()
 		{
-			if (EmperiaSystem.paintUIActive)
+			if (PaintUISystem.paintUIActive)
 			{
 				if (Main.LocalPlayer.inventory[Main.LocalPlayer.selectedItem].type == ModContent.ItemType<OldMastersPalette>())
 				{
@@ -1468,7 +1468,7 @@ namespace Emperia
 		}
         public override bool PreItemCheck()
         {
-			if (Player.cursorItemIconID != 0 || Player.inventory[58].type == ModContent.ItemType<OldMastersPalette>()) EmperiaSystem.cursorUIActive = false; //spaghettiiiii
+			if (Player.cursorItemIconID != 0 || Player.inventory[58].type == ModContent.ItemType<OldMastersPalette>()) PaintUISystem.cursorUIActive = false; //spaghettiiiii
 			return base.PreItemCheck();
 		}
         public override void LoadData(TagCompound tag)

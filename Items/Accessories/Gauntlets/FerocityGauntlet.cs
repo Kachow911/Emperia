@@ -37,7 +37,7 @@ namespace Emperia.Items.Accessories.Gauntlets
             recipe.AddIngredient(null, "MetallurgyGauntlet", 1);
             recipe.AddIngredient(null, "EnchantedGauntlet", 1);
             recipe.AddIngredient(null, "SpeedGauntlet", 1);
-            recipe.AddRecipeGroup("Emperia:AdBar", 10);
+            recipe.AddRecipeGroup("Emperia:AdamantiteBar", 10);
 			recipe.AddIngredient(ItemID.SoulofNight, 5);
 			recipe.AddIngredient(ItemID.SoulofLight, 5);
             recipe.AddTile(TileID.MythrilAnvil);

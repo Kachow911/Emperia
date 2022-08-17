@@ -35,9 +35,9 @@ namespace Emperia.Items.Accessories.Gauntlets
             Recipe recipe = CreateRecipe();
             recipe.AddIngredient(null, "WoodweaversGauntlet", 1);
             recipe.AddIngredient(null, "WristBrace", 1);
-            recipe.AddRecipeGroup("Emperia:AnyCopperBar", 8);
-            recipe.AddRecipeGroup("Emperia:AnySilverBar", 6);
-            recipe.AddRecipeGroup("Emperia:AnyGoldBar", 4);
+            recipe.AddRecipeGroup("Emperia:CopperBar", 8);
+            recipe.AddRecipeGroup("Emperia:SilverBar", 6);
+            recipe.AddRecipeGroup("Emperia:GoldBar", 4);
             recipe.AddTile(TileID.Anvils);
             recipe.Register();
             

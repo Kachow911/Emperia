@@ -112,7 +112,7 @@ namespace Emperia.Items.Weapons
 		{
 			Recipe recipe = CreateRecipe();
 			recipe.AddIngredient(ItemID.ManaCrystal, 2);
-			recipe.AddRecipeGroup("Emperia:AnySilverBar", 8);
+			recipe.AddRecipeGroup("Emperia:SilverBar", 8);
 			recipe.AddTile(TileID.Anvils);
 			recipe.Register();
 			
