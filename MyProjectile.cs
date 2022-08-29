@@ -93,7 +93,7 @@ namespace Emperia
                 TryReflectOrKillProjectile(projectile, target);
                 if (Main.player[projectile.owner].heldProj != projectile.whoAmI) return false;
             }
-            return base.CanHitNPC(projectile, target);
+            return null;
         }
 
         public static void TryReflectOrKillProjectile(Projectile projectile, NPC target)

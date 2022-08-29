@@ -137,6 +137,7 @@ namespace Emperia
 		public int candleSacrificing = -1;
 
 		public Rectangle swordHitbox = new Rectangle(0, 0, 0, 0); //value taken from GlobalItem //also may not be necessary anymore
+		public Rectangle currentItemHitbox = new Rectangle();
 		public Vector2 hitboxEdge;
 		public float itemLength;
 		public bool noShieldSprite = false;
@@ -217,6 +218,8 @@ namespace Emperia
 			carapaceSet = null;
 			noShieldSprite = false;
 
+			currentItemHitbox = Rectangle.Empty;
+
 			//reseteffects runs almost immediately after vanilla smart cursor logic
 			{
 				if (Main.LocalPlayer.inventory[Main.LocalPlayer.selectedItem].type == ModContent.ItemType<OldMastersPalette>())
@@ -270,7 +273,10 @@ namespace Emperia
 				}
 			}
 			//Main.NewText(Framing.GetTileSafely(Player.tileTargetX, Player.tileTargetY).TileFrameX + "," + Framing.GetTileSafely(Player.tileTargetX, Player.tileTargetY).TileFrameY);
+			//Main.NewText(Framing.GetTileSafely(Player.tileTargetX, Player.tileTargetY).TileFrameNumber);
 			//Main.NewText(Framing.GetTileSafely(Player.tileTargetX, Player.tileTargetY).TileType);
+			//Main.NewText(Framing.GetTileSafely(Player.tileTargetX, Player.tileTargetY).Slope);
+
 			//Main.NewText(terraGauntlet.ToString());
 			if (graniteMinion) { Player.maxMinions += 1; } //first minion is free
 			if (iceCannonLoad < 0)
@@ -665,12 +671,19 @@ namespace Emperia
 		}
 		public override void PreUpdate()
 		{
-			if (PaintUISystem.paintUIActive)
+			if (UISystem.paintUIActive)
 			{
 				if (Main.LocalPlayer.inventory[Main.LocalPlayer.selectedItem].type == ModContent.ItemType<OldMastersPalette>())
 				{
 					OldMastersPalette mastersPalette = Main.LocalPlayer.HeldItem.ModItem as OldMastersPalette;
 					if (mastersPalette.curatedMode && mastersPalette.curatedColor != 0) PlayerInput.ScrollWheelDelta = 0;
+				}
+			}
+			if (UISystem.lcdUIActive)
+			{
+				if (Main.LocalPlayer.inventory[Main.LocalPlayer.selectedItem].type == ModContent.ItemType<LCDWrench>())
+				{
+					PlayerInput.ScrollWheelDelta = 0;
 				}
 			}
 			if (carapaceSet != null && poundTime == 0)
@@ -1468,7 +1481,7 @@ namespace Emperia
 		}
         public override bool PreItemCheck()
         {
-			if (Player.cursorItemIconID != 0 || Player.inventory[58].type == ModContent.ItemType<OldMastersPalette>()) PaintUISystem.cursorUIActive = false; //spaghettiiiii
+			if (Player.cursorItemIconID != 0 || Player.inventory[58].type == ModContent.ItemType<OldMastersPalette>()) UISystem.cursorUIActive = false; //spaghettiiiii
 			return base.PreItemCheck();
 		}
         public override void LoadData(TagCompound tag)

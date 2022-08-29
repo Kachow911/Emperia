@@ -230,6 +230,7 @@ namespace Emperia
 			Main.NewText(hitbox.Bottom - player.Center.Y);*/
 			MyPlayer modPlayer = player.GetModPlayer<MyPlayer>();
 			//delay--;
+			modPlayer.currentItemHitbox = hitbox;
 			if (player.itemAnimation == player.itemAnimationMax)
             {
 				modPlayer.swordHitbox.Width = (int)Math.Ceiling(hitbox.Height * 0.785f); //0.775 //swordHitbox currently unused

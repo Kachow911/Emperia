@@ -10,24 +10,29 @@ using Terraria.GameInput;
 
 namespace Emperia
 {
-	public class PaintUISystem : ModSystem
-	{
+    public class UISystem : ModSystem
+    {
         internal UserInterface MyInterface;
-        internal PaintUI MyPaintUI;
-        internal CursorUI MyCursorUI;
-
         private GameTime _lastUpdateUiGameTime;
 
-        public static bool paintUIActive;
-        public static Vector2 paintUIActivationPosition;
         public static bool canRightClick = false;
         public static int cursorIsFreeForUI = 1;
+
+        internal PaintUI MyPaintUI;
+        public static bool paintUIActive;
+        public static Vector2 paintUIActivationPosition;
         public static List<UIElement> smallPaintIconList = new List<UIElement>();
         public static List<UIElement> largePaintIconList = new List<UIElement>();
         public static UIState CurrentPaintUI = null;
 
+        internal CursorUI MyCursorUI;
         public static bool cursorUIActive = false;
         public static bool canStartDrawingCursorUI = false;
+
+        internal LcdUI MyLcdUI;
+        public static bool lcdUIActive = false;
+        public static Vector2 lcdUIActivationPosition;
+        public static UIState CurrentLcdUI = null;
 
         public override void Load()
         {
@@ -40,16 +45,21 @@ namespace Emperia
 
                 MyCursorUI = new CursorUI();
                 MyCursorUI.Activate();
+
+                MyLcdUI = new LcdUI();
+                MyLcdUI.Activate();
             }
         }
         public override void Unload()
         {
             MyPaintUI = null;
             MyCursorUI = null;
+            MyLcdUI = null;
         }
         public override void OnWorldUnload()
         {
             paintUIActive = false;
+            lcdUIActive = false;
         }
         public override void UpdateUI(GameTime gameTime)
         {
@@ -73,38 +83,15 @@ namespace Emperia
 
             if (Main.LocalPlayer.inventory[Main.LocalPlayer.selectedItem].type == ItemType<Items.OldMastersPalette>())
             {
-                Items.OldMastersPalette mastersPalette = Main.LocalPlayer.HeldItem.ModItem as Items.OldMastersPalette;
-                //if (Main.LocalPlayer.inventory[Main.LocalPlayer.selectedItem])
-                if (Main.mouseRightRelease) canRightClick = true;
-                if (!PlayerInput.LockGamepadTileUseButton && Main.LocalPlayer.noThrow == 0 && !Main.HoveringOverAnNPC && Main.LocalPlayer.talkNPC == -1)
-                {
-                    if (cursorIsFreeForUI < 1) cursorIsFreeForUI++;
-                }
-                else cursorIsFreeForUI = -1;
-
-                if (paintUIActive)
-                {
-                    if (Main.mouseRight && canRightClick && cursorIsFreeForUI == 1
-                        || !mastersPalette.curatedMode && Main.LocalPlayer.mouseInterface && (Math.Abs(Main.MouseScreen.X - paintUIActivationPosition.X) > 84 || Math.Abs(Main.MouseScreen.Y - paintUIActivationPosition.Y) > 84)
-                        || mastersPalette.curatedMode && Main.LocalPlayer.mouseInterface && Vector2.Distance(paintUIActivationPosition, Main.MouseScreen) > 64f
-                        )
-                    {
-                        paintUIActive = false;
-                        //canRightClick = false;
-                    }
-                }
-                else
-                {
-                    if (Main.mouseRight && canRightClick && !Main.LocalPlayer.mouseInterface && cursorIsFreeForUI == 1)
-                    {
-                        paintUIActive = true;
-                        paintUIActivationPosition = Main.MouseScreen;
-                        //canRightClick = false;
-                    }
-                }
-                if (Main.mouseRight) canRightClick = false;
+                ManageUIActivationAndDeactivation(ref paintUIActive, ref paintUIActivationPosition, Main.LocalPlayer.HeldItem.ModItem);
             }
             else paintUIActive = false;
+
+            if (Main.LocalPlayer.inventory[Main.LocalPlayer.selectedItem].type == ItemType<Items.LCDWrench>())
+            {
+                ManageUIActivationAndDeactivation(ref lcdUIActive, ref lcdUIActivationPosition, Main.LocalPlayer.HeldItem.ModItem);
+            }
+            else lcdUIActive = false;
 
             if (MyInterface?.CurrentState != null)
             {
@@ -116,6 +103,10 @@ namespace Emperia
                 {
                     HideMyUI();
                 }
+                else if (!lcdUIActive && MyInterface.CurrentState.ToString() == "Emperia.UI.LcdUI")
+                {
+                    HideMyUI();
+                }
             }
 
             if (paintUIActive && (MyInterface?.CurrentState == null || cursorUIActive)) ShowMyUI("PaintUI");
@@ -123,7 +114,46 @@ namespace Emperia
             {
                 ShowMyUI("CursorUI");
             }
+
+            if (lcdUIActive && MyInterface?.CurrentState == null) ShowMyUI("LcdUI");
+
             canStartDrawingCursorUI = false; //use it or lose it
+        }
+
+        public void ManageUIActivationAndDeactivation(ref bool UIActive, ref Vector2 uiActivationPosition, ModItem heldItem)
+        {
+            if (Main.mouseRightRelease) canRightClick = true;
+            if (!PlayerInput.LockGamepadTileUseButton && Main.LocalPlayer.noThrow == 0 && !Main.HoveringOverAnNPC && Main.LocalPlayer.talkNPC == -1)
+            {
+                if (cursorIsFreeForUI < 1) cursorIsFreeForUI++;
+            }
+            else cursorIsFreeForUI = -1;
+
+            if (UIActive)
+            {
+                if (Main.mouseRight && canRightClick && cursorIsFreeForUI == 1
+                    || Main.LocalPlayer.mouseInterface && MouseIsOffUI(uiActivationPosition, heldItem)
+                    )
+                {
+                    UIActive = false;
+                }
+            }
+            else
+            {
+                if (Main.mouseRight && canRightClick && !Main.LocalPlayer.mouseInterface && cursorIsFreeForUI == 1)
+                {
+                    UIActive = true;
+                    uiActivationPosition = Main.MouseScreen;
+                }
+            }
+            if (Main.mouseRight) canRightClick = false;
+        }
+        public static bool MouseIsOffUI(Vector2 uiActivationPosition, ModItem heldItem)
+        {
+            return false;
+            //first option is for squares of radius 84, second is for circles of radius 64
+            if (heldItem is Items.OldMastersPalette && !(heldItem as Items.OldMastersPalette).curatedMode) return Math.Abs(Main.MouseScreen.X - uiActivationPosition.X) > 84 || Math.Abs(Main.MouseScreen.Y - uiActivationPosition.Y) > 84;
+            else return Vector2.Distance(uiActivationPosition, Main.MouseScreen) > 64f;
         }
         public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
         {
@@ -155,6 +185,11 @@ namespace Emperia
                 MyInterface?.SetState(new CursorUI());
                 cursorUIActive = true;
             }
+            if (UIType == "LcdUI")
+            {
+                HideMyUI();
+                MyInterface?.SetState(new LcdUI());
+            }
             //MyInterface?.SetState(MyUI);
         }
 
@@ -166,6 +201,20 @@ namespace Emperia
             CurrentPaintUI = null;
 
             cursorUIActive = false;
+
+            CurrentLcdUI = null;
+        }
+
+        public static void AddIconScrollWheelFunctionality(ref int toolSelectedValue, int iconValue, List<int> iconValues, int iconIndex, ref bool canScroll)
+        {
+            if (toolSelectedValue == iconValue && PlayerInput.ScrollWheelDeltaForUI != 0 && canScroll)
+            {
+                int iconToScrollTo = (iconIndex - Math.Sign(PlayerInput.ScrollWheelDeltaForUI)) % (iconValues.Count);
+                if (iconToScrollTo < 0) iconToScrollTo += iconValues.Count;
+                toolSelectedValue = iconValues[iconToScrollTo];
+                canScroll = false;
+                // PlayerInput.ScrollWheelDelta = 0; is set in ModPlayer PreUpdate()
+            }
         }
     }
 }

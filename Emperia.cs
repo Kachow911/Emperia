@@ -21,25 +21,27 @@ using Terraria.GameContent.ItemDropRules;
 using Terraria.ModLoader.IO;
 using static Emperia.EmperiaSystem;
 using System.Text;
+using Terraria.GameContent;
+using System.Diagnostics;
 
 namespace Emperia
 {
-	class Emperia : Mod
-	{
+    class Emperia : Mod
+    {
         internal static Emperia instance;
 
         public static string DebugInfo;
 
         public Emperia()
-		{
-			/*Properties = new ModProperties()
+        {
+            /*Properties = new ModProperties()
 			{
 				Autoload = true,
 				AutoloadGores = true,
 				AutoloadSounds = true,
                 AutoloadBackgrounds = true
             }; i believe this simply got removed*/
-		}
+        }
         /*public override void UpdateMusic(ref int music)
 		{
 			Player player = Main.LocalPlayer;
@@ -53,10 +55,10 @@ namespace Emperia
         {
             instance = this;
             if (!Main.dedServ)
-			{
-				Filters.Scene["Emperia:Volcano"] = new Filter(new VolcanoScreenShaderData("FilterMiniTower").UseColor(0.8f, 0.2f, 0.1f).UseOpacity(0.5f), EffectPriority.VeryHigh);
-				SkyManager.Instance["Emperia:Volcano"] = new VolcanoSky();
-			}
+            {
+                Filters.Scene["Emperia:Volcano"] = new Filter(new VolcanoScreenShaderData("FilterMiniTower").UseColor(0.8f, 0.2f, 0.1f).UseOpacity(0.5f), EffectPriority.VeryHigh);
+                SkyManager.Instance["Emperia:Volcano"] = new VolcanoSky();
+            }
         }
         /*public static GlobalType GetGlobal(Entity entity)
         {
@@ -88,6 +90,34 @@ namespace Emperia
             }
             value *= maxValue;
             return value;
+        }
+        public static void DrawPixel(Vector2 position, Color color)
+        {
+            //EmperiaSystem.pixels.Add((position, color));
+            EmperiaSystem.drawRectangles.Add((new Rectangle((int)position.X, (int)position.Y, 2, 2), color));
+        }
+        public static void DrawPixelRect(Rectangle rect, Color color)
+        {
+            /*for (int i = 0; i < rect.Height; i++)
+            {
+                for (int j = 0; j< rect.Width; j++)
+                {
+                    DrawPixel(new Vector2(rect.X + j, rect.Y + i), color);
+                }
+            }*/
+            EmperiaSystem.drawRectangles.Add((rect, color));
+
+        }
+
+        public static void StopStopWatch(Stopwatch timer, string str = "")
+        {
+            TimeSpan timeTaken = timer.Elapsed;
+            timer.Stop();
+            Main.NewText(str + timeTaken.ToString());
+        }
+        public static float AbsoluteSum(Vector2 vec)
+        {
+            return Math.Abs(vec.X) + Math.Abs(vec.Y);
         }
         public static void Shuffle<T>(T[] array)
         {
@@ -146,7 +176,6 @@ namespace Emperia
     {
         public static List<LootCycle> lootCycles = new List<LootCycle>();
         public static List<LootCycleStatic> staticLootCycles = new List<LootCycleStatic>();
-
         public class LootCycle
         {
             public string source;
@@ -224,6 +253,7 @@ namespace Emperia
         {
             lootCycles.Clear();
         }
+
         public override void AddRecipeGroups()/* tModPorter Note: Removed. Use ModSystem.AddRecipeGroups */
         {
             MakeRecipeGroup("Silver Bar", ItemID.SilverBar, ItemID.TungstenBar);
@@ -242,6 +272,21 @@ namespace Emperia
         {
             RecipeGroup group = new RecipeGroup(() => Language.GetTextValue("LegacyMisc.37") + " " + name, members);
             RecipeGroup.RegisterGroup("Emperia:" + name.Replace(" ", string.Empty), group);
+        }
+
+        public static List<(Rectangle, Color)> drawRectangles = new List<(Rectangle, Color)>();
+        public override void PostDrawInterface(SpriteBatch spriteBatch)
+        {
+            foreach (var rect in drawRectangles)
+            {
+                var rectOffset = rect.Item1;
+                rectOffset.X -= (int)Main.screenPosition.X;
+                rectOffset.Y -= (int)Main.screenPosition.Y;
+
+                Main.spriteBatch.Draw(TextureAssets.MagicPixel.Value, rectOffset, rect.Item2);
+                //Main.spriteBatch.Draw(TextureAssets.MagicPixel.Value, new Rectangle((int)(rect.Item1.X - Main.screenPosition.X), (int)(rect.Item1.Y - Main.screenPosition.Y), rect.Item1.Width, rect.Item1.Height), rect.Item2);
+            }
+            drawRectangles.Clear();
         }
     }
     public class EmperiaDropRule

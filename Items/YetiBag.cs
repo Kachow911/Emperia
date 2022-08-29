@@ -1,19 +1,14 @@
-using System;
-
+using Emperia.Items.Accessories;
+using Emperia.Items.Weapons.Yeti;
 using Terraria;
+using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.GameContent.Creative;
-using Emperia.Items.Weapons.Yeti;
-using Emperia.Items.Accessories;
-using Terraria.DataStructures;
-using Emperia.Npcs.Yeti;
 using static Terraria.ModLoader.ModContent;
-using Terraria.GameContent.ItemDropRules;
 
 namespace Emperia.Items
 {
-	public class YetiBag : ModItem
+    public class YetiBag : ModItem
 	{
 		public override void SetStaticDefaults()
 		{

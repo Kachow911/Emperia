@@ -91,7 +91,7 @@ namespace Emperia.Items.Weapons
         {
             for (int i = 0; i < Main.maxNPCs; i++)
             {
-                if (!Main.npc[i].dontTakeDamage && Projectile.Hitbox.Intersects(Main.npc[i].Hitbox))
+                if (!Main.npc[i].dontTakeDamage && Main.npc[i].active && Projectile.Hitbox.Intersects(Main.npc[i].Hitbox))
                 {
                     Projectile.Kill();
                     break;
@@ -131,7 +131,6 @@ namespace Emperia.Items.Weapons
         public bool TryApplyKnockback(Entity target)
         {
             if (!target.active || target.Distance(Projectile.Center) > 112 || !Collision.CanHit(Projectile.Center, 1, 1, target.Center, 1, 1)) return false;
-
             Vector2 direction = target.Center - Projectile.Center;
             if (target.velocity.Y == 0 && direction.Y > 0) direction.Y = 0; //makes grounded enemies not get knocked into the ground
             if (direction == Vector2.Zero) direction.Y--; //prevents NaN error

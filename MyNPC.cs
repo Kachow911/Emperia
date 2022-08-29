@@ -31,28 +31,28 @@ using static Emperia.Projectiles.HarpoonBladeProj;
 
 namespace Emperia
 {
-    public class MyNPC: GlobalNPC
-    {
+	public class MyNPC : GlobalNPC
+	{
 		public bool vermillionVenom = false;
-        public bool moreDamage = false;
-        public bool cuttingLeaves = false;
+		public bool moreDamage = false;
+		public bool cuttingLeaves = false;
 		public bool indigoInfirmary = false;
 		public bool burningNight = false;
 		public bool fatesDemise = false;
 		public int nightFlame = 0;
 		public int nightFlameLength = 0;
 		public bool sporeStorm = false;
-        public bool scoriaExplosion = false;
+		public bool scoriaExplosion = false;
 		public bool electrified = false;
 		public bool moreCoins = false;
 		public bool graniteMinionLatched = false;
 		public bool crushFreeze = false;
 		public bool cryogenized = false;
 		public int graniteMinID = -1;
-        public int spineCount = 0;
+		public int spineCount = 0;
 		public int chillStacks = 0;
 		public int etherealTimer = 0;
-        public int strikeCount = 0;
+		public int strikeCount = 0;
 		public int desertSpikeTime = 0;
 		public int impaledDirection = 0;
 		public float desertSpikeHeight = 0;
@@ -62,15 +62,21 @@ namespace Emperia
 		public int maceSlam = 0;
 		public int maceSlamDamage = 0;
 		int InfirmaryTimer = 30;
-        int poisonTimer = 0;
-		
+		int poisonTimer = 0;
+
+		public int hitboxMinusX = 0;
+		public int hitboxMinusY = 0;
+
+		public int hurtboxPlusX = 0;
+		public int hurtboxPlusY = 0;
+
 		public List<int> etherealDamages = new List<int>();
 		public List<int> etherealCounts = new List<int>();
 		public Projectile etherealSource = null;
 
-public override void ResetEffects(NPC NPC)
-        {
-            cuttingLeaves = false;
+		public override void ResetEffects(NPC npc)
+		{
+			cuttingLeaves = false;
 			electrified = false;
 			//spineCount = 0;
 			vermillionVenom = false;
@@ -79,14 +85,14 @@ public override void ResetEffects(NPC NPC)
 			burningNight = false;
 			fatesDemise = false;
 			sporeStorm = false;
-            moreDamage = false;
+			moreDamage = false;
 			moreCoins = false;
-			strikeCount = 0;	
+			strikeCount = 0;
 			cryogenized = false;
 			//graniteMinionLatched = false;
-		} 
-		public override bool InstancePerEntity {get{return true;}}
-		
+		}
+		public override bool InstancePerEntity { get { return true; } }
+
 		public override void SetupShop(int type, Chest shop, ref int nextSlot)
 		{
 			if (type == NPCID.Merchant)
@@ -97,44 +103,44 @@ public override void ResetEffects(NPC NPC)
 			}
 		}
 
-        public override void SetupTravelShop(int[] shop, ref int nextSlot)
-        {
+		public override void SetupTravelShop(int[] shop, ref int nextSlot)
+		{
 			if (!NPC.downedBoss1 || !Main.hardMode && Main.rand.Next(5) == 0 || Main.rand.Next(5) == 0) //eoc defeat bool temp until i add a bool for the item having appeared instead, the two random chances stack in phm for 2/5th odds
 			{
 				shop[nextSlot] = (ModContent.ItemType<PlatformLayer>());
 				nextSlot++;
 
 			}
-        }
-        public override void UpdateLifeRegen(NPC NPC, ref int damage)
-        {
+		}
+		public override void UpdateLifeRegen(NPC npc, ref int damage)
+		{
 			//etherealDamages.Add(2);
 			//Main.NewText(etherealDamages[0]);
 			if (burningNight)  //this tells the game to use the public bool customdebuff from NPCsINFO.cs
-            {
-                NPC.lifeRegen = -15;     
+			{
+				npc.lifeRegen = -15;
 
-                damage = 2; 
-      
-            }
+				damage = 2;
+
+			}
 			if (fatesDemise)  //this tells the game to use the public bool customdebuff from NPCsINFO.cs
-            {
-                NPC.lifeRegen = -25;     
+			{
+				npc.lifeRegen = -25;
 
-                damage = 4; 
-      
-            }
+				damage = 4;
+
+			}
 			if (sporeStorm)
 			{
-				NPC.lifeRegen = -5;
+				npc.lifeRegen = -5;
 				damage = 4;
 			}
-			if (NPC.HasBuff(ModContent.BuffType<NocturnalFlame>()))
+			if (npc.HasBuff(ModContent.BuffType<NocturnalFlame>()))
 			{
 				nightFlameLength++;
 				nightFlame = (1 + (int)Math.Floor(nightFlameLength / 600f)) * 2;
 				if (nightFlame > 10) nightFlame = 10;
-				NPC.lifeRegen -= nightFlame * 2;
+				npc.lifeRegen -= nightFlame * 2;
 				damage = nightFlame;
 			}
 			else
@@ -142,13 +148,13 @@ public override void ResetEffects(NPC NPC)
 				nightFlameLength = 0;
 				nightFlame = 0;
 			}
-            
-        }
-        /*public override void SetDefaults(NPC npc)
+
+		}
+		/*public override void SetDefaults(NPC npc)
         {
 
         }*/
-        public override bool PreAI(NPC NPC)
+		public override bool PreAI(NPC npc)
 		{
 			if (cryogenized == true)
 			{
@@ -156,14 +162,14 @@ public override void ResetEffects(NPC NPC)
 			}
 			else return true;
 		}
-		public override void AI(NPC NPC)
+		public override void AI(NPC npc)
 		{
-            if (etherealDamages.Count > 0)
+			if (etherealDamages.Count > 0)
 				etherealTimer++;
 			if (etherealTimer >= 20)
 			{
 				if (etherealDamages.Count > 0)
-						Projectile.NewProjectile(Projectile.InheritSource(etherealSource), NPC.Center.X, NPC.Center.Y, 0f, 0f, ModContent.ProjectileType<EtherealFlux>(), 0, 0, Main.myPlayer, 0, 0);
+					Projectile.NewProjectile(Projectile.InheritSource(etherealSource), npc.Center.X, npc.Center.Y, 0f, 0f, ModContent.ProjectileType<EtherealFlux>(), 0, 0, Main.myPlayer, 0, 0);
 				etherealTimer = 0;
 				List<int> newEtherealCounts = new List<int>();
 				List<int> newEtherealDamages = new List<int>();
@@ -171,7 +177,7 @@ public override void ResetEffects(NPC NPC)
 				{
 					if (etherealCounts[i] > 0)
 					{
-						NPC.StrikeNPCNoInteraction(etherealDamages[i], 0, 0, false, false, false);
+						npc.StrikeNPCNoInteraction(etherealDamages[i], 0, 0, false, false, false);
 						etherealCounts[i]--;
 					}
 					if (etherealCounts[i] > 0)
@@ -182,21 +188,21 @@ public override void ResetEffects(NPC NPC)
 				}
 				etherealCounts = newEtherealCounts;
 				etherealDamages = newEtherealDamages;
-			}	
+			}
 			if (!crushFreeze)
-            {
+			{
 				chillStacks = 0;
-            }
+			}
 			poisonTimer++;
 			if (spineCount > 0 && poisonTimer % 25 == 0)
 			{
 				//Main.NewText(spineCount);
-				NPC.life -= spineCount;
+				npc.life -= spineCount;
 				//NPC.StrikeNPCNoInteraction(spineCount, 0, 0, false, false, false);
 				Color color2 = CombatText.DamagedHostile;
-				CombatText.NewText(new Rectangle((int)NPC.position.X, (int)NPC.position.Y, NPC.width, NPC.height), color2, spineCount, false, false);
-				
-				NPC.HitEffect(0, 10);
+				CombatText.NewText(new Rectangle((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height), color2, spineCount, false, false);
+
+				npc.HitEffect(0, 10);
 			}
 			InfirmaryTimer--;
 			if (InfirmaryTimer <= 0)
@@ -205,84 +211,84 @@ public override void ResetEffects(NPC NPC)
 				if (indigoInfirmary)
 				{
 					int damage = 1;
-					Player player = Main.player[NPC.target];
+					Player player = Main.player[npc.target];
 					if (player.statLife == player.statLifeMax2)
 						damage = 5;
-					if (player.statLife < player.statLifeMax2 && player.statLife >= (player.statLifeMax2 /4) * 3)
+					if (player.statLife < player.statLifeMax2 && player.statLife >= (player.statLifeMax2 / 4) * 3)
 						damage = 4;
-					if (player.statLife < (player.statLifeMax2 /4) * 3 && player.statLife >= (player.statLifeMax2 / 2))
+					if (player.statLife < (player.statLifeMax2 / 4) * 3 && player.statLife >= (player.statLifeMax2 / 2))
 						damage = 3;
 					if (player.statLife < (player.statLifeMax2 / 2) && player.statLife >= (player.statLifeMax2 / 4))
 						damage = 2;
 					if (player.statLife < (player.statLifeMax2 / 4))
 						damage = 1;
-					NPC.StrikeNPCNoInteraction(damage, 0, 0, false, false, false);
+					npc.StrikeNPCNoInteraction(damage, 0, 0, false, false, false);
 				}
 				if (crushFreeze)
-                {
+				{
 					int damage = chillStacks;
-					NPC.StrikeNPCNoInteraction(damage, 0, 0, false, false, false);
+					npc.StrikeNPCNoInteraction(damage, 0, 0, false, false, false);
 				}
 			}
-			if (NPC.life <= 0)
+			if (npc.life <= 0)
 			{
-				
+
 			}
-			if (sporeStorm && IsNormalEnemy(NPC))
+			if (sporeStorm && IsNormalEnemy(npc))
 			{
-				Player player = Main.player[NPC.target];
+				Player player = Main.player[npc.target];
 				MyPlayer modPlayer = player.GetModPlayer<MyPlayer>();
-				if (NPC.boss)
+				if (npc.boss)
 					modPlayer.sporeBuffCount += 2;
 				else
 					modPlayer.sporeBuffCount += 1;
 			}
-            spineCount = 0;
-			
+			spineCount = 0;
+
 			if (desertSpikeTime < 0)
 			{
 				desertSpikeTime++;
-				NPC.velocity.X = 0;				
+				npc.velocity.X = 0;
 			}
 			if (desertSpikeTime > 0)
 			{
 				desertSpikeTime--;
-				NPC.direction = impaledDirection;
-				NPC.velocity.X = 0;
+				npc.direction = impaledDirection;
+				npc.velocity.X = 0;
 
-				if (NPC.Bottom.Y > desertSpikeHeight)
+				if (npc.Bottom.Y > desertSpikeHeight)
 				{
-					NPC.velocity.Y = -8;
-					if (NPC.noGravity == false) //prevent enemies with gravity from falling
+					npc.velocity.Y = -8;
+					if (npc.noGravity == false) //prevent enemies with gravity from falling
 					{
-						NPC.noGravity = true;
+						npc.noGravity = true;
 						impaledGravity = false;
 					}
 				}
 				else
 				{
-					NPC.velocity.Y = 0.0001f; //so game thinks they're airbone
+					npc.velocity.Y = 0.0001f; //so game thinks they're airbone
 				}
 
 				if (desertSpikeTime == 1) //deactivate gravity effects
 				{
-					NPC.noGravity = impaledGravity;
+					npc.noGravity = impaledGravity;
 					impaledGravity = true;
 				}
 			}
 			maceSlam--;
-			if (NPC.collideY == true && maceSlam >= 0)
+			if (npc.collideY == true && maceSlam >= 0)
 			{
 				maceSlam = 0;
-				PlaySound(SoundID.Item14, NPC.Center);
-                for (int i = 0; i < Main.npc.Length; i++)
-                {
-                    if (NPC.Distance(Main.npc[i].Center) < 1 && !Main.npc[i].townNPC)
-                        Main.npc[i].StrikeNPC(maceSlamDamage, 0f, 0, false, false, false);
-                }
+				PlaySound(SoundID.Item14, npc.Center);
+				for (int i = 0; i < Main.npc.Length; i++)
+				{
+					if (npc.Distance(Main.npc[i].Center) < 1 && !Main.npc[i].townNPC)
+						Main.npc[i].StrikeNPC(maceSlamDamage, 0f, 0, false, false, false);
+				}
 				for (int i = 0; i < 15; ++i)
 				{
-					int index2 = Dust.NewDust(NPC.Center, NPC.width, NPC.height, ModContent.DustType<Dusts.CarapaceDust>(), 0.0f, 0.0f, 15, new Color(53f, 67f, 253f), 1.5f);
+					int index2 = Dust.NewDust(npc.Center, npc.width, npc.height, ModContent.DustType<Dusts.CarapaceDust>(), 0.0f, 0.0f, 15, new Color(53f, 67f, 253f), 1.5f);
 					Main.dust[index2].noGravity = true;
 					Main.dust[index2].velocity *= 2f;
 				}
@@ -292,15 +298,95 @@ public override void ResetEffects(NPC NPC)
 				NPC.width = (int)(NPC.height * 1.75f);
 			}*/
 		}
-        public override void OnKill(NPC NPC)
+
+		/*public override void PostAI(NPC npc)
+        {
+			if (hitboxWidthDecrease != 0 || hitboxHeightDecrease != 0)
+				smallerHitbox = new Rectangle(npc.Hitbox.X + hitboxWidthDecrease / 2, npc.Hitbox.Y + hitboxHeightDecrease / 2,
+				npc.Hitbox.Width - hitboxWidthDecrease, npc.Hitbox.Height - hitboxHeightDecrease);
+		}*/
+		/*public override void DrawEffects(NPC npc, ref Color drawColor)
+        {
+			Emperia.DrawPixelRect(npc.Hitbox, Color.Blue * 0.2f);
+			if (smallerHitbox != Rectangle.Empty) Emperia.DrawPixelRect(smallerHitbox, Color.Red * 0.3f);
+		}*/
+		public override bool CanHitPlayer(NPC npc, Player target, ref int cooldownSlot)
+		{
+			if (hitboxMinusX != 0 || hitboxMinusY != 0)
+			{
+				Rectangle smallerHitbox = new Rectangle(npc.Hitbox.X + hitboxMinusX / 2, npc.Hitbox.Y + hitboxMinusY / 2,
+					npc.Hitbox.Width - hitboxMinusX, npc.Hitbox.Height - hitboxMinusY);
+
+				//Emperia.DrawPixelRect(npc.Hitbox, Color.Blue * 0.2f);
+				//Emperia.DrawPixelRect(smallerHitbox, Color.Red * 0.3f);
+				if (target.Hitbox.Intersects(npc.Hitbox) && !target.Hitbox.Intersects(smallerHitbox)) Main.NewText(Emperia.AbsoluteSum(npc.velocity)); //Main.NewText("safe range!");
+				if (!target.Hitbox.Intersects(smallerHitbox) && Emperia.AbsoluteSum(npc.velocity) < 6) return false;
+			}
+			return base.CanHitPlayer(npc, target, ref cooldownSlot);
+		}
+
+		public override bool? CanBeHitByItem(NPC npc, Player player, Item item)
+		{
+			if (hurtboxPlusX != 0 || hurtboxPlusY != 0)
+			{
+				Rectangle largerHurtbox = new Rectangle(npc.Hitbox.X - hurtboxPlusX / 2, npc.Hitbox.Y - hurtboxPlusY / 2,
+					npc.Hitbox.Width + hurtboxPlusX, npc.Hitbox.Height + hurtboxPlusY);
+
+				Rectangle itemHitbox = player.GetModPlayer<MyPlayer>().currentItemHitbox;
+
+				//Emperia.DrawPixelRect(npc.Hitbox, Color.Blue * 0.2f);
+				//Emperia.DrawPixelRect(largerHurtbox, Color.Green * 0.3f);
+				//Emperia.DrawPixelRect(itemHitbox, Color.Purple * 0.3f);
+				if (!itemHitbox.Intersects(npc.Hitbox) && itemHitbox.Intersects(largerHurtbox)) Main.NewText("abnormal hit"); //seems to only run once; maybe because of return null?
+				if (!itemHitbox.Intersects(npc.Hitbox) && itemHitbox.Intersects(largerHurtbox)) return true;
+			}
+			return null;
+		}
+		public override bool? CanBeHitByProjectile(NPC npc, Projectile projectile)
+        {
+
+			if (hurtboxPlusX != 0 || hurtboxPlusY != 0)
+			{
+				Rectangle largerHurtbox = new Rectangle(npc.Hitbox.X - hurtboxPlusX / 2, npc.Hitbox.Y - hurtboxPlusY / 2,
+					npc.Hitbox.Width + hurtboxPlusX, npc.Hitbox.Height + hurtboxPlusY);
+
+				Emperia.DrawPixelRect(npc.Hitbox, Color.Blue * 0.2f);
+				Emperia.DrawPixelRect(largerHurtbox, Color.Green * 0.3f);
+				Emperia.DrawPixelRect(projectile.Hitbox, Color.Purple * 0.3f);
+				if (!projectile.Hitbox.Intersects(npc.Hitbox) && projectile.Hitbox.Intersects(largerHurtbox)) Main.NewText("abnormal hit"); //seems to only run once; maybe because of return null?
+				if (!projectile.Hitbox.Intersects(npc.Hitbox) && projectile.Hitbox.Intersects(largerHurtbox)) return true;
+			}
+			return null;
+		}
+
+		private bool CheckLargerHurtbox(NPC npc, Player player, Rectangle attackHitbox)
+		{
+			Rectangle largerHurtbox = new Rectangle(npc.Hitbox.X - hurtboxPlusX / 2, npc.Hitbox.Y - hurtboxPlusY / 2,
+			npc.Hitbox.Width + hurtboxPlusX, npc.Hitbox.Height + hurtboxPlusY);
+
+
+			//Emperia.DrawPixelRect(npc.Hitbox, Color.Blue * 0.2f);
+			//Emperia.DrawPixelRect(largerHurtbox, Color.Green * 0.3f);
+			//Emperia.DrawPixelRect(itemHitbox, Color.Purple * 0.3f);
+			if (!attackHitbox.Intersects(npc.Hitbox) && attackHitbox.Intersects(largerHurtbox)) Main.NewText("abnormal hit"); //seems to only run once; maybe because of return null?
+			if (!attackHitbox.Intersects(npc.Hitbox) && attackHitbox.Intersects(largerHurtbox)) return true;
+			else return false;
+		}
+
+		public override void SetDefaults(NPC npc)
+        {
+			if (npc.type == NPCID.EyeofCthulhu) { hitboxMinusX = 28; hitboxMinusY = 28; } //unfortunately a lot of his attacks are designed to only barely graze you
+			if (npc.type == NPCID.KingSlime) { hurtboxPlusX = 320 ; }//{ hurtboxPlusX = 32; }
+		}
+		public override void OnKill(NPC npc)
         {
 			if (moreCoins)
 			{
-				NPC.value += NPC.value += Item.buyPrice(0, 0, 10, 0);
+				npc.value += npc.value += Item.buyPrice(0, 0, 10, 0);
 			}
 			if (scoriaExplosion)
 			{
-				int expDamage = NPC.lifeMax / 5;
+				int expDamage = npc.lifeMax / 5;
 				if (expDamage > 50)
 				{
 					expDamage = 50;
@@ -308,7 +394,7 @@ public override void ResetEffects(NPC NPC)
 
 				for (int num621 = 0; num621 < 20; num621++)
 				{
-					int num622 = Dust.NewDust(new Vector2(NPC.position.X, NPC.position.Y), NPC.width, NPC.height, 258, 0f, 0f, 100, default(Color));
+					int num622 = Dust.NewDust(new Vector2(npc.position.X, npc.position.Y), npc.width, npc.height, 258, 0f, 0f, 100, default(Color));
 					Main.dust[num622].velocity *= 3f;
 					if (Main.rand.Next(2) == 0)
 					{
@@ -318,36 +404,36 @@ public override void ResetEffects(NPC NPC)
 				}
 				for (int num623 = 0; num623 < 35; num623++)
 				{
-					int num624 = Dust.NewDust(new Vector2(NPC.position.X, NPC.position.Y), NPC.width, NPC.height, 258, 0f, 0f, 100, default(Color));
+					int num624 = Dust.NewDust(new Vector2(npc.position.X, npc.position.Y), npc.width, npc.height, 258, 0f, 0f, 100, default(Color));
 					Main.dust[num624].noGravity = true;
 					Main.dust[num624].velocity *= 5f;
-					num624 = Dust.NewDust(new Vector2(NPC.position.X, NPC.position.Y), NPC.width, NPC.height, 258, 0f, 0f, 100, default(Color));
+					num624 = Dust.NewDust(new Vector2(npc.position.X, npc.position.Y), npc.width, npc.height, 258, 0f, 0f, 100, default(Color));
 					Main.dust[num624].velocity *= 2f;
 				}
-				PlaySound(SoundID.Item14, NPC.position);
+				PlaySound(SoundID.Item14, npc.position);
 				for (int i = 0; i < Main.npc.Length; i++)
 				{
-					if (NPC.Distance(Main.npc[i].Center) < 64 && !Main.npc[i].townNPC)
+					if (npc.Distance(Main.npc[i].Center) < 64 && !Main.npc[i].townNPC)
 						Main.npc[i].StrikeNPC(expDamage, 0f, 0, false, false, false);
 				}
 			}
 			if (fatesDemise)
 			{
 				int damage1 = 0;
-				if (NPC.lifeMax > 1500)
+				if (npc.lifeMax > 1500)
 				{
 					damage1 = 300;
 				}
 				else
 				{
-					damage1 = NPC.lifeMax / 5;
+					damage1 = npc.lifeMax / 5;
 				}
 				for (int i = 0; i < 6; i++)
 				{
 					Vector2 perturbedSpeed = new Vector2(4, 4).RotatedByRandom(MathHelper.ToRadians(360));
-					Projectile.NewProjectile(NPC.GetSource_Buff(NPC.FindBuffIndex(ModContent.BuffType<Buffs.FatesDemise>())), NPC.Center.X, NPC.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, ModContent.ProjectileType<FatesFlames>(), damage1, 1, Main.myPlayer, 0, 0);
+					Projectile.NewProjectile(npc.GetSource_Buff(npc.FindBuffIndex(ModContent.BuffType<Buffs.FatesDemise>())), npc.Center.X, npc.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, ModContent.ProjectileType<FatesFlames>(), damage1, 1, Main.myPlayer, 0, 0);
 				}
-				PlaySound(SoundID.NPCDeath52, NPC.Center);
+				PlaySound(SoundID.NPCDeath52, npc.Center);
 				//this code also exists in FatesFlames and MyPlayer, be sure to make all changes consistent
 			}
 			//if (NPC.type == 4)
@@ -357,51 +443,51 @@ public override void ResetEffects(NPC NPC)
 			//if (NPC.type == 3) { Main.NewText(EmperialWorld.downedEye.ToString());}
 		}
 
-        public override void ModifyNPCLoot(NPC NPC, NPCLoot npcLoot)  
+		public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)  
         {
-			if (NPC.type == NPCID.SkeletronHead)
+			if (npc.type == NPCID.SkeletronHead)
 			{
 				IItemDropRule normalRule = new LeadingConditionRule(new Conditions.NotExpert());
 				normalRule.OnSuccess(ItemDropRule.OneFromOptions(1, ModContent.ItemType<Skelebow>(), ModContent.ItemType<NecromanticFlame>(), ModContent.ItemType<BoneWhip>()));
 				npcLoot.Add(normalRule);
 			}
-			if (NPC.type == 82)
+			if (npc.type == 82)
             {
 				npcLoot.Add(ItemDropRule.NormalvsExpert(ModContent.ItemType<DeathTalisman>(), 100, 80));
             }
-            if (NPC.type == 53 || NPC.type == 536 || NPC.type == 489 || NPC.type == 490 )
+            if (npc.type == 53 || npc.type == 536 || npc.type == 489 || npc.type == 490 )
             {
                 npcLoot.Add(ItemDropRule.NormalvsExpert(ModContent.ItemType<ForbiddenOath>(), 100, 65));
             }
-			if (NPC.type == 586 || NPC.type == 587)
+			if (npc.type == 586 || npc.type == 587)
 			{
 				npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<ForbiddenOath>(), 15));
 			}
-			if (NPC.type == 620 || NPC.type == 621)
+			if (npc.type == 620 || npc.type == 621)
 			{
 				npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Items.Accessories.Gauntlets.BloodGauntlet>(), 8));
 			}
-			if (NPC.type == 618)
+			if (npc.type == 618)
 			{
 				npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Items.Accessories.Gauntlets.BloodGauntlet>(), 2));
 			}
-			if (NPC.type == 620 || NPC.type == 621)
+			if (npc.type == 620 || npc.type == 621)
 			{
 				npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Items.BloodCandle>(), 8));
 			}
-			if (NPC.type == 618)
+			if (npc.type == 618)
 			{
 				npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Items.BloodCandle>(), 2));
 			}
-			if (NPC.type == 58)
+			if (npc.type == 58)
 			{
 				npcLoot.Add(ItemDropRule.NormalvsExpert(ModContent.ItemType<TetheredPiranha>(), 50, 40));
 			}
-			if(NPC.type == 122)
+			if(npc.type == 122)
 			{
 				npcLoot.Add(ItemDropRule.NormalvsExpert(ModContent.ItemType<Escargun>(), 75, 60));
 			}
-			if (NPC.type == 4)
+			if (npc.type == 4)
 			{
 				npcLoot.Add(ItemDropRule.ByCondition(new EOCDropCondition(), ModContent.ItemType<SetStone>(), 1)); //If the world is in master mode, drop ExampleSouls 20% of the time from every npc.
 				//EmperialWorld.downedEye = true;
@@ -409,11 +495,7 @@ public override void ResetEffects(NPC NPC)
 				//THIS DOESNT WORK!!! ITS A LIE FR FR. also downedeye does NOT save so it gets reset on reload
 			}
 		}
-		public override void OnHitPlayer(NPC NPC, Player target, int damage, bool crit)
-		{
-		}
-
-		public override void ModifyHitPlayer(NPC NPC, Player target, ref int damage, ref bool crit)
+		public override void ModifyHitPlayer(NPC npc, Player target, ref int damage, ref bool crit)
 		{
 			if (vermillionVenom)
 			{
@@ -422,7 +504,7 @@ public override void ResetEffects(NPC NPC)
 			if (crushFreeze)
 				damage = (int)(damage * (1 - .05 * chillStacks));
 		}
-        public override void ModifyHitByProjectile(NPC NPC, Projectile Projectile, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
+        public override void ModifyHitByProjectile(NPC npc, Projectile Projectile, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
         {
             if (moreDamage)
             {
@@ -432,11 +514,11 @@ public override void ResetEffects(NPC NPC)
 			if (desertSpikeTime > 0 && desertSpikeTime < 100)
 			{
 				desertSpikeTime = 0;
-				NPC.noGravity = impaledGravity;
+				npc.noGravity = impaledGravity;
 				impaledGravity = true;
 			}
         }
-        public override void ModifyHitByItem(NPC NPC, Player player, Item Item, ref int damage, ref float knockback, ref bool crit)
+        public override void ModifyHitByItem(NPC npc, Player player, Item Item, ref int damage, ref float knockback, ref bool crit)
         {
             if (moreDamage)
             {
@@ -446,12 +528,12 @@ public override void ResetEffects(NPC NPC)
 			if (desertSpikeTime > 0 && desertSpikeTime < 100)
 			{
 				desertSpikeTime = 0;
-				NPC.noGravity = impaledGravity;
+				npc.noGravity = impaledGravity;
 				impaledGravity = true;
 			}
 			if (Item.type == ModContent.ItemType<Items.Weapons.Mushor.Fungallows>()) //wip
 			{
-				if (NPC.life <= damage - NPC.defense * 0.5)
+				if (npc.life <= damage - npc.defense * 0.5)
 				{
 					//Main.NewText("wow", 255, 240, 20, false);
 					//damage = NPC.life + NPC.defense * 0.5 - 1;
@@ -460,16 +542,16 @@ public override void ResetEffects(NPC NPC)
 				}
 			}
 		}
-        public override void OnHitByItem(NPC NPC, Player player, Item item, int damage, float knockback, bool crit)
+        public override void OnHitByItem(NPC npc, Player player, Item item, int damage, float knockback, bool crit)
         {
 			bool Unchained = false;
 			for (int l = 0; l < 1000; l++)
 			{
-				if (Main.projectile[l].active && Main.projectile[l].owner == Main.myPlayer && Main.projectile[l].type == ModContent.ProjectileType<HarpoonBladeProj>() && Main.projectile[l].GetGlobalProjectile<GProj>().latchedNPC == NPC)
+				if (Main.projectile[l].active && Main.projectile[l].owner == Main.myPlayer && Main.projectile[l].type == ModContent.ProjectileType<HarpoonBladeProj>() && Main.projectile[l].GetGlobalProjectile<GProj>().latchedNPC == npc)
 				{
 					//Main.projectile[l].ModProjectile.OnTileCollide(Vector2.Zero);
 					(Main.projectile[l].ModProjectile as HarpoonBladeProj).Unchain(Main.projectile[l]);
-					NPC.StrikeNPC(Main.projectile[l].damage, 0f, 0); //damage multiplied by 0.75f to nerf? make damage occur in projectile to count towards dps
+					npc.StrikeNPC(Main.projectile[l].damage, 0f, 0); //damage multiplied by 0.75f to nerf? make damage occur in projectile to count towards dps
 					Unchained = true;
 				}
 			}
@@ -497,10 +579,10 @@ public override void ResetEffects(NPC NPC)
 			//Main.NewText(spawnRate);
 			//Main.NewText(maxSpawns);
 		}
-        public bool IsNormalEnemy(NPC NPC, bool allowStatueSpawned = true)
+        public bool IsNormalEnemy(NPC npc, bool allowStatueSpawned = true)
         {
-			if (NPC.SpawnedFromStatue && !allowStatueSpawned) return false;
-			if (NPC.type == NPCID.TargetDummy || NPC.lifeMax <= 5) return false;
+			if (npc.SpawnedFromStatue && !allowStatueSpawned) return false;
+			if (npc.type == NPCID.TargetDummy || npc.lifeMax <= 5) return false;
 			return true;
 		} //canbechasedby code:	if (base.active && this.chaseable && this.lifeMax > 5 && (!this.dontTakeDamage || ignoreDontTakeDamage) && !this.friendly) return !this.immortal;
 

@@ -6,7 +6,7 @@ using Terraria;
 using Terraria.ModLoader;
 using Terraria.UI;
 using ReLogic.Content;
-using static Emperia.PaintUISystem;
+using static Emperia.UISystem;
 using Emperia.Items;
 using Terraria.ID;
 using Terraria.GameInput;
@@ -21,7 +21,7 @@ namespace Emperia.UI
 		public bool canScroll = true;
 		public override void OnInitialize()
 		{
-			PaintUISystem.CurrentPaintUI = this;
+			UISystem.CurrentPaintUI = this;
 			iconTexture = ModContent.Request<Texture2D>("Emperia/UI/Icon_0", AssetRequestMode.ImmediateLoad).Value;
 			MakeSmallIcons();
 			MakeLargeIcons();
@@ -51,7 +51,7 @@ namespace Emperia.UI
 				if ((int)linesPerRow.GetValue(row) == 4 && iconPosOnRow > 1) iconPosition.X += 28 * 2;
 				UIElement smallIcon = new BucketSmall(i, iconPosition); //ModContent.Request<Texture2D>("Emperia/UI/Icon_0")
 				MakeIcon(smallIcon, iconPosition, 26);
-				PaintUISystem.smallPaintIconList.Add(smallIcon);
+				UISystem.smallPaintIconList.Add(smallIcon);
 			}
 		}
 		public void MakeLargeIcons()
@@ -66,7 +66,7 @@ namespace Emperia.UI
 				iconPosition.Y = (int)Math.Round(iconPosition.Y / 2) * 2;
 				UIElement largeIcon = new BucketLarge(i, iconPosition);
 				MakeIcon(largeIcon, iconPosition, 40);
-				PaintUISystem.largePaintIconList.Add(largeIcon);
+				UISystem.largePaintIconList.Add(largeIcon);
             }
         }
         public void MakeIcon(UIElement icon, Vector2 position, int width, int height = -1)
@@ -134,7 +134,7 @@ namespace Emperia.UI
 				(Parent as PaintUI).mousedOverAny = false;
 			}
 			iconTexture = ModContent.Request<Texture2D>("Emperia/UI/Icon_" + iconType, AssetRequestMode.ImmediateLoad).Value;
-			if (mastersPalette != (Main.LocalPlayer.HeldItem.ModItem as Items.OldMastersPalette)) PaintUISystem.paintUIActive = false; //this check only seems to work in PaintUI
+			if (mastersPalette != (Main.LocalPlayer.HeldItem.ModItem as Items.OldMastersPalette)) UISystem.paintUIActive = false; //this check only seems to work in PaintUI
 
 		}
 		public override void Draw(SpriteBatch spriteBatch)
@@ -326,14 +326,15 @@ namespace Emperia.UI
 			if (!visible) return;
 			GeneralUpdate();
 
-			if (mastersPalette.curatedColor == paintType && PlayerInput.ScrollWheelDeltaForUI != 0 && (Parent as PaintUI).canScroll)
+			/*if (mastersPalette.curatedColor == paintType && PlayerInput.ScrollWheelDeltaForUI != 0 && (Parent as PaintUI).canScroll)
             {
 				int paintToScrollTo = (iconIndex - Math.Sign(PlayerInput.ScrollWheelDeltaForUI)) % (mastersPalette.CuratedColorList(mastersPalette.selectedColors).Count);
 				if (paintToScrollTo < 0) paintToScrollTo += mastersPalette.CuratedColorList(mastersPalette.selectedColors).Count;
 				mastersPalette.curatedColor = mastersPalette.CuratedColorList(mastersPalette.selectedColors)[paintToScrollTo];
 				(Parent as PaintUI).canScroll = false;
 				// PlayerInput.ScrollWheelDelta = 0; is set in ModPlayer PreUpdate()
-			}
+			}*/
+			UISystem.AddIconScrollWheelFunctionality(ref mastersPalette.curatedColor, paintType, mastersPalette.CuratedColorList(mastersPalette.selectedColors), iconIndex, ref (Parent as PaintUI).canScroll);
 
 			if (Vector2.Distance(position + new Vector2(iconTexture.Width / 2, iconTexture.Height / 2), Main.MouseScreen) < 19f)
 			{
@@ -451,7 +452,7 @@ namespace Emperia.UI
 				if (alpha < 1) alpha += 0.0625f;
 			}
 			else if (alpha > 0) alpha -= 0.0625f;
-			if (alpha <= 0) PaintUISystem.cursorUIActive = false;
+			if (alpha <= 0) UISystem.cursorUIActive = false;
 		}
 		public override void Draw(SpriteBatch spriteBatch)
         {
