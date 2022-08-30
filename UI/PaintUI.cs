@@ -14,22 +14,29 @@ using Terraria.GameInput;
 namespace Emperia.UI
 {
 
-	class PaintUI : UIState
+	class PaintUI : EmperiaUIState
 	{
         Texture2D iconTexture;
 		public bool mousedOverAny = false;
 		public bool canScroll = true;
+
+        public PaintUI(Vector2? activationPosition = null) : base(activationPosition)
+		{
+			if (activationPosition == null) activationPosition = Vector2.Zero;
+		}
+
 		public override void OnInitialize()
 		{
-			UISystem.CurrentPaintUI = this;
+			heldItemType = ModContent.ItemType<Items.OldMastersPalette>();
+
 			iconTexture = ModContent.Request<Texture2D>("Emperia/UI/Icon_0", AssetRequestMode.ImmediateLoad).Value;
 			MakeSmallIcons();
 			MakeLargeIcons();
 
-			Vector2 position = paintUIActivationPosition - new Vector2(iconTexture.Width / 2, iconTexture.Height / 2);
+			Vector2 position = activationPosition - new Vector2(iconTexture.Width / 2, iconTexture.Height / 2);
 			UIElement mainIcon = new BrushUI(position); //ModContent.Request<Texture2D>("Emperia/UI/Icon_0")
 			MakeIcon(mainIcon, position, 40);
-			Vector2 swapPosition = paintUIActivationPosition - new Vector2(24, 28);//+ new Vector2(12, 10); // 26
+			Vector2 swapPosition = activationPosition - new Vector2(24, 28);//+ new Vector2(12, 10); // 26
 			UIElement modeSwap = new ModeSwap(swapPosition);
 			MakeIcon(modeSwap, swapPosition, 14, 16);
 		}
@@ -47,11 +54,10 @@ namespace Emperia.UI
 					row++;
 					iconPosOnRow = 0;
 				}
-				Vector2 iconPosition = new Vector2(-84 + iconPosOnRow * 28, -84 + row * 28) + paintUIActivationPosition;
+				Vector2 iconPosition = new Vector2(-84 + iconPosOnRow * 28, -84 + row * 28) + activationPosition;
 				if ((int)linesPerRow.GetValue(row) == 4 && iconPosOnRow > 1) iconPosition.X += 28 * 2;
 				UIElement smallIcon = new BucketSmall(i, iconPosition); //ModContent.Request<Texture2D>("Emperia/UI/Icon_0")
 				MakeIcon(smallIcon, iconPosition, 26);
-				UISystem.smallPaintIconList.Add(smallIcon);
 			}
 		}
 		public void MakeLargeIcons()
@@ -60,13 +66,12 @@ namespace Emperia.UI
 			int distance = -45;
 			for (int i = 0; i < iconCount; i++)
 			{
-				Vector2 iconCenter = new Vector2(0, distance).RotatedBy(MathHelper.ToRadians((360 / 5) * i)) + paintUIActivationPosition;
+				Vector2 iconCenter = new Vector2(0, distance).RotatedBy(MathHelper.ToRadians((360 / 5) * i)) + activationPosition;
 				Vector2 iconPosition = iconCenter - new Vector2(iconTexture.Width / 2, iconTexture.Height / 2);
 				iconPosition.X = (int)Math.Round(iconPosition.X / 2) * 2;
 				iconPosition.Y = (int)Math.Round(iconPosition.Y / 2) * 2;
 				UIElement largeIcon = new BucketLarge(i, iconPosition);
 				MakeIcon(largeIcon, iconPosition, 40);
-				UISystem.largePaintIconList.Add(largeIcon);
             }
         }
         public void MakeIcon(UIElement icon, Vector2 position, int width, int height = -1)
@@ -115,8 +120,9 @@ namespace Emperia.UI
 			GeneralUpdate();
 
 			(Parent as PaintUI).canScroll = true; //this should probably not be here but you cant run update in the main PaintUI
+			if (mastersPalette.curatedMode && mastersPalette.curatedColor != 0) Main.LocalPlayer.GetModPlayer<MyPlayer>().scrollingInUI = true;
 
-			if (Vector2.Distance(paintUIActivationPosition, Main.MouseScreen) < 19f)
+			if (Vector2.Distance((Parent as PaintUI).activationPosition, Main.MouseScreen) < 19f)
 			{
 				MouseOver(this);
 				if (Main.mouseLeft && canBeClicked)
@@ -134,7 +140,11 @@ namespace Emperia.UI
 				(Parent as PaintUI).mousedOverAny = false;
 			}
 			iconTexture = ModContent.Request<Texture2D>("Emperia/UI/Icon_" + iconType, AssetRequestMode.ImmediateLoad).Value;
-			if (mastersPalette != (Main.LocalPlayer.HeldItem.ModItem as Items.OldMastersPalette)) UISystem.paintUIActive = false; //this check only seems to work in PaintUI
+			if (mastersPalette != (Main.LocalPlayer.HeldItem.ModItem as OldMastersPalette))
+			{
+				(Parent as EmperiaUIState).TryDeactivate(); //this check only seems to work in PaintUI
+			}
+			//if (mastersPalette != (Main.LocalPlayer.HeldItem.ModItem as Items.OldMastersPalette)) (Parent as EmperiaUIState).Active = false; //this check only seems to work in PaintUI
 
 		}
 		public override void Draw(SpriteBatch spriteBatch)
@@ -410,15 +420,14 @@ namespace Emperia.UI
 					MouseOver(this);
 					if (Main.mouseLeft && canBeClicked && mastersPalette.selectedColors.Any())
 					{
-						for (int i = 0; i < 32; i++)
+						foreach (PaintUIElement button in Parent.Children)
 						{
-							(smallPaintIconList[i] as BucketSmall).visible = mastersPalette.curatedMode;
+							if (button is BucketSmall) button.visible = mastersPalette.curatedMode;
 						}
 						mastersPalette.curatedMode = !mastersPalette.curatedMode;
-						int iterations = (mastersPalette.selectedColors.Count > 5) ? 5 : mastersPalette.selectedColors.Count;
-						for (int i = 0; i < iterations; i++)
+						foreach (PaintUIElement button in Parent.Children)
 						{
-							(largePaintIconList[i] as BucketLarge).visible = mastersPalette.curatedMode;
+							if (button is BucketLarge) button.visible = mastersPalette.curatedMode;
 						}
 						canBeClicked = false;
 					}
@@ -438,13 +447,18 @@ namespace Emperia.UI
 			spriteBatch.Draw(iconTexture, position, null, Color.White);
 		}
 	}
-	class CursorUI : UIState
+	class CursorUI : EmperiaUIState
     {
 		OldMastersPalette mastersPalette = Main.LocalPlayer.HeldItem.ModItem as OldMastersPalette;
 
 		float alpha = 0f;
 
-        public override void Update(GameTime gameTime)
+        public CursorUI(Vector2? activationPosition = null) : base(activationPosition)
+		{
+			if (activationPosition == null) activationPosition = Vector2.Zero;
+		}
+
+		public override void Update(GameTime gameTime)
         {
 			Item item = Main.LocalPlayer.inventory[Main.LocalPlayer.selectedItem];
 			if (item.type == ModContent.ItemType<OldMastersPalette>() && item.GetGlobalItem<GItem>().TileInRange(item, Main.LocalPlayer))
@@ -452,7 +466,7 @@ namespace Emperia.UI
 				if (alpha < 1) alpha += 0.0625f;
 			}
 			else if (alpha > 0) alpha -= 0.0625f;
-			if (alpha <= 0) UISystem.cursorUIActive = false;
+			if (alpha <= 0 && UISystem.MyInterface?.CurrentState != null && UISystem.MyInterface?.CurrentState is UI.CursorUI cursorUI) cursorUI.TryDeactivate();
 		}
 		public override void Draw(SpriteBatch spriteBatch)
         {

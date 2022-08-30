@@ -36,9 +36,9 @@ namespace Emperia.Items
         }
         public int toolMode = 0;
         public int selectedBulb = 0;
-        public Color selectedColor = Color.Black;
         public List<Color> selectedColors = new List<Color> { new Color(255, 0, 0), new Color(255, 255, 0), new Color(0, 255, 0), new Color(0, 0, 255), new Color(170, 0, 255) };
-
+        //public Color selectedColor = selectedColors.First();
+        public Color selectedColor = Color.Black;
         public override bool? UseItem(Player player)
         {
             Main.NewText(selectedColor, Color.Red);
@@ -165,18 +165,25 @@ namespace Emperia.Items
 }
 namespace Emperia.UI
 {
-    class LcdUI : UIState
+    class LcdUI : EmperiaUIState
     {
         Texture2D iconTexture;
         public bool mousedOverAny = false;
         public bool canScroll = true;
+
+        public LcdUI(Vector2? activationPosition = null) : base(activationPosition)
+        {
+            if (activationPosition == null) activationPosition = Vector2.Zero;
+        }
+
         public override void OnInitialize()
         {
-            UISystem.CurrentLcdUI = this;
+            heldItemType = ModContent.ItemType<Items.LCDWrench>();
+
             iconTexture = ModContent.Request<Texture2D>("Emperia/UI/Icon_0", AssetRequestMode.ImmediateLoad).Value;
             MakeLargeIcons();
             MakeValueBars();
-            Vector2 position = lcdUIActivationPosition - new Vector2(iconTexture.Width / 2, iconTexture.Height / 2);
+            Vector2 position = activationPosition - new Vector2(iconTexture.Width / 2, iconTexture.Height / 2);
             UIElement mainIcon = new LcdToolUI(position); //ModContent.Request<Texture2D>("Emperia/UI/Icon_0")
             MakeIcon(mainIcon, position, 40);
         }
@@ -187,7 +194,7 @@ namespace Emperia.UI
             int distance = -45;
             for (int i = 0; i < iconCount; i++)
             {
-                Vector2 iconCenter = new Vector2(0, distance).RotatedBy(MathHelper.ToRadians((360 / 5) * i)) + lcdUIActivationPosition;
+                Vector2 iconCenter = new Vector2(0, distance).RotatedBy(MathHelper.ToRadians((360 / 5) * i)) + activationPosition;
                 Vector2 iconPosition = iconCenter - new Vector2(iconTexture.Width / 2, iconTexture.Height / 2);
                 iconPosition.X = (int)Math.Round(iconPosition.X / 2) * 2;
                 iconPosition.Y = (int)Math.Round(iconPosition.Y / 2) * 2;
@@ -200,7 +207,7 @@ namespace Emperia.UI
             int iconCount = 3; //mastersPalette.selectedColors.Count;
             for (int i = 0; i < iconCount; i++)
             {
-                Vector2 iconPosition = lcdUIActivationPosition + new Vector2(-(178 / 2), 70 + 30 * i);
+                Vector2 iconPosition = activationPosition + new Vector2(-(178 / 2), 70 + 30 * i);
 
                 UIElement valueBar = new ValueBarUI(i, iconPosition);
                 MakeIcon(valueBar, iconPosition, TextureAssets.ColorBar.Value.Width, TextureAssets.ColorBar.Value.Height);
@@ -252,8 +259,9 @@ namespace Emperia.UI
             GeneralUpdate();
 
             (Parent as LcdUI).canScroll = true; //this should probably not be here but you cant run update in the main PaintUI
+            Main.LocalPlayer.GetModPlayer<MyPlayer>().scrollingInUI = true;
 
-            if (Vector2.Distance(lcdUIActivationPosition, Main.MouseScreen) < 19f)
+            if (Vector2.Distance((Parent as LcdUI).activationPosition, Main.MouseScreen) < 19f)
             {
                 MouseOver(this);
                 if (Main.mouseLeft && canBeClicked)
@@ -271,11 +279,16 @@ namespace Emperia.UI
                 (Parent as LcdUI).mousedOverAny = false;
             }
             iconTexture = ModContent.Request<Texture2D>("Emperia/UI/Icon_" + iconType, AssetRequestMode.ImmediateLoad).Value;
-            if (lcdWrench != (Main.LocalPlayer.HeldItem.ModItem as LCDWrench)) UISystem.lcdUIActive = false; //this check only seems to work in PaintUI
+            if (lcdWrench != (Main.LocalPlayer.HeldItem.ModItem as LCDWrench))
+            {
+                (Parent as EmperiaUIState).TryDeactivate(); //this check only seems to work in PaintUI
+            } 
 
         }
         public override void Draw(SpriteBatch spriteBatch)
         {
+            if (Main.LocalPlayer.HeldItem.ModItem is not LCDWrench) return;
+            
             base.Draw(spriteBatch);
             spriteBatch.Draw(iconTexture, position, null, Color.White);
             Texture2D brushTexture = ModContent.Request<Texture2D>("Emperia/UI/Brush_" + lcdWrench.toolMode, AssetRequestMode.ImmediateLoad).Value;
@@ -326,6 +339,7 @@ namespace Emperia.UI
 
             //color = Main.hslToRgb(HSL);
 
+            lcdWrench = (Main.LocalPlayer.HeldItem.ModItem as LCDWrench);
 
             //UISystem.AddIconScrollWheelFunctionality(ref lcdWrench.selectedColor, color, lcdWrench.selectedColors, iconIndex, ref (Parent as LcdUI).canScroll;
             if (lcdWrench.selectedBulb == iconIndex && PlayerInput.ScrollWheelDeltaForUI != 0 && (Parent as LcdUI).canScroll)
@@ -356,10 +370,10 @@ namespace Emperia.UI
 
             if (lcdWrench.selectedBulb == iconIndex)
             {
-                Main.NewText(lcdWrench.selectedColor);
-                Main.NewText(iconIndex);
+                //Main.NewText(lcdWrench.selectedColor);
+                //Main.NewText(iconIndex);
                 lcdWrench.selectedColor = Color;
-                Main.NewText(lcdWrench.selectedColor);
+                //Main.NewText(lcdWrench.selectedColor);
             }
 
             iconTexture = ModContent.Request<Texture2D>("Emperia/UI/Icon_" + iconType).Value;
@@ -369,6 +383,8 @@ namespace Emperia.UI
         }
         public override void Draw(SpriteBatch spriteBatch)
         {
+            if (Main.LocalPlayer.HeldItem.ModItem is not LCDWrench) return;
+
             if (!Main.gameMenu) visible = true;
             else visible = false;
             if (!visible) return;
@@ -402,6 +418,8 @@ namespace Emperia.UI
         }
         public override void Update(GameTime gameTime)
         {
+            lcdWrench = (Main.LocalPlayer.HeldItem.ModItem as LCDWrench);
+
             //(Parent as LcdUI).canScroll = true; //this should probably not be here but you cant run update in the main PaintUI
 
             if (bar.Contains(new Point(Main.mouseX, Main.mouseY)))
@@ -456,6 +474,8 @@ namespace Emperia.UI
         }
         public override void Draw(SpriteBatch spriteBatch)
         {
+            if (Main.LocalPlayer.HeldItem.ModItem is not LCDWrench) return;
+
             //Utils.ColorLerpMethod hslMethod = DelegateMethods.ColorLerp_HSL_H;
             LerpDelegate hslMethod = null;
             float percent = 0.3f;
@@ -527,7 +547,7 @@ namespace Emperia.UI
         }
         public LcdColorOption GetBulb(int iconIndex)
         {
-            foreach (LcdColorOption bulb in CurrentLcdUI.Children)
+            foreach (LcdColorOption bulb in Parent.Children)
             {
                 if (bulb.iconIndex == iconIndex) return bulb;
             }

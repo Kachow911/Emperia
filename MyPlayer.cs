@@ -141,6 +141,7 @@ namespace Emperia
 		public Vector2 hitboxEdge;
 		public float itemLength;
 		public bool noShieldSprite = false;
+		public bool scrollingInUI = false;
 
 		//public bool mouseOverUI = false;
 
@@ -217,6 +218,8 @@ namespace Emperia
 			projItemOrigin = null;
 			carapaceSet = null;
 			noShieldSprite = false;
+			scrollingInUI = false;
+
 
 			currentItemHitbox = Rectangle.Empty;
 
@@ -671,21 +674,8 @@ namespace Emperia
 		}
 		public override void PreUpdate()
 		{
-			if (UISystem.paintUIActive)
-			{
-				if (Main.LocalPlayer.inventory[Main.LocalPlayer.selectedItem].type == ModContent.ItemType<OldMastersPalette>())
-				{
-					OldMastersPalette mastersPalette = Main.LocalPlayer.HeldItem.ModItem as OldMastersPalette;
-					if (mastersPalette.curatedMode && mastersPalette.curatedColor != 0) PlayerInput.ScrollWheelDelta = 0;
-				}
-			}
-			if (UISystem.lcdUIActive)
-			{
-				if (Main.LocalPlayer.inventory[Main.LocalPlayer.selectedItem].type == ModContent.ItemType<LCDWrench>())
-				{
-					PlayerInput.ScrollWheelDelta = 0;
-				}
-			}
+			if (scrollingInUI) PlayerInput.ScrollWheelDelta = 0;
+
 			if (carapaceSet != null && poundTime == 0)
 			{
 				if (Main.rand.Next(20) < carapaceTime / 60)
@@ -1481,7 +1471,8 @@ namespace Emperia
 		}
         public override bool PreItemCheck()
         {
-			if (Player.cursorItemIconID != 0 || Player.inventory[58].type == ModContent.ItemType<OldMastersPalette>()) UISystem.cursorUIActive = false; //spaghettiiiii
+			if ((Player.cursorItemIconID != 0 || Player.inventory[58].type == ModContent.ItemType<OldMastersPalette>())
+				&& UISystem.MyInterface?.CurrentState != null && UISystem.MyInterface?.CurrentState is UI.CursorUI cursorUI) cursorUI.TryDeactivate(); //spaghettiiiii
 			return base.PreItemCheck();
 		}
         public override void LoadData(TagCompound tag)
