@@ -67,21 +67,21 @@ namespace Emperia
             //if (entity is Player) return (entity as Player).GetModPlayer<MyPlayer>();
             return null;
         }*/
-        public static float MouseControlledFloatX(bool haveNegatives = false, int maxValue = 1)
+        public static float MouseControlledFloatX(bool haveNegatives = false, int maxValue = 1, bool print = true)
         {
             float value;
             value = (Main.MouseScreen.X / (float)(Main.screenWidth)); //varies from 0 to 1
-            value = ApplyMouseFloatParameters(value, haveNegatives, maxValue);
+            value = ApplyMouseFloatParameters(value, haveNegatives, maxValue, print);
             return value;
         }
-        public static float MouseControlledFloatY(bool haveNegatives = false, int maxValue = 1)
+        public static float MouseControlledFloatY(bool haveNegatives = false, int maxValue = 1, bool print = true)
         {
             float value;
             value = (Main.MouseScreen.Y / (float)(Main.screenHeight)); //varies from 0 to 1
-            value = ApplyMouseFloatParameters(value, haveNegatives, maxValue);
+            value = ApplyMouseFloatParameters(value, haveNegatives, maxValue, print);
             return value;
         }
-        internal static float ApplyMouseFloatParameters(float value, bool haveNegatives, int maxValue)
+        internal static float ApplyMouseFloatParameters(float value, bool haveNegatives, int maxValue, bool print)
         {
             if (haveNegatives)
             {
@@ -89,6 +89,7 @@ namespace Emperia
                 value--;
             }
             value *= maxValue;
+            if (print) Main.NewText(value);
             return value;
         }
         public static void DrawPixel(Vector2 position, Color color)
@@ -254,7 +255,7 @@ namespace Emperia
             lootCycles.Clear();
         }
 
-        public override void AddRecipeGroups()/* tModPorter Note: Removed. Use ModSystem.AddRecipeGroups */
+        public override void AddRecipeGroups()
         {
             MakeRecipeGroup("Silver Bar", ItemID.SilverBar, ItemID.TungstenBar);
             MakeRecipeGroup("Copper Bar", ItemID.CopperBar, ItemID.TinBar);
@@ -267,6 +268,7 @@ namespace Emperia
             MakeRecipeGroup("Evil Hide", ItemID.ShadowScale, ItemID.TissueSample);
             MakeRecipeGroup("Evil Mushroom", ItemID.VileMushroom, ItemID.ViciousMushroom);
             MakeRecipeGroup("Evil Chunk", ItemID.RottenChunk, ItemID.Vertebrae);
+            MakeRecipeGroup("Wrench", ItemID.Wrench, ItemID.BlueWrench, ItemID.GreenWrench, ItemID.YellowWrench);
         }
         public void MakeRecipeGroup(string name, params int[] members)
         {

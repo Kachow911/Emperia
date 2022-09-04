@@ -280,7 +280,7 @@ public class PlatformLayer : ModItem
 			}
 			value -= (player.bodyFrame.Size() - new Vector2((float)player.width, 42f)) / 2f;
 			Projectile.Center = (player.position + value + offset - player.GetModPlayer<MyPlayer>().MouseDirection()).Floor();
-			Projectile.gfxOffY = player.gfxOffY;
+			Projectile.gfxOffY = player.gfxOffY; //for some reason this works without setting the projectile position after
 			Projectile.spriteDirection = player.direction;
 			//Projectile.rotation = ((player.gravDir == 1f) ? 0f : ((float)Math.PI));
 		}

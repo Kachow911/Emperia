@@ -144,8 +144,6 @@ namespace Emperia.UI
 			{
 				(Parent as EmperiaUIState).TryDeactivate(); //this check only seems to work in PaintUI
 			}
-			//if (mastersPalette != (Main.LocalPlayer.HeldItem.ModItem as Items.OldMastersPalette)) (Parent as EmperiaUIState).Active = false; //this check only seems to work in PaintUI
-
 		}
 		public override void Draw(SpriteBatch spriteBatch)
 		{

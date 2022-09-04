@@ -70,6 +70,12 @@ namespace Emperia.Items.Weapons
                 (Main.projectile[p].ModProjectile as TricksterSwordProj).sword = chosenSword;
                 Main.projectile[p].timeLeft = Item.useAnimation;
                 Main.projectile[p].scale = chosenSword.scale;
+
+                //ItemSwingVisual p = (Main.projectile[Projectile.NewProjectile(player.GetSource_ItemUse(Item), player.Center.X, player.Center.Y, 0f, 0f, ModContent.ProjectileType<ItemSwingVisual>(), 0, 0, Main.myPlayer, 0, 0)].ModProjectile as ItemSwingVisual);
+                //p.useAnimationMax = p.Projectile.timeLeft = Item.useAnimation;
+                //p.Projectile.scale = chosenSword.scale;
+                //p.texture = ModContent.Request<Texture2D>("Terraria/Images/Item_" + chosenSword.type).Value;
+                //Main.NewText(chosenSword.Name, Color.Blue); doesnt work bc asynchronous load stuffs
             }
         }
         public override void ModifyWeaponDamage(Player player, ref StatModifier damage)
@@ -208,7 +214,7 @@ namespace Emperia.Items.Weapons
                 Projectile.Center += new Vector2(0, 10 + (-2 * player.direction));
             }
             Projectile.Center = (Projectile.Center - player.GetModPlayer<MyPlayer>().MouseDirection()).Floor();
-            Projectile.gfxOffY = player.gfxOffY;
+            Projectile.position.Y += Projectile.gfxOffY = player.gfxOffY;
             Projectile.spriteDirection = player.direction;
         }
         public override bool PreDraw(ref Color lightColor)

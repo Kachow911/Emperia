@@ -97,8 +97,6 @@ namespace Emperia
             }
             else cursorIsFreeForUI = -1;
 
-            if (MyInterface?.CurrentState != null && MyInterface?.CurrentState is not CursorUI && Main.LocalPlayer.inventory[Main.LocalPlayer.selectedItem].type != ui.heldItemType) SetUIStateNull();
-
             if (MyInterface?.CurrentState != null && ui == MyInterface?.CurrentState) //right click to deactivate
             {
                 if (Main.mouseRight && canRightClick && cursorIsFreeForUI == 1

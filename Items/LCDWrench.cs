@@ -17,6 +17,7 @@ using Emperia.Items;
 using Terraria.GameInput;
 using Terraria.GameContent.UI.States;
 using Terraria.GameContent;
+using Terraria.DataStructures;
 
 namespace Emperia.Items
 {
@@ -30,24 +31,36 @@ namespace Emperia.Items
         public override void SetDefaults()
         {
             Item.useStyle = ItemUseStyleID.Swing;
-            Item.useTime = 10;
-            Item.useAnimation = 10;
+            Item.width = 28;
+            Item.height = 34;
+            Item.useTime = 8;
+            Item.useAnimation = 16;
             Item.autoReuse = true;
+            Item.noUseGraphic = true;
         }
         public int toolMode = 0;
         public int selectedBulb = 0;
-        public List<Color> selectedColors = new List<Color> { new Color(255, 0, 0), new Color(255, 255, 0), new Color(0, 255, 0), new Color(0, 0, 255), new Color(170, 0, 255) };
+        public List<Color> selectedColors = new List<Color> { new Color(255, 0, 0), new Color(255, 255, 0), new Color(0, 255, 0), new Color(0, 0, 255), new Color(170, 0, 255), new Color(255, 255, 255), new Color(150, 150, 150), new Color(50, 50, 50) };
         //public Color selectedColor = selectedColors.First();
         public Color selectedColor = Color.Black;
+
+        public static void OverlayType_LCDWrench(Player player, ref Color lightColor, ref Texture2D overlayTexture, ref Vector2 position, ref Rectangle? rectangle, ref Color color, ref float rotation, ref Vector2 origin, ref float scale, ref SpriteEffects direction)
+        {
+            LCDWrench lcdWrench = player.HeldItem.ModItem as LCDWrench; //this can return an object reference not set to isntance of object error
+            if (lcdWrench.toolMode == 0 && lcdWrench.selectedColor == Color.Black) return;
+            overlayTexture = ModContent.Request<Texture2D>("Emperia/Items/LCDWrenchScreen", AssetRequestMode.ImmediateLoad).Value;
+            color = lcdWrench.selectedColor;
+            return;
+        }
         public override bool? UseItem(Player player)
         {
-            Main.NewText(selectedColor, Color.Red);
-            /*if (player.itemAnimation == player.itemAnimationMax)
+            if (player.itemAnimation == player.itemAnimationMax)
             {
-                int p = Projectile.NewProjectile(player.GetSource_ItemUse(Item), player.Center.X, player.Center.Y, 0f, 0f, ModContent.ProjectileType<OldMastersPaletteBrushVisual>(), 0, 0, Main.myPlayer, 0, 0);
-                (Main.projectile[p].ModProjectile as OldMastersPaletteBrushVisual).useAnimationMax = Item.useAnimation;
-                Main.projectile[p].timeLeft = Item.useAnimation;
-            }*/
+                ItemSwingVisual p = (Main.projectile[Projectile.NewProjectile(player.GetSource_ItemUse(Item), player.Center.X, player.Center.Y, 0f, 0f, ModContent.ProjectileType<ItemSwingVisual>(), 0, 0, Main.myPlayer, 0, 0)].ModProjectile as ItemSwingVisual);
+                p.useAnimationMax = p.Projectile.timeLeft = Item.useAnimation;
+                p.overlayType = OverlayType_LCDWrench;
+                p.texture = ModContent.Request<Texture2D>("Emperia/Items/LCDWrench", AssetRequestMode.ImmediateLoad).Value;
+            }
 
             if (Item.GetGlobalItem<GItem>().TileInRange(Item, player) == false) return false;
             if (player.itemAnimation % Item.useTime != 0 || !player.controlUseItem) return false;
@@ -63,42 +76,79 @@ namespace Emperia.Items
             {
                 if (Framing.GetTileSafely(i, j).TileType == ModContent.TileType<Tiles.LCDScreenTile>())
                 {
-                    if (!LCDSystem.activeLCDs.ContainsKey((i, j)))
+                    switch (toolMode)
                     {
-                        LCDSystem.activeLCDs.Add((i, j), new Color[4] { Color.Black, Color.Black, Color.Black, Color.Black });
+                        case 0:
+                            if (!LCDSystem.activeLCDs.ContainsKey((i, j)))
+                            {
+                                LCDSystem.activeLCDs.Add((i, j), new Color[4] { Color.Black, Color.Black, Color.Black, Color.Black }); //if an entry ever gets set to all black, this needs to be undone
+                            }
+                            LCDSystem.activeLCDs[(i, j)][subTile] = selectedColor;
+                            break;
+                        case 1:
+                            LCDSystem.activeLCDs[(i, j)] = new Color[4] { selectedColor, selectedColor, selectedColor, selectedColor };
+                            break;
+                            //(Main.tile[i,j] as Tiles.LCDScreenTile)
                     }
-                    LCDSystem.activeLCDs[(i, j)][subTile] = selectedColor;
-                    //(Main.tile[i,j] as Tiles.LCDScreenTile)
                 }
             }
             return true;
         }
+        public override void PostDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
+        {
+            if (toolMode == 0 && selectedColor == Color.Black) return;
+            position.X -= 1;
+            position.Y -= 2; //unsure why its off lmao. maybe cus of the un-evenness of the wrench sprite
+            Texture2D screenTexture = ModContent.Request<Texture2D>("Emperia/Items/LCDWrenchScreen", AssetRequestMode.ImmediateLoad).Value;
+            spriteBatch.Draw(screenTexture, position, null, selectedColor, 0f, Vector2.Zero, Main.inventoryScale, SpriteEffects.None, 0f);
+        }
+        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
+        {
+            if (toolMode == 0 && selectedColor == Color.Black) return;
+            Texture2D screenTexture = ModContent.Request<Texture2D>("Emperia/Items/LCDWrenchScreen", AssetRequestMode.ImmediateLoad).Value;
+            Vector2 position = new Vector2(Item.position.X - Main.screenPosition.X + Item.width * 0.5f, Item.position.Y - Main.screenPosition.Y + Item.height - screenTexture.Height * 0.5f + 2f);
+            position.Y -= 2; //unsure why its off lmao. maybe cus of the un-evenness of the wrench sprite
+            spriteBatch.Draw(screenTexture, position, null, selectedColor, rotation, screenTexture.Size() * 0.5f, scale, SpriteEffects.None, 0f);
+        }
+        public override void PostUpdate()
+        {
+            Lighting.AddLight(Item.Center, new Vector3(selectedColor.R, selectedColor.G, selectedColor.B) / (255 * 2.25f));
+        }
+        public override void AddRecipes()
+        {
+            Recipe recipe = CreateRecipe();
+            recipe.AddRecipeGroup("Emperia:Wrench");
+            recipe.AddIngredient(null, "LCDScreen", 1);
+            recipe.AddIngredient(ItemID.Wire, 10);
+
+            recipe.AddTile(TileID.TinkerersWorkbench);
+
+            recipe.Register();
+        }
+        public override void SaveData(TagCompound tag)
+        {
+            var list = new List<TagCompound>();
+            for (int i = 0; i < selectedColors.Count; i++)
+            {
+                list.Add(new TagCompound() {
+                        { "color" + i.ToString(), selectedColors[i]}, //color[] has too many generic arguments to be saved
+                    });
+            }
+            tag["LCDWrenchColors"] = list;
+        }
+        public override void LoadData(TagCompound tag)
+        {
+            var list = tag.GetList<TagCompound>("LCDWrenchColors");
+            List<Color> colors = new List<Color>();
+            for (int i = 0; i < list.Count; i++)
+            {
+                colors.Add(list[i].Get<Color>("color" + i.ToString()));                    
+            }
+            selectedColors = colors;
+        }
     }
     public class LCDSystem : ModSystem
     {
-        /*public static List<Color> lcdStates = new List<Color>();
-        public class LCDState
-        {
-            public Color color;
-            public int i;
-            public int j;
-            public LootCycle(string source, int length)//, int index)
-            {
-                this.source = source;
-                this.index = 0;
-                this.sequence = Emperia.ShuffledArrayOfWholeNumbers(length);
-                lootCycles.Add(this);
-            }
-        }*/
-
-        /*public override void OnWorldLoad()
-        {
-            foreach (Color lcdState in lcdStates)
-            {
-                new LootCycle(staticCycle.source, staticCycle.length);
-            }
-        }*/
-
         public static Dictionary<(int, int), Color[]> activeLCDs = new Dictionary<(int, int), Color[]>();
         public override void LoadWorldData(TagCompound tag)
         {
@@ -162,6 +212,73 @@ namespace Emperia.Items
             activeLCDs.Clear();
         }
     }
+
+    public class LCDWrenchVisual : ModProjectile
+    {
+        public override void SetDefaults()
+        {
+            Projectile.damage = 0;
+            Projectile.width = 1;
+            Projectile.height = 1;
+            Projectile.tileCollide = false;
+            Projectile.timeLeft = 60;
+        }
+        public float useAnimationMax = 0;
+        Texture2D texture = ModContent.Request<Texture2D>("Emperia/Items/LCDWrench", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+        public override void OnSpawn(IEntitySource source)
+        {
+            DrawOriginOffsetY = -texture.Height;
+        }
+        public override void AI()
+        {
+            Player player = Main.player[Projectile.owner];
+            if (!player.ItemAnimationActive) Projectile.Kill();
+            player.heldProj = Projectile.whoAmI;
+
+            Projectile.Center = player.itemLocation;
+            Projectile.rotation = MathHelper.ToRadians(((Projectile.timeLeft - useAnimationMax / 2) / useAnimationMax * 198f) + 15) * -player.direction * player.gravDir; //rotation cannot be used in place of spriteeffects
+            Projectile.rotation += player.fullRotation;
+            //code beneath this adapted from vanilla medusa head projectile
+
+            //if (velocity.X != base.velocity.X || velocity.Y != base.velocity.Y)
+            //{
+            //	this.netUpdate = true;
+            //}
+
+            Projectile.velocity = player.GetModPlayer<MyPlayer>().MouseDirection();
+
+            Vector2 rotationOffset = new Vector2(-11.5f, -texture.Height);//experimentally setting Y to texture height
+            if (player.sleeping.isSleeping) rotationOffset.Y = -11.5f;
+            Projectile.Center = ((Projectile.Center - player.position) + rotationOffset).RotatedBy(player.fullRotation) + player.position - rotationOffset;
+            if (player.sleeping.isSleeping)
+            {
+                Vector2 posOffset;
+                player.sleeping.GetSleepingOffsetInfo(player, out posOffset);
+                Projectile.Center += posOffset * 2.4f;
+                Projectile.Center += new Vector2(0, 10 + (-2 * player.direction));
+            }
+            Projectile.Center = (Projectile.Center - player.GetModPlayer<MyPlayer>().MouseDirection()).Floor();
+            Projectile.position.Y += Projectile.gfxOffY = player.gfxOffY;
+            Projectile.spriteDirection = player.direction;
+        }
+        public override bool PreDraw(ref Color lightColor)
+        {
+            LCDWrench lcdWrench = Main.player[Projectile.owner].HeldItem.ModItem as LCDWrench; //this can return an object reference not set to isntance of object error
+            Player player = Main.player[Projectile.owner];
+            SpriteEffects direction = SpriteEffects.None;
+            if (player.direction != player.gravDir) direction = SpriteEffects.FlipHorizontally; //more compact way of checking player direction and gravity direction at once
+            if (player.gravDir == -1) direction = 1 - direction | SpriteEffects.FlipVertically; //flips both horizontally and vertically if upside down
+
+            Vector2 position = Projectile.position + new Vector2(texture.Width * 0.5f * player.direction, -texture.Height * 0.5f * player.gravDir).RotatedBy(Projectile.rotation) - Main.screenPosition; //not sure why 2f
+            Main.EntitySpriteDraw(texture, position, null, lightColor, Projectile.rotation, texture.Size() * 0.5f, Projectile.scale, direction, 1);
+
+            if (lcdWrench.toolMode == 0 && lcdWrench.selectedColor == Color.Black) return true;
+
+            Texture2D screenTexture = ModContent.Request<Texture2D>("Emperia/Items/LCDWrenchScreen", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+            Main.EntitySpriteDraw(screenTexture, position, null, lcdWrench.selectedColor, Projectile.rotation, texture.Size() * 0.5f, Projectile.scale, direction, 1);
+            return true;
+        }
+    }
 }
 namespace Emperia.UI
 {
@@ -170,6 +287,7 @@ namespace Emperia.UI
         Texture2D iconTexture;
         public bool mousedOverAny = false;
         public bool canScroll = true;
+        LCDWrench lcdWrench;
 
         public LcdUI(Vector2? activationPosition = null) : base(activationPosition)
         {
@@ -179,6 +297,8 @@ namespace Emperia.UI
         public override void OnInitialize()
         {
             heldItemType = ModContent.ItemType<Items.LCDWrench>();
+            if (Main.gameMenu) return;
+            lcdWrench = Main.LocalPlayer.HeldItem.ModItem as LCDWrench;
 
             iconTexture = ModContent.Request<Texture2D>("Emperia/UI/Icon_0", AssetRequestMode.ImmediateLoad).Value;
             MakeLargeIcons();
@@ -190,11 +310,11 @@ namespace Emperia.UI
 
         public void MakeLargeIcons()
         {
-            int iconCount = 5; //mastersPalette.selectedColors.Count;
-            int distance = -45;
+            int iconCount = lcdWrench.selectedColors.Count; //mastersPalette.selectedColors.Count;
+            int distance = -49; //(int)Emperia.MouseControlledFloatX(false, 30) + 30; //-45;
             for (int i = 0; i < iconCount; i++)
             {
-                Vector2 iconCenter = new Vector2(0, distance).RotatedBy(MathHelper.ToRadians((360 / 5) * i)) + activationPosition;
+                Vector2 iconCenter = new Vector2(0, distance).RotatedBy(MathHelper.ToRadians((360 / iconCount) * i)) + activationPosition;
                 Vector2 iconPosition = iconCenter - new Vector2(iconTexture.Width / 2, iconTexture.Height / 2);
                 iconPosition.X = (int)Math.Round(iconPosition.X / 2) * 2;
                 iconPosition.Y = (int)Math.Round(iconPosition.Y / 2) * 2;
@@ -279,7 +399,7 @@ namespace Emperia.UI
                 (Parent as LcdUI).mousedOverAny = false;
             }
             iconTexture = ModContent.Request<Texture2D>("Emperia/UI/Icon_" + iconType, AssetRequestMode.ImmediateLoad).Value;
-            if (lcdWrench != (Main.LocalPlayer.HeldItem.ModItem as LCDWrench))
+            if (Main.LocalPlayer.HeldItem.ModItem is not LCDWrench || lcdWrench != (Main.LocalPlayer.HeldItem.ModItem as LCDWrench))
             {
                 (Parent as EmperiaUIState).TryDeactivate(); //this check only seems to work in PaintUI
             } 
@@ -339,13 +459,11 @@ namespace Emperia.UI
 
             //color = Main.hslToRgb(HSL);
 
-            lcdWrench = (Main.LocalPlayer.HeldItem.ModItem as LCDWrench);
-
             //UISystem.AddIconScrollWheelFunctionality(ref lcdWrench.selectedColor, color, lcdWrench.selectedColors, iconIndex, ref (Parent as LcdUI).canScroll;
             if (lcdWrench.selectedBulb == iconIndex && PlayerInput.ScrollWheelDeltaForUI != 0 && (Parent as LcdUI).canScroll)
             {
-                int iconToScrollTo = (iconIndex - Math.Sign(PlayerInput.ScrollWheelDeltaForUI)) % 5;
-                if (iconToScrollTo < 0) iconToScrollTo += 5;
+                int iconToScrollTo = (iconIndex - Math.Sign(PlayerInput.ScrollWheelDeltaForUI)) % lcdWrench.selectedColors.Count;
+                if (iconToScrollTo < 0) iconToScrollTo += lcdWrench.selectedColors.Count;
                 lcdWrench.selectedBulb = iconToScrollTo;
                 (Parent as LcdUI).canScroll = false;
                 // PlayerInput.ScrollWheelDelta = 0; is set in ModPlayer PreUpdate()
@@ -418,8 +536,6 @@ namespace Emperia.UI
         }
         public override void Update(GameTime gameTime)
         {
-            lcdWrench = (Main.LocalPlayer.HeldItem.ModItem as LCDWrench);
-
             //(Parent as LcdUI).canScroll = true; //this should probably not be here but you cant run update in the main PaintUI
 
             if (bar.Contains(new Point(Main.mouseX, Main.mouseY)))
@@ -515,7 +631,7 @@ namespace Emperia.UI
             }
             if (mousedOver || lockState == 1)
             {
-                sb.Draw(TextureAssets.ColorHighlight.Value, destinationRectangle, Color.Yellow);//Main.OurFavoriteColor);
+                sb.Draw(TextureAssets.ColorHighlight.Value, destinationRectangle, new Color(255, 210, 0));//Main.OurFavoriteColor);
             }
             sb.Draw(TextureAssets.ColorSlider.Value, new Vector2(barSegmentWidth + 167f * scale * perc, barHeightCenter + 4f * scale), (Rectangle?)null, Color.White, 0f, new Vector2(0.5f * (float)TextureAssets.ColorSlider.Width(), 0.5f * (float)TextureAssets.ColorSlider.Height()), scale, (SpriteEffects)0, 0f);
             if (Main.mouseX >= rectangle.X && Main.mouseX <= rectangle.X + rectangle.Width)
@@ -547,9 +663,10 @@ namespace Emperia.UI
         }
         public LcdColorOption GetBulb(int iconIndex)
         {
-            foreach (LcdColorOption bulb in Parent.Children)
+            foreach (var bulb in Parent.Children)
             {
-                if (bulb.iconIndex == iconIndex) return bulb;
+                if (bulb is not LcdColorOption) continue;
+                if ((bulb as LcdColorOption).iconIndex == iconIndex) return (bulb as LcdColorOption);
             }
             return null;
         }

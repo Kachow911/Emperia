@@ -13,6 +13,7 @@ using Emperia.UI;
 using Terraria.GameContent;
 using static Terraria.Audio.SoundEngine;
 using Terraria.ModLoader.IO;
+using Emperia.Projectiles;
 
 namespace Emperia.Items
 {
@@ -87,13 +88,28 @@ namespace Emperia.Items
             if (player.HeldItem.type == ItemID.Paintbrush || player.HeldItem.type == ItemID.SpectrePaintbrush || player.HeldItem.type == ItemID.PaintRoller || player.HeldItem.type == ItemID.SpectrePaintRoller) Item.paint = 0;
             else Item.paint = color;
         }
+
+        public static void OverlayType_OldMastersPaletteBrush(Player player, ref Color lightColor, ref Texture2D overlayTexture, ref Vector2 position, ref Rectangle? rectangle, ref Color color, ref float rotation, ref Vector2 origin, ref float scale, ref SpriteEffects direction)
+        {
+            OldMastersPalette mastersPalette = player.HeldItem.ModItem as OldMastersPalette; //this can return an object reference not set to isntance of object error
+            if (!mastersPalette.selectedColors.Any()) return;
+            int paintType = mastersPalette.color;
+            if (paintType == 0 || mastersPalette.brushMode == 2) return;
+
+            overlayTexture = mastersPalette.GetPaintBlobTexture(paintType, 0, true);
+            color = mastersPalette.PaintToColor(paintType);
+            if (paintType != 31) color = color.MultiplyRGB(lightColor);
+            rectangle = new Rectangle(8, 0, 26, 30);
+            return;
+        }
         public override bool? UseItem(Player player)
         {
             if (player.itemAnimation == player.itemAnimationMax)
             {
-                int p = Projectile.NewProjectile(player.GetSource_ItemUse(Item), player.Center.X, player.Center.Y, 0f, 0f, ModContent.ProjectileType<OldMastersPaletteBrushVisual>(), 0, 0, Main.myPlayer, 0, 0);
-                (Main.projectile[p].ModProjectile as OldMastersPaletteBrushVisual).useAnimationMax = Item.useAnimation;
-                Main.projectile[p].timeLeft = Item.useAnimation;
+                ItemSwingVisual p = (Main.projectile[Projectile.NewProjectile(player.GetSource_ItemUse(Item), player.Center.X, player.Center.Y, 0f, 0f, ModContent.ProjectileType<ItemSwingVisual>(), 0, 0, Main.myPlayer, 0, 0)].ModProjectile as ItemSwingVisual);
+                p.useAnimationMax = p.Projectile.timeLeft = Item.useAnimation;
+                p.overlayType = OverlayType_OldMastersPaletteBrush;
+                p.texture = ModContent.Request<Texture2D>("Emperia/Items/Palette/OldMastersPalette_Brush" + visualMode, ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
             }
 
             if (Item.GetGlobalItem<GItem>().TileInRange(Item, player) == false) return false;
@@ -559,93 +575,6 @@ namespace Emperia.Items
 
                     if (paintType != 31) color = color.MultiplyRGB(lightColor);
                     Main.EntitySpriteDraw(paintTexture, position, (Rectangle)paintPosition.GetValue(i), color, Projectile.rotation, texture.Size() * 0.5f, Projectile.scale, direction, 1);
-                }
-            }
-            return true;
-        }
-    }
-    public class OldMastersPaletteBrushVisual : ModProjectile
-    {
-
-        public override void SetDefaults()
-        {
-            Projectile.damage = 0;
-            Projectile.width = 1;
-            Projectile.height = 1;
-            Projectile.tileCollide = false;
-            Projectile.timeLeft = 60;
-        }
-        public float useAnimationMax = 0;
-        int meleeFrame = 0;
-        static Vector2[] handPosition = { new Vector2(-7, -10), new Vector2(2, -11), new Vector2(2, 3) };
-
-
-        public override void OnSpawn(IEntitySource source)
-        {
-            DrawOriginOffsetX = -12 * Main.player[Projectile.owner].direction;
-            DrawOriginOffsetY = -30; //* (int)Main.player[Projectile.owner].gravDir;
-            if (Main.player[Projectile.owner].direction == -1) DrawOffsetX = -26;
-        }
-        public override void AI()
-        {
-            Player player = Main.player[Projectile.owner];
-            //if (!player.ItemAnimationActive) Projectile.Kill();
-            player.heldProj = Projectile.whoAmI;
-
-            switch (player.bodyFrame.Y / player.bodyFrame.Height)
-            {
-                case 1: meleeFrame = 0; break;
-                case 2: meleeFrame = 1; break;
-                case 3: meleeFrame = 2; break;
-                default: meleeFrame = 0; break;
-            }
-            Projectile.Center = player.MountedCenter + new Vector2(((Vector2)handPosition.GetValue(meleeFrame)).X * player.direction, ((Vector2)handPosition.GetValue(meleeFrame)).Y * player.gravDir);
-            Projectile.rotation = MathHelper.ToRadians(((Projectile.timeLeft - useAnimationMax / 2) / useAnimationMax * 198f) + 15) * -player.direction * player.gravDir; //rotation cannot be used in place of spriteeffects
-            Projectile.rotation += player.fullRotation;
-            //code beneath this adapted from vanilla medusa head projectile
-
-            //if (velocity.X != base.velocity.X || velocity.Y != base.velocity.Y)
-            //{
-            //	this.netUpdate = true;
-            //}
-
-            Projectile.velocity = player.GetModPlayer<MyPlayer>().MouseDirection();
-
-            Vector2 rotationOffset = new Vector2(-11.5f, -11.5f);
-            Projectile.Center = ((Projectile.Center - player.position) + rotationOffset).RotatedBy(player.fullRotation) + player.position - rotationOffset;
-            if (player.sleeping.isSleeping)
-            {
-                Vector2 posOffset;
-                player.sleeping.GetSleepingOffsetInfo(player, out posOffset);
-                Projectile.Center += posOffset * 2.4f;
-                Projectile.Center += new Vector2(0, 10 + (-2 * player.direction));
-            }
-            Projectile.Center = (Projectile.Center - player.GetModPlayer<MyPlayer>().MouseDirection()).Floor();
-            Projectile.gfxOffY = player.gfxOffY;
-            Projectile.spriteDirection = player.direction;
-        }
-        public override bool PreDraw(ref Color lightColor)
-        {
-            OldMastersPalette mastersPalette = Main.player[Projectile.owner].HeldItem.ModItem as OldMastersPalette; //this can return an object reference not set to isntance of object error
-            Player player = Main.player[Projectile.owner];
-            SpriteEffects direction = SpriteEffects.None;
-            if (player.direction != player.gravDir) direction = SpriteEffects.FlipHorizontally; //more compact way of checking player direction and gravity direction at once
-            if (player.gravDir == -1) direction = 1 - direction | SpriteEffects.FlipVertically; //flips both horizontally and vertically if upside down
-
-            Texture2D texture = ModContent.Request<Texture2D>("Emperia/Items/Palette/OldMastersPalette_Brush" + mastersPalette.visualMode, ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
-            Vector2 position = Projectile.position + new Vector2(texture.Width * 0.5f * player.direction, -texture.Height * 0.5f * player.gravDir).RotatedBy(Projectile.rotation) - Main.screenPosition; //not sure why 2f
-            Main.EntitySpriteDraw(texture, position, null, lightColor, Projectile.rotation, texture.Size() * 0.5f, Projectile.scale, direction, 1);
-
-            if (mastersPalette.selectedColors.Any())
-            {
-                int paintType = mastersPalette.color;
-                if (paintType != 0 && mastersPalette.brushMode != 2)
-                {
-                    Texture2D paintTexture = mastersPalette.GetPaintBlobTexture(paintType, 0, true);
-                    Color color = mastersPalette.PaintToColor(paintType);
-
-                    if (paintType != 31) color = color.MultiplyRGB(lightColor);
-                    Main.EntitySpriteDraw(paintTexture, position, new Rectangle(8, 0, 26, 30), color, Projectile.rotation, texture.Size() * 0.5f, Projectile.scale, direction, 1);
                 }
             }
             return true;
