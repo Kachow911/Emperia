@@ -42,7 +42,9 @@ namespace Emperia.Items
         public int selectedBulb = 0;
         public List<Color> selectedColors = new List<Color> { new Color(255, 0, 0), new Color(255, 255, 0), new Color(0, 255, 0), new Color(0, 0, 255), new Color(170, 0, 255), new Color(255, 255, 255), new Color(150, 150, 150), new Color(50, 50, 50) };
         //public Color selectedColor = selectedColors.First();
-        public Color selectedColor = Color.Black;
+        public Color selectedColor = Color.Black; //this could probably be a getter setter using selectedbulb
+        public bool eyedropperMode = false;
+        public bool editWholeTiles = false;
 
         public static void OverlayType_LCDWrench(Player player, ref Color lightColor, ref Texture2D overlayTexture, ref Vector2 position, ref Rectangle? rectangle, ref Color color, ref float rotation, ref Vector2 origin, ref float scale, ref SpriteEffects direction)
         {
@@ -76,6 +78,12 @@ namespace Emperia.Items
             {
                 if (Framing.GetTileSafely(i, j).TileType == ModContent.TileType<Tiles.LCDScreenTile>())
                 {
+                    if (eyedropperMode)
+                    {
+                        selectedColors[selectedBulb] = LCDSystem.activeLCDs[(i, j)][subTile];
+                        eyedropperMode = false;
+                        return true;
+                    }
                     switch (toolMode)
                     {
                         case 0:
@@ -142,7 +150,7 @@ namespace Emperia.Items
             List<Color> colors = new List<Color>();
             for (int i = 0; i < list.Count; i++)
             {
-                colors.Add(list[i].Get<Color>("color" + i.ToString()));                    
+                colors.Add(list[i].Get<Color>("color" + i.ToString()));
             }
             selectedColors = colors;
         }
@@ -171,7 +179,7 @@ namespace Emperia.Items
                     Color color3 = item.Get<Color>("color3");
                     colors = new[] { color0, color1, color2, color3 };
                 }
-                    
+
                 activeLCDs[(tileX, tileY)] = colors;
             }
         }
@@ -212,7 +220,7 @@ namespace Emperia.Items
             activeLCDs.Clear();
         }
     }
-
+}
 namespace Emperia.UI
 {
     class LcdUI : EmperiaUIState
@@ -220,6 +228,7 @@ namespace Emperia.UI
         Texture2D iconTexture;
         public bool mousedOverAny = false;
         public bool canScroll = true;
+        internal bool canClickBulbs = true;
         LCDWrench lcdWrench;
 
         public LcdUI(Vector2? activationPosition = null) : base(activationPosition)
@@ -236,9 +245,16 @@ namespace Emperia.UI
             iconTexture = ModContent.Request<Texture2D>("Emperia/UI/Icon_0", AssetRequestMode.ImmediateLoad).Value;
             MakeLargeIcons();
             MakeValueBars();
+
             Vector2 position = activationPosition - new Vector2(iconTexture.Width / 2, iconTexture.Height / 2);
             UIElement mainIcon = new LcdToolUI(position); //ModContent.Request<Texture2D>("Emperia/UI/Icon_0")
             MakeIcon(mainIcon, position, 40);
+
+            Vector2 eyedropPosition = activationPosition + new Vector2(20, -14);//+ new Vector2(12, 10); // 26
+            eyedropPosition.X = (int)Math.Round(eyedropPosition.X / 2) * 2;
+            eyedropPosition.Y = (int)Math.Round(eyedropPosition.Y / 2) * 2;
+            UIElement eyedropper = new Eyedropper(eyedropPosition);
+            MakeIcon(eyedropper, eyedropPosition, 14, 14);
         }
 
         public void MakeLargeIcons()
@@ -274,6 +290,15 @@ namespace Emperia.UI
             icon.Width.Set(width, 0);
             icon.Height.Set(height, 0);
             Append(icon);
+        }
+        public LcdColorOption GetBulb(int iconIndex)
+        {
+            foreach (var bulb in Children)
+            {
+                if (bulb is not LcdColorOption) continue;
+                if ((bulb as LcdColorOption).iconIndex == iconIndex) return (bulb as LcdColorOption);
+            }
+            return null;
         }
     }
     class LcdUIElement : UIElement
@@ -312,6 +337,7 @@ namespace Emperia.UI
             GeneralUpdate();
 
             (Parent as LcdUI).canScroll = true; //this should probably not be here but you cant run update in the main PaintUI
+            if (Main.mouseLeftRelease) (Parent as LcdUI).canClickBulbs = true;
             Main.LocalPlayer.GetModPlayer<MyPlayer>().scrollingInUI = true;
 
             if (Vector2.Distance((Parent as LcdUI).activationPosition, Main.MouseScreen) < 19f)
@@ -321,7 +347,7 @@ namespace Emperia.UI
                 {
                     if (Main.mouseLeft && canBeClicked)
                     {
-                        lcdWrench.toolMode = (lcdWrench.toolMode + 1) % 3;
+                        lcdWrench.toolMode = (lcdWrench.toolMode + 1) % 1;
                         canBeClicked = false;
                     }
                 }
@@ -344,13 +370,17 @@ namespace Emperia.UI
             
             base.Draw(spriteBatch);
             spriteBatch.Draw(iconTexture, position, null, Color.White);
-            Texture2D brushTexture = ModContent.Request<Texture2D>("Emperia/UI/Brush_" + lcdWrench.toolMode, AssetRequestMode.ImmediateLoad).Value;
-            spriteBatch.Draw(brushTexture, position, null, Color.White);
+            //Texture2D brushTexture = ModContent.Request<Texture2D>("Emperia/UI/Brush_" + lcdWrench.toolMode, AssetRequestMode.ImmediateLoad).Value;
+            //spriteBatch.Draw(brushTexture, position, null, Color.White);
+            Texture2D toolTexture = ModContent.Request<Texture2D>("Emperia/UI/LCDWrench/Tool_" + lcdWrench.toolMode, AssetRequestMode.ImmediateLoad).Value;
+            spriteBatch.Draw(toolTexture, position, null, Color.White);
+            Texture2D toolScreenTexture = ModContent.Request<Texture2D>("Emperia/UI/LCDWrench/ToolScreen_" + lcdWrench.toolMode, AssetRequestMode.ImmediateLoad).Value;
+            spriteBatch.Draw(toolScreenTexture, position, null, lcdWrench.selectedColor);
 
             //IngameOptions.DrawValueBar(spriteBatch, 1f, 0.5f, 1, DelegateMethods.ColorLerp_HSL_S);
         }
     }
-    class LcdColorOption : LcdUIElement
+    class  LcdColorOption : LcdUIElement
     {
         public LcdColorOption(int index, Vector2 pos)
         {
@@ -365,25 +395,14 @@ namespace Emperia.UI
         }
 
         public Vector3 HSL;
-        Texture2D bucketTexture;
-        Texture2D paintTexture;
+        Texture2D bulbTexture;
         LCDWrench lcdWrench = Main.LocalPlayer.HeldItem.ModItem as LCDWrench;
 
         public override void OnInitialize()
         {
             iconTexture = ModContent.Request<Texture2D>("Emperia/UI/Icon_0", AssetRequestMode.ImmediateLoad).Value;
-            /*switch (iconIndex)
-            {
-                case 0: color = Color.Red; break;
-                case 1: color = Color.Green; break;
-                case 2: color = Color.Blue; break;
-                case 3: color = Color.Orange; break;
-                case 4 : color = Color.Purple; break;
-            }*/
-            //color = Color.Black;
             if (!Main.gameMenu) HSL = Main.rgbToHsl(Color);
-            bucketTexture = ModContent.Request<Texture2D>("Emperia/UI/Bucket", AssetRequestMode.ImmediateLoad).Value;
-            paintTexture = ModContent.Request<Texture2D>("Emperia/UI/PaintSplatter", AssetRequestMode.ImmediateLoad).Value;
+            bulbTexture = ModContent.Request<Texture2D>("Emperia/UI/LCDWrench/Bulb", AssetRequestMode.ImmediateLoad).Value;
         }
         public override void Update(GameTime gameTime)
         {
@@ -404,9 +423,15 @@ namespace Emperia.UI
             if (Vector2.Distance(position + new Vector2(iconTexture.Width / 2, iconTexture.Height / 2), Main.MouseScreen) < 19f)
             {
                 MouseOver(this);
-                if (Main.mouseLeft)
+                if (Main.mouseLeft && (Parent as LcdUI).canClickBulbs)
                 {
-                    if (lcdWrench.selectedBulb != iconIndex)
+                    if (lcdWrench.eyedropperMode)
+                    {
+                        (Parent as LcdUI).GetBulb(lcdWrench.selectedBulb).Color = this.Color;
+                        (Parent as LcdUI).canClickBulbs = false;
+                        lcdWrench.eyedropperMode = false;
+                    }
+                    else if (lcdWrench.selectedBulb != iconIndex)
                     {
                         lcdWrench.selectedBulb = iconIndex;
                     }
@@ -428,9 +453,6 @@ namespace Emperia.UI
             }
 
             iconTexture = ModContent.Request<Texture2D>("Emperia/UI/Icon_" + iconType).Value;
-
-            bucketTexture = ModContent.Request<Texture2D>("Emperia/UI/Bucket").Value;
-            paintTexture = ModContent.Request<Texture2D>("Emperia/UI/PaintSplatter").Value;
         }
         public override void Draw(SpriteBatch spriteBatch)
         {
@@ -450,8 +472,7 @@ namespace Emperia.UI
             spriteBatch.Draw(iconTexture, position, null, brightness);
             if (brightness == new Color(150, 150, 150)) brightness = new Color(190, 190, 190); //buckets need to be brighter to be distinguishable
             else if (brightness == new Color(80, 80, 80)) brightness = new Color(140, 140, 140);
-            spriteBatch.Draw(bucketTexture, position, null, brightness);
-            spriteBatch.Draw(paintTexture, position, null, Color.MultiplyRGB(brightness));
+            spriteBatch.Draw(bulbTexture, position, null, Color.MultiplyRGB(brightness));
         }
     }
     class ValueBarUI : LcdUIElement
@@ -481,13 +502,13 @@ namespace Emperia.UI
                     //LcdColorOption bulb = bulbIconList[lcdWrench.selectedBulb] as LcdColorOption;
                     switch (iconIndex)
                     {
-                        case 0: GetBulb(lcdWrench.selectedBulb).HSL.X = percent; break;
-                        case 1: GetBulb(lcdWrench.selectedBulb).HSL.Y = percent; break;
-                        case 2: GetBulb(lcdWrench.selectedBulb).HSL.Z = ScaledLuminosity(percent); break;
+                        case 0: (Parent as LcdUI).GetBulb(lcdWrench.selectedBulb).HSL.X = percent; break;
+                        case 1: (Parent as LcdUI).GetBulb(lcdWrench.selectedBulb).HSL.Y = percent; break;
+                        case 2: (Parent as LcdUI).GetBulb(lcdWrench.selectedBulb).HSL.Z = ScaledLuminosity(percent); break;
                     }
-                    GetBulb(lcdWrench.selectedBulb).Color = Main.hslToRgb(GetBulb(lcdWrench.selectedBulb).HSL);
+                    (Parent as LcdUI).GetBulb(lcdWrench.selectedBulb).Color = Main.hslToRgb((Parent as LcdUI).GetBulb(lcdWrench.selectedBulb).HSL);
                     //Main.NewText(bulb.color);
-                    lcdWrench.selectedColor = GetBulb(lcdWrench.selectedBulb).Color;
+                    lcdWrench.selectedColor = (Parent as LcdUI).GetBulb(lcdWrench.selectedBulb).Color;
                     //Main.NewText(lcdWrench.selectedColor, Color.Green);
                 }
             }
@@ -502,9 +523,9 @@ namespace Emperia.UI
                     {
                         switch (iconIndex)
                         {
-                            case 0: GetBulb(lcdWrench.selectedBulb).HSL.X = percent; break;
-                            case 1: GetBulb(lcdWrench.selectedBulb).HSL.Y = percent; break;
-                            case 2: GetBulb(lcdWrench.selectedBulb).HSL.Z = ScaledLuminosity(percent); break;
+                            case 0: (Parent as LcdUI).GetBulb(lcdWrench.selectedBulb).HSL.X = percent; break;
+                            case 1: (Parent as LcdUI).GetBulb(lcdWrench.selectedBulb).HSL.Y = percent; break;
+                            case 2: (Parent as LcdUI).GetBulb(lcdWrench.selectedBulb).HSL.Z = ScaledLuminosity(percent); break;
                         }
                     }
 
@@ -534,11 +555,11 @@ namespace Emperia.UI
             //Main.NewText(percent);
             switch (iconIndex)
             {
-                case 0: hslMethod = ColorLerp_HSL_H; percent = GetBulb(lcdWrench.selectedBulb).HSL.X; break;
-                case 1: hslMethod = ColorLerp_HSL_S; percent = GetBulb(lcdWrench.selectedBulb).HSL.Y; break;
-                case 2: hslMethod = ColorLerp_HSL_L; percent = UnscaleLuminosity(GetBulb(lcdWrench.selectedBulb).HSL.Z); break;
+                case 0: hslMethod = ColorLerp_HSL_H; percent = (Parent as LcdUI).GetBulb(lcdWrench.selectedBulb).HSL.X; break;
+                case 1: hslMethod = ColorLerp_HSL_S; percent = (Parent as LcdUI).GetBulb(lcdWrench.selectedBulb).HSL.Y; break;
+                case 2: hslMethod = ColorLerp_HSL_L; percent = UnscaleLuminosity((Parent as LcdUI).GetBulb(lcdWrench.selectedBulb).HSL.Z); break;
             }
-            DrawValueBar(spriteBatch, 1f, percent, position, hslMethod, GetBulb(lcdWrench.selectedBulb).HSL, 0);
+            DrawValueBar(spriteBatch, 1f, percent, position, hslMethod, (Parent as LcdUI).GetBulb(lcdWrench.selectedBulb).HSL, 0);
         }
         public static float DrawValueBar(SpriteBatch sb, float scale, float perc, Vector2 position, LerpDelegate colorMethod, Vector3 HSL, int lockState = 0)
         {
@@ -594,14 +615,43 @@ namespace Emperia.UI
         {
             return Main.hslToRgb(HSL.X, HSL.Y, ScaledLuminosity(percent));
         }
-        public LcdColorOption GetBulb(int iconIndex)
+    }
+    class Eyedropper : LcdUIElement
+    {
+        public Eyedropper(Vector2 pos)
         {
-            foreach (var bulb in Parent.Children)
-            {
-                if (bulb is not LcdColorOption) continue;
-                if ((bulb as LcdColorOption).iconIndex == iconIndex) return (bulb as LcdColorOption);
-            }
-            return null;
+            position = pos;
+        }
+        LCDWrench lcdWrench = Main.LocalPlayer.HeldItem.ModItem as LCDWrench;
+        public override void OnInitialize()
+        {
+            iconTexture = ModContent.Request<Texture2D>("Emperia/UI/LCDWrench/Eyedropper_0", AssetRequestMode.ImmediateLoad).Value;
+        }
+        public override void Update(GameTime gameTime)
+        {
+            GeneralUpdate();
+                //if (Vector2.Distance(position + new Vector2(6.5f, 7.5f), Main.MouseScreen) < 6.5f)
+                if (Vector2.Distance(position + new Vector2(6.5f, 6.5f), Main.MouseScreen) < 5.5f) //6.5f is offcenter so as to not overlap w/ other buttons
+                {
+                    MouseOver(this);
+					if (Main.mouseLeft && canBeClicked)
+					{
+						lcdWrench.eyedropperMode = !lcdWrench.eyedropperMode;
+                        canBeClicked = false;
+					}
+				}
+                else
+                {
+                    mousedOver = false;
+                    (Parent as LcdUI).mousedOverAny = false;
+                }
+            if (lcdWrench.eyedropperMode) iconType = 1;
+            iconTexture = iconTexture = ModContent.Request<Texture2D>("Emperia/UI/LCDWrench/Eyedropper_" + iconType).Value;
+        }
+        public override void Draw(SpriteBatch spriteBatch)
+        {
+            base.Draw(spriteBatch);
+            spriteBatch.Draw(iconTexture, position, null, Color.White);
         }
     }
 }
