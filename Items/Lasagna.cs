@@ -18,13 +18,13 @@ namespace Emperia.Items
         {
             Item.width = 28;
             Item.height = 30;
-            Item.useStyle = 2;
+            Item.useStyle = ItemUseStyleID.EatFood;
             Item.useAnimation = 17;
             Item.useTime = 17;
             Item.useTurn = true;
             Item.UseSound = SoundID.Item3;
                         Item.consumable = true;
-            Item.rare = 1;
+            Item.rare = ItemRarityID.Blue;
             Item.value = 200;
             Item.buffType = BuffID.WellFed;
             Item.buffTime = 108000;

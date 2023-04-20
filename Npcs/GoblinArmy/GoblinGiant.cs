@@ -128,13 +128,13 @@ namespace Emperia.Npcs.GoblinArmy
 				
 					direction.Normalize();
 					for (int index = 0; index < 10; ++index)
-						Dust.NewDust(placePosition, NPC.width, NPC.height, 31, 0.0f, 0.0f, 100, new Color(), 1.5f);
+						Dust.NewDust(placePosition, NPC.width, NPC.height, DustID.Smoke, 0.0f, 0.0f, 100, new Color(), 1.5f);
 					for (int index1 = 0; index1 < 10; ++index1)
 					{
-						int index2 = Dust.NewDust(placePosition, NPC.width, NPC.height, 6, 0.0f, 0.0f, 100, new Color(), 2.5f);
+						int index2 = Dust.NewDust(placePosition, NPC.width, NPC.height, DustID.Torch, 0.0f, 0.0f, 100, new Color(), 2.5f);
 						Main.dust[index2].noGravity = true;
 						Main.dust[index2].velocity *= 3f;
-						int index3 = Dust.NewDust(placePosition, NPC.width, NPC.height, 6, 0.0f, 0.0f, 100, new Color(), 1.5f);
+						int index3 = Dust.NewDust(placePosition, NPC.width, NPC.height, DustID.Torch, 0.0f, 0.0f, 100, new Color(), 1.5f);
 						Main.dust[index3].velocity *= 2f;
 					}
 					Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X, NPC.Center.Y - NPC.height/2, direction.X * 12f, direction.Y * 12f, ModContent.ProjectileType<GoblinBomb>(), NPC.damage / 3, 1, Main.myPlayer, 0, 0);
@@ -190,7 +190,7 @@ namespace Emperia.Npcs.GoblinArmy
 
 			for (int i = 0; i < 25; i++)
 			{
-				int dust = Dust.NewDust(NPC.position, NPC.width, NPC.height, 7);
+				int dust = Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.WoodFurniture);
 				Vector2 vel = new Vector2(0, -5).RotatedBy(Main.rand.NextFloat() * 6.283f) * 3.5f;
 			}
 		}

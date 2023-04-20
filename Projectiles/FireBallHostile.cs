@@ -28,7 +28,7 @@ namespace Emperia.Projectiles
 			int x1 = Main.rand.Next(7);
 			if (Main.rand.Next(2) == 0)
             {
-				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 258);
+				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.LavaMoss);
 			}
 		}
 			public override bool OnTileCollide(Vector2 oldVelocity)

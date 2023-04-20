@@ -14,7 +14,7 @@ namespace Emperia.Items.Sets.PreHardmode.Desert
 			Item.width = 20;
 			Item.height = 20;
 						Item.value = 100;
-			Item.rare = 1;
+			Item.rare = ItemRarityID.Blue;
 		}
 	}
 }

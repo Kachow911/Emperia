@@ -25,12 +25,12 @@ namespace Emperia.Items.Sets.PreHardmode.Aquatic
             Item.height = 40;
             Item.useTime = 10;
             Item.useAnimation = 10;
-            Item.useStyle = 5;
-            Item.shoot = 3;
+            Item.useStyle = ItemUseStyleID.Shoot;
+            Item.shoot = ProjectileID.Shuriken;
             Item.useAmmo = ItemID.WoodenArrow;
             Item.knockBack = 1;
             Item.value = 1000;
-            Item.rare = 3;
+            Item.rare = ItemRarityID.Orange;
             Item.autoReuse = false;
             Item.shootSpeed = 12f;
 			Item.UseSound = SoundID.Item5; 

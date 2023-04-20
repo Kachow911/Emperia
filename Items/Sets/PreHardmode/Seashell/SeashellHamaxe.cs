@@ -25,10 +25,10 @@ public class SeashellHamaxe : ModItem
         Item.useTurn = true;
         Item.axe = 22;
 		Item.hammer = 70;
-        Item.useStyle = 1;
+        Item.useStyle = ItemUseStyleID.Swing;
         Item.knockBack = 5.5f;
         Item.value = 19000;
-        Item.rare = 1;
+        Item.rare = ItemRarityID.Blue;
         Item.UseSound = SoundID.Item1;
         Item.autoReuse = true;
         
@@ -44,7 +44,7 @@ public class SeashellHamaxe : ModItem
    {
         if ((player.wet && !player.lavaWet && !player.honeyWet || (Main.raining && WorldGen.InAPlaceWithWind(player.position, player.width, player.height))) && player.itemAnimation % 2 == 0)
         {
-            int dust1 = Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, 107, 0.0f, 0.0f, 0, default, Main.rand.NextFloat(0.6f, 0.8f));
+            int dust1 = Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, DustID.TerraBlade, 0.0f, 0.0f, 0, default, Main.rand.NextFloat(0.6f, 0.8f));
             Main.dust[dust1].noGravity = true;
             Main.dust[dust1].velocity.X = (player.itemAnimation / (float)player.itemAnimationMax + 0.25f) * player.direction;
             Main.dust[dust1].velocity.Y = (player.itemAnimationMax - player.itemAnimation) / (float)player.itemAnimationMax;

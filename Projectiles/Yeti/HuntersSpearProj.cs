@@ -55,13 +55,13 @@ namespace Emperia.Projectiles.Yeti
 
                 if (i % 8 == 0)
                 {   //odd
-                    Dust.NewDust(Projectile.Center + vec, Main.rand.Next(1, 7), Main.rand.Next(1, 7), 51);
+                    Dust.NewDust(Projectile.Center + vec, Main.rand.Next(1, 7), Main.rand.Next(1, 7), DustID.SnowBlock);
                 }
 
                 if (i % 9 == 0)
                 {   //even
                     vec.Normalize();
-                    Dust.NewDust(Projectile.Center, Main.rand.Next(1, 7), Main.rand.Next(1, 7),51, vec.X * 2, vec.Y * 2);
+                    Dust.NewDust(Projectile.Center, Main.rand.Next(1, 7), Main.rand.Next(1, 7),DustID.SnowBlock, vec.X * 2, vec.Y * 2);
                 }
             }
 		}

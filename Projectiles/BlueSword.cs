@@ -33,7 +33,7 @@ namespace Emperia.Projectiles
 			Projectile.alpha = 100 + (int) (Math.Cos(Projectile.timeLeft) * 100);
 			if(Main.rand.Next(2) == 0)
 			{
-				int num250 = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 187, (float)(Projectile.direction * 2), 0f, 150, new Color(53f, 67f, 253f), 1.3f);
+				int num250 = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, DustID.Flare_Blue, (float)(Projectile.direction * 2), 0f, 150, new Color(53f, 67f, 253f), 1.3f);
 				Main.dust[num250].noGravity = true;
 				Main.dust[num250].velocity *= 0f;
 			}
@@ -51,11 +51,11 @@ namespace Emperia.Projectiles
             {
               float num1 = (float) (Projectile.oldVelocity.X * (30.0 / (double) index1));
               float num2 = (float) (Projectile.oldVelocity.Y * (30.0 / (double) index1));
-              int index2 = Dust.NewDust(new Vector2((float) Projectile.oldPosition.X - num1, (float) Projectile.oldPosition.Y - num2), 8, 8, 187, (float) Projectile.oldVelocity.X * 2, (float) Projectile.oldVelocity.Y * 2, 100, Color.LightBlue, 2f);
+              int index2 = Dust.NewDust(new Vector2((float) Projectile.oldPosition.X - num1, (float) Projectile.oldPosition.Y - num2), 8, 8, DustID.Flare_Blue, (float) Projectile.oldVelocity.X * 2, (float) Projectile.oldVelocity.Y * 2, 100, Color.LightBlue, 2f);
               Main.dust[index2].noGravity = true;
               Dust dust1 = Main.dust[index2];
               dust1.velocity = dust1.velocity * 0.5f;
-              int index3 = Dust.NewDust(new Vector2((float) Projectile.oldPosition.X - num1, (float) Projectile.oldPosition.Y - num2), 8, 8, 187, (float) Projectile.oldVelocity.X, (float) Projectile.oldVelocity.Y, 100, Color.LightBlue, 1.6f);
+              int index3 = Dust.NewDust(new Vector2((float) Projectile.oldPosition.X - num1, (float) Projectile.oldPosition.Y - num2), 8, 8, DustID.Flare_Blue, (float) Projectile.oldVelocity.X, (float) Projectile.oldVelocity.Y, 100, Color.LightBlue, 1.6f);
               Main.dust[index3].noGravity = true;
               Dust dust2 = Main.dust[index3];
               dust2.velocity = dust2.velocity * 0.5f;

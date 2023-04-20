@@ -5,6 +5,7 @@ using Terraria.ModLoader;
 using Terraria.ObjectData;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Terraria.ID;
 
 namespace Emperia.Tiles
 {
@@ -38,7 +39,7 @@ namespace Emperia.Tiles
 			if (Main.rand.NextBool(8))
 			{
 				Vector2 placePosition = new Vector2(i * 16, j * 16 - 16) + new Vector2(0, 10).RotatedByRandom(MathHelper.ToRadians(360));
-				int dust = Dust.NewDust(placePosition, 4, 4, 171);
+				int dust = Dust.NewDust(placePosition, 4, 4, DustID.Venom);
 				Main.dust[dust].noGravity = true;
 			}
 

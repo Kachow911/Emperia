@@ -22,7 +22,7 @@ public class AquaticLegs : ModItem
         Item.width = 18;
         Item.height = 18;
         Item.value = 57500;
-        Item.rare = 3;
+        Item.rare = ItemRarityID.Orange;
         Item.defense = 7; //15
     }
 

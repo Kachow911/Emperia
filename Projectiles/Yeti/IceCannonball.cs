@@ -35,7 +35,7 @@ namespace Emperia.Projectiles.Yeti
             Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + 1.57f;
             if (Main.rand.NextBool(4))
 			{
-				int index2 = Dust.NewDust(Projectile.oldPosition, Projectile.width, Projectile.height, 68, (float) Projectile.velocity.X, (float) Projectile.velocity.Y, 0, default(Color), 0.9f);
+				int index2 = Dust.NewDust(Projectile.oldPosition, Projectile.width, Projectile.height, DustID.BlueCrystalShard, (float) Projectile.velocity.X, (float) Projectile.velocity.Y, 0, default(Color), 0.9f);
 				Main.dust[index2].noGravity = true;
 			}
         }
@@ -53,7 +53,7 @@ namespace Emperia.Projectiles.Yeti
 		{
 			for (int i = 0; i < 3; i++)
 			{
-				int index2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 68, (float) Projectile.velocity.X / 10, (float) Projectile.velocity.Y / 10, 0, default(Color), 0.9f);
+				int index2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.BlueCrystalShard, (float) Projectile.velocity.X / 10, (float) Projectile.velocity.Y / 10, 0, default(Color), 0.9f);
 
             }
             Terraria.Audio.SoundEngine.PlaySound(SoundID.Item27, Projectile.Center);

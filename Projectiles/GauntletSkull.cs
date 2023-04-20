@@ -48,7 +48,7 @@ namespace Emperia.Projectiles
 				Projectile.frame = (Projectile.frame + 1) % 3;
 			}
             if (Projectile.timeLeft % 4 == 0) {
-                int flame = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 6);
+                int flame = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Torch);
                 Main.dust[flame].velocity *= 0f;
                 Main.dust[flame].noGravity = true;
                 Main.dust[flame].scale *= 1.5f;
@@ -58,7 +58,7 @@ namespace Emperia.Projectiles
         {
             for (int i = 0; i < 15; ++i)
 				{
-					int index2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 6);
+					int index2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Torch);
 					Main.dust[index2].noGravity = true;
 					Main.dust[index2].velocity *= 3.25f;
                     Main.dust[index2].scale *= 2f;

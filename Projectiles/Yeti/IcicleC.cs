@@ -28,7 +28,7 @@ namespace Emperia.Projectiles.Yeti
 
         public override void Kill(int timeLeft)
         {
-            int num622 = Dust.NewDust(new Vector2(Projectile.position.X, (float)((double)Projectile.position.Y + (double)Projectile.height - 16.0)), Projectile.width, 16, 67, 0.0f, 0.0f, 0, new Color(), 1f);
+            int num622 = Dust.NewDust(new Vector2(Projectile.position.X, (float)((double)Projectile.position.Y + (double)Projectile.height - 16.0)), Projectile.width, 16, DustID.IceRod, 0.0f, 0.0f, 0, new Color(), 1f);
 
         }
 

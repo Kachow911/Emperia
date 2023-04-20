@@ -20,7 +20,7 @@ namespace Emperia.Items.Weapons.GoblinArmy
             Item.CloneDefaults(ItemID.Shuriken);        
             Item.shoot = ModContent.ProjectileType<ShadowBallProj>();
             Item.shootSpeed = 8f;
-			Item.rare = 3;
+			Item.rare = ItemRarityID.Orange;
             Item.autoReuse = true;
             Item.damage = 16;
             Item.knockBack = 3f;

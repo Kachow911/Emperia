@@ -19,7 +19,7 @@ namespace Emperia.Items.Weapons   //where is located
         public override void SetDefaults()
         {
 			Item.CloneDefaults(ItemID.IceBlade);    //Sword name
-            Item.shoot = 0;    
+            Item.shoot = ProjectileID.None;    
         }
 		public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
 		{

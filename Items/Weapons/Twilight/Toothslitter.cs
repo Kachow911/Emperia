@@ -24,11 +24,11 @@ namespace Emperia.Items.Weapons.Twilight
             Item.DamageType = DamageClass.Melee;            
             Item.width = 32;              
             Item.height = 32;             
-            Item.useStyle = 1;        
+            Item.useStyle = ItemUseStyleID.Swing;        
             Item.knockBack = 3.75f;
             Item.value = 258000;
             Item.crit = 6;
-            Item.rare = 3;
+            Item.rare = ItemRarityID.Orange;
             Item.UseSound = SoundID.Item1;   
             Item.autoReuse = false;
             Item.useTurn = true;
@@ -36,7 +36,7 @@ namespace Emperia.Items.Weapons.Twilight
         public override void MeleeEffects(Player player, Rectangle hitbox)
         {
             {
-                int dust = Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, 5);
+                int dust = Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, DustID.Blood);
                 Main.dust[dust].noGravity = true;
                 Main.dust[dust].velocity *= 0f;
 

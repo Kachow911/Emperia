@@ -25,7 +25,7 @@ namespace Emperia.Projectiles.Granite
 			if (Main.rand.NextBool(20))
 			{
 				Color rgb = new Color(135,206,250);
-				int index2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 240, (float) Projectile.velocity.X, (float) Projectile.velocity.Y, 0, rgb, 0.9f);
+				int index2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Granite, (float) Projectile.velocity.X, (float) Projectile.velocity.Y, 0, rgb, 0.9f);
 			}
 			Projectile.velocity.Y += .3f;
 			if (!hitGround)

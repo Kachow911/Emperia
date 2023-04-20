@@ -60,7 +60,7 @@ namespace Emperia.Projectiles
 			for (int i = 0; i < 8; ++i)
 			{
 				Color rgb = new Color(83, 66, 180);
-				int index3 = Dust.NewDust(new Vector2((float) (Projectile.position.X + 4.0), (float) (Projectile.position.Y + 4.0)), Projectile.width - 8, Projectile.height - 8, 76, 0.0f, 0.0f, 0, rgb, 1.5f);
+				int index3 = Dust.NewDust(new Vector2((float) (Projectile.position.X + 4.0), (float) (Projectile.position.Y + 4.0)), Projectile.width - 8, Projectile.height - 8, DustID.Snow, 0.0f, 0.0f, 0, rgb, 1.5f);
 			}
 			Terraria.Audio.SoundEngine.PlaySound(SoundID.Item27, Projectile.position);
 		}

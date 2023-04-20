@@ -23,12 +23,12 @@ namespace Emperia.Items.Weapons
             Item.height = 16;    
             Item.useTime = 6;   
             Item.useAnimation = 20;     
-            Item.useStyle = 5;  
+            Item.useStyle = ItemUseStyleID.Shoot;  
             Item.noMelee = true; 
             Item.knockBack = 0.5f; 
             Item.UseSound = SoundID.Item34; 
             Item.value = 600000;
-            Item.rare = 8;   
+            Item.rare = ItemRarityID.Yellow;   
             Item.autoReuse = true;  
             Item.shoot = ModContent.ProjectileType<SporeFlame>();   
             Item.shootSpeed = 7f; 

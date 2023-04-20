@@ -26,10 +26,10 @@ namespace Emperia.Items.Sets.PreHardmode.Granite   //where is located
             Item.height = 24;
             Item.useTime = 27;
             Item.useAnimation = 27;     
-            Item.useStyle = 1;
+            Item.useStyle = ItemUseStyleID.Swing;
             Item.knockBack = 4f;
             Item.value = 27000;      
-            Item.rare = 1;
+            Item.rare = ItemRarityID.Blue;
             Item.autoReuse = false;   
 			Item.UseSound = SoundID.Item1;
 			//Item.crit = 6;			
@@ -125,7 +125,7 @@ namespace Emperia.Items.Sets.PreHardmode.Granite   //where is located
 					}
 					for (int i = 0; i < 45; ++i)
 					{
-						int index2 = Dust.NewDust(new Vector2(target.position.X, target.position.Y), target.width, target.height, 15, 0.0f, 0.0f, 15, new Color(53f, 67f, 253f), 2f);
+						int index2 = Dust.NewDust(new Vector2(target.position.X, target.position.Y), target.width, target.height, DustID.MagicMirror, 0.0f, 0.0f, 15, new Color(53f, 67f, 253f), 2f);
 						Main.dust[index2].noGravity = true;
 						Main.dust[index2].velocity *= 5.5f;
 					}
@@ -141,7 +141,7 @@ namespace Emperia.Items.Sets.PreHardmode.Granite   //where is located
 					}
 					for (int i = 0; i < 30; ++i)
 					{
-						int index2 = Dust.NewDust(new Vector2(target.position.X, target.position.Y), target.width, target.height, 15, 0.0f, 0.0f, 15, new Color(53f, 67f, 253f), 1.5f);
+						int index2 = Dust.NewDust(new Vector2(target.position.X, target.position.Y), target.width, target.height, DustID.MagicMirror, 0.0f, 0.0f, 15, new Color(53f, 67f, 253f), 1.5f);
 						Main.dust[index2].noGravity = true;
 						Main.dust[index2].velocity *= 3.75f;
 					}

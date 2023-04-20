@@ -32,7 +32,7 @@ namespace Emperia.Projectiles.Corrupt
 			Projectile.velocity *= .97f;
 			for (int i = 0; i < 2; i++)
 			{
-				int num = Dust.NewDust(Projectile.Center, 26, 26, 75, 0f, 0f, 0, default(Color), 1.5f);
+				int num = Dust.NewDust(Projectile.Center, 26, 26, DustID.CursedTorch, 0f, 0f, 0, default(Color), 1.5f);
 				Main.dust[num].alpha = 0;
 				Main.dust[num].position.X = Projectile.Center.X - Projectile.velocity.X / 10f * (float)i;
 				Main.dust[num].position.Y = Projectile.Center.Y - Projectile.velocity.Y / 10f * (float)i;

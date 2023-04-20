@@ -146,7 +146,7 @@ namespace Emperia.Projectiles.Granite
 								}
 								for (int i = 0; i < 45; ++i)
 								{
-									int index2 = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 15, 0.0f, 0.0f, 15, new Color(53f, 67f, 253f), 2f);
+									int index2 = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, DustID.MagicMirror, 0.0f, 0.0f, 15, new Color(53f, 67f, 253f), 2f);
 									Main.dust[index2].noGravity = true;
 									Main.dust[index2].velocity *= 3.25f;
 								}
@@ -162,7 +162,7 @@ namespace Emperia.Projectiles.Granite
 								}
 								for (int i = 0; i < 30; ++i)
 								{
-									int index2 = Dust.NewDust(new Vector2(Projectile.Center.X, Projectile.Center.Y), Projectile.width, Projectile.height, 15, 0.0f, 0.0f, 15, new Color(53f, 67f, 253f), 1.5f);
+									int index2 = Dust.NewDust(new Vector2(Projectile.Center.X, Projectile.Center.Y), Projectile.width, Projectile.height, DustID.MagicMirror, 0.0f, 0.0f, 15, new Color(53f, 67f, 253f), 1.5f);
 									Main.dust[index2].noGravity = true;
 									Main.dust[index2].velocity *= 2f;
 								}
@@ -244,7 +244,7 @@ namespace Emperia.Projectiles.Granite
 			if (NPC != -1) Main.npc[NPC].GetGlobalNPC<MyNPC>().graniteMinID = -1;
 			for (int i = 0; i < 3; ++i)
 			{
-				int index2 = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 15, 0.0f, 0.0f, 15, new Color(53f, 67f, 253f), 2f);
+				int index2 = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, DustID.MagicMirror, 0.0f, 0.0f, 15, new Color(53f, 67f, 253f), 2f);
 				Main.dust[index2].noGravity = true;
 				Main.dust[index2].velocity *= 3.25f;
 			}

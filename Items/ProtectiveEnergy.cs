@@ -22,7 +22,7 @@ namespace Emperia.Items
 		{
 			Item.width = 16;
 			Item.height = 16;
-			Item.rare = 0;
+			Item.rare = ItemRarityID.White;
 		}
 		public override bool OnPickup(Player player)
 		{

@@ -38,7 +38,7 @@ namespace Emperia.Projectiles.Desert
             }
             if (Main.rand.Next(3) == 0)
 			{
-				int wormDust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 246, -1, -1);
+				int wormDust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.GoldCoin, -1, -1);
                 Main.dust[wormDust].noGravity = true;
 			}
 		}

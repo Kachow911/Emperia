@@ -23,11 +23,11 @@ namespace Emperia.Items.Weapons.Volcano
             Item.width = 46;
             Item.height = 44;
             Item.value = Item.sellPrice(0, 0, 50, 0);
-            Item.rare = 3;
+            Item.rare = ItemRarityID.Orange;
             Item.mana = 10;
             Item.damage = 38;
             Item.knockBack = 7;
-            Item.useStyle = 1;
+            Item.useStyle = ItemUseStyleID.Swing;
             Item.useTime = 30;
             Item.useAnimation = 30;        
             Item.DamageType = DamageClass.Summon;

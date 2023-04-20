@@ -22,7 +22,7 @@ public class GraniteLeggings : ModItem
         Item.width = 18;
         Item.height = 18;
         Item.value = 175000;
-        Item.rare = 2;
+        Item.rare = ItemRarityID.Green;
         Item.defense = 6;
     }
 

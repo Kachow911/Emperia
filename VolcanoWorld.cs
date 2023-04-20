@@ -239,7 +239,7 @@ namespace Emperia
 						{
 							for (int inventoryIndex = 0; inventoryIndex < 40; inventoryIndex++)
 							{
-								if (chest.item[inventoryIndex].type == 0)
+								if (chest.item[inventoryIndex].type == ItemID.None)
 								{
 									chest.item[inventoryIndex].SetDefaults(itemsToPlaceInGlassChestsSecondary[itemsToPlaceInGlassChestsSecondaryChoice]); //the error is at this line
 									chest.item[inventoryIndex].stack = Main.rand.Next(4, 10);

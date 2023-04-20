@@ -25,9 +25,9 @@ public class PlatformLayer : ModItem
 			Item.noUseGraphic = true;
 			Item.useTime = 8; // 7?
 			Item.useAnimation = 8;
-			Item.useStyle = 5;
+			Item.useStyle = ItemUseStyleID.Shoot;
 			Item.value = 50000;
-			Item.rare = 2;
+			Item.rare = ItemRarityID.Green;
 			Item.autoReuse = true;
 			Item.shoot = ProjectileID.WoodenArrowFriendly; //this is the only way i can find to make the item consume ammo
 			Item.useAmmo = ItemID.WoodPlatform;

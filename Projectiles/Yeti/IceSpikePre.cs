@@ -120,7 +120,7 @@ namespace Emperia.Projectiles.Yeti
 		}
         public override void Kill(int timeLeft)
 		{
-            Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 68, (float) Projectile.velocity.X / 10, (float) Projectile.velocity.Y / 10, 0, default(Color), 0.7f);
+            Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.BlueCrystalShard, (float) Projectile.velocity.X / 10, (float) Projectile.velocity.Y / 10, 0, default(Color), 0.7f);
 		}
     }
 }

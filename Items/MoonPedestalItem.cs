@@ -22,14 +22,14 @@ namespace Emperia.Items
 			Item.height = 14;
 
 			
-			Item.useStyle = 1;
+			Item.useStyle = ItemUseStyleID.Swing;
 			Item.useTime = 10;
 			Item.useAnimation = 15;
 
 			Item.useTurn = true;
 			Item.autoReuse = true;
 			Item.consumable = true;
-			Item.rare = 3;
+			Item.rare = ItemRarityID.Orange;
 			Item.createTile = ModContent.TileType<Tiles.MoonPedestal>();
 		}
 	}

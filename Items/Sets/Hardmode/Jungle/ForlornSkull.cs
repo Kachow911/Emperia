@@ -20,7 +20,7 @@ namespace Emperia.Items.Sets.Hardmode.Jungle
         {
             Item.width = 30;
             Item.height = 28;
-            Item.rare = 2;
+            Item.rare = ItemRarityID.Green;
             Item.value = Item.sellPrice(0, 0, 50, 0);
             Item.accessory = true;
         }

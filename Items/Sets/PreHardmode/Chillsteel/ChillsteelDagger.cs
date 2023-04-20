@@ -19,7 +19,7 @@ namespace Emperia.Items.Sets.PreHardmode.Chillsteel
 
         public override void SetDefaults()
         {
-            Item.useStyle = 1;
+            Item.useStyle = ItemUseStyleID.Swing;
             Item.width = 16;
             Item.height = 16;
             Item.noUseGraphic = true;
@@ -37,7 +37,7 @@ namespace Emperia.Items.Sets.PreHardmode.Chillsteel
             Item.knockBack = 3.5f;
 			Item.value = Item.sellPrice(0, 0, 1, 50);
             Item.crit = 4;
-            Item.rare = 2;
+            Item.rare = ItemRarityID.Green;
             Item.autoReuse = true;
             Item.consumable = true;
         }

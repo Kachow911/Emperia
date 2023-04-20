@@ -16,10 +16,10 @@ namespace Emperia.Items.Weapons
 			Item.height = 18;
 			Item.useTime = 18;
 			Item.useAnimation = 18;
-			Item.useStyle = 5;
+			Item.useStyle = ItemUseStyleID.Shoot;
 			Item.knockBack = 0;
 			Item.value = 22500;
-			Item.rare = 2;
+			Item.rare = ItemRarityID.Green;
 			Item.UseSound = SoundID.Item20;
 			Item.autoReuse = true;
 			Item.shoot = ModContent.ProjectileType<AlluringPulse>();

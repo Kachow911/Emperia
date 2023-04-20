@@ -25,10 +25,10 @@ namespace Emperia.Items.Sets.PreHardmode.Seashell
             Item.height = 16;
             Item.useTime = 25;
             Item.useAnimation = 25;     
-            Item.useStyle = 1;
+            Item.useStyle = ItemUseStyleID.Swing;
             Item.knockBack = 3.5f;
             Item.value = 22000;
-            Item.rare = 1;
+            Item.rare = ItemRarityID.Blue;
 			Item.scale = 1f;
             Item.autoReuse = true;
             Item.useTurn = true;

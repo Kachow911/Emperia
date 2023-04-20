@@ -38,7 +38,7 @@ namespace Emperia.Projectiles.Mushroom
 				{
 					if (Main.rand.Next(5) == 0)
 					{
-						int dust = Dust.NewDust(new Vector2(Projectile.Center.X, Projectile.Center.Y), Projectile.width / 8, Projectile.height / 8, 20, 0f, 0f, 0, new Color(39, 90, 219), 1.5f);
+						int dust = Dust.NewDust(new Vector2(Projectile.Center.X, Projectile.Center.Y), Projectile.width / 8, Projectile.height / 8, DustID.PurificationPowder, 0f, 0f, 0, new Color(39, 90, 219), 1.5f);
 						Main.dust[dust].velocity = new Vector2(0, -3).RotatedBy(MathHelper.ToRadians(5 * i));
 					}
 				}	

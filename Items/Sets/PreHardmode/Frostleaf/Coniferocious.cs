@@ -23,7 +23,7 @@ namespace Emperia.Items.Sets.PreHardmode.Frostleaf
             Item.height = 20;
 			Item.damage = 14;
 			Item.DamageType = DamageClass.Melee;
-            Item.useStyle = 1;
+            Item.useStyle = ItemUseStyleID.Swing;
             Item.noUseGraphic = true;
             Item.noMelee = true;
 			Item.useTime = 18;
@@ -32,7 +32,7 @@ namespace Emperia.Items.Sets.PreHardmode.Frostleaf
             Item.autoReuse = false;
 			Item.knockBack = 6f;
             Item.value = 24000;        
-            Item.rare = 1;
+            Item.rare = ItemRarityID.Blue;
             Item.autoReuse = false;
             Item.shoot = ModContent.ProjectileType<ConiferociousProj>();
             Item.shootSpeed = 9f;

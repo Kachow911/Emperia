@@ -27,7 +27,7 @@ namespace Emperia.Items
 		{
 			Item.width = 16;
 			Item.height = 16;
-			Item.rare = 3;
+			Item.rare = ItemRarityID.Orange;
 		}
 
 		/*public override bool PreDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, ref float rotation, ref float scale, int whoAmI)
@@ -70,7 +70,7 @@ namespace Emperia.Items
 		}
 		public virtual bool CanApply(Item Item)
 		{
-			if (Item.type == 273 && Item.GetGlobalItem<GItem>().nightFlame == false)
+			if (Item.type == ItemID.NightsEdge && Item.GetGlobalItem<GItem>().nightFlame == false)
 			{
 				return true;
 			}

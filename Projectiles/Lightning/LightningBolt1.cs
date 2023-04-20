@@ -58,7 +58,7 @@ namespace Emperia.Projectiles.Lightning
 					float num2 = (float) (Main.rand.NextDouble() * 0.800000011920929 + 1.0);
 					Vector2 vector2;
 					vector2 = new Vector2((float) Math.Cos((double) num1) * num2, (float) Math.Sin((double) num1) * num2);
-					int index2 = Dust.NewDust(Projectile.Center + new Vector2(i, 0), 0, 0, 226, (float) vector2.X, (float) vector2.Y, 0, Color.LightBlue, 1f);
+					int index2 = Dust.NewDust(Projectile.Center + new Vector2(i, 0), 0, 0, DustID.Electric, (float) vector2.X, (float) vector2.Y, 0, Color.LightBlue, 1f);
 					Main.dust[index2].noGravity = true;
 					Main.dust[index2].velocity.X /= 2;
 					Main.dust[index2].alpha = 255;
@@ -73,7 +73,7 @@ namespace Emperia.Projectiles.Lightning
 					float num2 = (float) (Main.rand.NextDouble() * 0.800000011920929 + 1.0);
 					Vector2 vector2;
 					vector2 = new Vector2((float) Math.Cos((double) num1) * num2, (float) Math.Sin((double) num1) * num2);
-					int index2 = Dust.NewDust(Projectile.Center + new Vector2(0, i), 0, 0, 226, (float) vector2.X, (float) vector2.Y, 0, Color.LightBlue, 1f);
+					int index2 = Dust.NewDust(Projectile.Center + new Vector2(0, i), 0, 0, DustID.Electric, (float) vector2.X, (float) vector2.Y, 0, Color.LightBlue, 1f);
 					Main.dust[index2].noGravity = true;
 					Main.dust[index2].velocity.Y /= 2;
 					Main.dust[index2].alpha = 255;

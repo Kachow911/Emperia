@@ -20,7 +20,7 @@ namespace Emperia.Items.Sets.Hardmode.Corrupt
 
         public override void SetDefaults()
         {
-            Item.useStyle = 1;
+            Item.useStyle = ItemUseStyleID.Swing;
             Item.width = 16;
             Item.height = 16;
             Item.noUseGraphic = true;
@@ -38,7 +38,7 @@ namespace Emperia.Items.Sets.Hardmode.Corrupt
             Item.knockBack = 3.5f;
 			Item.value = Item.sellPrice(0, 0, 1, 50);
             Item.crit = 4;
-            Item.rare = 4;
+            Item.rare = ItemRarityID.LightRed;
             Item.autoReuse = true;
                         Item.consumable = true;
         }

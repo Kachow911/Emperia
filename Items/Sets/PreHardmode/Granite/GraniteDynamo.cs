@@ -26,10 +26,10 @@ namespace Emperia.Items.Sets.PreHardmode.Granite
             Item.width = 38;
             Item.height = 36;
             Item.value = 27000;
-            Item.rare = 1;
+            Item.rare = ItemRarityID.Blue;
             Item.damage = 16;
             Item.knockBack = 0f;
-            Item.useStyle = 5;
+            Item.useStyle = ItemUseStyleID.Shoot;
             Item.useTime = 55;
             Item.useAnimation = 55;
             Item.mana = 20; 

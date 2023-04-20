@@ -27,12 +27,12 @@ namespace Emperia.Items.Sets.PreHardmode.Desert
             Item.height = 60;
             Item.useTime = 30;
             Item.useAnimation = 30;
-            Item.useStyle = 5;
+            Item.useStyle = ItemUseStyleID.Shoot;
             Item.staff[Item.type] = true;
             Item.noMelee = true;
             Item.knockBack = 0;
             Item.value = Terraria.Item.sellPrice(0, 0, 50, 0);
-            Item.rare = 3;
+            Item.rare = ItemRarityID.Orange;
             Item.UseSound = SoundID.Item34;
             Item.autoReuse = true;
             Item.shoot = ModContent.ProjectileType<DesertWorm>();

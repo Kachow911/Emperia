@@ -22,7 +22,7 @@ public class GoblinChest : ModItem
         Item.width = 18;
         Item.height = 18;
         Item.value = 65000;
-        Item.rare = 3;
+        Item.rare = ItemRarityID.Orange;
         Item.defense = 7; //15
     }
 

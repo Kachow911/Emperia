@@ -71,7 +71,7 @@ namespace Emperia.Projectiles
 		{
 			for (int i = 0; i < 2; ++i)
 			{
-				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 46, Projectile.velocity.X / 2, Projectile.velocity.Y / 2, 0, default(Color), 0.65f);
+				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Poisoned, Projectile.velocity.X / 2, Projectile.velocity.Y / 2, 0, default(Color), 0.65f);
                 Main.dust[dust].noGravity = false;
 			}
 		}
@@ -84,7 +84,7 @@ namespace Emperia.Projectiles
 			PlaySound(SoundID.Dig, Projectile.position);
 			for (int i = 0; i < 3; i++)
 			{
-				Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 46, (float) Projectile.velocity.X / 5, (float) Projectile.velocity.Y / 5, 0, default(Color), 0.8f);
+				Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Poisoned, (float) Projectile.velocity.X / 5, (float) Projectile.velocity.Y / 5, 0, default(Color), 0.8f);
             }
 		}
 		public override bool OnTileCollide(Vector2 oldVelocity)
@@ -92,7 +92,7 @@ namespace Emperia.Projectiles
 			PlaySound(SoundID.Dig, Projectile.position);
 			for (int i = 0; i < 3; i++)
 			{
-				Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 46, (float) Projectile.velocity.X / 5, (float) Projectile.velocity.Y / 5, 0, default(Color), 0.8f);
+				Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Poisoned, (float) Projectile.velocity.X / 5, (float) Projectile.velocity.Y / 5, 0, default(Color), 0.8f);
             }
 			return true;		
 		}

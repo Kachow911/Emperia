@@ -22,7 +22,7 @@ namespace Emperia.Buffs
         public override void Update(NPC NPC, ref int buffIndex)
         {
             NPC.GetGlobalNPC<MyNPC>().burningNight = true;    //this tells the game to use the public bool customdebuff from NPCsINFO.cs
-            int num1 = Dust.NewDust(NPC.position, NPC.width, NPC.height, 15);    //this is the dust/flame effect that will apear on NPC or player if is hit by this buff   
+            int num1 = Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.MagicMirror);    //this is the dust/flame effect that will apear on NPC or player if is hit by this buff   
             Main.dust[num1].noGravity = true;
             Main.dust[num1].velocity *= 2f;
             NPC.velocity = Vector2.Zero;

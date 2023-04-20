@@ -21,7 +21,7 @@ public class FrostleafBody : ModItem
         Item.width = 32;
         Item.height = 20;
         Item.value = 74750;
-        Item.rare = 1;
+        Item.rare = ItemRarityID.Blue;
         Item.defense = 4;
     }
 

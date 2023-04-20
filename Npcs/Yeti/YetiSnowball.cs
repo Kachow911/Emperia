@@ -37,7 +37,7 @@ namespace Emperia.Npcs.Yeti
 		   if (Projectile.velocity.Y > 4)
 			   Projectile.velocity.Y = 4;
 		   if (Main.rand.NextBool(20))
-			    Dust.NewDust(Projectile.Center + Projectile.velocity, Main.rand.Next(1, 7), Main.rand.Next(1, 7), 51, 0, 0);
+			    Dust.NewDust(Projectile.Center + Projectile.velocity, Main.rand.Next(1, 7), Main.rand.Next(1, 7), DustID.SnowBlock, 0, 0);
 		}
 		 public override void Kill(int timeLeft)
         {
@@ -54,13 +54,13 @@ namespace Emperia.Npcs.Yeti
 
                 if (i % 8 == 0)
                 {   //odd
-                    Dust.NewDust(Projectile.Center + vec, Main.rand.Next(1, 7), Main.rand.Next(1, 7), 51);
+                    Dust.NewDust(Projectile.Center + vec, Main.rand.Next(1, 7), Main.rand.Next(1, 7), DustID.SnowBlock);
                 }
 
                 if (i % 9 == 0)
                 {   //even
                     vec.Normalize();
-                    Dust.NewDust(Projectile.Center, Main.rand.Next(1, 7), Main.rand.Next(1, 7), 192, vec.X * 2, vec.Y * 2);
+                    Dust.NewDust(Projectile.Center, Main.rand.Next(1, 7), Main.rand.Next(1, 7), DustID.Ghost, vec.X * 2, vec.Y * 2);
                 }
             }
 		}

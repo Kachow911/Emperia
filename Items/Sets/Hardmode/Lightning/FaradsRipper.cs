@@ -28,15 +28,15 @@ namespace Emperia.Items.Sets.Hardmode.Lightning
             Item.DamageType = DamageClass.Melee;            
             Item.width = 32;              
             Item.height = 32;             
-            Item.useStyle = 1;        
+            Item.useStyle = ItemUseStyleID.Swing;        
             Item.knockBack = 3.75f;
             Item.value = 258000;
             Item.crit = 6;
-            Item.rare = 4;
+            Item.rare = ItemRarityID.LightRed;
             Item.UseSound = SoundID.Item1;   
             Item.autoReuse = true;
             Item.useTurn = true;
-            Item.shoot = 2;
+            Item.shoot = ProjectileID.FireArrow;
         }
         public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
         {
@@ -50,7 +50,7 @@ namespace Emperia.Items.Sets.Hardmode.Lightning
         public override void MeleeEffects(Player player, Rectangle hitbox)
         {
             {
-                int dust = Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, 226);
+                int dust = Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, DustID.Electric);
                 Main.dust[dust].noGravity = true;
                 Main.dust[dust].velocity *= 0f;
 

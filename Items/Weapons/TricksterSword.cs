@@ -27,10 +27,10 @@ namespace Emperia.Items.Weapons
             Item.height = 16;
             Item.useTime = 25;
             Item.useAnimation = 25;     
-            Item.useStyle = 1;
+            Item.useStyle = ItemUseStyleID.Swing;
             Item.knockBack = 3.5f;
             Item.value = 22000;
-            Item.rare = 1;
+            Item.rare = ItemRarityID.Blue;
 			Item.scale = 1f;
             Item.autoReuse = true;
             Item.useTurn = true;
@@ -55,7 +55,7 @@ namespace Emperia.Items.Weapons
                     int randomItem = Main.rand.Next(5000);
                     Item sword = new Item();
                     sword.SetDefaults(randomItem);
-                    if (!sword.noMelee && sword.CountsAsClass(DamageClass.Melee) && sword.useStyle == 1 && sword.pick == 0 && sword.hammer == 0 && sword.axe == 0)
+                    if (!sword.noMelee && sword.CountsAsClass(DamageClass.Melee) && sword.useStyle == ItemUseStyleID.Swing && sword.pick == 0 && sword.hammer == 0 && sword.axe == 0)
                     {
                         chosenSword = sword;
                         break;
@@ -127,7 +127,7 @@ namespace Emperia.Items.Weapons
             {
                 itemRectangle.Y -= itemRectangle.Height;
             }
-            if (chosenSword.useStyle == 1)
+            if (chosenSword.useStyle == ItemUseStyleID.Swing)
             {
                 if (player.itemAnimation < player.itemAnimationMax * 0.333)
                 {

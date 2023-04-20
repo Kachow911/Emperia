@@ -106,7 +106,7 @@ namespace Emperia.Projectiles
         {
             for (int i = 0; i < 5; i++)
             {
-                int dust = Dust.NewDust(Projectile.position, Projectile.width / 2, Projectile.height, 6);
+                int dust = Dust.NewDust(Projectile.position, Projectile.width / 2, Projectile.height, DustID.Torch);
                 //Vector2 vel = new Vector2(Projectile.velocity.X * -2, -1);
             }
         }

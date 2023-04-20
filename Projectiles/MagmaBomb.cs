@@ -37,7 +37,7 @@ namespace Emperia.Projectiles
                 {
                     Vector2 vec = Vector2.Transform(new Vector2(-5, 0), Matrix.CreateRotationZ(MathHelper.ToRadians(i)));
                     vec.Normalize();
-                    int num622 = Dust.NewDust(new Vector2(Projectile.Center.X, (float)((double)Projectile.Center.Y)), Projectile.width, 16, 6, 0.0f, 0.0f, 0, new Color(), 1f);
+                    int num622 = Dust.NewDust(new Vector2(Projectile.Center.X, (float)((double)Projectile.Center.Y)), Projectile.width, 16, DustID.Torch, 0.0f, 0.0f, 0, new Color(), 1f);
                     Main.dust[num622].position += (vec);
                     Main.dust[num622].noGravity = true;
                 }
@@ -55,7 +55,7 @@ namespace Emperia.Projectiles
 				{
 					Vector2 vec = Vector2.Transform(new Vector2(-10, 0), Matrix.CreateRotationZ(MathHelper.ToRadians(i)));
 					vec.Normalize();
-					int num622 = Dust.NewDust(new Vector2(Projectile.Center.X, (float) ((double) Projectile.Center.Y)), Projectile.width, 16, 6, 0.0f, 0.0f, 0, new Color(), 1f);
+					int num622 = Dust.NewDust(new Vector2(Projectile.Center.X, (float) ((double) Projectile.Center.Y)), Projectile.width, 16, DustID.Torch, 0.0f, 0.0f, 0, new Color(), 1f);
 					Main.dust[num622].velocity += (vec *2f);
 					Main.dust[num622].noGravity = true;
 				}

@@ -26,14 +26,14 @@ public class AlchemistFlask : ModItem
 		Item.noMelee = true;
 		Item.noUseGraphic = true;
 		Item.useAnimation = 28;
-		Item.useStyle = 1;
+		Item.useStyle = ItemUseStyleID.Swing;
 		Item.useTime = 28;
 		Item.knockBack = 0f;  //Ranges from 1 to 9.
 		Item.UseSound = SoundID.Item106;
 		Item.autoReuse = true;  //Dictates whether the weapon can be "auto-fired".
 		Item.height = 16;  //The height of the .png file in pixels divided by 2.
 		Item.value = 60000;  //Value is calculated in copper coins.
-		Item.rare = 5;  //Ranges from 1 to 11.
+		Item.rare = ItemRarityID.Pink;  //Ranges from 1 to 11.
 		Item.shoot = ModContent.ProjectileType<GoblinFlask1>();
 		Item.shootSpeed = 9f;
 	}

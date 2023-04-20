@@ -21,10 +21,10 @@ namespace Emperia.Items.Sets.PreHardmode.Desert
 			Item.height = 40;
 			Item.useTime = 32;
 			Item.useAnimation = 32;
-			Item.useStyle = 1;
+			Item.useStyle = ItemUseStyleID.Swing;
 			Item.knockBack = 5f;
 			Item.value = 27000;
-			Item.rare = 1;
+			Item.rare = ItemRarityID.Blue;
 			Item.UseSound = SoundID.Item1;
 		}
 

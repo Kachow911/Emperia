@@ -26,10 +26,10 @@ public class GranitePickaxe : ModItem
         Item.useAnimation = 15;
         Item.useTurn = true;
         Item.pick = 59;
-        Item.useStyle = 1;
+        Item.useStyle = ItemUseStyleID.Swing;
         Item.knockBack = 2f;
         Item.value = 22500;
-        Item.rare = 1;
+        Item.rare = ItemRarityID.Blue;
         Item.UseSound = SoundID.Item1;
         Item.autoReuse = true;
     }
@@ -68,7 +68,7 @@ public class GranitePickaxe : ModItem
                                     player.PickTile(i + x, j + y, Item.pick);
                                     for (int d = 0; d < 2; d++)
                                     {
-                                        int index2 = Dust.NewDust(new Vector2((i + x) * 16 + 8, (j + y) * 16 + 8), 16, 16, 15, 0.0f, 0.0f, 15, new Color(53f, 67f, 253f), 2f);
+                                        int index2 = Dust.NewDust(new Vector2((i + x) * 16 + 8, (j + y) * 16 + 8), 16, 16, DustID.MagicMirror, 0.0f, 0.0f, 15, new Color(53f, 67f, 253f), 2f);
                                         Main.dust[index2].noGravity = true;
                                         Main.dust[index2].velocity *= 3f;
                                     }

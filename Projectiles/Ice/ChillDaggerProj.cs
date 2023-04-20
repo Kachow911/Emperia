@@ -44,7 +44,7 @@ namespace Emperia.Projectiles.Ice
 				Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + (float)((3.14) - (3.14 / 4));
 			}
 
-            int index2 = Dust.NewDust(new Vector2((float)(Projectile.position.X + 4.0), (float)(Projectile.position.Y + 4.0)), Projectile.width - 8, Projectile.height - 8, 68, (float)(Projectile.velocity.X * 0.200000002980232), (float)(Projectile.velocity.Y * 0.200000002980232), 0, rgb, 0.7f);
+            int index2 = Dust.NewDust(new Vector2((float)(Projectile.position.X + 4.0), (float)(Projectile.position.Y + 4.0)), Projectile.width - 8, Projectile.height - 8, DustID.BlueCrystalShard, (float)(Projectile.velocity.X * 0.200000002980232), (float)(Projectile.velocity.Y * 0.200000002980232), 0, rgb, 0.7f);
             Main.dust[index2].position = Projectile.Center;
             Main.dust[index2].noGravity = true;
             Main.dust[index2].velocity = Projectile.velocity * 0.5f;
@@ -65,7 +65,7 @@ namespace Emperia.Projectiles.Ice
 				{
 				Vector2 vec = Vector2.Transform(new Vector2(-1, 0), Matrix.CreateRotationZ(MathHelper.ToRadians(i)));
 				vec.Normalize();
-				int num622 = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 46, 0f, 0f, 158, new Color(53f, 67f, 253f), 1f);
+				int num622 = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, DustID.Poisoned, 0f, 0f, 158, new Color(53f, 67f, 253f), 1f);
 				Main.dust[num622].velocity += (vec *2f);
 				Main.dust[num622].noGravity = true;
 				}

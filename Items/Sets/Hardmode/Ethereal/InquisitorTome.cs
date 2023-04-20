@@ -22,11 +22,11 @@ namespace Emperia.Items.Sets.Hardmode.Ethereal
 			Item.height = 24;
 			Item.useTime = 16;
 			Item.useAnimation = 16;
-			Item.useStyle = 5;
+			Item.useStyle = ItemUseStyleID.Shoot;
 			Item.knockBack = 7f;
 			Item.value = 22500;
 			Item.noMelee = true;
-			Item.rare = 5;
+			Item.rare = ItemRarityID.Pink;
 			Item.UseSound = SoundID.Item20;
 			Item.autoReuse = true;
 			Item.shoot = ModContent.ProjectileType<EtherealBoltTome>();

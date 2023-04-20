@@ -38,7 +38,7 @@ namespace Emperia.Projectiles.Ethereal
 		{
 			if (Main.rand.Next(3) == 0)
 			{
-				Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 229, 0.0f, 0.0f, 15, new Color(53f, 67f, 253f), 0.8f);
+				Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, DustID.Vortex, 0.0f, 0.0f, 15, new Color(53f, 67f, 253f), 0.8f);
 			}
 		}
 

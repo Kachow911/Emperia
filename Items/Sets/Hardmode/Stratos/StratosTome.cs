@@ -22,11 +22,11 @@ namespace Emperia.Items.Sets.Hardmode.Stratos
 			Item.height = 24;
 			Item.useTime = 36;
 			Item.useAnimation = 36;
-			Item.useStyle = 5;
+			Item.useStyle = ItemUseStyleID.Shoot;
 			Item.knockBack = 2.25f;
 			Item.value = 22500;
 			Item.noMelee = true;
-			Item.rare = 4;
+			Item.rare = ItemRarityID.LightRed;
 			Item.UseSound = SoundID.Item20;
 			Item.autoReuse = true;
 			Item.shoot = ModContent.ProjectileType<StratosMeteorite2>();

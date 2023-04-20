@@ -25,10 +25,10 @@ namespace Emperia.Items.Sets.Hardmode.Vulcan
             Item.height = 40;
             Item.useTime = 40;
             Item.useAnimation = 40;
-            Item.useStyle = 5;
+            Item.useStyle = ItemUseStyleID.Shoot;
             Item.knockBack = 1;
             Item.value = 1000;
-            Item.rare = 3;
+            Item.rare = ItemRarityID.Orange;
             Item.scale = 0.7f;
             Item.autoReuse = false;
             Item.shootSpeed = 10f;
@@ -38,7 +38,7 @@ namespace Emperia.Items.Sets.Hardmode.Vulcan
         {
             if (player.altFunctionUse == 2)
             {
-                Item.useStyle = 5;
+                Item.useStyle = ItemUseStyleID.Shoot;
                 Item.useAnimation = 15;
                 Item.useTime = 5;
                 Item.reuseDelay = 14;
@@ -47,11 +47,11 @@ namespace Emperia.Items.Sets.Hardmode.Vulcan
             }
             else
             {
-                Item.useStyle = 5;
+                Item.useStyle = ItemUseStyleID.Shoot;
                 Item.useTime = 32;
                 Item.useAnimation = 32;
                 Item.damage = 44;
-                Item.shoot = 3;
+                Item.shoot = ProjectileID.Shuriken;
                 Item.shootSpeed = 15f;
                 Item.useAmmo = ItemID.WoodenArrow;
             }

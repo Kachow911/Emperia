@@ -20,7 +20,7 @@ namespace Emperia.Items.Accessories.MageProg
         {
             Item.width = 30;
             Item.height = 28;
-            Item.rare = 1;
+            Item.rare = ItemRarityID.Blue;
             Item.value = Item.sellPrice(0, 0, 1, 0);
             Item.accessory = true;
         }

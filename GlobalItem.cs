@@ -121,7 +121,7 @@ namespace Emperia
         {
 			MyPlayer modPlayer = player.GetModPlayer<MyPlayer>();
 			if (Item.healMana > 0 && player.HasBuff(ModContent.BuffType<ManaOverdose>())) return false;
-			if (Item.type == 293 && modPlayer.warlockTorc) return false;
+			if (Item.type == ItemID.ManaRegenerationPotion && modPlayer.warlockTorc) return false;
 			else return true;
 		}
 
@@ -152,7 +152,7 @@ namespace Emperia
 					player.HealEffect(25);
 				}
 			}
-			if (Item.type == 5 || Item.type == ModContent.ItemType<MushroomPlatter>() || Item.type == ModContent.ItemType<MushroomPlatterCrim>())
+			if (Item.type == ItemID.Mushroom || Item.type == ModContent.ItemType<MushroomPlatter>() || Item.type == ModContent.ItemType<MushroomPlatterCrim>())
 			{
 				if (modPlayer.frostleafSet)
 				{
@@ -328,7 +328,7 @@ namespace Emperia
 					tooltips.Add(line);
 					tooltips.Add(line2);
 				}
-				if (item.type == 293 && modPlayer.warlockTorc)
+				if (item.type == ItemID.ManaRegenerationPotion && modPlayer.warlockTorc)
 				{
 					TooltipLine line = new TooltipLine(Mod, "x", "[c/e65555:Cannot be consumed while wearing a torc]");
 					tooltips.Add(line);
@@ -424,7 +424,7 @@ namespace Emperia
 
         public override void OnCreated(Item item, ItemCreationContext context)
         {
-			if (item.type == 273)
+			if (item.type == ItemID.NightsEdge)
 			{
 				if (context is RecipeItemCreationContext)
 				{
@@ -461,8 +461,8 @@ namespace Emperia
 					position.X -= 16;
 					for (int x = 0; x < 8 && foundTile; x++)
 					{
-						Dust.NewDust(position, 32, 16, 14, 0f, Main.rand.NextFloat(-3f, -1f), 100, default(Color), 1.4f);
-						int dust2 = Dust.NewDust(position, 32, 16, 27, 0f, Main.rand.NextFloat(-8f, -2f), 0, default(Color), 1.3f);
+						Dust.NewDust(position, 32, 16, DustID.Demonite, 0f, Main.rand.NextFloat(-3f, -1f), 100, default(Color), 1.4f);
+						int dust2 = Dust.NewDust(position, 32, 16, DustID.Shadowflame, 0f, Main.rand.NextFloat(-8f, -2f), 0, default(Color), 1.3f);
 						Main.dust[dust2].noGravity = true;
 					}
 				}
@@ -470,7 +470,7 @@ namespace Emperia
 		}
         public override void OnHitNPC(Item item, Player player, NPC target, NPC.HitInfo hit, int damageDone)
         {
-            if (item.type == 273 && item.GetGlobalItem<GItem>().nightFlame)
+            if (item.type == ItemID.NightsEdge && item.GetGlobalItem<GItem>().nightFlame)
             {
 				target.AddBuff(ModContent.BuffType<NocturnalFlame>(), 1200);
 			}

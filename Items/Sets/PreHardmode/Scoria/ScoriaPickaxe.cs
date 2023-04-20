@@ -23,10 +23,10 @@ public class ScoriaPickaxe : ModItem
         Item.useAnimation = 22;
         Item.useTurn = true;
         Item.pick = 70;
-        Item.useStyle = 1;
+        Item.useStyle = ItemUseStyleID.Swing;
         Item.knockBack = 2f;
         Item.value = 5000;
-        Item.rare = 3;
+        Item.rare = ItemRarityID.Orange;
         Item.UseSound = SoundID.Item1;
         Item.autoReuse = true;
     }
@@ -34,7 +34,7 @@ public class ScoriaPickaxe : ModItem
         {
             if (Main.rand.Next(5) == 0)
             {
-                int dust = Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, 258);
+                int dust = Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, DustID.LavaMoss);
             }
         }
 }}

@@ -49,7 +49,7 @@ namespace Emperia.Projectiles
 		{
 			for (int i = 0; i < 30; ++i)
 			{
-			  int index2 = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 6, 0.0f, 0.0f, 6, new Color(53f, 67f, 253f), 3f);
+			  int index2 = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, DustID.Torch, 0.0f, 0.0f, 6, new Color(53f, 67f, 253f), 3f);
 			  Main.dust[index2].noGravity = true;
 			  Main.dust[index2].velocity *= 3f;
 			}

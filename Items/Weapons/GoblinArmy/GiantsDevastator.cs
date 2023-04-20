@@ -25,11 +25,11 @@ namespace Emperia.Items.Weapons.GoblinArmy
             Item.useAnimation = 25;
 			Item.useTime = 25;
 			Item.reuseDelay = 80;
-            Item.useStyle = 5;  
+            Item.useStyle = ItemUseStyleID.Shoot;  
             Item.noMelee = true; 
             Item.knockBack = 4f; 
             Item.value = 255000;
-            Item.rare = 3;   
+            Item.rare = ItemRarityID.Orange;   
             Item.autoReuse = false;  
             Item.shoot = ModContent.ProjectileType<GoblinRocket>();   
             Item.shootSpeed =9f; 

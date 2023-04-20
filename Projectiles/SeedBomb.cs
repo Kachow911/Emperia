@@ -31,7 +31,7 @@ namespace Emperia.Projectiles
         public override void AI()           //Projectile make that the Projectile will face the corect way
         {                                                           // |
             Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + 1.57f;
-			int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 89, 0f, 0f, 91, new Color(89, 249, 116), 1.5f);
+			int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.GemEmerald, 0f, 0f, 91, new Color(89, 249, 116), 1.5f);
             Main.dust[dust].velocity *= 0.1f;
             if (Projectile.velocity == Vector2.Zero)
             {
@@ -57,7 +57,7 @@ namespace Emperia.Projectiles
 				{
 					Vector2 vec = Vector2.Transform(new Vector2(-10, 0), Matrix.CreateRotationZ(MathHelper.ToRadians(i)));
 					vec.Normalize();
-					int num622 = Dust.NewDust(new Vector2(Projectile.Center.X, (float) ((double) Projectile.Center.Y + (double) Projectile.height - 16.0)), Projectile.width, 16, 89, 0.0f, 0.0f, 0, new Color(), 1f);
+					int num622 = Dust.NewDust(new Vector2(Projectile.Center.X, (float) ((double) Projectile.Center.Y + (double) Projectile.height - 16.0)), Projectile.width, 16, DustID.GemEmerald, 0.0f, 0.0f, 0, new Color(), 1f);
 					Main.dust[num622].velocity += (vec *0.2f);
 					Main.dust[num622].noGravity = true;
 				}

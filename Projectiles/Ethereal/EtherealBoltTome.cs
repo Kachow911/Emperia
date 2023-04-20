@@ -44,7 +44,7 @@ namespace Emperia.Projectiles.Ethereal
                     Vector2 vec = Vector2.Transform(new Vector2(-1, 0), Matrix.CreateRotationZ(MathHelper.ToRadians(i)));
                     if (i % 8 == 0)
                     {
-                        int b = Dust.NewDust(Projectile.Center, Main.rand.Next(1, 7), Main.rand.Next(1, 7), 229);
+                        int b = Dust.NewDust(Projectile.Center, Main.rand.Next(1, 7), Main.rand.Next(1, 7), DustID.Vortex);
                         Main.dust[b].noGravity = true;
                         Main.dust[b].velocity = vec;
                     }
@@ -64,11 +64,11 @@ namespace Emperia.Projectiles.Ethereal
             {
               float num1 = (float) (Projectile.oldVelocity.X * (30.0 / (double) index1));
               float num2 = (float) (Projectile.oldVelocity.Y * (30.0 / (double) index1));
-              int index2 = Dust.NewDust(new Vector2((float) Projectile.oldPosition.X - num1, (float) Projectile.oldPosition.Y - num2), 8, 8, 229, (float) Projectile.oldVelocity.X * 2, (float) Projectile.oldVelocity.Y * 2, 100, Color.LightBlue, 2f);
+              int index2 = Dust.NewDust(new Vector2((float) Projectile.oldPosition.X - num1, (float) Projectile.oldPosition.Y - num2), 8, 8, DustID.Vortex, (float) Projectile.oldVelocity.X * 2, (float) Projectile.oldVelocity.Y * 2, 100, Color.LightBlue, 2f);
               Main.dust[index2].noGravity = true;
               Dust dust1 = Main.dust[index2];
               dust1.velocity = dust1.velocity * 0.5f;
-              int index3 = Dust.NewDust(new Vector2((float) Projectile.oldPosition.X - num1, (float) Projectile.oldPosition.Y - num2), 8, 8, 229, (float) Projectile.oldVelocity.X, (float) Projectile.oldVelocity.Y, 100, Color.LightBlue, 1.6f);
+              int index3 = Dust.NewDust(new Vector2((float) Projectile.oldPosition.X - num1, (float) Projectile.oldPosition.Y - num2), 8, 8, DustID.Vortex, (float) Projectile.oldVelocity.X, (float) Projectile.oldVelocity.Y, 100, Color.LightBlue, 1.6f);
               Main.dust[index3].noGravity = true;
               Dust dust2 = Main.dust[index3];
               dust2.velocity = dust2.velocity * 0.5f;

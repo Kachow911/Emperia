@@ -41,7 +41,7 @@ namespace Emperia.Projectiles.Crimson
             Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + 1.57f;
             if (!latched)
             {
-                int index2 = Dust.NewDust(Projectile.Center, Main.rand.Next(1, 7), Main.rand.Next(1, 7), 87);
+                int index2 = Dust.NewDust(Projectile.Center, Main.rand.Next(1, 7), Main.rand.Next(1, 7), DustID.GemTopaz);
                 Main.dust[index2].noGravity = true;
             }
            // Main.dust[index2].position += Projectile.velocity.RotatedBy(1.570796, new Vector2());
@@ -58,11 +58,11 @@ namespace Emperia.Projectiles.Crimson
                 Projectile.rotation = rot;
                 if (timer % 30 == 0)
                 {
-                    int index3 = Dust.NewDust(Projectile.Center, 6, 6, 87);
-                    Dust.NewDust(Projectile.Center, 6, 6, 87);
-                    Dust.NewDust(Projectile.Center, 6, 6, 87);
-                    Dust.NewDust(Projectile.Center, 6, 6, 87);
-                    Dust.NewDust(Projectile.Center, 6, 6, 87);
+                    int index3 = Dust.NewDust(Projectile.Center, 6, 6, DustID.GemTopaz);
+                    Dust.NewDust(Projectile.Center, 6, 6, DustID.GemTopaz);
+                    Dust.NewDust(Projectile.Center, 6, 6, DustID.GemTopaz);
+                    Dust.NewDust(Projectile.Center, 6, 6, DustID.GemTopaz);
+                    Dust.NewDust(Projectile.Center, 6, 6, DustID.GemTopaz);
                     Vector2 perturbedSpeed = new Vector2(0, 3).RotatedBy(Projectile.rotation + 3.14f);
                     Main.dust[index3].velocity = perturbedSpeed;
                     NPC.AddBuff(BuffID.Ichor, 30);
@@ -90,7 +90,7 @@ namespace Emperia.Projectiles.Crimson
         {
             for (int i = 0; i < 20; ++i)
             {
-                int index2 = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 87, 0.0f, 0.0f, 15, new Color(53f, 67f, 253f), .8f);
+                int index2 = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, DustID.GemTopaz, 0.0f, 0.0f, 15, new Color(53f, 67f, 253f), .8f);
                 Main.dust[index2].noGravity = true;
                 Main.dust[index2].velocity *= 1f;
             }

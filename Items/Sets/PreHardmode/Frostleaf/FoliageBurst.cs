@@ -26,12 +26,12 @@ namespace Emperia.Items.Sets.PreHardmode.Frostleaf
             Item.height = 40;
             Item.useTime = 20;
             Item.useAnimation = 20;
-            Item.useStyle = 5;
-            Item.shoot = 3;
+            Item.useStyle = ItemUseStyleID.Shoot;
+            Item.shoot = ProjectileID.Shuriken;
             Item.useAmmo = ItemID.WoodenArrow;
             Item.knockBack = 1;
             Item.value = 24000;
-            Item.rare = 1;
+            Item.rare = ItemRarityID.Blue;
             Item.autoReuse = false;
             Item.shootSpeed = 4.5f;
         }
@@ -42,7 +42,7 @@ namespace Emperia.Items.Sets.PreHardmode.Frostleaf
 				if (notchedArrows < 5)
 				{
 					PlaySound(SoundID.Item5, player.Center);
-					Dust.NewDust(player.position, player.width, player.height, 155, 0, 0, 0, new Color(0, 255, 0), 0.8f);
+					Dust.NewDust(player.position, player.width, player.height, DustID.Ambient_DarkBrown, 0, 0, 0, new Color(0, 255, 0), 0.8f);
 					notchedArrows++;
 				}
 				else

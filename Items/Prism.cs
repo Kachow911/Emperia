@@ -15,7 +15,7 @@ namespace Emperia.Items
 			Item.width = 20;
 			Item.height = 20;
 			Item.value = 14000;
-			Item.rare = 3;
+			Item.rare = ItemRarityID.Orange;
 		}
 
 	public override void AddRecipes()

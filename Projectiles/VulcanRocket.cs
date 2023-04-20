@@ -47,7 +47,7 @@ namespace Emperia.Projectiles
 
                 for (int index1 = 0; index1 < 4; ++index1)
                 {
-                    int index3 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 258, (float)Projectile.velocity.X, (float)Projectile.velocity.Y, 0, Color.White, 1.1f);
+                    int index3 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.LavaMoss, (float)Projectile.velocity.X, (float)Projectile.velocity.Y, 0, Color.White, 1.1f);
                     Main.dust[index3].noGravity = true;
                     Main.dust[index3].velocity = Projectile.Center - Main.dust[index3].position;
                     ((Vector2)@Main.dust[index3].velocity).Normalize();
@@ -61,7 +61,7 @@ namespace Emperia.Projectiles
                 init = true;
 			}
 
-            int index2 = Dust.NewDust(new Vector2((float)(Projectile.position.X + 4.0), (float)(Projectile.position.Y + 4.0)), Projectile.width - 8, Projectile.height - 8, 76, (float)(Projectile.velocity.X * 0.200000002980232), (float)(Projectile.velocity.Y * 0.200000002980232), 0, rgb, 0.7f);
+            int index2 = Dust.NewDust(new Vector2((float)(Projectile.position.X + 4.0), (float)(Projectile.position.Y + 4.0)), Projectile.width - 8, Projectile.height - 8, DustID.Snow, (float)(Projectile.velocity.X * 0.200000002980232), (float)(Projectile.velocity.Y * 0.200000002980232), 0, rgb, 0.7f);
             Main.dust[index2].position = Projectile.Center;
             Main.dust[index2].noGravity = true;
             Main.dust[index2].velocity = Projectile.velocity * 0.5f;
@@ -78,7 +78,7 @@ namespace Emperia.Projectiles
 				{
 				Vector2 vec = Vector2.Transform(new Vector2(-1, 0), Matrix.CreateRotationZ(MathHelper.ToRadians(i)));
 				vec.Normalize();
-				int num622 = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 46, 0f, 0f, 158, new Color(53f, 67f, 253f), 1f);
+				int num622 = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, DustID.Poisoned, 0f, 0f, 158, new Color(53f, 67f, 253f), 1f);
 				Main.dust[num622].velocity += (vec *2f);
 				Main.dust[num622].noGravity = true;
 				}

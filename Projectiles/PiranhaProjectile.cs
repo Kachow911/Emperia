@@ -128,7 +128,7 @@ namespace Emperia.Projectiles
             returning = true;
 			for (int i = 0; i < 5; i++)
 			{
-				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 0);
+				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Dirt);
 				Main.dust[dust].scale = 1.5f;
 				Main.dust[dust].noGravity = true;
 			}

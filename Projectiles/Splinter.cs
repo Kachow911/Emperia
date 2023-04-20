@@ -46,7 +46,7 @@ namespace Emperia.Projectiles
 
 		public override void Kill(int timeLeft)
         {
-		   Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 7);
+		   Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, DustID.WoodFurniture);
 		}
     }
 }

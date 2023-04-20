@@ -20,10 +20,10 @@ namespace Emperia.Items
 			Item.autoReuse = true;
 			Item.useAnimation = 15;
 			Item.useTime = 15;
-			Item.useStyle = 1;
+			Item.useStyle = ItemUseStyleID.Swing;
 			Item.consumable = true;
 			Item.createTile = TileType<Tiles.BloodCandleTile>();
-			Item.rare = 4;
+			Item.rare = ItemRarityID.LightRed;
 			Item.value = 120000;
 		}
 	}

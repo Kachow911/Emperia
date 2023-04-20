@@ -28,7 +28,7 @@ namespace Emperia.Buffs
             if (Main.rand.Next(3) == 0)
             {
                 //dust = Main.dust[Terraria.Dust.NewDust(position, 30, 51, 183, 0f, -3.4883718f, 0, new Color(255, 255, 255), 1.5116279f)];
-                int dust = Dust.NewDust(new Vector2(player.position.X, player.position.Y + 20), player.width, player.height - 20, 183, 0f, -3f, 0, default(Color), 1.5f);
+                int dust = Dust.NewDust(new Vector2(player.position.X, player.position.Y + 20), player.width, player.height - 20, DustID.VampireHeal, 0f, -3f, 0, default(Color), 1.5f);
                 Main.dust[dust].noGravity = true;
                 Main.dust[dust].fadeIn = 1.7f;
                 //int dust = Dust.NewDust(new Vector2(player.Center.X, player.Center.Y), 20, 20, 183);

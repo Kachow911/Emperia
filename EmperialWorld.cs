@@ -490,7 +490,7 @@ namespace Emperia
 						case 50:
 							for (int inventoryIndex = 0; inventoryIndex < 40; inventoryIndex++)
 							{
-								if (chest.item[inventoryIndex].type == 0)
+								if (chest.item[inventoryIndex].type == ItemID.None)
 								{   //first empty inventory slot
 									chest.item[inventoryIndex].SetDefaults(ItemType<Items.Sets.PreHardmode.Granite.GraniteBar>());
 									chest.item[inventoryIndex].stack = WorldGen.genRand.Next(8, 13);
@@ -501,7 +501,7 @@ namespace Emperia
 						case 0:
 							for (int inventoryIndex = 0; inventoryIndex < 40; inventoryIndex++)
 							{
-								if (chest.item[inventoryIndex].type == 0)
+								if (chest.item[inventoryIndex].type == ItemID.None)
 								{
 									if (!WorldGen.genRand.NextBool(3))
 									{

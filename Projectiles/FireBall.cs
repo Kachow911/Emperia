@@ -56,7 +56,7 @@ namespace Emperia.Projectiles
 			}*/
 			if (Main.rand.Next(2) == 0)
             {
-            	int dust = Dust.NewDust(new Vector2(Projectile.Center.X, Projectile.Center.Y), Projectile.width / 8, Projectile.height / 8, 6, 0f, 0f, 0, new Color(39, 90, 219), 1f);
+            	int dust = Dust.NewDust(new Vector2(Projectile.Center.X, Projectile.Center.Y), Projectile.width / 8, Projectile.height / 8, DustID.Torch, 0f, 0f, 0, new Color(39, 90, 219), 1f);
             }
 		}
 			public override bool OnTileCollide(Vector2 oldVelocity)

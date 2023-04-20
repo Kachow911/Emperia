@@ -20,7 +20,7 @@ namespace Emperia.Items.Accessories.Gauntlets
         {
             Item.width = 20;
             Item.height = 20;
-            Item.rare = 1;
+            Item.rare = ItemRarityID.Blue;
             Item.value = 1750;
             Item.accessory = true;
             Item.defense = 1;

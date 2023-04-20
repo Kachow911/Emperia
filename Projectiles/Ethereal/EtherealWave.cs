@@ -32,7 +32,7 @@ namespace Emperia.Projectiles.Ethereal
 			Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + 1.57f;
 			if (Main.rand.NextBool(2))
 			{
-				int dust = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 229);
+				int dust = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, DustID.Vortex);
 				Main.dust[dust].noGravity = true;
 			}
 			if (Projectile.timeLeft < 20)

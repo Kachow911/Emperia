@@ -38,10 +38,10 @@ namespace Emperia.Projectiles       //We need this to basically indicate the fol
             {
                 if (Main.rand.Next(3) == 0)     //this defines how many dust to spawn
                 {
-                    int dust = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 59, Projectile.velocity.X * 1.2f, Projectile.velocity.Y * 1.2f, 59, default(Color), 3.75f);   //this defines the flames dust and color, change DustID to wat dust you want from Terraria, or add ModContent.DustType<CustomDustName>() for your custom dust
+                    int dust = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, DustID.BlueTorch, Projectile.velocity.X * 1.2f, Projectile.velocity.Y * 1.2f, 59, default(Color), 3.75f);   //this defines the flames dust and color, change DustID to wat dust you want from Terraria, or add ModContent.DustType<CustomDustName>() for your custom dust
                     Main.dust[dust].noGravity = true; //this make so the dust has no gravity
                     Main.dust[dust].velocity *= 2.5f;
-                    int dust2 = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 59, Projectile.velocity.X * 1.2f, Projectile.velocity.Y * 1.2f, 59, default(Color), 1.5f); //this defines the flames dust and color parcticles, like when they fall thru ground, change DustID to wat dust you want from Terraria
+                    int dust2 = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, DustID.BlueTorch, Projectile.velocity.X * 1.2f, Projectile.velocity.Y * 1.2f, 59, default(Color), 1.5f); //this defines the flames dust and color parcticles, like when they fall thru ground, change DustID to wat dust you want from Terraria
                 }
             }
             else

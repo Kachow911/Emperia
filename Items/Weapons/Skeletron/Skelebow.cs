@@ -25,12 +25,12 @@ namespace Emperia.Items.Weapons.Skeletron
             Item.height = 40;
             Item.useTime = 30;
             Item.useAnimation = 30;
-            Item.useStyle = 5;
-            Item.shoot = 3;
+            Item.useStyle = ItemUseStyleID.Shoot;
+            Item.shoot = ProjectileID.Shuriken;
             Item.useAmmo = ItemID.WoodenArrow;
             Item.knockBack = 1;
             Item.value = 5000;
-            Item.rare = 2;
+            Item.rare = ItemRarityID.Green;
             Item.autoReuse = true;
             Item.shootSpeed = 15f;
 			Item.UseSound = SoundID.Item5; 

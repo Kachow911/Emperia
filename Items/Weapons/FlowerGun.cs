@@ -18,9 +18,9 @@ namespace Emperia.Items.Weapons
             Item.height = 16;
             Item.useTime = 22;
             Item.useAnimation = 22;
-            Item.useStyle = 5;
+            Item.useStyle = ItemUseStyleID.Shoot;
             Item.value = 10000;
-            Item.rare = 2;
+            Item.rare = ItemRarityID.Green;
             Item.UseSound = SoundID.Item11;
             Item.useTurn = false;  
             Item.noMelee = true;
@@ -54,7 +54,7 @@ namespace Emperia.Items.Weapons
         {
             for (int i = 0; i < 8; i++)
             {
-                int grass = Dust.NewDust(Projectile.Center, Main.rand.Next(1, 7), Main.rand.Next(1, 7), 39);
+                int grass = Dust.NewDust(Projectile.Center, Main.rand.Next(1, 7), Main.rand.Next(1, 7), DustID.JungleGrass);
                 //Main.dust[grass].scale = 0.75f;
             }
             PlaySound(SoundID.Item14, Projectile.Center);
@@ -123,7 +123,7 @@ namespace Emperia.Items.Weapons
         {
             for (int i = 0; i < 20; i++)
             {
-                int petal = Dust.NewDust(Projectile.Center, Main.rand.Next(1, 7), Main.rand.Next(1, 7), 120);
+                int petal = Dust.NewDust(Projectile.Center, Main.rand.Next(1, 7), Main.rand.Next(1, 7), DustID.Ice_Red);
                 Main.dust[petal].color = Color.Red; //new Color(255, 0, 0);
             }
             PlaySound(SoundID.Grass);

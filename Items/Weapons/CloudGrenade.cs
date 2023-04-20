@@ -21,7 +21,7 @@ namespace Emperia.Items.Weapons
 
         public override void SetDefaults()
         {
-            Item.useStyle = 5;
+            Item.useStyle = ItemUseStyleID.Shoot;
             Item.width = 16;
             Item.height = 16;
             Item.noMelee = true;
@@ -37,7 +37,7 @@ namespace Emperia.Items.Weapons
             Item.knockBack = 10f;
 			Item.value = Item.sellPrice(0, 0, 1, 50);
             Item.crit = 0;
-            Item.rare = 1;
+            Item.rare = ItemRarityID.Blue;
         }
         public override void AddRecipes()
         {
@@ -102,7 +102,7 @@ namespace Emperia.Items.Weapons
         {
             for (int i = 0; i < 40; i++)
             {
-                int smokeDust = Dust.NewDust(new Vector2(Projectile.position.X - Projectile.width * 2, Projectile.position.Y - Projectile.height * 2), Projectile.width * 5, Projectile.height * 5, 16, 0.0f, 0.0f, 60, new Color(53f, 67f, 253f), 1f);
+                int smokeDust = Dust.NewDust(new Vector2(Projectile.position.X - Projectile.width * 2, Projectile.position.Y - Projectile.height * 2), Projectile.width * 5, Projectile.height * 5, DustID.Cloud, 0.0f, 0.0f, 60, new Color(53f, 67f, 253f), 1f);
                 /*Main.dust[smokeDust].velocity *= Main.rand.NextFloat(1.75f, 3.5f);
                 Main.dust[smokeDust].scale *= Main.rand.NextFloat(1.75f, 2.75f);
                 Main.dust[smokeDust].noGravity = true;*/

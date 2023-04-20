@@ -47,7 +47,7 @@ namespace Emperia.Projectiles
         	}
 			if(Main.rand.Next(2) == 0)
 			{
-            int num250 = Dust.NewDust(new Vector2(Projectile.position.X - Projectile.velocity.X, Projectile.position.Y - Projectile.velocity.Y), Projectile.width, Projectile.height, 21, (float)(Projectile.direction * 2), 0f, 150, new Color(53f, 67f, 253f), 1.3f);
+            int num250 = Dust.NewDust(new Vector2(Projectile.position.X - Projectile.velocity.X, Projectile.position.Y - Projectile.velocity.Y), Projectile.width, Projectile.height, DustID.VilePowder, (float)(Projectile.direction * 2), 0f, 150, new Color(53f, 67f, 253f), 1.3f);
 					Main.dust[num250].noGravity = true;
 					Main.dust[num250].velocity *= 0f;
 			}
@@ -57,7 +57,7 @@ namespace Emperia.Projectiles
             Terraria.Audio.SoundEngine.PlaySound(SoundID.Item10, Projectile.position);
             for (int k = 0; k < 5; k++)
             {
-            	Dust.NewDust(Projectile.position + Projectile.velocity, Projectile.width, Projectile.height, 21, Projectile.velocity.X * 0.5f, Projectile.velocity.Y * 0.5f);
+            	Dust.NewDust(Projectile.position + Projectile.velocity, Projectile.width, Projectile.height, DustID.VilePowder, Projectile.velocity.X * 0.5f, Projectile.velocity.Y * 0.5f);
 				Projectile.NewProjectile(Projectile.InheritSource(Projectile), Projectile.Center.X, Projectile.Center.Y, 0f, 0f, ModContent.ProjectileType<DuskExplosion>(), Projectile.damage / 2, 5f, Projectile.owner);
             }
 		}

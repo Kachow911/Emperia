@@ -109,7 +109,7 @@ namespace Emperia.Projectiles
 		{
 			for (int i = 0; i < 3; i++)
 			{
-				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 253);
+				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.TsunamiInABottle);
 				Main.dust[dust].scale = 0.5f;
 			}
 			Terraria.Audio.SoundEngine.PlaySound(SoundID.Grass, Projectile.position);
@@ -126,7 +126,7 @@ namespace Emperia.Projectiles
 				}
 				for (int i = 0; i < 8; ++i)
 				{
-					int index2 = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 253, 0.0f, 0.0f, 15, new Color(53f, 67f, 253f), 1f);
+					int index2 = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, DustID.TsunamiInABottle, 0.0f, 0.0f, 15, new Color(53f, 67f, 253f), 1f);
 					Main.dust[index2].noGravity = true;
 					Main.dust[index2].velocity *= 1.5f;
 				}

@@ -35,7 +35,7 @@ namespace Emperia.Projectiles.Corrupt
 			float maxHome = 400f;       // |
             for (int i = 0; i < 10; i++)
             {
-                int num = Dust.NewDust(Projectile.Center, 26, 26, 75, 0f, 0f, 0, default(Color), 1.5f);
+                int num = Dust.NewDust(Projectile.Center, 26, 26, DustID.CursedTorch, 0f, 0f, 0, default(Color), 1.5f);
                 Main.dust[num].alpha = 0;
                 Main.dust[num].position.X = Projectile.Center.X - Projectile.velocity.X / 10f * (float)i;
                 Main.dust[num].position.Y = Projectile.Center.Y - Projectile.velocity.Y / 10f * (float)i;
@@ -84,7 +84,7 @@ namespace Emperia.Projectiles.Corrupt
         {
             for (int i = 0; i < 20; ++i)
             {
-                int index2 = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 75, 0.0f, 0.0f, 15, new Color(53f, 67f, 253f), 2f);
+                int index2 = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, DustID.CursedTorch, 0.0f, 0.0f, 15, new Color(53f, 67f, 253f), 2f);
                 Main.dust[index2].noGravity = true;
                 Main.dust[index2].velocity *= 3.25f;
             }

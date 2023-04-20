@@ -32,7 +32,7 @@ namespace Emperia.Projectiles
         public override void AI()           //this make that the Projectile will face the corect way
         {                                                           // |
             timer++;
-			int dust = Dust.NewDust(new Vector2(Projectile.Center.X, Projectile.Center.Y), Projectile.width / 8, Projectile.height / 8, 258, 0f, 0f);
+			int dust = Dust.NewDust(new Vector2(Projectile.Center.X, Projectile.Center.Y), Projectile.width / 8, Projectile.height / 8, DustID.LavaMoss, 0f, 0f);
 			Main.dust[dust].velocity = -Projectile.velocity;
 			if (Projectile.velocity.X > 0)
 			{

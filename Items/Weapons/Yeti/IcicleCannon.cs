@@ -27,12 +27,12 @@ namespace Emperia.Items.Weapons.Yeti
             Item.height = 20;
             Item.useTime = 40;
             Item.useAnimation = 40;
-            Item.useStyle = 5;
+            Item.useStyle = ItemUseStyleID.Shoot;
 			Item.shoot = ModContent.ProjectileType<IceCannonball>();
 			Item.useAmmo = AmmoID.Bullet;
             Item.knockBack = 5.5f;
 			Item.value = 52500;
-            Item.rare = 1;
+            Item.rare = ItemRarityID.Blue;
 			Item.crit = 4;
             Item.autoReuse = false;
             Item.shootSpeed = 16f;
@@ -51,7 +51,7 @@ namespace Emperia.Items.Weapons.Yeti
 				{
 					for (int i = 0; i < 6; i++)
 					{
-						int index2 = Dust.NewDust(player.position + new Vector2(18, 0), player.width, player.height, 68, player.velocity.X / 5, player.velocity.Y, 0, default(Color), 0.9f);
+						int index2 = Dust.NewDust(player.position + new Vector2(18, 0), player.width, player.height, DustID.BlueCrystalShard, player.velocity.X / 5, player.velocity.Y, 0, default(Color), 0.9f);
 						Main.dust[index2].noGravity = true;
 					}
 					PlaySound(SoundID.Item11, player.Center);

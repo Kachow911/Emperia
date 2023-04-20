@@ -30,7 +30,7 @@ namespace Emperia.Projectiles.Yeti
         {
 			if (Main.rand.Next(4) == 0)
 			{
-				int num622 = Dust.NewDust(new Vector2(Projectile.Center.X, Projectile.Center.Y), 1, 1, 93, 0f, 0f, 0, default, 1.3f);
+				int num622 = Dust.NewDust(new Vector2(Projectile.Center.X, Projectile.Center.Y), 1, 1, DustID.GreenMoss, 0f, 0f, 0, default, 1.3f);
 				Main.dust[num622].velocity += Projectile.velocity * 0.2f;
 				Main.dust[num622].noGravity = true;
 			}

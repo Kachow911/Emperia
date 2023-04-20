@@ -25,11 +25,11 @@ namespace Emperia.Items.Sets.PreHardmode.Desert
             Item.height = 60;
             Item.useTime = 30;
             Item.useAnimation = 30;
-            Item.useStyle = 5;
+            Item.useStyle = ItemUseStyleID.Shoot;
             Item.noMelee = true;
             Item.knockBack = 0;
             Item.value = 27000;
-            Item.rare = 1;
+            Item.rare = ItemRarityID.Blue;
             Item.UseSound = SoundID.Item8;
             Item.autoReuse = false;
             Item.shoot = ModContent.ProjectileType<DuneDriverProj>();

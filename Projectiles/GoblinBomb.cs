@@ -46,8 +46,8 @@ namespace Emperia.Projectiles
 			}
 			for (int i = 0; i < 50; ++i) //Create dust after teleport
 			{
-				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 258);
-				int dust1 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 258);
+				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.LavaMoss);
+				int dust1 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.LavaMoss);
 				Main.dust[dust1].scale = 0.8f;
 				Main.dust[dust1].velocity *= 2f;
 			}

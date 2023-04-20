@@ -25,12 +25,12 @@ namespace Emperia.Items.Sets.Hardmode.Stratos
 			Item.UseSound = SoundID.Item43;
 			Item.useAnimation = 15;
 			Item.reuseDelay = 14;
-			Item.useStyle = 5;
+			Item.useStyle = ItemUseStyleID.Shoot;
 			Item.staff[Item.type] = true;
 			Item.noMelee = true;
 			Item.knockBack = 2.5f;
 			Item.value = 6500;
-			Item.rare = 4;
+			Item.rare = ItemRarityID.LightRed;
 			Item.autoReuse = true;
 			Item.shoot = ModContent.ProjectileType<StratosEnergy>();
 			Item.shootSpeed = 12f;

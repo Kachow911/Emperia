@@ -123,7 +123,7 @@ namespace Emperia.Npcs.StormBoss
                 for (float i = 0; i <= numDusts; i++)
                 {
                     if (Main.rand.Next(1, 10) <= 3) {
-                        int dust1 = Dust.NewDust(new Vector2(initialPosition.X + ((NPC.Center.X - initialPosition.X) * (i / numDusts)), initialPosition.Y + ((NPC.Center.Y - initialPosition.Y) * (i / numDusts))), 8, 8, 226);
+                        int dust1 = Dust.NewDust(new Vector2(initialPosition.X + ((NPC.Center.X - initialPosition.X) * (i / numDusts)), initialPosition.Y + ((NPC.Center.Y - initialPosition.Y) * (i / numDusts))), 8, 8, DustID.Electric);
                         Main.dust[dust1].noGravity = true;
                     }
                 }
@@ -138,7 +138,7 @@ namespace Emperia.Npcs.StormBoss
             }
             else if (move == Move.Lightning)
             {
-                int dust = Dust.NewDust(NPC.Center + new Vector2(0, 25), 8, 8, 226);
+                int dust = Dust.NewDust(NPC.Center + new Vector2(0, 25), 8, 8, DustID.Electric);
                 if (counter == 0)
                 {
 

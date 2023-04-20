@@ -26,10 +26,10 @@ namespace Emperia.Items.Weapons.Color1
             Item.height = 62;
             Item.useTime = 33;
             Item.useAnimation = 33;     
-            Item.useStyle = 1;
+            Item.useStyle = ItemUseStyleID.Swing;
             Item.knockBack = 5.5f;  
             Item.value = 232500;        
-            Item.rare = 5;
+            Item.rare = ItemRarityID.Pink;
 			Item.UseSound = SoundID.Item1;
 			Item.shoot = ModContent.ProjectileType<DuskProj>();
 			Item.shootSpeed = 16f;
@@ -56,7 +56,7 @@ namespace Emperia.Items.Weapons.Color1
 		{
 			if (Main.rand.Next(3) == 0)
 			{
-				int dust = Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, 21);
+				int dust = Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, DustID.VilePowder);
 			}
 		}
 		 public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)

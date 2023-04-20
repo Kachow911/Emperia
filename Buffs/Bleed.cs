@@ -1,5 +1,6 @@
 using Terraria;
 using Terraria.ModLoader;
+using Terraria.ID;
 
 namespace Emperia.Buffs
 {
@@ -18,7 +19,7 @@ namespace Emperia.Buffs
 
 			if (Main.rand.NextBool(3))
 			{
-				int dust = Dust.NewDust(NPC.position, NPC.width, NPC.height, 5);
+				int dust = Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Blood);
 				Main.dust[dust].scale = 1.5f;
 				Main.dust[dust].noGravity = true;
 			}

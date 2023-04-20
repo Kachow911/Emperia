@@ -33,7 +33,7 @@ namespace Emperia.Projectiles.TrueDaysVerge
 			Projectile.alpha = 100 + (int) (Math.Cos(Projectile.timeLeft) * 100);
 			if(Main.rand.Next(2) == 0)
 			{
-				int num250 = Dust.NewDust(new Vector2(Projectile.position.X - Projectile.velocity.X, Projectile.position.Y - Projectile.velocity.Y), Projectile.width, Projectile.height, 66, (float)(Projectile.direction * 2), 0f, 150, new Color(53f, 67f, 253f), 1.3f);
+				int num250 = Dust.NewDust(new Vector2(Projectile.position.X - Projectile.velocity.X, Projectile.position.Y - Projectile.velocity.Y), Projectile.width, Projectile.height, DustID.RainbowTorch, (float)(Projectile.direction * 2), 0f, 150, new Color(53f, 67f, 253f), 1.3f);
 				Main.dust[num250].noGravity = true;
 				Main.dust[num250].velocity *= 0f;
 			}

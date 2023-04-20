@@ -370,7 +370,7 @@ namespace Emperia.Npcs.SeaCrab
 				    {
 						if (counter % 3 == 0)
 						{
-							int dust1 = Dust.NewDust(new Vector2(NPC.position.X - (int)(NPC.width * 0.2f), NPC.position.Y), (int)(NPC.width * 1.4f), NPC.height, 267, 0.0f, -2.75f, 0, new Color(60, 255, 20), 1.1f);
+							int dust1 = Dust.NewDust(new Vector2(NPC.position.X - (int)(NPC.width * 0.2f), NPC.position.Y), (int)(NPC.width * 1.4f), NPC.height, DustID.RainbowMk2, 0.0f, -2.75f, 0, new Color(60, 255, 20), 1.1f);
 							Main.dust[dust1].noGravity = true;
 							Main.dust[dust1].velocity.X = 0f;
 						}

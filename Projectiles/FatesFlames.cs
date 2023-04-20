@@ -35,7 +35,7 @@ namespace Emperia.Projectiles
         {              
 			if (Projectile.timeLeft % 30 == 0)
 			{
-					int dust = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y + 10), Projectile.width, Projectile.height, 191, 0f, 0f, 91, new Color(89, 249, 116), 1.5f);
+					int dust = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y + 10), Projectile.width, Projectile.height, DustID.SpookyWood, 0f, 0f, 91, new Color(89, 249, 116), 1.5f);
 					Main.dust[dust].velocity = new Vector2(0, -1);
 					Main.dust[dust].noGravity = true;
 			}
@@ -90,7 +90,7 @@ namespace Emperia.Projectiles
 				PlaySound(SoundID.Item14, Projectile.Center);
 				for (int i = 0; i < 30; ++i)
 				{
-					int index2 = Dust.NewDust(new Vector2(Projectile.Center.X, Projectile.Center.Y), Projectile.width, Projectile.height, 191, 0f, 0f, 91, new Color(89, 249, 116), 1.5f);
+					int index2 = Dust.NewDust(new Vector2(Projectile.Center.X, Projectile.Center.Y), Projectile.width, Projectile.height, DustID.SpookyWood, 0f, 0f, 91, new Color(89, 249, 116), 1.5f);
 					Main.dust[index2].noGravity = true;
 					Main.dust[index2].velocity *= 2f;
 				}
@@ -100,7 +100,7 @@ namespace Emperia.Projectiles
 				PlaySound(SoundID.Item20, Projectile.Center);
 				for (int i = 0; i < 3; ++i)
 				{
-					int dust = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y + 10), Projectile.width, Projectile.height, 191, 0f, 0f, 91, new Color(89, 249, 116), 1.5f);
+					int dust = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y + 10), Projectile.width, Projectile.height, DustID.SpookyWood, 0f, 0f, 91, new Color(89, 249, 116), 1.5f);
 					Main.dust[dust].noGravity = true;
 				}
 			}

@@ -26,12 +26,12 @@ namespace Emperia.Items.Sets.PreHardmode.Chillsteel
             Item.height = 40;
             Item.useTime = 28;
             Item.useAnimation = 29;
-            Item.useStyle = 5;
-            Item.shoot = 3;
+            Item.useStyle = ItemUseStyleID.Shoot;
+            Item.shoot = ProjectileID.Shuriken;
             Item.useAmmo = ItemID.WoodenArrow;
             Item.knockBack = 1;
             Item.value = 22500;
-            Item.rare = 4;
+            Item.rare = ItemRarityID.LightRed;
             Item.autoReuse = false;
             Item.shootSpeed = 12f;
 			Item.UseSound = SoundID.Item5; 

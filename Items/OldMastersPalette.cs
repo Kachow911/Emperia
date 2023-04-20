@@ -34,9 +34,9 @@ namespace Emperia.Items
             Item.height = 20;
             Item.useAnimation = 15;
             Item.useTime = 5;
-            Item.useStyle = 1;
+            Item.useStyle = ItemUseStyleID.Swing;
             Item.value = 10000;
-            Item.rare = 2;
+            Item.rare = ItemRarityID.Green;
             Item.autoReuse = true;
             //Item.UseSound = SoundID.Item1;
             Item.tileBoost = 3;
@@ -586,7 +586,7 @@ namespace Emperia.Items
         {
             Item.width = 16;
             Item.height = 16;
-            Item.rare = 8;
+            Item.rare = ItemRarityID.Yellow;
         }
 
         public virtual bool CanApply(Item Item)

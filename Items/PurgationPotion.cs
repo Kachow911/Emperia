@@ -21,13 +21,13 @@ namespace Emperia.Items
         {
             Item.width = 28;
             Item.height = 30;
-            Item.useStyle = 9;
+            Item.useStyle = ItemUseStyleID.DrinkLiquid;
             Item.useAnimation = 17;
             Item.useTime = 17;
             Item.useTurn = true;
             Item.UseSound = SoundID.Item3;
                         Item.consumable = true;
-            Item.rare = 1;
+            Item.rare = ItemRarityID.Blue;
             Item.value = 1000;
             Item.buffType = (ModContent.BuffType<Purgation>());
             Item.buffTime = 36000;

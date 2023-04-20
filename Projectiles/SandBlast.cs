@@ -32,7 +32,7 @@ namespace Emperia.Projectiles
             Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + 1.57f;
 			for (int i = 0; i < 2; i++)
 			{
-				int dust = Dust.NewDust(new Vector2(Projectile.position.X, (float) ((double) Projectile.position.Y + (double) Projectile.height - 16.0)), Projectile.width, 16, 85, 0.0f, 0.0f, 0, new Color(), 1.5f);
+				int dust = Dust.NewDust(new Vector2(Projectile.position.X, (float) ((double) Projectile.position.Y + (double) Projectile.height - 16.0)), Projectile.width, 16, DustID.UnusedBrown, 0.0f, 0.0f, 0, new Color(), 1.5f);
 				Main.dust[dust].velocity *= 0.1f;
 				if (Projectile.velocity == Vector2.Zero)
 				{

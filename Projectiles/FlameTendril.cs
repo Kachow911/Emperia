@@ -61,7 +61,7 @@ namespace Emperia.Projectiles
 				int num890 = 0;
 				while ((float)num890 < Projectile.scale * 10f)
 				{
-					int num891 = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 6, Projectile.velocity.X, Projectile.velocity.Y, 100, default(Color), 1.1f);
+					int num891 = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, DustID.Torch, Projectile.velocity.X, Projectile.velocity.Y, 100, default(Color), 1.1f);
 					Main.dust[num891].position = (Main.dust[num891].position + Projectile.Center) / 2f;
 					Main.dust[num891].noGravity = true;
 					Dust dust3 = Main.dust[num891];

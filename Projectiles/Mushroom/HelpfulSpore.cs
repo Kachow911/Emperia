@@ -47,7 +47,7 @@ namespace Emperia.Projectiles.Mushroom
             rotate2 += .5f;
 			if (Main.rand.Next(20) == 0)
             {
-            	int dust = Dust.NewDust(new Vector2(Projectile.Center.X, Projectile.Center.Y), Projectile.width / 8, Projectile.height / 8, 20, 0f, 0f, 0, new Color(39, 90, 219), 0.75f);
+            	int dust = Dust.NewDust(new Vector2(Projectile.Center.X, Projectile.Center.Y), Projectile.width / 8, Projectile.height / 8, DustID.PurificationPowder, 0f, 0f, 0, new Color(39, 90, 219), 0.75f);
             }
 
         }
@@ -72,13 +72,13 @@ namespace Emperia.Projectiles.Mushroom
 
                 if (i % 8 == 0)
                 {   //odd
-                    Dust.NewDust(Projectile.Center + vec, Main.rand.Next(1, 7), Main.rand.Next(1, 7), 20);
+                    Dust.NewDust(Projectile.Center + vec, Main.rand.Next(1, 7), Main.rand.Next(1, 7), DustID.PurificationPowder);
                 }
 
                 if (i % 9 == 0)
                 {   //even
                     vec.Normalize();
-                    Dust.NewDust(Projectile.Center, Main.rand.Next(1, 7), Main.rand.Next(1, 7), 20, vec.X * 2, vec.Y * 2);
+                    Dust.NewDust(Projectile.Center, Main.rand.Next(1, 7), Main.rand.Next(1, 7), DustID.PurificationPowder, vec.X * 2, vec.Y * 2);
                 }
             }
 

@@ -313,7 +313,7 @@ namespace Emperia
 					Vector2 vec = Vector2.Transform(new Vector2(-15, 0), Matrix.CreateRotationZ(MathHelper.ToRadians(i)));
 					if (i % 20 == 0)
 					{
-						int b = Dust.NewDust(Player.Center, Main.rand.Next(1, 7), Main.rand.Next(1, 7), 226);
+						int b = Dust.NewDust(Player.Center, Main.rand.Next(1, 7), Main.rand.Next(1, 7), DustID.Electric);
 						Main.dust[b].noGravity = true;
 						Main.dust[b].velocity = vec;
 					}
@@ -351,7 +351,7 @@ namespace Emperia
 					{
 						Vector2 perturbedSpeed = new Vector2(0, 3).RotatedBy(MathHelper.ToRadians(4 * j));
 						Color rgb = new Color(50, 205, 50);
-						int index3 = Dust.NewDust(Player.Center, 8, 8, 63, (float)0, (float)0, 0, rgb, 1.1f);
+						int index3 = Dust.NewDust(Player.Center, 8, 8, DustID.WhiteTorch, (float)0, (float)0, 0, rgb, 1.1f);
 						Main.dust[index3].velocity = perturbedSpeed;
 					}
 					doWave = false;
@@ -367,8 +367,8 @@ namespace Emperia
 				{
 					for (int i = 0; i < 50; ++i) //Create dust after teleport
 					{
-						int dust = Dust.NewDust(Player.position, Player.width, Player.height, 6);
-						int dust1 = Dust.NewDust(Player.position, Player.width, Player.height, 6);
+						int dust = Dust.NewDust(Player.position, Player.width, Player.height, DustID.Torch);
+						int dust1 = Dust.NewDust(Player.position, Player.width, Player.height, DustID.Torch);
 						Main.dust[dust1].scale = 0.8f;
 						Main.dust[dust1].velocity *= 1.5f;
 					}
@@ -400,7 +400,7 @@ namespace Emperia
 			if (dashDelay >= 70)
 			{
 				Player.velocity.X *= .95f;
-				int dust = Dust.NewDust(Player.position, Player.width, Player.height, 75, 0f, 0f, 91, new Color(2, 249, 2), 1.5f);
+				int dust = Dust.NewDust(Player.position, Player.width, Player.height, DustID.CursedTorch, 0f, 0f, 91, new Color(2, 249, 2), 1.5f);
 				Main.dust[dust].velocity = Vector2.Zero;
 				Main.dust[dust].noGravity = true;
 				//if (dashDelay % 3 == 0)
@@ -453,8 +453,8 @@ namespace Emperia
 					dashDelay = 100;
 					for (int i = 0; i < 50; ++i) //Create dust after teleport
 					{
-						int dust = Dust.NewDust(Player.position, Player.width, Player.height, 75);
-						int dust1 = Dust.NewDust(Player.position, Player.width, Player.height, 75);
+						int dust = Dust.NewDust(Player.position, Player.width, Player.height, DustID.CursedTorch);
+						int dust1 = Dust.NewDust(Player.position, Player.width, Player.height, DustID.CursedTorch);
 						Main.dust[dust1].scale = 0.8f;
 						Main.dust[dust1].velocity *= 2f;
 						Main.dust[dust1].noGravity = true;
@@ -474,8 +474,8 @@ namespace Emperia
 						else if (ex == 1) rgb = new Color(254, 105, 47);
 						else if (ex == 2) rgb = new Color(0, 242, 170);
 						else if (ex == 3) rgb = new Color(104, 214, 255);
-						int index3 = Dust.NewDust(Player.position, 8, 8, 76, 0, 0, 0, rgb, 1.1f);
-						int index4 = Dust.NewDust(Player.position, 8, 8, 76, (float)Player.velocity.X, (float)Player.velocity.Y, 0, rgb, 1.1f);
+						int index3 = Dust.NewDust(Player.position, 8, 8, DustID.Snow, 0, 0, 0, rgb, 1.1f);
+						int index4 = Dust.NewDust(Player.position, 8, 8, DustID.Snow, (float)Player.velocity.X, (float)Player.velocity.Y, 0, rgb, 1.1f);
 						Main.dust[index4].scale = 0.8f;
 						Main.dust[index4].velocity *= 2f;
 						Main.dust[index4].noGravity = true;
@@ -495,8 +495,8 @@ namespace Emperia
 					dashDelay = 100;
 					for (int i = 0; i < 50; ++i) //Create dust after teleport
 					{
-						int dust = Dust.NewDust(Player.position, Player.width, Player.height, 75);
-						int dust1 = Dust.NewDust(Player.position, Player.width, Player.height, 75);
+						int dust = Dust.NewDust(Player.position, Player.width, Player.height, DustID.CursedTorch);
+						int dust1 = Dust.NewDust(Player.position, Player.width, Player.height, DustID.CursedTorch);
 						Main.dust[dust1].scale = 0.8f;
 						Main.dust[dust1].velocity *= 2f;
 						Main.dust[dust1].noGravity = true;
@@ -515,8 +515,8 @@ namespace Emperia
 						else if (ex == 1) rgb = new Color(254, 105, 47);
 						else if (ex == 2) rgb = new Color(0, 242, 170);
 						else if (ex == 3) rgb = new Color(104, 214, 255);
-						int index3 = Dust.NewDust(Player.position, 8, 8, 76, 0, 0, 0, rgb, 1.1f);
-						int index4 = Dust.NewDust(Player.position, 8, 8, 76, (float)Player.velocity.X, (float)Player.velocity.Y, 0, rgb, 1.1f);
+						int index3 = Dust.NewDust(Player.position, 8, 8, DustID.Snow, 0, 0, 0, rgb, 1.1f);
+						int index4 = Dust.NewDust(Player.position, 8, 8, DustID.Snow, (float)Player.velocity.X, (float)Player.velocity.Y, 0, rgb, 1.1f);
 						Main.dust[index4].scale = 0.8f;
 						Main.dust[index4].velocity *= 2f;
 						Main.dust[index4].noGravity = true;
@@ -550,7 +550,7 @@ namespace Emperia
 					for (int i = 0; i < 360; i += 6)
 					{
 						Vector2 Position = new Vector2(0, -256).RotatedBy(MathHelper.ToRadians(i));
-						int dust = Dust.NewDust(Player.Center + Position, Player.width / 8, Player.height / 8, 76, 0f, 0f, 0, rgb, 1.5f);
+						int dust = Dust.NewDust(Player.Center + Position, Player.width / 8, Player.height / 8, DustID.Snow, 0f, 0f, 0, rgb, 1.5f);
 						Main.dust[dust].noGravity = true;
 					}
 					for (int i = 0; i < Main.npc.Length; i++)

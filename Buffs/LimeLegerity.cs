@@ -30,7 +30,7 @@ namespace Emperia.Buffs
             player.GetAttackSpeed(DamageClass.Melee) *= 1.10f;
 			if (Main.rand.Next(2) == 0)
 			{
-				int dust = Dust.NewDust(new Vector2(player.Center.X, player.Center.Y), 20, 20, 75);
+				int dust = Dust.NewDust(new Vector2(player.Center.X, player.Center.Y), 20, 20, DustID.CursedTorch);
 			}
         }
     }

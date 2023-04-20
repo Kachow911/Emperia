@@ -24,12 +24,12 @@ namespace Emperia.Items.Sets.PreHardmode.Aquatic
             Item.height = 32;
             Item.useTime = 17;
             Item.useAnimation = 17;
-            Item.useStyle = 5;
+            Item.useStyle = ItemUseStyleID.Shoot;
             Item.noMelee = true;
             Item.knockBack = 1;
             Item.useTurn = false;
             Item.value = Terraria.Item.sellPrice(0, 0, 50, 0);
-            Item.rare = 3;
+            Item.rare = ItemRarityID.Orange;
             Item.UseSound = SoundID.Item36;
             Item.autoReuse = true;
             Item.shoot = ModContent.ProjectileType<RainBlast>();

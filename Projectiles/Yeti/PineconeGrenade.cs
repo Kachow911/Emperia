@@ -30,12 +30,12 @@ namespace Emperia.Projectiles.Yeti
 		{
             for (int i = 0; i < 7; i++)
             {
-			    int smokeDust = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 31, 0.0f, 0.0f, 60, new Color(53f, 67f, 253f), 1.5f);
+			    int smokeDust = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, DustID.Smoke, 0.0f, 0.0f, 60, new Color(53f, 67f, 253f), 1.5f);
 				Main.dust[smokeDust].velocity *= 3.5f;
 				Main.dust[smokeDust].noGravity = true;
-			    int sparkDust = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 6, 0.0f, 0.0f, 0, default(Color), 1.5f);
+			    int sparkDust = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, DustID.Torch, 0.0f, 0.0f, 0, default(Color), 1.5f);
 				Main.dust[sparkDust].velocity *= 2f;
-                int barkDust = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 155, 0.0f, 0.0f, 0, default(Color), 1.3f);
+                int barkDust = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, DustID.Ambient_DarkBrown, 0.0f, 0.0f, 0, default(Color), 1.3f);
 				Main.dust[barkDust].velocity *= 4f;
                 Main.dust[barkDust].noGravity = true;
             }

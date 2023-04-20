@@ -21,7 +21,7 @@ public class DuneKingMaw : ModItem
         Item.width = 18;
         Item.height = 18;
         Item.value = 140000;
-        Item.rare = 2;
+        Item.rare = ItemRarityID.Green;
         Item.defense = 4;
     }
 

@@ -22,14 +22,14 @@ namespace Emperia.Items.Weapons
             Item.height = 16;    
             Item.useTime = 6;   
             Item.useAnimation = 20;     
-            Item.useStyle = 5;  
+            Item.useStyle = ItemUseStyleID.Shoot;  
             Item.noMelee = true; 
             Item.knockBack = 3.25f; 
             Item.UseSound = SoundID.Item34; 
             Item.value = Item.buyPrice(0, 10, 0, 0);
-            Item.rare = 6;   
+            Item.rare = ItemRarityID.LightPurple;   
             Item.autoReuse = true;  
-            Item.shoot = 85;   
+            Item.shoot = ProjectileID.Flames;   
             Item.shootSpeed = 4.5f; 
             Item.useAmmo = AmmoID.Gel;
 			Item.reuseDelay = 20;

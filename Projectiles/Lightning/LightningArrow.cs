@@ -84,7 +84,7 @@ namespace Emperia.Projectiles.Lightning
 			Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + 1.57f;
 			if (Main.rand.Next(3) == 0)
 			{
-				Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 226, 0.0f, 0.0f, 15, Color.LightBlue, 0.8f);
+				Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, DustID.Electric, 0.0f, 0.0f, 15, Color.LightBlue, 0.8f);
 			}
 		}
 	

@@ -21,10 +21,10 @@ namespace Emperia.Items.Sets.PreHardmode.Aquatic
 			Item.height = 24;
 			Item.useTime = 15;
 			Item.useAnimation = 15;
-			Item.useStyle = 5;
+			Item.useStyle = ItemUseStyleID.Shoot;
 			Item.knockBack = 3;
 			Item.value = 5000;
-			Item.rare = 3;
+			Item.rare = ItemRarityID.Orange;
 			Item.UseSound = SoundID.Item20;
 			Item.autoReuse = true;
 

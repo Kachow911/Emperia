@@ -42,7 +42,7 @@ namespace Emperia.Projectiles
 
 			for (int i = 0; i < 30; ++i)
 			{
-			  int index2 = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 61, 0.0f, 0.0f, 15, Color.White, 2f);
+			  int index2 = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, DustID.GreenTorch, 0.0f, 0.0f, 15, Color.White, 2f);
 			  Main.dust[index2].noGravity = true;
 			  Main.dust[index2].velocity *= 2.7f;
 			}
@@ -58,7 +58,7 @@ namespace Emperia.Projectiles
 			Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + 1.57f;
 			if (Main.rand.Next(3) == 0)
 			{
-				Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height,61, 0.0f, 0.0f, 15, new Color(53f, 67f, 253f), 0.8f);
+				Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height,DustID.GreenTorch, 0.0f, 0.0f, 15, new Color(53f, 67f, 253f), 0.8f);
 			}
 		}
 		

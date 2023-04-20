@@ -37,7 +37,7 @@ namespace Emperia.Projectiles
         {
 			Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X);
 
-            Dust.NewDust(Projectile.Center, 2, 2, 58, Projectile.velocity.X, Projectile.velocity.Y);
+            Dust.NewDust(Projectile.Center, 2, 2, DustID.Enchanted_Pink, Projectile.velocity.X, Projectile.velocity.Y);
         }
     }
 }

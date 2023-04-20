@@ -39,7 +39,7 @@ namespace Emperia.Projectiles
 
                 for (int index1 = 0; index1 < 4; ++index1)
                 {
-                    int index3 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 76, (float)Projectile.velocity.X, (float)Projectile.velocity.Y, 0, rgb, 1.1f);
+                    int index3 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Snow, (float)Projectile.velocity.X, (float)Projectile.velocity.Y, 0, rgb, 1.1f);
                     Main.dust[index3].noGravity = true;
                     Main.dust[index3].velocity = Projectile.Center - Main.dust[index3].position;
                     ((Vector2)@Main.dust[index3].velocity).Normalize();

@@ -25,12 +25,12 @@ namespace Emperia.Items.Sets.Hardmode.Corrupt
 			Item.UseSound = SoundID.Item43;
 			Item.useAnimation = 36;
 			Item.reuseDelay = 14;
-			Item.useStyle = 5;
+			Item.useStyle = ItemUseStyleID.Shoot;
 			Item.staff[Item.type] = true;
 			Item.noMelee = true;
 			Item.knockBack = 2.5f;
 			Item.value = 6500;
-			Item.rare = 4;
+			Item.rare = ItemRarityID.LightRed;
 			Item.autoReuse = false;
 			Item.shoot = ModContent.ProjectileType<CursedFlame1>();
 			Item.shootSpeed = 12f;

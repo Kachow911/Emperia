@@ -22,7 +22,7 @@ public class RotfireChestplate : ModItem
         Item.width = 18;
         Item.height = 18;
         Item.value = 65000;
-        Item.rare = 4;
+        Item.rare = ItemRarityID.LightRed;
         Item.defense = 9; //15
     }
 

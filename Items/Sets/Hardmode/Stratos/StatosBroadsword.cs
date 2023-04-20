@@ -24,11 +24,11 @@ namespace Emperia.Items.Sets.Hardmode.Stratos
             Item.DamageType = DamageClass.Melee;            
             Item.width = 60;              
             Item.height = 66;             
-            Item.useStyle = 1;        
+            Item.useStyle = ItemUseStyleID.Swing;        
             Item.knockBack = 5f;
             Item.value = 258000;
             Item.crit = 6;
-            Item.rare = 4;
+            Item.rare = ItemRarityID.LightRed;
             Item.UseSound = SoundID.Item1;   
             Item.autoReuse = true;
             Item.useTurn = false;
@@ -40,7 +40,7 @@ namespace Emperia.Items.Sets.Hardmode.Stratos
         public override void MeleeEffects(Player player, Rectangle hitbox)
         {
             {
-                int dust = Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, 180);
+                int dust = Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, DustID.DungeonSpirit);
                 Main.dust[dust].noGravity = true;
                 Main.dust[dust].velocity *= 0f;
 

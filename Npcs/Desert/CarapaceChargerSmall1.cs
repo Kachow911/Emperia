@@ -54,7 +54,7 @@ namespace Emperia.Npcs.Desert
 		}
         public override bool PreAI()
         {
-            if (Main.netMode != 1)
+            if (Main.netMode != NetmodeID.MultiplayerClient)
             {
                 // So, we start the AI off by checking if NPC.ai[0] is 0.
                 // This is practically ALWAYS the case with a freshly spawned NPC, so this means this is the first update.

@@ -25,10 +25,10 @@ namespace Emperia.Items.Sets.Hardmode.Vulcan   //where is located
             Item.height = 68;             //Sword height
             Item.useTime = 28;          //how fast 
             Item.useAnimation = 28;     
-            Item.useStyle = 1;        //Style is how this Item is used, 1 is the style of the sword
+            Item.useStyle = ItemUseStyleID.Swing;        //Style is how this Item is used, 1 is the style of the sword
             Item.knockBack = 4f;      //Sword knockback
             Item.value = 100;        
-            Item.rare = 5;
+            Item.rare = ItemRarityID.Pink;
 			Item.scale = 1f;
 			Item.UseSound = SoundID.Item18;
 			Item.shoot = ModContent.ProjectileType<VulcanMeteor>();

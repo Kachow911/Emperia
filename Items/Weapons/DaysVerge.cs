@@ -27,10 +27,10 @@ namespace Emperia.Items.Weapons
             Item.height = 36;
             Item.useTime = 38;
             Item.useAnimation = 38;     
-            Item.useStyle = 1;
+            Item.useStyle = ItemUseStyleID.Swing;
             Item.knockBack = 7.5f;
             Item.value = 204000;        
-            Item.rare = 3;
+            Item.rare = ItemRarityID.Orange;
 			Item.scale = 1f;
 			Item.UseSound = SoundID.Item18;
 			Item.shoot = ModContent.ProjectileType<BlueSword>();
@@ -99,7 +99,7 @@ namespace Emperia.Items.Weapons
 		{
 			if (Main.rand.Next(5) == 0)
 			{
-				int dust = Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, 234);
+				int dust = Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, DustID.BoneTorch);
                 Main.dust[dust].noGravity = true;
 			}
 		}

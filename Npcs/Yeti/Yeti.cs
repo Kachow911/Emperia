@@ -164,7 +164,7 @@ namespace Emperia.Npcs.Yeti
 					for (int i = -50; i < 50; i++)
 					{
 						Color rgb = new Color(255, 255, 255);
-						int index2 = Dust.NewDust(NPC.position + new Vector2(i, NPC.height), NPC.width, NPC.height, 76, NPC.velocity.X / 5, (float)NPC.velocity.Y, 0, rgb, 0.9f);
+						int index2 = Dust.NewDust(NPC.position + new Vector2(i, NPC.height), NPC.width, NPC.height, DustID.Snow, NPC.velocity.X / 5, (float)NPC.velocity.Y, 0, rgb, 0.9f);
 					}
 					NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X + Main.rand.Next(-75, 75), (int)NPC.Center.Y + NPC.height - 58, NPCType<YetilingInit>());
 					SetMove(Move.Walk, remainingTime);
@@ -183,7 +183,7 @@ namespace Emperia.Npcs.Yeti
 					for (int i = -50; i < 50; i++)
 					{
 						Color rgb = new Color(160, 243, 255);
-						int index2 = Dust.NewDust(NPC.position + new Vector2(i, NPC.height), NPC.width, NPC.height, 76, NPC.velocity.X / 5, (float)NPC.velocity.Y, 0, rgb, 0.9f);
+						int index2 = Dust.NewDust(NPC.position + new Vector2(i, NPC.height), NPC.width, NPC.height, DustID.Snow, NPC.velocity.X / 5, (float)NPC.velocity.Y, 0, rgb, 0.9f);
 					}
 					for (int i = 0; i < 12; i++)
 					{
@@ -259,7 +259,7 @@ namespace Emperia.Npcs.Yeti
 				counter--;
 				NPC.aiStyle = -1;
 				Color rgb = new Color(160, 243, 255);
-				int index2 = Dust.NewDust(NPC.position, NPC.width, NPC.height, 76, (float) NPC.velocity.X, (float) NPC.velocity.Y, 0, rgb, 0.9f);
+				int index2 = Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Snow, (float) NPC.velocity.X, (float) NPC.velocity.Y, 0, rgb, 0.9f);
 				if (counter <= 0)
 				{
 				NPC.noTileCollide = true;
@@ -307,7 +307,7 @@ namespace Emperia.Npcs.Yeti
 					Color rgb = new Color(160, 243, 255);
 					for (int i = - 50; i < 50; i++)
 					{
-						int index2 = Dust.NewDust(NPC.position + new Vector2(i, 0), NPC.width, NPC.height, 76, NPC.velocity.X / 5, (float) NPC.velocity.Y, 0, rgb, 0.9f);
+						int index2 = Dust.NewDust(NPC.position + new Vector2(i, 0), NPC.width, NPC.height, DustID.Snow, NPC.velocity.X / 5, (float) NPC.velocity.Y, 0, rgb, 0.9f);
 					}
 					Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X, NPC.Center.Y + NPC.height / 2, 2, 0, ModContent.ProjectileType<YetiProjOne>(), 0, 1, Main.myPlayer, 0, 0);
 					Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X, NPC.Center.Y + NPC.height / 2, -2, 0, ModContent.ProjectileType<YetiProjOne>(), 0, 1, Main.myPlayer, 0, 0);

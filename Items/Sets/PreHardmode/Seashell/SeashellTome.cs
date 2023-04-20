@@ -25,12 +25,12 @@ namespace Emperia.Items.Sets.PreHardmode.Seashell
             Item.height = 32;
             Item.useTime = 20;
             Item.useAnimation = 20;     
-            Item.useStyle = 5;    
+            Item.useStyle = ItemUseStyleID.Shoot;    
             Item.mana = 6;
 	        Item.UseSound = SoundID.Item101;
             Item.knockBack = 3.25f;
             Item.value = 22000;
-            Item.rare = 1;
+            Item.rare = ItemRarityID.Blue;
 	        Item.shoot = ModContent.ProjectileType<Cerith>(); 
 	        Item.shootSpeed = 4f;
             Item.autoReuse = true;

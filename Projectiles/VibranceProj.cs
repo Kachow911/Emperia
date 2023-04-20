@@ -36,7 +36,7 @@ namespace Emperia.Projectiles
             Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + 2.355f;
 			if(Main.rand.Next(2) == 0)
 			{
-            int num250 = Dust.NewDust(new Vector2(Projectile.position.X - Projectile.velocity.X, Projectile.position.Y - Projectile.velocity.Y), Projectile.width, Projectile.height, 158, (float)(Projectile.direction * 2), 0f, 158, new Color(53f, 67f, 253f), 1.3f);
+            int num250 = Dust.NewDust(new Vector2(Projectile.position.X - Projectile.velocity.X, Projectile.position.Y - Projectile.velocity.Y), Projectile.width, Projectile.height, DustID.OrangeTorch, (float)(Projectile.direction * 2), 0f, 158, new Color(53f, 67f, 253f), 1.3f);
 					Main.dust[num250].noGravity = true;
 					Main.dust[num250].velocity *= 0f;
 			}
@@ -94,7 +94,7 @@ namespace Emperia.Projectiles
 				{
 				Vector2 vec = Vector2.Transform(new Vector2(-4, 0), Matrix.CreateRotationZ(MathHelper.ToRadians(i)));
 				vec.Normalize();
-				int num622 = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 158, 0f, 0f, 158, new Color(53f, 67f, 253f), 2f);
+				int num622 = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, DustID.OrangeTorch, 0f, 0f, 158, new Color(53f, 67f, 253f), 2f);
 				Main.dust[num622].velocity += (vec *2f);
 				Main.dust[num622].noGravity = true;
 				}

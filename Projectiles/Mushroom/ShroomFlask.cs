@@ -29,7 +29,7 @@ namespace Emperia.Projectiles.Mushroom
         {
         	if (Main.rand.Next(5) == 0)
             {
-            	Dust.NewDust(Projectile.position + Projectile.velocity, Projectile.width, Projectile.height, 41, Projectile.velocity.X * 0.15f, Projectile.velocity.Y * 0.15f);
+            	Dust.NewDust(Projectile.position + Projectile.velocity, Projectile.width, Projectile.height, DustID.GlowingMushroom, Projectile.velocity.X * 0.15f, Projectile.velocity.Y * 0.15f);
             }
         }
 		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)

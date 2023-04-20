@@ -106,11 +106,11 @@ namespace Emperia.Projectiles.Summon
                 Projectile.Center = player.Center + new Vector2(0, -100);
                 for (int i = 0; i < 50; ++i) //Create dust b4 teleport
                 {
-                    int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 258);
-                    int dust1 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 258);
+                    int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.LavaMoss);
+                    int dust1 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.LavaMoss);
                     Main.dust[dust1].scale = 1.5f;
                     Main.dust[dust1].velocity *= 1.5f;
-                    int dust2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 258);
+                    int dust2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.LavaMoss);
                     Main.dust[dust2].scale = 1.5f;
                 }
                 counter = 0;
@@ -134,11 +134,11 @@ namespace Emperia.Projectiles.Summon
             {
                 for (int i = 0; i < 50; ++i) //Create dust b4 teleport
                 {
-                    int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 258);
-                    int dust1 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 258);
+                    int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.LavaMoss);
+                    int dust1 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.LavaMoss);
                     Main.dust[dust1].scale = 1.5f;
                     Main.dust[dust1].velocity *= 1.5f;
-                    int dust2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 258);
+                    int dust2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.LavaMoss);
                     Main.dust[dust2].scale = 1.5f;
                 }
                 Projectile.velocity.Y *= -1;

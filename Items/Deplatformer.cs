@@ -25,9 +25,9 @@ namespace Emperia.Items {
 			//Item.axe = 75;
 			//Item.useTurn = false;
 			Item.UseSound = SoundID.Item1;
-			Item.useStyle = 1;
+			Item.useStyle = ItemUseStyleID.Swing;
 			Item.value = 50000;
-			Item.rare = 2;
+			Item.rare = ItemRarityID.Green;
 			Item.autoReuse = true;
 			Item.noMelee = false;
 			Item.damage = 1;

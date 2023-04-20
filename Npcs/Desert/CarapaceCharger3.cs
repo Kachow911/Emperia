@@ -39,7 +39,7 @@ namespace Emperia.Npcs.Desert
             if (Main.player[NPC.target].dead && NPC.timeLeft > 300)
                 NPC.timeLeft = 300;
  
-            if (Main.netMode != 1)
+            if (Main.netMode != NetmodeID.MultiplayerClient)
             {
                 if (!Main.npc[(int)NPC.ai[1]].active)
                 {

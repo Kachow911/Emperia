@@ -27,10 +27,10 @@ namespace Emperia.Items.Sets.Hardmode.Ethereal
             Item.height = 56;
             Item.useTime = 28;
             Item.useAnimation = 28;
-            Item.useStyle = 1;
+            Item.useStyle = ItemUseStyleID.Swing;
             Item.knockBack = 6;
             Item.value = Terraria.Item.sellPrice(0, 8, 0, 0);
-            Item.rare = 5;
+            Item.rare = ItemRarityID.Pink;
             Item.UseSound = SoundID.DD2_SonicBoomBladeSlash;;
             Item.autoReuse = true;
             Item.shoot = ModContent.ProjectileType<EtherealWave>();

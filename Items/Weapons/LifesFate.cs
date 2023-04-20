@@ -25,11 +25,11 @@ namespace Emperia.Items.Weapons
             Item.DamageType = DamageClass.Melee;            
             Item.width = 32;              
             Item.height = 32;             
-            Item.useStyle = 1;        
+            Item.useStyle = ItemUseStyleID.Swing;        
             Item.knockBack = 3.75f;
             Item.value = 258000;
             Item.crit = 6;
-            Item.rare = 3;
+            Item.rare = ItemRarityID.Orange;
             Item.UseSound = SoundID.Item1;   
             Item.autoReuse = false;
             Item.scale = 1.15f;
@@ -50,16 +50,16 @@ namespace Emperia.Items.Weapons
                 Main.dust[smoke].noGravity = true;*/
                 //int smoke = Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, 117, player.direction * 2, 0f, 150, default(Color), 1.4f);
                 //Main.dust[smoke].noGravity = true;
-                Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, 14, player.direction * 2, 0f, 180, new Color(255, 0, 0), 1.2f);
+                Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, DustID.Demonite, player.direction * 2, 0f, 180, new Color(255, 0, 0), 1.2f);
             }
             if (Main.rand.Next(3) > 0)
             {
-                int dust = Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, 60, player.velocity.X * 0.2f + (player.direction * 3), player.velocity.Y * 0.2f, 0, default(Color), 1.4f);
+                int dust = Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, DustID.RedTorch, player.velocity.X * 0.2f + (player.direction * 3), player.velocity.Y * 0.2f, 0, default(Color), 1.4f);
                 Main.dust[dust].noGravity = true;
             }
             else
             {
-                int dust = Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, 27, player.velocity.X * 0.2f + (player.direction * 3), player.velocity.Y * 0.2f, 0, new Color(255, 0, 0), 1.4f);
+                int dust = Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, DustID.Shadowflame, player.velocity.X * 0.2f + (player.direction * 3), player.velocity.Y * 0.2f, 0, new Color(255, 0, 0), 1.4f);
                 Main.dust[dust].noGravity = true;
                 Main.dust[dust].noLight = true;
             }

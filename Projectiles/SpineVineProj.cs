@@ -59,7 +59,7 @@ namespace Emperia.Projectiles
 
                 for (int index1 = 0; index1 < 4; ++index1)
                 {
-                    int index3 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 76, (float)Projectile.velocity.X, (float)Projectile.velocity.Y, 0, rgb, 1.1f);
+                    int index3 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Snow, (float)Projectile.velocity.X, (float)Projectile.velocity.Y, 0, rgb, 1.1f);
                     Main.dust[index3].noGravity = true;
                     Main.dust[index3].velocity = Projectile.Center - Main.dust[index3].position;
                     ((Vector2)@Main.dust[index3].velocity).Normalize();
@@ -72,11 +72,11 @@ namespace Emperia.Projectiles
                 }
                 init = true;
 			}
-            int index2 = Dust.NewDust(new Vector2((float)(Projectile.position.X + 4.0), (float)(Projectile.position.Y + 4.0)), Projectile.width - 8, Projectile.height - 8, 76, (float)(Projectile.velocity.X * 0.200000002980232), (float)(Projectile.velocity.Y * 0.200000002980232), 0, rgb, 0.7f);
+            int index2 = Dust.NewDust(new Vector2((float)(Projectile.position.X + 4.0), (float)(Projectile.position.Y + 4.0)), Projectile.width - 8, Projectile.height - 8, DustID.Snow, (float)(Projectile.velocity.X * 0.200000002980232), (float)(Projectile.velocity.Y * 0.200000002980232), 0, rgb, 0.7f);
             Main.dust[index2].position += Projectile.velocity.RotatedBy(1.570796, new Vector2());
             Main.dust[index2].noGravity = true;
             Main.dust[index2].velocity = Projectile.velocity.RotatedBy(1.570796, new Vector2()) * 0.33f + Projectile.velocity / 4f;
-			int index5 = Dust.NewDust(new Vector2((float)(Projectile.position.X + 4.0), (float)(Projectile.position.Y + 4.0)), Projectile.width - 8, Projectile.height - 8, 76, (float)(Projectile.velocity.X * 0.200000002980232), (float)(Projectile.velocity.Y * 0.200000002980232), 0, rgb, 0.7f);
+			int index5 = Dust.NewDust(new Vector2((float)(Projectile.position.X + 4.0), (float)(Projectile.position.Y + 4.0)), Projectile.width - 8, Projectile.height - 8, DustID.Snow, (float)(Projectile.velocity.X * 0.200000002980232), (float)(Projectile.velocity.Y * 0.200000002980232), 0, rgb, 0.7f);
             Main.dust[index5].position += Projectile.velocity.RotatedBy(1.570796, new Vector2());
             Main.dust[index5].noGravity = true;
             Main.dust[index5].velocity = Projectile.velocity.RotatedBy(-1.570796, new Vector2()) * 0.33f + Projectile.velocity / 4f;

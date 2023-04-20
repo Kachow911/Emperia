@@ -33,7 +33,7 @@ namespace Emperia.Projectiles.Mushroom
         public override void AI()
         {
         	
-            	Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 41, Projectile.velocity.X * 0.15f, Projectile.velocity.Y * 0.15f);
+            	Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.GlowingMushroom, Projectile.velocity.X * 0.15f, Projectile.velocity.Y * 0.15f);
                 if (doPull) 
 				{
 					Projectile.velocity.X = 0;
@@ -70,13 +70,13 @@ namespace Emperia.Projectiles.Mushroom
 
                 if (i % 8 == 0)
                 {   //odd
-                    Dust.NewDust(Projectile.Center + vec, Main.rand.Next(1, 7), Main.rand.Next(1, 7), 20);
+                    Dust.NewDust(Projectile.Center + vec, Main.rand.Next(1, 7), Main.rand.Next(1, 7), DustID.PurificationPowder);
                 }
 
                 if (i % 9 == 0)
                 {   //even
                     vec.Normalize();
-                    Dust.NewDust(Projectile.Center, Main.rand.Next(1, 7), Main.rand.Next(1, 7), 20, vec.X * 2, vec.Y * 2);
+                    Dust.NewDust(Projectile.Center, Main.rand.Next(1, 7), Main.rand.Next(1, 7), DustID.PurificationPowder, vec.X * 2, vec.Y * 2);
                 }
             }
 

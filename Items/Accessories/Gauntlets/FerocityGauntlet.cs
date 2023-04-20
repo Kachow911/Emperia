@@ -20,7 +20,7 @@ namespace Emperia.Items.Accessories.Gauntlets
         {
             Item.width = 30;
             Item.height = 28;
-            Item.rare = 4;
+            Item.rare = ItemRarityID.LightRed;
             Item.value = Item.sellPrice(0, 3, 0, 0);
             Item.accessory = true;
             Item.GetGlobalItem<GItem>().gauntletPower = 0.30f; // temp

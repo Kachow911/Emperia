@@ -24,12 +24,12 @@ namespace Emperia.Items.Weapons
             Item.crit = -4;
             Item.width = 52;     
             Item.height = 30;    
-            Item.useStyle = 5;    
+            Item.useStyle = ItemUseStyleID.Shoot;    
             Item.noMelee = true; 
             Item.knockBack = 2.75f;
             Item.useTurn = false;
             Item.value = 215000;
-            Item.rare = 5;
+            Item.rare = ItemRarityID.Pink;
             Item.UseSound = SoundID.Item12;
             Item.autoReuse = true;
             Item.shoot = ModContent.ProjectileType<Escarbeam>(); 

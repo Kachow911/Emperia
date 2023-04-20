@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
 using Emperia.Buffs;
+using Terraria.ID;
 
 namespace Emperia.Mounts
 {
@@ -53,7 +54,7 @@ namespace Emperia.Mounts
 			MountData.swimFrameCount = MountData.inAirFrameCount;
 			MountData.swimFrameDelay = MountData.inAirFrameDelay;
 			MountData.swimFrameStart = MountData.inAirFrameStart;
-			if (Main.netMode != 2)
+			if (Main.netMode != NetmodeID.Server)
 			{
 				MountData.textureWidth = MountData.backTexture.Width();
 				MountData.textureHeight = MountData.backTexture.Height(); //dont know if this works lol
@@ -65,7 +66,7 @@ namespace Emperia.Mounts
 			if (Math.Abs(player.velocity.X) > 4f)
 			{
 				Rectangle rect = player.getRect();
-				Dust.NewDust(new Vector2(rect.X, rect.Y), rect.Width, rect.Height, 51);
+				Dust.NewDust(new Vector2(rect.X, rect.Y), rect.Width, rect.Height, DustID.SnowBlock);
 			}
 		}
 	}

@@ -28,10 +28,10 @@ namespace Emperia.Items.Weapons
             Item.height = 48;
             Item.useTime = 30;
             Item.useAnimation = 30;     
-            Item.useStyle = 1;
+            Item.useStyle = ItemUseStyleID.Swing;
             Item.knockBack = 5f;  
             Item.value = 232500;        
-            Item.rare = 4;
+            Item.rare = ItemRarityID.LightRed;
 			Item.UseSound = SoundID.Item1;
             Item.shoot = ModContent.ProjectileType<HarpoonBladeProj>();
             Item.shootSpeed = 14f;

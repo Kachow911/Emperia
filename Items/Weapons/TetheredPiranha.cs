@@ -24,10 +24,10 @@ namespace Emperia.Items.Weapons
 			Item.height = 22;
 			Item.useTime = 26;
 			Item.useAnimation = 26;
-			Item.useStyle = 5;
+			Item.useStyle = ItemUseStyleID.Shoot;
 			Item.knockBack = 1;
 			Item.value = 1000;
-			Item.rare = 2;
+			Item.rare = ItemRarityID.Green;
 			Item.UseSound = SoundID.Item1;
 			Item.noUseGraphic = true;
 			Item.noMelee = true;

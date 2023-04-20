@@ -15,13 +15,13 @@ namespace Emperia.Items
         {
             Item.width = 30;
             Item.height = 18;
-            Item.useStyle = 2;
+            Item.useStyle = ItemUseStyleID.EatFood;
             Item.useAnimation = 17;
             Item.useTime = 17;
             Item.useTurn = true;
             Item.UseSound = SoundID.Item2;
                         Item.consumable = true;
-            Item.rare = 1;
+            Item.rare = ItemRarityID.Blue;
             Item.value = 1750;
         	Item.healLife = 110;
             Item.potion = true;

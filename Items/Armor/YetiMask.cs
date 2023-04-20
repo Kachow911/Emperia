@@ -1,6 +1,7 @@
 ﻿using Terraria;
 using Terraria.Localization;
 using Terraria.ModLoader;
+using Terraria.ID;
 
 namespace Emperia.Items.Armor
 {
@@ -11,7 +12,7 @@ namespace Emperia.Items.Armor
         {
             Item.width = 30;
             Item.height = 24;
-            Item.rare = 3;
+            Item.rare = ItemRarityID.Orange;
 			Item.vanity = true;
         }
 

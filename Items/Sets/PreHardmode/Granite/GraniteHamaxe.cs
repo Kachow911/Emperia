@@ -28,10 +28,10 @@ public class GraniteHamaxe : ModItem
         Item.useTurn = true;
         Item.axe = 14;
 		Item.hammer = 65; //65
-        Item.useStyle = 1;
+        Item.useStyle = ItemUseStyleID.Swing;
         Item.knockBack = 2f;
         Item.value = 22500;
-        Item.rare = 1;
+        Item.rare = ItemRarityID.Blue;
         Item.UseSound = SoundID.Item1;
         Item.autoReuse = true;
     }
@@ -56,7 +56,7 @@ public class GraniteHamaxe : ModItem
                                 player.PickTile(i, j, Item.axe);
                                 for (int d = 0; d < 3; d++)
                                 {
-                                    int index2 = Dust.NewDust(new Vector2(i * 16 + 8, j * 16 + 8), 16, 16, 15, 0.0f, 0.0f, 15, new Color(53f, 67f, 253f), 2f);
+                                    int index2 = Dust.NewDust(new Vector2(i * 16 + 8, j * 16 + 8), 16, 16, DustID.MagicMirror, 0.0f, 0.0f, 15, new Color(53f, 67f, 253f), 2f);
                                     Main.dust[index2].noGravity = true;
                                     Main.dust[index2].velocity *= 3f;
                                     PlaySound(SoundID.Item14, new Vector2(i * 16, j * 16));
@@ -109,7 +109,7 @@ public class GraniteHamaxe : ModItem
                                             WorldGen.KillWall(wX + x, wY + y); //explode boooom
                                             for (int d = 0; d < 2; d++)
                                             {
-                                                int index2 = Dust.NewDust(new Vector2((wX + x) * 16 + 8, (wY + y) * 16 + 8), 16, 16, 15, 0.0f, 0.0f, 15, new Color(53f, 67f, 253f), 2f);
+                                                int index2 = Dust.NewDust(new Vector2((wX + x) * 16 + 8, (wY + y) * 16 + 8), 16, 16, DustID.MagicMirror, 0.0f, 0.0f, 15, new Color(53f, 67f, 253f), 2f);
                                                 Main.dust[index2].noGravity = true;
                                                 Main.dust[index2].velocity *= 3f;
                                             }

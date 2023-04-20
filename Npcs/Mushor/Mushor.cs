@@ -209,7 +209,7 @@ namespace Emperia.Npcs.Mushor
 				NPC.velocity = Vector2.Zero;
 				if (Main.rand.Next(5) == 0)
 				{
-					int dust = Dust.NewDust(new Vector2(NPC.Center.X, NPC.Center.Y), NPC.width / 32, NPC.height / 32, 20, 0f, 0f, 0, new Color(39, 90, 219), 1.5f);
+					int dust = Dust.NewDust(new Vector2(NPC.Center.X, NPC.Center.Y), NPC.width / 32, NPC.height / 32, DustID.PurificationPowder, 0f, 0f, 0, new Color(39, 90, 219), 1.5f);
 				}
 				if (counter % 60 == 0)
 				{
@@ -232,7 +232,7 @@ namespace Emperia.Npcs.Mushor
 				
                 if (counter % 20 == 0 && NPC.ai[3] <= 6)
                 {
-                    if (Main.netMode != 1)
+                    if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
 					int n = NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y, NPCType<MushorMinionShield>(), ai0: NPC.whoAmI, ai1: shieldCount);
 						shieldCount++;

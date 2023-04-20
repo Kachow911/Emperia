@@ -20,7 +20,7 @@ public class FrostFangEarring : ModItem
 		Item.width = 18;
 		Item.height = 32;
 		Item.value = 400000;
-		Item.rare = 5;
+		Item.rare = ItemRarityID.Pink;
 		Item.accessory = true;
 	}
 	

@@ -26,10 +26,10 @@ namespace Emperia.Items.Weapons.Mushor
             Item.height = 64;
             Item.useTime = 22;
             Item.useAnimation = 22;
-            Item.useStyle = 5;
+            Item.useStyle = ItemUseStyleID.Shoot;
             Item.knockBack = 3.5f;
             Item.value = 100;
-            Item.rare = 3;
+            Item.rare = ItemRarityID.Orange;
             Item.scale = 1f;
             Item.UseSound = SoundID.Item11;
             Item.autoReuse = true;

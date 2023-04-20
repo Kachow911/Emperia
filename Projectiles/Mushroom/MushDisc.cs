@@ -32,7 +32,7 @@ namespace Emperia.Projectiles.Mushroom
         {                                                           // |
             Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + 1.57f;
 			if (Main.rand.Next(2) == 0)
-				Dust.NewDust(Projectile.position + Projectile.velocity, Projectile.width / 2, Projectile.height / 2, 20, Projectile.velocity.X * 0.5f, Projectile.velocity.Y * 0.5f);
+				Dust.NewDust(Projectile.position + Projectile.velocity, Projectile.width / 2, Projectile.height / 2, DustID.PurificationPowder, Projectile.velocity.X * 0.5f, Projectile.velocity.Y * 0.5f);
         }
 		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
@@ -46,13 +46,13 @@ namespace Emperia.Projectiles.Mushroom
 
                 if (i % 8 == 0)
                 {   //odd
-                    Dust.NewDust(Projectile.Center + vec, Main.rand.Next(1, 7), Main.rand.Next(1, 7), 20);
+                    Dust.NewDust(Projectile.Center + vec, Main.rand.Next(1, 7), Main.rand.Next(1, 7), DustID.PurificationPowder);
                 }
 
                 if (i % 9 == 0)
                 {   //even
                     vec.Normalize();
-                    Dust.NewDust(Projectile.Center, Main.rand.Next(1, 7), Main.rand.Next(1, 7), 20, vec.X * 2, vec.Y * 2);
+                    Dust.NewDust(Projectile.Center, Main.rand.Next(1, 7), Main.rand.Next(1, 7), DustID.PurificationPowder, vec.X * 2, vec.Y * 2);
                 }
             }
 			for (int i = 0; i < 6; i++)

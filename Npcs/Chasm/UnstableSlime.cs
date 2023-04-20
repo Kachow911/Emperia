@@ -58,14 +58,14 @@ namespace Emperia.Npcs.Chasm
 				teleportRelative(0, teleLenY);
 				for (int n = 0; n <= 10; n++)
 					{
-						int dust = Dust.NewDust(NPC.position, NPC.width, NPC.height, 58, 0f, 0f, 0, new Color(), 1.5f);
+						int dust = Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Enchanted_Pink, 0f, 0f, 0, new Color(), 1.5f);
 						Main.dust[dust].noGravity = true;
 					}
 				waitFor(1000);
 				teleportRelative(teleLenX, 0);
 				for (int n = 0; n <= 10; n++)
 					{
-						int dust = Dust.NewDust(NPC.position, NPC.width, NPC.height, 58, 0f, 0f, 0, new Color(), 1.5f);
+						int dust = Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Enchanted_Pink, 0f, 0f, 0, new Color(), 1.5f);
 						Main.dust[dust].noGravity = true;
 					}
 				waitFor(1000);

@@ -25,11 +25,11 @@ namespace Emperia.Items.Weapons.Volcano
 			Item.height = 40;
 			Item.useTime = 30;
 			Item.useAnimation = 30;
-			Item.useStyle = 5;
+			Item.useStyle = ItemUseStyleID.Shoot;
 			Item.knockBack = 3f;
 
 			Item.staff[Item.type] = true; //this makes the useStyle animate as a staff instead of as a gun
-			Item.rare = 2;
+			Item.rare = ItemRarityID.Green;
 			Item.value = Item.sellPrice(0, 0, 40, 0);
 			Item.UseSound = SoundID.Item43;
 			Item.autoReuse = true;

@@ -24,13 +24,13 @@ namespace Emperia.Items.Weapons.Inquisitor
             Item.height = 32;
             Item.useTime = 18;
             Item.useAnimation = 18;
-            Item.useStyle = 1;
+            Item.useStyle = ItemUseStyleID.Swing;
             Item.noMelee = true;
             Item.noUseGraphic = true;
             Item.knockBack = 2.5f;
             Item.useTurn = true;
             Item.value = Terraria.Item.sellPrice(0, 1, 32, 0);
-            Item.rare = 4;
+            Item.rare = ItemRarityID.LightRed;
             Item.UseSound = SoundID.Item1;
             Item.autoReuse = true;
             Item.shoot = ModContent.ProjectileType<InquisitionBlade>();

@@ -48,7 +48,7 @@ namespace Emperia.Projectiles.Twilight
 				Main.projectile[num53].damage = Projectile.damage;
 				Main.projectile[num53].ai[1] = Projectile.ai[1] + 1f;
 				Projectile.ai[1] = -1;
-				NetMessage.SendData(27, -1, -1, null, num53, 0f, 0f, 0f, 0, 0, 0);
+				NetMessage.SendData(MessageID.SyncProjectile, -1, -1, null, num53, 0f, 0f, 0f, 0, 0, 0);
 			}
 
 		}

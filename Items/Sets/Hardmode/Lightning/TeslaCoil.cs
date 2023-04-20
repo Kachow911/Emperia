@@ -24,12 +24,12 @@ namespace Emperia.Items.Sets.Hardmode.Lightning
 			Item.useTime = 28;
 			Item.UseSound = SoundID.Item43;
 			Item.useAnimation = 28;
-			Item.useStyle = 5;
+			Item.useStyle = ItemUseStyleID.Shoot;
 			Item.staff[Item.type] = true;
 			Item.noMelee = true;
 			Item.knockBack = 2.5f;
 			Item.value = 6500;
-			Item.rare = 4;
+			Item.rare = ItemRarityID.LightRed;
 			Item.autoReuse = false;
 			Item.shoot = ModContent.ProjectileType<LightningBolt1>();
 			Item.shootSpeed = 16f;

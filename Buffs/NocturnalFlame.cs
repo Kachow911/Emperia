@@ -22,8 +22,8 @@ namespace Emperia.Buffs
         {
             if (Main.rand.Next(12 - NPC.GetGlobalNPC<MyNPC>().nightFlame) == 0)
             {
-                if (Main.rand.Next(3) == 0) Dust.NewDust(NPC.position, NPC.width, NPC.height, 14, 0f, 0f, 180, default(Color), 1.4f);
-                int dust = Dust.NewDust(NPC.position, NPC.width, NPC.height, 27, NPC.velocity.X * 0.2f * NPC.direction, NPC.velocity.Y * 0.2f, 0, default(Color), 1f);
+                if (Main.rand.Next(3) == 0) Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Demonite, 0f, 0f, 180, default(Color), 1.4f);
+                int dust = Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Shadowflame, NPC.velocity.X * 0.2f * NPC.direction, NPC.velocity.Y * 0.2f, 0, default(Color), 1f);
                 Main.dust[dust].noGravity = true;
             }
         }
@@ -31,8 +31,8 @@ namespace Emperia.Buffs
         {
             if (Main.rand.Next(11 - player.GetModPlayer<MyPlayer>().nightFlame) == 0)
             {
-                if (Main.rand.Next(3) == 0) Dust.NewDust(player.position, player.width, player.height, 14, 0f, 0f, 180, default(Color), 1.4f);
-                int dust = Dust.NewDust(player.position, player.width, player.height, 27, player.velocity.X * 0.2f * player.direction, player.velocity.Y * 0.2f, 0, default(Color), 1f);
+                if (Main.rand.Next(3) == 0) Dust.NewDust(player.position, player.width, player.height, DustID.Demonite, 0f, 0f, 180, default(Color), 1.4f);
+                int dust = Dust.NewDust(player.position, player.width, player.height, DustID.Shadowflame, player.velocity.X * 0.2f * player.direction, player.velocity.Y * 0.2f, 0, default(Color), 1f);
                 Main.dust[dust].noGravity = true;
             }
         }

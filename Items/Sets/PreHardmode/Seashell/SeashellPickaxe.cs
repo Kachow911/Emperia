@@ -25,10 +25,10 @@ public class SeashellPickaxe : ModItem
         Item.useAnimation = 30;
         Item.useTurn = true;
         Item.pick = 55;
-        Item.useStyle = 1;
+        Item.useStyle = ItemUseStyleID.Swing;
         Item.knockBack = 2f;
         Item.value = 19000;
-        Item.rare = 1;
+        Item.rare = ItemRarityID.Blue;
         Item.UseSound = SoundID.Item1;
         Item.autoReuse = true;
     }
@@ -71,7 +71,7 @@ public class SeashellPickaxe : ModItem
                             for (int k = 0; k < 3; k++)
                             {
                                 //Lighting.AddLight(new Vector2(i * 16, j * 16), new Vector3(0, 255, 30));
-                                int dust1 = Dust.NewDust(new Vector2(i * 16, j * 16), 16, 16, 107, 0.0f, 0.0f, 0, default, 1.1f); //267, new Color(60, 255, 20)
+                                int dust1 = Dust.NewDust(new Vector2(i * 16, j * 16), 16, 16, DustID.TerraBlade, 0.0f, 0.0f, 0, default, 1.1f); //267, new Color(60, 255, 20)
                                 Main.dust[dust1].noGravity = true;
                             }
                         }

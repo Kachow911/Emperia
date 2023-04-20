@@ -61,13 +61,13 @@ namespace Emperia.Npcs.Kraken
 
                 if (i % 8 == 0)
                 {   //odd
-                    Dust.NewDust(NPC.Center + vec, Main.rand.Next(1, 7), Main.rand.Next(1, 7), 103);
+                    Dust.NewDust(NPC.Center + vec, Main.rand.Next(1, 7), Main.rand.Next(1, 7), DustID.Water_Space);
                 }
 
                 if (i % 9 == 0)
                 {   //even
                     vec.Normalize();
-                    Dust.NewDust(NPC.Center, Main.rand.Next(1, 7), Main.rand.Next(1, 7), 103, vec.X * 2, vec.Y * 2);
+                    Dust.NewDust(NPC.Center, Main.rand.Next(1, 7), Main.rand.Next(1, 7), DustID.Water_Space, vec.X * 2, vec.Y * 2);
                 }
 				}
 				NPC.life = 0;

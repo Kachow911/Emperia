@@ -25,12 +25,12 @@ namespace Emperia.Items.Sets.PreHardmode.Seashell
             Item.height = 40;
 		 	Item.useAnimation = 22;
 			Item.useTime = 22;
-            Item.useStyle = 5;
-            Item.shoot = 3;
+            Item.useStyle = ItemUseStyleID.Shoot;
+            Item.shoot = ProjectileID.Shuriken;
             Item.useAmmo = ItemID.WoodenArrow;
             Item.knockBack = 1;
             Item.value = 22000;
-            Item.rare = 1;
+            Item.rare = ItemRarityID.Blue;
             Item.autoReuse = false;
             Item.shootSpeed = 11f;
 			Item.UseSound = SoundID.Item5; 

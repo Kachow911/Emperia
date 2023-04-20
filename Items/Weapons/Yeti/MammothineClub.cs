@@ -23,10 +23,10 @@ namespace Emperia.Items.Weapons.Yeti
             Item.height = 42;
             Item.useTime = 40;
             Item.useAnimation = 40;     
-            Item.useStyle = 1;
+            Item.useStyle = ItemUseStyleID.Swing;
             Item.knockBack = 7f;
             Item.value = 52500;        
-            Item.rare = 1;
+            Item.rare = ItemRarityID.Blue;
 			Item.scale = 1.3f;
             Item.autoReuse = false;
             Item.useTurn = false;

@@ -39,7 +39,7 @@ namespace Emperia.Projectiles
 		}
         public override void AI()           //Projectile make that the Projectile will face the corect way
         {                                                           
-			int dust = Dust.NewDust(Projectile.position + Projectile.velocity, Projectile.width, Projectile.height, 15, 0f, 0f);
+			int dust = Dust.NewDust(Projectile.position + Projectile.velocity, Projectile.width, Projectile.height, DustID.MagicMirror, 0f, 0f);
 			Main.dust[dust].scale = 1.5f;
 			Main.dust[dust].velocity *= 0f;
 

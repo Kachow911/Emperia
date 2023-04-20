@@ -38,7 +38,7 @@ namespace Emperia.Projectiles
 				Projectile.alpha += 5;
 			}
 			
-            int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 107, 0f, 0f, 91, new Color(255, 255, 255), 1.5f);
+            int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.TerraBlade, 0f, 0f, 91, new Color(255, 255, 255), 1.5f);
             Main.dust[dust].velocity *= 0.1f;
             if (Projectile.velocity == Vector2.Zero)
             {

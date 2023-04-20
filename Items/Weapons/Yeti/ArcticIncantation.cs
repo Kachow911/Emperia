@@ -21,10 +21,10 @@ namespace Emperia.Items.Weapons.Yeti
 			Item.height = 24;
 			Item.useTime = 45;
 			Item.useAnimation = 45;
-			Item.useStyle = 5;
+			Item.useStyle = ItemUseStyleID.Shoot;
 			Item.knockBack = 4;
 			Item.value = 52500;
-			Item.rare = 1;
+			Item.rare = ItemRarityID.Blue;
 			Item.UseSound = SoundID.Item28;
 			Item.autoReuse = false;
 			Item.shoot = ModContent.ProjectileType<IceCrystal>();

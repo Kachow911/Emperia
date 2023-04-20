@@ -103,7 +103,7 @@ namespace Emperia
                 PlaySound(SoundID.Item150, projectile.position);
                 for (int i = 0; i < 3; i++)
                 {
-                    int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 31);
+                    int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.Smoke);
                     Main.dust[dust].velocity *= 0.3f;
                 }
                 projectile.hostile = true;
@@ -143,7 +143,7 @@ namespace Emperia
 
                 for (int num621 = 0; num621 < 20; num621++)
                 {
-                    int num622 = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 258, 0f, 0f, 100, default(Color));
+                    int num622 = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, DustID.LavaMoss, 0f, 0f, 100, default(Color));
                     Main.dust[num622].velocity *= 3f;
                     if (Main.rand.Next(2) == 0)
                     {
@@ -153,10 +153,10 @@ namespace Emperia
                 }
                 for (int num623 = 0; num623 < 35; num623++)
                 {
-                    int num624 = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 258, 0f, 0f, 100, default(Color));
+                    int num624 = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, DustID.LavaMoss, 0f, 0f, 100, default(Color));
                     Main.dust[num624].noGravity = true;
                     Main.dust[num624].velocity *= 5f;
-                    num624 = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 258, 0f, 0f, 100, default(Color));
+                    num624 = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, DustID.LavaMoss, 0f, 0f, 100, default(Color));
                     Main.dust[num624].velocity *= 2f;
                 }
                 PlaySound(SoundID.Item14, Projectile.position);

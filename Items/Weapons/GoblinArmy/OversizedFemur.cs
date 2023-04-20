@@ -22,12 +22,12 @@ namespace Emperia.Items.Weapons.GoblinArmy
             Item.height = 66;
             Item.useTime = 34;
             Item.useAnimation = 34;
-            Item.useStyle = 1;
+            Item.useStyle = ItemUseStyleID.Swing;
             Item.knockBack = 4;
             Item.value = 10000;
             Item.shoot = ModContent.ProjectileType<FemurProj>();
             Item.shootSpeed = 7f;
-            Item.rare = 2;
+            Item.rare = ItemRarityID.Green;
             Item.autoReuse = true;
             Item.useTurn = true;
  

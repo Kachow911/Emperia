@@ -18,7 +18,7 @@ namespace Emperia.Items.Sets.Hardmode.Stratos
 
 		public override void SetDefaults()
 		{
-			Item.useStyle = 5;
+			Item.useStyle = ItemUseStyleID.Shoot;
 			Item.width = 24;
 			Item.height = 24;
 			Item.noUseGraphic = true;
@@ -33,7 +33,7 @@ namespace Emperia.Items.Sets.Hardmode.Stratos
 			Item.knockBack = 4f;
 			Item.damage = 65;
 			Item.value = Item.sellPrice(0, 4, 20, 0);
-			Item.rare = 5;
+			Item.rare = ItemRarityID.Pink;
 		}
 			
 		/*public override void AddRecipes()

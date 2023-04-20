@@ -22,7 +22,7 @@ namespace Emperia.Buffs
         public override void Update(NPC NPC, ref int buffIndex)
         {
             NPC.GetGlobalNPC<MyNPC>().crushFreeze = true;
-            Dust.NewDust(NPC.position, NPC.width, NPC.height, 67);
+            Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.IceRod);
         }
         
 

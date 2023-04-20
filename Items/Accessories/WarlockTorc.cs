@@ -22,7 +22,7 @@ namespace Emperia.Items.Accessories
         {
             Item.width = 20;
             Item.height = 20;
-            Item.rare = 1;
+            Item.rare = ItemRarityID.Blue;
             Item.value = 36000;
             Item.accessory = true;
         }
@@ -42,7 +42,7 @@ namespace Emperia.Items.Accessories
 					PlaySound(SoundID.NPCDeath13, player.Center);
 					for (int i = 0; i < 8; ++i)
                     {
-                        int index2 = Dust.NewDust(new Vector2(player.Center.X, player.Center.Y - 8), 4, 4, 4, 2.5f * player.direction, -0.5f, 200, new Color(255, 130, 200), 1.2f);
+                        int index2 = Dust.NewDust(new Vector2(player.Center.X, player.Center.Y - 8), 4, 4, DustID.TintableDust, 2.5f * player.direction, -0.5f, 200, new Color(255, 130, 200), 1.2f);
                     }
 				}
 			}

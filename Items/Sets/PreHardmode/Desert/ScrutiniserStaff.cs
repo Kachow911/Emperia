@@ -23,11 +23,11 @@ namespace Emperia.Items.Sets.PreHardmode.Desert
             Item.width = 42;
             Item.height = 36;
             Item.value = 27000;
-            Item.rare = 1;
+            Item.rare = ItemRarityID.Blue;
             Item.mana = 10;
             Item.damage = 38;
             Item.knockBack = 7;
-            Item.useStyle = 1;
+            Item.useStyle = ItemUseStyleID.Swing;
             Item.useTime = 30;
             Item.useAnimation = 30;        
             Item.DamageType = DamageClass.Summon;

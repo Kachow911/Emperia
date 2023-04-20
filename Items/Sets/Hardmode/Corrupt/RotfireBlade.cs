@@ -28,10 +28,10 @@ namespace Emperia.Items.Sets.Hardmode.Corrupt
             Item.height = 66;
             Item.useTime = 25;
             Item.useAnimation = 25;
-            Item.useStyle = 1;
+            Item.useStyle = ItemUseStyleID.Swing;
             Item.knockBack = 6;
             Item.value = Terraria.Item.sellPrice(0, 8, 0, 0);
-            Item.rare = 4;
+            Item.rare = ItemRarityID.LightRed;
             Item.UseSound = SoundID.Item1;
             Item.autoReuse = true;
             Item.shoot = ModContent.ProjectileType<CursedBolt>();

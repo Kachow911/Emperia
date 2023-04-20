@@ -25,10 +25,10 @@ namespace Emperia.Items.Weapons.Twilight
             Item.height = 16;             //Sword height
             Item.useTime = 30;          //how fast 
             Item.useAnimation = 27;     
-            Item.useStyle = 1;        //Style is how this Item is used, 1 is the style of the sword
+            Item.useStyle = ItemUseStyleID.Swing;        //Style is how this Item is used, 1 is the style of the sword
             Item.knockBack = 6f;      //Sword knockback
             Item.value = 100;        
-            Item.rare = 3;
+            Item.rare = ItemRarityID.Orange;
 			Item.scale = 1f;
             Item.useTurn = true;             //Projectile speed
 			Item.UseSound = SoundID.Item18; 	

@@ -32,7 +32,7 @@ namespace Emperia.Projectiles
         public override void AI()           //Projectile make that the Projectile will face the corect way
         {                                                           // |
             Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + 1.57f;
-			int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 66, 0f, 0f, 91, new Color(89, 249, 116), 1.5f);
+			int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.RainbowTorch, 0f, 0f, 91, new Color(89, 249, 116), 1.5f);
             Main.dust[dust].velocity *= 0.1f;
             if (Projectile.velocity == Vector2.Zero)
             {

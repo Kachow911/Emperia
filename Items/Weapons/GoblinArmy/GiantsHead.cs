@@ -21,10 +21,10 @@ namespace Emperia.Items.Weapons.GoblinArmy
 			Item.height = 42;
 			Item.useTime = 31;
 			Item.useAnimation = 31;
-			Item.useStyle = 5;
+			Item.useStyle = ItemUseStyleID.Shoot;
 			Item.knockBack = 4;
 			Item.value = 5000;
-			Item.rare = 3;
+			Item.rare = ItemRarityID.Orange;
 			Item.UseSound = SoundID.Item20;
 			Item.autoReuse = true;
 			Item.shoot = ModContent.ProjectileType<FlameTendril>();

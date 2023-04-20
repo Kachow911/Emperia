@@ -34,7 +34,7 @@ namespace Emperia.Buffs
         {
             if (Main.rand.Next(2) == 0)
             {
-                int dust = Dust.NewDust(player.position, player.width, player.height, 183);
+                int dust = Dust.NewDust(player.position, player.width, player.height, DustID.VampireHeal);
 				Main.dust[dust].velocity = new Vector2(0, -2f);
                 Main.dust[dust].noGravity = true;
                 Main.dust[dust].scale = 1.5f;

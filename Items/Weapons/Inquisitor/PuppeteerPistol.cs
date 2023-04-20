@@ -24,15 +24,15 @@ namespace Emperia.Items.Weapons.Inquisitor
             Item.height = 32;
             Item.useTime = 24;
             Item.useAnimation = 24;
-            Item.useStyle = 5;
+            Item.useStyle = ItemUseStyleID.Shoot;
             Item.noMelee = true;
             Item.knockBack = 2.5f;
             Item.useTurn = false;
             Item.value = Terraria.Item.sellPrice(0, 1, 32, 0);
-            Item.rare = 4;
+            Item.rare = ItemRarityID.LightRed;
             Item.UseSound = SoundID.Item11;
             Item.autoReuse = true;
-            Item.shoot = 10;
+            Item.shoot = ProjectileID.PurificationPowder;
             Item.shootSpeed = 8f;
             Item.useAmmo = AmmoID.Bullet;
         }

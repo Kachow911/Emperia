@@ -20,7 +20,7 @@ namespace Emperia.Items.Accessories
         {
             Item.width = 26;
             Item.height = 18;
-            Item.rare = 3;
+            Item.rare = ItemRarityID.Orange;
             Item.value = 54000;
             Item.accessory = true;
         }

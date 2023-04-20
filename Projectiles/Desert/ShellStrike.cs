@@ -36,7 +36,7 @@ namespace Emperia.Projectiles.Desert
 		{
 			for (int i = 0; i < 3; i++)
 			{
-				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 9);
+				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Copper);
                 Main.dust[dust].noGravity = true;
 				Vector2 vel = new Vector2(0, -1).RotatedBy(Main.rand.NextFloat() * 6.283f) * 3.5f;
 			}
@@ -55,7 +55,7 @@ namespace Emperia.Projectiles.Desert
 				}	
 				for (int i = 0; i < 20; ++i)
 				{
-				    int dust = Dust.NewDust(new Vector2(Projectile.position.X - 14, Projectile.position.Y - 14), Projectile.width * 8, Projectile.height * 8, 262);
+				    int dust = Dust.NewDust(new Vector2(Projectile.position.X - 14, Projectile.position.Y - 14), Projectile.width * 8, Projectile.height * 8, DustID.AmberBolt);
                     Main.dust[dust].noGravity = true;
                     Main.dust[dust].velocity *= 1f;
 				}

@@ -92,7 +92,7 @@ namespace Emperia.Npcs.GoblinArmy
 				Color rgb = new Color(252, 207, 83);
 				NPC.damage = 100;
 				if (counter % 5 == 0)
-					Dust.NewDust(NPC.Center, NPC.width, NPC.height, 76, NPC.velocity.X, (float) NPC.velocity.Y, 0, rgb, 0.9f);
+					Dust.NewDust(NPC.Center, NPC.width, NPC.height, DustID.Snow, NPC.velocity.X, (float) NPC.velocity.Y, 0, rgb, 0.9f);
 			}
 			else
 			{
@@ -107,7 +107,7 @@ namespace Emperia.Npcs.GoblinArmy
 				Color rgb = new Color(252, 207, 83);
 				for (int i = - 50; i < 50; i++)
 				{
-					int index2 = Dust.NewDust(NPC.Center + new Vector2(i, 0), NPC.width, NPC.height, 76, NPC.velocity.X / 5, (float) NPC.velocity.Y, 0, rgb, 0.9f);
+					int index2 = Dust.NewDust(NPC.Center + new Vector2(i, 0), NPC.width, NPC.height, DustID.Snow, NPC.velocity.X / 5, (float) NPC.velocity.Y, 0, rgb, 0.9f);
 				}
 				
 				Gore.NewGore(NPC.GetSource_OnHit(target), NPC.position, new Vector2(0, -2), ModContent.Find<ModGore>("Gores/BattleRam").Type, 1f);
@@ -145,7 +145,7 @@ namespace Emperia.Npcs.GoblinArmy
 			Color rgb = new Color(252, 207, 83);
 			for (int i = -50; i < 50; i++)
 			{
-				int index2 = Dust.NewDust(NPC.Center + new Vector2(i, 0), NPC.width, NPC.height, 76, NPC.velocity.X / 5, (float)NPC.velocity.Y, 0, rgb, 0.9f);
+				int index2 = Dust.NewDust(NPC.Center + new Vector2(i, 0), NPC.width, NPC.height, DustID.Snow, NPC.velocity.X / 5, (float)NPC.velocity.Y, 0, rgb, 0.9f);
 			}
 
 			Gore.NewGore(NPC.GetSource_Death(), NPC.position, new Vector2(0, -2), ModContent.Find<ModGore>("Gores/BattleRam").Type, 1f);

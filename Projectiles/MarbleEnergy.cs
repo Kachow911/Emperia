@@ -30,15 +30,15 @@ namespace Emperia.Projectiles
         }
         public override void AI()           //Projectile make that the Projectile will face the corect way
         {                                                           
-			int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 66, 0f, 0f, 91, new Color(255, 255, 255), 1f);
+			int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.RainbowTorch, 0f, 0f, 91, new Color(255, 255, 255), 1f);
             Main.dust[dust].position += Projectile.velocity.RotatedBy(1.57);
             Main.dust[dust].noGravity = true;
             Main.dust[dust].velocity = Projectile.velocity.RotatedBy(0.5);
-            int dust1 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 66, 0f, 0f, 91, new Color(255, 255, 255), 1f);
+            int dust1 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.RainbowTorch, 0f, 0f, 91, new Color(255, 255, 255), 1f);
             Main.dust[dust].position += Projectile.velocity.RotatedBy(-1.57);
             Main.dust[dust1].noGravity = true;
             Main.dust[dust1].velocity = Projectile.velocity.RotatedBy(-0.5);
-            int dust2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 66, 0f, 0f, 91, new Color(255, 255, 255), 1.5f);
+            int dust2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.RainbowTorch, 0f, 0f, 91, new Color(255, 255, 255), 1.5f);
             Main.dust[dust2].velocity = Projectile.velocity;
             Main.dust[dust2].noGravity = true;
 
@@ -49,7 +49,7 @@ namespace Emperia.Projectiles
 			{
 				Vector2 vec = Vector2.Transform(new Vector2(-10, 0), Matrix.CreateRotationZ(MathHelper.ToRadians(i)));
 				vec.Normalize();
-				int num622 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 66, 0f, 0f, 91, new Color(255, 255, 255), 1.5f);
+				int num622 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.RainbowTorch, 0f, 0f, 91, new Color(255, 255, 255), 1.5f);
                 Main.dust[num622].velocity += (vec * 2f);
                 Main.dust[num622].velocity += Projectile.velocity;
                 Main.dust[num622].noGravity = true;

@@ -21,10 +21,10 @@ namespace Emperia.Items
         {
             Item.width = 36;
             Item.height = 36;
-                        Item.rare = 3;
+                        Item.rare = ItemRarityID.Orange;
             Item.useAnimation = 45;
             Item.useTime = 45;
-            Item.useStyle = 4;
+            Item.useStyle = ItemUseStyleID.HoldUp;
             Item.UseSound = SoundID.Item44;
             Item.consumable = true;
         }

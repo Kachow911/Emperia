@@ -32,7 +32,7 @@ namespace Emperia.Projectiles.Granite
             Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + 1.57f;
 			if (Main.rand.Next(5) == 0)
 			{
-				int num622 = Dust.NewDust(new Vector2(Projectile.Center.X, Projectile.Center.Y), 1, 1, 240, 0f, 0f, 74, new Color(53f, 67f, 253f), 1.3f);
+				int num622 = Dust.NewDust(new Vector2(Projectile.Center.X, Projectile.Center.Y), 1, 1, DustID.Granite, 0f, 0f, 74, new Color(53f, 67f, 253f), 1.3f);
 				Main.dust[num622].velocity += Projectile.velocity * 0.2f;
 				Main.dust[num622].noGravity = true;
 			}
@@ -45,7 +45,7 @@ namespace Emperia.Projectiles.Granite
 			{
 				Vector2 vec = Vector2.Transform(new Vector2(-1, 0), Matrix.CreateRotationZ(MathHelper.ToRadians(i)));
 				vec.Normalize();
-				int num622 = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 240, 0f, 0f, 0, new Color(53f, 67f, 253f), 1f);
+				int num622 = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, DustID.Granite, 0f, 0f, 0, new Color(53f, 67f, 253f), 1f);
 				Main.dust[num622].velocity += (vec *2f);
 				Main.dust[num622].noGravity = true;
 			}

@@ -34,21 +34,21 @@ namespace Emperia.Projectiles.Ice
 			if (Main.rand.NextBool(20))
 			{
 				Color rgb = new Color(135,206,250);
-				int index2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 76, (float) Projectile.velocity.X, (float) Projectile.velocity.Y, 0, rgb, 0.9f);
+				int index2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Snow, (float) Projectile.velocity.X, (float) Projectile.velocity.Y, 0, rgb, 0.9f);
 			}
 			Projectile.velocity.X *= 0.99f;
 			Projectile.velocity.Y *= 0.99f;
 			Projectile.rotation += .08f;
 			int num;
 			Vector2 position = Projectile.Center + Vector2.Normalize(Projectile.velocity) * 10f;
-			Dust dust37 = Main.dust[Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 68, 0f, 0f, 0, default(Color), 1f)];
+			Dust dust37 = Main.dust[Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.BlueCrystalShard, 0f, 0f, 0, default(Color), 1f)];
 			dust37.position = position;
 			dust37.velocity = Projectile.velocity.RotatedBy(1.5707963705062866, default(Vector2)) * 0.33f + Projectile.velocity / 4f;
 			Dust dust3 = dust37;
 			dust3.position += Projectile.velocity.RotatedBy(1.5707963705062866, default(Vector2));
 			dust37.fadeIn = 0.5f;
 			dust37.noGravity = true;
-			dust37 = Main.dust[Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 68, 0f, 0f, 0, default(Color), 1f)];
+			dust37 = Main.dust[Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.BlueCrystalShard, 0f, 0f, 0, default(Color), 1f)];
 			dust37.position = position;
 			dust37.velocity = Projectile.velocity.RotatedBy(-1.5707963705062866, default(Vector2)) * 0.33f + Projectile.velocity / 4f;
 			dust3 = dust37;
@@ -59,7 +59,7 @@ namespace Emperia.Projectiles.Ice
 		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
 			Color rgb = new Color(135,206,250);
-			int index2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 76, (float) Projectile.velocity.X, (float) Projectile.velocity.Y, 0, rgb, 0.9f);
+			int index2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Snow, (float) Projectile.velocity.X, (float) Projectile.velocity.Y, 0, rgb, 0.9f);
 			target.GetGlobalNPC<MyNPC>().chillStacks += 1;
 			target.AddBuff(ModContent.BuffType<CrushingFreeze>(), 300);
 		}
@@ -73,7 +73,7 @@ namespace Emperia.Projectiles.Ice
 			}
 			for (int i = 0; i < 45; ++i)
 			{
-				int index2 = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 76, 0.0f, 0.0f, 15, new Color(53f, 67f, 253f), 2f);
+				int index2 = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, DustID.Snow, 0.0f, 0.0f, 15, new Color(53f, 67f, 253f), 2f);
 				Main.dust[index2].noGravity = true;
 				Main.dust[index2].velocity *= 3.25f;
 			}

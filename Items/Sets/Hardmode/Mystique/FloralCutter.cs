@@ -24,10 +24,10 @@ namespace Emperia.Items.Sets.Hardmode.Mystique   //where is located
             Item.height = 64;             //Sword height
             Item.useTime = 28;          //how fast 
             Item.useAnimation = 28;     
-            Item.useStyle = 1;        //Style is how this Item is used, 1 is the style of the sword
+            Item.useStyle = ItemUseStyleID.Swing;        //Style is how this Item is used, 1 is the style of the sword
             Item.knockBack = 5f;      //Sword knockback
             Item.value = 100;        
-            Item.rare = 6;
+            Item.rare = ItemRarityID.LightPurple;
 			Item.scale = 1f;
 			Item.UseSound = SoundID.Item18;
 			//Item.shoot = ModContent.ProjectileType<Leafy>();
@@ -41,8 +41,8 @@ namespace Emperia.Items.Sets.Hardmode.Mystique   //where is located
 			{
 				for (int i = 0; i < 50; ++i) //Create dust after teleport
 				{
-					int dust = Dust.NewDust(target.position, target.width, target.height, 76, (float)0, (float)0, 0, new Color(255, 113, 182), 1.1f);
-					int dust1 = Dust.NewDust(target.position, target.width, target.height, 76, (float)0, (float)0, 0, new Color(255, 113, 182), 1.1f);
+					int dust = Dust.NewDust(target.position, target.width, target.height, DustID.Snow, (float)0, (float)0, 0, new Color(255, 113, 182), 1.1f);
+					int dust1 = Dust.NewDust(target.position, target.width, target.height, DustID.Snow, (float)0, (float)0, 0, new Color(255, 113, 182), 1.1f);
 					Main.dust[dust1].scale = 0.8f;
 					Main.dust[dust1].velocity *= 2f;
 				}

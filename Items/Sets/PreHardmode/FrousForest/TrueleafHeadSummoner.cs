@@ -20,7 +20,7 @@ public class TrueleafHeadSummoner : ModItem
         Item.width = 18;
         Item.height = 18;
         Item.value = 50000;
-        Item.rare = 2;
+        Item.rare = ItemRarityID.Green;
         Item.defense = 4; //15
     }
 

@@ -35,7 +35,7 @@ namespace Emperia.Projectiles.Mushroom
 			{
 				if (Main.rand.Next(3) == 0)
 				{
-					Dust.NewDust(Projectile.position + new Vector2(Main.rand.Next(-explodeRadius / 2, explodeRadius / 2), Main.rand.Next(-explodeRadius / 2, explodeRadius / 2)), Projectile.width, Projectile.height, 20, Projectile.velocity.X * 0.5f, Projectile.velocity.Y * 0.5f);
+					Dust.NewDust(Projectile.position + new Vector2(Main.rand.Next(-explodeRadius / 2, explodeRadius / 2), Main.rand.Next(-explodeRadius / 2, explodeRadius / 2)), Projectile.width, Projectile.height, DustID.PurificationPowder, Projectile.velocity.X * 0.5f, Projectile.velocity.Y * 0.5f);
 				}
 			}
 			for (int i = 0; i < Main.npc.Length; i++)

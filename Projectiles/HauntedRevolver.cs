@@ -78,7 +78,7 @@ namespace Emperia.Projectiles
 			int length = (int) (Math.Sqrt((lineVec.X * lineVec.X) + (lineVec.Y * lineVec.Y)));
 			if (timer % 15 == 0)
 			{
-				int index2 = Dust.NewDust(new Vector2((float)(Projectile.position.X + 4.0), (float)(Projectile.position.Y + 4.0)), Projectile.width - 8, Projectile.height - 8, 15, 0, 0, 0, Color.White, 1.2f);
+				int index2 = Dust.NewDust(new Vector2((float)(Projectile.position.X + 4.0), (float)(Projectile.position.Y + 4.0)), Projectile.width - 8, Projectile.height - 8, DustID.MagicMirror, 0, 0, 0, Color.White, 1.2f);
 				Main.dust[index2].position = Projectile.Center;
 				Main.dust[index2].noGravity = true;
 				Main.dust[index2].velocity = (player.Center - Projectile.Center) * 0.1f;
@@ -121,7 +121,7 @@ namespace Emperia.Projectiles
 			{
 				Vector2 vec = Vector2.Transform(new Vector2(-16, 0), Matrix.CreateRotationZ(MathHelper.ToRadians(i)));
 				vec.Normalize();
-				int num622 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 15, 0f, 0f, 91, new Color(255, 255, 255), 1.5f);
+				int num622 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.MagicMirror, 0f, 0f, 91, new Color(255, 255, 255), 1.5f);
                 Main.dust[num622].velocity += (vec * 2f);
                 Main.dust[num622].noGravity = true;
             }

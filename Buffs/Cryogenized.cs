@@ -24,7 +24,7 @@ namespace Emperia.Buffs
             NPC.velocity = Vector2.Zero;
             if (Main.rand.Next(10) == 0)
             {
-                int num1 = Dust.NewDust(NPC.position, NPC.width, NPC.height, 92, 0f, 0f, 0, default(Color), 0.75f);
+                int num1 = Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Frost, 0f, 0f, 0, default(Color), 0.75f);
             }
             //Main.dust[num1].noGravity = false;
             //Main.dust[num1].velocity.Y *= 2f;

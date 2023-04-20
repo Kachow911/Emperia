@@ -53,9 +53,9 @@ namespace Emperia.Projectiles
 
             if (Projectile.timeLeft % 6 == 0) {
                 Vector2 dustPosition = new Vector2(Projectile.position.X, Projectile.position.Y);                
-    	    	int blue = Dust.NewDust(dustPosition, Projectile.width, Projectile.height, 15, Projectile.velocity.X, Projectile.velocity.Y);
-                int yellow = Dust.NewDust(dustPosition, Projectile.width, Projectile.height, 57, Projectile.velocity.X, Projectile.velocity.Y);
-                int pink = Dust.NewDust(dustPosition, Projectile.width, Projectile.height, 58, Projectile.velocity.X, Projectile.velocity.Y);
+    	    	int blue = Dust.NewDust(dustPosition, Projectile.width, Projectile.height, DustID.MagicMirror, Projectile.velocity.X, Projectile.velocity.Y);
+                int yellow = Dust.NewDust(dustPosition, Projectile.width, Projectile.height, DustID.Enchanted_Gold, Projectile.velocity.X, Projectile.velocity.Y);
+                int pink = Dust.NewDust(dustPosition, Projectile.width, Projectile.height, DustID.Enchanted_Pink, Projectile.velocity.X, Projectile.velocity.Y);
 	            Main.dust[blue].velocity *= -0.1f;
                 Main.dust[yellow].velocity *= -0.1f;
                 Main.dust[pink].velocity *= -0.1f;
@@ -75,9 +75,9 @@ namespace Emperia.Projectiles
         {
             for (int i = 1; i < 5; ++i){
                 Vector2 dustPosition = new Vector2(Projectile.position.X, Projectile.position.Y);                
-	    	    int blue = Dust.NewDust(dustPosition, Projectile.width, Projectile.height, 15, 0f, 0f, 0, default(Color), 1.25f);
-    		    int yellow = Dust.NewDust(dustPosition, Projectile.width, Projectile.height, 57, 0f, 0f, 0, default(Color), 1.25f);
-                int pink = Dust.NewDust(dustPosition, Projectile.width, Projectile.height, 58, 0f, 0f, 0, default(Color), 1.25f);
+	    	    int blue = Dust.NewDust(dustPosition, Projectile.width, Projectile.height, DustID.MagicMirror, 0f, 0f, 0, default(Color), 1.25f);
+    		    int yellow = Dust.NewDust(dustPosition, Projectile.width, Projectile.height, DustID.Enchanted_Gold, 0f, 0f, 0, default(Color), 1.25f);
+                int pink = Dust.NewDust(dustPosition, Projectile.width, Projectile.height, DustID.Enchanted_Pink, 0f, 0f, 0, default(Color), 1.25f);
                 Main.dust[blue].velocity *= 0.3f;
                 Main.dust[yellow].velocity *= 0.3f;
                 Main.dust[pink].velocity *= 0.3f;

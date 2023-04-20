@@ -27,15 +27,15 @@ namespace Emperia.Items.Weapons
             Item.height = 22;    
             Item.useTime = 31;
             Item.useAnimation = 31;
-            Item.useStyle = 5;    
+            Item.useStyle = ItemUseStyleID.Shoot;    
             Item.noMelee = true; 
             Item.knockBack = 4;
             Item.useTurn = false;
             Item.value = Terraria.Item.sellPrice(0, 2, 0, 0);
-            Item.rare = 4;
+            Item.rare = ItemRarityID.LightRed;
             Item.UseSound = SoundID.Item36;
             Item.autoReuse = true;
-            Item.shoot = 10; 
+            Item.shoot = ProjectileID.PurificationPowder; 
             Item.shootSpeed = 9.5f;
             Item.useAmmo = AmmoID.Bullet;
         }

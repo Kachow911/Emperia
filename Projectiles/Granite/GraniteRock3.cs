@@ -32,13 +32,13 @@ namespace Emperia.Projectiles.Granite
             Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + 1.57f;
 			if (Main.rand.Next(5) == 0)
 			{
-				int num622 = Dust.NewDust(new Vector2(Projectile.Center.X, Projectile.Center.Y), 1, 1, 240, 0f, 0f, 74, new Color(53f, 67f, 253f), 1.3f);
+				int num622 = Dust.NewDust(new Vector2(Projectile.Center.X, Projectile.Center.Y), 1, 1, DustID.Granite, 0f, 0f, 74, new Color(53f, 67f, 253f), 1.3f);
 				Main.dust[num622].velocity += Projectile.velocity * 0.2f;
 				Main.dust[num622].noGravity = true;
 			}
 			if (Main.rand.Next(2) == 0)
 			{
-				int num622 = Dust.NewDust(new Vector2(Projectile.Center.X, Projectile.Center.Y), 1, 1, 15, 0f, 0f, 74, new Color(53f, 67f, 253f), 1.3f);
+				int num622 = Dust.NewDust(new Vector2(Projectile.Center.X, Projectile.Center.Y), 1, 1, DustID.MagicMirror, 0f, 0f, 74, new Color(53f, 67f, 253f), 1.3f);
 				Main.dust[num622].velocity += Projectile.velocity * 0.4f;
 				Main.dust[num622].noGravity = true;
 			}
@@ -69,7 +69,7 @@ namespace Emperia.Projectiles.Granite
             	}
 				for (int i = 0; i < 45; ++i)
 				{
-					int index2 = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 15, 0.0f, 0.0f, 15, new Color(53f, 67f, 253f), 2f);
+					int index2 = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, DustID.MagicMirror, 0.0f, 0.0f, 15, new Color(53f, 67f, 253f), 2f);
 					Main.dust[index2].noGravity = true;
 					Main.dust[index2].velocity *= 3.75f;
 				}
@@ -85,7 +85,7 @@ namespace Emperia.Projectiles.Granite
 				}	
 				for (int i = 0; i < 30; ++i)
 				{
-					int index2 = Dust.NewDust(new Vector2(Projectile.Center.X, Projectile.Center.Y), Projectile.width, Projectile.height, 15, 0.0f, 0.0f, 15, new Color(53f, 67f, 253f), 1.5f);
+					int index2 = Dust.NewDust(new Vector2(Projectile.Center.X, Projectile.Center.Y), Projectile.width, Projectile.height, DustID.MagicMirror, 0.0f, 0.0f, 15, new Color(53f, 67f, 253f), 1.5f);
 					Main.dust[index2].noGravity = true;
 					Main.dust[index2].velocity *= 2.25f;
 				}

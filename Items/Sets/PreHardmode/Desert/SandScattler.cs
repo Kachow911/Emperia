@@ -25,11 +25,11 @@ namespace Emperia.Items.Sets.PreHardmode.Desert
             Item.useAnimation = 38;
 			Item.useTime = 38;
 			//Item.reuseDelay = 14;
-            Item.useStyle = 5;  
+            Item.useStyle = ItemUseStyleID.Shoot;  
             Item.noMelee = true; 
             Item.knockBack = 1f; 
             Item.value = 27000;
-            Item.rare = 1;   
+            Item.rare = ItemRarityID.Blue;   
             Item.autoReuse = false;  
             Item.shoot = ModContent.ProjectileType<ShellStrike>();   
             Item.shootSpeed = 11.5f; 

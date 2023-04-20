@@ -21,7 +21,7 @@ public class GraniteHelm : ModItem
         Item.width = 18;
         Item.height = 18;
         Item.value = 140000;
-        Item.rare = 2;
+        Item.rare = ItemRarityID.Green;
         Item.defense = 5;
     }
 
@@ -35,7 +35,7 @@ public class GraniteHelm : ModItem
         player.setBonus = "Generates charge over time, powering up your next granite energy blast";
 		if (Main.rand.Next(5) == 0)
 		{
-			int num622 = Dust.NewDust(new Vector2(player.position.X + player.width / 2, player.position.Y + player.height / 2),1, 1, 15, 0f, 0f, 74, new Color(53f, 67f, 253f), 0.8f);
+			int num622 = Dust.NewDust(new Vector2(player.position.X + player.width / 2, player.position.Y + player.height / 2),1, 1, DustID.MagicMirror, 0f, 0f, 74, new Color(53f, 67f, 253f), 0.8f);
 		}
 		player.armorEffectDrawShadow = true;
 		player.armorEffectDrawShadowSubtle = true;

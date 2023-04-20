@@ -20,7 +20,7 @@ namespace Emperia.Items.Sets.PreHardmode.Aquatic
             Item.CloneDefaults(ItemID.Shuriken);        
             Item.shoot = ModContent.ProjectileType<SeaStarProj>();
             Item.shootSpeed = 8f;
-			Item.rare = 3;
+			Item.rare = ItemRarityID.Orange;
             Item.autoReuse = true;
             Item.damage = 32;
             Item.knockBack = 3f;

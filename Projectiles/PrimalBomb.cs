@@ -37,7 +37,7 @@ namespace Emperia.Projectiles
 			{
 				for (int j = -5; j < 6; j+= 5)
 				{
-					int dust = Dust.NewDust(new Vector2(Projectile.Center.X + i, Projectile.Center.Y + j), Projectile.width / 4, Projectile.height / 4, 89, 0f, 0f, 0, new Color(89, 249, 116), 1.5f);
+					int dust = Dust.NewDust(new Vector2(Projectile.Center.X + i, Projectile.Center.Y + j), Projectile.width / 4, Projectile.height / 4, DustID.GemEmerald, 0f, 0f, 0, new Color(89, 249, 116), 1.5f);
 					Main.dust[dust].velocity = Vector2.Zero;
 					Main.dust[dust].scale = 1.5f;
 					Main.dust[dust].noGravity = true;
@@ -59,7 +59,7 @@ namespace Emperia.Projectiles
 				{
 					Vector2 vec = Vector2.Transform(new Vector2(-10, 0), Matrix.CreateRotationZ(MathHelper.ToRadians(i)));
 					vec.Normalize();
-					int num622 = Dust.NewDust(new Vector2(Projectile.Center.X, (float) ((double) Projectile.Center.Y + (double) Projectile.height - 16.0)), Projectile.width, 16, 89, 0.0f, 0.0f, 0, new Color(), 1f);
+					int num622 = Dust.NewDust(new Vector2(Projectile.Center.X, (float) ((double) Projectile.Center.Y + (double) Projectile.height - 16.0)), Projectile.width, 16, DustID.GemEmerald, 0.0f, 0.0f, 0, new Color(), 1f);
 					Main.dust[num622].velocity += (vec *0.2f);
 					Main.dust[num622].noGravity = true;
 				}

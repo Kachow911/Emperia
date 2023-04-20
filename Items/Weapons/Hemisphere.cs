@@ -19,7 +19,7 @@ namespace Emperia.Items.Weapons
 
 		public override void SetDefaults()
 		{
-			Item.useStyle = 5;
+			Item.useStyle = ItemUseStyleID.Shoot;
 			Item.width = 24;
 			Item.height = 24;
 			Item.noUseGraphic = true;
@@ -34,7 +34,7 @@ namespace Emperia.Items.Weapons
 			Item.knockBack = 4f;
 			Item.damage = 47;
 			Item.value = Item.sellPrice(0, 1, 20, 0);
-			Item.rare = 3;
+			Item.rare = ItemRarityID.Orange;
 		}
 			
 		public override void AddRecipes()

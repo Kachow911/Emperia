@@ -95,7 +95,7 @@ namespace Emperia.Npcs.Yeti
 			Color rgb = new Color(160, 243, 255);
 			for (int i = 0; i < 360; i+=6)
             {
-				int index2 = Dust.NewDust(NPC.position + new Vector2(5, 0).RotatedBy(MathHelper.ToRadians(i)), NPC.width, NPC.height, 76, NPC.velocity.X / 5, (float) NPC.velocity.Y, 0, rgb, 0.9f);
+				int index2 = Dust.NewDust(NPC.position + new Vector2(5, 0).RotatedBy(MathHelper.ToRadians(i)), NPC.width, NPC.height, DustID.Snow, NPC.velocity.X / 5, (float) NPC.velocity.Y, 0, rgb, 0.9f);
 			}
 			if (Main.rand.Next(3) == 0)
 			{

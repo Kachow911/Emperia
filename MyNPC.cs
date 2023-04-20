@@ -61,7 +61,7 @@ namespace Emperia
 		public bool reflectsProjectilesCustom = false;
 		public int maceSlam = 0;
 		public int maceSlamDamage = 0;
-		int InfirmaryTimer = 30;
+		int infirmaryTimer = 30;
 		int poisonTimer = 0;
 
 		public int hitboxMinusX = 0;
@@ -202,24 +202,17 @@ namespace Emperia
 
 				npc.HitEffect(0, 10);
 			}
-			InfirmaryTimer--;
-			if (InfirmaryTimer <= 0)
+			infirmaryTimer--;
+			if (infirmaryTimer <= 0)
 			{
-				InfirmaryTimer = 30;
+				infirmaryTimer = 30;
 				if (indigoInfirmary)
 				{
-					int damage = 1;
 					Player player = Main.player[npc.target];
-					if (player.statLife == player.statLifeMax2)
-						damage = 5;
-					if (player.statLife < player.statLifeMax2 && player.statLife >= (player.statLifeMax2 / 4) * 3)
-						damage = 4;
-					if (player.statLife < (player.statLifeMax2 / 4) * 3 && player.statLife >= (player.statLifeMax2 / 2))
-						damage = 3;
-					if (player.statLife < (player.statLifeMax2 / 2) && player.statLife >= (player.statLifeMax2 / 4))
-						damage = 2;
-					if (player.statLife < (player.statLifeMax2 / 4))
-						damage = 1;
+
+					int fourthOfMaxHP = (int)(player.statLife / (float)player.statLifeMax2 * 4);
+
+					int damage = fourthOfMaxHP + 1;
 					npc.SimpleStrikeNPC(damage, 0);
 				}
 				if (crushFreeze)
@@ -227,10 +220,6 @@ namespace Emperia
 					int damage = chillStacks;
 					npc.SimpleStrikeNPC(damage, 0);
 				}
-			}
-			if (npc.life <= 0)
-			{
-
 			}
 			if (sporeStorm && IsNormalEnemy(npc))
 			{
@@ -392,7 +381,7 @@ namespace Emperia
 
 				for (int num621 = 0; num621 < 20; num621++)
 				{
-					int num622 = Dust.NewDust(new Vector2(npc.position.X, npc.position.Y), npc.width, npc.height, 258, 0f, 0f, 100, default(Color));
+					int num622 = Dust.NewDust(new Vector2(npc.position.X, npc.position.Y), npc.width, npc.height, DustID.LavaMoss, 0f, 0f, 100, default(Color));
 					Main.dust[num622].velocity *= 3f;
 					if (Main.rand.Next(2) == 0)
 					{
@@ -402,10 +391,10 @@ namespace Emperia
 				}
 				for (int num623 = 0; num623 < 35; num623++)
 				{
-					int num624 = Dust.NewDust(new Vector2(npc.position.X, npc.position.Y), npc.width, npc.height, 258, 0f, 0f, 100, default(Color));
+					int num624 = Dust.NewDust(new Vector2(npc.position.X, npc.position.Y), npc.width, npc.height, DustID.LavaMoss, 0f, 0f, 100, default(Color));
 					Main.dust[num624].noGravity = true;
 					Main.dust[num624].velocity *= 5f;
-					num624 = Dust.NewDust(new Vector2(npc.position.X, npc.position.Y), npc.width, npc.height, 258, 0f, 0f, 100, default(Color));
+					num624 = Dust.NewDust(new Vector2(npc.position.X, npc.position.Y), npc.width, npc.height, DustID.LavaMoss, 0f, 0f, 100, default(Color));
 					Main.dust[num624].velocity *= 2f;
 				}
 				PlaySound(SoundID.Item14, npc.position);
@@ -449,43 +438,43 @@ namespace Emperia
 				normalRule.OnSuccess(ItemDropRule.OneFromOptions(1, ModContent.ItemType<Skelebow>(), ModContent.ItemType<NecromanticFlame>(), ModContent.ItemType<BoneWhip>()));
 				npcLoot.Add(normalRule);
 			}
-			if (npc.type == 82)
+			if (npc.type == NPCID.Wraith)
             {
 				npcLoot.Add(ItemDropRule.NormalvsExpert(ModContent.ItemType<DeathTalisman>(), 100, 80));
             }
-            if (npc.type == 53 || npc.type == 536 || npc.type == 489 || npc.type == 490 )
+            if (npc.type == NPCID.TheGroom || npc.type == NPCID.TheBride || npc.type == NPCID.BloodZombie || npc.type == NPCID.Drippler )
             {
                 npcLoot.Add(ItemDropRule.NormalvsExpert(ModContent.ItemType<ForbiddenOath>(), 100, 65));
             }
-			if (npc.type == 586 || npc.type == 587)
+			if (npc.type == NPCID.ZombieMerman || npc.type == NPCID.EyeballFlyingFish)
 			{
 				npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<ForbiddenOath>(), 15));
 			}
-			if (npc.type == 620 || npc.type == 621)
+			if (npc.type == NPCID.GoblinShark || npc.type == NPCID.BloodEelHead)
 			{
 				npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Items.Accessories.Gauntlets.BloodGauntlet>(), 8));
 			}
-			if (npc.type == 618)
+			if (npc.type == NPCID.BloodNautilus)
 			{
 				npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Items.Accessories.Gauntlets.BloodGauntlet>(), 2));
 			}
-			if (npc.type == 620 || npc.type == 621)
+			if (npc.type == NPCID.GoblinShark || npc.type == NPCID.BloodEelHead)
 			{
 				npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Items.BloodCandle>(), 8));
 			}
-			if (npc.type == 618)
+			if (npc.type == NPCID.BloodNautilus)
 			{
 				npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Items.BloodCandle>(), 2));
 			}
-			if (npc.type == 58)
+			if (npc.type == NPCID.Piranha)
 			{
 				npcLoot.Add(ItemDropRule.NormalvsExpert(ModContent.ItemType<TetheredPiranha>(), 50, 40));
 			}
-			if(npc.type == 122)
+			if(npc.type == NPCID.Gastropod)
 			{
 				npcLoot.Add(ItemDropRule.NormalvsExpert(ModContent.ItemType<Escargun>(), 75, 60));
 			}
-			if (npc.type == 4)
+			if (npc.type == NPCID.EyeofCthulhu)
 			{
 				npcLoot.Add(ItemDropRule.ByCondition(new EOCDropCondition(), ModContent.ItemType<SetStone>(), 1)); //If the world is in master mode, drop ExampleSouls 20% of the time from every npc.
 				//EmperialWorld.downedEye = true;
@@ -556,9 +545,9 @@ namespace Emperia
         {
 			if (player.HasBuff(ModContent.BuffType<BloodCandleBuff>()))
 			{
-				if (player.ZoneWaterCandle || player.inventory[player.selectedItem].type == 148) //cancels out water candle effect, referenced from vanilla code
+				if (player.ZoneWaterCandle || player.inventory[player.selectedItem].type == ItemID.WaterCandle) //cancels out water candle effect, referenced from vanilla code
 				{
-					if (!player.ZonePeaceCandle && player.inventory[player.selectedItem].type != 3117)
+					if (!player.ZonePeaceCandle && player.inventory[player.selectedItem].type != ItemID.PeaceCandle)
 					{
 						spawnRate = (int)(spawnRate / 0.75);
 						maxSpawns = (int)Math.Ceiling(maxSpawns / 1.5f);

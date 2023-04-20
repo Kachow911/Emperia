@@ -59,7 +59,7 @@ namespace Emperia.Projectiles
 
 			for (int i = 0; i < 8; ++i)
 			{
-				int index3 = Dust.NewDust(new Vector2((float) (Projectile.position.X + 4.0), (float) (Projectile.position.Y + 4.0)), Projectile.width - 8, Projectile.height - 8, 258, 0.0f, 0.0f, 0, Color.White, 1.5f);
+				int index3 = Dust.NewDust(new Vector2((float) (Projectile.position.X + 4.0), (float) (Projectile.position.Y + 4.0)), Projectile.width - 8, Projectile.height - 8, DustID.LavaMoss, 0.0f, 0.0f, 0, Color.White, 1.5f);
 			}
 		}
 

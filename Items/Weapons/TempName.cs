@@ -25,11 +25,11 @@ namespace Emperia.Items.Weapons   //where is located
             Item.height = 44;
             Item.useTime = 21;
             Item.useAnimation = 21;     
-            Item.useStyle = 5;
+            Item.useStyle = ItemUseStyleID.Shoot;
             Item.knockBack = 2.25f;  
 			Item.crit = 6;
             Item.value = 48000;        
-            Item.rare = 3;
+            Item.rare = ItemRarityID.Orange;
 			Item.scale = 1f;
             Item.autoReuse = true;
             Item.useTurn = false; 

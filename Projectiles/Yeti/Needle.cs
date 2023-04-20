@@ -53,7 +53,7 @@ namespace Emperia.Projectiles.Yeti
         {
             for (int i = 0; i < 4; ++i)
             {
-              int index2 = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), 8, 8, 93, 0f, 0f, 0, Color.LightBlue, 1f);
+              int index2 = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), 8, 8, DustID.GreenMoss, 0f, 0f, 0, Color.LightBlue, 1f);
               Main.dust[index2].noGravity = true;
             }
         }

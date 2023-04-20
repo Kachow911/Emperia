@@ -78,7 +78,7 @@ namespace Emperia.Tiles
         {
 			for (int d = 0; d < 16; d++) //red light for dust? red sparks?
 			{
-				int dust = Dust.NewDust(position, 8, 8, 183, 0f, Main.rand.Next(1, 3) * -1, 0, default(Color), Main.rand.NextFloat(0.9f, 1.5f));
+				int dust = Dust.NewDust(position, 8, 8, DustID.VampireHeal, 0f, Main.rand.Next(1, 3) * -1, 0, default(Color), Main.rand.NextFloat(0.9f, 1.5f));
 				Main.dust[dust].noGravity = true;
 				Main.dust[dust].velocity.X /= 3;
 				Main.dust[dust].fadeIn = 1.1f;
@@ -100,10 +100,10 @@ namespace Emperia.Tiles
 			if (Main.rand.Next(5) == 0)
 			{
 				Vector2 position = new Vector2(i * 16 + 4, j * 16);
-				if (Main.rand.Next(3) == 0) Dust.NewDust(position, 0, 0, 60, 0f, -1f, 0, new Color(255, 0, 0), 0.8f);
+				if (Main.rand.Next(3) == 0) Dust.NewDust(position, 0, 0, DustID.RedTorch, 0f, -1f, 0, new Color(255, 0, 0), 0.8f);
 				else
 				{
-					int dust = Dust.NewDust(position, 0, 0, 60, 0f, 0f, 0, default(Color));
+					int dust = Dust.NewDust(position, 0, 0, DustID.RedTorch, 0f, 0f, 0, default(Color));
 					Main.dust[dust].velocity.X /= 3;
 					Main.dust[dust].velocity.Y = Main.rand.NextFloat(1.4f, 1.85f) * -1;
 				}

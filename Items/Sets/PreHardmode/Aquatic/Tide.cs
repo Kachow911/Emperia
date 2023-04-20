@@ -24,10 +24,10 @@ namespace Emperia.Items.Sets.PreHardmode.Aquatic  //where is located
             Item.height = 16;             //Sword height
             Item.useTime = 27;          //how fast 
             Item.useAnimation = 27;     
-            Item.useStyle = 1;        //Style is how this Item is used, 1 is the style of the sword
+            Item.useStyle = ItemUseStyleID.Swing;        //Style is how this Item is used, 1 is the style of the sword
             Item.knockBack = 3.5f;      //Sword knockback
             Item.value = 5000;        
-            Item.rare = 3;
+            Item.rare = ItemRarityID.Orange;
 			Item.scale = 1f;
             Item.autoReuse = true;   //if it's capable of autoswing.
             Item.useTurn = true;             //Projectile speed

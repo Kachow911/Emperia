@@ -35,7 +35,7 @@ namespace Emperia.Projectiles
 
                 for (int index1 = 0; index1 < 4; ++index1)
                 {
-                    int index3 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 76, (float)Projectile.velocity.X, (float)Projectile.velocity.Y, 0, rgb, 1.1f);
+                    int index3 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Snow, (float)Projectile.velocity.X, (float)Projectile.velocity.Y, 0, rgb, 1.1f);
                     Main.dust[index3].noGravity = true;
                     Main.dust[index3].velocity = Projectile.Center - Main.dust[index3].position;
                     ((Vector2)@Main.dust[index3].velocity).Normalize();
@@ -49,7 +49,7 @@ namespace Emperia.Projectiles
                 init = true;
 			}
 
-            int index2 = Dust.NewDust(new Vector2((float)(Projectile.position.X + 4.0), (float)(Projectile.position.Y + 4.0)), Projectile.width - 8, Projectile.height - 8, 76, (float)(Projectile.velocity.X * 0.200000002980232), (float)(Projectile.velocity.Y * 0.200000002980232), 0, rgb, 0.9f);
+            int index2 = Dust.NewDust(new Vector2((float)(Projectile.position.X + 4.0), (float)(Projectile.position.Y + 4.0)), Projectile.width - 8, Projectile.height - 8, DustID.Snow, (float)(Projectile.velocity.X * 0.200000002980232), (float)(Projectile.velocity.Y * 0.200000002980232), 0, rgb, 0.9f);
             Main.dust[index2].position = Projectile.Center;
             Main.dust[index2].noGravity = true;
             Main.dust[index2].velocity = Projectile.velocity * 0.5f;
@@ -59,14 +59,14 @@ namespace Emperia.Projectiles
             Terraria.Audio.SoundEngine.PlaySound(SoundID.Dig, Projectile.position);
             for (int index1 = 0; index1 < 10; ++index1)
 			{
-			int index2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 76, 0.0f, 0.0f, 0, rgb, 1f);
+			int index2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Snow, 0.0f, 0.0f, 0, rgb, 1f);
 			Main.dust[index2].noGravity = true;
 			Dust dust1 = Main.dust[index2];
 			dust1.velocity = dust1.velocity * 1.2f;
 			Main.dust[index2].scale = 1.2f;
 			Dust dust2 = Main.dust[index2];
 			dust2.velocity = dust2.velocity - (Projectile.oldVelocity * 0.3f);
-			int index3 = Dust.NewDust(new Vector2((float) (Projectile.position.X + 4.0), (float) (Projectile.position.Y + 4.0)), Projectile.width - 8, Projectile.height - 8, 76, 0.0f, 0.0f, 0, rgb, 1.5f);
+			int index3 = Dust.NewDust(new Vector2((float) (Projectile.position.X + 4.0), (float) (Projectile.position.Y + 4.0)), Projectile.width - 8, Projectile.height - 8, DustID.Snow, 0.0f, 0.0f, 0, rgb, 1.5f);
 			Main.dust[index3].noGravity = true;
 			Dust dust3 = Main.dust[index3];
 			dust3.velocity = dust3.velocity* 2f;

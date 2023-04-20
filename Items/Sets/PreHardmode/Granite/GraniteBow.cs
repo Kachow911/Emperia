@@ -26,12 +26,12 @@ namespace Emperia.Items.Sets.PreHardmode.Granite
             Item.height = 40;
             Item.useTime = 29;
             Item.useAnimation = 29;
-            Item.useStyle = 5;
-            Item.shoot = 3;
+            Item.useStyle = ItemUseStyleID.Shoot;
+            Item.shoot = ProjectileID.Shuriken;
             Item.useAmmo = ItemID.WoodenArrow;
             Item.knockBack = 1;
             Item.value = 27000;
-            Item.rare = 1;
+            Item.rare = ItemRarityID.Blue;
             Item.autoReuse = false;
             Item.shootSpeed = 6f;
 			Item.UseSound = SoundID.Item5; 

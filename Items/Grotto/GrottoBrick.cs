@@ -13,7 +13,7 @@ namespace Emperia.Items.Grotto
 		{
 			Item.width = 16;
 			Item.height = 16;
-						Item.rare = 0;
+						Item.rare = ItemRarityID.White;
 			Item.useTurn = true;
             Item.autoReuse = true;
             Item.useAnimation = 15;

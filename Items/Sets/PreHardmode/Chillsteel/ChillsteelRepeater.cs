@@ -24,12 +24,12 @@ namespace Emperia.Items.Sets.PreHardmode.Chillsteel
             Item.height = 24;
             Item.useTime = 29;
             Item.useAnimation = 29;
-            Item.useStyle = 5;
-            Item.shoot = 10;
+            Item.useStyle = ItemUseStyleID.Shoot;
+            Item.shoot = ProjectileID.PurificationPowder;
             Item.useAmmo = AmmoID.Bullet;
             Item.knockBack = 1;
             Item.value = 22500;
-            Item.rare = 2;
+            Item.rare = ItemRarityID.Green;
             Item.autoReuse = true;
             Item.shootSpeed = 12f;
 			Item.UseSound = SoundID.Item5; 

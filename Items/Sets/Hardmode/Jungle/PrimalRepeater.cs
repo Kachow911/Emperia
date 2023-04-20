@@ -21,14 +21,14 @@ namespace Emperia.Items.Sets.Hardmode.Jungle
 			Item.height = 20;
 			Item.useTime = 23;
 			Item.useAnimation = 23;
-			Item.useStyle = 5;
+			Item.useStyle = ItemUseStyleID.Shoot;
 			Item.noMelee = true; //so the Item's animation doesn't do damage
 			Item.knockBack = 3;
 			Item.value = 10000;
-			Item.rare = 4;
+			Item.rare = ItemRarityID.LightRed;
 			Item.UseSound = SoundID.Item11;
 			Item.autoReuse = true;
-			Item.shoot = 10; //idk why but all the guns in the vanilla source have this
+			Item.shoot = ProjectileID.PurificationPowder; //idk why but all the guns in the vanilla source have this
 			Item.shootSpeed = 16f;
 			Item.useAmmo = AmmoID.Bullet;
 		}

@@ -20,10 +20,10 @@ namespace Emperia.Items.Sets.PreHardmode.Frostleaf
 			Item.height = 24;
 			Item.useTime = 15;
 			Item.useAnimation = 15;
-			Item.useStyle = 5;
+			Item.useStyle = ItemUseStyleID.Shoot;
 			Item.knockBack = 3;
             Item.value = 24000;
-			Item.rare = 1;
+			Item.rare = ItemRarityID.Blue;
 			Item.UseSound = SoundID.Item17;
 			Item.autoReuse = true;
 			Item.shoot = ModContent.ProjectileType<Needle>();

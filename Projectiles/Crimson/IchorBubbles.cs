@@ -53,7 +53,7 @@ namespace Emperia.Projectiles.Crimson
                 Vector2 vec = Vector2.Transform(new Vector2(-6, 0), Matrix.CreateRotationZ(MathHelper.ToRadians(i)));
                 if (i % 8 == 0)
                 {
-                   int b = Dust.NewDust(Projectile.Center + vec, Main.rand.Next(1, 7), Main.rand.Next(1, 7), 87);
+                   int b = Dust.NewDust(Projectile.Center + vec, Main.rand.Next(1, 7), Main.rand.Next(1, 7), DustID.GemTopaz);
                     Main.dust[b].noGravity = true;
                     Main.dust[b].velocity = Vector2.Zero;
                 }
@@ -103,7 +103,7 @@ namespace Emperia.Projectiles.Crimson
                 Vector2 vec = Vector2.Transform(new Vector2(-4, 0), Matrix.CreateRotationZ(MathHelper.ToRadians(i)));
                 if (i % 8 == 0)
                 {
-                    int b = Dust.NewDust(Projectile.Center + vec, Main.rand.Next(1, 7), Main.rand.Next(1, 7), 87);
+                    int b = Dust.NewDust(Projectile.Center + vec, Main.rand.Next(1, 7), Main.rand.Next(1, 7), DustID.GemTopaz);
                     Main.dust[b].noGravity = true;
                     Main.dust[b].velocity = Vector2.Zero;
                 }
@@ -148,7 +148,7 @@ namespace Emperia.Projectiles.Crimson
                 Vector2 vec = Vector2.Transform(new Vector2(-2, 0), Matrix.CreateRotationZ(MathHelper.ToRadians(i)));
                 if (i % 8 == 0)
                 {
-                    int b = Dust.NewDust(Projectile.Center + vec, Main.rand.Next(1, 7), Main.rand.Next(1, 7), 87);
+                    int b = Dust.NewDust(Projectile.Center + vec, Main.rand.Next(1, 7), Main.rand.Next(1, 7), DustID.GemTopaz);
                     Main.dust[b].noGravity = true;
                     Main.dust[b].velocity = Vector2.Zero;
                 }

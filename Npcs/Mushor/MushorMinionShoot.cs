@@ -97,7 +97,7 @@ namespace Emperia.Npcs.Mushor
 				counter--;
 				if (Main.rand.Next(counter) == 0)
 				{
-					int dust = Dust.NewDust(new Vector2(NPC.Center.X, NPC.Center.Y), NPC.width / 8, NPC.height / 8, 20, 0f, 0f, 0, new Color(39, 90, 219), 0.5f);
+					int dust = Dust.NewDust(new Vector2(NPC.Center.X, NPC.Center.Y), NPC.width / 8, NPC.height / 8, DustID.PurificationPowder, 0f, 0f, 0, new Color(39, 90, 219), 0.5f);
 				}
 				if (counter <= 0)
 				{

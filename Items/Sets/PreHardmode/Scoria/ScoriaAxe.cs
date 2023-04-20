@@ -22,11 +22,11 @@ namespace Emperia.Items.Sets.PreHardmode.Scoria
             Item.width = 38;
             Item.height = 30;
             Item.value = 5000;
-            Item.rare = 3;
+            Item.rare = ItemRarityID.Orange;
             Item.axe = 16;
             Item.damage = 19;
             Item.knockBack = 4;
-            Item.useStyle = 1;
+            Item.useStyle = ItemUseStyleID.Swing;
             Item.useTime =18;
             Item.useAnimation = 22;
             Item.DamageType = DamageClass.Melee;
@@ -38,7 +38,7 @@ namespace Emperia.Items.Sets.PreHardmode.Scoria
         {
             if (Main.rand.Next(5) == 0)
             {
-                int dust = Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, 258);
+                int dust = Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, DustID.LavaMoss);
             }
         }
 

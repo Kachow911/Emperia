@@ -35,7 +35,7 @@ namespace Emperia.Projectiles
 			
 			if (Main.rand.NextBool(2))
 			{
-				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 180);
+				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.DungeonSpirit);
 				Vector2 perturbedSpeed = new Vector2(0, 3).RotatedByRandom(MathHelper.ToRadians(360));
 				Main.dust[dust].velocity = perturbedSpeed;
 				Main.dust[dust].noGravity = true;

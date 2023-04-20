@@ -30,7 +30,7 @@ namespace Emperia.Buffs
 			player.lifeRegen += 1; //1 hp is added every 2 seconds in MyPlayer.cs
 			if (Main.rand.Next(2) == 0)
 			{
-				int dust = Dust.NewDust(new Vector2(player.Center.X, player.Center.Y), 20, 20, 21);
+				int dust = Dust.NewDust(new Vector2(player.Center.X, player.Center.Y), 20, 20, DustID.VilePowder);
 			}
         }
     }

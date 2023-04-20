@@ -25,11 +25,11 @@ namespace Emperia.Items.Weapons  //where is located
             Item.height = 32;             //Sword height
             Item.useTime = 33;          //how fast 
             Item.useAnimation = 33;     
-            Item.useStyle = 1;        //Style is how this Item is used, 1 is the style of the sword
+            Item.useStyle = ItemUseStyleID.Swing;        //Style is how this Item is used, 1 is the style of the sword
             Item.knockBack = 5.5f;  
 			Item.crit = 4;			//Sword knockback
             Item.value = 100;        
-            Item.rare = 5;
+            Item.rare = ItemRarityID.Pink;
 			Item.UseSound = SoundID.Item1;
 			Item.shoot = ModContent.ProjectileType<TrueBlueSword>();
 			Item.shootSpeed = 10f;

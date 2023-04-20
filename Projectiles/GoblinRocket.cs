@@ -37,8 +37,8 @@ namespace Emperia.Projectiles
 			}
 			Projectile.rotation = Projectile.velocity.ToRotation();
 
-			int dust = Dust.NewDust(Projectile.position + Projectile.velocity, Projectile.width, Projectile.height, 258, Projectile.velocity.X * 0.5f, Projectile.velocity.Y * 0.5f);
-			int dust2 = Dust.NewDust(Projectile.position + Projectile.velocity, Projectile.width, Projectile.height, 258, Projectile.velocity.X * 0.5f, Projectile.velocity.Y * 0.5f);
+			int dust = Dust.NewDust(Projectile.position + Projectile.velocity, Projectile.width, Projectile.height, DustID.LavaMoss, Projectile.velocity.X * 0.5f, Projectile.velocity.Y * 0.5f);
+			int dust2 = Dust.NewDust(Projectile.position + Projectile.velocity, Projectile.width, Projectile.height, DustID.LavaMoss, Projectile.velocity.X * 0.5f, Projectile.velocity.Y * 0.5f);
 			Main.dust[dust].noGravity = true;
 			Main.dust[dust2].noGravity = true;
 			Main.dust[dust2].velocity *= 0f;
@@ -56,8 +56,8 @@ namespace Emperia.Projectiles
 			}
 			for (int i = 0; i < 50; ++i) //Create dust after teleport
 			{
-				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 258);
-				int dust1 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 258);
+				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.LavaMoss);
+				int dust1 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.LavaMoss);
 				Main.dust[dust1].scale = 0.8f;
 				Main.dust[dust1].velocity *= 2f;
 			}

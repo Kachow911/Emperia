@@ -2,7 +2,7 @@ using Emperia.Tiles;
 using Terraria;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
-
+using Terraria.ID;
 
 namespace Emperia.Items.Sets.Hardmode.Chasm
 {
@@ -22,7 +22,7 @@ namespace Emperia.Items.Sets.Hardmode.Chasm
 			Item.width = 22;
 			Item.height = 26;
 			Item.value = 41000;
-			Item.rare = 5;
+			Item.rare = ItemRarityID.Pink;
 			Item.defense = 12;
 		}
 	}

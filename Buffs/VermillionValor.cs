@@ -29,7 +29,7 @@ namespace Emperia.Buffs
 			player.statDefense += 4;
 			if (Main.rand.Next(2) == 0)
 			{
-				int dust = Dust.NewDust(new Vector2(player.Center.X, player.Center.Y), 20, 20, 158);
+				int dust = Dust.NewDust(new Vector2(player.Center.X, player.Center.Y), 20, 20, DustID.OrangeTorch);
 			}
         }
     }

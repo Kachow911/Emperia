@@ -24,11 +24,11 @@ namespace Emperia.Items.Weapons.Color1
             Item.height = 40;
             Item.useTime = 18;
             Item.useAnimation = 18;     
-            Item.useStyle = 1;
+            Item.useStyle = ItemUseStyleID.Swing;
             Item.knockBack = 2f;  
 			Item.crit = 2;
             Item.value = 48000;        
-            Item.rare = 3;
+            Item.rare = ItemRarityID.Orange;
 			Item.scale = 1f;
 			Item.UseSound = SoundID.Item1;
             Item.autoReuse = true;
@@ -38,7 +38,7 @@ namespace Emperia.Items.Weapons.Color1
 		{
 			if (Main.rand.Next(5) == 0)
 			{
-				int dust = Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, 64);
+				int dust = Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, DustID.YellowTorch);
 			}
 		}
         public override void AddRecipes()

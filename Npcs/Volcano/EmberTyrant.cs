@@ -133,11 +133,11 @@ namespace Emperia.Npcs.Volcano
                 {
                     for (int i = 0; i < 50; ++i) 
                     {
-                        int dust = Dust.NewDust(NPC.position, NPC.width, NPC.height, 258);
-                        int dust1 = Dust.NewDust(NPC.position, NPC.width, NPC.height, 258);
+                        int dust = Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.LavaMoss);
+                        int dust1 = Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.LavaMoss);
                         Main.dust[dust1].scale = 1.5f;
                         Main.dust[dust1].velocity *= 1.5f;
-                        int dust2 = Dust.NewDust(NPC.position, NPC.width, NPC.height, 258);
+                        int dust2 = Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.LavaMoss);
                         Main.dust[dust2].scale = 1.5f;
                     }
                     SetMove(Move.Hover, 300);
@@ -164,7 +164,7 @@ namespace Emperia.Npcs.Volcano
 					{
 					Vector2 vec = Vector2.Transform(new Vector2(-1, 0), Matrix.CreateRotationZ(MathHelper.ToRadians(i)));
 					vec.Normalize();
-					int num622 = Dust.NewDust(new Vector2(NPC.position.X, NPC.position.Y), NPC.width, NPC.height, 258, 0f, 0f, 158, new Color(53f, 67f, 253f), 1f);
+					int num622 = Dust.NewDust(new Vector2(NPC.position.X, NPC.position.Y), NPC.width, NPC.height, DustID.LavaMoss, 0f, 0f, 158, new Color(53f, 67f, 253f), 1f);
 					Main.dust[num622].velocity += (vec *2f);
 					Main.dust[num622].noGravity = true;
 					}

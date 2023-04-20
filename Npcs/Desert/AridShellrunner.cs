@@ -98,7 +98,7 @@ namespace Emperia.Npcs.Desert
 			Color rgb = new Color(252, 207, 83);
 			for (int i = -50; i < 50; i++)
 			{
-				int index2 = Dust.NewDust(NPC.position + new Vector2(i, 0), NPC.width, NPC.height, 76, NPC.velocity.X / 5, (float)NPC.velocity.Y, 0, rgb, 0.9f);
+				int index2 = Dust.NewDust(NPC.position + new Vector2(i, 0), NPC.width, NPC.height, DustID.Snow, NPC.velocity.X / 5, (float)NPC.velocity.Y, 0, rgb, 0.9f);
 			}
 			for (int i = 0; i < Main.player.Length; i++)
 			{

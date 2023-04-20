@@ -55,13 +55,13 @@ namespace Emperia.Projectiles.Plants
 
                 if (i % 8 == 0)
                 {   //odd
-                    Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 76, 0, 0, 0, rgb, 1.1f);
+                    Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Snow, 0, 0, 0, rgb, 1.1f);
                 }
 
                 if (i % 9 == 0)
                 {   //even
                     vec.Normalize();
-                    Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 76, vec.X * 0.5f, vec.Y * 0.5f, 0, rgb, 0.8f);
+                    Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Snow, vec.X * 0.5f, vec.Y * 0.5f, 0, rgb, 0.8f);
                 }
             }
         }

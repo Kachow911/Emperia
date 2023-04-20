@@ -33,10 +33,10 @@ namespace Emperia.Projectiles.Mushroom
         public override void AI()           //Projectile make that the Projectile will face the corect way
         {
             Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + 1.57f;
-            int dust = Dust.NewDust(new Vector2(Projectile.Center.X, Projectile.Center.Y), Projectile.width / 8, Projectile.height / 8, 20, 0f, 0f, 0, new Color(39, 90, 219), 1.5f);// |
+            int dust = Dust.NewDust(new Vector2(Projectile.Center.X, Projectile.Center.Y), Projectile.width / 8, Projectile.height / 8, DustID.PurificationPowder, 0f, 0f, 0, new Color(39, 90, 219), 1.5f);// |
             if (Main.rand.Next(5) == 0)
             {
-                Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 41, Projectile.velocity.X * 0.15f, Projectile.velocity.Y * 0.15f);
+                Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.GlowingMushroom, Projectile.velocity.X * 0.15f, Projectile.velocity.Y * 0.15f);
                
             }
 			

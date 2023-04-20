@@ -28,10 +28,10 @@ namespace Emperia.Items.Weapons
             Item.height = 38;
             Item.useTime = 30;
             Item.useAnimation = 30;   
-            Item.useStyle = 5;
+            Item.useStyle = ItemUseStyleID.Shoot;
             Item.knockBack = 4f;  
             Item.value = 36000;        
-            Item.rare = 1;
+            Item.rare = ItemRarityID.Blue;
             Item.autoReuse = true;
             Item.useTurn = false; 
             Item.noUseGraphic = true;
@@ -102,7 +102,7 @@ namespace Emperia.Items.Weapons
                 //PlaySound(SoundID.Item28, player.Center);
                 for (int i = 0; i < 4; ++i)
                     {
-                        int index2 = Dust.NewDust(new Vector2(hitbox.Center.X - 4, hitbox.Center.Y - 4), 6, 6, 56, 0.0f, 0.0f, 200, default(Color), 0.8f);
+                        int index2 = Dust.NewDust(new Vector2(hitbox.Center.X - 4, hitbox.Center.Y - 4), 6, 6, DustID.BlueFairy, 0.0f, 0.0f, 200, default(Color), 0.8f);
                     	Main.dust[index2].noGravity = true;
                     	Main.dust[index2].velocity *= 0.65f;
                     }

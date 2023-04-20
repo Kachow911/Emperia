@@ -23,10 +23,10 @@ public class JunglePickaxe : ModItem
         Item.useAnimation = 19;
         Item.useTurn = true;
         Item.pick = 190;
-        Item.useStyle = 1;
+        Item.useStyle = ItemUseStyleID.Swing;
         Item.knockBack = 5f;
         Item.value = 17700;
-        Item.rare = 4;
+        Item.rare = ItemRarityID.LightRed;
         Item.UseSound = SoundID.Item1;
         Item.autoReuse = true;
     }

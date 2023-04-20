@@ -24,10 +24,10 @@ public class JungleHamaxe : ModItem
         Item.useTurn = true;
         Item.axe = 30;
 		Item.hammer = 90;
-        Item.useStyle = 1;
+        Item.useStyle = ItemUseStyleID.Swing;
         Item.knockBack = 2f;
         Item.value = 1770;
-        Item.rare = 2;
+        Item.rare = ItemRarityID.Green;
         Item.UseSound = SoundID.Item1;
         Item.autoReuse = true;
     }

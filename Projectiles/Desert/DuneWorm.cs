@@ -53,7 +53,7 @@ namespace Emperia.Projectiles.Desert
         {
 			for (int i = 0; i < 2; ++i)
 			{
-				int dust1 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 246);
+				int dust1 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.GoldCoin);
 				Main.dust[dust1].velocity *= 0f;
 			}
 		}

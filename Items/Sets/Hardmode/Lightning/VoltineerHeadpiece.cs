@@ -21,7 +21,7 @@ namespace Emperia.Items.Sets.Hardmode.Lightning {
             Item.width = 18;
             Item.height = 18;
             Item.value = 140000;
-            Item.rare = 4;
+            Item.rare = ItemRarityID.LightRed;
             Item.defense = 5;
         }
 

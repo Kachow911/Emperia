@@ -21,7 +21,7 @@ namespace Emperia.Items.Weapons.Twilight
         {
 			Item.mana = 10;
 			Item.damage = 18;
-			Item.useStyle = 5;
+			Item.useStyle = ItemUseStyleID.Shoot;
 			Item.shootSpeed = 32f;
 			Item.shoot = ModContent.ProjectileType<AnastasiaP1>();
 			Item.width = 26;
@@ -30,7 +30,7 @@ namespace Emperia.Items.Weapons.Twilight
 			Item.useAnimation = 25;
 			Item.useTime = 25;
 			Item.autoReuse = true;
-			Item.rare = 7;
+			Item.rare = ItemRarityID.Lime;
 			Item.noMelee = true;
 			Item.knockBack = 1f;
 			Item.value = 200000;

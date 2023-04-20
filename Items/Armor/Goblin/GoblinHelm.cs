@@ -20,7 +20,7 @@ public class GoblinHelm : ModItem
         Item.width = 18;
         Item.height = 18;
         Item.value = 50000;
-        Item.rare = 3;
+        Item.rare = ItemRarityID.Orange;
         Item.defense = 5; //15
     }
 

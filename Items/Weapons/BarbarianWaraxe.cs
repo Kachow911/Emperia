@@ -20,7 +20,7 @@ namespace Emperia.Items.Weapons
             Item.CloneDefaults(ItemID.Shuriken);        
             Item.shoot = ModContent.ProjectileType<AxeProj>();
             Item.shootSpeed = 8f;
-			Item.rare = 1;
+			Item.rare = ItemRarityID.Blue;
             Item.autoReuse = true;
             Item.damage = 16;
             Item.knockBack = 3f;

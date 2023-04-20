@@ -22,11 +22,11 @@ namespace Emperia.Items.Sets.PreHardmode.Granite
 			Item.height = 24;
 			Item.useTime = 44;
 			Item.useAnimation = 44;
-			Item.useStyle = 5;
+			Item.useStyle = ItemUseStyleID.Shoot;
 			Item.knockBack = 2.25f;
 			Item.value = 27000;
 			Item.noMelee = true;
-			Item.rare = 1;
+			Item.rare = ItemRarityID.Blue;
 			Item.UseSound = SoundID.Item20;
 			Item.autoReuse = false;
 			Item.shoot = ModContent.ProjectileType<GraniteRock1>();

@@ -31,7 +31,7 @@ namespace Emperia.Projectiles.Yeti
         {                                                           // |
 			if (Main.rand.NextBool(2))
 			{
-				int index2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 68, (float) Projectile.velocity.X, (float) Projectile.velocity.Y, 0, default(Color), 0.9f);
+				int index2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.BlueCrystalShard, (float) Projectile.velocity.X, (float) Projectile.velocity.Y, 0, default(Color), 0.9f);
 				Main.dust[index2].noGravity = true;
 			}
 			Projectile.velocity.X *= 0.99f;
@@ -41,7 +41,7 @@ namespace Emperia.Projectiles.Yeti
 		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
 			Color rgb = new Color(135,206,250);
-			int index2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 68, (float) Projectile.velocity.X, (float) Projectile.velocity.Y, 0, rgb, 0.9f);
+			int index2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.BlueCrystalShard, (float) Projectile.velocity.X, (float) Projectile.velocity.Y, 0, rgb, 0.9f);
 			Main.dust[index2].noGravity = true;
 		}
 		public override void Kill(int timeLeft)

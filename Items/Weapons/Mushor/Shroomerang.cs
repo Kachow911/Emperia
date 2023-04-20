@@ -22,11 +22,11 @@ namespace Emperia.Items.Weapons.Mushor
             Item.useTime = 20;
             Item.shootSpeed = 14f;
             Item.useAnimation = 20;
-            Item.useStyle = 1;
+            Item.useStyle = ItemUseStyleID.Swing;
             Item.knockBack = 3f;
             Item.shoot = ModContent.ProjectileType<Projectiles.Mushroom.Shroomerang>();
             Item.value = Item.sellPrice(0, 0, 16, 0);
-            Item.rare = 4;
+            Item.rare = ItemRarityID.LightRed;
             Item.noUseGraphic = true;
             Item.UseSound = SoundID.Item1;
             Item.autoReuse = true;

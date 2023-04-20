@@ -25,12 +25,12 @@ namespace Emperia.Items.Sets.Hardmode.Ethereal
             Item.height = 40;
             Item.useTime = 15;
             Item.useAnimation = 15;
-            Item.useStyle = 5;
-            Item.shoot = 3;
+            Item.useStyle = ItemUseStyleID.Shoot;
+            Item.shoot = ProjectileID.Shuriken;
             Item.useAmmo = ItemID.WoodenArrow;
             Item.knockBack = 1;
             Item.value = 22500;
-            Item.rare = 4;
+            Item.rare = ItemRarityID.LightRed;
             Item.autoReuse = true;
             Item.shootSpeed = 12f;
 			Item.UseSound = SoundID.Item5; 

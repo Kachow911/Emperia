@@ -24,11 +24,11 @@ namespace Emperia.Items.Weapons
             Item.height = 16;    
             Item.useAnimation = 20;
 			Item.useTime = 10;
-            Item.useStyle = 5;  
+            Item.useStyle = ItemUseStyleID.Shoot;  
             Item.noMelee = true; 
             Item.knockBack = 1.3f; 
             Item.value = 255000;
-            Item.rare = 4;   
+            Item.rare = ItemRarityID.LightRed;   
             Item.autoReuse = false;  
             Item.shoot = ModContent.ProjectileType<PaintBall>();   
             Item.shootSpeed = 6f; 

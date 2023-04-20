@@ -20,10 +20,10 @@ namespace Emperia.Items.Weapons.Skeletron
             Item.height = 40;
             Item.shoot = ModContent.ProjectileType<BoneWhipProj>();
             Item.shootSpeed = 13f;
-            Item.useStyle = 1;
+            Item.useStyle = ItemUseStyleID.Swing;
             Item.knockBack = 5f;
             Item.value = Item.sellPrice(0, 0, 60, 0);
-            Item.rare = 3;
+            Item.rare = ItemRarityID.Orange;
             Item.UseSound = SoundID.Item1;
             Item.autoReuse = true;
 			Item.consumable = false;

@@ -22,7 +22,7 @@ public class GraniteChestplate : ModItem
         Item.width = 18;
         Item.height = 18;
         Item.value = 210000;
-        Item.rare = 2;
+        Item.rare = ItemRarityID.Green;
         Item.defense = 7;
     }
 

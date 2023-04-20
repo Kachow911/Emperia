@@ -74,7 +74,7 @@ namespace Emperia.Projectiles
             Terraria.Audio.SoundEngine.PlaySound(SoundID.Dig, Projectile.position);
             for (int i = 0; i < 5; i++)
             {
-                int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 7);
+                int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.WoodFurniture);
                 Vector2 vel = new Vector2(0, -1).RotatedBy(Main.rand.NextFloat() * 6.283f) * 3.5f;
             }
         }

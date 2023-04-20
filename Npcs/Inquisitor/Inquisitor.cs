@@ -161,7 +161,7 @@ namespace Emperia.Npcs.Inquisitor
 				counter--;
 				for (float i = 0; i < 360; i+= 7.5f)
 				{
-					int dust = Dust.NewDust(new Vector2(NPC.Center.X , NPC.Center.Y) + new Vector2(0, -100).RotatedBy(MathHelper.ToRadians(i)), NPC.width / 8, NPC.height / 8, 58, 0f, 0f, 0, Color.White, 1.5f);
+					int dust = Dust.NewDust(new Vector2(NPC.Center.X , NPC.Center.Y) + new Vector2(0, -100).RotatedBy(MathHelper.ToRadians(i)), NPC.width / 8, NPC.height / 8, DustID.Enchanted_Pink, 0f, 0f, 0, Color.White, 1.5f);
 					Main.dust[dust].velocity = Vector2.Zero;
 				}
 				if (counter % 10 == 0)

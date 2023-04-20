@@ -80,7 +80,7 @@ namespace Emperia.Projectiles.Lightning
                     Vector2 vec = Vector2.Transform(new Vector2(-15, 0), Matrix.CreateRotationZ(MathHelper.ToRadians(i)));
                     if (i % 8 == 0)
                     {
-                        int b = Dust.NewDust(Projectile.Center, Main.rand.Next(1, 7), Main.rand.Next(1, 7), 226);
+                        int b = Dust.NewDust(Projectile.Center, Main.rand.Next(1, 7), Main.rand.Next(1, 7), DustID.Electric);
                         Main.dust[b].noGravity = true;
                         Main.dust[b].velocity = vec;
                     }

@@ -25,12 +25,12 @@ namespace Emperia.Items.Weapons.Twilight
             Item.height = 28;    
             Item.useTime = 16;   
             Item.useAnimation = 16;     
-            Item.useStyle = 5;  
+            Item.useStyle = ItemUseStyleID.Shoot;  
             Item.noMelee = true; 
             Item.knockBack = 0.75f; 
             Item.UseSound = SoundID.Item17; 
             Item.value = 33000;
-            Item.rare = 3;   
+            Item.rare = ItemRarityID.Orange;   
             Item.autoReuse = true;  
             Item.shoot = ModContent.ProjectileType<PowPetal>();   
             Item.shootSpeed = 8f; 

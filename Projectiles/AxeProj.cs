@@ -46,7 +46,7 @@ namespace Emperia.Projectiles
             for (int i = 0; i < 8; ++i)
             {
                 Color rgb = new Color(166, 16, 30);
-                int index3 = Dust.NewDust(new Vector2((float)(Projectile.position.X + 4.0), (float)(Projectile.position.Y + 4.0)), Projectile.width - 8, Projectile.height - 8, 76, 0.0f, 0.0f, 0, rgb, 0.8f);
+                int index3 = Dust.NewDust(new Vector2((float)(Projectile.position.X + 4.0), (float)(Projectile.position.Y + 4.0)), Projectile.width - 8, Projectile.height - 8, DustID.Snow, 0.0f, 0.0f, 0, rgb, 0.8f);
             }
             
             target.AddBuff(ModContent.BuffType<MoreDamage>(), 240);
@@ -59,7 +59,7 @@ namespace Emperia.Projectiles
 				Item.NewItem(Projectile.GetSource_DropAsItem(), (int)Projectile.position.X, (int)Projectile.position.Y, Projectile.width, Projectile.height, ModContent.ItemType<Items.Weapons.BarbarianWaraxe>(), 1, false, 0, false, false);
 			for (int i = 0; i < 5; i++)
 			{
-				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 7);
+				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.WoodFurniture);
 				Vector2 vel = new Vector2(0, -1).RotatedBy(Main.rand.NextFloat() * 6.283f) * 3.5f;
 			}
 

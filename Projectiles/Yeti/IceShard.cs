@@ -30,7 +30,7 @@ namespace Emperia.Projectiles.Yeti
 			if (Main.rand.NextBool(30))
 			{
 				Color rgb = new Color(135,206,250);
-				int index2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 68, (float) Projectile.velocity.X, (float) Projectile.velocity.Y, 0, rgb, 0.9f);
+				int index2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.BlueCrystalShard, (float) Projectile.velocity.X, (float) Projectile.velocity.Y, 0, rgb, 0.9f);
 				Main.dust[index2].noGravity = true;
 				Main.dust[index2].velocity *= 0.5f;
 			}
@@ -63,7 +63,7 @@ namespace Emperia.Projectiles.Yeti
 		{
 			Terraria.Audio.SoundEngine.PlaySound(SoundID.Item27, Projectile.Center);  
 			Color rgb = new Color(135,206,250);
-			int index2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 68, (float) Projectile.velocity.X, (float) Projectile.velocity.Y, 0, rgb, 0.9f);
+			int index2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.BlueCrystalShard, (float) Projectile.velocity.X, (float) Projectile.velocity.Y, 0, rgb, 0.9f);
 			Main.dust[index2].noGravity = true;
 		}
 	}

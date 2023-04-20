@@ -74,7 +74,7 @@ namespace Emperia.Projectiles.Lightning
 									vector2.Y += num5;
 									num11 = Main.npc[npcFinder].Center.X - vector2.X;
 									num22 = Main.npc[npcFinder].Center.Y - vector2.Y;
-									int num250 = Dust.NewDust(new Vector2(vector2.X, vector2.Y), 16, 16, 226, (float)(Projectile.direction * 2), 0f, 226, new Color(53f, 67f, 253f), 0.5f);
+									int num250 = Dust.NewDust(new Vector2(vector2.X, vector2.Y), 16, 16, DustID.Electric, (float)(Projectile.direction * 2), 0f, 226, new Color(53f, 67f, 253f), 0.5f);
 									Main.dust[num250].noGravity = true;
 
 								}
