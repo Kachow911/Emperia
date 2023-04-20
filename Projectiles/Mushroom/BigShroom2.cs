@@ -13,7 +13,7 @@ namespace Emperia.Projectiles.Mushroom
 		private bool init = false;
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Enchanted Mushroom");
+			// DisplayName.SetDefault("Enchanted Mushroom");
 		}
         public override void SetDefaults()
         {  //Projectile name

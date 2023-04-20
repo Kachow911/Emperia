@@ -14,8 +14,8 @@ public class AlchemistFlask : ModItem
 	private int mode = 1;
 	public override void SetStaticDefaults()
 	{
-		DisplayName.SetDefault("Alchemical Flask");
-		Tooltip.SetDefault("Normal fire throws multiple colors of flasks, each having different effects\nRight click to throw a flask that will heal you and your teammates");
+		// DisplayName.SetDefault("Alchemical Flask");
+		// Tooltip.SetDefault("Normal fire throws multiple colors of flasks, each having different effects\nRight click to throw a flask that will heal you and your teammates");
 	}
 	public override void SetDefaults()
 	{

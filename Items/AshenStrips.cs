@@ -7,7 +7,7 @@ namespace Emperia.Items
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Ashen Strip");
+			// DisplayName.SetDefault("Ashen Strip");
 		}
 		public override void SetDefaults()
 		{

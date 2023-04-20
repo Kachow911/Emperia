@@ -14,8 +14,8 @@ namespace Emperia.Items.Sets.PreHardmode.Frostleaf
     {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Coniferocious");
-			Tooltip.SetDefault("Occasionally throws out a pinecone grenade");
+			// DisplayName.SetDefault("Coniferocious");
+			// Tooltip.SetDefault("Occasionally throws out a pinecone grenade");
 		}
         public override void SetDefaults()
         {

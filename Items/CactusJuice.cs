@@ -10,8 +10,8 @@ namespace Emperia.Items
 	{
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Cactus Juice");
-            Tooltip.SetDefault("Gives swiftness\n1 minute duration");
+            // DisplayName.SetDefault("Cactus Juice");
+            // Tooltip.SetDefault("Gives swiftness\n1 minute duration");
             ItemID.Sets.DrinkParticleColors[Item.type] = new Color[2] { new Color(159, 206, 29), new Color(104, 82, 61) };
         }
 

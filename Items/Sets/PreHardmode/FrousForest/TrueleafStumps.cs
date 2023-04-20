@@ -14,8 +14,8 @@ public class TrueleafStumps : ModItem
 {
     public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Trueleaf Stumps");
-			Tooltip.SetDefault("6% increased movement speed");
+			// DisplayName.SetDefault("Trueleaf Stumps");
+			// Tooltip.SetDefault("6% increased movement speed");
 		}
     public override void SetDefaults()
     {

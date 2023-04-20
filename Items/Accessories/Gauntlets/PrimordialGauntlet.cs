@@ -13,8 +13,8 @@ namespace Emperia.Items.Accessories.Gauntlets
     {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Primordial Gauntlet");
-			Tooltip.SetDefault("Your attacks have a chance to Deal Double damage\nYour attacks have a chance to fully lifesteal\nWhen you take damage, you gain increased speed, damage and Defense\nAttacks inflict multipile potent debuffs\nEnemies expldoe into damage dealing and healing projectiles");
+			// DisplayName.SetDefault("Primordial Gauntlet");
+			// Tooltip.SetDefault("Your attacks have a chance to Deal Double damage\nYour attacks have a chance to fully lifesteal\nWhen you take damage, you gain increased speed, damage and Defense\nAttacks inflict multipile potent debuffs\nEnemies expldoe into damage dealing and healing projectiles");
 		}
         public override void SetDefaults()
         {

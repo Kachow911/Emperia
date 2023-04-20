@@ -43,7 +43,7 @@ namespace Emperia.Npcs.Yeti
 		private float maxWalkSpeed = 2f;
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("The Yeti");
+			// DisplayName.SetDefault("The Yeti");
 			Main.npcFrameCount[NPC.type] = 18;
 		}
         public override void SetDefaults()
@@ -115,7 +115,7 @@ namespace Emperia.Npcs.Yeti
 			}
 		}
 
-        public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
+        public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)/* tModPorter Note: bossLifeScale -> balance (bossAdjustment is different, see the docs for details) */
         {
             NPC.lifeMax = 3100;
             NPC.damage = 60;
@@ -373,7 +373,7 @@ namespace Emperia.Npcs.Yeti
             this.counter = counter;
 		}
 
-		public override void HitEffect(int hitDirection, double damage)
+		public override void HitEffect(NPC.HitInfo hit)
 		{
 			if (Main.netMode == NetmodeID.Server)
 			{

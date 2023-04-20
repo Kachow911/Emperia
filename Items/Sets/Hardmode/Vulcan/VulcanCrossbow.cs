@@ -13,8 +13,8 @@ namespace Emperia.Items.Sets.Hardmode.Vulcan
         private int bulletLoadeds = 1;
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Vulcan Crossbow");
-            Tooltip.SetDefault("After dealing 500 damage, you may left click to launch a barrage of rockets");
+            // DisplayName.SetDefault("Vulcan Crossbow");
+            // Tooltip.SetDefault("After dealing 500 damage, you may left click to launch a barrage of rockets");
         }
         public override void SetDefaults()
         {

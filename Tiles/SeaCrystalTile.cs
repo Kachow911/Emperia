@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
 using Emperia.Npcs.SeaCrab;
@@ -20,8 +21,8 @@ namespace Emperia.Tiles
 			Main.tileLighted[Type] = true;
 			Main.tileFrameImportant[Type] = true;
 			DustType = 75;
-			ModTranslation name = CreateMapEntryName();
-			name.SetDefault("Sea Crystal");
+			LocalizedText name = CreateMapEntryName();
+			// name.SetDefault("Sea Crystal");
 			AddMapEntry(new Color(100, 185, 50), name);
 			TileObjectData.addTile(Type);
 		}

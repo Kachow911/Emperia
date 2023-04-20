@@ -13,7 +13,7 @@ namespace Emperia.Projectiles.Stratos
 		private int explodeRadius = 100;
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Stratos Spark");
+			// DisplayName.SetDefault("Stratos Spark");
 		}
         public override void SetDefaults()
         {  //Projectile name

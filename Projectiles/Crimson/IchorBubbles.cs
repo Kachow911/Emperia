@@ -14,7 +14,7 @@ namespace Emperia.Projectiles.Crimson
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Ichor Bubble");
+            // DisplayName.SetDefault("Ichor Bubble");
         }
         public override void SetDefaults()
         {  //Projectile name
@@ -35,7 +35,7 @@ namespace Emperia.Projectiles.Crimson
             Projectile.velocity.X *= .98f;
 
         }
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             if (Main.rand.Next(2) == 0)
                 target.AddBuff(BuffID.Ichor, 600);
@@ -64,7 +64,7 @@ namespace Emperia.Projectiles.Crimson
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Ichor Bubble");
+            // DisplayName.SetDefault("Ichor Bubble");
         }
         public override void SetDefaults()
         {  //Projectile name
@@ -85,7 +85,7 @@ namespace Emperia.Projectiles.Crimson
             Projectile.velocity.X *= .99f;
 
         }
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             if (Main.rand.Next(3) == 0)
                 target.AddBuff(BuffID.Ichor, 300);
@@ -115,7 +115,7 @@ namespace Emperia.Projectiles.Crimson
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Ichor Bubble");
+            // DisplayName.SetDefault("Ichor Bubble");
         }
         public override void SetDefaults()
         {  //Projectile name
@@ -135,7 +135,7 @@ namespace Emperia.Projectiles.Crimson
 
 
         }
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             if (Main.rand.Next(5) == 0)
                 target.AddBuff(BuffID.Ichor, 300);

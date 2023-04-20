@@ -13,7 +13,7 @@ namespace Emperia.Items.Weapons
 			ItemID.Sets.Yoyo[Item.type] = true;
 			ItemID.Sets.GamepadExtraRange[Item.type] = 18;
 			ItemID.Sets.GamepadSmartQuickReach[Item.type] = true;
-			DisplayName.SetDefault("True Hemisphere");
+			// DisplayName.SetDefault("True Hemisphere");
 		}
 
 		public override void SetDefaults()

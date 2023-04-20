@@ -13,8 +13,8 @@ namespace Emperia.Items.Accessories.Gauntlets
     {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Bloodstained Gauntlet");
-			Tooltip.SetDefault("Sword damage increased by up to 15% at close range, 30% on large foes\nSword strikes may empower you, letting you heal back the damage taken from one hit by attacking\nAllows you to swing swords while walking backwards");
+			// DisplayName.SetDefault("Bloodstained Gauntlet");
+			// Tooltip.SetDefault("Sword damage increased by up to 15% at close range, 30% on large foes\nSword strikes may empower you, letting you heal back the damage taken from one hit by attacking\nAllows you to swing swords while walking backwards");
             //Sword strikes may empower you, allowing you to heal back the damage taken from one hit by attacking
             //Sword strikes may empower you, letting you heal back the damage taken from one hit by attacking
             //Sword strikes may let you heal back the damage taken from your next hit by attacking

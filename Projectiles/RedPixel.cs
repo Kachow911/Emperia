@@ -10,7 +10,7 @@ namespace Emperia.Projectiles
 	public class RedPixel : ModProjectile
 	{
 		public override void SetStaticDefaults() {
-			DisplayName.SetDefault("Red Pixel"); //for testing locations lol
+			// DisplayName.SetDefault("Red Pixel"); //for testing locations lol
 		}
 		//Projectile.NewProjectile(Wiring.GetProjectileSource((int)closestTile.X, (int)closestTile.Y), closestNPC.Center, Vector2.Zero, ModContent.ProjectileType<RedPixel>(), 0, 0);
 		public override void SetDefaults() {

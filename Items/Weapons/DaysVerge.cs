@@ -16,8 +16,8 @@ namespace Emperia.Items.Weapons
 		private Vector2 SpawnPoint;
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Day's Verge");
-			Tooltip.SetDefault("Calls divine swords from the heavens\nStriking a foe with the blade will summon an additional sword to smite them");
+			// DisplayName.SetDefault("Day's Verge");
+			// Tooltip.SetDefault("Calls divine swords from the heavens\nStriking a foe with the blade will summon an additional sword to smite them");
 		}
         public override void SetDefaults()
         {
@@ -65,7 +65,7 @@ namespace Emperia.Items.Weapons
 			canSummon = true;
 			return false;
 		  }
-		public override void OnHitNPC (Player player, NPC target, int damage, float knockback, bool crit)
+		public override void OnHitNPC (Player player, NPC target, NPC.HitInfo hit, int damageDone)
 		{
 			float speedFactor;
 			int damageFactor;
@@ -87,7 +87,8 @@ namespace Emperia.Items.Weapons
 					speedFactor = 9.5f;
 					damageFactor = 2;
 				}
-				int p = Projectile.NewProjectile(player.GetSource_ItemUse(Item), placePosition.X, placePosition.Y, direction.X * speedFactor, direction.Y * speedFactor, type, damage * damageFactor, 1, Main.myPlayer, 0, 0);
+				int p = Projectile.NewProjectile(player.GetSource_ItemUse(Item), placePosition.X, placePosition.Y, direction.X * speedFactor, direction.Y * speedFactor, type, hit.SourceDamage * damageFactor, 1, Main.myPlayer, 0, 0);
+				if (type == ModContent.ProjectileType<PinkSword>()) Main.projectile[p].CritChance += 4;
 				Main.projectile[p].usesLocalNPCImmunity = false;
 				PlaySound(SoundID.Item9, Main.projectile[p].position);
 				canSummon = false;

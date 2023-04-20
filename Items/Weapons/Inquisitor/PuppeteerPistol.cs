@@ -11,8 +11,8 @@ namespace Emperia.Items.Weapons.Inquisitor
     {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Puppeteer's Pistol");
-			Tooltip.SetDefault("Fires and explosive buckshot every three shots");
+			// DisplayName.SetDefault("Puppeteer's Pistol");
+			// Tooltip.SetDefault("Fires and explosive buckshot every three shots");
 		}
         int count;
 

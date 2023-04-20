@@ -11,7 +11,7 @@ namespace Emperia.Projectiles
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Bloody Axe");
+			// DisplayName.SetDefault("Bloody Axe");
 
 		}
 		public override void SetDefaults()
@@ -41,7 +41,7 @@ namespace Emperia.Projectiles
             }
 			Projectile.rotation += 0.5f;
 		}
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             for (int i = 0; i < 8; ++i)
             {

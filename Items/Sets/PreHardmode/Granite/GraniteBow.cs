@@ -14,8 +14,8 @@ namespace Emperia.Items.Sets.PreHardmode.Granite
 		int counter = 0;
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Granite Bow");
-			Tooltip.SetDefault("Fires a granite energy arrow every 3 shots");
+			// DisplayName.SetDefault("Granite Bow");
+			// Tooltip.SetDefault("Fires a granite energy arrow every 3 shots");
 		}
         public override void SetDefaults()
         {

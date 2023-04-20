@@ -13,8 +13,8 @@ namespace Emperia.Items.Accessories
     {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Forbidden Oath");
-			Tooltip.SetDefault("While under half life you will recieve boosts of healing");
+			// DisplayName.SetDefault("Forbidden Oath");
+			// Tooltip.SetDefault("While under half life you will recieve boosts of healing");
 		}
         public override void SetDefaults()
         {

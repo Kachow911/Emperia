@@ -16,8 +16,8 @@ namespace Emperia.Buffs
     {
         public override void SetStaticDefaults()
         {
-			DisplayName.SetDefault("Alloy Armor");
-			Description.SetDefault("Defense increased by 4");
+			// DisplayName.SetDefault("Alloy Armor");
+			// Description.SetDefault("Defense increased by 4");
             Main.buffNoSave[Type] = true;
         }
 

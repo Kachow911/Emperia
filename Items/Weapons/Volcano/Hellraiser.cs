@@ -13,8 +13,8 @@ namespace Emperia.Items.Weapons.Volcano
     {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Hellraiser");
-			Tooltip.SetDefault("Shoots a volley of flaming buckshots\nAttacks inflict 'On Fire'\nBuckshots leave fire behind on the ground");
+			// DisplayName.SetDefault("Hellraiser");
+			// Tooltip.SetDefault("Shoots a volley of flaming buckshots\nAttacks inflict 'On Fire'\nBuckshots leave fire behind on the ground");
 		}
         public override void SetDefaults()
         {  

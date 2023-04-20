@@ -13,8 +13,8 @@ namespace Emperia.Items.Weapons.Skeletron
     {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Skelebow");
-			Tooltip.SetDefault("Has a 33% chance to fire a shadow bolt instead\n Shadow bows penetrate enemies and explode");
+			// DisplayName.SetDefault("Skelebow");
+			// Tooltip.SetDefault("Has a 33% chance to fire a shadow bolt instead\n Shadow bows penetrate enemies and explode");
 		}
         public override void SetDefaults()
         {

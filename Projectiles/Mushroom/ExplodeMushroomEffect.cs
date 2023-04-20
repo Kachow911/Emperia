@@ -13,7 +13,7 @@ namespace Emperia.Projectiles.Mushroom
 		private int explodeRadius = 100;
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Mushroom Gas");
+			// DisplayName.SetDefault("Mushroom Gas");
 		}
         public override void SetDefaults()
         {  //Projectile name

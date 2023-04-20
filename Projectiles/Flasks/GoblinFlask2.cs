@@ -11,7 +11,7 @@ namespace Emperia.Projectiles.Flasks
     {
     	public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Alchemical Flask");
+			// DisplayName.SetDefault("Alchemical Flask");
 		}
         public override void SetDefaults()
         {
@@ -48,7 +48,7 @@ namespace Emperia.Projectiles.Flasks
                 }
             }
         }
-		public override void OnHitPlayer(Player target, int damage, bool crit)
+		public override void OnHitPlayer(Player target, Player.HurtInfo info)
 		{
 			target.AddBuff(BuffID.OnFire, 120);
 		}

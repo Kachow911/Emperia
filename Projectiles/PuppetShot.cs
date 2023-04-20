@@ -13,7 +13,7 @@ namespace Emperia.Projectiles
 		
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Puppeteer's Buckshot");
+			// DisplayName.SetDefault("Puppeteer's Buckshot");
 		}
         public override void SetDefaults()
         {  //Projectile name
@@ -40,7 +40,7 @@ namespace Emperia.Projectiles
 			for (int i = 0; i < Main.npc.Length; i++)
             {
 				if (Projectile.Distance(Main.npc[i].Center) < 64)
-                    Main.npc[i].StrikeNPCNoInteraction(Projectile.damage, 0, 0, false, false, false);
+                    Main.npc[i].SimpleStrikeNPC(Projectile.damage, 0);
 			}
 			for (int i = 0; i < 360; i += 5)
 			{

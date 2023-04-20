@@ -10,8 +10,8 @@ namespace Emperia.Items.Weapons.GoblinArmy
     {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Shadowspikes");
-			Tooltip.SetDefault("");
+			// DisplayName.SetDefault("Shadowspikes");
+			// Tooltip.SetDefault("");
 		}
 
 

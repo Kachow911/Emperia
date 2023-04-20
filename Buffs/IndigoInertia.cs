@@ -16,8 +16,8 @@ namespace Emperia.Buffs
     {
         public override void SetStaticDefaults()
         {
-			DisplayName.SetDefault("Indigo Inertia");
-			Description.SetDefault("Life regeneration increased by 1");
+			// DisplayName.SetDefault("Indigo Inertia");
+			// Description.SetDefault("Life regeneration increased by 1");
             Main.buffNoSave[Type] = true;
             //Main.buffNoTimeDisplay[Type] = true;
         }

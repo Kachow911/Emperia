@@ -17,7 +17,7 @@ namespace Emperia.Npcs.Bloom
 		private float dist = 0;
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Floral Skitter");
+			// DisplayName.SetDefault("Floral Skitter");
 			Main.npcFrameCount[NPC.type] = 1;
 		}
         public override void SetDefaults()

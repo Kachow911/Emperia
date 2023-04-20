@@ -12,8 +12,8 @@ public class AquaticFaceGuard : ModItem
 {
 	 public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Torrential Faceguard");
-			Tooltip.SetDefault("Increases armor penetration by 6");
+			// DisplayName.SetDefault("Torrential Faceguard");
+			// Tooltip.SetDefault("Increases armor penetration by 6");
 		}
     public override void SetDefaults()
     {

@@ -7,7 +7,7 @@ namespace Emperia.Items.Sets.PreHardmode.Seashell
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Sea Crystal");
+			// DisplayName.SetDefault("Sea Crystal");
 		}
 		public override void SetDefaults()
 		{

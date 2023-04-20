@@ -13,7 +13,7 @@ public class PrimalPike : ModItem
 
 	public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Primal Pike");
+			// DisplayName.SetDefault("Primal Pike");
 		}
 	public override void SetDefaults()
 	{

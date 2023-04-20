@@ -15,7 +15,7 @@ namespace Emperia.Items.Sets.Hardmode.Crimson
 		public override void SetStaticDefaults()
 		{
 			//DisplayName.SetDefault("Granite Bow");
-			Tooltip.SetDefault("Replaces wooden arrows with columns of ichor bubbles\n33% chance not to consume ammo");
+			// Tooltip.SetDefault("Replaces wooden arrows with columns of ichor bubbles\n33% chance not to consume ammo");
 		}
         public override void SetDefaults()
         {

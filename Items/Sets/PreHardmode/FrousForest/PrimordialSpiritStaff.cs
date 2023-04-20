@@ -12,8 +12,8 @@ namespace Emperia.Items.Sets.PreHardmode.FrousForest
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Primordial Spirit Staff");
-            Tooltip.SetDefault("Summons a primordial spirit that launches bursts of leaves at foes");
+			// DisplayName.SetDefault("Primordial Spirit Staff");
+            // Tooltip.SetDefault("Summons a primordial spirit that launches bursts of leaves at foes");
 
         }
 

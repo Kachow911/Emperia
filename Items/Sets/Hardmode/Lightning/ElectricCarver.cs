@@ -14,8 +14,8 @@ namespace Emperia.Items.Sets.Hardmode.Lightning
     {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Electric Carver");
-			Tooltip.SetDefault("Low chance of inflicting electrified\nElectrified enemies take double damage");
+			// DisplayName.SetDefault("Electric Carver");
+			// Tooltip.SetDefault("Low chance of inflicting electrified\nElectrified enemies take double damage");
 		}
 
 
@@ -37,13 +37,13 @@ namespace Emperia.Items.Sets.Hardmode.Lightning
             Item.useTurn = false;
             Item.shoot = 2;
         }
-        public override void OnHitNPC(Player player, NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
         {
             if (Main.rand.Next(8) == 0)
             target.AddBuff(ModContent.BuffType<ElecHostile>(), 240);
             MyPlayer modPlayer = player.GetModPlayer<MyPlayer>();
             if (modPlayer.lightningSet)
-                modPlayer.lightningDamage += damage;
+                modPlayer.lightningDamage += damageDone;
         }
         public override void MeleeEffects(Player player, Rectangle hitbox)
         {
@@ -61,12 +61,9 @@ namespace Emperia.Items.Sets.Hardmode.Lightning
                 Projectile.NewProjectile(source, player.Center.X, player.Center.Y, 0, 0, ModContent.ProjectileType<LightningSetEffect>(), 25, knockBack, player.whoAmI);
             return false;
         }
-        public override void ModifyHitNPC(Player player, NPC target, ref int damage, ref float knockBack, ref bool crit)
+        public override void ModifyHitNPC(Player player, NPC target, ref NPC.HitModifiers modifiers)
         {
-           if (target.GetGlobalNPC<MyNPC>().electrified)
-           {
-                damage *= 2;
-           }
+           if (target.GetGlobalNPC<MyNPC>().electrified)  modifiers.SourceDamage *= 2;
         }
 
 

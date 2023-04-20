@@ -13,7 +13,7 @@ namespace Emperia.Projectiles
 		private int explodeRadius = 32;
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Shadow Bolt");
+			// DisplayName.SetDefault("Shadow Bolt");
 		}
         public override void SetDefaults()
         {  //Projectile name

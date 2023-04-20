@@ -18,7 +18,7 @@ namespace Emperia.Projectiles
 		int count = 0;
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Mellow Slice");
+			// DisplayName.SetDefault("Mellow Slice");
 		}
 		public override void SetDefaults()
 		{

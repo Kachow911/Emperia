@@ -12,8 +12,8 @@ public class TrueleafHeadThrown : ModItem
 {
 	 public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Trueleaf Crown");
-			Tooltip.SetDefault("Increases throwing damage by 3%");
+			// DisplayName.SetDefault("Trueleaf Crown");
+			// Tooltip.SetDefault("Increases throwing damage by 3%");
 		}
     public override void SetDefaults()
     {

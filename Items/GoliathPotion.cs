@@ -11,8 +11,8 @@ namespace Emperia.Items
 	{
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Goliath Potion");
-            Tooltip.SetDefault("Increases sword size by 20% and sword damage by 10%");
+            // DisplayName.SetDefault("Goliath Potion");
+            // Tooltip.SetDefault("Increases sword size by 20% and sword damage by 10%");
             ItemID.Sets.DrinkParticleColors[Item.type] = new Color[2] { new Color(255, 76, 45), new Color(169, 0, 36) };
         }
 

@@ -10,7 +10,7 @@ namespace Emperia.Projectiles
 	public class Escarbeam : ModProjectile
 	{
 		public override void SetStaticDefaults() {
-			DisplayName.SetDefault("Escarbeam");
+			// DisplayName.SetDefault("Escarbeam");
 		}
 
 		public override void SetDefaults() {
@@ -30,11 +30,11 @@ namespace Emperia.Projectiles
 			Projectile.scale = 1.8f;
 			AIType = ProjectileID.GreenLaser;
 		}
-		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{
 			Player player = Main.player[Projectile.owner];
             MyPlayer modPlayer = player.GetModPlayer<MyPlayer>();
-			if (modPlayer.eschargo < 0 && crit && target.GetGlobalNPC<MyNPC>().IsNormalEnemy(target))
+			if (modPlayer.eschargo < 0 && hit.Crit && target.GetGlobalNPC<MyNPC>().IsNormalEnemy(target))
 			{
 						//CombatText.NewText(new Rectangle((int)player.position.X, (int)player.position.Y - 20, player.width, player.height), Color.HotPink, "Charged!", false, false);
 				modPlayer.eschargo += 1;

@@ -13,8 +13,8 @@ namespace Emperia.Items.Weapons
     {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Escargun");
-            Tooltip.SetDefault("Fires lasers in a wave pattern\nAfter ten crits, the gun will briefly supercharge, firing lasers rapidly for 0 mana");
+			// DisplayName.SetDefault("Escargun");
+            // Tooltip.SetDefault("Fires lasers in a wave pattern\nAfter ten crits, the gun will briefly supercharge, firing lasers rapidly for 0 mana");
 		}
 
         public override void SetDefaults()

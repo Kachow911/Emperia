@@ -14,7 +14,7 @@ namespace Emperia.Npcs.Chasm
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Unstable Slime");
+			// DisplayName.SetDefault("Unstable Slime");
 			Main.npcFrameCount[NPC.type] = 2;
 		}
 
@@ -36,12 +36,12 @@ namespace Emperia.Npcs.Chasm
 			NPC.value = Item.buyPrice(0, 0, 7, 8);
 		}
 
-		public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
+		public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)/* tModPorter Note: bossLifeScale -> balance (bossAdjustment is different, see the docs for details) */
 		{
 			NPC.lifeMax = Convert.ToInt32(NPC.lifeMax * 1.4);
 			NPC.damage = Convert.ToInt32(NPC.damage * 1.4);
 		}
-		public override void HitEffect(int hitDirection, double Damage)
+		public override void HitEffect(NPC.HitInfo hit)
 		{
 			if (NPC.life <= 0)
 			{

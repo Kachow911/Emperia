@@ -16,8 +16,8 @@ namespace Emperia.Buffs
     {
         public override void SetStaticDefaults()
         {
-			DisplayName.SetDefault("Titian Tyranny");
-			Description.SetDefault("Defense increased by 3");
+			// DisplayName.SetDefault("Titian Tyranny");
+			// Description.SetDefault("Defense increased by 3");
             Main.buffNoSave[Type] = true;
             //Main.buffNoTimeDisplay[Type] = true;
         }

@@ -14,7 +14,7 @@ namespace Emperia.Projectiles.TerraG
         Color rgb = new Color(0, 0, 0);
         public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Terra Bolt");
+			// DisplayName.SetDefault("Terra Bolt");
 		}
         public override void SetDefaults()
         {  //Projectile name

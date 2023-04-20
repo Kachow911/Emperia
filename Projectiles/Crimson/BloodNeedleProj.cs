@@ -19,7 +19,7 @@ namespace Emperia.Projectiles.Crimson
         float rot;
         public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Spine Vine");
+			// DisplayName.SetDefault("Spine Vine");
 		}
         public override void SetDefaults()
         {  //Projectile name
@@ -71,7 +71,7 @@ namespace Emperia.Projectiles.Crimson
                // NPC.StrikeNPCNoInteraction(2 * NPC.GetGlobalNPC<MyNPC>().spineCount, 0, 0, false, false, false);
             }
         }
-		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             if (!latched)
             {

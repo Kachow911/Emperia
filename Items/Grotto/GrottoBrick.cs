@@ -7,7 +7,7 @@ namespace Emperia.Items.Grotto
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Duskstone Brick");
+			// DisplayName.SetDefault("Duskstone Brick");
 		}
 		public override void SetDefaults()
 		{

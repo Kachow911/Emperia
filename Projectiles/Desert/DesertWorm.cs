@@ -11,7 +11,7 @@ namespace Emperia.Projectiles.Desert
     {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Desert Worm");
+			// DisplayName.SetDefault("Desert Worm");
 		}
         public override void SetDefaults()
         {  //Projectile name

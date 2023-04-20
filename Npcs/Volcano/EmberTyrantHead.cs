@@ -14,7 +14,7 @@ namespace Emperia.Npcs.Volcano
         private NPC parent { get { return Main.npc[(int)NPC.ai[0]]; } set { NPC.ai[0] = value.whoAmI; } }
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Magmous Shield");
+			// DisplayName.SetDefault("Magmous Shield");
 			Main.npcFrameCount[NPC.type] = 1;
 		}
         public override void SetDefaults()
@@ -38,7 +38,7 @@ namespace Emperia.Npcs.Volcano
 
             NPC.netAlways = true;
         }
-		public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
+		public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)/* tModPorter Note: bossLifeScale -> balance (bossAdjustment is different, see the docs for details) */
         {
             NPC.lifeMax = 250;
             NPC.damage = 10;

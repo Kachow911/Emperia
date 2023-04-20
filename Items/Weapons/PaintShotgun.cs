@@ -14,7 +14,7 @@ namespace Emperia.Items.Weapons
     {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Colorblast");
+			// DisplayName.SetDefault("Colorblast");
 		}
         public override void SetDefaults()
         {  

@@ -12,8 +12,8 @@ public class TrueleafHeadRanged : ModItem
 {
 	 public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Trueleaf Faceguard");
-			Tooltip.SetDefault("Increases ranged damage by 3%");
+			// DisplayName.SetDefault("Trueleaf Faceguard");
+			// Tooltip.SetDefault("Increases ranged damage by 3%");
 		}
     public override void SetDefaults()
     {

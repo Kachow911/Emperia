@@ -13,8 +13,8 @@ namespace Emperia.Items.Sets.Hardmode.Corrupt
     {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Rotfire Dagger");
-			Tooltip.SetDefault("Leaves cursed flames behind on impact");
+			// DisplayName.SetDefault("Rotfire Dagger");
+			// Tooltip.SetDefault("Leaves cursed flames behind on impact");
 		}
 
 

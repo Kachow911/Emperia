@@ -13,8 +13,8 @@ namespace Emperia.Items.Sets.Hardmode.Ethereal
     {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Inquisitor Broadsword");
-			Tooltip.SetDefault("Shoots a damaging wave");
+			// DisplayName.SetDefault("Inquisitor Broadsword");
+			// Tooltip.SetDefault("Shoots a damaging wave");
 		}
 
 

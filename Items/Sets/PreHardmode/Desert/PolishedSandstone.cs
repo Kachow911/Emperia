@@ -7,7 +7,7 @@ namespace Emperia.Items.Sets.PreHardmode.Desert
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Polished Sandstone");
+			// DisplayName.SetDefault("Polished Sandstone");
 		}
 		public override void SetDefaults()
 		{

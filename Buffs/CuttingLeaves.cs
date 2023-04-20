@@ -9,8 +9,8 @@ namespace Emperia.Buffs
     {
         public override void SetStaticDefaults()
         {
-           DisplayName.SetDefault("Cutting Leaves");
-			Description.SetDefault("dps over time on god");         
+           // DisplayName.SetDefault("Cutting Leaves");
+			// Description.SetDefault("dps over time on god");         
             Main.debuff[Type] = true;   //Tells the game if this is a buf or not.
             Main.pvpBuff[Type] = true;  //Tells the game if pvp buff or not. 
             Main.buffNoSave[Type] = true;

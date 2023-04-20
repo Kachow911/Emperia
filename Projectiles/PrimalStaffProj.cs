@@ -12,7 +12,7 @@ namespace Emperia.Projectiles
     {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Purple Sphere");
+			// DisplayName.SetDefault("Purple Sphere");
 		}
         public override void SetDefaults()
         {  //Projectile name

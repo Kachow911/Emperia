@@ -40,7 +40,7 @@ namespace Emperia.Npcs.Mushor
 		private int shieldCount = 1;
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Mushor");
+			// DisplayName.SetDefault("Mushor");
 			Main.npcFrameCount[NPC.type] = 13;
 		}
         public override void SetDefaults()
@@ -84,7 +84,7 @@ namespace Emperia.Npcs.Mushor
 			}
         }
 
-        public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
+        public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)/* tModPorter Note: bossLifeScale -> balance (bossAdjustment is different, see the docs for details) */
         {
             NPC.lifeMax = 9000;
             NPC.damage = 60;

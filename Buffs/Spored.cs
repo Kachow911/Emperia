@@ -16,8 +16,8 @@ namespace Emperia.Buffs
     {
         public override void SetStaticDefaults()
         {
-			DisplayName.SetDefault("Spore Stimulants");
-			Description.SetDefault("3% increased damage\n3% increased crit chance");
+			// DisplayName.SetDefault("Spore Stimulants");
+			// Description.SetDefault("3% increased damage\n3% increased crit chance");
             Main.buffNoSave[Type] = true;
             Main.buffNoTimeDisplay[Type] = true;
         }

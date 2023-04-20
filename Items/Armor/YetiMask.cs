@@ -17,8 +17,8 @@ namespace Emperia.Items.Armor
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Yeti Mask");
-            Tooltip.SetDefault("Let the fury of the beast flow through you!");
+            // DisplayName.SetDefault("Yeti Mask");
+            // Tooltip.SetDefault("Let the fury of the beast flow through you!");
         }
 
         public override void ArmorSetShadows(Player player)

@@ -11,8 +11,8 @@ namespace Emperia.Buffs
     {
         public override void SetStaticDefaults()
         {
-           DisplayName.SetDefault("Nocturnal Flames");
-			Description.SetDefault("You are engulfed in dark flames that grow hotter every second");         
+           // DisplayName.SetDefault("Nocturnal Flames");
+			// Description.SetDefault("You are engulfed in dark flames that grow hotter every second");         
             Main.debuff[Type] = true;
             Main.pvpBuff[Type] = true;
             Main.buffNoSave[Type] = true;

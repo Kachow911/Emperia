@@ -13,8 +13,8 @@ namespace Emperia.Items.Sets.PreHardmode.Desert
     {
 		 public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Carapace Crusher");
-			Tooltip.SetDefault("Killing enemies causes desert spikes to rise foward and attack other enemies");
+			// DisplayName.SetDefault("Carapace Crusher");
+			// Tooltip.SetDefault("Killing enemies causes desert spikes to rise foward and attack other enemies");
 		}
         public override void SetDefaults()
         {    //Sword name
@@ -33,7 +33,7 @@ namespace Emperia.Items.Sets.PreHardmode.Desert
             Item.useTurn = true;             //player speed
 			Item.UseSound = SoundID.Item1; 			
         }
-		public override void OnHitNPC(Player player, NPC target, int damage, float knockback, bool crit)
+		public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
         {
 			
 			if (target.life <= 0)

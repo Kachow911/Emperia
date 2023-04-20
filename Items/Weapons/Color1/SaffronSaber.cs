@@ -13,8 +13,8 @@ namespace Emperia.Items.Weapons.Color1
     {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Saffron Sabre");
-			Tooltip.SetDefault("Striking an enemy will increase movement speed briefly, longer on bosses");
+			// DisplayName.SetDefault("Saffron Sabre");
+			// Tooltip.SetDefault("Striking an enemy will increase movement speed briefly, longer on bosses");
 		}
         public override void SetDefaults()
         {
@@ -52,7 +52,7 @@ namespace Emperia.Items.Weapons.Color1
             
 
         }
-		 public override void OnHitNPC(Player player, NPC target, int damage, float knockback, bool crit)
+		 public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
 		{
             if (target.boss)
 			    player.AddBuff(ModContent.BuffType<SaffronSadism>(), Main.rand.Next(360, 600) + 300);

@@ -13,8 +13,8 @@ namespace Emperia.Items.Accessories.Gauntlets
     {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Gelatinous Gauntlet");
-			Tooltip.SetDefault("Sword damage increased by up to 12% at close range, 25% on large foes\nSword strikes on knockback-immune foes bounce you back safely\nAllows you to swing swords while walking backwards");
+			// DisplayName.SetDefault("Gelatinous Gauntlet");
+			// Tooltip.SetDefault("Sword damage increased by up to 12% at close range, 25% on large foes\nSword strikes on knockback-immune foes bounce you back safely\nAllows you to swing swords while walking backwards");
 		}
         public override void SetDefaults()
         {

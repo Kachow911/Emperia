@@ -9,8 +9,8 @@ namespace Emperia.Buffs
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Ember Tyrant");
-			Description.SetDefault("They are all very angry");
+			// DisplayName.SetDefault("Ember Tyrant");
+			// Description.SetDefault("They are all very angry");
 
 			Main.buffNoSave[Type] = true;
 			Main.buffNoTimeDisplay[Type] = true;

@@ -64,7 +64,7 @@ namespace Emperia.Projectiles.Corrupt
 				Projectile.velocity = Vector2.Zero;
 				return false;
 			}
-		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{
 			if (Main.rand.Next(3) == 0)
 				target.AddBuff(BuffID.CursedInferno, 240);

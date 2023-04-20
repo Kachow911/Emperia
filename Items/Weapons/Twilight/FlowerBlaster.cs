@@ -15,7 +15,7 @@ namespace Emperia.Items.Weapons.Twilight
     {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Bouquet Blaster");
+			// DisplayName.SetDefault("Bouquet Blaster");
 		}
         public override void SetDefaults()
         {  

@@ -13,8 +13,8 @@ public class GoblinLegs : ModItem
 {
     public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Elder Goblin's Brogans");
-			Tooltip.SetDefault("3% increased damage");
+			// DisplayName.SetDefault("Elder Goblin's Brogans");
+			// Tooltip.SetDefault("3% increased damage");
 		}
     public override void SetDefaults()
     {

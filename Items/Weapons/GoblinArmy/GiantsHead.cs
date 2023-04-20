@@ -54,8 +54,8 @@ namespace Emperia.Items.Weapons.GoblinArmy
 		
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Brobdingnagian Head");
-			Tooltip.SetDefault("Shoots forth tendrils of flame");
+			// DisplayName.SetDefault("Brobdingnagian Head");
+			// Tooltip.SetDefault("Shoots forth tendrils of flame");
 		
 		}
 		/*public override void AddRecipes()

@@ -11,8 +11,8 @@ namespace Emperia.Items.Weapons.Twilight
     {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Toothslitter");
-			Tooltip.SetDefault("Hitting 3 consecutive attacks with this blade makes your next attack ignore 2 extra immune frames of the enemy");
+			// DisplayName.SetDefault("Toothslitter");
+			// Tooltip.SetDefault("Hitting 3 consecutive attacks with this blade makes your next attack ignore 2 extra immune frames of the enemy");
 		}
 
 

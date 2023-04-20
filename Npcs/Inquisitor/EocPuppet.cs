@@ -17,7 +17,7 @@ namespace Emperia.Npcs.Inquisitor
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Eye of Cthulhu Puppet");
+			// DisplayName.SetDefault("Eye of Cthulhu Puppet");
 			Main.npcFrameCount[NPC.type] = 1;
 		}
         public override void SetDefaults()
@@ -85,7 +85,7 @@ namespace Emperia.Npcs.Inquisitor
 		}
 		public override bool PreDraw(SpriteBatch spritebatch, Vector2 Vector2, Color lightColor)
         {
-			Vector2 drawOrigin = new Vector2(Mod.Assets.Request<Texture2D>("Npcs/Inquisitor/StickyHandChain").Value.Width * 0.5f, NPC.height * 0.5f);
+			Vector2 drawOrigin = new Vector2(Mod.Assets.Request<Texture2D>("Npcs/Inquisitor/EocPuppet").Value.Width * 0.5f, NPC.height * 0.5f);
 			for(int k = 0; k < NPC.oldPos.Length; k++)
 			{
 				Vector2 drawPos = NPC.oldPos[k] - Main.screenPosition + drawOrigin + new Vector2(0f, NPC.gfxOffY);

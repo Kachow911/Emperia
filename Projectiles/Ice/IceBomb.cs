@@ -14,7 +14,7 @@ namespace Emperia.Projectiles.Ice
     {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Ice Crystal");
+			// DisplayName.SetDefault("Ice Crystal");
 		}
         public override void SetDefaults()
         {  //Projectile name
@@ -40,7 +40,7 @@ namespace Emperia.Projectiles.Ice
 			Projectile.velocity.Y *= 0.99f;
 			Projectile.rotation += .05f;
 		}
-		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
 			Color rgb = new Color(135,206,250);
 			int index2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 76, (float) Projectile.velocity.X, (float) Projectile.velocity.Y, 0, rgb, 0.9f);
@@ -53,7 +53,7 @@ namespace Emperia.Projectiles.Ice
 			for (int i = 0; i < Main.npc.Length; i++)
 			{
 				if (Projectile.Distance(Main.npc[i].Center) < 90)
-					Main.npc[i].StrikeNPC(Projectile.damage + Projectile.damage / 2, 0f, 0, false, false, false);
+					Main.npc[i].SimpleStrikeNPC((int)(Projectile.damage * 1.5f), 0);
 			}
 			for (int i = 0; i < 45; ++i)
 			{

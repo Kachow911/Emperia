@@ -21,8 +21,8 @@ namespace Emperia.Items
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Old Master's Palette");
-            Tooltip.SetDefault("Allows ultimate control over paint!\nRight Click while holding to select paints and brush\n'The world is your canvas... literally!'");
+            // DisplayName.SetDefault("Old Master's Palette");
+            // Tooltip.SetDefault("Allows ultimate control over paint!\nRight Click while holding to select paints and brush\n'The world is your canvas... literally!'");
             ItemID.Sets.SortingPriorityPainting[Item.type] = 101;
             //GamepadWholeScreenUseRange
             //GamepadExtraRange
@@ -145,7 +145,7 @@ namespace Emperia.Items
         {
             Texture2D texture = ModContent.Request<Texture2D>("Emperia/Items/Palette/OldMastersPalette_Item" + visualMode, ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
             //position -= new Vector2(2, 0);
-            spriteBatch.Draw(texture, position, null, drawColor, 0f, Vector2.Zero, Main.inventoryScale, SpriteEffects.None, 0f);
+            spriteBatch.Draw(texture, position, null, drawColor, 0f, texture.Size() / 2, Main.inventoryScale, SpriteEffects.None, 0f);
 
             if (selectedColors.Any())
             {
@@ -157,7 +157,7 @@ namespace Emperia.Items
                     Texture2D paintTexture = GetPaintBlobTexture(paintType, i);
                     Color color = PaintToColor(paintType);
 
-                    spriteBatch.Draw(paintTexture, position, (Rectangle)paintPosition.GetValue(i), color, 0f, Vector2.Zero, Main.inventoryScale, SpriteEffects.None, 0f);
+                    spriteBatch.Draw(paintTexture, position, (Rectangle)paintPosition.GetValue(i), color, 0f, texture.Size() / 2, Main.inventoryScale, SpriteEffects.None, 0f);
                 }
                 {
                     int paintType = color;
@@ -166,7 +166,7 @@ namespace Emperia.Items
                         Texture2D paintTexture = GetPaintBlobTexture(paintType, 0, true);
                         Color color = PaintToColor(paintType);
 
-                        spriteBatch.Draw(paintTexture, position, null, color, 0f, Vector2.Zero, Main.inventoryScale, SpriteEffects.None, 0f);
+                        spriteBatch.Draw(paintTexture, position, null, color, 0f, texture.Size() / 2, Main.inventoryScale, SpriteEffects.None, 0f);
                     }
                 }
             }
@@ -578,8 +578,8 @@ namespace Emperia.Items
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Spectral Paint Kit");
-            Tooltip.SetDefault("Right Click while holding an Old Master's Palette to increase its range and speed");
+            // DisplayName.SetDefault("Spectral Paint Kit");
+            // Tooltip.SetDefault("Right Click while holding an Old Master's Palette to increase its range and speed");
         }
 
         public override void SetDefaults()

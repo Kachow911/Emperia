@@ -16,8 +16,8 @@ namespace Emperia.Buffs
     {
         public override void SetStaticDefaults()
         {
-			DisplayName.SetDefault("Aquatic Boost");
-			Description.SetDefault("4% Increased Damage, +2 life regen");
+			// DisplayName.SetDefault("Aquatic Boost");
+			// Description.SetDefault("4% Increased Damage, +2 life regen");
             Main.buffNoSave[Type] = true;
             Main.buffNoTimeDisplay[Type] = true;
         }

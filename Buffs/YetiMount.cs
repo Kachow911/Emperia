@@ -10,8 +10,8 @@ namespace Emperia.Buffs
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Yetiling");
-			Description.SetDefault("The Yetiling is a pretty chill dude");
+			// DisplayName.SetDefault("Yetiling");
+			// Description.SetDefault("The Yetiling is a pretty chill dude");
 			Main.buffNoTimeDisplay[Type] = true;
 			Main.buffNoSave[Type] = true;
 		}

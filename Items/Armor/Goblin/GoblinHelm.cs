@@ -12,8 +12,8 @@ public class GoblinHelm : ModItem
 {
 	 public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Elder Goblin's Heaume");
-			Tooltip.SetDefault("4% Increased critical strike chance");
+			// DisplayName.SetDefault("Elder Goblin's Heaume");
+			// Tooltip.SetDefault("4% Increased critical strike chance");
 		}
     public override void SetDefaults()
     {

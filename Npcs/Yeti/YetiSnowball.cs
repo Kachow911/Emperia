@@ -13,7 +13,7 @@ namespace Emperia.Npcs.Yeti
 		private int explodeRadius = 32;
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Yeti Snowball");
+			// DisplayName.SetDefault("Yeti Snowball");
 		}
         public override void SetDefaults()
         {  //Projectile name

@@ -10,8 +10,8 @@ namespace Emperia.Items
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Moon Pedestal");
-			Tooltip.SetDefault("Players will respawn with max life and mana when placed nearby");
+			// DisplayName.SetDefault("Moon Pedestal");
+			// Tooltip.SetDefault("Players will respawn with max life and mana when placed nearby");
 		}
 
 

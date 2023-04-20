@@ -12,8 +12,8 @@ public class SeashellPickaxe : ModItem
 {
 	public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Seashell Pickaxe");
-            Tooltip.SetDefault("Mining valuables while submerged in water will restore breath\nIncreases mobility in water when held\nHold UP to descend slower");
+			// DisplayName.SetDefault("Seashell Pickaxe");
+            // Tooltip.SetDefault("Mining valuables while submerged in water will restore breath\nIncreases mobility in water when held\nHold UP to descend slower");
         }
         public override void SetDefaults()
     {

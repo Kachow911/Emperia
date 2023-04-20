@@ -422,11 +422,11 @@ namespace Emperia
 			}
 		}
 
-        public override void OnCreate(Item item, ItemCreationContext context)
+        public override void OnCreated(Item item, ItemCreationContext context)
         {
 			if (item.type == 273)
 			{
-				if (context is RecipeCreationContext)
+				if (context is RecipeItemCreationContext)
 				{
 					Player player = Main.LocalPlayer;
 
@@ -468,7 +468,7 @@ namespace Emperia
 				}
 			}
 		}
-        public override void OnHitNPC(Item item, Player player, NPC target, int damage, float knockBack, bool crit)
+        public override void OnHitNPC(Item item, Player player, NPC target, NPC.HitInfo hit, int damageDone)
         {
             if (item.type == 273 && item.GetGlobalItem<GItem>().nightFlame)
             {

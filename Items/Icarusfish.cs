@@ -7,7 +7,7 @@ namespace Emperia.Items
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Icarusfish");
+			// DisplayName.SetDefault("Icarusfish");
 		}
 		public override void SetDefaults()
 		{

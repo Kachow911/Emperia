@@ -93,17 +93,15 @@ namespace Emperia
 		}
 		public override bool InstancePerEntity { get { return true; } }
 
-		public override void SetupShop(int type, Chest shop, ref int nextSlot)
-		{
-			if (type == NPCID.Merchant)
+        public override void ModifyShop(NPCShop shop)
+        {
+			if (shop.NpcType == NPCID.Merchant)
 			{
-				shop.item[nextSlot].SetDefaults(ModContent.ItemType<Lasagna>());
-				nextSlot++;
-
+				shop.Add(new Item(ModContent.ItemType<Lasagna>()));
 			}
 		}
 
-		public override void SetupTravelShop(int[] shop, ref int nextSlot)
+        public override void SetupTravelShop(int[] shop, ref int nextSlot)
 		{
 			if (!NPC.downedBoss1 || !Main.hardMode && Main.rand.Next(5) == 0 || Main.rand.Next(5) == 0) //eoc defeat bool temp until i add a bool for the item having appeared instead, the two random chances stack in phm for 2/5th odds
 			{
@@ -177,7 +175,7 @@ namespace Emperia
 				{
 					if (etherealCounts[i] > 0)
 					{
-						npc.StrikeNPCNoInteraction(etherealDamages[i], 0, 0, false, false, false);
+						npc.SimpleStrikeNPC(etherealDamages[i], 0);
 						etherealCounts[i]--;
 					}
 					if (etherealCounts[i] > 0)
@@ -222,12 +220,12 @@ namespace Emperia
 						damage = 2;
 					if (player.statLife < (player.statLifeMax2 / 4))
 						damage = 1;
-					npc.StrikeNPCNoInteraction(damage, 0, 0, false, false, false);
+					npc.SimpleStrikeNPC(damage, 0);
 				}
 				if (crushFreeze)
 				{
 					int damage = chillStacks;
-					npc.StrikeNPCNoInteraction(damage, 0, 0, false, false, false);
+					npc.SimpleStrikeNPC(damage, 0);
 				}
 			}
 			if (npc.life <= 0)
@@ -284,7 +282,7 @@ namespace Emperia
 				for (int i = 0; i < Main.npc.Length; i++)
 				{
 					if (npc.Distance(Main.npc[i].Center) < 1 && !Main.npc[i].townNPC)
-						Main.npc[i].StrikeNPC(maceSlamDamage, 0f, 0, false, false, false);
+						Main.npc[i].SimpleStrikeNPC(maceSlamDamage, 0);
 				}
 				for (int i = 0; i < 15; ++i)
 				{
@@ -414,7 +412,7 @@ namespace Emperia
 				for (int i = 0; i < Main.npc.Length; i++)
 				{
 					if (npc.Distance(Main.npc[i].Center) < 64 && !Main.npc[i].townNPC)
-						Main.npc[i].StrikeNPC(expDamage, 0f, 0, false, false, false);
+						Main.npc[i].SimpleStrikeNPC(expDamage, 0);
 				}
 			}
 			if (fatesDemise)
@@ -495,22 +493,17 @@ namespace Emperia
 				//THIS DOESNT WORK!!! ITS A LIE FR FR. also downedeye does NOT save so it gets reset on reload
 			}
 		}
-		public override void ModifyHitPlayer(NPC npc, Player target, ref int damage, ref bool crit)
+		public override void ModifyHitPlayer(NPC npc, Player target, ref Player.HurtModifiers modifiers)
 		{
 			if (vermillionVenom)
 			{
-				damage = (int)(damage * 0.9f);
+				modifiers.SourceDamage *= 0.9f;
 			}
 			if (crushFreeze)
-				damage = (int)(damage * (1 - .05 * chillStacks));
+				modifiers.SourceDamage *= (1 - .05f * chillStacks);
 		}
-        public override void ModifyHitByProjectile(NPC npc, Projectile Projectile, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
+        public override void ModifyHitByProjectile(NPC npc, Projectile projectile, ref NPC.HitModifiers modifiers)
         {
-            if (moreDamage)
-            {
-                damage = (int) (1.1 * damage);
-            }
-
 			if (desertSpikeTime > 0 && desertSpikeTime < 100)
 			{
 				desertSpikeTime = 0;
@@ -518,31 +511,33 @@ namespace Emperia
 				impaledGravity = true;
 			}
         }
-        public override void ModifyHitByItem(NPC npc, Player player, Item Item, ref int damage, ref float knockback, ref bool crit)
-        {
-            if (moreDamage)
-            {
-                damage = (int)(1.1 * damage);
-            }
-
+		public override void ModifyHitByItem(NPC npc, Player player, Item item, ref NPC.HitModifiers modifiers)
+		{
 			if (desertSpikeTime > 0 && desertSpikeTime < 100)
 			{
 				desertSpikeTime = 0;
 				npc.noGravity = impaledGravity;
 				impaledGravity = true;
 			}
-			if (Item.type == ModContent.ItemType<Items.Weapons.Mushor.Fungallows>()) //wip
+			if (item.type == ModContent.ItemType<Items.Weapons.Mushor.Fungallows>()) //wip
 			{
-				if (npc.life <= damage - npc.defense * 0.5)
+				//if (npc.life <= damage - npc.defense * 0.5)
 				{
 					//Main.NewText("wow", 255, 240, 20, false);
 					//damage = NPC.life + NPC.defense * 0.5 - 1;
 					//NPC = target;
-        	    	//NPC.GetGlobalNPC<MyNPC>().variableName = true;	
+					//NPC.GetGlobalNPC<MyNPC>().variableName = true;	
 				}
 			}
 		}
-        public override void OnHitByItem(NPC npc, Player player, Item item, int damage, float knockback, bool crit)
+		public override void ModifyIncomingHit(NPC npc, ref NPC.HitModifiers modifiers)
+		{
+			if (moreDamage)
+			{
+				modifiers.SourceDamage *= 1.1f;
+			}
+		}
+        public override void OnHitByItem(NPC npc, Player player, Item item, NPC.HitInfo hit, int damageDone)
         {
 			bool Unchained = false;
 			for (int l = 0; l < 1000; l++)
@@ -551,7 +546,7 @@ namespace Emperia
 				{
 					//Main.projectile[l].ModProjectile.OnTileCollide(Vector2.Zero);
 					(Main.projectile[l].ModProjectile as HarpoonBladeProj).Unchain(Main.projectile[l]);
-					npc.StrikeNPC(Main.projectile[l].damage, 0f, 0); //damage multiplied by 0.75f to nerf? make damage occur in projectile to count towards dps
+					npc.SimpleStrikeNPC(Main.projectile[l].damage, 0); //damage multiplied by 0.75f to nerf? make damage occur in projectile to count towards dps
 					Unchained = true;
 				}
 			}

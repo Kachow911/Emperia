@@ -12,8 +12,8 @@ public class TrueleafHeadMelee : ModItem
 {
 	 public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Trueleaf Helmet");
-			Tooltip.SetDefault("Increases melee damage by 3%");
+			// DisplayName.SetDefault("Trueleaf Helmet");
+			// Tooltip.SetDefault("Increases melee damage by 3%");
 		}
     public override void SetDefaults()
     {

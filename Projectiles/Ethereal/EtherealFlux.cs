@@ -14,7 +14,7 @@ namespace Emperia.Projectiles.Ethereal
 		float yOFF = 0;
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Ethereal Flux");
+			// DisplayName.SetDefault("Ethereal Flux");
 		}
         public override void SetDefaults()
         {  //Projectile name

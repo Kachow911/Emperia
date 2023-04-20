@@ -19,7 +19,7 @@ namespace Emperia.Projectiles.Summon
 		private float rotate2 = 0;
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Primordial Spirit");
+			// DisplayName.SetDefault("Primordial Spirit");
 			Main.projFrames[base.Projectile.type] = 1;
 			ProjectileID.Sets.MinionSacrificable[base.Projectile.type] = true;
 			ProjectileID.Sets.CultistIsResistantTo[base.Projectile.type] = true;

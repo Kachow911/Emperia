@@ -9,8 +9,8 @@ namespace Emperia.Buffs
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Granite Elemental");
-			Description.SetDefault("The granite elemental will fight for you");
+			// DisplayName.SetDefault("Granite Elemental");
+			// Description.SetDefault("The granite elemental will fight for you");
 			Main.buffNoSave[Type] = true;
 			Main.buffNoTimeDisplay[Type] = true;
 		}

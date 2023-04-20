@@ -14,8 +14,8 @@ namespace Emperia.Items.Weapons  //where is located
     {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("True Day's Verge");
-			Tooltip.SetDefault("");
+			// DisplayName.SetDefault("True Day's Verge");
+			// Tooltip.SetDefault("");
 		}
         public override void SetDefaults()
         {   //Sword name

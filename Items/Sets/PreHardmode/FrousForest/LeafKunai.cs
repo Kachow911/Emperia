@@ -13,8 +13,8 @@ namespace Emperia.Items.Sets.PreHardmode.FrousForest
     {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Leaf Kunai");
-			Tooltip.SetDefault("Pierces enemies with a chance of poisioning them");
+			// DisplayName.SetDefault("Leaf Kunai");
+			// Tooltip.SetDefault("Pierces enemies with a chance of poisioning them");
 		}
 
 

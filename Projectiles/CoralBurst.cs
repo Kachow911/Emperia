@@ -27,7 +27,7 @@ namespace Emperia.Projectiles
 		
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Coral Burst");
+			// DisplayName.SetDefault("Coral Burst");
 		}
 		public override void AI()
 		{
@@ -64,7 +64,7 @@ namespace Emperia.Projectiles
 		
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Coral Burst");
+			// DisplayName.SetDefault("Coral Burst");
 		}
 		
 		public override void Kill(int timeLeft)
@@ -79,7 +79,7 @@ namespace Emperia.Projectiles
 		{
 			Projectile.rotation = (float)Math.Atan2((double)Projectile.velocity.Y, (double)Projectile.velocity.X) + 1.57f;
 		}
-		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{	
 			PlaySound(SoundID.Dig, Projectile.position);
 			for (int i = 0; i < 3; i++)

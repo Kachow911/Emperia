@@ -12,7 +12,7 @@ namespace Emperia.Projectiles
     {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Gauntlet Skull");
+			// DisplayName.SetDefault("Gauntlet Skull");
 		}
         public override void SetDefaults()
         { 

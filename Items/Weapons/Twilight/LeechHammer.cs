@@ -14,8 +14,8 @@ namespace Emperia.Items.Weapons.Twilight
     {
 		 public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Leech Hammer");
-			Tooltip.SetDefault("Critical hits with the hammer generates leech eyes around you");
+			// DisplayName.SetDefault("Leech Hammer");
+			// Tooltip.SetDefault("Critical hits with the hammer generates leech eyes around you");
 		}
         public override void SetDefaults()
         {   //Sword name
@@ -60,9 +60,9 @@ namespace Emperia.Items.Weapons.Twilight
 	
 			return false;
 		}
-		public override void OnHitNPC(Player player, NPC target, int damage, float knockback, bool crit)
+		public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
 		{
-			if (target.life == target.lifeMax - damage)
+			if (target.life == target.lifeMax - damageDone)
 			{
 				string text1 = target.life.ToString();
 				string text2 = target.lifeMax.ToString();

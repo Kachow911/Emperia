@@ -21,8 +21,8 @@ namespace Emperia.Items
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("LCD Wrench");
-            Tooltip.SetDefault("Configures colors of LCD displays");
+            // DisplayName.SetDefault("LCD Wrench");
+            // Tooltip.SetDefault("Configures colors of LCD displays");
         }
         public override void SetDefaults()
         {
@@ -110,10 +110,9 @@ namespace Emperia.Items
         public override void PostDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
         {
             if (toolMode == 0 && selectedColor == Color.Black) return;
-            position.X -= 1;
-            position.Y -= 2; //unsure why its off lmao. maybe cus of the un-evenness of the wrench sprite
+
             Texture2D screenTexture = ModContent.Request<Texture2D>("Emperia/Items/LCDWrenchScreen", AssetRequestMode.ImmediateLoad).Value;
-            spriteBatch.Draw(screenTexture, position, null, selectedColor, 0f, Vector2.Zero, Main.inventoryScale, SpriteEffects.None, 0f);
+            spriteBatch.Draw(screenTexture, position, null, selectedColor, 0f, screenTexture.Size() / 2, Main.inventoryScale, SpriteEffects.None, 0f);
         }
         public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
         {

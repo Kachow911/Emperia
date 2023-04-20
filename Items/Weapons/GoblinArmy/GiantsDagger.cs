@@ -12,8 +12,8 @@ namespace Emperia.Items.Weapons.GoblinArmy
     {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Giant's Dagger");
-			Tooltip.SetDefault("Sticks in enemies\nEnemies impaled with the dagger bleed, losing life and defense\nEnemies that die with the dagger in them drop more coins");
+			// DisplayName.SetDefault("Giant's Dagger");
+			// Tooltip.SetDefault("Sticks in enemies\nEnemies impaled with the dagger bleed, losing life and defense\nEnemies that die with the dagger in them drop more coins");
 		}
 
 

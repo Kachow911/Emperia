@@ -3,6 +3,7 @@ using Terraria;
 using Terraria.ModLoader;
 using Terraria.ID;
 using static Terraria.ModLoader.ModContent;
+using Terraria.WorldBuilding;
 
 
 namespace Emperia.Tiles
@@ -73,7 +74,7 @@ namespace Emperia.Tiles
             if (!Framing.GetTileSafely(i, j - 1).HasTile)// && Main.rand.Next(40) == 0)
             {
                 TwilightGrass.PlaceObject(i, j - 1, TileType<Tiles.TwilightFlora>());
-                NetMessage.SendObjectPlacment(-1, i, j - 1, TileType<Tiles.TwilightFlora>(), 0, 0, -1, -1);
+                NetMessage.SendObjectPlacement(-1, i, j - 1, TileType<Tiles.TwilightFlora>(), 0, 0, -1, -1);
             }
         }
 		public void SpreadAncientGrassAcrossTheWorld()
@@ -90,14 +91,14 @@ namespace Emperia.Tiles
                         {
                             try
                             {
-                                WorldGen.SpreadGrass(k, num, TileID.Dirt, TileType<Tiles.TwilightGrass>(), true, Main.tile[k, num].TileColor);
+                                WorldGen.SpreadGrass(k, num, TileID.Dirt, TileType<Tiles.TwilightGrass>(), true/*, Main.tile[k, num].TileColor*/);
                             }
                             catch
                             {
-                                WorldGen.SpreadGrass(k, num, TileID.Dirt, TileType<Tiles.TwilightGrass>(), true, Main.tile[k, num].TileColor);
+                                WorldGen.SpreadGrass(k, num, TileID.Dirt, TileType<Tiles.TwilightGrass>(), true/*, Main.tile[k, num].TileColor*/);
                             }
                         }
-                        if ((double)num > WorldGen.worldSurfaceHigh)
+                        if ((double)num > GenVars.worldSurfaceHigh)
                         {
                             break;
                         }

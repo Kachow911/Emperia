@@ -40,8 +40,8 @@ namespace Emperia.Items.Sets.Hardmode.Vulcan
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Vulcan Crystal Staff");
-            Tooltip.SetDefault("Shoots bouncing bolts of magma that eventually leave residual flames on the ground");
+            // DisplayName.SetDefault("Vulcan Crystal Staff");
+            // Tooltip.SetDefault("Shoots bouncing bolts of magma that eventually leave residual flames on the ground");
 		}
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockBack)
         {

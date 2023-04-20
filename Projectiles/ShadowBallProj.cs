@@ -11,7 +11,7 @@ namespace Emperia.Projectiles
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Shadow Spikes");
+			// DisplayName.SetDefault("Shadow Spikes");
 
 		}
 		public override void SetDefaults()
@@ -73,7 +73,7 @@ namespace Emperia.Projectiles
 			}
 			Terraria.Audio.SoundEngine.PlaySound(SoundID.Item27, Projectile.position);
 		}
-		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
 			if (Main.rand.Next(3) == 0)
 			 target.AddBuff(BuffID.ShadowFlame, 120);

@@ -25,7 +25,7 @@ namespace Emperia.Projectiles.Twilight
 		private bool init = false;
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Leech Eye");
+			// DisplayName.SetDefault("Leech Eye");
 		}
         public override void SetDefaults()
         {

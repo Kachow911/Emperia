@@ -26,15 +26,15 @@ namespace Emperia.Projectiles.Granite
 		
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Granite Arrow");
+			// DisplayName.SetDefault("Granite Arrow");
 		}
 		
-		public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection) {
+		public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers) {
 			Player player = Main.player[Projectile.owner];
 			MyPlayer modPlayer = player.GetModPlayer<MyPlayer>();
 			if (modPlayer.graniteSet && modPlayer.graniteTime >= 900)
             {
-				damage = (int) ((float) damage * 1.75f);
+				modifiers.SourceDamage *= 1.75f;
 			}
 		}
 		public override void Kill(int timeLeft)
@@ -49,7 +49,7 @@ namespace Emperia.Projectiles.Granite
 				for (int i = 0; i < Main.npc.Length; i++)
             	{
                 	if (Projectile.Distance(Main.npc[i].Center) < 90 && Main.npc[i] != hitNPC)
-                    	Main.npc[i].StrikeNPC(Projectile.damage / 4 * 7, 0f, 0, false, false, false);
+                    	Main.npc[i].SimpleStrikeNPC((int)(Projectile.damage * 1.75f), 0);
             	}
 				for (int i = 0; i < 45; ++i)
 				{
@@ -65,7 +65,7 @@ namespace Emperia.Projectiles.Granite
 				for (int i = 0; i < Main.npc.Length; i++)
             	{
                 	if (Projectile.Distance(Main.npc[i].Center) < 65 && Main.npc[i] != hitNPC)
-                    	Main.npc[i].StrikeNPC(Projectile.damage, 0f, 0, false, false, false);
+                    	Main.npc[i].SimpleStrikeNPC(Projectile.damage, 0);
             	}
 				for (int i = 0; i < 30; ++i)
 				{
@@ -78,7 +78,7 @@ namespace Emperia.Projectiles.Granite
 			
 		}
 		
-		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{	
 			target.immune[Projectile.owner] = 5;
 			hitNPC = target;

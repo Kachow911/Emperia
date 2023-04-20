@@ -39,7 +39,7 @@ namespace Emperia.Npcs.SeaCrab
 		private bool init;
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Crystacean");
+			// DisplayName.SetDefault("Crystacean");
 			Main.npcFrameCount[NPC.type] = 7;
 			NPCDebuffImmunityData debuffData = new NPCDebuffImmunityData
 			{
@@ -118,7 +118,7 @@ namespace Emperia.Npcs.SeaCrab
 			}
 		}
 
-		public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
+		public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)/* tModPorter Note: bossLifeScale -> balance (bossAdjustment is different, see the docs for details) */
         {
             NPC.lifeMax = 1840;
             NPC.damage = 23;
@@ -579,11 +579,11 @@ namespace Emperia.Npcs.SeaCrab
 				//Main.NewText();
             }
 		}*/
-		public override void ModifyHitByProjectile(Projectile projectile, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
+		public override void ModifyHitByProjectile(Projectile projectile, ref NPC.HitModifiers modifiers)
         {
 			if (Main.player[projectile.owner].heldProj == projectile.whoAmI) ModifyHitByItemOrHeldProj();
 		}
-		public override void ModifyHitByItem(Player player, Item item, ref int damage, ref float knockback, ref bool crit)
+		public override void ModifyHitByItem(Player player, Item item, ref NPC.HitModifiers modifiers)
         {
 			ModifyHitByItemOrHeldProj();
 		}
@@ -616,7 +616,7 @@ namespace Emperia.Npcs.SeaCrab
 
 			}
 		}
-        public override void HitEffect(int hitDirection, double damage)
+        public override void HitEffect(NPC.HitInfo hit)
 		{
 			if (Main.netMode == NetmodeID.Server)
 			{

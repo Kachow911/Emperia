@@ -12,8 +12,8 @@ namespace Emperia.Items.Sets.PreHardmode.FrousForest
     {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Autumn");
-			Tooltip.SetDefault("Shoots a bolt of coalesced energy that splits into leaves");
+			// DisplayName.SetDefault("Autumn");
+			// Tooltip.SetDefault("Shoots a bolt of coalesced energy that splits into leaves");
 		}
 
 

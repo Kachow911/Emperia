@@ -10,7 +10,7 @@ namespace Emperia.Projectiles
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Magma Blob");
+			// DisplayName.SetDefault("Magma Blob");
 
 		}
 		public override void SetDefaults()

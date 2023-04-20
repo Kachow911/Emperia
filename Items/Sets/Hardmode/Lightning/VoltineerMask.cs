@@ -13,8 +13,8 @@ namespace Emperia.Items.Sets.Hardmode.Lightning {
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Voltineer Mask");
-            Tooltip.SetDefault("9% increased melee damage");
+            // DisplayName.SetDefault("Voltineer Mask");
+            // Tooltip.SetDefault("9% increased melee damage");
         }
         public override void SetDefaults()
         {

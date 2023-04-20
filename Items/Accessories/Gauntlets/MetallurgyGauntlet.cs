@@ -13,8 +13,8 @@ namespace Emperia.Items.Accessories.Gauntlets
     {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Metallurgy Gauntlet");
-			Tooltip.SetDefault("Sword damage increased by up to 12% at close range, 25% on large foes\nSword strikes increase defense briefly\nAllows you to swing swords while walking backwards");
+			// DisplayName.SetDefault("Metallurgy Gauntlet");
+			// Tooltip.SetDefault("Sword damage increased by up to 12% at close range, 25% on large foes\nSword strikes increase defense briefly\nAllows you to swing swords while walking backwards");
 		}
         public override void SetDefaults()
         {

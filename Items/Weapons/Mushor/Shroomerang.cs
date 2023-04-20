@@ -10,8 +10,8 @@ namespace Emperia.Items.Weapons.Mushor
     {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Shroomerang");
-			Tooltip.SetDefault("You can throw up to 5 at a time\nEnemies killed explode into spores");
+			// DisplayName.SetDefault("Shroomerang");
+			// Tooltip.SetDefault("You can throw up to 5 at a time\nEnemies killed explode into spores");
 		}
         public override void SetDefaults()
         {

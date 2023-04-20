@@ -11,8 +11,8 @@ namespace Emperia.Buffs
         int damag = 0;
         public override void SetStaticDefaults()
         {
-           DisplayName.SetDefault("Crushing Freeze");
-			Description.SetDefault("hhhh");         
+           // DisplayName.SetDefault("Crushing Freeze");
+			// Description.SetDefault("hhhh");         
             Main.debuff[Type] = true;   //Tells the game if this is a buf or not.
             Main.pvpBuff[Type] = true;  //Tells the game if pvp buff or not. 
             Main.buffNoSave[Type] = true;

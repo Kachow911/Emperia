@@ -12,7 +12,7 @@ namespace Emperia.Projectiles
     internal class HarpoonBladeProj : ModProjectile
 	{
 		public override void SetStaticDefaults() {
-			DisplayName.SetDefault("Harpoon");
+			// DisplayName.SetDefault("Harpoon");
 		}
 
 		public override void SetDefaults()
@@ -35,7 +35,7 @@ namespace Emperia.Projectiles
 		bool reeling;
 		int reelingTime;
 
-		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{
 			if (!latched) //
 			{

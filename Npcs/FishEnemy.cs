@@ -9,7 +9,7 @@ namespace Emperia.Npcs
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Torrential Spearer");
+			// DisplayName.SetDefault("Torrential Spearer");
 			Main.npcFrameCount[NPC.type] = Main.npcFrameCount[NPCID.Shark];
 		}
 

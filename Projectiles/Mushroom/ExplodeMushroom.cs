@@ -12,7 +12,7 @@ namespace Emperia.Projectiles.Mushroom
     {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Explosive Mushroom");
+			// DisplayName.SetDefault("Explosive Mushroom");
 		}
         public override void SetDefaults()
         {  //Projectile name

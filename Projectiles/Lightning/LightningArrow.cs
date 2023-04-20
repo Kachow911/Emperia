@@ -26,7 +26,7 @@ namespace Emperia.Projectiles.Lightning
 		
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Lightning Arrow");
+			// DisplayName.SetDefault("Lightning Arrow");
 		}
 		
 		
@@ -70,13 +70,13 @@ namespace Emperia.Projectiles.Lightning
 			
 		}
 		
-		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{
 			target.AddBuff(ModContent.BuffType<ElecHostile>(), 120);
 			Player player = Main.player[Projectile.owner];
 			MyPlayer modPlayer = player.GetModPlayer<MyPlayer>();
 			if (modPlayer.lightningSet)
-				modPlayer.lightningDamage += damage;
+				modPlayer.lightningDamage += damageDone;
 		}
 		
 		public override void AI()

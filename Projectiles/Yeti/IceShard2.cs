@@ -14,7 +14,7 @@ namespace Emperia.Projectiles.Yeti
         Color rgb = new Color(0, 0, 0);
         public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Energy-Filled Rock");
+			// DisplayName.SetDefault("Energy-Filled Rock");
 		}
         public override void SetDefaults()
         {  //Projectile name

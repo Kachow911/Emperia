@@ -14,7 +14,7 @@ namespace Emperia.Projectiles.Yeti
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Icicle");
+			// DisplayName.SetDefault("Icicle");
 		}
         public override void SetDefaults()
         {  //Projectile name

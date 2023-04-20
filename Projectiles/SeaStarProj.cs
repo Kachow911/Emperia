@@ -11,7 +11,7 @@ namespace Emperia.Projectiles
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Sea Star");
+			// DisplayName.SetDefault("Sea Star");
 
 		}
 		public override void SetDefaults()

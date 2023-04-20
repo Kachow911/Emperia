@@ -15,7 +15,7 @@ namespace Emperia.Projectiles.Lightning
 		Vector2 initialVel = Vector2.Zero;
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Lightning Bolt");
+			// DisplayName.SetDefault("Lightning Bolt");
 		}
         public override void SetDefaults()
         {  //Projectile name
@@ -33,13 +33,13 @@ namespace Emperia.Projectiles.Lightning
 			Projectile.alpha = 255;
         }
 	
-		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{
 			target.AddBuff(ModContent.BuffType<ElecHostile>(), 240);
 			Player player = Main.player[Projectile.owner];
 			MyPlayer modPlayer = player.GetModPlayer<MyPlayer>();
 			if (modPlayer.lightningSet)
-				modPlayer.lightningDamage += damage;
+				modPlayer.lightningDamage += damageDone;
 		}
 		public override void AI()           //Projectile make that the Projectile will face the corect way
         {             

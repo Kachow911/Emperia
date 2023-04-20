@@ -26,7 +26,7 @@ namespace Emperia.Npcs.GoblinArmy
 		private bool init = false;
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Goblin Sorceress");
+			// DisplayName.SetDefault("Goblin Sorceress");
 			Main.npcFrameCount[NPC.type] = 9;
 		}
         public override void SetDefaults()

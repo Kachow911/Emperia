@@ -15,7 +15,7 @@ namespace Emperia.Projectiles
 		private int decelerate = Main.rand.Next(16);
 
 		public override void SetStaticDefaults() {
-			DisplayName.SetDefault("Fate's Flames");
+			// DisplayName.SetDefault("Fate's Flames");
 		}
 
 		public override void SetDefaults() {
@@ -57,7 +57,7 @@ namespace Emperia.Projectiles
 			}
 		}
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
 			if (target.life <= 0 && !target.HasBuff(ModContent.BuffType<FatesDemise>()))
 			{

@@ -13,8 +13,8 @@ public class Shroomflask : ModItem
 {
 	public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Shroomy Flask");
-			Tooltip.SetDefault("Explodes into a potent cloud of mushroom gas on enemy hits\nSummons spores that rise from the ground on tile hits\nDirect hits will return a little mana");
+			// DisplayName.SetDefault("Shroomy Flask");
+			// Tooltip.SetDefault("Explodes into a potent cloud of mushroom gas on enemy hits\nSummons spores that rise from the ground on tile hits\nDirect hits will return a little mana");
 		}
 	public override void SetDefaults()
 	{

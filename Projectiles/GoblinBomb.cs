@@ -12,7 +12,7 @@ namespace Emperia.Projectiles
     {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Goblin Rocket");
+			// DisplayName.SetDefault("Goblin Rocket");
 		}
         public override void SetDefaults()
         {  //Projectile name

@@ -12,7 +12,7 @@ namespace Emperia.Projectiles.TrueDaysVerge
     {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Pink Day's Blade");
+			// DisplayName.SetDefault("Pink Day's Blade");
 		}
         public override void SetDefaults()
         {  //Projectile name
@@ -38,7 +38,7 @@ namespace Emperia.Projectiles.TrueDaysVerge
 				Main.dust[num250].velocity *= 0f;
 			}
         }
-		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
 			Vector2 placePosition = target.Center + new Vector2(Main.rand.Next(-100, 100), -400);
 			Vector2 direction = target.Center - placePosition;

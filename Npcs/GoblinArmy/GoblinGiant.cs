@@ -28,7 +28,7 @@ namespace Emperia.Npcs.GoblinArmy
 		private bool init = false;
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Goblin Giant");
+			// DisplayName.SetDefault("Goblin Giant");
 			Main.npcFrameCount[NPC.type] = 11;
 		}
         public override void SetDefaults()
@@ -69,7 +69,7 @@ namespace Emperia.Npcs.GoblinArmy
 			
 		}
 
-        public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
+        public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)/* tModPorter Note: bossLifeScale -> balance (bossAdjustment is different, see the docs for details) */
         {
             NPC.lifeMax = 2250;
             NPC.damage = 55;

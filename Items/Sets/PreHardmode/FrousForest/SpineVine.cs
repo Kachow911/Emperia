@@ -12,8 +12,8 @@ namespace Emperia.Items.Sets.PreHardmode.FrousForest
     {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Spine Vine");
-			Tooltip.SetDefault("Sticks in enemies and poisons them");
+			// DisplayName.SetDefault("Spine Vine");
+			// Tooltip.SetDefault("Sticks in enemies and poisons them");
 		}
 
 

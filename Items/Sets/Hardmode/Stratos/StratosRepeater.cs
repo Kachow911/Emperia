@@ -13,8 +13,8 @@ namespace Emperia.Items.Sets.Hardmode.Stratos
     {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Stratos Repeater");
-			Tooltip.SetDefault("Bullets fired using the gun inflict Crushing Freeze, no matter the type");
+			// DisplayName.SetDefault("Stratos Repeater");
+			// Tooltip.SetDefault("Bullets fired using the gun inflict Crushing Freeze, no matter the type");
 		}
         public override void SetDefaults()
         {

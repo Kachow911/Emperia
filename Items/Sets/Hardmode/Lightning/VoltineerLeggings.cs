@@ -14,8 +14,8 @@ public class VoltineerLeggings : ModItem
     
     public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Voltineer Leggings");
-			Tooltip.SetDefault("15% increased movement speed");
+			// DisplayName.SetDefault("Voltineer Leggings");
+			// Tooltip.SetDefault("15% increased movement speed");
 		}
     public override void SetDefaults()
     {

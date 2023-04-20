@@ -36,8 +36,8 @@ namespace Emperia.Items.Sets.PreHardmode.Granite
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Granite Spellbook");
-			Tooltip.SetDefault("Cycles between firing 3 different granite chunks, each one more powerful than the last");
+			// DisplayName.SetDefault("Granite Spellbook");
+			// Tooltip.SetDefault("Cycles between firing 3 different granite chunks, each one more powerful than the last");
 		}
 
 		public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockBack)

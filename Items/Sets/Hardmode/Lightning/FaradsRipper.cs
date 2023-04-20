@@ -15,8 +15,8 @@ namespace Emperia.Items.Sets.Hardmode.Lightning
     {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Farad's Ripper");
-			Tooltip.SetDefault("High chance of inflicting electrified\n10 defense penetration");
+			// DisplayName.SetDefault("Farad's Ripper");
+			// Tooltip.SetDefault("High chance of inflicting electrified\n10 defense penetration");
 		}
 
 
@@ -38,13 +38,13 @@ namespace Emperia.Items.Sets.Hardmode.Lightning
             Item.useTurn = true;
             Item.shoot = 2;
         }
-        public override void OnHitNPC(Player player, NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
         {
             if (Main.rand.Next(2) != 0)
             target.AddBuff(ModContent.BuffType<ElecHostile>(), 240);
             MyPlayer modPlayer = player.GetModPlayer<MyPlayer>();
             if (modPlayer.lightningSet)
-                modPlayer.lightningDamage += damage;
+                modPlayer.lightningDamage += damageDone;
                  
         }
         public override void MeleeEffects(Player player, Rectangle hitbox)
@@ -56,16 +56,9 @@ namespace Emperia.Items.Sets.Hardmode.Lightning
 
             }
         }
-        public override void ModifyHitNPC(Player player, NPC target, ref int damage, ref float knockBack, ref bool crit)
+        public override void ModifyHitNPC(Player player, NPC target, ref NPC.HitModifiers modifiers)
         {
-            if (target.defense >= 10)
-            {
-                damage += 5;
-            }
-            else
-            {
-                damage += target.defense / 2;
-            }
+            modifiers.ArmorPenetration += 5;
         }
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockBack)
         {

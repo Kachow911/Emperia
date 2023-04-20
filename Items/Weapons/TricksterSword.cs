@@ -16,8 +16,8 @@ namespace Emperia.Items.Weapons
     {
 		 public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Trickter's Blade");
-			Tooltip.SetDefault("Swings a random sword");
+			// DisplayName.SetDefault("Trickter's Blade");
+			// Tooltip.SetDefault("Swings a random sword");
 		}
         public override void SetDefaults()
         {

@@ -14,7 +14,7 @@ namespace Emperia.Projectiles.Summon
         int timer = 0;
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Depth Scrounger");
+			// DisplayName.SetDefault("Depth Scrounger");
 			Main.projFrames[base.Projectile.type] = 8;
 			ProjectileID.Sets.MinionSacrificable[base.Projectile.type] = true;
 			ProjectileID.Sets.CultistIsResistantTo[base.Projectile.type] = true;

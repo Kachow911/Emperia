@@ -14,8 +14,8 @@ namespace Emperia.Items.Sets.PreHardmode.Frostleaf
 		private int notchedArrows = 1;
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Foliage Burst");
-			Tooltip.SetDefault("Right Click to notch up to 4 arrows");
+			// DisplayName.SetDefault("Foliage Burst");
+			// Tooltip.SetDefault("Right Click to notch up to 4 arrows");
 		}
         public override void SetDefaults()
         {

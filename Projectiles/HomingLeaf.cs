@@ -12,7 +12,7 @@ namespace Emperia.Projectiles
     {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Razor Leaf");
+			// DisplayName.SetDefault("Razor Leaf");
 		}
         public override void SetDefaults()
         {  //Projectile name

@@ -13,8 +13,8 @@ namespace Emperia.Items
     {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Gel Pad");
-			Tooltip.SetDefault("Right Click while holding a gauntlet to attach\nWhile attached to an equipped gauntlet, sword strikes on knockback-immune foes bounce you slightly back");
+			// DisplayName.SetDefault("Gel Pad");
+			// Tooltip.SetDefault("Right Click while holding a gauntlet to attach\nWhile attached to an equipped gauntlet, sword strikes on knockback-immune foes bounce you slightly back");
 		}
         public override void SetDefaults()
         {

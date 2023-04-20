@@ -134,7 +134,7 @@ namespace Emperia
             }
             return true;
         }
-             public override void ModifyWorldGenTasks(List<GenPass> tasks, ref float totalWeight)
+             public override void ModifyWorldGenTasks(List<GenPass> tasks, ref double totalWeight)
              { 
                  int ShiniesIndex = tasks.FindIndex(genpass => genpass.Name.Equals("Final Cleanup"));
                  if (ShiniesIndex == -1)

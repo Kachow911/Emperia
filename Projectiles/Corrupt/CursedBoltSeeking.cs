@@ -13,7 +13,7 @@ namespace Emperia.Projectiles.Corrupt
 		private int explodeRadius = 0;
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Cursed Bolt");
+			// DisplayName.SetDefault("Cursed Bolt");
 		}
         public override void SetDefaults()
         {  //Projectile name

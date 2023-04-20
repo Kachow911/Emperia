@@ -13,7 +13,7 @@ namespace Emperia.Projectiles
     {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Cerith");
+			// DisplayName.SetDefault("Cerith");
 		}
         public override void SetDefaults()
         {

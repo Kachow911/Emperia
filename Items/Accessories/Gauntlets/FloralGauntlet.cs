@@ -13,8 +13,8 @@ namespace Emperia.Items.Accessories.Gauntlets
     {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Floral Gauntlet");
-			Tooltip.SetDefault("Attacks have a chance to lifesteal\nIncreased damage and max life");
+			// DisplayName.SetDefault("Floral Gauntlet");
+			// Tooltip.SetDefault("Attacks have a chance to lifesteal\nIncreased damage and max life");
 		}
         public override void SetDefaults()
         {

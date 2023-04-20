@@ -16,7 +16,7 @@ namespace Emperia.Items.Weapons.Mushor
     {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("The Shroomer");
+			// DisplayName.SetDefault("The Shroomer");
 		}
         public override void SetDefaults()
         {

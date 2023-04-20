@@ -16,8 +16,8 @@ namespace Emperia.Buffs
     {
         public override void SetStaticDefaults()
         {
-			DisplayName.SetDefault("Rouge Rage");
-			Description.SetDefault("10% increased critical hit damage");
+			// DisplayName.SetDefault("Rouge Rage");
+			// Description.SetDefault("10% increased critical hit damage");
             Main.buffNoSave[Type] = true;
             //Main.buffNoTimeDisplay[Type] = true;
         }

@@ -16,8 +16,8 @@ namespace Emperia.Buffs
     {
         public override void SetStaticDefaults()
         {
-			DisplayName.SetDefault("Supercharged!");
-			Description.SetDefault("20% increased movement speed and 10% increased damage");
+			// DisplayName.SetDefault("Supercharged!");
+			// Description.SetDefault("20% increased movement speed and 10% increased damage");
             Main.buffNoSave[Type] = true;
             //Main.buffNoTimeDisplay[Type] = true;
         }

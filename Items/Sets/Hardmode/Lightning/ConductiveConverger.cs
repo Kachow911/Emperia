@@ -15,7 +15,7 @@ namespace Emperia.Items.Sets.Hardmode.Lightning
 		public override void SetStaticDefaults()
 		{
 			//DisplayName.SetDefault("Granite Bow");
-			Tooltip.SetDefault("Replaces wooden arrows with lightning bolts\n33% chance not to consume ammo");
+			// Tooltip.SetDefault("Replaces wooden arrows with lightning bolts\n33% chance not to consume ammo");
 		}
         public override void SetDefaults()
         {

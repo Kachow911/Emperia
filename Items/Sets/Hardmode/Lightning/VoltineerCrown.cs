@@ -13,8 +13,8 @@ namespace Emperia.Items.Sets.Hardmode.Lightning {
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Voltineer Crown");
-            Tooltip.SetDefault("9% increased throwing damage");
+            // DisplayName.SetDefault("Voltineer Crown");
+            // Tooltip.SetDefault("9% increased throwing damage");
         }
         public override void SetDefaults()
         {

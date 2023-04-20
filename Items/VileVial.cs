@@ -10,8 +10,8 @@ namespace Emperia.Items
 	{
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Vile Vial");
-            Tooltip.SetDefault("Inflicts poison briefly before healing\n10 second duration");
+            // DisplayName.SetDefault("Vile Vial");
+            // Tooltip.SetDefault("Inflicts poison briefly before healing\n10 second duration");
             ItemID.Sets.DrinkParticleColors[Item.type] = new Color[2] { new Color(151, 105, 214), new Color(87, 40, 152) };
         }
         public override void SetDefaults()

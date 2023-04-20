@@ -11,7 +11,7 @@ namespace Emperia.Items.Weapons.Mushor
 		NPC NPC;
 
 		public override void SetStaticDefaults() {
-			Tooltip.SetDefault("hmmm test");
+			// Tooltip.SetDefault("hmmm test");
 		}
 		
 		public override void SetDefaults() {

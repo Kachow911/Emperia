@@ -13,8 +13,8 @@ namespace Emperia.Items.Accessories.Gauntlets
     {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Gauntlet of Frost");
-			Tooltip.SetDefault("Chance to freeze enemies on hit\nEnemies shatter on death, sending 2-3 frost bolts in random directions");
+			// DisplayName.SetDefault("Gauntlet of Frost");
+			// Tooltip.SetDefault("Chance to freeze enemies on hit\nEnemies shatter on death, sending 2-3 frost bolts in random directions");
 		}
         public override void SetDefaults()
         {

@@ -12,7 +12,7 @@ namespace Emperia.Projectiles.Granite
 		NPC hitNPC;
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Granite Rock");
+			// DisplayName.SetDefault("Granite Rock");
 		}
         public override void SetDefaults()
         {  //Projectile name
@@ -43,17 +43,17 @@ namespace Emperia.Projectiles.Granite
 				Main.dust[num622].noGravity = true;
 			}
         }
-		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
 			hitNPC = target;
 		}
 		
-		public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection) {
+		public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers) {
 			Player player = Main.player[Projectile.owner];
 			MyPlayer modPlayer = player.GetModPlayer<MyPlayer>();
 			if (modPlayer.graniteSet && modPlayer.graniteTime >= 900)
             {
-				damage = (int) ((float) damage * 1.5f);
+				modifiers.SourceDamage *= 0.5f;
 			}
 		}
 		public override void Kill(int timeLeft)
@@ -65,7 +65,7 @@ namespace Emperia.Projectiles.Granite
 				for (int i = 0; i < Main.npc.Length; i++)
             	{
                 	if (Projectile.Distance(Main.npc[i].Center) < 100 && Main.npc[i] != hitNPC && !Main.npc[i].townNPC)
-                    	Main.npc[i].StrikeNPC(Projectile.damage + Projectile.damage / 2, 0f, 0, false, false, false);
+                    	Main.npc[i].SimpleStrikeNPC((int)(Projectile.damage * 1.5f), 0);
             	}
 				for (int i = 0; i < 45; ++i)
 				{
@@ -81,7 +81,7 @@ namespace Emperia.Projectiles.Granite
 				for (int i = 0; i < Main.npc.Length; i++)
             	{
 					if (Projectile.Distance(Main.npc[i].Center) < 70 && Main.npc[i] != hitNPC && !Main.npc[i].townNPC)
-                    	Main.npc[i].StrikeNPC(Projectile.damage, 0f, 0, false, false, false);
+                    	Main.npc[i].SimpleStrikeNPC(Projectile.damage, 0);
 				}	
 				for (int i = 0; i < 30; ++i)
 				{

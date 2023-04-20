@@ -23,7 +23,7 @@ namespace Emperia.Projectiles
 		
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("SandstormDagger");
+			// DisplayName.SetDefault("SandstormDagger");
 		}
 		
 		public override void Kill(int timeLeft)

@@ -15,8 +15,8 @@ namespace Emperia.Items
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Nocturnal Flame");
-			Tooltip.SetDefault("Engulfs the holder in flames if held while unbound\nRight Click while holding a Night's Edge to bind the flame to the blade, empowering it");
+			// DisplayName.SetDefault("Nocturnal Flame");
+			// Tooltip.SetDefault("Engulfs the holder in flames if held while unbound\nRight Click while holding a Night's Edge to bind the flame to the blade, empowering it");
 			Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(6, 5));
 			ItemID.Sets.ItemIconPulse[Item.type] = true;
 			ItemID.Sets.ItemNoGravity[Item.type] = true;

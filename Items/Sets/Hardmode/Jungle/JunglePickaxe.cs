@@ -11,7 +11,7 @@ public class JunglePickaxe : ModItem
 {
 	public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Primal Pickaxe");
+			// DisplayName.SetDefault("Primal Pickaxe");
 		}
     public override void SetDefaults()
     {

@@ -24,7 +24,7 @@ namespace Emperia.Projectiles.Skeleton
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("BoneWhip");
+            // DisplayName.SetDefault("BoneWhip");
         }
         public override void AI()
         {

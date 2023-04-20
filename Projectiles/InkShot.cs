@@ -13,7 +13,7 @@ namespace Emperia.Projectiles
 		private int explodeRadius = 100;
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Ink Blast");
+			// DisplayName.SetDefault("Ink Blast");
 		}
         public override void SetDefaults()
         {  //Projectile name

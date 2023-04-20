@@ -14,8 +14,8 @@ public class RotfireChestplate : ModItem
     
 	public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Rotfire Chestplate");
-			Tooltip.SetDefault("7% increased throwing damage");
+			// DisplayName.SetDefault("Rotfire Chestplate");
+			// Tooltip.SetDefault("7% increased throwing damage");
 		}
     public override void SetDefaults()
     {

@@ -14,7 +14,7 @@ namespace Emperia.Projectiles.Yeti
         private Point tileCoordPos { get { return new Point((int)(Projectile.position.X / 16), (int)(Projectile.position.Y / 16)); } }
         public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Ball");
+			// DisplayName.SetDefault("Ball");
 		}
         public override void SetDefaults()
         {
@@ -88,7 +88,7 @@ namespace Emperia.Projectiles.Yeti
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Ice Spike");
+			// DisplayName.SetDefault("Ice Spike");
 		}
         public override void SetDefaults()
         {  //Projectile name
@@ -111,7 +111,7 @@ namespace Emperia.Projectiles.Yeti
             Projectile.scale = 1.1f;
             Projectile.velocity *= .90f;
         }
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             if (Main.rand.Next(3) == 0)
             {

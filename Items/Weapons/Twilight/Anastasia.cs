@@ -14,8 +14,8 @@ namespace Emperia.Items.Weapons.Twilight
 		int counter = 0;
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Anastasia");
-			Tooltip.SetDefault("");
+			// DisplayName.SetDefault("Anastasia");
+			// Tooltip.SetDefault("");
 		}
         public override void SetDefaults()
         {

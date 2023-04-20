@@ -10,7 +10,7 @@ namespace Emperia.Projectiles
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Indigo Explosion");
+			// DisplayName.SetDefault("Indigo Explosion");
 		}
 		public override void SetDefaults()
 		{

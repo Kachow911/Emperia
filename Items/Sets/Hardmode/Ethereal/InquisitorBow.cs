@@ -14,7 +14,7 @@ namespace Emperia.Items.Sets.Hardmode.Ethereal
 		public override void SetStaticDefaults()
 		{
 			//DisplayName.SetDefault("Granite Bow");
-			Tooltip.SetDefault("Turns wooden arrows into ethereal bolts");
+			// Tooltip.SetDefault("Turns wooden arrows into ethereal bolts");
 		}
         public override void SetDefaults()
         {

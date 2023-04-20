@@ -14,7 +14,7 @@ namespace Emperia.Projectiles
 		float yOFF = 0;
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Stratos Portal");
+			// DisplayName.SetDefault("Stratos Portal");
 		}
         public override void SetDefaults()
         {  //Projectile name

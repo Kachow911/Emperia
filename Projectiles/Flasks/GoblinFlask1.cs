@@ -11,7 +11,7 @@ namespace Emperia.Projectiles.Flasks
     {
     	public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Alchemical Flask");
+			// DisplayName.SetDefault("Alchemical Flask");
 		}
         public override void SetDefaults()
         {

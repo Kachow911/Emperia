@@ -40,7 +40,7 @@ namespace Emperia.Items.Sets.Hardmode.Crimson
 		public override void SetStaticDefaults()
 		{
 		  //DisplayName.SetDefault("Tesla Coil Rod");
-		  Tooltip.SetDefault("Fires splitting Ichor bubbles");
+		  // Tooltip.SetDefault("Fires splitting Ichor bubbles");
 		}
 
 		public override void AddRecipes()

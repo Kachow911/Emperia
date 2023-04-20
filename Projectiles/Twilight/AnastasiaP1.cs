@@ -18,7 +18,7 @@ namespace Emperia.Projectiles.Twilight
 		int timer = 0;
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Twilight Spine");
+			// DisplayName.SetDefault("Twilight Spine");
 		}
         public override void SetDefaults()
         {

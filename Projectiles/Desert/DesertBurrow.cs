@@ -18,7 +18,7 @@ namespace Emperia.Projectiles.Desert
         private Point tileCoordPos { get { return new Point((int)(Projectile.position.X / 16), (int)(Projectile.position.Y / 16)); } }
         public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Desert Burrow");
+			// DisplayName.SetDefault("Desert Burrow");
 		}
         public override void SetDefaults()
         {
@@ -95,7 +95,7 @@ namespace Emperia.Projectiles.Desert
 				Projectile.frame = (Projectile.frame + 1) % 5;
 			}
         }
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             
             Player player = Main.player[Projectile.owner];

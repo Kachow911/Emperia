@@ -13,7 +13,7 @@ namespace Emperia.Projectiles
 		private int explodeRadius = 32;
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Ghastly Bolt");
+			// DisplayName.SetDefault("Ghastly Bolt");
 		}
         public override void SetDefaults()
         {  //Projectile name

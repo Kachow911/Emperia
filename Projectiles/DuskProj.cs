@@ -13,7 +13,7 @@ namespace Emperia.Projectiles
     {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Dusk Blade");
+			// DisplayName.SetDefault("Dusk Blade");
 		}
         public override void SetDefaults()
         {  //Projectile name
@@ -61,7 +61,7 @@ namespace Emperia.Projectiles
 				Projectile.NewProjectile(Projectile.InheritSource(Projectile), Projectile.Center.X, Projectile.Center.Y, 0f, 0f, ModContent.ProjectileType<DuskExplosion>(), Projectile.damage / 2, 5f, Projectile.owner);
             }
 		}
-		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
 			 target.AddBuff(ModContent.BuffType<IndigoInfirmary>(), 240);
 

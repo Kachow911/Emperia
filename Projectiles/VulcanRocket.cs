@@ -14,7 +14,7 @@ namespace Emperia.Projectiles
 		private int timer = 0;
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Vulcan Rocket");
+			// DisplayName.SetDefault("Vulcan Rocket");
 		}
         public override void SetDefaults()
         {  //Projectile name
@@ -72,7 +72,7 @@ namespace Emperia.Projectiles
 			for (int i = 0; i < Main.npc.Length; i++)
             {
 				if (Projectile.Distance(Main.npc[i].Center) < 32)
-                    Main.npc[i].StrikeNPC(Projectile.damage, 0f, 0, false, false, false);
+                    Main.npc[i].SimpleStrikeNPC(Projectile.damage, 0);
 			}
         	 for (int i = 0; i < 360; i += 36)
 				{

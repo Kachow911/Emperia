@@ -13,8 +13,8 @@ namespace Emperia.Items.Accessories
     {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Breaking Point");
-			Tooltip.SetDefault("All weapons set enemies aflame\nImmunity to ice-based debuffs\nYou move faster while under 50% hp");
+			// DisplayName.SetDefault("Breaking Point");
+			// Tooltip.SetDefault("All weapons set enemies aflame\nImmunity to ice-based debuffs\nYou move faster while under 50% hp");
 		}
         public override void SetDefaults()
         {

@@ -14,8 +14,8 @@ public class AquaticLegs : ModItem
 {
     public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Torrential Greaves");
-			Tooltip.SetDefault("6% increased movement speed and 3% increased endurance");
+			// DisplayName.SetDefault("Torrential Greaves");
+			// Tooltip.SetDefault("6% increased movement speed and 3% increased endurance");
 		}
     public override void SetDefaults()
     {

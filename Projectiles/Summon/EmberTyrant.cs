@@ -17,7 +17,7 @@ namespace Emperia.Projectiles.Summon
         int timeFromLastD = 0;
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Ember Tyrant");
+            // DisplayName.SetDefault("Ember Tyrant");
             Main.projFrames[base.Projectile.type] = 1;
             ProjectileID.Sets.MinionSacrificable[base.Projectile.type] = true;
             ProjectileID.Sets.CultistIsResistantTo[base.Projectile.type] = true;
@@ -128,7 +128,7 @@ namespace Emperia.Projectiles.Summon
 
             }
         }
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             if (move != 0)
             {

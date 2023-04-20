@@ -13,7 +13,7 @@ namespace Emperia.Items.Sets.PreHardmode.Scoria
     {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Scoria Hammer");
+			// DisplayName.SetDefault("Scoria Hammer");
 		}
 
 

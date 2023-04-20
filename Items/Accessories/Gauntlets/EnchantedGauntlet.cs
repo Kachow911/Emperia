@@ -13,8 +13,8 @@ namespace Emperia.Items.Accessories.Gauntlets
     {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Enchanted Gauntlet");
-			Tooltip.SetDefault("Sword damage increased by up to 12% at close range, 25% on large foes\nSword strikes may summon an enchanted blade to slash nearby enemies\nAllows you to swing swords while walking backwards");
+			// DisplayName.SetDefault("Enchanted Gauntlet");
+			// Tooltip.SetDefault("Sword damage increased by up to 12% at close range, 25% on large foes\nSword strikes may summon an enchanted blade to slash nearby enemies\nAllows you to swing swords while walking backwards");
 		}
         public override void SetDefaults()
         {

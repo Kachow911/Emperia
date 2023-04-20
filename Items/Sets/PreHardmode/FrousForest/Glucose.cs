@@ -14,8 +14,8 @@ namespace Emperia.Items.Sets.PreHardmode.FrousForest   //where is located
 		private int canHit = 0;
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Glucose");
-			Tooltip.SetDefault("Hitting an enemy with the blade will cause a ring of leaves to jet into them");
+			// DisplayName.SetDefault("Glucose");
+			// Tooltip.SetDefault("Hitting an enemy with the blade will cause a ring of leaves to jet into them");
 		}
         public override void SetDefaults()
         {
@@ -39,7 +39,7 @@ namespace Emperia.Items.Sets.PreHardmode.FrousForest   //where is located
 			
 			return true;
 		}
-		public override void OnHitNPC(Player player, NPC target, int damage, float knockback, bool crit)
+		public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
 		{
 		    for (int i = 0; i < 8; i++)
 			{

@@ -8,8 +8,8 @@ namespace Emperia.Buffs
     {
         public override void SetStaticDefaults()
         {
-			DisplayName.SetDefault("Mana Overdose");
-			Description.SetDefault("Cannot consume any more mana restoring items");
+			// DisplayName.SetDefault("Mana Overdose");
+			// Description.SetDefault("Cannot consume any more mana restoring items");
             Main.buffNoSave[Type] = true;
             Main.debuff[Type] = true;
             BuffID.Sets.NurseCannotRemoveDebuff[Type] = true;

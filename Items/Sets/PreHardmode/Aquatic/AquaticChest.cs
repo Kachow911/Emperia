@@ -14,8 +14,8 @@ public class AquaticChest : ModItem
     
 	public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Torrential Chestpiece");
-			Tooltip.SetDefault("4% increased endurance and damage");
+			// DisplayName.SetDefault("Torrential Chestpiece");
+			// Tooltip.SetDefault("4% increased endurance and damage");
 		}
     public override void SetDefaults()
     {

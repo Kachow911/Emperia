@@ -9,7 +9,7 @@ namespace Emperia.Items
 	{
         public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Debug Sheet");
+			// DisplayName.SetDefault("Debug Sheet");
 		}
 		public override void SetDefaults()
 		{

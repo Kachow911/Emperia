@@ -13,7 +13,7 @@ namespace Emperia.Items.Weapons
 			ItemID.Sets.Yoyo[Item.type] = true;
 			ItemID.Sets.GamepadExtraRange[Item.type] = 18;
 			ItemID.Sets.GamepadSmartQuickReach[Item.type] = true;
-			DisplayName.SetDefault("Joyuse");
+			// DisplayName.SetDefault("Joyuse");
 		}
 
 		public override void SetDefaults()

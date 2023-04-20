@@ -13,8 +13,8 @@ namespace Emperia.Items.Sets.PreHardmode.Seashell
     {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Lexiconch");
-			Tooltip.SetDefault("Fires a powerful magic cerith, but only one can be airborne at a time");
+			// DisplayName.SetDefault("Lexiconch");
+			// Tooltip.SetDefault("Fires a powerful magic cerith, but only one can be airborne at a time");
 		}
         public override void SetDefaults()
         {

@@ -5,6 +5,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Emperia.Buffs;
+using static Terraria.NPC;
 
 namespace Emperia.Projectiles
 {
@@ -15,7 +16,7 @@ namespace Emperia.Projectiles
 		int hitTimer = 10;
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Vermillion Blade");
+			// DisplayName.SetDefault("Vermillion Blade");
 		}
         public override void SetDefaults()
         {  //Projectile name
@@ -58,20 +59,20 @@ namespace Emperia.Projectiles
 				hitTimer--;
 				if (hitTimer <= 0)
 				{
-					if (Main.rand.Next(5) == 0)
+					HitInfo hit = new()
 					{
-						Main.npc[NpcToHit].StrikeNPC(Projectile.damage + Main.rand.Next(-5, 5), 0f, 0, true, false, false);
-					}
-					else
-					{
-						Main.npc[NpcToHit].StrikeNPC(Projectile.damage + Main.rand.Next(-5, 5), 0f, 0, false, false, false);
-					}
-				hitAgain = false;
-				hitTimer = 10;
+						DamageType = DamageClass.Melee,
+						SourceDamage = Projectile.damage,
+						Crit = Main.rand.NextBool(5),
+					};
+					Main.npc[NpcToHit].StrikeNPC(hit);
+					NetMessage.SendStrikeNPC(Main.npc[NpcToHit], hit);
+					hitAgain = false;
+					hitTimer = 10;
 				}
 			}
         }
-		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
 			 target.AddBuff(ModContent.BuffType<VermillionVenom>(), 600);
 			 hitAgain = true;

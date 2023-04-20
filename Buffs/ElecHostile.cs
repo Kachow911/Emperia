@@ -8,7 +8,7 @@ namespace Emperia.Buffs
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Electrified");
+            // DisplayName.SetDefault("Electrified");
             Main.buffNoTimeDisplay[Type] = false;
         }
 

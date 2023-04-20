@@ -13,8 +13,8 @@ namespace Emperia.Items.Accessories.Gauntlets
     {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Gauntlet of Ferocity");
-			Tooltip.SetDefault("Attacks have a chance to deal double damage\nEnemies take Double Knockback\nWhen you strike an enemy, you have a chance to momentarily gain increased Damage, Speed and Defense\nIncreased Max Mana.");
+			// DisplayName.SetDefault("Gauntlet of Ferocity");
+			// Tooltip.SetDefault("Attacks have a chance to deal double damage\nEnemies take Double Knockback\nWhen you strike an enemy, you have a chance to momentarily gain increased Damage, Speed and Defense\nIncreased Max Mana.");
 		}
         public override void SetDefaults()
         {

@@ -15,8 +15,8 @@ namespace Emperia.Items.Weapons.Yeti
 		private int reloadSound = 0;
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Icicle Cannon");
-			Tooltip.SetDefault("Right Click to reload the gun by freezing the water in the air\n'There is no water in the air!'");
+			// DisplayName.SetDefault("Icicle Cannon");
+			// Tooltip.SetDefault("Right Click to reload the gun by freezing the water in the air\n'There is no water in the air!'");
 		}
         public override void SetDefaults()
         {

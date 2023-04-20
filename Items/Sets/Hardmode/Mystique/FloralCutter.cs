@@ -13,8 +13,8 @@ namespace Emperia.Items.Sets.Hardmode.Mystique   //where is located
     {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Floral Cutter");
-			Tooltip.SetDefault("Enemies Killed by the sword explode into homing leaves");
+			// DisplayName.SetDefault("Floral Cutter");
+			// Tooltip.SetDefault("Enemies Killed by the sword explode into homing leaves");
 		}
         public override void SetDefaults()
         {
@@ -35,7 +35,7 @@ namespace Emperia.Items.Sets.Hardmode.Mystique   //where is located
             Item.autoReuse = true;   //if it's capable of autoswing.
             Item.useTurn = true;            
         }
-		public override void OnHitNPC(Player player, NPC target, int damage, float knockback, bool crit)
+		public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
 		{
 			if (target.life <= 0)
 			{
@@ -50,7 +50,7 @@ namespace Emperia.Items.Sets.Hardmode.Mystique   //where is located
 				{
 				
 					Vector2 perturbedSpeed = new Vector2(0, 3).RotatedBy(MathHelper.ToRadians(90 + 30 * i));
-					Projectile.NewProjectile(player.GetSource_ItemUse(Item), target.Center.X, target.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, ModContent.ProjectileType<HomingLeaf>(), damage / 3, 1, Main.myPlayer, 0, 0);
+					Projectile.NewProjectile(player.GetSource_ItemUse(Item), target.Center.X, target.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, ModContent.ProjectileType<HomingLeaf>(), hit.SourceDamage / 3, 1, Main.myPlayer, 0, 0);
 				
 				}
 			}

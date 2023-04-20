@@ -14,8 +14,8 @@ public class DuneKingMantle : ModItem
    
 	public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Dune King's Plating");
-			Tooltip.SetDefault("4% increased damage");
+			// DisplayName.SetDefault("Dune King's Plating");
+			// Tooltip.SetDefault("4% increased damage");
 		}
     public override void SetDefaults()
     {

@@ -11,8 +11,8 @@ namespace Emperia.Items.Weapons.GoblinArmy
     {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Shadowburst");
-			Tooltip.SetDefault("Releases a burst of damaging shadow blasts");
+			// DisplayName.SetDefault("Shadowburst");
+			// Tooltip.SetDefault("Releases a burst of damaging shadow blasts");
 		}
 
 

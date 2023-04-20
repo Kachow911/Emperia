@@ -12,7 +12,7 @@ namespace Emperia.Projectiles.Yeti
     {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Ice Crystal");
+			// DisplayName.SetDefault("Ice Crystal");
 		}
         public override void SetDefaults()
         {
@@ -38,7 +38,7 @@ namespace Emperia.Projectiles.Yeti
 			Projectile.velocity.Y *= 0.99f;
 			Projectile.rotation += .05f;
 		}
-		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
 			Color rgb = new Color(135,206,250);
 			int index2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 68, (float) Projectile.velocity.X, (float) Projectile.velocity.Y, 0, rgb, 0.9f);

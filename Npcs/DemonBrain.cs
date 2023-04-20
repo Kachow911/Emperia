@@ -18,7 +18,7 @@ namespace Emperia.Npcs
         float HomeY = 35f;
         public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Demon Brain");
+			// DisplayName.SetDefault("Demon Brain");
 			Main.npcFrameCount[NPC.type] = 1;
 		}
         public override void SetDefaults()
@@ -83,11 +83,10 @@ namespace Emperia.Npcs
             }
 
         }
-        public override void HitEffect(int hitDirection, double damage)
+        public override void HitEffect(NPC.HitInfo hit)
         {
             NPC.velocity.X = 0;
             NPC.velocity.Y = 0;
-            hit = true;
         }
     }
     

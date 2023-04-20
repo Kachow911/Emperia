@@ -14,7 +14,7 @@ namespace Emperia.Projectiles.Yeti
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Ice Shard");
+			// DisplayName.SetDefault("Ice Shard");
 		}
         public override void SetDefaults()
         {
@@ -36,7 +36,7 @@ namespace Emperia.Projectiles.Yeti
             Projectile.scale -= 0.03f;
             Projectile.rotation = Main.rand.Next(7);
         }
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             if (Main.rand.Next(2) == 0)
             {

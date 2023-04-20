@@ -35,8 +35,8 @@ namespace Emperia.Items.Sets.PreHardmode.Aquatic
 
     public override void SetStaticDefaults()
     {
-      DisplayName.SetDefault("Downpour");
-	  Tooltip.SetDefault("Rains ocean water onto the cursor");
+      // DisplayName.SetDefault("Downpour");
+	  // Tooltip.SetDefault("Rains ocean water onto the cursor");
     }
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockBack)
 	{

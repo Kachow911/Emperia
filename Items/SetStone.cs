@@ -11,8 +11,8 @@ namespace Emperia.Items
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Set's Stone");
-			Tooltip.SetDefault("Brings forth a sandstorm");
+			// DisplayName.SetDefault("Set's Stone");
+			// Tooltip.SetDefault("Brings forth a sandstorm");
 		}
 
 

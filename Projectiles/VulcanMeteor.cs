@@ -11,7 +11,7 @@ namespace Emperia.Projectiles
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Vulcan Meteor");
+			// DisplayName.SetDefault("Vulcan Meteor");
 		}
 
 		public override void SetDefaults()

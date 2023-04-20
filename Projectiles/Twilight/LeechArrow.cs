@@ -25,7 +25,7 @@ namespace Emperia.Projectiles.Twilight
 		
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Leech Arrow");
+			// DisplayName.SetDefault("Leech Arrow");
 		}
 		
 		
@@ -47,7 +47,7 @@ namespace Emperia.Projectiles.Twilight
 			}
 
 		}
-		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{		
 
 			Projectile.damage *= 2;

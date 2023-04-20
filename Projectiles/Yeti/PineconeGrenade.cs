@@ -12,7 +12,7 @@ namespace Emperia.Projectiles.Yeti
     {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Pinecone Grenade");
+			// DisplayName.SetDefault("Pinecone Grenade");
 		}
         public override void SetDefaults()
         {

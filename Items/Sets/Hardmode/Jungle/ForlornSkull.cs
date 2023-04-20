@@ -13,8 +13,8 @@ namespace Emperia.Items.Sets.Hardmode.Jungle
     {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Forlorn Skull");
-			Tooltip.SetDefault("10% increased damage and critical strike chance while in the jungle\nIf you are not in the jungle, you lose 5 defense\n You move slower while in the jungle");
+			// DisplayName.SetDefault("Forlorn Skull");
+			// Tooltip.SetDefault("10% increased damage and critical strike chance while in the jungle\nIf you are not in the jungle, you lose 5 defense\n You move slower while in the jungle");
 		}
         public override void SetDefaults()
         {

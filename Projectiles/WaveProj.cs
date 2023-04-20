@@ -14,7 +14,7 @@ namespace Emperia.Projectiles
         int timer = 0;
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Wave");
+			// DisplayName.SetDefault("Wave");
 		}
         public override void SetDefaults()
         {  //Projectile name

@@ -19,7 +19,7 @@ namespace Emperia.Npcs.Twilight
 		private float playerTarget = 0;
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Polyp Eye");
+			// DisplayName.SetDefault("Polyp Eye");
 			Main.npcFrameCount[NPC.type] = 7;
 		}
 
@@ -124,7 +124,7 @@ namespace Emperia.Npcs.Twilight
 			}
 		}
 		
-		public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
+		public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)/* tModPorter Note: bossLifeScale -> balance (bossAdjustment is different, see the docs for details) */
 		{
 			NPC.lifeMax = Convert.ToInt32(NPC.lifeMax * 1.4);
 			NPC.damage = Convert.ToInt32(NPC.damage * 1.4);

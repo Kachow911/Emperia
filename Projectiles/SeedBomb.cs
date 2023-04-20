@@ -13,7 +13,7 @@ namespace Emperia.Projectiles
 		private int explodeRadius = 30;
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("SeedBomb");
+			// DisplayName.SetDefault("SeedBomb");
 		}
         public override void SetDefaults()
         {  //Projectile name
@@ -51,7 +51,7 @@ namespace Emperia.Projectiles
 			for (int i = 0; i < Main.npc.Length; i++)
             {
                 if (Projectile.Distance(Main.npc[i].Center) < explodeRadius)
-                     Main.npc[i].StrikeNPC(Projectile.damage, 0f, 0, false, false, false);
+                     Main.npc[i].SimpleStrikeNPC(Projectile.damage, 0);
             }
 			for (int i = 0; i < 360; i += 10)
 				{

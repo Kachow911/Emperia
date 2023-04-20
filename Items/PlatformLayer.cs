@@ -14,8 +14,8 @@ public class PlatformLayer : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Platform-O-Matic");
-			Tooltip.SetDefault("Places platforms with increased speed and range\nCan automatically extend a row of platforms horizontally\nRight Click to switch to chopping mode");
+			// DisplayName.SetDefault("Platform-O-Matic");
+			// Tooltip.SetDefault("Places platforms with increased speed and range\nCan automatically extend a row of platforms horizontally\nRight Click to switch to chopping mode");
 			Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(6, 6) { NotActuallyAnimating = true });
         }
         public override void SetDefaults()

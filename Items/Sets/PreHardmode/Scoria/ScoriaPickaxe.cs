@@ -11,7 +11,7 @@ public class ScoriaPickaxe : ModItem
 {
 	public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Scoria Pickaxe");
+			// DisplayName.SetDefault("Scoria Pickaxe");
 		}
     public override void SetDefaults()
     {

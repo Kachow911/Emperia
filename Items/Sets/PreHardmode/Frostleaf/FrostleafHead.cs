@@ -12,8 +12,8 @@ public class FrostleafHead : ModItem
 {
 	 public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Frostleaf Hood");
-			Tooltip.SetDefault("4% increased damage");
+			// DisplayName.SetDefault("Frostleaf Hood");
+			// Tooltip.SetDefault("4% increased damage");
 		}
     public override void SetDefaults()
     {

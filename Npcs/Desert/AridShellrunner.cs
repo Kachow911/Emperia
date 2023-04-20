@@ -15,7 +15,7 @@ namespace Emperia.Npcs.Desert
     
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Arid Shellrunner");
+			// DisplayName.SetDefault("Arid Shellrunner");
 			Main.npcFrameCount[NPC.type] = 5;
 		}
         public override void SetDefaults()
@@ -47,7 +47,7 @@ namespace Emperia.Npcs.Desert
 			NPC.frame.Y = frame * frameHeight; 
 		}
 
-        public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
+        public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)/* tModPorter Note: bossLifeScale -> balance (bossAdjustment is different, see the docs for details) */
         {
             NPC.lifeMax = 150;
             NPC.damage = 40;

@@ -12,8 +12,8 @@ public class LunarDestruction : ModItem
 {
 	public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Lunar Destruction");
-			Tooltip.SetDefault("Allows the player to dash into enemies, inflicting extreme\nDouble Tap a direction to dash");
+			// DisplayName.SetDefault("Lunar Destruction");
+			// Tooltip.SetDefault("Allows the player to dash into enemies, inflicting extreme\nDouble Tap a direction to dash");
 		}
 	public override void SetDefaults()
 	{

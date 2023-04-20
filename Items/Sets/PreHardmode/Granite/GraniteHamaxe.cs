@@ -14,8 +14,8 @@ public class GraniteHamaxe : ModItem
 {
 	public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Granite Hamaxe");
-            Tooltip.SetDefault("Enhanced destructive abilties when used while wearing granite armor");
+			// DisplayName.SetDefault("Granite Hamaxe");
+            // Tooltip.SetDefault("Enhanced destructive abilties when used while wearing granite armor");
         }
     public override void SetDefaults()
     {

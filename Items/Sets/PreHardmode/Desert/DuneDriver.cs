@@ -12,7 +12,7 @@ namespace Emperia.Items.Sets.PreHardmode.Desert
     {
 		public override void SetStaticDefaults()
 		{
-			Tooltip.SetDefault("Summons a pack of illusory worms to plague your foes");
+			// Tooltip.SetDefault("Summons a pack of illusory worms to plague your foes");
             Item.staff[Item.type] = true;
 		}
 

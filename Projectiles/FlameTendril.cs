@@ -12,7 +12,7 @@ namespace Emperia.Projectiles
     {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Flame Tendril");
+			// DisplayName.SetDefault("Flame Tendril");
 		}
         public override void SetDefaults()
         {  //Projectile name

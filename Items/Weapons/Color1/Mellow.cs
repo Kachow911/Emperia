@@ -15,8 +15,8 @@ namespace Emperia.Items.Weapons.Color1   //where is located
     {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Mellow");
-			Tooltip.SetDefault("Striking an enemy will increase movement and melee speed briefly, longer on bosses\nWhen empowered, fires a blade lowering enemy defense as your MPH rises");
+			// DisplayName.SetDefault("Mellow");
+			// Tooltip.SetDefault("Striking an enemy will increase movement and melee speed briefly, longer on bosses\nWhen empowered, fires a blade lowering enemy defense as your MPH rises");
 		}
         public override void SetDefaults()
         {
@@ -59,7 +59,7 @@ namespace Emperia.Items.Weapons.Color1   //where is located
 				int dust = Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, 75);
 			}
 		}
-		 public override void OnHitNPC(Player player, NPC target, int damage, float knockback, bool crit)
+		 public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
 		{
             if (target.boss)
 			    player.AddBuff(ModContent.BuffType<LimeLegerity>(), Main.rand.Next(420, 600) + 300);

@@ -10,8 +10,8 @@ namespace Emperia.Items.Sets.Hardmode.Chasm
 	public class ChasmHelm : ModItem
 	{
 		public override void SetStaticDefaults() {
-			DisplayName.SetDefault("Chasm Helm");
-			Tooltip.SetDefault("12% increased melee damage and critikal strike chance");
+			// DisplayName.SetDefault("Chasm Helm");
+			// Tooltip.SetDefault("12% increased melee damage and critikal strike chance");
 		}
     	public override void UpdateEquip(Player player)
     	{

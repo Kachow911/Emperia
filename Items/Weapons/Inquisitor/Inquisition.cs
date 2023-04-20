@@ -11,8 +11,8 @@ namespace Emperia.Items.Weapons.Inquisitor
     {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Inquisition");
-			Tooltip.SetDefault("Fires a spread of blades");
+			// DisplayName.SetDefault("Inquisition");
+			// Tooltip.SetDefault("Fires a spread of blades");
 		}
         int count;
 

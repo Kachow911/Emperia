@@ -23,7 +23,7 @@ namespace Emperia.Projectiles.Yeti
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Sharp Icicle");
+            // DisplayName.SetDefault("Sharp Icicle");
         }
 
         public override void Kill(int timeLeft)

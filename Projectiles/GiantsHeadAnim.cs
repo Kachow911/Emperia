@@ -14,7 +14,7 @@ namespace Emperia.Projectiles
 		float yOFF = 0;
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Giants Head");
+			// DisplayName.SetDefault("Giants Head");
 		}
         public override void SetDefaults()
         {  //Projectile name

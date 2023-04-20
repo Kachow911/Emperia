@@ -30,8 +30,8 @@ namespace Emperia.Items.Weapons
 
     public override void SetStaticDefaults()
     {
-      DisplayName.SetDefault("Alluring Blossom");
-	  Tooltip.SetDefault("Shoots forth a pulse of pink energy that pulls enemies towards you");
+      // DisplayName.SetDefault("Alluring Blossom");
+	  // Tooltip.SetDefault("Shoots forth a pulse of pink energy that pulls enemies towards you");
 	Item.staff[Item.type] = true;
     }
 	/*public override void AddRecipes()

@@ -14,7 +14,7 @@ namespace Emperia.Projectiles
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Magmous Buckshot");
+			// DisplayName.SetDefault("Magmous Buckshot");
 		}
         public override void SetDefaults()
         {  //Projectile name
@@ -41,7 +41,7 @@ namespace Emperia.Projectiles
 			Projectile.Kill();
 			return false;
 		}
-		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
 			target.AddBuff(BuffID.OnFire, 120);
 		}

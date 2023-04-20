@@ -16,8 +16,8 @@ namespace Emperia.Buffs
     {
         public override void SetStaticDefaults()
         {
-			DisplayName.SetDefault("Vermillion Valor");
-			Description.SetDefault("13% increased critical hit damage and defense increased by 4");
+			// DisplayName.SetDefault("Vermillion Valor");
+			// Description.SetDefault("13% increased critical hit damage and defense increased by 4");
             Main.buffNoSave[Type] = true;
             //Main.buffNoTimeDisplay[Type] = true;
         }

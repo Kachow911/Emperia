@@ -32,7 +32,7 @@ namespace Emperia.Projectiles.Lightning
 
 	    public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Zeus' Needle");
+			// DisplayName.SetDefault("Zeus' Needle");
            
 		}
 		public override void AI()
@@ -59,12 +59,12 @@ namespace Emperia.Projectiles.Lightning
 
 		}
 		
-		 public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+		 public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
 			Player player = Main.player[Projectile.owner];
 			MyPlayer modPlayer = player.GetModPlayer<MyPlayer>();
 			if (modPlayer.lightningSet)
-				modPlayer.lightningDamage += damage;
+				modPlayer.lightningDamage += damageDone;
 			int count = 0;
 			for (int npcFinder = 0; npcFinder < 200; ++npcFinder)
 			{
@@ -80,7 +80,7 @@ namespace Emperia.Projectiles.Lightning
 						float rotation = (float)Math.Atan2((double)num22, (double)num11);
 						if (count < 5)
 						{
-							Main.npc[npcFinder].StrikeNPC(Projectile.damage / 2, 0f, 0, false, false, false);
+							Main.npc[npcFinder].SimpleStrikeNPC(hit.SourceDamage / 2, 0);
 							count++;
 							bool flag = true;
 							while (flag)

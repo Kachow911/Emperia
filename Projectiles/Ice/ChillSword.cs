@@ -26,7 +26,7 @@ namespace Emperia.Projectiles.Ice
 		
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Chillsteel Blade");
+			// DisplayName.SetDefault("Chillsteel Blade");
 		}
 		
 		public override void Kill(int timeLeft)
@@ -39,7 +39,7 @@ namespace Emperia.Projectiles.Ice
 			}
 		}
 		
-		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{	
 			target.immune[Projectile.owner] = 2;
 		}

@@ -14,7 +14,7 @@ namespace Emperia.Projectiles
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Stray Block");
+			// DisplayName.SetDefault("Stray Block");
 		}
         public override void SetDefaults()
         {  //Projectile name

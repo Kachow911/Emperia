@@ -12,8 +12,8 @@ namespace Emperia.Items.Accessories.Gauntlets
     {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Grave Gauntlet");
-			Tooltip.SetDefault("Sword damage increased by up to 12% at close range, 25% on large foes\nSword strikes may summon a skull that halves the next contact damage taken\nAllows you to swing swords while walking backwards"); //allows you to briefly become invulnerable in close combat
+			// DisplayName.SetDefault("Grave Gauntlet");
+			// Tooltip.SetDefault("Sword damage increased by up to 12% at close range, 25% on large foes\nSword strikes may summon a skull that halves the next contact damage taken\nAllows you to swing swords while walking backwards"); //allows you to briefly become invulnerable in close combat
 		}
         public override void SetDefaults()
         {

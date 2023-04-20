@@ -12,7 +12,7 @@ namespace Emperia.Items
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Metallic Energy");
+			// DisplayName.SetDefault("Metallic Energy");
 			Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(6, 4));
 			ItemID.Sets.ItemIconPulse[Item.type] = true;
 			ItemID.Sets.ItemNoGravity[Item.type] = true;

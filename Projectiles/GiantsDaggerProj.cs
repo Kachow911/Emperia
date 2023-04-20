@@ -20,7 +20,7 @@ namespace Emperia.Projectiles
         float rot;
         public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Giant's Dagger");
+			// DisplayName.SetDefault("Giant's Dagger");
 		}
         public override void SetDefaults()
         {  //Projectile name
@@ -79,7 +79,7 @@ namespace Emperia.Projectiles
             }
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             if (!latched)
             {

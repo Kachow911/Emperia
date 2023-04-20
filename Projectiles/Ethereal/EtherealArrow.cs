@@ -25,11 +25,11 @@ namespace Emperia.Projectiles.Ethereal
 		
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Ethereal Arrow");
+			// DisplayName.SetDefault("Ethereal Arrow");
 		}
-		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-			target.GetGlobalNPC<MyNPC>().etherealDamages.Add(damage/2);
+			target.GetGlobalNPC<MyNPC>().etherealDamages.Add(damageDone/2);
             target.GetGlobalNPC<MyNPC>().etherealCounts.Add(2);
 			target.GetGlobalNPC<MyNPC>().etherealSource = Projectile;
 		}

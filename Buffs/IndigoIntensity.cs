@@ -16,8 +16,8 @@ namespace Emperia.Buffs
     {
         public override void SetStaticDefaults()
         {
-			DisplayName.SetDefault("Indigo Intensity");
-			Description.SetDefault("8% increased melee damage and life regeneration increased by 1.5");
+			// DisplayName.SetDefault("Indigo Intensity");
+			// Description.SetDefault("8% increased melee damage and life regeneration increased by 1.5");
             Main.buffNoSave[Type] = true;
             //Main.buffNoTimeDisplay[Type] = true;
         }

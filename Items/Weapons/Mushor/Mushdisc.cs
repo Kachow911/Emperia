@@ -16,8 +16,8 @@ namespace Emperia.Items.Weapons.Mushor
     {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Mush-Disc");
-			Tooltip.SetDefault("Shoots an explosive disc which splits into several shards");
+			// DisplayName.SetDefault("Mush-Disc");
+			// Tooltip.SetDefault("Shoots an explosive disc which splits into several shards");
 		}
         public override void SetDefaults()
         {

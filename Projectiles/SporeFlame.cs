@@ -12,7 +12,7 @@ namespace Emperia.Projectiles       //We need this to basically indicate the fol
     {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Flaming Goo");
+			// DisplayName.SetDefault("Flaming Goo");
 		}
         public override void SetDefaults()
         { //Name of the Projectile, only shows this if you get killed by it
@@ -51,7 +51,7 @@ namespace Emperia.Projectiles       //We need this to basically indicate the fol
             return;
         }
  
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
 			int buffTime = ((Projectile.timeLeft / 5) * 60);
             target.AddBuff(ModContent.BuffType<SporeStorm>(), buffTime);   //this make so when the Projectile/flame hit a NPC, gives it the buff  onfire , 80 = 3 seconds

@@ -13,8 +13,8 @@ namespace Emperia.Items.Accessories
     {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Ironclad Insignia");
-			Tooltip.SetDefault("Attacks may spawn metallic energy, increasing defenses when collected\nStrong attacks and sword strikes have a higher chance");
+			// DisplayName.SetDefault("Ironclad Insignia");
+			// Tooltip.SetDefault("Attacks may spawn metallic energy, increasing defenses when collected\nStrong attacks and sword strikes have a higher chance");
 		}
         public override void SetDefaults()
         {

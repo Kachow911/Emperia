@@ -12,7 +12,7 @@ namespace Emperia.Projectiles.Ethereal
     {
         public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("EtherealWave");
+			// DisplayName.SetDefault("EtherealWave");
 		}
         public override void SetDefaults()
         {  //Projectile name
@@ -39,9 +39,9 @@ namespace Emperia.Projectiles.Ethereal
 				Projectile.alpha += 10;
 			
         }
-		 public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+		 public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-			target.GetGlobalNPC<MyNPC>().etherealDamages.Add(damage/2);
+			target.GetGlobalNPC<MyNPC>().etherealDamages.Add(damageDone/2);
 			target.GetGlobalNPC<MyNPC>().etherealCounts.Add(2);
             target.GetGlobalNPC<MyNPC>().etherealSource = Projectile;
         }

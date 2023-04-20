@@ -7,7 +7,7 @@ namespace Emperia.Buffs
 	{
 		public override void SetStaticDefaults()
 		{
-            DisplayName.SetDefault("Bleeding");
+            // DisplayName.SetDefault("Bleeding");
             Main.buffNoTimeDisplay[Type] = false;
 		}
 

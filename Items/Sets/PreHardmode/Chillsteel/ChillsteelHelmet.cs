@@ -13,8 +13,8 @@ public class ChillsteelHelmet : ModItem
     
 	public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Chillsteel Helmet");
-			Tooltip.SetDefault("6% increased ranged damage");
+			// DisplayName.SetDefault("Chillsteel Helmet");
+			// Tooltip.SetDefault("6% increased ranged damage");
 		}
     public override void SetDefaults()
     {

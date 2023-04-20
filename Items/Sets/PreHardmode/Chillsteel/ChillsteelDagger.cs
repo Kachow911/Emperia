@@ -12,8 +12,8 @@ namespace Emperia.Items.Sets.PreHardmode.Chillsteel
     {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Chillsteel Dagger");
-			Tooltip.SetDefault("Pierces one enemy, inflicting 'Crushing Freeze'");
+			// DisplayName.SetDefault("Chillsteel Dagger");
+			// Tooltip.SetDefault("Pierces one enemy, inflicting 'Crushing Freeze'");
 		}
 
 

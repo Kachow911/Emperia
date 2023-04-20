@@ -13,8 +13,8 @@ namespace Emperia.Items.Accessories.Gauntlets
     {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Meteor Gauntlet");
-			Tooltip.SetDefault("Attacks inflict on fire and have a chance to rain small meteors on enemies");
+			// DisplayName.SetDefault("Meteor Gauntlet");
+			// Tooltip.SetDefault("Attacks inflict on fire and have a chance to rain small meteors on enemies");
 		}
         public override void SetDefaults()
         {

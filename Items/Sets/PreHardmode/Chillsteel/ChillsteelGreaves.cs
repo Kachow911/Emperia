@@ -14,8 +14,8 @@ public class ChillsteelGreaves : ModItem
     
     public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Chillsteel Greaves");
-			Tooltip.SetDefault("4% increased ranged damage");
+			// DisplayName.SetDefault("Chillsteel Greaves");
+			// Tooltip.SetDefault("4% increased ranged damage");
 		}
     public override void SetDefaults()
     {

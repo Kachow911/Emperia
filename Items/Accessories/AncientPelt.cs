@@ -12,8 +12,8 @@ public class AncientPelt : ModItem
 {
 	public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Ancient Pelt");
-			Tooltip.SetDefault("Nearby enemies become chilled and frostburned\nYou deal 5% more damage in the Ice Biome");
+			// DisplayName.SetDefault("Ancient Pelt");
+			// Tooltip.SetDefault("Nearby enemies become chilled and frostburned\nYou deal 5% more damage in the Ice Biome");
 		}
 	public override void SetDefaults()
 	{

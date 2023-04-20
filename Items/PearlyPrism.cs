@@ -8,7 +8,7 @@ namespace Emperia.Items
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Pearly Prism");
+			// DisplayName.SetDefault("Pearly Prism");
 		}
 		public override void SetDefaults()
 		{

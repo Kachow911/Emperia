@@ -13,8 +13,8 @@ namespace Emperia.Items.Sets.PreHardmode.Chillsteel
     {
 		 public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Chillsteel Broadsword");
-			Tooltip.SetDefault("Inflicts crushing freeze, which damages and weakens enemies, stacking up to 4");
+			// DisplayName.SetDefault("Chillsteel Broadsword");
+			// Tooltip.SetDefault("Inflicts crushing freeze, which damages and weakens enemies, stacking up to 4");
 		}
         public override void SetDefaults()
         {    //Sword name
@@ -33,7 +33,7 @@ namespace Emperia.Items.Sets.PreHardmode.Chillsteel
             Item.useTurn = true;             //player speed
 			Item.UseSound = SoundID.Item1; 			
         }
-		public override void OnHitNPC(Player player, NPC target, int damage, float knockback, bool crit)
+		public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.GetGlobalNPC<MyNPC>().chillStacks += 1;
             target.AddBuff(ModContent.BuffType<CrushingFreeze>(), 600);

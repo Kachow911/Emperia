@@ -9,8 +9,8 @@ namespace Emperia.Buffs
     {
         public override void SetStaticDefaults()
         {
-			DisplayName.SetDefault("Waxwing");
-			Description.SetDefault("25% increased wing speed, but 10% decreased flight time");
+			// DisplayName.SetDefault("Waxwing");
+			// Description.SetDefault("25% increased wing speed, but 10% decreased flight time");
             Main.buffNoSave[Type] = true;
         }
     }

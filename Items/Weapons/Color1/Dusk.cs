@@ -15,8 +15,8 @@ namespace Emperia.Items.Weapons.Color1
     {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Dusk");
-			Tooltip.SetDefault("Striking an enemy will increase melee damage and life regeneration briefly, longer on bosses\nWhen empowered, fires a Projectile inflicting a burn that worsens as your life rises");
+			// DisplayName.SetDefault("Dusk");
+			// Tooltip.SetDefault("Striking an enemy will increase melee damage and life regeneration briefly, longer on bosses\nWhen empowered, fires a Projectile inflicting a burn that worsens as your life rises");
 		}
         public override void SetDefaults()
         {
@@ -59,7 +59,7 @@ namespace Emperia.Items.Weapons.Color1
 				int dust = Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, 21);
 			}
 		}
-		 public override void OnHitNPC(Player player, NPC target, int damage, float knockback, bool crit)
+		 public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
 		{
             if (target.boss)
                 player.AddBuff(ModContent.BuffType<IndigoIntensity>(), Main.rand.Next(420, 600) + 300);

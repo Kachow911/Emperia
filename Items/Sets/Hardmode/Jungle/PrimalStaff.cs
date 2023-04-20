@@ -38,8 +38,8 @@ namespace Emperia.Items.Sets.Hardmode.Jungle
 
 		public override void SetStaticDefaults()
 		{
-		  DisplayName.SetDefault("Primal Staff");
-		  Tooltip.SetDefault("Fires a spread of slow spheres");
+		  // DisplayName.SetDefault("Primal Staff");
+		  // Tooltip.SetDefault("Fires a spread of slow spheres");
 		}
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockBack)
 		{

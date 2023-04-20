@@ -9,8 +9,8 @@ namespace Emperia.Items
 	public class BloodCandle : ModItem
 	{
 		public override void SetStaticDefaults() {
-			DisplayName.SetDefault("Blood Candle");
-			Tooltip.SetDefault("Greatly increases enemy spawn rates\nKindling the flame will exact a blood sacrifice that is said to earn fate's favor");
+			// DisplayName.SetDefault("Blood Candle");
+			// Tooltip.SetDefault("Greatly increases enemy spawn rates\nKindling the flame will exact a blood sacrifice that is said to earn fate's favor");
 		}
 
 		public override void SetDefaults() {

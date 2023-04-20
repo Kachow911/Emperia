@@ -10,8 +10,8 @@ namespace Emperia.Items.Sets.PreHardmode.Granite
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Granite Shield");
-			Tooltip.SetDefault("Increased invinicility frames duration\n'Made of real rock'");
+			// DisplayName.SetDefault("Granite Shield");
+			// Tooltip.SetDefault("Increased invinicility frames duration\n'Made of real rock'");
 		}
 		public override void SetDefaults()
 		{

@@ -12,8 +12,8 @@ namespace Emperia.Items.Sets.Hardmode.Jungle
     {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Primal Bow");
-			Tooltip.SetDefault("Shoots 4 arrows\nOnly consumes ammo on the first one");
+			// DisplayName.SetDefault("Primal Bow");
+			// Tooltip.SetDefault("Shoots 4 arrows\nOnly consumes ammo on the first one");
 		}
         public override void SetDefaults()
         {

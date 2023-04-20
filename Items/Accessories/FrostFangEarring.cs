@@ -12,8 +12,8 @@ public class FrostFangEarring : ModItem
 {
 	public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Frost Fang Earring");
-			Tooltip.SetDefault("When not moving, summons a frost viper to freeze nearby enemies in their tracks");
+			// DisplayName.SetDefault("Frost Fang Earring");
+			// Tooltip.SetDefault("When not moving, summons a frost viper to freeze nearby enemies in their tracks");
 		}
 	public override void SetDefaults()
 	{

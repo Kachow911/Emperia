@@ -36,7 +36,7 @@ namespace Emperia.Projectiles
 			if (timer % 5 == 0)
 				Projectile.NewProjectile(Projectile.InheritSource(Projectile), Projectile.position.X, Projectile.position.Y, perturbedSpeed.X, perturbedSpeed.Y, ModContent.ProjectileType<TrueHemisphereSecond>(), Projectile.damage, Projectile.knockBack, Projectile.owner, 0, 0);
 		}
-		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{
 			target.AddBuff(ModContent.BuffType<BurningNight>(), 320);
 		}

@@ -7,7 +7,7 @@ namespace Emperia.Items
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Arid Eye");
+			// DisplayName.SetDefault("Arid Eye");
 		}
 		public override void SetDefaults()
 		{

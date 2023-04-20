@@ -13,8 +13,8 @@ namespace Emperia.Items.Weapons.Color1
     {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Titian Talwar");
-			Tooltip.SetDefault("Striking an enemy will increase defense briefly, longer on bosses");
+			// DisplayName.SetDefault("Titian Talwar");
+			// Tooltip.SetDefault("Striking an enemy will increase defense briefly, longer on bosses");
 		}
         public override void SetDefaults()
         {
@@ -52,7 +52,7 @@ namespace Emperia.Items.Weapons.Color1
 				int dust = Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, 158);
 			}
 		}
-		 public override void OnHitNPC(Player player, NPC target, int damage, float knockback, bool crit)
+		 public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
 		{
             if(target.boss)
 			    player.AddBuff(ModContent.BuffType<TitianTyranny>(), Main.rand.Next(360, 600) + 300);

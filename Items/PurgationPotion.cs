@@ -12,8 +12,8 @@ namespace Emperia.Items
 	{
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Purgation Potion");
-            Tooltip.SetDefault("Shows the location of infectious blocks");
+            // DisplayName.SetDefault("Purgation Potion");
+            // Tooltip.SetDefault("Shows the location of infectious blocks");
             ItemID.Sets.DrinkParticleColors[Item.type] = new Color[2] { new Color(127, 98, 182), new Color(68, 51, 99) };
         }
 

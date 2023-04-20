@@ -10,7 +10,7 @@ namespace Emperia.Items.Sets.Hardmode.Jungle
 	{
 		public override void SetStaticDefaults()
 		{
-			Tooltip.SetDefault("Shoots multiple slightly inaccurate bullets \n10% chance to not consume ammo");
+			// Tooltip.SetDefault("Shoots multiple slightly inaccurate bullets \n10% chance to not consume ammo");
 		}
 
 		public override void SetDefaults()

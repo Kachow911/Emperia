@@ -13,15 +13,15 @@ namespace Emperia.Items.Weapons   //where is located
     {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Flameforged Blade");
-			Tooltip.SetDefault("Enemies Killed by the sword explode into balls of fire");
+			// DisplayName.SetDefault("Flameforged Blade");
+			// Tooltip.SetDefault("Enemies Killed by the sword explode into balls of fire");
 		}
         public override void SetDefaults()
         {
 			Item.CloneDefaults(ItemID.IceBlade);    //Sword name
             Item.shoot = 0;    
         }
-		public override void OnHitNPC(Player player, NPC target, int damage, float knockback, bool crit)
+		public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
 		{
 			if (target.life <= 0)
 			{
@@ -29,7 +29,7 @@ namespace Emperia.Items.Weapons   //where is located
 				{
 				
 					Vector2 perturbedSpeed = new Vector2(0, 3).RotatedBy(MathHelper.ToRadians(90 + 30 * i));
-					Projectile.NewProjectile(player.GetSource_ItemUse(Item), target.Center.X, target.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, ModContent.ProjectileType<FireBall>(), damage / 3, 1, Main.myPlayer, 0, 0);
+					Projectile.NewProjectile(player.GetSource_ItemUse(Item), target.Center.X, target.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, ModContent.ProjectileType<FireBall>(), hit.SourceDamage / 3, 1, Main.myPlayer, 0, 0);
 				
 				}
 			}

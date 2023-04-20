@@ -8,7 +8,7 @@ namespace Emperia.Items.Grotto
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Loam Block");
+			// DisplayName.SetDefault("Loam Block");
 		}
 		public override void SetDefaults()
 		{

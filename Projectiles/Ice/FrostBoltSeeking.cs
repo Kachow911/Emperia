@@ -13,7 +13,7 @@ namespace Emperia.Projectiles.Ice
 		private int explodeRadius = 0;
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Frost Bolt");
+			// DisplayName.SetDefault("Frost Bolt");
 		}
         public override void SetDefaults()
         {  //Projectile name
@@ -30,7 +30,7 @@ namespace Emperia.Projectiles.Ice
             Projectile.ignoreWater = true;
 			Projectile.alpha = 255;
         }
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
              target.AddBuff(BuffID.Ichor, 600);
         }

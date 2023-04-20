@@ -40,8 +40,8 @@ namespace Emperia.Items.Sets.PreHardmode.Scoria
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Scoria Crystal");
-            Tooltip.SetDefault("Shoots scorch blasts");
+            // DisplayName.SetDefault("Scoria Crystal");
+            // Tooltip.SetDefault("Shoots scorch blasts");
 		}
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockBack)
         {

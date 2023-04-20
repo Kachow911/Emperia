@@ -13,8 +13,8 @@ namespace Emperia.Items.Accessories.MageProg
     {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Sorceror's Crystal");
-			Tooltip.SetDefault("+20 max life and mana");
+			// DisplayName.SetDefault("Sorceror's Crystal");
+			// Tooltip.SetDefault("+20 max life and mana");
 		}
         public override void SetDefaults()
         {

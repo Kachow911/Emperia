@@ -25,7 +25,7 @@ namespace Emperia.Npcs.GoblinArmy
 		private bool init;
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Goblin Alchemist");
+			// DisplayName.SetDefault("Goblin Alchemist");
 			Main.npcFrameCount[NPC.type] = 11;
 		}
         public override void SetDefaults()
@@ -67,7 +67,7 @@ namespace Emperia.Npcs.GoblinArmy
 			}
 		}
 
-        public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
+        public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)/* tModPorter Note: bossLifeScale -> balance (bossAdjustment is different, see the docs for details) */
         {
             NPC.lifeMax = 1250;
             NPC.damage = 20;

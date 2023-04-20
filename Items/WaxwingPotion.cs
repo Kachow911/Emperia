@@ -12,8 +12,8 @@ namespace Emperia.Items
 	{
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Waxwing Potion");
-            Tooltip.SetDefault("Increases wing speed by 25%, but decreases flight time by 10%");
+            // DisplayName.SetDefault("Waxwing Potion");
+            // Tooltip.SetDefault("Increases wing speed by 25%, but decreases flight time by 10%");
             ItemID.Sets.DrinkParticleColors[Item.type] = new Color[2] { new Color(115, 222, 242), new Color(58, 114, 201) };
         }
 

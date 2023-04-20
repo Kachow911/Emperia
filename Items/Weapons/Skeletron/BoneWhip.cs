@@ -31,7 +31,7 @@ namespace Emperia.Items.Weapons.Skeletron
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Bone Whip");
+            // DisplayName.SetDefault("Bone Whip");
         }
 		
         public override bool CanUseItem(Player player)

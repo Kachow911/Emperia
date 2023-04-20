@@ -15,7 +15,7 @@ namespace Emperia.Items.Sets.PreHardmode.Chillsteel
 		public override void SetStaticDefaults()
 		{
 			//DisplayName.SetDefault("Granite Bow");
-			Tooltip.SetDefault("Shoots out ice crystals occasionally along with the arrow");
+			// Tooltip.SetDefault("Shoots out ice crystals occasionally along with the arrow");
 		}
         public override void SetDefaults()
         {

@@ -36,14 +36,14 @@ namespace Emperia
                 proj.type == ProjectileType<Needle>() || proj.type == ProjectileType<Items.StickyHandProj>() || proj.type == ProjectileType<Splinter>() || proj.type == ProjectileType<EnchantedBlade>()) forceReflect = false;
             }
         }
-        public override void ModifyHitNPC(Projectile Projectile, NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
+        public override void ModifyHitNPC(Projectile projectile, NPC target, ref NPC.HitModifiers modifiers)
         {
-            Player player = Main.player[Projectile.owner];
-            if (player.GetModPlayer<MyPlayer>().forestSetThrown && Projectile.CountsAsClass(DamageClass.Ranged))//Projectile.thrown
+            Player player = Main.player[projectile.owner];
+            if (player.GetModPlayer<MyPlayer>().forestSetThrown && projectile.CountsAsClass(DamageClass.Ranged))//Projectile.thrown
             {
                 if (Main.rand.Next(4) == 0)
                 {
-                    damage += target.defense;
+                    modifiers.ScalingArmorPenetration += 1f;
                     //CombatText.NewText(new Rectangle((int)target.position.X, (int)target.position.Y - 20, target.width, target.height), Color.White, "Defense Ignored!", false, false);
                 }
             }
@@ -53,26 +53,26 @@ namespace Emperia
         {
             if (Main.player[projectile.owner].HasBuff(ModContent.BuffType<Goliath>()) && projectile.aiStyle == 161 ) projectile.scale *= 1.2f;
         }
-        public override void OnHitNPC(Projectile Projectile, NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(Projectile projectile, NPC target, NPC.HitInfo hit, int damageDone)
         {
-            Player player = Main.player[Projectile.owner];
-            if (target.life <= 0 && Projectile.CountsAsClass(DamageClass.Ranged) && player.GetModPlayer<MyPlayer>().rotfireSet) //Projectile.thrown
+            Player player = Main.player[projectile.owner];
+            if (target.life <= 0 && projectile.CountsAsClass(DamageClass.Ranged) && player.GetModPlayer<MyPlayer>().rotfireSet) //Projectile.thrown
             {
                 for (int i = 0; i < 6; i++)
                 {
 
                     Vector2 perturbedSpeed = new Vector2(0, 4).RotatedBy(MathHelper.ToRadians(90 + 60 * i));
-                    Projectile.NewProjectile(Projectile.InheritSource(Projectile), target.Center.X, target.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, ModContent.ProjectileType<CursedBoltSeeking>(), 50, 1, Main.myPlayer, 0, 0);
+                    Projectile.NewProjectile(Projectile.InheritSource(projectile), target.Center.X, target.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, ModContent.ProjectileType<CursedBoltSeeking>(), 50, 1, Main.myPlayer, 0, 0);
 
                 }
             }
-            if (target.life <= 0 && Projectile.CountsAsClass(DamageClass.Magic) && player.GetModPlayer<MyPlayer>().bloodboilSet)
+            if (target.life <= 0 && projectile.CountsAsClass(DamageClass.Magic) && player.GetModPlayer<MyPlayer>().bloodboilSet)
             {
                 for (int i = 0; i < 4; i++)
                 {
 
                     Vector2 perturbedSpeed = new Vector2(0, 4).RotatedByRandom(MathHelper.ToRadians(360));
-                    Projectile.NewProjectile(Projectile.InheritSource(Projectile), target.Center.X, target.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, ModContent.ProjectileType<IchorBoltSeeking>(), 40, 1, Main.myPlayer, 0, 0);
+                    Projectile.NewProjectile(Projectile.InheritSource(projectile), target.Center.X, target.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, ModContent.ProjectileType<IchorBoltSeeking>(), 40, 1, Main.myPlayer, 0, 0);
 
                 }
             }
@@ -81,7 +81,7 @@ namespace Emperia
                 target.GetGlobalNPC<MyNPC>().chillStacks += 1;
                 target.AddBuff(ModContent.BuffType<CrushingFreeze>(), 300);
             }
-            if (player.GetModPlayer<MyPlayer>().chillsteelSet && Projectile.CountsAsClass(DamageClass.Ranged))
+            if (player.GetModPlayer<MyPlayer>().chillsteelSet && projectile.CountsAsClass(DamageClass.Ranged))
             {
                 target.AddBuff(BuffID.Frostburn, 300);
             }
@@ -163,7 +163,7 @@ namespace Emperia
                 for (int i = 0; i < Main.npc.Length; i++)
                 {
                     if (Projectile.Distance(Main.npc[i].Center) < 64 && !Main.npc[i].townNPC)
-                        Main.npc[i].StrikeNPC(Projectile.damage / 2, 0f, 0, false, false, false);
+                        Main.npc[i].SimpleStrikeNPC(Projectile.damage / 2, 0);
                 }
 
             }

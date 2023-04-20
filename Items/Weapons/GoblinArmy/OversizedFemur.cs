@@ -11,8 +11,8 @@ namespace Emperia.Items.Weapons.GoblinArmy
     {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Oversized Femur");
-			Tooltip.SetDefault("Right click to throw");
+			// DisplayName.SetDefault("Oversized Femur");
+			// Tooltip.SetDefault("Right click to throw");
 		}
         public override void SetDefaults()
         {

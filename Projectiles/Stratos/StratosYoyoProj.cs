@@ -35,7 +35,7 @@ namespace Emperia.Projectiles.Stratos
 			if (timer % 25 == 0)
 				Projectile.NewProjectile(Projectile.InheritSource(Projectile), Projectile.position.X, Projectile.position.Y, perturbedSpeed.X, perturbedSpeed.Y, ModContent.ProjectileType<StratosSpark>(), Projectile.damage, Projectile.knockBack, Projectile.owner, 0, 0);
 		}
-		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{
 			
 		}

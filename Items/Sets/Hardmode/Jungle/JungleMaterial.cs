@@ -7,7 +7,7 @@ namespace Emperia.Items.Sets.Hardmode.Jungle
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Botanical Element");
+			// DisplayName.SetDefault("Botanical Element");
 		}
 		public override void SetDefaults()
 		{

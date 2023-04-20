@@ -13,8 +13,8 @@ namespace Emperia.Items.Accessories.Gauntlets
     {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Thermal Gauntlet");
-			Tooltip.SetDefault("Enemies explode into seeking frost bolts and fire bolts.\nAttacks inflict On Fire! and Frostburn.\nEnemies have a chance to be frozen on hit.\nTaking damage summons meteors from the sky");
+			// DisplayName.SetDefault("Thermal Gauntlet");
+			// Tooltip.SetDefault("Enemies explode into seeking frost bolts and fire bolts.\nAttacks inflict On Fire! and Frostburn.\nEnemies have a chance to be frozen on hit.\nTaking damage summons meteors from the sky");
 		}
         public override void SetDefaults()
         {

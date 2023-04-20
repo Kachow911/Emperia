@@ -12,7 +12,7 @@ namespace Emperia.Projectiles.Granite
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Granite Rock");
+			// DisplayName.SetDefault("Granite Rock");
 		}
         public override void SetDefaults()
         {  //Projectile name

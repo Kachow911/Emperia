@@ -13,8 +13,8 @@ public class GraniteHelm : ModItem
     
 	public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Granite Helm");
-			Tooltip.SetDefault("3% increased critical strike chance");
+			// DisplayName.SetDefault("Granite Helm");
+			// Tooltip.SetDefault("3% increased critical strike chance");
 		}
     public override void SetDefaults()
     {

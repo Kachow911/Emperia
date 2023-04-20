@@ -22,16 +22,16 @@ namespace Emperia.Projectiles.Lightning
             Projectile.timeLeft = 1000;
 			Main.projFrames[Projectile.type] = 1;
         }
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             Player player = Main.player[Projectile.owner];
             MyPlayer modPlayer = player.GetModPlayer<MyPlayer>();
             if (modPlayer.lightningSet)
-                modPlayer.lightningDamage += damage;
+                modPlayer.lightningDamage += damageDone;
         }
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Pulsar Flail");
+            // DisplayName.SetDefault("Pulsar Flail");
         }
         public override void AI()
         {
@@ -71,7 +71,7 @@ namespace Emperia.Projectiles.Lightning
                 {
                     if (Projectile.Distance(Main.npc[i].Center) < 160 && !Main.npc[i].townNPC)
                     {
-                        Main.npc[i].StrikeNPC(Projectile.damage * 2, 0f, 0, false, false, false);
+                        Main.npc[i].SimpleStrikeNPC(Projectile.damage * 2, 0);
                         Main.npc[i].AddBuff(ModContent.BuffType<ElecHostile>(), 120);
                     }
                 }

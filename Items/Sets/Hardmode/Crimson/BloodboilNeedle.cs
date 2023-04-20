@@ -12,8 +12,8 @@ namespace Emperia.Items.Sets.Hardmode.Crimson
     {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Bloodboil Needle");
-			Tooltip.SetDefault("Injects ichor into enemies, weakening them");
+			// DisplayName.SetDefault("Bloodboil Needle");
+			// Tooltip.SetDefault("Injects ichor into enemies, weakening them");
 		}
 
 

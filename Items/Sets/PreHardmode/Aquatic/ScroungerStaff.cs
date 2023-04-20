@@ -12,8 +12,8 @@ namespace Emperia.Items.Sets.PreHardmode.Aquatic
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Depth Scrounger Staff");
-            Tooltip.SetDefault("Summons a Depth scrounger to fight for you");
+			// DisplayName.SetDefault("Depth Scrounger Staff");
+            // Tooltip.SetDefault("Summons a Depth scrounger to fight for you");
 
         }
 

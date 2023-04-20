@@ -14,8 +14,8 @@ public class BloodboilBreastpiece : ModItem
     
 	public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Bloodboil Breastpiece");
-			Tooltip.SetDefault("7% increased magic damage");
+			// DisplayName.SetDefault("Bloodboil Breastpiece");
+			// Tooltip.SetDefault("7% increased magic damage");
 		}
     public override void SetDefaults()
     {

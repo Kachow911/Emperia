@@ -14,7 +14,7 @@ namespace Emperia.Items.Sets.PreHardmode.Desert
 		public override void SetStaticDefaults()
 		{
 			//DisplayName.SetDefault("Wave");
-			Tooltip.SetDefault("Summons worms from the sky to plague your foes");
+			// Tooltip.SetDefault("Summons worms from the sky to plague your foes");
 		}
 
 

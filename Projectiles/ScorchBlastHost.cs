@@ -11,7 +11,7 @@ namespace Emperia.Projectiles
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Scorch Blast");
+			// DisplayName.SetDefault("Scorch Blast");
 		}
 
 		public override void SetDefaults()

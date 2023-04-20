@@ -12,7 +12,7 @@ namespace Emperia.Projectiles.TrueDaysVerge
     {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Blue Day's Dlade");
+			// DisplayName.SetDefault("Blue Day's Dlade");
 		}
         public override void SetDefaults()
         {  //Projectile name

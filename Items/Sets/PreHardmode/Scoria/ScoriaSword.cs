@@ -12,8 +12,8 @@ namespace Emperia.Items.Sets.PreHardmode.Scoria //where is located
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Scoria Sword");
-            Tooltip.SetDefault("Enemies Struck by the sword release powerful explosions when killed\nExplosions deal damage based on the strength of the enemy");
+            // DisplayName.SetDefault("Scoria Sword");
+            // Tooltip.SetDefault("Enemies Struck by the sword release powerful explosions when killed\nExplosions deal damage based on the strength of the enemy");
         }
         public override void SetDefaults()
         {   //Sword name
@@ -37,7 +37,7 @@ namespace Emperia.Items.Sets.PreHardmode.Scoria //where is located
 
             return true;
         }
-        public override void OnHitNPC(Player player, NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.GetGlobalNPC<MyNPC>().scoriaExplosion = true;
         }

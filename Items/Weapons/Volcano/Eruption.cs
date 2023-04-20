@@ -40,8 +40,8 @@ namespace Emperia.Items.Weapons.Volcano
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Eruption");
-            Tooltip.SetDefault("Shoots a volley of explosive magma blobs");
+            // DisplayName.SetDefault("Eruption");
+            // Tooltip.SetDefault("Shoots a volley of explosive magma blobs");
 		}
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockBack)
 		{

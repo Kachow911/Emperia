@@ -11,7 +11,7 @@ namespace Emperia.Projectiles
     {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Enchanted Blade");
+			// DisplayName.SetDefault("Enchanted Blade");
 		}
         public override void SetDefaults()
         { 

@@ -14,8 +14,8 @@ namespace Emperia.Items
     {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Gelid Hide");
-			Tooltip.SetDefault("Looks Rotten. I wonder what it could lure?.\nUsed in the snow biome");
+			// DisplayName.SetDefault("Gelid Hide");
+			// Tooltip.SetDefault("Looks Rotten. I wonder what it could lure?.\nUsed in the snow biome");
 		}
         public override void SetDefaults()
         {

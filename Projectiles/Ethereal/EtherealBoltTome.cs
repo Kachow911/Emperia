@@ -12,7 +12,7 @@ namespace Emperia.Projectiles.Ethereal
         bool init = false;
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Ethereal Bolt");
+			// DisplayName.SetDefault("Ethereal Bolt");
 		}
         public override void SetDefaults()
         {  //Projectile name
@@ -51,9 +51,9 @@ namespace Emperia.Projectiles.Ethereal
                 }
             }
         }
-		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-			target.GetGlobalNPC<MyNPC>().etherealDamages.Add(damage/2);
+			target.GetGlobalNPC<MyNPC>().etherealDamages.Add(damageDone/2);
             target.GetGlobalNPC<MyNPC>().etherealCounts.Add(2);
             target.GetGlobalNPC<MyNPC>().etherealSource = Projectile;
         }

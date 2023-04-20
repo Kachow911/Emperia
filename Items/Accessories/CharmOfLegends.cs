@@ -13,8 +13,8 @@ namespace Emperia.Items.Accessories
     {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Charm of Legends");
-			Tooltip.SetDefault("Healing potions heal for 25 additional HP\nWhile under half life you will recieve boosts of healing\nProvides life regeneration and reduces the cooldown of healing potions");
+			// DisplayName.SetDefault("Charm of Legends");
+			// Tooltip.SetDefault("Healing potions heal for 25 additional HP\nWhile under half life you will recieve boosts of healing\nProvides life regeneration and reduces the cooldown of healing potions");
 		}
         public override void SetDefaults()
         {

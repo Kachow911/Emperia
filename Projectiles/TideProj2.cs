@@ -21,7 +21,7 @@ namespace Emperia.Projectiles
         Color rgb = new Color(83, 66, 180);
         public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Water Bolt");
+			// DisplayName.SetDefault("Water Bolt");
 		}
         public override void SetDefaults()
         {
@@ -53,7 +53,7 @@ namespace Emperia.Projectiles
 
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             Projectile.Kill();
         }

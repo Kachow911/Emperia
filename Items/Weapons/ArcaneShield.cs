@@ -17,8 +17,8 @@ namespace Emperia.Items.Weapons
     {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Arcane Shield");
-			Tooltip.SetDefault("Correctly time a shield strike to restore a high amount of mana");
+			// DisplayName.SetDefault("Arcane Shield");
+			// Tooltip.SetDefault("Correctly time a shield strike to restore a high amount of mana");
 		}
         public override void SetDefaults()
         {
@@ -63,7 +63,7 @@ namespace Emperia.Items.Weapons
             if (!delaySet) delay++;
         }
 
-		public override void OnHitNPC(Player player, NPC target, int damage, float knockback, bool crit)
+		public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
 		{
             //-4 & -8 w/o speed reduction
             if (target.boss) player.velocity.X = -10f * player.direction;

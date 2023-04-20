@@ -13,8 +13,8 @@ namespace Emperia.Items.Accessories
     {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Boar's Tusk");
-			Tooltip.SetDefault("6% increased damage and movement speed\nYou lose 5 defense");
+			// DisplayName.SetDefault("Boar's Tusk");
+			// Tooltip.SetDefault("6% increased damage and movement speed\nYou lose 5 defense");
 		}
         public override void SetDefaults()
         {
@@ -27,7 +27,7 @@ namespace Emperia.Items.Accessories
         public override void UpdateAccessory(Player player, bool hideVisibleAccessory)
         {
 			if (player.statDefense < 5)
-				player.statDefense = 0;
+				player.statDefense -= player.statDefense;
 			else 
 				player.statDefense -= 5;
 			player.moveSpeed *= 1.06f;

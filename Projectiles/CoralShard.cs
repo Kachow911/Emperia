@@ -13,7 +13,7 @@ namespace Emperia.Projectiles
     {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Coral Shard");
+			// DisplayName.SetDefault("Coral Shard");
 		}
         public override void SetDefaults()
         {

@@ -26,7 +26,7 @@ namespace Emperia.Projectiles
 		private bool init = false;
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Haunted Revolver");
+			// DisplayName.SetDefault("Haunted Revolver");
 		}
         public override void SetDefaults()
         {

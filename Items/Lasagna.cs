@@ -10,8 +10,8 @@ namespace Emperia.Items
 	{
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Lasagna");
-            Tooltip.SetDefault("Mondays are the worst");
+            // DisplayName.SetDefault("Lasagna");
+            // Tooltip.SetDefault("Mondays are the worst");
         }
 
         public override void SetDefaults()

@@ -21,7 +21,7 @@ namespace Emperia.Npcs.Kraken
 		Vector2 targetPos;
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("The Kraken");
+			// DisplayName.SetDefault("The Kraken");
 			Main.npcFrameCount[NPC.type] = 1;
 		}
         public override void SetDefaults()

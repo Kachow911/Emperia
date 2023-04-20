@@ -11,8 +11,8 @@ namespace Emperia.Items.Sets.Hardmode.Stratos
     {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Stratos Broadsword");
-			Tooltip.SetDefault("Hitting enemies sends rock shards flying");
+			// DisplayName.SetDefault("Stratos Broadsword");
+			// Tooltip.SetDefault("Hitting enemies sends rock shards flying");
 		}
 
 
@@ -33,7 +33,7 @@ namespace Emperia.Items.Sets.Hardmode.Stratos
             Item.autoReuse = true;
             Item.useTurn = false;
         }
-        public override void OnHitNPC(Player player, NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
         {
 
         }

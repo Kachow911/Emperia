@@ -10,7 +10,7 @@ namespace Emperia.Items.Weapons
     {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Flower Gun");
+			// DisplayName.SetDefault("Flower Gun");
 		}
         public override void SetDefaults()
         {
@@ -33,7 +33,7 @@ namespace Emperia.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Flower Bulb");
+            // DisplayName.SetDefault("Flower Bulb");
         }
         public override void SetDefaults()
         {
@@ -65,7 +65,7 @@ namespace Emperia.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Flower Pad");
+            // DisplayName.SetDefault("Flower Pad");
         }
         public override void SetDefaults()
         {

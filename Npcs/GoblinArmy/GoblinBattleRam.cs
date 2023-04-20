@@ -18,7 +18,7 @@ namespace Emperia.Npcs.GoblinArmy
 		int counter = 0;
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Goblin Battle Ram");
+			// DisplayName.SetDefault("Goblin Battle Ram");
 			Main.npcFrameCount[NPC.type] = 14;
 		}
         public override void SetDefaults()
@@ -60,7 +60,7 @@ namespace Emperia.Npcs.GoblinArmy
 			}
 		}
 
-        public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
+        public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)/* tModPorter Note: bossLifeScale -> balance (bossAdjustment is different, see the docs for details) */
         {
             NPC.lifeMax = 300;
             NPC.damage = 20;
@@ -99,7 +99,7 @@ namespace Emperia.Npcs.GoblinArmy
 				NPC.damage = 20;
 			}
 		}
-		public override void OnHitPlayer(Player target, int damage, bool crit)
+		public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
 		{
 			if (charging)
 			{

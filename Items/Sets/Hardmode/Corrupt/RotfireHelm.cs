@@ -13,8 +13,8 @@ namespace Emperia.Items.Sets.Hardmode.Corrupt {
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Rotfire Helm");
-            Tooltip.SetDefault("8% increased throwing damage");
+            // DisplayName.SetDefault("Rotfire Helm");
+            // Tooltip.SetDefault("8% increased throwing damage");
         }
         public override void SetDefaults()
         {

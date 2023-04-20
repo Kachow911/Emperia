@@ -12,8 +12,8 @@ public class EruptionBottle : ModItem
 {
 	public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Eruption in a Bottle");
-			Tooltip.SetDefault("Gives the player an improved double jump");
+			// DisplayName.SetDefault("Eruption in a Bottle");
+			// Tooltip.SetDefault("Gives the player an improved double jump");
 		}
 	public override void SetDefaults()
 	{

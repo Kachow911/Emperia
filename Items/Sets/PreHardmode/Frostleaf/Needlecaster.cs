@@ -34,8 +34,8 @@ namespace Emperia.Items.Sets.PreHardmode.Frostleaf
 
     public override void SetStaticDefaults()
     {
-      DisplayName.SetDefault("Abscission");
-	  Tooltip.SetDefault("Casts controllable bursts of razor sharp leaves");
+      // DisplayName.SetDefault("Abscission");
+	  // Tooltip.SetDefault("Casts controllable bursts of razor sharp leaves");
     }
     	public override void AddRecipes()
     	{

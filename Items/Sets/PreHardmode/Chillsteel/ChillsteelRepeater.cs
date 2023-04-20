@@ -12,8 +12,8 @@ namespace Emperia.Items.Sets.PreHardmode.Chillsteel
     {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Chillsteel Repeater");
-			Tooltip.SetDefault("Bullets fired using the gun inflict Crushing Freeze, no matter the type");
+			// DisplayName.SetDefault("Chillsteel Repeater");
+			// Tooltip.SetDefault("Bullets fired using the gun inflict Crushing Freeze, no matter the type");
 		}
         public override void SetDefaults()
         {

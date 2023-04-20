@@ -15,7 +15,7 @@ namespace Emperia.Projectiles.Ice
 		int timer = 0;
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Chillsteel Dagger");
+			// DisplayName.SetDefault("Chillsteel Dagger");
 		}
         public override void SetDefaults()
         {  //Projectile name
@@ -49,7 +49,7 @@ namespace Emperia.Projectiles.Ice
             Main.dust[index2].noGravity = true;
             Main.dust[index2].velocity = Projectile.velocity * 0.5f;
         }
-		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
 			if (!init)
 			{

@@ -9,8 +9,8 @@ namespace Emperia.Buffs
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Depth Scrounger");
-			Description.SetDefault("Epic shark moment");
+			// DisplayName.SetDefault("Depth Scrounger");
+			// Description.SetDefault("Epic shark moment");
 
 			Main.buffNoSave[Type] = true;
 			Main.buffNoTimeDisplay[Type] = true;

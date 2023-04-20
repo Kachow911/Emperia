@@ -12,8 +12,8 @@ namespace Emperia.Items.Sets.PreHardmode.Granite
     {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Granite Canister");
-			Tooltip.SetDefault("Creates a forcefield to do something");
+			// DisplayName.SetDefault("Granite Canister");
+			// Tooltip.SetDefault("Creates a forcefield to do something");
 		}
 
 
@@ -37,7 +37,6 @@ namespace Emperia.Items.Sets.PreHardmode.Granite
             Item.crit = 4;
             Item.rare = 1;
             Item.autoReuse = true;
-            Item.maxStack = 1;
             Item.consumable = true;
         }
 		

@@ -39,7 +39,7 @@ namespace Emperia.Projectiles.Yeti
 			if (!hitGround)
 				Projectile.rotation += Main.rand.Next(10) * .01f;
 		}
-		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
 			target.AddBuff(BuffID.Frostburn, 120); //make frostburn 1/3 chance, if activates penetration goes down?
 			hitTimer = 20;

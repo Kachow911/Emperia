@@ -13,8 +13,8 @@ namespace Emperia.Items.Sets.PreHardmode.Granite
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Granite Dynamo Staff");
-            Tooltip.SetDefault("Summons a granite elemental to fight for you\nFires like a Projectile when first summoned\nThe first minion does not count towards your max");
+			// DisplayName.SetDefault("Granite Dynamo Staff");
+            // Tooltip.SetDefault("Summons a granite elemental to fight for you\nFires like a Projectile when first summoned\nThe first minion does not count towards your max");
 			Item.staff[Item.type] = true;
             //CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
             ItemID.Sets.GamepadWholeScreenUseRange[Item.type] = true;

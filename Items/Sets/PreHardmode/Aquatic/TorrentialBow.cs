@@ -13,8 +13,8 @@ namespace Emperia.Items.Sets.PreHardmode.Aquatic
 		int counter = 0;
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Torrential Bow");
-			Tooltip.SetDefault("");
+			// DisplayName.SetDefault("Torrential Bow");
+			// Tooltip.SetDefault("");
 		}
         public override void SetDefaults()
         {

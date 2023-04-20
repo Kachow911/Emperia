@@ -14,7 +14,7 @@ namespace Emperia.Npcs.Yeti
         int aboveTimer = 0;
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Yetiling");
+			// DisplayName.SetDefault("Yetiling");
 			Main.npcFrameCount[NPC.type] = 6;
 		}
         public override void SetDefaults()
@@ -46,7 +46,7 @@ namespace Emperia.Npcs.Yeti
 			NPC.frame.Y = frame * frameHeight; 
 		}
 
-        public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
+        public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)/* tModPorter Note: bossLifeScale -> balance (bossAdjustment is different, see the docs for details) */
         {
             NPC.lifeMax = 180;
             NPC.damage = 30;

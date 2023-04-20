@@ -13,8 +13,8 @@ namespace Emperia.Items
     {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Ashen Bandage");
-			Tooltip.SetDefault("The ashen clumps seem to have some healing properties\nHeals 60HP\nLower than normal cooldown");
+			// DisplayName.SetDefault("Ashen Bandage");
+			// Tooltip.SetDefault("The ashen clumps seem to have some healing properties\nHeals 60HP\nLower than normal cooldown");
 		}
         public override void SetDefaults()
         {

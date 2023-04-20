@@ -14,8 +14,8 @@ namespace Emperia.Items.Sets.PreHardmode.FrousForest
 		int counter = 0;
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Woodvine");
-			Tooltip.SetDefault("Turns wooden arrows into piercing leaves");
+			// DisplayName.SetDefault("Woodvine");
+			// Tooltip.SetDefault("Turns wooden arrows into piercing leaves");
 		}
         public override void SetDefaults()
         {

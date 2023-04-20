@@ -12,8 +12,8 @@ namespace Emperia.Items.Weapons.Volcano
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Ember Tyrant Staff");
-            Tooltip.SetDefault("Summons an Ember Tyrant to fight for you");
+			// DisplayName.SetDefault("Ember Tyrant Staff");
+            // Tooltip.SetDefault("Summons an Ember Tyrant to fight for you");
 
         }
 

@@ -14,7 +14,7 @@ namespace Emperia.Projectiles.Yeti
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Icicle");
+			// DisplayName.SetDefault("Icicle");
 		}
         public override void SetDefaults()
         {
@@ -39,7 +39,7 @@ namespace Emperia.Projectiles.Yeti
 				Main.dust[index2].noGravity = true;
 			}
         }
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             if (Main.rand.Next(3) > 0)
             {

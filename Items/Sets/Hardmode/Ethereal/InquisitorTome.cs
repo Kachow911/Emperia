@@ -36,8 +36,8 @@ namespace Emperia.Items.Sets.Hardmode.Ethereal
 
     public override void SetStaticDefaults()
     {
-      DisplayName.SetDefault("Inquisitor Spellbook");
-	  Tooltip.SetDefault("Summons ethereal bolts to attack your foes");
+      // DisplayName.SetDefault("Inquisitor Spellbook");
+	  // Tooltip.SetDefault("Summons ethereal bolts to attack your foes");
     }
 	public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockBack)
 	{

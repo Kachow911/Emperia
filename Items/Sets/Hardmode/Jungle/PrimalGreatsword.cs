@@ -14,8 +14,8 @@ namespace Emperia.Items.Sets.Hardmode.Jungle  //where is located
     {
 		 public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Primal Greatsword");
-			Tooltip.SetDefault("Swinging the Sword Generates Primal Bombs Around You");
+			// DisplayName.SetDefault("Primal Greatsword");
+			// Tooltip.SetDefault("Swinging the Sword Generates Primal Bombs Around You");
 		}
         public override void SetDefaults()
         {   //Sword name

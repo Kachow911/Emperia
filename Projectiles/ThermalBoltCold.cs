@@ -14,7 +14,7 @@ namespace Emperia.Projectiles
         Color rgb = new Color(0, 0, 0);
         public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Thermal Bolt");
+			// DisplayName.SetDefault("Thermal Bolt");
 		}
         public override void SetDefaults()
         {  //Projectile name

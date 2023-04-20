@@ -9,7 +9,7 @@ namespace Emperia.Items
 	{
 		public override void SetStaticDefaults()
 		{
-			Tooltip.SetDefault("Summons a ridable yeti mount");
+			// Tooltip.SetDefault("Summons a ridable yeti mount");
 		}
 
 		public override void SetDefaults()

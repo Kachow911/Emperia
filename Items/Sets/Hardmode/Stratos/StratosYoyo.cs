@@ -13,7 +13,7 @@ namespace Emperia.Items.Sets.Hardmode.Stratos
 			ItemID.Sets.Yoyo[Item.type] = true;
 			ItemID.Sets.GamepadExtraRange[Item.type] = 18;
 			ItemID.Sets.GamepadSmartQuickReach[Item.type] = true;
-			DisplayName.SetDefault("Stratos Yoyo");
+			// DisplayName.SetDefault("Stratos Yoyo");
 		}
 
 		public override void SetDefaults()

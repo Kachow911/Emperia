@@ -15,7 +15,7 @@ namespace Emperia.Projectiles.Corrupt
 		int timer = 0;
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("RotDaggerProj");
+			// DisplayName.SetDefault("RotDaggerProj");
 		}
         public override void SetDefaults()
         {  //Projectile name
@@ -39,7 +39,7 @@ namespace Emperia.Projectiles.Corrupt
             Main.dust[index2].noGravity = true;
             Main.dust[index2].velocity = Projectile.velocity * 0.5f;
         }
-		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
 			if (Main.rand.Next(3) == 0)
 			 target.AddBuff(BuffID.CursedInferno, 240);

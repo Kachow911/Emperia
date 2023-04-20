@@ -10,8 +10,8 @@ namespace Emperia.Items.Weapons
     {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Barbarian Waraxe");
-			Tooltip.SetDefault("Hit enemies take more damage");
+			// DisplayName.SetDefault("Barbarian Waraxe");
+			// Tooltip.SetDefault("Hit enemies take more damage");
 		}
 
 

@@ -13,8 +13,8 @@ namespace Emperia.Items.Sets.PreHardmode.Aquatic  //where is located
     {
 		 public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Tide");
-			Tooltip.SetDefault("Enemy hits send water in orbit around you");
+			// DisplayName.SetDefault("Tide");
+			// Tooltip.SetDefault("Enemy hits send water in orbit around you");
 		}
         public override void SetDefaults()
         {   //Sword name
@@ -43,7 +43,7 @@ namespace Emperia.Items.Sets.PreHardmode.Aquatic  //where is located
             recipe.Register();
             
         }*/
-		public override void OnHitNPC (Player player, NPC target, int damage, float knockback, bool crit)
+		public override void OnHitNPC (Player player, NPC target, NPC.HitInfo hit, int damageDone)
 		{
 			float velocity;
 			if (target.Center.X > player.Center.X)

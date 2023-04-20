@@ -16,7 +16,7 @@ namespace Emperia.Npcs.Chasm
 		private const float explodeRadius = 120;
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Chasm Belcher");
+			// DisplayName.SetDefault("Chasm Belcher");
 			Main.npcFrameCount[NPC.type] = 4;
 		}
         public override void SetDefaults()

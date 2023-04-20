@@ -7,7 +7,7 @@ namespace Emperia.Items
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Giant's Plating");
+			// DisplayName.SetDefault("Giant's Plating");
 		}
 		public override void SetDefaults()
 		{

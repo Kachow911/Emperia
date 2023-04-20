@@ -12,7 +12,7 @@ namespace Emperia.Items.Weapons
     {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Sparktosser");
+			// DisplayName.SetDefault("Sparktosser");
 		}
         public override void SetDefaults()
         {  

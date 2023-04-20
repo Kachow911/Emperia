@@ -16,8 +16,8 @@ namespace Emperia.Buffs
     {
         public override void SetStaticDefaults()
         {
-			DisplayName.SetDefault("Cerulean Charge");
-			Description.SetDefault("6% increased melee damage");
+			// DisplayName.SetDefault("Cerulean Charge");
+			// Description.SetDefault("6% increased melee damage");
             Main.buffNoSave[Type] = true;
             //Main.buffNoTimeDisplay[Type] = true;
         }

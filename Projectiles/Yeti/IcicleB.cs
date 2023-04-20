@@ -14,7 +14,7 @@ namespace Emperia.Projectiles.Yeti
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Pine Needle");
+			// DisplayName.SetDefault("Pine Needle");
 		}
         public override void SetDefaults()
         {  //Projectile name

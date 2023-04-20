@@ -11,8 +11,8 @@ public class SeashellHamaxe : ModItem
 {
 	public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Seashell Hamaxe");
-            Tooltip.SetDefault("Swing speed increases dramatically in water or rain\nIncreases mobility in water when held\nHold UP to descend slower");
+			// DisplayName.SetDefault("Seashell Hamaxe");
+            // Tooltip.SetDefault("Swing speed increases dramatically in water or rain\nIncreases mobility in water when held\nHold UP to descend slower");
         }
     public override void SetDefaults()
     {

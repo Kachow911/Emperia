@@ -30,7 +30,7 @@ namespace Emperia.Projectiles.Yeti
 
 	    public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Hunter's Spear");
+			// DisplayName.SetDefault("Hunter's Spear");
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 3;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
 		}
@@ -46,7 +46,7 @@ namespace Emperia.Projectiles.Yeti
 			
 			
 		}
-		 public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+		 public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
 			 target.AddBuff(BuffID.Frostburn, 100);
 			 for (int i = 0; i < 360; i++)

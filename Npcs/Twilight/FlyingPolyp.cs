@@ -16,7 +16,7 @@ namespace Emperia.Npcs.Twilight
 		int counter = 0;
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Flying Polyp");
+			// DisplayName.SetDefault("Flying Polyp");
 			Main.npcFrameCount[NPC.type] = 20;
 		}
 
@@ -99,7 +99,7 @@ namespace Emperia.Npcs.Twilight
 			return SpawnTiles.Contains(Main.tile[spawnInfo.SpawnTileX, spawnInfo.SpawnTileY].TileType) && !spawnInfo.PlayerSafe && !spawnInfo.Invasion ? 2f : 0f;
 		}*/
 
-		public override void HitEffect(int hitDirection, double damage)
+		public override void HitEffect(NPC.HitInfo hit)
 		{
 			if (NPC.life <= 0)
 			{
@@ -113,7 +113,7 @@ namespace Emperia.Npcs.Twilight
 		{
 			
 		}
-		public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
+		public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)/* tModPorter Note: bossLifeScale -> balance (bossAdjustment is different, see the docs for details) */
 		{
 			NPC.lifeMax = Convert.ToInt32(NPC.lifeMax * 1.4);
 			NPC.damage = Convert.ToInt32(NPC.damage * 1.4);

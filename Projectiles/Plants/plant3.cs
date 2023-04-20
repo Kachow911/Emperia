@@ -14,7 +14,7 @@ namespace Emperia.Projectiles.Plants
 		private int explodeRadius = 64;
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("AquaticPlant");
+			// DisplayName.SetDefault("AquaticPlant");
 		}
         public override void SetDefaults()
         {  //Projectile name
@@ -46,7 +46,7 @@ namespace Emperia.Projectiles.Plants
             for (int i = 0; i < Main.npc.Length; i++)
             {
                 if (Projectile.Distance(Main.npc[i].Center) < explodeRadius)
-                    Main.npc[i].StrikeNPC(32, 0f, 0, false, false, false);
+                    Main.npc[i].SimpleStrikeNPC(32, 0);
             }
             Color rgb = new Color(83, 66, 180);
             for (int i = 0; i < 360; i++)

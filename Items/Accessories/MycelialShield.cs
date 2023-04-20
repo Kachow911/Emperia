@@ -12,8 +12,8 @@ public class MycelialShield : ModItem
 {
 	public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Mycelial Shield");
-			Tooltip.SetDefault("Critical Hits have a chance to surround you in spores\nWhile these spores are active, damage is increased \nSpores also damage enemies");
+			// DisplayName.SetDefault("Mycelial Shield");
+			// Tooltip.SetDefault("Critical Hits have a chance to surround you in spores\nWhile these spores are active, damage is increased \nSpores also damage enemies");
 		}
 	public override void SetDefaults()
 	{

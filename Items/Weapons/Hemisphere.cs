@@ -13,8 +13,8 @@ namespace Emperia.Items.Weapons
 			ItemID.Sets.Yoyo[Item.type] = true;
 			ItemID.Sets.GamepadExtraRange[Item.type] = 18;
 			ItemID.Sets.GamepadSmartQuickReach[Item.type] = true;
-			DisplayName.SetDefault("Hemisphere");
-			Tooltip.SetDefault("Attacks inflict 'Burning Night', a more potent form of On Fire!");
+			// DisplayName.SetDefault("Hemisphere");
+			// Tooltip.SetDefault("Attacks inflict 'Burning Night', a more potent form of On Fire!");
 		}
 
 		public override void SetDefaults()

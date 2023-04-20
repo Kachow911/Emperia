@@ -12,8 +12,8 @@ namespace Emperia.Items.Sets.PreHardmode.Desert
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Scrutiniser Staff");
-            Tooltip.SetDefault("Summons a scrounger to fight for you");
+			// DisplayName.SetDefault("Scrutiniser Staff");
+            // Tooltip.SetDefault("Summons a scrounger to fight for you");
 
         }
 

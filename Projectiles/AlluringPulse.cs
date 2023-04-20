@@ -12,7 +12,7 @@ namespace Emperia.Projectiles
     {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("AlluringPulse");
+			// DisplayName.SetDefault("AlluringPulse");
 		}
         public override void SetDefaults()
         {  //Projectile name
@@ -35,7 +35,7 @@ namespace Emperia.Projectiles
             
 
         }
-		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
 			if (!target.boss)
 			{

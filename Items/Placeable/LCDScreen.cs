@@ -8,8 +8,8 @@ namespace Emperia.Items.Placeable
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("LCD Screen");
-			Tooltip.SetDefault("Can be configured with an LCD wrench to display up to 4 colors at once");
+			// DisplayName.SetDefault("LCD Screen");
+			// Tooltip.SetDefault("Can be configured with an LCD wrench to display up to 4 colors at once");
 		}
 		public override void SetDefaults()
 		{

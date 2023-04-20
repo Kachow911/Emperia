@@ -9,8 +9,8 @@ namespace Emperia.Buffs
     {
         public override void SetStaticDefaults()
         {
-			DisplayName.SetDefault("Purgation");
-			Description.SetDefault("Shows the location of infectious blocks");
+			// DisplayName.SetDefault("Purgation");
+			// Description.SetDefault("Shows the location of infectious blocks");
         }
     }
 }

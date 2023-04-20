@@ -13,8 +13,8 @@ public class GranitePickaxe : ModItem
 {
 	public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Granite Pickaxe");
-            Tooltip.SetDefault("Enhanced mining abilties when used while wearing granite armor");
+			// DisplayName.SetDefault("Granite Pickaxe");
+            // Tooltip.SetDefault("Enhanced mining abilties when used while wearing granite armor");
         }
         public override void SetDefaults()
     {

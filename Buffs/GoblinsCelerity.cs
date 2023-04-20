@@ -16,8 +16,8 @@ namespace Emperia.Buffs
     {
         public override void SetStaticDefaults()
         {
-			DisplayName.SetDefault("Goblin's Celerity");
-			Description.SetDefault("10% increased movement and melee speed");
+			// DisplayName.SetDefault("Goblin's Celerity");
+			// Description.SetDefault("10% increased movement and melee speed");
             Main.buffNoSave[Type] = true;
         }
 

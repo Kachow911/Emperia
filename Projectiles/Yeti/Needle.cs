@@ -16,7 +16,7 @@ namespace Emperia.Projectiles.Yeti
         private const float speed = 2;
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Pine Needle");
+			// DisplayName.SetDefault("Pine Needle");
 		}
         public override void SetDefaults()
         {

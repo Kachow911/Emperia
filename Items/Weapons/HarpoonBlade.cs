@@ -17,8 +17,8 @@ namespace Emperia.Items.Weapons
     {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Harpoon Blade");
-			Tooltip.SetDefault("Fires up to seven powerful harpoons that pierce into enemies\nStrike an enemy to dislodge harpoons for extra damage\nSwinging the blade with all harpoons fired will reel you in");
+			// DisplayName.SetDefault("Harpoon Blade");
+			// Tooltip.SetDefault("Fires up to seven powerful harpoons that pierce into enemies\nStrike an enemy to dislodge harpoons for extra damage\nSwinging the blade with all harpoons fired will reel you in");
 		}
         public override void SetDefaults()
         {

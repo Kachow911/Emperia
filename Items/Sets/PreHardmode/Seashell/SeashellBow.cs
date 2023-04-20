@@ -13,8 +13,8 @@ namespace Emperia.Items.Sets.PreHardmode.Seashell
     {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Seashell Bow");
-            Tooltip.SetDefault("Wooden arrows turn into a burst of coral");
+			// DisplayName.SetDefault("Seashell Bow");
+            // Tooltip.SetDefault("Wooden arrows turn into a burst of coral");
 		}
         public override void SetDefaults()
         {

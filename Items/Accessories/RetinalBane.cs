@@ -12,8 +12,8 @@ public class RetinalBane : ModItem
 {
 	public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Retinal Bane");
-			Tooltip.SetDefault("Allows the player to dash into enemies, inflicting cursed flames\nDouble Tap a direction to dash");
+			// DisplayName.SetDefault("Retinal Bane");
+			// Tooltip.SetDefault("Allows the player to dash into enemies, inflicting cursed flames\nDouble Tap a direction to dash");
 		}
 	public override void SetDefaults()
 	{

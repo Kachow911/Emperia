@@ -34,8 +34,8 @@ namespace Emperia.Items.Weapons.Yeti
 
    		public override void SetStaticDefaults()
    		{
-   			DisplayName.SetDefault("Arctic Star");
-			Tooltip.SetDefault("Shoots a magic ice crystal that splits into shards");
+   			// DisplayName.SetDefault("Arctic Star");
+			// Tooltip.SetDefault("Shoots a magic ice crystal that splits into shards");
    		}
 	}
 }

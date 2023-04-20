@@ -13,7 +13,7 @@ namespace Emperia.Items.Sets.PreHardmode.Aquatic
 			ItemID.Sets.Yoyo[Item.type] = true;
 			ItemID.Sets.GamepadExtraRange[Item.type] = 18;
 			ItemID.Sets.GamepadSmartQuickReach[Item.type] = true;
-			DisplayName.SetDefault("Current");
+			// DisplayName.SetDefault("Current");
 		}
 
 		public override void SetDefaults()

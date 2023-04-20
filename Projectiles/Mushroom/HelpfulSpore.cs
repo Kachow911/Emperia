@@ -20,7 +20,7 @@ namespace Emperia.Projectiles.Mushroom
 		private float rotate2 = 0;
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Explosive Spore");
+			// DisplayName.SetDefault("Explosive Spore");
 		}
         public override void SetDefaults()
         {
@@ -52,7 +52,7 @@ namespace Emperia.Projectiles.Mushroom
 
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             Projectile.Kill();
         }
@@ -63,7 +63,7 @@ namespace Emperia.Projectiles.Mushroom
 			for (int i = 0; i < Main.npc.Length; i++)
             {
                 if (Projectile.Distance(Main.npc[i].Center) < explodeRadius)
-                     Main.npc[i].StrikeNPC(Projectile.damage, 0f, 0, false, false, false);
+                     Main.npc[i].SimpleStrikeNPC(Projectile.damage, 0);
             }
 
             for (int i = 0; i < 360; i++)

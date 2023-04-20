@@ -3,6 +3,7 @@ using Terraria;
 using Terraria.ModLoader;
 using Terraria.ID;
 using static Terraria.ModLoader.ModContent;
+using Terraria.WorldBuilding;
 
 namespace Emperia.Tiles
 {
@@ -60,14 +61,14 @@ namespace Emperia.Tiles
                         {
                             try
                             {
-                                WorldGen.SpreadGrass(k, num, TileID.Dirt, ModContent.TileType<Tiles.TwilightGrass>(), true, Main.tile[k, num].TileColor);
+                                WorldGen.SpreadGrass(k, num, TileID.Dirt, ModContent.TileType<Tiles.TwilightGrass>()/*, true, Main.tile[k, num].TileColor*/);
                             }
                             catch
                             {
-                                WorldGen.SpreadGrass(k, num, TileID.Dirt, ModContent.TileType<Tiles.TwilightGrass>(), true, Main.tile[k, num].TileColor);
+                                WorldGen.SpreadGrass(k, num, TileID.Dirt, ModContent.TileType<Tiles.TwilightGrass>(), true/*, Main.tile[k, num].TileColor*/);
                             }
                         }
-                        if ((double)num > WorldGen.worldSurfaceHigh)
+                        if ((double)num > GenVars.worldSurfaceHigh)
                         {
                             break;
                         }

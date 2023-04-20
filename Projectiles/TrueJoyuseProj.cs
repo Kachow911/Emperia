@@ -39,7 +39,7 @@ namespace Emperia.Projectiles
 				Projectile.NewProjectile(Projectile.InheritSource(Projectile), Projectile.position.X, Projectile.position.Y, perturbedSpeed2.X, perturbedSpeed2.Y, ModContent.ProjectileType<TrueJoyuse2>(), Projectile.damage, Projectile.knockBack, Projectile.owner, 0, 0);
 			}
 		}
-		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{
 			
 		}

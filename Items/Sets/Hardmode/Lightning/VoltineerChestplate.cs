@@ -14,8 +14,8 @@ public class VoltineerChestplate : ModItem
     
 	public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Voltineer Chestplate");
-			Tooltip.SetDefault("7% increased damage\n5% increased endurance");
+			// DisplayName.SetDefault("Voltineer Chestplate");
+			// Tooltip.SetDefault("7% increased damage\n5% increased endurance");
 		}
     public override void SetDefaults()
     {

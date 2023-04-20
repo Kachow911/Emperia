@@ -13,7 +13,7 @@ namespace Emperia.Projectiles
     {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Blue Day's Blade");
+			// DisplayName.SetDefault("Blue Day's Blade");
 		}
         public override void SetDefaults()
         {

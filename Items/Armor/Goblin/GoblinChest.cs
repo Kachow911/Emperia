@@ -14,8 +14,8 @@ public class GoblinChest : ModItem
     
 	public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Elder Goblin's Chestpiece");
-			Tooltip.SetDefault("3% increased melee and move speed");
+			// DisplayName.SetDefault("Elder Goblin's Chestpiece");
+			// Tooltip.SetDefault("3% increased melee and move speed");
 		}
     public override void SetDefaults()
     {

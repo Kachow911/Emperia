@@ -13,8 +13,8 @@ public class FrostleafLegs : ModItem
 {
     public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Frostleaf Stumps");
-			Tooltip.SetDefault("6% increased movement speed");
+			// DisplayName.SetDefault("Frostleaf Stumps");
+			// Tooltip.SetDefault("6% increased movement speed");
 		}
     public override void SetDefaults()
     {

@@ -15,7 +15,7 @@ namespace Emperia.Npcs.Desert
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Dune King");
+			// DisplayName.SetDefault("Dune King");
 			Main.npcFrameCount[NPC.type] = 6;
 		}
 

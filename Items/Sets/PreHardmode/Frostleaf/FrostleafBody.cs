@@ -13,8 +13,8 @@ public class FrostleafBody : ModItem
     
 	public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Frostleaf Barkmail");
-			Tooltip.SetDefault("Grants immunity to Chilled");
+			// DisplayName.SetDefault("Frostleaf Barkmail");
+			// Tooltip.SetDefault("Grants immunity to Chilled");
 		}
     public override void SetDefaults()
     {

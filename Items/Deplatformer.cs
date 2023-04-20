@@ -13,8 +13,8 @@ namespace Emperia.Items {
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Deplatformer");
-			Tooltip.SetDefault("Can chop a row of several platforms all at once");
+			// DisplayName.SetDefault("Deplatformer");
+			// Tooltip.SetDefault("Can chop a row of several platforms all at once");
 		}
 		public override void SetDefaults()
 		{

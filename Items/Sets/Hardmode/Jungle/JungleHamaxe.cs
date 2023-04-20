@@ -11,7 +11,7 @@ public class JungleHamaxe : ModItem
 {
 	public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Primal Hamaxe");
+			// DisplayName.SetDefault("Primal Hamaxe");
 		}
     public override void SetDefaults()
     {

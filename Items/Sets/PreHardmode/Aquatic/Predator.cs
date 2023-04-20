@@ -11,8 +11,8 @@ namespace Emperia.Items.Sets.PreHardmode.Aquatic
     {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Predator");
-			Tooltip.SetDefault("Turns bullets into streams of water which pierce enemies");
+			// DisplayName.SetDefault("Predator");
+			// Tooltip.SetDefault("Turns bullets into streams of water which pierce enemies");
 		}
 
 

@@ -19,7 +19,7 @@ namespace Emperia.Npcs
 		private int counter = 0;
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Forest Spirit");
+			// DisplayName.SetDefault("Forest Spirit");
 			Main.npcFrameCount[NPC.type] = 3;
 		}
 
@@ -74,7 +74,7 @@ namespace Emperia.Npcs
                 NPC.frameCounter = 0;
         }
 		
-		public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
+		public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)/* tModPorter Note: bossLifeScale -> balance (bossAdjustment is different, see the docs for details) */
 		{
 			NPC.lifeMax = Convert.ToInt32(NPC.lifeMax * 1.4);
 			NPC.damage = Convert.ToInt32(NPC.damage * 1.4);

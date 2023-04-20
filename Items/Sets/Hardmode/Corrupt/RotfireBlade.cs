@@ -14,8 +14,8 @@ namespace Emperia.Items.Sets.Hardmode.Corrupt
     {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Rotfire Blade");
-			Tooltip.SetDefault("Hitting enemies directly inflicts cursed inferno");
+			// DisplayName.SetDefault("Rotfire Blade");
+			// Tooltip.SetDefault("Hitting enemies directly inflicts cursed inferno");
 		}
 
 
@@ -47,7 +47,7 @@ namespace Emperia.Items.Sets.Hardmode.Corrupt
             }
             return false;
         }
-        public override void OnHitNPC(Player player, NPC target, int damage, float knockBack, bool crit)
+        public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
         {
             {
                 target.AddBuff(BuffID.CursedInferno, 180);

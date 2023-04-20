@@ -15,7 +15,7 @@ namespace Emperia.Projectiles.Lightning
 		Vector2 initialVel = Vector2.Zero;
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Lightning Bolt");
+			// DisplayName.SetDefault("Lightning Bolt");
 		}
         public override void SetDefaults()
         {  //Projectile name
@@ -32,7 +32,7 @@ namespace Emperia.Projectiles.Lightning
             Projectile.ignoreWater = true;
 			Projectile.alpha = 255;
         }
-		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{
 			target.AddBuff(ModContent.BuffType<ElecHostile>(), 240);
 		}
@@ -53,7 +53,7 @@ namespace Emperia.Projectiles.Lightning
 						float rotation = (float)Math.Atan2((double)num22, (double)num11);
 						if (count < 3)
 						{
-							Main.npc[npcFinder].StrikeNPC(Projectile.damage, 0f, 0, false, false, false);
+							Main.npc[npcFinder].SimpleStrikeNPC(Projectile.damage, 0);
 							count++;
 							bool flag = true;
 							while (flag)

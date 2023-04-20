@@ -12,7 +12,7 @@ namespace Emperia.Projectiles.Mushroom
     {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Mush Disc");
+			// DisplayName.SetDefault("Mush Disc");
 		}
         public override void SetDefaults()
         { //Projectile name
@@ -34,7 +34,7 @@ namespace Emperia.Projectiles.Mushroom
 			if (Main.rand.Next(2) == 0)
 				Dust.NewDust(Projectile.position + Projectile.velocity, Projectile.width / 2, Projectile.height / 2, 20, Projectile.velocity.X * 0.5f, Projectile.velocity.Y * 0.5f);
         }
-		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
 			if (Projectile.timeLeft > 15) Projectile.timeLeft = 15;
 		}

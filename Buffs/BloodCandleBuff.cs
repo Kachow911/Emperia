@@ -7,8 +7,8 @@ namespace Emperia.Buffs
     {
         public override void SetStaticDefaults()
         {
-           DisplayName.SetDefault("Blood Candle");
-			Description.SetDefault("Greatly increased monster spawn rate");         
+           // DisplayName.SetDefault("Blood Candle");
+			// Description.SetDefault("Greatly increased monster spawn rate");         
             Main.debuff[Type] = true;
             Main.buffNoSave[Type] = true;
             Main.buffNoTimeDisplay[Type] = true;

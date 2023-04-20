@@ -32,10 +32,10 @@ namespace Emperia.Projectiles
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Pow Petal");
+			// DisplayName.SetDefault("Pow Petal");
 		}
 
-		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{
 			if (!latched)
 			{
@@ -122,7 +122,7 @@ namespace Emperia.Projectiles
 				for (int i = 0; i < Main.npc.Length; i++)
 				{
 					if (Projectile.Distance(Main.npc[i].Center) < 25 && !Main.npc[i].townNPC)
-						Main.npc[i].StrikeNPCNoInteraction(14, 0f, 0, false, false, false);
+						Main.npc[i].SimpleStrikeNPC(14, 0);
 				}
 				for (int i = 0; i < 8; ++i)
 				{

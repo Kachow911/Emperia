@@ -7,7 +7,7 @@ namespace Emperia.Items
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Aquatic Scale");
+			// DisplayName.SetDefault("Aquatic Scale");
 		}
 		public override void SetDefaults()
 		{

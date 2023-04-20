@@ -12,8 +12,8 @@ public class TrueleafHeadSummoner : ModItem
 {
 	 public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Trueleaf Visage");
-			Tooltip.SetDefault("Increases summon damage by 3%");
+			// DisplayName.SetDefault("Trueleaf Visage");
+			// Tooltip.SetDefault("Increases summon damage by 3%");
 		}
     public override void SetDefaults()
     {

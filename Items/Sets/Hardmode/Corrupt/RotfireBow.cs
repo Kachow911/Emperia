@@ -15,7 +15,7 @@ namespace Emperia.Items.Sets.Hardmode.Corrupt
 		public override void SetStaticDefaults()
 		{
 			//DisplayName.SetDefault("Granite Bow");
-			Tooltip.SetDefault("Shoots out cursed flames along with the arrow");
+			// Tooltip.SetDefault("Shoots out cursed flames along with the arrow");
 		}
         public override void SetDefaults()
         {

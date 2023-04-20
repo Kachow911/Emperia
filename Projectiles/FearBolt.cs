@@ -17,7 +17,7 @@ namespace Emperia.Projectiles
     {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Fear Bolt");
+			// DisplayName.SetDefault("Fear Bolt");
 		}
         public override void SetDefaults()
         {

@@ -14,8 +14,8 @@ namespace Emperia.Items.Weapons.Twilight
 		int counter = 0;
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Leech Bow");
-			Tooltip.SetDefault("Turns wooden arrows into leech arrows that occasionally pierce through enemies, doubling their damage");
+			// DisplayName.SetDefault("Leech Bow");
+			// Tooltip.SetDefault("Turns wooden arrows into leech arrows that occasionally pierce through enemies, doubling their damage");
 		}
         public override void SetDefaults()
         {

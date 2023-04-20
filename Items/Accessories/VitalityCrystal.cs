@@ -13,8 +13,8 @@ namespace Emperia.Items.Accessories
     {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Vitality Crystal");
-			Tooltip.SetDefault("Healing potions heal for 25 additional HP");
+			// DisplayName.SetDefault("Vitality Crystal");
+			// Tooltip.SetDefault("Healing potions heal for 25 additional HP");
 		}
         public override void SetDefaults()
         {

@@ -15,8 +15,8 @@ namespace Emperia.Items
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Treasure Bag (Mushor)");
-			Tooltip.SetDefault("Right Click to open");
+			// DisplayName.SetDefault("Treasure Bag (Mushor)");
+			// Tooltip.SetDefault("Right Click to open");
 			ItemID.Sets.BossBag[Type] = true;
 			ItemID.Sets.PreHardmodeLikeBossBag[Type] = true;
 		}

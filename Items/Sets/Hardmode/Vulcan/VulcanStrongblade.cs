@@ -14,8 +14,8 @@ namespace Emperia.Items.Sets.Hardmode.Vulcan   //where is located
     {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Vulcan Strongblade");
-			Tooltip.SetDefault("");
+			// DisplayName.SetDefault("Vulcan Strongblade");
+			// Tooltip.SetDefault("");
 		}
         public override void SetDefaults()
         {

@@ -11,7 +11,7 @@ namespace Emperia.Projectiles
     {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Splinter");
+			// DisplayName.SetDefault("Splinter");
 		}
         public override void SetDefaults()
         { 
@@ -39,9 +39,9 @@ namespace Emperia.Projectiles
 			}
         }
 		
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            crit = false;
+            hit.Crit = false;
         }
 
 		public override void Kill(int timeLeft)

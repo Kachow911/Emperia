@@ -12,7 +12,7 @@ namespace Emperia.Npcs.Kraken
     {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Depth Charge");
+			// DisplayName.SetDefault("Depth Charge");
 			Main.npcFrameCount[NPC.type] = 1;
 		}
         public override void SetDefaults()

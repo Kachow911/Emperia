@@ -12,8 +12,8 @@ namespace Emperia.Items.Weapons.Yeti
     {
 		 public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Mammothine Club");
-			Tooltip.SetDefault("Swinging without hitting an enemy will raise icy spikes from the ground");
+			// DisplayName.SetDefault("Mammothine Club");
+			// Tooltip.SetDefault("Swinging without hitting an enemy will raise icy spikes from the ground");
 		}
         public override void SetDefaults()
         {
@@ -46,7 +46,7 @@ namespace Emperia.Items.Weapons.Yeti
             modPlayer.projItemOrigin = Item;
             return true;
         }
-		public override void OnHitNPC(Player player, NPC target, int damage, float knockback, bool crit)
+		public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
         {
             MyPlayer modPlayer = player.GetModPlayer<MyPlayer>();
             if (modPlayer.clubSwing == -1) modPlayer.clubSwing = -2; //this only occurs if the club hits frame 1

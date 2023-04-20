@@ -7,7 +7,7 @@ namespace Emperia.Items
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Arid Scale");
+			// DisplayName.SetDefault("Arid Scale");
 		}
 		public override void SetDefaults()
 		{

@@ -40,7 +40,7 @@ namespace Emperia.Items.Sets.Hardmode.Corrupt
 		public override void SetStaticDefaults()
 		{
 		  //DisplayName.SetDefault("Tesla Coil Rod");
-		  Tooltip.SetDefault("Fires a burst of cursed flames");
+		  // Tooltip.SetDefault("Fires a burst of cursed flames");
 		}
 
 		public override void AddRecipes()

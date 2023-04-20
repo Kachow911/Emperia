@@ -13,7 +13,7 @@ namespace Emperia.Projectiles.Mushroom
 		private int explodeRadius = 100;
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Enchanted Mushroom");
+			// DisplayName.SetDefault("Enchanted Mushroom");
 		}
         public override void SetDefaults()
         {  //Projectile name

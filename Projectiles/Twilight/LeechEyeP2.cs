@@ -13,7 +13,7 @@ namespace Emperia.Projectiles.Twilight
 		private int explodeRadius = 32;
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Leech Bolt");
+			// DisplayName.SetDefault("Leech Bolt");
 		}
         public override void SetDefaults()
         {  //Projectile name

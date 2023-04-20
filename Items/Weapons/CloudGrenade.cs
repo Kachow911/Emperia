@@ -15,8 +15,8 @@ namespace Emperia.Items.Weapons
     {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Cloud Grenade");
-			Tooltip.SetDefault("Creates a powerful gust that can knock away both enemies and the thrower");
+			// DisplayName.SetDefault("Cloud Grenade");
+			// Tooltip.SetDefault("Creates a powerful gust that can knock away both enemies and the thrower");
 		}
 
         public override void SetDefaults()
@@ -46,7 +46,7 @@ namespace Emperia.Items.Weapons
             recipe.AddIngredient(ItemID.Grenade, 25);
             recipe.AddIngredient(ItemID.Feather, 1);
             recipe.AddTile(TileID.SkyMill);
-            recipe.AddCondition(Recipe.Condition.NearWater);
+            recipe.AddCondition(Condition.NearWater);
             recipe.Register();
         }
         public override void ModifyTooltips(List<TooltipLine> tooltips)
@@ -69,7 +69,7 @@ namespace Emperia.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Cloud Grenade");
+            // DisplayName.SetDefault("Cloud Grenade");
         }
         public override void SetDefaults()
         {

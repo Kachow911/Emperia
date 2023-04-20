@@ -13,7 +13,7 @@ namespace Emperia.Projectiles.Desert
     {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Dune Worm");
+			// DisplayName.SetDefault("Dune Worm");
 			ProjectileID.Sets.DontAttachHideToAlpha[Projectile.type] = true;
 		}
         public override void SetDefaults()

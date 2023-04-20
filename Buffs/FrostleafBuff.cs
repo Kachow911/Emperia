@@ -16,8 +16,8 @@ namespace Emperia.Buffs
     {
         public override void SetStaticDefaults()
         {
-			DisplayName.SetDefault("Nature Attuned");
-			Description.SetDefault("12% increased damage and 25% increased movement speed");
+			// DisplayName.SetDefault("Nature Attuned");
+			// Description.SetDefault("12% increased damage and 25% increased movement speed");
             Main.buffNoSave[Type] = true;
         }
 

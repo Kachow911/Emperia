@@ -15,8 +15,8 @@ namespace Emperia.Items.Weapons.Color1
     {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Vibrance");
-			Tooltip.SetDefault("Striking an enemy will increase defense and critical hit damage briefly, longer on bosses\nWhen empowered, fires a blade lowering enemy contact damage as your DPS rises");
+			// DisplayName.SetDefault("Vibrance");
+			// Tooltip.SetDefault("Striking an enemy will increase defense and critical hit damage briefly, longer on bosses\nWhen empowered, fires a blade lowering enemy contact damage as your DPS rises");
 		}
         public override void SetDefaults()
         {
@@ -60,7 +60,7 @@ namespace Emperia.Items.Weapons.Color1
 				int dust = Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, 158);
 			}
 		}
-		 public override void OnHitNPC(Player player, NPC target, int damage, float knockback, bool crit)
+		 public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
 		{
             if (target.boss)
 			    player.AddBuff(ModContent.BuffType<VermillionValor>(), Main.rand.Next(420, 600) + 300);

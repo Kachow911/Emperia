@@ -12,7 +12,7 @@ namespace Emperia.Projectiles.Desert
     {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Sandstorm Blast");
+			// DisplayName.SetDefault("Sandstorm Blast");
 		}
         public override void SetDefaults()
         {  //Projectile name
@@ -26,7 +26,7 @@ namespace Emperia.Projectiles.Desert
             Projectile.ignoreWater = true;
 			Projectile.alpha = 255;
         }
-		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{
 			if (Main.rand.NextBool(10))
 				target.AddBuff(BuffID.OnFire, 240);

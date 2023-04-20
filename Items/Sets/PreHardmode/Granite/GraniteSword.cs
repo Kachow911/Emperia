@@ -15,23 +15,22 @@ namespace Emperia.Items.Sets.PreHardmode.Granite   //where is located
     {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Granite Sword");
-			Tooltip.SetDefault("Hilt strikes have an increased critical hit chance\nCritical hits release explosions of energy");
+			// DisplayName.SetDefault("Granite Sword");
+			// Tooltip.SetDefault("Hilt strikes have an increased critical hit chance\nCritical hits release explosions of energy");
 		}
         public override void SetDefaults()
-        {    //Sword name
-            Item.damage = 23;           
-            Item.DamageType = DamageClass.Melee;            //if it's melee
-            Item.width = 24;              //Sword width
-            Item.height = 24;             //Sword height
-            Item.useTime = 27;          //how fast 
+        {
+            Item.damage = 23;
+            Item.DamageType = DamageClass.Melee;
+            Item.width = 24;
+            Item.height = 24;
+            Item.useTime = 27;
             Item.useAnimation = 27;     
-            Item.useStyle = 1;        //Style is how this Item is used, 1 is the style of the sword
-            Item.knockBack = 4f;      //Sword knockback
+            Item.useStyle = 1;
+            Item.knockBack = 4f;
             Item.value = 27000;      
             Item.rare = 1;
-			//Item.scale = 1.1f;
-            Item.autoReuse = false;   //if it's capable of autoswing.    
+            Item.autoReuse = false;   
 			Item.UseSound = SoundID.Item1;
 			//Item.crit = 6;			
         }
@@ -87,31 +86,33 @@ namespace Emperia.Items.Sets.PreHardmode.Granite   //where is located
 			Utils.DrawRect(Main.spriteBatch, hiltHitbox, Color.DarkRed);
 			Main.spriteBatch.End();*/
 		}
-		public override void ModifyHitNPC(Player player, NPC target, ref int damage, ref float knockback, ref bool crit)
+		public override void ModifyHitNPC(Player player, NPC target, ref NPC.HitModifiers hit)
 		{
 			MyPlayer modPlayer = player.GetModPlayer<MyPlayer>();
 			if (target.getRect().Intersects(hiltHitbox))
 			{
-				if (Main.rand.Next(99) + 1 > (Item.crit + player.GetCritChance(DamageClass.Melee) + player.GetCritChance(DamageClass.Generic) + 15)) crit = false;
-				else crit = true;
-				if (crit && modPlayer.graniteSet && modPlayer.graniteTime >= 900) PlaySound(new SoundStyle("Emperia/Sounds/Custom/HeavyThud3") with { Volume = 1.35f, PitchVariance = 0.2f }, player.Center);
-				else PlaySound(new SoundStyle("Emperia/Sounds/Custom/HeavyThud2") with { Volume = 1.0f, PitchVariance = 0.2f }, player.Center);
+				if (Main.rand.Next(99) + 1 > (Item.crit + player.GetCritChance(DamageClass.Melee) + player.GetCritChance(DamageClass.Generic) + 15)) hit.DisableCrit(); //bad for mod compatability
+				else hit.SetCrit();
 			}
-			if (crit)
+			if (modPlayer.graniteSet && modPlayer.graniteTime >= 900)
 			{
-				if (modPlayer.graniteSet && modPlayer.graniteTime >= 900)
-				{
-					damage = (int)((float)damage * 1.875f);
-				}
-				else
-				{
-					damage = (int)((float)damage * 1.25f);
-				}
+				hit.CritDamage *= 1.875f;
+			}
+			else
+			{
+				hit.CritDamage *= 1.25f;
 			}
 		}
-		public override void OnHitNPC (Player player, NPC target, int damage, float knockback, bool crit)
+		public override void OnHitNPC (Player player, NPC target, NPC.HitInfo hit, int damageDone)
 		{
-			if (crit)
+			if (target.getRect().Intersects(hiltHitbox))
+			{
+				MyPlayer modPlayer = player.GetModPlayer<MyPlayer>();
+				if (hit.Crit && modPlayer.graniteSet && modPlayer.graniteTime >= 900) PlaySound(new SoundStyle("Emperia/Sounds/Custom/HeavyThud3") with { Volume = 1.35f, PitchVariance = 0.2f }, player.Center);
+				else PlaySound(new SoundStyle("Emperia/Sounds/Custom/HeavyThud2") with { Volume = 1.0f, PitchVariance = 0.2f }, player.Center);
+			}
+
+			if (hit.Crit)
 			{
 				MyPlayer modPlayer = player.GetModPlayer<MyPlayer>();
 				if (modPlayer.graniteSet && modPlayer.graniteTime >= 900)
@@ -120,7 +121,7 @@ namespace Emperia.Items.Sets.PreHardmode.Granite   //where is located
 					for (int i = 0; i < Main.npc.Length; i++)
 					{
 						if (target.Distance(Main.npc[i].Center) < 126 && Main.npc[i] != target)
-							Main.npc[i].StrikeNPC((int) (damage), 0f, 0, false, false, false);
+							Main.npc[i].SimpleStrikeNPC(hit.Damage, 0);
 					}
 					for (int i = 0; i < 45; ++i)
 					{
@@ -136,7 +137,7 @@ namespace Emperia.Items.Sets.PreHardmode.Granite   //where is located
 					for (int i = 0; i < Main.npc.Length; i++)
 					{
 						if (target.Distance(Main.npc[i].Center) < 90 && Main.npc[i] != target)
-							Main.npc[i].StrikeNPC((int) (damage), 0f, 0, false, false, false);
+							Main.npc[i].SimpleStrikeNPC(hit.Damage, 0);
 					}
 					for (int i = 0; i < 30; ++i)
 					{
@@ -147,14 +148,12 @@ namespace Emperia.Items.Sets.PreHardmode.Granite   //where is located
 				}
 			}
 		}
-        public override void AddRecipes()  //How to craft this sword
+        public override void AddRecipes()
         {
             Recipe recipe = CreateRecipe();      
             recipe.AddIngredient(null, "GraniteBar", 8); 
-            recipe.AddTile(TileID.Anvils); 			//you need 1 DirtBlock  //at work bench
+            recipe.AddTile(TileID.Anvils);
             recipe.Register();
-            
-
         }
     }
 }

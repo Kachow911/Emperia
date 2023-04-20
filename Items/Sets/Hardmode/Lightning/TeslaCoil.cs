@@ -38,8 +38,8 @@ namespace Emperia.Items.Sets.Hardmode.Lightning
 
 		public override void SetStaticDefaults()
 		{
-		  DisplayName.SetDefault("Tesla Coil Rod");
-		  Tooltip.SetDefault("Fires a bolt of lightning");
+		  // DisplayName.SetDefault("Tesla Coil Rod");
+		  // Tooltip.SetDefault("Fires a bolt of lightning");
 		}
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockBack)
 		{

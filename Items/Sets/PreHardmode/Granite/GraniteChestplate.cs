@@ -14,8 +14,8 @@ public class GraniteChestplate : ModItem
    
 	public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Granite Breastplate");
-			Tooltip.SetDefault("Increases your max number of minions\n2% increased critical strike chance");
+			// DisplayName.SetDefault("Granite Breastplate");
+			// Tooltip.SetDefault("Increases your max number of minions\n2% increased critical strike chance");
 		}
     public override void SetDefaults()
     {

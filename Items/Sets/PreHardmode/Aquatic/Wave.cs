@@ -11,8 +11,8 @@ namespace Emperia.Items.Sets.PreHardmode.Aquatic
     {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Wave");
-			Tooltip.SetDefault("Summons magic waves to defeat enemies");
+			// DisplayName.SetDefault("Wave");
+			// Tooltip.SetDefault("Summons magic waves to defeat enemies");
 		}
 
 

@@ -13,7 +13,7 @@ namespace Emperia.Projectiles
     {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Pink Day's Blade");
+			// DisplayName.SetDefault("Pink Day's Blade");
 		}
         public override void SetDefaults()
         {
@@ -44,14 +44,7 @@ namespace Emperia.Projectiles
 				Projectile.tileCollide = true;
 			}
         }
-        public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection) {
-            Player player = Main.player[Projectile.owner];
-			if (!crit && Main.rand.Next(100 - (int)player.GetCritChance(DamageClass.Melee)) < 4)
-            {
-				crit = true;
-			}
-		}
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{	
 			target.immune[Projectile.owner] = 5;
 		}

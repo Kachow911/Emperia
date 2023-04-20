@@ -7,7 +7,7 @@ namespace Emperia.Items
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Osmium Crystal");
+			// DisplayName.SetDefault("Osmium Crystal");
 		}
 		public override void SetDefaults()
 		{

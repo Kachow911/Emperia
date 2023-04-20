@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace Emperia.Tiles.Volcano
@@ -16,8 +17,8 @@ namespace Emperia.Tiles.Volcano
 			Main.tileBlockLight[Type] = true;
 			Main.tileLighted[Type] = true;
 			//ItemDrop = ModContent.ItemType<MagmousOre>();  
-			ModTranslation name = CreateMapEntryName();
-			name.SetDefault("Magmous Ore");
+			LocalizedText name = CreateMapEntryName();
+			// name.SetDefault("Magmous Ore");
 			AddMapEntry(new Color(240, 20, 20), name);
 			HitSound = SoundID.Tink;
 			MinPick = 75;

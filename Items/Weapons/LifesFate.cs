@@ -12,8 +12,8 @@ namespace Emperia.Items.Weapons
     {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Life's Fate");
-			Tooltip.SetDefault("Critical strikes will empower the blade and enable you to steal life for a short while");
+			// DisplayName.SetDefault("Life's Fate");
+			// Tooltip.SetDefault("Critical strikes will empower the blade and enable you to steal life for a short while");
 		}
 
 
@@ -66,10 +66,10 @@ namespace Emperia.Items.Weapons
             //Main.dust[dust].velocity.X /= 2f;
             //Main.dust[dust].velocity.Y /= 2f;
         }
-        public override void OnHitNPC(Player player, NPC target, int damage, float knockBack, bool crit)
+        public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
         {
             MyPlayer modPlayer = player.GetModPlayer<MyPlayer>();
-            if (crit)
+            if (hit.Crit)
             {
                 player.AddBuff(ModContent.BuffType<LifesFateBuff>(), Main.rand.Next(840, 960));
             }

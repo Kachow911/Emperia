@@ -22,7 +22,7 @@ namespace Emperia.Projectiles
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Inquisitor's Blade");
+            // DisplayName.SetDefault("Inquisitor's Blade");
         }
 
         public override void Kill(int timeLeft)

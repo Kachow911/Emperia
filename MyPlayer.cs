@@ -342,7 +342,7 @@ namespace Emperia
 						direction.Normalize();
 						Main.npc[i].velocity = (-direction) * 8f;
 						doWave = true;
-						Main.npc[i].StrikeNPC(10, 0f, 0, false, false, false);
+						Main.npc[i].SimpleStrikeNPC(10, 0);
 					}
 				}
 				if (doWave)
@@ -410,7 +410,7 @@ namespace Emperia
 						if (Player.Hitbox.Intersects(Main.npc[i].Hitbox) && !hitEnemies.Contains(i) && Main.npc[i].life > 2)
 						{
 							hitEnemies.Add(i);
-							Main.npc[i].StrikeNPC(60, 0f, 0, false, false, false);
+							Main.npc[i].SimpleStrikeNPC(60, 0);
 							Main.npc[i].AddBuff(BuffID.CursedInferno, 120);
 							if (!changedVelocity)
 							{
@@ -656,11 +656,11 @@ namespace Emperia
 		{
 
 		}
-		public override void ModifyHitByNPC(NPC NPC, ref int damage, ref bool crit)
+		public override void ModifyHitByNPC(NPC npc, ref Player.HurtModifiers modifiers)
 		{
 			if (Player.HasBuff(ModContent.BuffType<SkullBuff>()))
 			{
-				damage /= 2;
+				modifiers.FinalDamage *= 0.5f;
 				Player.ClearBuff(ModContent.BuffType<SkullBuff>());
 			}
 		}
@@ -668,9 +668,10 @@ namespace Emperia
 		{
 			return true;
 		}
-		public override bool PreHurt(bool pvp, bool quiet, ref int damage, ref int hitDirection, ref bool crit, ref bool customDamage, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource, ref int cooldownCounter)
-		{
-			return dashDelay <= 70;
+        public override bool FreeDodge(Player.HurtInfo info)
+        {
+			if (dashDelay <= 70) return true;
+			return false;
 		}
 		public override void PreUpdate()
 		{
@@ -901,7 +902,7 @@ namespace Emperia
         {
 
 		}
-        public override void OnRespawn(Player player)
+        public override void OnRespawn()
 		{
 			if (EmperialWorld.respawnFull)
 			{
@@ -910,7 +911,7 @@ namespace Emperia
 
 			}
 		}
-		public override void Hurt(bool pvp, bool quiet, double damage, int hitDirection, bool crit, int cooldownCounter)
+		public override void OnHurt(Player.HurtInfo info)
 		{
 			graniteTime = 0;
 			if (terraGauntlet != null)
@@ -931,7 +932,7 @@ namespace Emperia
 			}
 			if (Player.HasBuff(ModContent.BuffType<Bloodstained>()))
 			{
-				bloodstainedDmg = (int)damage;
+				bloodstainedDmg = info.Damage;
 				Player.AddBuff(ModContent.BuffType<Bloodstained2>(), 600);
 				Player.ClearBuff(ModContent.BuffType<Bloodstained>());
 			}
@@ -955,9 +956,9 @@ namespace Emperia
 			else closestPoint.X = point.X;
 			//Projectile.NewProjectile(new EntitySource_Misc("heh"), closestPoint, Vector2.Zero, ModContent.ProjectileType<RedPixel>(), 0, 0);
 		}
-		public override void ModifyHitNPC(Item Item, NPC target, ref int damage, ref float knockback, ref bool crit)
+		public override void ModifyHitNPCWithItem(Item item, NPC target, ref NPC.HitModifiers modifiers)/* tModPorter If you don't need the Item, consider using ModifyHitNPC instead */
 		{
-			if (Item.CountsAsClass(DamageClass.Melee))
+			if (item.CountsAsClass(DamageClass.Melee))
 			{
 				if (gauntletBonus > 0)
 				{
@@ -971,67 +972,52 @@ namespace Emperia
 					Main.NewText(distanceMult);
 					Main.NewText((((distanceMult > .8f) ? .8f : distanceMult) + .2f).ToString());
 					Main.NewText(Vector2.Distance(Player.Center, closestPoint).ToString());*/
-					float damageMult = gauntletBonus * (((distanceMult > .8f) ? .8f : distanceMult) + .2f); //caps damage multiplier at 65% distance
+					float damageMult = gauntletBonus * (((distanceMult > .8f) ? .8f : distanceMult) + .2f) + 1; //caps damage multiplier at 65% distance
 					{
 						//int oldDamage = damage;
 						if ((target.width + target.height / 2) > 48) //this is for big enemies or bosses
 						{
-							damage += (int)(damage * damageMult);
+							modifiers.SourceDamage *= damageMult;
 						}
 						else
 						{
-							damage += (int)(damage * (damageMult / 2));
+							modifiers.SourceDamage *= damageMult / 2;
 						}
 						//Main.NewText((damage - oldDamage).ToString(), 255, 240, 20);
 					}
 				}
 				if (slightKnockback)
 				{
-					knockback *= 1.1f;
+					modifiers.Knockback *= 1.1f;
 				}
 
 				if (doubleKnockback)
 				{
-					knockback *= 2f;
+					modifiers.Knockback *= 2f;
 				}
 				if ((ferocityGauntlet || terraGauntlet != null) && Main.rand.Next(10) == 0)
-					damage *= 2;
-				if (crit && rougeRage)
-				{
-					damage = damage += (damage / 10);
-				}
-				if (crit && vermillionValor)
-				{
-					damage = damage += ((damage * 13) / 100);
-				}
-				if (Player.HasBuff(ModContent.BuffType<Goliath>())) damage = (int)(damage * 1.1f);
+					modifiers.SourceDamage *= 2;
+				if (Player.HasBuff(ModContent.BuffType<Goliath>())) modifiers.SourceDamage *= 1.1f;
 			}
 		}
-		public override void ModifyHitNPCWithProj(Projectile Projectile, NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
+		public override void ModifyHitNPCWithProj(Projectile proj, NPC target, ref NPC.HitModifiers modifiers)
 		{
-			if (slightKnockback)
-			{
-				knockback *= 1.1f;
-			}
-			if (doubleKnockback)
-			{
-				knockback *= 2f;
-			}
-			if ((ferocityGauntlet || terraGauntlet != null) && Main.rand.Next(10) == 0)
-				damage *= 2;
-			if (crit && rougeRage)
-			{
-				damage = damage += (damage / 10);
-			}
-			if (crit && vermillionValor)
-			{
-				damage = damage += ((damage * 13) / 100);
-			}
-			if (Player.HasBuff(ModContent.BuffType<Goliath>()) && Projectile.aiStyle == 161) damage = (int)(damage * 1.1f);
+			if (Player.HasBuff(ModContent.BuffType<Goliath>()) && proj.aiStyle == ProjAIStyleID.ShortSword) modifiers.SourceDamage *= 1.1f;
 		}
-		public override void OnHitNPC(Item Item, NPC target, int damage, float knockback, bool crit)
+        public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
+        {
+			if (rougeRage)
+			{
+				modifiers.CritDamage *= 1.1f;
+			}
+			if (vermillionValor)
+			{
+				modifiers.CritDamage *= 1.13f;
+			}
+		}
+        public override void OnHitNPCWithItem(Item item, NPC target, NPC.HitInfo hit, int damageDone)/* tModPorter If you don't need the Item, consider using OnHitNPC instead */
 		{
-			if (Item.CountsAsClass(DamageClass.Melee))
+			if (item.CountsAsClass(DamageClass.Melee))
 			{
 				if (target.life <= 0 && terraGauntlet != null)
 				{
@@ -1044,7 +1030,7 @@ namespace Emperia
 				}
 				if (floralGauntlet && Main.rand.Next(20) == 0)
 				{
-					int lifeToHeal = damage;
+					int lifeToHeal = damageDone;
 					if (lifeToHeal > 25)
 						lifeToHeal = 25;
 					Player.statLife += lifeToHeal;
@@ -1119,13 +1105,13 @@ namespace Emperia
 				if (woodGauntlet != null && !woodGauntlet.IsAir)
 				{
 					Vector2 rotVector = target.Center - Player.Center;
-					if (Main.rand.Next(6 + (30 / damage)) == 0)
+					if (Main.rand.Next(6 + (30 / damageDone)) == 0)
 					{
 						rotVector.Normalize();
-						Projectile.NewProjectile(Player.GetSource_Accessory(woodGauntlet), Player.Center.X, Player.Center.Y, rotVector.X * 10f, rotVector.Y * 10f, ModContent.ProjectileType<Splinter>(), 7, knockback, Main.myPlayer, 0, 0);
+						Projectile.NewProjectile(Player.GetSource_Accessory(woodGauntlet), Player.Center.X, Player.Center.Y, rotVector.X * 10f, rotVector.Y * 10f, ModContent.ProjectileType<Splinter>(), 7, hit.Knockback, Main.myPlayer, 0, 0);
 					}
 				}
-				if (gelGauntlet > 0 && target.knockBackResist == 0f && !Item.GetGlobalItem<GItem>().noGelGauntlet)
+				if (gelGauntlet > 0 && target.knockBackResist == 0f && !item.GetGlobalItem<GItem>().noGelGauntlet)
 				{
 					FindClosestEntityPoint(Player.Center, target, out Vector2 closestPoint);
 					float distance = Vector2.Distance(Player.Center, closestPoint);
@@ -1155,7 +1141,7 @@ namespace Emperia
 				}
 				if (magicGauntlet != null && !magicGauntlet.IsAir)
 				{
-					if (Main.rand.Next(8 + (60 / damage)) == 0 || target.life <= 0 && Main.rand.Next(3) == 0)
+					if (Main.rand.Next(8 + (60 / damageDone)) == 0 || target.life <= 0 && Main.rand.Next(3) == 0)
 					{ //chance based on damage and if the attack killed
 						NPC chosenNPC = target;
 						for (int k = 0; k < 200; k++)
@@ -1186,7 +1172,7 @@ namespace Emperia
 				}
 				if (boneGauntlet != null && !boneGauntlet.IsAir && !Player.HasBuff(ModContent.BuffType<SkullBuff>()))
 				{
-					if (Main.rand.Next(30 + (160 / damage)) == 0)
+					if (Main.rand.NextBool(30 + (160 / damageDone)))
 					{
 						Projectile.NewProjectile(Player.GetSource_Accessory(boneGauntlet), Player.Center.X, Player.Center.Y, 0, 0, ModContent.ProjectileType<GauntletSkull>(), 0, 4f, Player.whoAmI);
 						Player.AddBuff(ModContent.BuffType<SkullBuff>(), 1200);
@@ -1195,7 +1181,7 @@ namespace Emperia
 				}
 				if (bloodGauntlet && !Player.HasBuff(ModContent.BuffType<Bloodstained>()) && !Player.HasBuff(ModContent.BuffType<Bloodstained2>()))
 				{
-					if (Main.rand.Next(25 + (240 / damage)) == 0) //this can somehow sometimes divide by zero? i dont see how onhit can activate if damage is 0
+					if (Main.rand.NextBool(25 + (240 / damageDone))) //this can somehow sometimes divide by zero? i dont see how onhit can activate if damage is 0
 					{
 						Player.AddBuff(ModContent.BuffType<Bloodstained>(), 1200);
 						PlaySound(SoundID.Item8, Player.Center);
@@ -1203,11 +1189,11 @@ namespace Emperia
 				}
 				if (bloodGauntlet && Player.HasBuff(ModContent.BuffType<Bloodstained2>()))
 				{
-					if (bloodstainedDmg >= damage / 2)
+					if (bloodstainedDmg >= damageDone / 2)
 					{
-						Player.statLife += damage / 2;
-						Player.HealEffect(damage / 2);
-						bloodstainedDmg -= damage / 2;
+						Player.statLife += damageDone / 2;
+						Player.HealEffect(damageDone / 2);
+						bloodstainedDmg -= damageDone / 2;
 					}
 					else
 					{
@@ -1222,7 +1208,7 @@ namespace Emperia
 				if (goblinSet) Player.AddBuff(ModContent.BuffType<GoblinsCelerity>(), 180);
 			}
 
-			if (crit && target.life <= 0 && deathTalisman != null && !deathTalisman.IsAir && !target.HasBuff(ModContent.BuffType<FatesDemise>()))
+			if (hit.Crit && target.life <= 0 && deathTalisman != null && !deathTalisman.IsAir && !target.HasBuff(ModContent.BuffType<FatesDemise>()))
 			{
 				int damage1 = 0;
 				if (target.lifeMax > 1500)
@@ -1240,7 +1226,7 @@ namespace Emperia
 					PlaySound(SoundID.NPCDeath52, target.Center);
 				}
 			}
-			if (crit && deathTalisman != null && !deathTalisman.IsAir)
+			if (hit.Crit && deathTalisman != null && !deathTalisman.IsAir)
 			{
 				target.AddBuff(ModContent.BuffType<FatesDemise>(), 720);
 			}
@@ -1250,14 +1236,14 @@ namespace Emperia
 			}
 			if (defenseInsignia)
 			{
-				int increasedChance = damage / 50;
+				int increasedChance = damageDone / 50;
 				if (increasedChance > 8) increasedChance = 8;
 				if (Main.rand.NextFloat(80) <= (2 + increasedChance))
 				{
 					Item.NewItem(Player.GetSource_OnHit(target, ModContent.ItemType<InsigniaofDefense>().ToString()), (int)target.position.X, (int)target.position.Y, target.width, target.height, ModContent.ItemType<ProtectiveEnergy>());
 				}
 			}
-			if (crit && sporeFriend && Main.rand.NextBool(3))
+			if (hit.Crit && sporeFriend && Main.rand.NextBool(3))
 			{
 				if (sporeCount <= 0)
 				{
@@ -1270,9 +1256,9 @@ namespace Emperia
 				Player.AddBuff(ModContent.BuffType<Spored>(), 2);
 			}
 		}
-		public override void OnHitNPCWithProj(Projectile Projectile, NPC target, int damage, float knockback, bool crit)
+		public override void OnHitNPCWithProj(Projectile proj, NPC target, NPC.HitInfo hit, int damageDone)/* tModPorter If you don't need the Projectile, consider using OnHitNPC instead */
 		{
-			if (Projectile.CountsAsClass(DamageClass.Magic) && forestSetMage && Main.rand.Next(10) == 0)
+			if (proj.CountsAsClass(DamageClass.Magic) && forestSetMage && Main.rand.Next(10) == 0)
 			{
 				primalRageTime = 600;
 			}
@@ -1289,7 +1275,7 @@ namespace Emperia
 			}
 			if (floralGauntlet && Main.rand.Next(20) == 0)
 			{
-				int lifeToHeal = damage;
+				int lifeToHeal = damageDone;
 				if (lifeToHeal > 25)
 					lifeToHeal = 25;
 				Player.statLife += lifeToHeal;
@@ -1307,7 +1293,7 @@ namespace Emperia
 			{
 				ferocityTime = 180;
 			}
-			if (crit && target.life <= 0 && deathTalisman != null && !deathTalisman.IsAir && !target.HasBuff(ModContent.BuffType<FatesDemise>()))
+			if (hit.Crit && target.life <= 0 && deathTalisman != null && !deathTalisman.IsAir && !target.HasBuff(ModContent.BuffType<FatesDemise>()))
 			{
 				int damage1 = 0;
 				if (target.lifeMax > 1500)
@@ -1380,20 +1366,20 @@ namespace Emperia
 					}
 				}
 			}
-			if (crit && deathTalisman != null && !deathTalisman.IsAir)
+			if (hit.Crit && deathTalisman != null && !deathTalisman.IsAir)
 			{
 				target.AddBuff(ModContent.BuffType<FatesDemise>(), 720);
 			}
 			if (defenseInsignia)
 			{
-				int increasedChance = damage / 50;
+				int increasedChance = damageDone / 50;
 				if (increasedChance > 9) increasedChance = 9;
 				if (Main.rand.NextFloat(80) <= (1 + increasedChance))
 				{
 					Item.NewItem(Player.GetSource_OnHit(target, ModContent.ItemType<InsigniaofDefense>().ToString()), (int)target.position.X, (int)target.position.Y, target.width, target.height, ModContent.ItemType<ProtectiveEnergy>());
 				}
 			}
-			if (crit && sporeFriend && Main.rand.NextBool(3))
+			if (hit.Crit && sporeFriend && Main.rand.NextBool(3))
 			{
 				if (sporeCount <= 0)
 				{

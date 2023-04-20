@@ -14,7 +14,7 @@ namespace Emperia.Projectiles
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Wave");
+			// DisplayName.SetDefault("Wave");
 			Main.projFrames[Projectile.type] = 5;
 		}
         public override void SetDefaults()

@@ -14,8 +14,8 @@ public class ChillsteelChestplate : ModItem
     
 	public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Chillsteel Chestplate");
-			Tooltip.SetDefault("Increases armor penetration by 4");
+			// DisplayName.SetDefault("Chillsteel Chestplate");
+			// Tooltip.SetDefault("Increases armor penetration by 4");
 		}
     public override void SetDefaults()
     {

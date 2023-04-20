@@ -1,4 +1,4 @@
-using Terraria.ID;
+﻿using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace Emperia.Items.Sets.PreHardmode.Frostleaf
@@ -7,8 +7,8 @@ namespace Emperia.Items.Sets.PreHardmode.Frostleaf
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Frostleaf");
-			Tooltip.SetDefault("’Might give you a rash’");
+			// DisplayName.SetDefault("Frostleaf");
+			// Tooltip.SetDefault("’Might give you a rash’");
 		}
 		public override void SetDefaults()
 		{

@@ -25,7 +25,7 @@ namespace Emperia.Projectiles
 		
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Seaweed Arrow");
+			// DisplayName.SetDefault("Seaweed Arrow");
 		}
 		
 		public override void Kill(int timeLeft)
@@ -48,7 +48,7 @@ namespace Emperia.Projectiles
 			}
 		}
 		
-		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{	
 			target.immune[Projectile.owner] = 2;
 		}

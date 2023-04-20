@@ -12,7 +12,7 @@ namespace Emperia.Projectiles.Yeti
     {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Coniferocious");
+			// DisplayName.SetDefault("Coniferocious");
 		}
         public override void SetDefaults()
         {

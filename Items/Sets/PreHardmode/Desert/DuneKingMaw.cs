@@ -13,8 +13,8 @@ public class DuneKingMaw : ModItem
     
 	public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Dune King's Maw");
-			Tooltip.SetDefault("4% increased endurance");
+			// DisplayName.SetDefault("Dune King's Maw");
+			// Tooltip.SetDefault("4% increased endurance");
 		}
     public override void SetDefaults()
     {

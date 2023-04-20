@@ -16,8 +16,8 @@ namespace Emperia.Buffs
     {
         public override void SetStaticDefaults()
         {
-			DisplayName.SetDefault("Ironclad");
-			Description.SetDefault("6% increased damage reduction, +6 defense");
+			// DisplayName.SetDefault("Ironclad");
+			// Description.SetDefault("6% increased damage reduction, +6 defense");
             Main.buffNoSave[Type] = true;
         }
 

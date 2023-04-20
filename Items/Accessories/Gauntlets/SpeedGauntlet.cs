@@ -13,8 +13,8 @@ namespace Emperia.Items.Accessories.Gauntlets
     {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Gauntlet of Speed");
-			Tooltip.SetDefault("15% increased movement speed\nSlightly increased knockback");
+			// DisplayName.SetDefault("Gauntlet of Speed");
+			// Tooltip.SetDefault("15% increased movement speed\nSlightly increased knockback");
 		}
         public override void SetDefaults()
         {

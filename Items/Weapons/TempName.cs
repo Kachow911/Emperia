@@ -14,8 +14,8 @@ namespace Emperia.Items.Weapons   //where is located
     {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Flameforged Blade");
-			Tooltip.SetDefault("Enemies Killed by the sword explode into balls of fire");
+			// DisplayName.SetDefault("Flameforged Blade");
+			// Tooltip.SetDefault("Enemies Killed by the sword explode into balls of fire");
 		}
         public override void SetDefaults()
         {
@@ -50,7 +50,7 @@ namespace Emperia.Items.Weapons   //where is located
             else return null;
         }
 
-		public override void OnHitNPC(Player player, NPC target, int damage, float knockback, bool crit)
+		public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
 		{
             //Main.NewText(player.velocity.Y.ToString(), 255, 0, 50);
             player.fallStart = (int)(player.position.Y / 16f);
@@ -121,9 +121,10 @@ namespace Emperia.Items.Weapons   //where is located
                 modPlayer.fastFallLength = 1; //increases maxFallSpeed
             }
         }
-        public override void ModifyHitNPC (Player player, NPC target, ref int damage, ref float knockback, ref bool crit)
+        public override void ModifyHitNPC (Player player, NPC target, ref NPC.HitModifiers modifiers)
 		{
-            if (player.velocity.Y < 16)
+            Main.NewText("Damage calcs unimplemented in 1.4.4");
+        /*   if (player.velocity.Y < 16)
             {
                 damage = (int)(damage / 3 + (damage * (player.velocity.Y / 16)));
             }
@@ -132,7 +133,7 @@ namespace Emperia.Items.Weapons   //where is located
             if (target.velocity.Y != 0 && target.knockBackResist >= 0)
 			{
 				target.velocity.Y += (5.5f * target.knockBackResist * ((15 + player.velocity.Y) / 30));
-            }
+            }*/
         }
         public override Vector2? HoldoutOffset()
 		{

@@ -10,7 +10,7 @@ namespace Emperia.Projectiles.Corrupt
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Cursed Bolt");
+			// DisplayName.SetDefault("Cursed Bolt");
 		}
 		public override void SetDefaults()
 		{
@@ -39,7 +39,7 @@ namespace Emperia.Projectiles.Corrupt
 				Main.dust[num].noGravity = true;
 			}
 		}
-		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{
 			if (Main.rand.Next(3) == 0)
 				target.AddBuff(BuffID.CursedInferno, 240);

@@ -14,7 +14,7 @@ namespace Emperia.Projectiles
 		private int timer = 0;
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Vine Leaf");
+			// DisplayName.SetDefault("Vine Leaf");
 		}
         public override void SetDefaults()
         {  //Projectile name

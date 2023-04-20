@@ -10,10 +10,6 @@ namespace Emperia.Items
 {
 	internal class StickyHand : ModItem
 	{
-		public override void SetStaticDefaults() {
-			DisplayName.SetDefault("Sticky Hand");
-		}
-
 		public override void SetDefaults() {
 			Item.CloneDefaults(ItemID.AmethystHook);
 			Item.shootSpeed = 17f;
@@ -25,8 +21,9 @@ namespace Emperia.Items
 
 	internal class StickyHandProj : ModProjectile
 	{
-		public override void SetStaticDefaults() {
-			DisplayName.SetDefault("Sticky Hand");
+		public override void SetStaticDefaults()
+		{
+			ProjectileID.Sets.SingleGrappleHook[Type] = true;
 		}
 
 		public override void SetDefaults() {
@@ -50,7 +47,7 @@ namespace Emperia.Items
 		float rot;
 		Vector2 direction;
 
-		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{
 			///*
 			if (Projectile.velocity == Vector2.Zero) ///prevents game from crashing due to hooking both a tile and enemy at once
@@ -110,12 +107,6 @@ namespace Emperia.Items
 				}
 			}
 			return (hooksOut == 0);
-		}
-
-
-		public override bool? SingleGrappleHook(Player player)
-		{
-			return true;
 		}
 
 		// Use this to kill oldest hook. For hooks that kill the oldest when shot, not when the newest latches on: Like SkeletronHand

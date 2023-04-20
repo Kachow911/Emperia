@@ -13,7 +13,7 @@ namespace Emperia.Projectiles
 		private int explodeRadius = 100;
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Marble Energy");
+			// DisplayName.SetDefault("Marble Energy");
 		}
         public override void SetDefaults()
         {  //Projectile name

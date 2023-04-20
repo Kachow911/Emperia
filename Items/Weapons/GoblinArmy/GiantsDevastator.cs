@@ -13,8 +13,8 @@ namespace Emperia.Items.Weapons.GoblinArmy
     {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Giant's Devastator");
-			Tooltip.SetDefault("Shoots powerful rockets that leave lasting fire on the ground\nHas a long reload time");
+			// DisplayName.SetDefault("Giant's Devastator");
+			// Tooltip.SetDefault("Shoots powerful rockets that leave lasting fire on the ground\nHas a long reload time");
 		}
         public override void SetDefaults()
         {  

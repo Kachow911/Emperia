@@ -11,7 +11,7 @@ namespace Emperia.Projectiles
     {
     	public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Primal Pike");
+			// DisplayName.SetDefault("Primal Pike");
 		}
         public override void SetDefaults()
         {
@@ -71,7 +71,7 @@ namespace Emperia.Projectiles
         	}
 			
         }
-		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
 			Player player = Main.player[Projectile.owner];
 			Vector2 placePosition = player.Center + new Vector2(0, -400);

@@ -33,7 +33,7 @@ namespace Emperia.Items.Sets.PreHardmode.Scoria
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Scoria Knife");
+            // DisplayName.SetDefault("Scoria Knife");
         }
     }
 }

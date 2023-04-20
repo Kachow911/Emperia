@@ -12,7 +12,7 @@ namespace Emperia.Projectiles.Corrupt
     {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Cursed Flame");
+			// DisplayName.SetDefault("Cursed Flame");
 		}
         public override void SetDefaults()
         {  //Projectile name
@@ -48,7 +48,7 @@ namespace Emperia.Projectiles.Corrupt
             Terraria.Audio.SoundEngine.PlaySound(SoundID.Dig, Projectile.Center);
 
         }
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             if (Main.rand.Next(3) == 0)
                 target.AddBuff(BuffID.CursedInferno, 240);

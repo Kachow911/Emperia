@@ -14,7 +14,7 @@ namespace Emperia.Items.Weapons
     {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Greatsword");
+			// DisplayName.SetDefault("Greatsword");
 			//Tooltip.SetDefault("Enemies Killed by the sword explode into balls of fire");
 		}
         public override void SetDefaults()

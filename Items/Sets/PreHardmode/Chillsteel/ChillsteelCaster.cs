@@ -12,7 +12,7 @@ namespace Emperia.Items.Sets.PreHardmode.Chillsteel
 		public override void SetStaticDefaults()
 		{
 			//DisplayName.SetDefault("Wave");
-			Tooltip.SetDefault("Shoots powerful ice clusters, inflicting crushing freeze");
+			// Tooltip.SetDefault("Shoots powerful ice clusters, inflicting crushing freeze");
 		}
 
 

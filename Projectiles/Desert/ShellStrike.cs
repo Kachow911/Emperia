@@ -14,7 +14,7 @@ namespace Emperia.Projectiles.Desert
         NPC NPC;
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Shell Strike");
+			// DisplayName.SetDefault("Shell Strike");
 		}
         public override void SetDefaults()
         {
@@ -41,17 +41,17 @@ namespace Emperia.Projectiles.Desert
 				Vector2 vel = new Vector2(0, -1).RotatedBy(Main.rand.NextFloat() * 6.283f) * 3.5f;
 			}
 		}
-        public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection) {
+        public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers) {
             NPC = target;
             NPC.GetGlobalNPC<MyNPC>().strikeCount += 1;
             if (target.GetGlobalNPC<MyNPC>().strikeCount == 4)
             {
-				damage = damage * 2;
+                modifiers.SourceDamage *= 2f;
                 PlaySound(SoundID.Item14, Projectile.Center);
 				for (int i = 0; i < Main.npc.Length; i++)
             	{
 					if (Projectile.Distance(Main.npc[i].Center) < 40 && Main.npc[i] != NPC)
-                    	Main.npc[i].StrikeNPC(Projectile.damage * 2, 0f, 0, false, false, false);
+                    	Main.npc[i].SimpleStrikeNPC(Projectile.damage * 2, 0);
 				}	
 				for (int i = 0; i < 20; ++i)
 				{

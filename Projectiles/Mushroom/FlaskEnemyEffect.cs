@@ -13,7 +13,7 @@ namespace Emperia.Projectiles.Mushroom
 		private int explodeRadius = 70;
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Mushroom Gas");
+			// DisplayName.SetDefault("Mushroom Gas");
 		}
         public override void SetDefaults()
         {  //Projectile name
@@ -41,7 +41,7 @@ namespace Emperia.Projectiles.Mushroom
 			for (int i = 0; i < Main.npc.Length; i++)
             {
 				if (Projectile.Distance(Main.npc[i].Center) < explodeRadius && Projectile.timeLeft % 24 == 0 && !Main.npc[i].townNPC)
-                    Main.npc[i].StrikeNPC(24, 0f, 0, false, false, false);
+                    Main.npc[i].SimpleStrikeNPC(24, 0);
 			}
 			
 		}

@@ -13,7 +13,7 @@ namespace Emperia.Projectiles
 		private int explodeRadius = 0;
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Holy Yoyo");
+			// DisplayName.SetDefault("Holy Yoyo");
 		}
         public override void SetDefaults()
         {  //Projectile name

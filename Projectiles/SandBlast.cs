@@ -12,7 +12,7 @@ namespace Emperia.Projectiles
     {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Sandstorm Blast");
+			// DisplayName.SetDefault("Sandstorm Blast");
 		}
         public override void SetDefaults()
         {  //Projectile name

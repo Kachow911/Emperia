@@ -42,7 +42,7 @@ namespace Emperia.Projectiles.Granite
 		}
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Granite Elemental");
+			// DisplayName.SetDefault("Granite Elemental");
 			ProjectileID.Sets.MinionTargettingFeature[Projectile.type] = true;
 			Main.projPet[Projectile.type] = true;
 			ProjectileID.Sets.MinionSacrificable[Projectile.type] = true;
@@ -142,7 +142,7 @@ namespace Emperia.Projectiles.Granite
 								for (int i = 0; i < Main.npc.Length; i++)
 								{
 									if (Projectile.Distance(Main.npc[i].Center) < 90)
-										Main.npc[i].StrikeNPC(projDamage / 4 * 15, 0f, 0, false, false, false);
+										Main.npc[i].SimpleStrikeNPC((int)(projDamage * 3.75f), 0);
 								}
 								for (int i = 0; i < 45; ++i)
 								{
@@ -158,7 +158,7 @@ namespace Emperia.Projectiles.Granite
 								for (int i = 0; i < Main.npc.Length; i++)
 								{
 									if (Projectile.Distance(Main.npc[i].Center) < 60)
-										Main.npc[i].StrikeNPC(projDamage * 2 + projDamage / 2, 0f, 0, false, false, false);
+										Main.npc[i].SimpleStrikeNPC((int)(projDamage * 2.5f), 0);
 								}
 								for (int i = 0; i < 30; ++i)
 								{
@@ -173,7 +173,7 @@ namespace Emperia.Projectiles.Granite
 						}
 						else
 						{
-							Main.npc[NPC].StrikeNPC(initialDamageBoost ? projDamage + projDamage / 3 : projDamage, 0f, 0, false, false, false);
+							Main.npc[NPC].SimpleStrikeNPC(initialDamageBoost ? (int)(projDamage * 1.33f) : projDamage, 0);
 						}
 						int softHitLimit = initialDamageBoost ? 5 : 3;
 

@@ -14,7 +14,7 @@ namespace Emperia.Projectiles
 		int timer = 0;
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Shadow Bolt");
+			// DisplayName.SetDefault("Shadow Bolt");
 		}
         public override void SetDefaults()
         {  //Projectile name

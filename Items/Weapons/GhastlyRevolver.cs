@@ -14,8 +14,8 @@ namespace Emperia.Items.Weapons
 		float lastCount = 0;
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Ghastly Revolver");
-			Tooltip.SetDefault("Generates haunted pistols around you as you shoot");
+			// DisplayName.SetDefault("Ghastly Revolver");
+			// Tooltip.SetDefault("Generates haunted pistols around you as you shoot");
 		}
 
 

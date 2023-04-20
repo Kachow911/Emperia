@@ -12,7 +12,7 @@ namespace Emperia.Projectiles.Stratos
         bool init = false;
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Stratos Energy");
+			// DisplayName.SetDefault("Stratos Energy");
 		}
         public override void SetDefaults()
         {  //Projectile name

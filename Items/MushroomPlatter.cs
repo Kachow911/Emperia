@@ -9,7 +9,7 @@ namespace Emperia.Items
 	{
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Mushroom Platter");
+            // DisplayName.SetDefault("Mushroom Platter");
         }
         public override void SetDefaults()
         {
@@ -48,7 +48,7 @@ namespace Emperia.Items
 	{
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Mushroom Platter");
+            // DisplayName.SetDefault("Mushroom Platter");
         }
         public override void SetDefaults()
         {

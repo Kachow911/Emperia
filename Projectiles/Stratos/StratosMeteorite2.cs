@@ -12,7 +12,7 @@ namespace Emperia.Projectiles.Stratos
         bool init = false;
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Stratos Rock");
+			// DisplayName.SetDefault("Stratos Rock");
 		}
         public override void SetDefaults()
         {  //Projectile name
@@ -65,7 +65,7 @@ namespace Emperia.Projectiles.Stratos
             for (int i = 0; i < Main.npc.Length; i++)
             {
                 if (Projectile.Distance(Main.npc[i].Center) < 60  && !Main.npc[i].townNPC)
-                    Main.npc[i].StrikeNPC(Projectile.damage, 0f, 0, false, false, false);
+                    Main.npc[i].SimpleStrikeNPC(Projectile.damage, 0);
             }
         }
 		

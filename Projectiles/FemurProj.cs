@@ -11,7 +11,7 @@ namespace Emperia.Projectiles
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Oversized Femur");
+			// DisplayName.SetDefault("Oversized Femur");
 		}
 		int timer = 0;
 		public override void SetDefaults()
@@ -27,7 +27,7 @@ namespace Emperia.Projectiles
 			Projectile.tileCollide = true;
 		}
 
-		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{
 			timer++;
 			if (timer > 20)

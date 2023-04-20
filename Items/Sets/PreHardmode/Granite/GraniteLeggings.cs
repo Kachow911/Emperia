@@ -14,8 +14,8 @@ public class GraniteLeggings : ModItem
     
     public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Granite Greaves");
-			Tooltip.SetDefault("Grants immunity to knockback");
+			// DisplayName.SetDefault("Granite Greaves");
+			// Tooltip.SetDefault("Grants immunity to knockback");
 		}
     public override void SetDefaults()
     {

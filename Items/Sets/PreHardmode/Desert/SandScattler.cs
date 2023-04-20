@@ -13,8 +13,8 @@ namespace Emperia.Items.Sets.PreHardmode.Desert
     {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Shell Striker");
-			Tooltip.SetDefault("Shoots a spread of sharp fragments that explode if they all hit the target");
+			// DisplayName.SetDefault("Shell Striker");
+			// Tooltip.SetDefault("Shoots a spread of sharp fragments that explode if they all hit the target");
 		}
         public override void SetDefaults()
         {  

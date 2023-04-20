@@ -14,8 +14,8 @@ public class DuneKingCuisses : ModItem
     
     public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Dune King's Cuisses");
-			Tooltip.SetDefault("5% increased endurance");
+			// DisplayName.SetDefault("Dune King's Cuisses");
+			// Tooltip.SetDefault("5% increased endurance");
 		}
     public override void SetDefaults()
     {

@@ -14,7 +14,7 @@ namespace Emperia.Projectiles
 		int timer = 0;
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Scoria Knife");
+			// DisplayName.SetDefault("Scoria Knife");
 		}
         public override void SetDefaults()
         {  //Projectile name
@@ -46,7 +46,7 @@ namespace Emperia.Projectiles
 			}
 			
         }
-		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
 			if (Main.rand.Next(3) == 0)
 			{

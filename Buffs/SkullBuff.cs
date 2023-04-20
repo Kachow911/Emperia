@@ -16,8 +16,8 @@ namespace Emperia.Buffs
     {
         public override void SetStaticDefaults()
         {
-			DisplayName.SetDefault("Unveiled Death");
-			Description.SetDefault("Next contact damage taken will be halved");
+			// DisplayName.SetDefault("Unveiled Death");
+			// Description.SetDefault("Next contact damage taken will be halved");
             Main.buffNoSave[Type] = true;
         }
     }

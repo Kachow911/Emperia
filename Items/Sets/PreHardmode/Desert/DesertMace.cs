@@ -11,7 +11,7 @@ namespace Emperia.Items.Sets.PreHardmode.Desert
 		NPC NPC;
 
 		public override void SetStaticDefaults() {
-			Tooltip.SetDefault("Slams airborne enemies downwards, damaging them if they hit the ground");
+			// Tooltip.SetDefault("Slams airborne enemies downwards, damaging them if they hit the ground");
 		}
 		
 		public override void SetDefaults() {
@@ -37,17 +37,20 @@ namespace Emperia.Items.Sets.PreHardmode.Desert
 			
 		}*/
 
-		public override void ModifyHitNPC (Player player, NPC target, ref int damage, ref float knockback, ref bool crit)
+		public override void ModifyHitNPC (Player player, NPC target, ref NPC.HitModifiers modifiers)
 		{
 			if (target.velocity.Y != 0 && target.noTileCollide == false && target.knockBackResist >= 0 && !target.boss)// && player.itemAnimation <= 22 if the effect is too strong
 			{
-				knockback *= 0.7f;
+				modifiers.Knockback *= 0.7f;
 				//target.velocity.Y += 12 * target.knockBackResist;
 				if (target.velocity.Y < 0) target.velocity.Y -= (target.velocity.Y < -10) ? -5f : target.velocity.Y * 0.5f;
 				target.velocity.Y += 6 + (3 * target.knockBackResist);
-            	target.GetGlobalNPC<MyNPC>().maceSlam = 25;
-				target.GetGlobalNPC<MyNPC>().maceSlamDamage = damage;
 			}
 		}
-	}
+        public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
+        {
+			target.GetGlobalNPC<MyNPC>().maceSlam = 25;
+			target.GetGlobalNPC<MyNPC>().maceSlamDamage = hit.SourceDamage;
+		}
+    }
 }

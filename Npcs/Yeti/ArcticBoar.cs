@@ -13,7 +13,7 @@ namespace Emperia.Npcs.Yeti
     
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Arctic Boar");
+			// DisplayName.SetDefault("Arctic Boar");
 			Main.npcFrameCount[NPC.type] = 3;
 		}
         public override void SetDefaults()
@@ -45,7 +45,7 @@ namespace Emperia.Npcs.Yeti
 			NPC.frame.Y = frame * frameHeight; 
 		}
 
-        public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
+        public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)/* tModPorter Note: bossLifeScale -> balance (bossAdjustment is different, see the docs for details) */
         {
             NPC.lifeMax = 300;
             NPC.damage = 40;

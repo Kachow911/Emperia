@@ -13,7 +13,7 @@ namespace Emperia.Projectiles
 		private int explodeRadius = 0;
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Phantasmal Yoyo");
+			// DisplayName.SetDefault("Phantasmal Yoyo");
 		}
         public override void SetDefaults()
         {  //Projectile name

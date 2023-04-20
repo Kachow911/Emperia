@@ -13,8 +13,8 @@ namespace Emperia.Items.Sets.Hardmode.Crimson {
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Bloodboil Headpiece");
-            Tooltip.SetDefault("8% increased magic damage");
+            // DisplayName.SetDefault("Bloodboil Headpiece");
+            // Tooltip.SetDefault("8% increased magic damage");
         }
         public override void SetDefaults()
         {

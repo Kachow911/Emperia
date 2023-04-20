@@ -32,7 +32,7 @@ namespace Emperia.Items.Weapons.Yeti
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Hunter's Spear");
+            // DisplayName.SetDefault("Hunter's Spear");
         }
     }
 }

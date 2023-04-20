@@ -1,6 +1,7 @@
 ﻿using Terraria;
 using Terraria.DataStructures;
 using Terraria.Enums;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
 using Terraria.ID;
@@ -34,8 +35,8 @@ namespace Emperia.Tiles
 
 			DustType = 60;
 			ItemDrop = ModContent.ItemType<Items.BloodCandle>();
-			ModTranslation name = CreateMapEntryName();
-			name.SetDefault("Blood Candle");
+			LocalizedText name = CreateMapEntryName();
+			// name.SetDefault("Blood Candle");
 			AddMapEntry(new Color(255, 80, 80), name);
 
 

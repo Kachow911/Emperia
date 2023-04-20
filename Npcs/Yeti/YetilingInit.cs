@@ -14,7 +14,7 @@ namespace Emperia.Npcs.Yeti
         int counter = 60;
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Yetiling");
+			// DisplayName.SetDefault("Yetiling");
 			Main.npcFrameCount[NPC.type] = 1;
 		}
         public override void SetDefaults()

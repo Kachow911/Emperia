@@ -166,10 +166,10 @@ namespace Emperia
 
                             if (type < 0)
                             {
-                                if (type == -2 && Main.tile[k, l].HasTile && (l < WorldGen.waterLine || l > WorldGen.lavaLine))
+                                if (type == -2 && Main.tile[k, l].HasTile && (l < GenVars.waterLine || l > GenVars.lavaLine))
                                 {
                                    tile5.LiquidType = 255;
-                                    if (l > WorldGen.lavaLine)
+                                    if (l > GenVars.lavaLine)
                                     {
                                         //Main.tile[k, l].lava(true);
                                         tile5.LiquidType = 2;
@@ -271,7 +271,7 @@ namespace Emperia
                                     tile5.LiquidType = 0;
                                     //Main.tile[k, l].lava(false);
                                 }
-                                if (type == 59 && l > WorldGen.waterLine && Main.tile[k, l].LiquidType > 0)
+                                if (type == 59 && l > GenVars.waterLine && Main.tile[k, l].LiquidType > 0)
                                 {
                                     //Main.tile[k, l].lava(false);
                                     tile5.LiquidType = 0;
@@ -1303,20 +1303,20 @@ namespace Emperia
                     num96 -= 1f;
                 }
             }
-            WorldGen.tLeft = num52;
-            WorldGen.tRight = num53;
-            WorldGen.tTop = num54;
-            WorldGen.tBottom = num55;
-            WorldGen.tRooms = num2;
+            GenVars.tLeft = num52;
+            GenVars.tRight = num53;
+            GenVars.tTop = num54;
+            GenVars.tBottom = num55;
+            GenVars.tRooms = num2;
         }
 
         public static void templePart2()
         {
-            int minValue = WorldGen.tLeft;
-            int maxValue = WorldGen.tRight;
-            int minValue2 = WorldGen.tTop;
-            int num = WorldGen.tBottom;
-            int num2 = WorldGen.tRooms;
+            int minValue = GenVars.tLeft;
+            int maxValue = GenVars.tRight;
+            int minValue2 = GenVars.tTop;
+            int num = GenVars.tBottom;
+            int num2 = GenVars.tRooms;
             float num3 = (float)num2 * 1.9f;
             num3 *= 1f + (float)Main.rand.Next(-15, 16) * 0.01f;
             int num4 = 0;

@@ -14,8 +14,8 @@ public class TrueleafChest : ModItem
     
 	public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Trueleaf Chestplate");
-			Tooltip.SetDefault("4% increased endurance");
+			// DisplayName.SetDefault("Trueleaf Chestplate");
+			// Tooltip.SetDefault("4% increased endurance");
 		}
     public override void SetDefaults()
     {

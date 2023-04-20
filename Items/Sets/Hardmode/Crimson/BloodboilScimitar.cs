@@ -14,8 +14,8 @@ namespace Emperia.Items.Sets.Hardmode.Crimson
     {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Bloodboil Scimitar");
-			Tooltip.SetDefault("Occasionally launches clusters of ichor bubbles");
+			// DisplayName.SetDefault("Bloodboil Scimitar");
+			// Tooltip.SetDefault("Occasionally launches clusters of ichor bubbles");
 		}
 
 
@@ -51,7 +51,7 @@ namespace Emperia.Items.Sets.Hardmode.Crimson
             }
             return false;
         }
-        public override void OnHitNPC(Player player, NPC target, int damage, float knockBack, bool crit)
+        public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
         {
             {
                 target.AddBuff(BuffID.Ichor, 180);

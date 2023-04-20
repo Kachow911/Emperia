@@ -11,8 +11,8 @@ namespace Emperia.Buffs
     {
         public override void SetStaticDefaults()
         {
-           DisplayName.SetDefault("Vermillion Venom");
-			Description.SetDefault("Decreased Contact Damage");         
+           // DisplayName.SetDefault("Vermillion Venom");
+			// Description.SetDefault("Decreased Contact Damage");         
             Main.debuff[Type] = true;   //Tells the game if this is a buf or not.
             Main.pvpBuff[Type] = true;  //Tells the game if pvp buff or not. 
             Main.buffNoSave[Type] = true;

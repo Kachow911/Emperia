@@ -14,8 +14,8 @@ public class RotfireLeggings : ModItem
     
     public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Rotfire Leggings");
-			Tooltip.SetDefault("20% increased movement speed");
+			// DisplayName.SetDefault("Rotfire Leggings");
+			// Tooltip.SetDefault("20% increased movement speed");
 		}
     public override void SetDefaults()
     {

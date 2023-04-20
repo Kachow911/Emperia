@@ -7,7 +7,7 @@ namespace Emperia.Items
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Molten Chunk");
+			// DisplayName.SetDefault("Molten Chunk");
 		}
 		public override void SetDefaults()
 		{

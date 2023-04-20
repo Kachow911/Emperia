@@ -10,8 +10,8 @@ namespace Emperia.Items.Sets.PreHardmode.Aquatic
     {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Sea's Star");
-			Tooltip.SetDefault("Bounces on tile hits");
+			// DisplayName.SetDefault("Sea's Star");
+			// Tooltip.SetDefault("Bounces on tile hits");
 		}
 
 

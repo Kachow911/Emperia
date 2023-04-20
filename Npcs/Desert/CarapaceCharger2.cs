@@ -11,7 +11,7 @@ namespace Emperia.Npcs.Desert
     {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Carapage Charger");
+			// DisplayName.SetDefault("Carapage Charger");
 			Main.npcFrameCount[NPC.type] = 6;
 		}
 		

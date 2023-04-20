@@ -11,8 +11,8 @@ namespace Emperia.Buffs
     {
         public override void SetStaticDefaults()
         {
-           DisplayName.SetDefault("Cryogenized");
-			Description.SetDefault("Frozen Solid");         
+           // DisplayName.SetDefault("Cryogenized");
+			// Description.SetDefault("Frozen Solid");         
             Main.debuff[Type] = true;
             Main.pvpBuff[Type] = true;
             Main.buffNoSave[Type] = true;

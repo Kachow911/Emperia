@@ -7,7 +7,7 @@ namespace Emperia.Items.Grotto
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Mistwood");
+			// DisplayName.SetDefault("Mistwood");
 		}
 		public override void SetDefaults()
 		{

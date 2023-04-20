@@ -14,8 +14,8 @@ namespace Emperia.Items.Sets.PreHardmode.Seashell
     {
 		 public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Seashell Blade");
-			Tooltip.SetDefault("Land five strikes in quick succession to fire a powerful coral blast");
+			// DisplayName.SetDefault("Seashell Blade");
+			// Tooltip.SetDefault("Land five strikes in quick succession to fire a powerful coral blast");
 		}
         public override void SetDefaults()
         {
@@ -70,17 +70,15 @@ namespace Emperia.Items.Sets.PreHardmode.Seashell
             else seaBladeCount = 0;
         }
         //could use holditem to reset timer
-        public override void ModifyHitNPC (Player player, NPC target, ref int damage, ref float knockback, ref bool crit)
+        public override void ModifyHitNPC (Player player, NPC target, ref NPC.HitModifiers modifiers)
 		{
                 hitEnemy = true;
                 if (seaBladeCount >= 4)
                 {
                     hitEnemy = false;
-                    if (crit) { knockback *= 1.5f; }
-                    else { knockback *= 3f; }
-                    knockback *= (1.4f - target.knockBackResist);//more accurate on flimsy npcs
-                    PlaySound(SoundID.Item70 with { Volume = 0.5f }, player.Center);
-                    seaBladeCount = 0;
+                    modifiers.Knockback *= 3f;
+                    modifiers.Knockback *= (1.4f - target.knockBackResist);//more accurate on flimsy npcs
+                    modifiers.ModifyHitInfo += ScaleKnockbackWithCrit;
                     /*for (int i = 0; i < 4; ++i)
                     {
                         //Main.NewText(((Main.rand.Next(30) + 20 * i) * (Main.rand.NextBool(2) == true ? 1 : -1)).ToString());
@@ -89,9 +87,6 @@ namespace Emperia.Items.Sets.PreHardmode.Seashell
                 		direction.Normalize();
                 		Projectile.NewProjectile(source, placePosition.X, placePosition.Y, direction.X * (4f + i), direction.Y * (4f + i), ModContent.ProjectileType<CoralBurst>(), damage, 0, Main.myPlayer, 0, 0);
                     }*/
-			        Vector2 direction = target.Center - player.Center;
-			        direction.Normalize();
-                    Projectile.NewProjectile(player.GetSource_ItemUse(Item), player.Center.X, player.Center.Y, direction.X * 5f, direction.Y * 5f, ModContent.ProjectileType<CoralShard>(), damage * 2, 1, Main.myPlayer, 0, 0);
                     //Main.NewText(modPlayer.seaBladeCount.ToString());
                 }
 			/*if (crit)
@@ -102,5 +97,20 @@ namespace Emperia.Items.Sets.PreHardmode.Seashell
 				Projectile.NewProjectile(source, player.Center.X, player.Center.Y - 400, direction.X * 10f, direction.Y * 10f, ModContent.ProjectileType<SeashellBladeProj>(), 20, 1, Main.myPlayer, 0, 0);
 			}*/
 		}
+        public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            if (seaBladeCount >= 4)
+            {
+                PlaySound(SoundID.Item70 with { Volume = 0.5f }, player.Center);
+                Vector2 direction = target.Center - player.Center;
+                direction.Normalize();
+                Projectile.NewProjectile(player.GetSource_ItemUse(Item), player.Center.X, player.Center.Y, direction.X * 5f, direction.Y * 5f, ModContent.ProjectileType<CoralShard>(), hit.SourceDamage * 2, 1, Main.myPlayer, 0, 0);
+                seaBladeCount = 0;
+            }
+        }
+        public static void ScaleKnockbackWithCrit(ref NPC.HitInfo info)
+        {
+            if (info.Crit) { info.Knockback *= 0.5f; }
+        }
     }
 }

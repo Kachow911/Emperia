@@ -1,0 +1,2080 @@
+Mods: {
+	Emperia: {
+		Buffs: {
+			AlloyArmor: {
+				DisplayName: Alloy Armor
+				Description: Defense increased by 4
+			}
+
+			AquaticBoost: {
+				DisplayName: Aquatic Boost
+				Description: 4% Increased Damage, +2 life regen
+			}
+
+			BerylBrutalism: {
+				DisplayName: Beryl Brutalism
+				Description: 8% increased melee speed
+			}
+
+			Bleed: {
+				DisplayName: Bleeding
+				Description: Mods.Emperia.BuffDescription.Bleed
+			}
+
+			BloodCandleBuff: {
+				DisplayName: Blood Candle
+				Description: Greatly increased monster spawn rate
+			}
+
+			Bloodstained: {
+				DisplayName: Bloodstained
+				Description: Your next damage taken can be healed back
+			}
+
+			Bloodstained2: {
+				DisplayName: Rally!
+				Description: Deal damage with sword strikes to rally back the damage taken!
+			}
+
+			BurningNight: {
+				DisplayName: Burning Night
+				Description: Losing life
+			}
+
+			CeruleanCharge: {
+				DisplayName: Cerulean Charge
+				Description: 6% increased melee damage
+			}
+
+			CrushingFreeze: {
+				DisplayName: Crushing Freeze
+				Description: hhhh
+			}
+
+			Cryogenized: {
+				DisplayName: Cryogenized
+				Description: Frozen Solid
+			}
+
+			CuttingLeaves: {
+				DisplayName: Cutting Leaves
+				Description: dps over time on god
+			}
+
+			ElecHostile: {
+				DisplayName: Electrified
+				Description: Mods.Emperia.BuffDescription.ElecHostile
+			}
+
+			EmberTyrantBuff: {
+				DisplayName: Ember Tyrant
+				Description: They are all very angry
+			}
+
+			FatesDemise: {
+				DisplayName: Fate's Flames
+				Description: Losing life
+			}
+
+			FrostleafBuff: {
+				DisplayName: Nature Attuned
+				Description: 12% increased damage and 25% increased movement speed
+			}
+
+			Frozen: {
+				DisplayName: Vermillion Venom
+				Description: Decreased Contact Damage
+			}
+
+			GoblinsCelerity: {
+				DisplayName: Goblin's Celerity
+				Description: 10% increased movement and melee speed
+			}
+
+			Goliath: {
+				DisplayName: Goliath
+				Description: 20% increased sword size and 10% increased sword damage
+			}
+
+			GraniteMinionBuff: {
+				DisplayName: Granite Elemental
+				Description: The granite elemental will fight for you
+			}
+
+			IndigoInertia: {
+				DisplayName: Indigo Inertia
+				Description: Life regeneration increased by 1
+			}
+
+			IndigoInfirmary: {
+				DisplayName: Indigo Infirmary
+				Description: Losing life
+			}
+
+			IndigoIntensity: {
+				DisplayName: Indigo Intensity
+				Description: 8% increased melee damage and life regeneration increased by 1.5
+			}
+
+			LifesFateBuff: {
+				DisplayName: Bloodbath
+				Description:
+					'''
+					Life's Fate damage increased by 15%, sword strikes will steal life
+					'You are overflowing with life'
+					'''
+			}
+
+			LimeLegerity: {
+				DisplayName: Lime Legerity
+				Description: 20% increased movement speed and 10% increased melee speed
+			}
+
+			ManaOverdose: {
+				DisplayName: Mana Overdose
+				Description: Cannot consume any more mana restoring items
+			}
+
+			MoreDamage: {
+				DisplayName: More Damage
+				Description: Moar Damage
+			}
+
+			NocturnalFlame: {
+				DisplayName: Nocturnal Flames
+				Description: You are engulfed in dark flames that grow hotter every second
+			}
+
+			ProtectiveBoost: {
+				DisplayName: Ironclad
+				Description: 6% increased damage reduction, +6 defense
+			}
+
+			Purgation: {
+				DisplayName: Purgation
+				Description: Shows the location of infectious blocks
+			}
+
+			RougeRage: {
+				DisplayName: Rouge Rage
+				Description: 10% increased critical hit damage
+			}
+
+			SaffronSadism: {
+				DisplayName: Saffron Sadism
+				Description: 15% increased movement speed
+			}
+
+			SharkMinionBuff: {
+				DisplayName: Depth Scrounger
+				Description: Epic shark moment
+			}
+
+			SkullBuff: {
+				DisplayName: Unveiled Death
+				Description: Next contact damage taken will be halved
+			}
+
+			Spored: {
+				DisplayName: Spore Stimulants
+				Description:
+					'''
+					3% increased damage
+					3% increased crit chance
+					'''
+			}
+
+			SporeStorm: {
+				DisplayName: Spore Storm
+				Description: Losing life
+			}
+
+			Supercharged: {
+				DisplayName: Supercharged!
+				Description: 20% increased movement speed and 10% increased damage
+			}
+
+			TitianTyranny: {
+				DisplayName: Titian Tyranny
+				Description: Defense increased by 3
+			}
+
+			VermillionValor: {
+				DisplayName: Vermillion Valor
+				Description: 13% increased critical hit damage and defense increased by 4
+			}
+
+			VermillionVenom: {
+				DisplayName: Vermillion Venom
+				Description: Decreased Contact Damage
+			}
+
+			Waxwing: {
+				DisplayName: Waxwing
+				Description: 25% increased wing speed, but 10% decreased flight time
+			}
+
+			YetiMount: {
+				DisplayName: Yetiling
+				Description: The Yetiling is a pretty chill dude
+			}
+		}
+
+		Items: {
+			AncientPelt: {
+				DisplayName: Ancient Pelt
+				Tooltip:
+					'''
+					Nearby enemies become chilled and frostburned
+					You deal 5% more damage in the Ice Biome
+					'''
+			}
+
+			BoarTusk: {
+				DisplayName: Boar's Tusk
+				Tooltip:
+					'''
+					6% increased damage and movement speed
+					You lose 5 defense
+					'''
+			}
+
+			BreakingPoint: {
+				DisplayName: Breaking Point
+				Tooltip:
+					'''
+					All weapons set enemies aflame
+					Immunity to ice-based debuffs
+					You move faster while under 50% hp
+					'''
+			}
+
+			CharmOfLegends: {
+				DisplayName: Charm of Legends
+				Tooltip:
+					'''
+					Healing potions heal for 25 additional HP
+					While under half life you will recieve boosts of healing
+					Provides life regeneration and reduces the cooldown of healing potions
+					'''
+			}
+
+			DeathTalisman: {
+				DisplayName: Talisman of Death
+				Tooltip:
+					'''
+					Critical hits alight enemies with fate's flames
+					Enemies that die under this effect explode into additional flames
+					Flames deal more damage based on the maximum life of the enemy
+					'''
+			}
+
+			EruptionBottle: {
+				DisplayName: Eruption in a Bottle
+				Tooltip: Gives the player an improved double jump
+			}
+
+			ForbiddenOath: {
+				DisplayName: Forbidden Oath
+				Tooltip: While under half life you will recieve boosts of healing
+			}
+
+			FrostFangEarring: {
+				DisplayName: Frost Fang Earring
+				Tooltip: When not moving, summons a frost viper to freeze nearby enemies in their tracks
+			}
+
+			BloodGauntlet: {
+				DisplayName: Bloodstained Gauntlet
+				Tooltip:
+					'''
+					Sword damage increased by up to 15% at close range, 30% on large foes
+					Sword strikes may empower you, letting you heal back the damage taken from one hit by attacking
+					Allows you to swing swords while walking backwards
+					'''
+			}
+
+			EnchantedGauntlet: {
+				DisplayName: Enchanted Gauntlet
+				Tooltip:
+					'''
+					Sword damage increased by up to 12% at close range, 25% on large foes
+					Sword strikes may summon an enchanted blade to slash nearby enemies
+					Allows you to swing swords while walking backwards
+					'''
+			}
+
+			FerocityGauntlet: {
+				DisplayName: Gauntlet of Ferocity
+				Tooltip:
+					'''
+					Attacks have a chance to deal double damage
+					Enemies take Double Knockback
+					When you strike an enemy, you have a chance to momentarily gain increased Damage, Speed and Defense
+					Increased Max Mana.
+					'''
+			}
+
+			FloralGauntlet: {
+				DisplayName: Floral Gauntlet
+				Tooltip:
+					'''
+					Attacks have a chance to lifesteal
+					Increased damage and max life
+					'''
+			}
+
+			FrostGauntlet: {
+				DisplayName: Gauntlet of Frost
+				Tooltip:
+					'''
+					Chance to freeze enemies on hit
+					Enemies shatter on death, sending 2-3 frost bolts in random directions
+					'''
+			}
+
+			GelGauntlet: {
+				DisplayName: Gelatinous Gauntlet
+				Tooltip:
+					'''
+					Sword damage increased by up to 12% at close range, 25% on large foes
+					Sword strikes on knockback-immune foes bounce you back safely
+					Allows you to swing swords while walking backwards
+					'''
+			}
+
+			GraveGauntlet: {
+				DisplayName: Grave Gauntlet
+				Tooltip:
+					'''
+					Sword damage increased by up to 12% at close range, 25% on large foes
+					Sword strikes may summon a skull that halves the next contact damage taken
+					Allows you to swing swords while walking backwards
+					'''
+			}
+
+			MetallurgyGauntlet: {
+				DisplayName: Metallurgy Gauntlet
+				Tooltip:
+					'''
+					Sword damage increased by up to 12% at close range, 25% on large foes
+					Sword strikes increase defense briefly
+					Allows you to swing swords while walking backwards
+					'''
+			}
+
+			MeteorGauntlet: {
+				DisplayName: Meteor Gauntlet
+				Tooltip: Attacks inflict on fire and have a chance to rain small meteors on enemies
+			}
+
+			PrimordialGauntlet: {
+				DisplayName: Primordial Gauntlet
+				Tooltip:
+					'''
+					Your attacks have a chance to Deal Double damage
+					Your attacks have a chance to fully lifesteal
+					When you take damage, you gain increased speed, damage and Defense
+					Attacks inflict multipile potent debuffs
+					Enemies expldoe into damage dealing and healing projectiles
+					'''
+			}
+
+			ScalyGauntlet: {
+				DisplayName: Scaly Gauntlet
+				Tooltip:
+					'''
+					While not in the ocean, you become 'Enraged'
+					This state makes you deal increased damage and have increased flight time and move speed 
+					'''
+			}
+
+			SpeedGauntlet: {
+				DisplayName: Gauntlet of Speed
+				Tooltip:
+					'''
+					15% increased movement speed
+					Slightly increased knockback
+					'''
+			}
+
+			ThermalGauntlet: {
+				DisplayName: Thermal Gauntlet
+				Tooltip:
+					'''
+					Enemies explode into seeking frost bolts and fire bolts.
+					Attacks inflict On Fire! and Frostburn.
+					Enemies have a chance to be frozen on hit.
+					Taking damage summons meteors from the sky
+					'''
+			}
+
+			WoodweaversGauntlet: {
+				DisplayName: Woodweaver's Gauntlet
+				Tooltip:
+					'''
+					Sword damage increased by up to 10% at close range, 20% on large foes
+					Sword strikes may fire a tiny splinter of wood at foes
+					'''
+			}
+
+			WristBrace: {
+				DisplayName: Wrist Brace
+				Tooltip:
+					'''
+					Allows you to swing swords while walking backwards
+					'Also prevents carpal tunnel!'
+					'''
+			}
+
+			InsigniaofDefense: {
+				DisplayName: Ironclad Insignia
+				Tooltip:
+					'''
+					Attacks may spawn metallic energy, increasing defenses when collected
+					Strong attacks and sword strikes have a higher chance
+					'''
+			}
+
+			LunarDestruction: {
+				DisplayName: Lunar Destruction
+				Tooltip:
+					'''
+					Allows the player to dash into enemies, inflicting extreme
+					Double Tap a direction to dash
+					'''
+			}
+
+			SorcerorCrystal: {
+				DisplayName: Sorceror's Crystal
+				Tooltip: +20 max life and mana
+			}
+
+			MycelialShield: {
+				DisplayName: Mycelial Shield
+				Tooltip:
+					'''
+					Critical Hits have a chance to surround you in spores
+					While these spores are active, damage is increased 
+					Spores also damage enemies
+					'''
+			}
+
+			RetinalBane: {
+				DisplayName: Retinal Bane
+				Tooltip:
+					'''
+					Allows the player to dash into enemies, inflicting cursed flames
+					Double Tap a direction to dash
+					'''
+			}
+
+			VitalityCrystal: {
+				DisplayName: Vitality Crystal
+				Tooltip: Healing potions heal for 25 additional HP
+			}
+
+			WarlockTorc: {
+				DisplayName: Warlock's Torc
+				Tooltip:
+					'''
+					15% increased magic damage
+					Decreases maximum mana significantly
+					Increases susceptibility to mana sickness
+					Tightens around the neck when certain magic potions draw near, preventing their use
+					'''
+			}
+
+			AetherBar: {
+				DisplayName: Aetherium Bar
+				Tooltip: "''Surprisingly light'"
+			}
+
+			Aetherium: {
+				DisplayName: Aetherium
+				Tooltip: ""
+			}
+
+			AquaticScale: {
+				DisplayName: Aquatic Scale
+				Tooltip: ""
+			}
+
+			AridScale: {
+				DisplayName: Arid Scale
+				Tooltip: ""
+			}
+
+			GoblinChest: {
+				DisplayName: Elder Goblin's Chestpiece
+				Tooltip: 3% increased melee and move speed
+			}
+
+			GoblinHelm: {
+				DisplayName: Elder Goblin's Heaume
+				Tooltip: 4% Increased critical strike chance
+			}
+
+			GoblinLegs: {
+				DisplayName: Elder Goblin's Brogans
+				Tooltip: 3% increased damage
+			}
+
+			YetiMask: {
+				DisplayName: Yeti Mask
+				Tooltip: Let the fury of the beast flow through you!
+			}
+
+			AshenBandage: {
+				DisplayName: Ashen Bandage
+				Tooltip:
+					'''
+					The ashen clumps seem to have some healing properties
+					Heals 60HP
+					Lower than normal cooldown
+					'''
+			}
+
+			AshenStrips: {
+				DisplayName: Ashen Strip
+				Tooltip: ""
+			}
+
+			BloodCandle: {
+				DisplayName: Blood Candle
+				Tooltip:
+					'''
+					Greatly increases enemy spawn rates
+					Kindling the flame will exact a blood sacrifice that is said to earn fate's favor
+					'''
+			}
+
+			CactusJuice: {
+				DisplayName: Cactus Juice
+				Tooltip:
+					'''
+					Gives swiftness
+					1 minute duration
+					'''
+			}
+
+			ChilledFootprint: {
+				DisplayName: Chilled Footprint
+				Tooltip: Summons a ridable yeti mount
+			}
+
+			DebugSheet: {
+				DisplayName: Debug Sheet
+				Tooltip: ""
+			}
+
+			Deplatformer: {
+				DisplayName: Deplatformer
+				Tooltip: Can chop a row of several platforms all at once
+			}
+
+			DesertEye: {
+				DisplayName: Arid Eye
+				Tooltip: ""
+			}
+
+			GelidHide: {
+				DisplayName: Gelid Hide
+				Tooltip:
+					'''
+					Looks Rotten. I wonder what it could lure?.
+					Used in the snow biome
+					'''
+			}
+
+			GelPad: {
+				DisplayName: Gel Pad
+				Tooltip:
+					'''
+					Right Click while holding a gauntlet to attach
+					While attached to an equipped gauntlet, sword strikes on knockback-immune foes bounce you slightly back
+					'''
+			}
+
+			GiantPlating: {
+				DisplayName: Giant's Plating
+				Tooltip: ""
+			}
+
+			GoliathPotion: {
+				DisplayName: Goliath Potion
+				Tooltip: Increases sword size by 20% and sword damage by 10%
+			}
+
+			GrottoBrick: {
+				DisplayName: Duskstone Brick
+				Tooltip: ""
+			}
+
+			GrottoDirt: {
+				DisplayName: Loam Block
+				Tooltip: ""
+			}
+
+			GrottoStone: {
+				DisplayName: Duskstone Block
+				Tooltip: ""
+			}
+
+			GrottoWood: {
+				DisplayName: Mistwood
+				Tooltip: ""
+			}
+
+			Icarusfish: {
+				DisplayName: Icarusfish
+				Tooltip: ""
+			}
+
+			Lasagna: {
+				DisplayName: Lasagna
+				Tooltip: Mondays are the worst
+			}
+
+			LCDWrench: {
+				DisplayName: LCD Wrench
+				Tooltip: Configures colors of LCD displays
+			}
+
+			MoltenChunk: {
+				DisplayName: Molten Chunk
+				Tooltip: ""
+			}
+
+			MoonPedestalItem: {
+				DisplayName: Moon Pedestal
+				Tooltip: Players will respawn with max life and mana when placed nearby
+			}
+
+			MushorBag: {
+				DisplayName: Treasure Bag (Mushor)
+				Tooltip: Right Click to open
+			}
+
+			MushroomPlatter: {
+				DisplayName: Mushroom Platter
+				Tooltip: ""
+			}
+
+			MushroomPlatterCrim: {
+				DisplayName: Mushroom Platter
+				Tooltip: ""
+			}
+
+			NightFlame: {
+				DisplayName: Nocturnal Flame
+				Tooltip:
+					'''
+					Engulfs the holder in flames if held while unbound
+					Right Click while holding a Night's Edge to bind the flame to the blade, empowering it
+					'''
+			}
+
+			OldMastersPalette: {
+				DisplayName: Old Master's Palette
+				Tooltip:
+					'''
+					Allows ultimate control over paint!
+					Right Click while holding to select paints and brush
+					'The world is your canvas... literally!'
+					'''
+			}
+
+			Osmium: {
+				DisplayName: Osmium Crystal
+				Tooltip: ""
+			}
+
+			PearlyPrism: {
+				DisplayName: Pearly Prism
+				Tooltip: ""
+			}
+
+			LCDScreen: {
+				DisplayName: LCD Screen
+				Tooltip: Can be configured with an LCD wrench to display up to 4 colors at once
+			}
+
+			PlatformLayer: {
+				DisplayName: Platform-O-Matic
+				Tooltip:
+					'''
+					Places platforms with increased speed and range
+					Can automatically extend a row of platforms horizontally
+					Right Click to switch to chopping mode
+					'''
+			}
+
+			Prism: {
+				DisplayName: Prism
+				Tooltip: ""
+			}
+
+			ProtectiveEnergy: {
+				DisplayName: Metallic Energy
+				Tooltip: ""
+			}
+
+			PurgationPotion: {
+				DisplayName: Purgation Potion
+				Tooltip: Shows the location of infectious blocks
+			}
+
+			SeacrabPlacer: {
+				DisplayName: Seacrab Placer
+				Tooltip: ""
+			}
+
+			ChasmHelm: {
+				DisplayName: Chasm Helm
+				Tooltip: 12% increased melee damage and critikal strike chance
+			}
+
+			RotfireBlade: {
+				DisplayName: Rotfire Blade
+				Tooltip: Hitting enemies directly inflicts cursed inferno
+			}
+
+			RotfireBow: {
+				DisplayName: Rotfire Bow
+				Tooltip: Shoots out cursed flames along with the arrow
+			}
+
+			RotfireChestplate: {
+				DisplayName: Rotfire Chestplate
+				Tooltip: 7% increased throwing damage
+			}
+
+			RotfireDagger: {
+				DisplayName: Rotfire Dagger
+				Tooltip: Leaves cursed flames behind on impact
+			}
+
+			RotfireHelm: {
+				DisplayName: Rotfire Helm
+				Tooltip: 8% increased throwing damage
+			}
+
+			RotfireLeggings: {
+				DisplayName: Rotfire Leggings
+				Tooltip: 20% increased movement speed
+			}
+
+			RotfireStaff: {
+				DisplayName: Rotfire Staff
+				Tooltip: Fires a burst of cursed flames
+			}
+
+			BloodboilBow: {
+				DisplayName: Bloodboil Bow
+				Tooltip:
+					'''
+					Replaces wooden arrows with columns of ichor bubbles
+					33% chance not to consume ammo
+					'''
+			}
+
+			BloodboilBreastpiece: {
+				DisplayName: Bloodboil Breastpiece
+				Tooltip: 7% increased magic damage
+			}
+
+			BloodboilHeadpiece: {
+				DisplayName: Bloodboil Headpiece
+				Tooltip: 8% increased magic damage
+			}
+
+			BloodboilLeggings: {
+				DisplayName: Bloodboil Leggings
+				Tooltip: 20% increased movement speed
+			}
+
+			BloodboilNeedle: {
+				DisplayName: Bloodboil Needle
+				Tooltip: Injects ichor into enemies, weakening them
+			}
+
+			BloodboilScimitar: {
+				DisplayName: Bloodboil Scimitar
+				Tooltip: Occasionally launches clusters of ichor bubbles
+			}
+
+			BloodboilStaff: {
+				DisplayName: Bloodboil Staff
+				Tooltip: Fires splitting Ichor bubbles
+			}
+
+			InquisitorBow: {
+				DisplayName: Inquisitor Bow
+				Tooltip: Turns wooden arrows into ethereal bolts
+			}
+
+			InquisitorBroadsword: {
+				DisplayName: Inquisitor Broadsword
+				Tooltip: Shoots a damaging wave
+			}
+
+			InquisitorTome: {
+				DisplayName: Inquisitor Spellbook
+				Tooltip: Summons ethereal bolts to attack your foes
+			}
+
+			ForlornSkull: {
+				DisplayName: Forlorn Skull
+				Tooltip:
+					'''
+					10% increased damage and critical strike chance while in the jungle
+					If you are not in the jungle, you lose 5 defense
+					 You move slower while in the jungle
+					'''
+			}
+
+			JungleHamaxe: {
+				DisplayName: Primal Hamaxe
+				Tooltip: ""
+			}
+
+			JungleMaterial: {
+				DisplayName: Botanical Element
+				Tooltip: ""
+			}
+
+			JunglePickaxe: {
+				DisplayName: Primal Pickaxe
+				Tooltip: ""
+			}
+
+			PrimalBow: {
+				DisplayName: Primal Bow
+				Tooltip:
+					'''
+					Shoots 4 arrows
+					Only consumes ammo on the first one
+					'''
+			}
+
+			PrimalGreatsword: {
+				DisplayName: Primal Greatsword
+				Tooltip: Swinging the Sword Generates Primal Bombs Around You
+			}
+
+			PrimalPike: {
+				DisplayName: Primal Pike
+				Tooltip: ""
+			}
+
+			PrimalRepeater: {
+				DisplayName: Primal Repeater
+				Tooltip:
+					'''
+					Shoots multiple slightly inaccurate bullets 
+					10% chance to not consume ammo
+					'''
+			}
+
+			PrimalStaff: {
+				DisplayName: Primal Staff
+				Tooltip: Fires a spread of slow spheres
+			}
+
+			ConductiveConverger: {
+				DisplayName: Conductive Converger
+				Tooltip:
+					'''
+					Replaces wooden arrows with lightning bolts
+					33% chance not to consume ammo
+					'''
+			}
+
+			ElectricCarver: {
+				DisplayName: Electric Carver
+				Tooltip:
+					'''
+					Low chance of inflicting electrified
+					Electrified enemies take double damage
+					'''
+			}
+
+			FaradsRipper: {
+				DisplayName: Farad's Ripper
+				Tooltip:
+					'''
+					High chance of inflicting electrified
+					10 defense penetration
+					'''
+			}
+
+			PulsarFlail: {
+				DisplayName: Pulsar Flail
+				Tooltip: ""
+			}
+
+			TeslaCoil: {
+				DisplayName: Tesla Coil Rod
+				Tooltip: Fires a bolt of lightning
+			}
+
+			VoltineerChestplate: {
+				DisplayName: Voltineer Chestplate
+				Tooltip:
+					'''
+					7% increased damage
+					5% increased endurance
+					'''
+			}
+
+			VoltineerCrown: {
+				DisplayName: Voltineer Crown
+				Tooltip: 9% increased throwing damage
+			}
+
+			VoltineerHeadgear: {
+				DisplayName: Voltineer Headgear
+				Tooltip: 9% increased ranged damage
+			}
+
+			VoltineerHeadpiece: {
+				DisplayName: Voltineer Headpiece
+				Tooltip: 9% increased summon damage
+			}
+
+			VoltineerHelmet: {
+				DisplayName: Voltineer Helmet
+				Tooltip: 9% increased magic damage
+			}
+
+			VoltineerLeggings: {
+				DisplayName: Voltineer Leggings
+				Tooltip: 15% increased movement speed
+			}
+
+			VoltineerMask: {
+				DisplayName: Voltineer Mask
+				Tooltip: 9% increased melee damage
+			}
+
+			ZeusNeedle: {
+				DisplayName: Zeus' Needle
+				Tooltip: ""
+			}
+
+			FloralCutter: {
+				DisplayName: Floral Cutter
+				Tooltip: Enemies Killed by the sword explode into homing leaves
+			}
+
+			StratosBroadsword: {
+				DisplayName: Stratos Broadsword
+				Tooltip: Hitting enemies sends rock shards flying
+			}
+
+			StratosRepeater: {
+				DisplayName: Stratos Repeater
+				Tooltip: Bullets fired using the gun inflict Crushing Freeze, no matter the type
+			}
+
+			StratosStaff: {
+				DisplayName: Stratos Staff
+				Tooltip: Fires a blast of stratos energy and rock chunks
+			}
+
+			StratosTome: {
+				DisplayName: Stratos Spellbook
+				Tooltip: Cycles between firing different stratos chunks, each one more powerful than the last
+			}
+
+			StratosYoyo: {
+				DisplayName: Stratos Yoyo
+				Tooltip: ""
+			}
+
+			VulcanCrossbow: {
+				DisplayName: Vulcan Crossbow
+				Tooltip: After dealing 500 damage, you may left click to launch a barrage of rockets
+			}
+
+			VulcanCrystalStaff: {
+				DisplayName: Vulcan Crystal Staff
+				Tooltip: Shoots bouncing bolts of magma that eventually leave residual flames on the ground
+			}
+
+			VulcanStrongblade: {
+				DisplayName: Vulcan Strongblade
+				Tooltip: ""
+			}
+
+			AquaticChest: {
+				DisplayName: Torrential Chestpiece
+				Tooltip: 4% increased endurance and damage
+			}
+
+			AquaticFaceGuard: {
+				DisplayName: Torrential Faceguard
+				Tooltip: Increases armor penetration by 6
+			}
+
+			AquaticLegs: {
+				DisplayName: Torrential Greaves
+				Tooltip: 6% increased movement speed and 3% increased endurance
+			}
+
+			Current: {
+				DisplayName: Current
+				Tooltip: ""
+			}
+
+			Downpour: {
+				DisplayName: Downpour
+				Tooltip: Rains ocean water onto the cursor
+			}
+
+			Predator: {
+				DisplayName: Predator
+				Tooltip: Turns bullets into streams of water which pierce enemies
+			}
+
+			SalineSack: {
+				DisplayName: Saline Sack
+				Tooltip: Launches clumps of salt
+			}
+
+			ScroungerStaff: {
+				DisplayName: Depth Scrounger Staff
+				Tooltip: Summons a Depth scrounger to fight for you
+			}
+
+			SeaStar: {
+				DisplayName: Sea's Star
+				Tooltip: Bounces on tile hits
+			}
+
+			Tide: {
+				DisplayName: Tide
+				Tooltip: Enemy hits send water in orbit around you
+			}
+
+			TorrentialBow: {
+				DisplayName: Torrential Bow
+				Tooltip: ""
+			}
+
+			Wave: {
+				DisplayName: Wave
+				Tooltip: Summons magic waves to defeat enemies
+			}
+
+			ChillsteelBow: {
+				DisplayName: Chillsteel Bow
+				Tooltip: Shoots out ice crystals occasionally along with the arrow
+			}
+
+			ChillsteelBroadsword: {
+				DisplayName: Chillsteel Broadsword
+				Tooltip: Inflicts crushing freeze, which damages and weakens enemies, stacking up to 4
+			}
+
+			ChillsteelCaster: {
+				DisplayName: Chillsteel Caster
+				Tooltip: Shoots powerful ice clusters, inflicting crushing freeze
+			}
+
+			ChillsteelChestplate: {
+				DisplayName: Chillsteel Chestplate
+				Tooltip: Increases armor penetration by 4
+			}
+
+			ChillsteelDagger: {
+				DisplayName: Chillsteel Dagger
+				Tooltip: Pierces one enemy, inflicting 'Crushing Freeze'
+			}
+
+			ChillsteelGreaves: {
+				DisplayName: Chillsteel Greaves
+				Tooltip: 4% increased ranged damage
+			}
+
+			ChillsteelHelmet: {
+				DisplayName: Chillsteel Helmet
+				Tooltip: 6% increased ranged damage
+			}
+
+			ChillsteelRepeater: {
+				DisplayName: Chillsteel Repeater
+				Tooltip: Bullets fired using the gun inflict Crushing Freeze, no matter the type
+			}
+
+			CarapaceCruise: {
+				DisplayName: Carapace Cruise
+				Tooltip: Summons worms from the sky to plague your foes
+			}
+
+			CarapaceCrusher: {
+				DisplayName: Carapace Crusher
+				Tooltip: Killing enemies causes desert spikes to rise foward and attack other enemies
+			}
+
+			DesertMace: {
+				DisplayName: Desert Mace
+				Tooltip: Slams airborne enemies downwards, damaging them if they hit the ground
+			}
+
+			DuneDriver: {
+				DisplayName: Dune Driver
+				Tooltip: Summons a pack of illusory worms to plague your foes
+			}
+
+			DuneKingCuisses: {
+				DisplayName: Dune King's Cuisses
+				Tooltip: 5% increased endurance
+			}
+
+			DuneKingMantle: {
+				DisplayName: Dune King's Plating
+				Tooltip: 4% increased damage
+			}
+
+			DuneKingMaw: {
+				DisplayName: Dune King's Maw
+				Tooltip: 4% increased endurance
+			}
+
+			PolishedSandstone: {
+				DisplayName: Polished Sandstone
+				Tooltip: ""
+			}
+
+			SandScattler: {
+				DisplayName: Shell Striker
+				Tooltip: Shoots a spread of sharp fragments that explode if they all hit the target
+			}
+
+			ScrutiniserStaff: {
+				DisplayName: Scrutiniser Staff
+				Tooltip: Summons a scrounger to fight for you
+			}
+
+			Coniferocious: {
+				DisplayName: Coniferocious
+				Tooltip: Occasionally throws out a pinecone grenade
+			}
+
+			FoliageBurst: {
+				DisplayName: Foliage Burst
+				Tooltip: Right Click to notch up to 4 arrows
+			}
+
+			Frostleaf: {
+				DisplayName: Frostleaf
+				Tooltip: ’Might give you a rash’
+			}
+
+			FrostleafBody: {
+				DisplayName: Frostleaf Barkmail
+				Tooltip: Grants immunity to Chilled
+			}
+
+			FrostleafHead: {
+				DisplayName: Frostleaf Hood
+				Tooltip: 4% increased damage
+			}
+
+			FrostleafLegs: {
+				DisplayName: Frostleaf Stumps
+				Tooltip: 6% increased movement speed
+			}
+
+			Needlecaster: {
+				DisplayName: Abscission
+				Tooltip: Casts controllable bursts of razor sharp leaves
+			}
+
+			Autumn: {
+				DisplayName: Autumn
+				Tooltip: Shoots a bolt of coalesced energy that splits into leaves
+			}
+
+			Glucose: {
+				DisplayName: Glucose
+				Tooltip: Hitting an enemy with the blade will cause a ring of leaves to jet into them
+			}
+
+			LeafKunai: {
+				DisplayName: Leaf Kunai
+				Tooltip: Pierces enemies with a chance of poisioning them
+			}
+
+			PrimordialSpiritStaff: {
+				DisplayName: Primordial Spirit Staff
+				Tooltip: Summons a primordial spirit that launches bursts of leaves at foes
+			}
+
+			SpineVine: {
+				DisplayName: Spine Vine
+				Tooltip: Sticks in enemies and poisons them
+			}
+
+			TrueleafChest: {
+				DisplayName: Trueleaf Chestplate
+				Tooltip: 4% increased endurance
+			}
+
+			TrueleafHeadMage: {
+				DisplayName: Trueleaf Vizor
+				Tooltip: Increases magic damage by 3%
+			}
+
+			TrueleafHeadMelee: {
+				DisplayName: Trueleaf Helmet
+				Tooltip: Increases melee damage by 3%
+			}
+
+			TrueleafHeadRanged: {
+				DisplayName: Trueleaf Faceguard
+				Tooltip: Increases ranged damage by 3%
+			}
+
+			TrueleafHeadSummoner: {
+				DisplayName: Trueleaf Visage
+				Tooltip: Increases summon damage by 3%
+			}
+
+			TrueleafHeadThrown: {
+				DisplayName: Trueleaf Crown
+				Tooltip: Increases throwing damage by 3%
+			}
+
+			TrueleafStumps: {
+				DisplayName: Trueleaf Stumps
+				Tooltip: 6% increased movement speed
+			}
+
+			Woodvine: {
+				DisplayName: Woodvine
+				Tooltip: Turns wooden arrows into piercing leaves
+			}
+
+			GraniteBar: {
+				DisplayName: Granite Bar
+				Tooltip: ’Energy flows through it like a living thing’
+			}
+
+			GraniteBow: {
+				DisplayName: Granite Bow
+				Tooltip: Fires a granite energy arrow every 3 shots
+			}
+
+			GraniteCanister: {
+				DisplayName: Granite Canister
+				Tooltip: Creates a forcefield to do something
+			}
+
+			GraniteChestplate: {
+				DisplayName: Granite Breastplate
+				Tooltip:
+					'''
+					Increases your max number of minions
+					2% increased critical strike chance
+					'''
+			}
+
+			GraniteDynamo: {
+				DisplayName: Granite Dynamo Staff
+				Tooltip:
+					'''
+					Summons a granite elemental to fight for you
+					Fires like a Projectile when first summoned
+					The first minion does not count towards your max
+					'''
+			}
+
+			GraniteHamaxe: {
+				DisplayName: Granite Hamaxe
+				Tooltip: Enhanced destructive abilties when used while wearing granite armor
+			}
+
+			GraniteHelm: {
+				DisplayName: Granite Helm
+				Tooltip: 3% increased critical strike chance
+			}
+
+			GraniteLeggings: {
+				DisplayName: Granite Greaves
+				Tooltip: Grants immunity to knockback
+			}
+
+			GranitePickaxe: {
+				DisplayName: Granite Pickaxe
+				Tooltip: Enhanced mining abilties when used while wearing granite armor
+			}
+
+			GraniteShield: {
+				DisplayName: Granite Shield
+				Tooltip:
+					'''
+					Increased invinicility frames duration
+					'Made of real rock'
+					'''
+			}
+
+			GraniteSword: {
+				DisplayName: Granite Sword
+				Tooltip:
+					'''
+					Hilt strikes have an increased critical hit chance
+					Critical hits release explosions of energy
+					'''
+			}
+
+			GraniteTome: {
+				DisplayName: Granite Spellbook
+				Tooltip: Cycles between firing 3 different granite chunks, each one more powerful than the last
+			}
+
+			ScoriaAxe: {
+				DisplayName: Scoria Axe
+				Tooltip: ""
+			}
+
+			ScoriaBow: {
+				DisplayName: Scoria Bow
+				Tooltip: Arrows fired using the bow explode, no matter the type
+			}
+
+			ScoriaCrystal: {
+				DisplayName: Scoria Crystal
+				Tooltip: Shoots scorch blasts
+			}
+
+			ScoriaHammer: {
+				DisplayName: Scoria Hammer
+				Tooltip: ""
+			}
+
+			ScoriaKnife: {
+				DisplayName: Scoria Knife
+				Tooltip: ""
+			}
+
+			ScoriaPickaxe: {
+				DisplayName: Scoria Pickaxe
+				Tooltip: ""
+			}
+
+			ScoriaSword: {
+				DisplayName: Scoria Sword
+				Tooltip:
+					'''
+					Enemies Struck by the sword release powerful explosions when killed
+					Explosions deal damage based on the strength of the enemy
+					'''
+			}
+
+			SeaCrystal: {
+				DisplayName: Sea Crystal
+				Tooltip: ""
+			}
+
+			SeashellBlade: {
+				DisplayName: Seashell Blade
+				Tooltip: Land five strikes in quick succession to fire a powerful coral blast
+			}
+
+			SeashellBow: {
+				DisplayName: Seashell Bow
+				Tooltip: Wooden arrows turn into a burst of coral
+			}
+
+			SeashellHamaxe: {
+				DisplayName: Seashell Hamaxe
+				Tooltip:
+					'''
+					Swing speed increases dramatically in water or rain
+					Increases mobility in water when held
+					Hold UP to descend slower
+					'''
+			}
+
+			SeashellPickaxe: {
+				DisplayName: Seashell Pickaxe
+				Tooltip:
+					'''
+					Mining valuables while submerged in water will restore breath
+					Increases mobility in water when held
+					Hold UP to descend slower
+					'''
+			}
+
+			SeashellTome: {
+				DisplayName: Lexiconch
+				Tooltip: Fires a powerful magic cerith, but only one can be airborne at a time
+			}
+
+			SetStone: {
+				DisplayName: Set's Stone
+				Tooltip: Brings forth a sandstorm
+			}
+
+			SpectrePaintKit: {
+				DisplayName: Spectral Paint Kit
+				Tooltip: Right Click while holding an Old Master's Palette to increase its range and speed
+			}
+
+			StickyHand: {
+				DisplayName: Sticky Hand
+				Tooltip: ""
+			}
+
+			VileVial: {
+				DisplayName: Vile Vial
+				Tooltip:
+					'''
+					Inflicts poison briefly before healing
+					10 second duration
+					'''
+			}
+
+			WaxwingPotion: {
+				DisplayName: Waxwing Potion
+				Tooltip: Increases wing speed by 25%, but decreases flight time by 10%
+			}
+
+			AlluringBlossom: {
+				DisplayName: Alluring Blossom
+				Tooltip: Shoots forth a pulse of pink energy that pulls enemies towards you
+			}
+
+			ArcaneShield: {
+				DisplayName: Arcane Shield
+				Tooltip: Correctly time a shield strike to restore a high amount of mana
+			}
+
+			BarbarianWaraxe: {
+				DisplayName: Barbarian Waraxe
+				Tooltip: Hit enemies take more damage
+			}
+
+			CloudGrenade: {
+				DisplayName: Cloud Grenade
+				Tooltip: Creates a powerful gust that can knock away both enemies and the thrower
+			}
+
+			BerylBlade: {
+				DisplayName: Beryl Blade
+				Tooltip: Striking an enemy will increase melee speed briefly, longer on bosses
+			}
+
+			CeruleanClaymore: {
+				DisplayName: Cerulean Claymore
+				Tooltip: Striking an enemy will increase melee damage briefly, longer on bosses
+			}
+
+			Dusk: {
+				DisplayName: Dusk
+				Tooltip:
+					'''
+					Striking an enemy will increase melee damage and life regeneration briefly, longer on bosses
+					When empowered, fires a Projectile inflicting a burn that worsens as your life rises
+					'''
+			}
+
+			IndigoIaito: {
+				DisplayName: Indigo Iaito
+				Tooltip: Striking an enemy will increase life regeneration briefly, longer on bosses
+			}
+
+			Mellow: {
+				DisplayName: Mellow
+				Tooltip:
+					'''
+					Striking an enemy will increase movement and melee speed briefly, longer on bosses
+					When empowered, fires a blade lowering enemy defense as your MPH rises
+					'''
+			}
+
+			RougeRapier: {
+				DisplayName: Rouge Rapier
+				Tooltip: Striking an enemy will increase critical hit damage briefly, longer on bosses
+			}
+
+			SaffronSaber: {
+				DisplayName: Saffron Sabre
+				Tooltip: Striking an enemy will increase movement speed briefly, longer on bosses
+			}
+
+			TitianTalwar: {
+				DisplayName: Titian Talwar
+				Tooltip: Striking an enemy will increase defense briefly, longer on bosses
+			}
+
+			Vibrance: {
+				DisplayName: Vibrance
+				Tooltip:
+					'''
+					Striking an enemy will increase defense and critical hit damage briefly, longer on bosses
+					When empowered, fires a blade lowering enemy contact damage as your DPS rises
+					'''
+			}
+
+			DaysVerge: {
+				DisplayName: Day's Verge
+				Tooltip:
+					'''
+					Calls divine swords from the heavens
+					Striking a foe with the blade will summon an additional sword to smite them
+					'''
+			}
+
+			Escargun: {
+				DisplayName: Escargun
+				Tooltip:
+					'''
+					Fires lasers in a wave pattern
+					After ten crits, the gun will briefly supercharge, firing lasers rapidly for 0 mana
+					'''
+			}
+
+			FireBlade: {
+				DisplayName: Flameforged Blade
+				Tooltip: Enemies Killed by the sword explode into balls of fire
+			}
+
+			FlowerGun: {
+				DisplayName: Flower Gun
+				Tooltip: ""
+			}
+
+			GhastlyRevolver: {
+				DisplayName: Ghastly Revolver
+				Tooltip: Generates haunted pistols around you as you shoot
+			}
+
+			AlchemistFlask: {
+				DisplayName: Alchemical Flask
+				Tooltip:
+					'''
+					Normal fire throws multiple colors of flasks, each having different effects
+					Right click to throw a flask that will heal you and your teammates
+					'''
+			}
+
+			GiantsDagger: {
+				DisplayName: Giant's Dagger
+				Tooltip:
+					'''
+					Sticks in enemies
+					Enemies impaled with the dagger bleed, losing life and defense
+					Enemies that die with the dagger in them drop more coins
+					'''
+			}
+
+			GiantsDevastator: {
+				DisplayName: Giant's Devastator
+				Tooltip:
+					'''
+					Shoots powerful rockets that leave lasting fire on the ground
+					Has a long reload time
+					'''
+			}
+
+			GiantsHead: {
+				DisplayName: Brobdingnagian Head
+				Tooltip: Shoots forth tendrils of flame
+			}
+
+			OversizedFemur: {
+				DisplayName: Oversized Femur
+				Tooltip: Right click to throw
+			}
+
+			ShadowBall: {
+				DisplayName: Shadowspikes
+				Tooltip: ""
+			}
+
+			ShadowboltBurst: {
+				DisplayName: Shadowburst
+				Tooltip: Releases a burst of damaging shadow blasts
+			}
+
+			Greatsword: {
+				DisplayName: Greatsword
+				Tooltip: ""
+			}
+
+			HarpoonBlade: {
+				DisplayName: Harpoon Blade
+				Tooltip:
+					'''
+					Fires up to seven powerful harpoons that pierce into enemies
+					Strike an enemy to dislodge harpoons for extra damage
+					Swinging the blade with all harpoons fired will reel you in
+					'''
+			}
+
+			Hemisphere: {
+				DisplayName: Hemisphere
+				Tooltip: Attacks inflict 'Burning Night', a more potent form of On Fire!
+			}
+
+			Inquisition: {
+				DisplayName: Inquisition
+				Tooltip: Fires a spread of blades
+			}
+
+			PuppeteerPistol: {
+				DisplayName: Puppeteer's Pistol
+				Tooltip: Fires and explosive buckshot every three shots
+			}
+
+			Joyuse: {
+				DisplayName: Joyuse
+				Tooltip: ""
+			}
+
+			LifesFate: {
+				DisplayName: Life's Fate
+				Tooltip: Critical strikes will empower the blade and enable you to steal life for a short while
+			}
+
+			Fungallows: {
+				DisplayName: Fungallows
+				Tooltip: hmmm test
+			}
+
+			Mushdisc: {
+				DisplayName: Mush-Disc
+				Tooltip: Shoots an explosive disc which splits into several shards
+			}
+
+			Shroomer: {
+				DisplayName: The Shroomer
+				Tooltip: ""
+			}
+
+			Shroomerang: {
+				DisplayName: Shroomerang
+				Tooltip:
+					'''
+					You can throw up to 5 at a time
+					Enemies killed explode into spores
+					'''
+			}
+
+			Shroomflask: {
+				DisplayName: Shroomy Flask
+				Tooltip:
+					'''
+					Explodes into a potent cloud of mushroom gas on enemy hits
+					Summons spores that rise from the ground on tile hits
+					Direct hits will return a little mana
+					'''
+			}
+
+			PaintShotgun: {
+				DisplayName: Colorblast
+				Tooltip: ""
+			}
+
+			BoneWhip: {
+				DisplayName: Bone Whip
+				Tooltip: ""
+			}
+
+			NecromanticFlame: {
+				DisplayName: Necromantic Flame
+				Tooltip: Shoots a volley of explosive shadow bolts
+			}
+
+			Skelebow: {
+				DisplayName: Skelebow
+				Tooltip:
+					'''
+					Has a 33% chance to fire a shadow bolt instead
+					 Shadow bows penetrate enemies and explode
+					'''
+			}
+
+			Sparktosser: {
+				DisplayName: Sparktosser
+				Tooltip: ""
+			}
+
+			SporeCombustor: {
+				DisplayName: Spore Combustor
+				Tooltip:
+					'''
+					Uses gel for ammo
+					Inflicts Spore Storm for 10-30 seconds depending on range
+					Steals a small amount of life from all afflicted enemies every 2 seconds
+					'''
+			}
+
+			TempName: {
+				DisplayName: Flameforged Blade
+				Tooltip: Enemies Killed by the sword explode into balls of fire
+			}
+
+			TetheredPiranha: {
+				DisplayName: Tethered Piranha
+				Tooltip: Latches onto enemies, dealing rapid damage
+			}
+
+			TheWorld: {
+				DisplayName: The World
+				Tooltip: ""
+			}
+
+			TricksterSword: {
+				DisplayName: Trickter's Blade
+				Tooltip: Swings a random sword
+			}
+
+			TrueDaysVerge: {
+				DisplayName: True Day's Verge
+				Tooltip: ""
+			}
+
+			TrueHemisphere: {
+				DisplayName: True Hemisphere
+				Tooltip: ""
+			}
+
+			TrueJoyuse: {
+				DisplayName: True Joyuse
+				Tooltip: ""
+			}
+
+			Anastasia: {
+				DisplayName: Anastasia
+				Tooltip: ""
+			}
+
+			FlowerBlaster: {
+				DisplayName: Bouquet Blaster
+				Tooltip: ""
+			}
+
+			LeechBow: {
+				DisplayName: Leech Bow
+				Tooltip: Turns wooden arrows into leech arrows that occasionally pierce through enemies, doubling their damage
+			}
+
+			LeechHammer: {
+				DisplayName: Leech Hammer
+				Tooltip: Critical hits with the hammer generates leech eyes around you
+			}
+
+			Toothslitter: {
+				DisplayName: Toothslitter
+				Tooltip: Hitting 3 consecutive attacks with this blade makes your next attack ignore 2 extra immune frames of the enemy
+			}
+
+			EmberTyrantStaff: {
+				DisplayName: Ember Tyrant Staff
+				Tooltip: Summons an Ember Tyrant to fight for you
+			}
+
+			Eruption: {
+				DisplayName: Eruption
+				Tooltip: Shoots a volley of explosive magma blobs
+			}
+
+			Hellraiser: {
+				DisplayName: Hellraiser
+				Tooltip:
+					'''
+					Shoots a volley of flaming buckshots
+					Attacks inflict 'On Fire'
+					Buckshots leave fire behind on the ground
+					'''
+			}
+
+			ArcticIncantation: {
+				DisplayName: Arctic Star
+				Tooltip: Shoots a magic ice crystal that splits into shards
+			}
+
+			HuntersSpear: {
+				DisplayName: Hunter's Spear
+				Tooltip: ""
+			}
+
+			IcicleCannon: {
+				DisplayName: Icicle Cannon
+				Tooltip:
+					'''
+					Right Click to reload the gun by freezing the water in the air
+					'There is no water in the air!'
+					'''
+			}
+
+			MammothineClub: {
+				DisplayName: Mammothine Club
+				Tooltip: Swinging without hitting an enemy will raise icy spikes from the ground
+			}
+
+			YetiBag: {
+				DisplayName: Treasure Bag (Yeti)
+				Tooltip: Right Click to open
+			}
+		}
+
+		Projectiles: {
+			OldMastersPaletteVisual.DisplayName: Old Masters Palette Visual
+			PlatformLayerVisual.DisplayName: Platform Layer Visual
+			StickyHandProj.DisplayName: Sticky Hand
+			CloudGrenadeProj.DisplayName: Cloud Grenade
+			FlowerGunBlossom.DisplayName: Flower Pad
+			FlowerGunBulb.DisplayName: Flower Bulb
+			TricksterSwordProj.DisplayName: Trickster Sword Proj
+			YetiSnowball.DisplayName: Yeti Snowball
+			AlluringPulse.DisplayName: AlluringPulse
+			AutumnProj.DisplayName: Autumnal Blast
+			AxeProj.DisplayName: Bloody Axe
+			BlueSword.DisplayName: Blue Day's Blade
+			Cerith.DisplayName: Cerith
+			CoralBurst.DisplayName: Coral Burst
+			CoralBurstMain.DisplayName: Coral Burst
+			CoralShard.DisplayName: Coral Shard
+			CursedBolt.DisplayName: Cursed Bolt
+			CursedBoltSeeking.DisplayName: Cursed Bolt
+			CursedFlame1.DisplayName: Cursed Flame
+			FireBallCursed.DisplayName: Fire Ball Cursed
+			FireBallCursed2.DisplayName: Cursed Bolt
+			RotDaggerProj.DisplayName: RotDaggerProj
+			BigBubble.DisplayName: Ichor Bubble
+			BloodNeedleProj.DisplayName: Spine Vine
+			IchorBoltSeeking.DisplayName: Ichor Bolt
+			MedBubble.DisplayName: Ichor Bubble
+			SmallBubble.DisplayName: Ichor Bubble
+			CurrentProj.DisplayName: Current Proj
+			DemonBrainProj.DisplayName: Shadow Bolt
+			DesertBurrow.DisplayName: Desert Burrow
+			DesertSpikeBig.DisplayName: Sandstone Spike
+			DesertWorm.DisplayName: Desert Worm
+			DuneDriverProj.DisplayName: Dune Driver Proj
+			DuneWorm.DisplayName: Dune Worm
+			PoundProj.DisplayName: Pound Proj
+			SandClump2.DisplayName: Sandstorm Blast
+			ShellStrike.DisplayName: Shell Strike
+			DuskExplosion.DisplayName: Indigo Explosion
+			DuskProj.DisplayName: Dusk Blade
+			EnchantedBlade.DisplayName: Enchanted Blade
+			EnemyNeedle.DisplayName: Pine Needle
+			Escarbeam.DisplayName: Escarbeam
+			EtherealArrow.DisplayName: Ethereal Arrow
+			EtherealBoltTome.DisplayName: Ethereal Bolt
+			EtherealFlux.DisplayName: Ethereal Flux
+			EtherealWave.DisplayName: EtherealWave
+			FatesFlames.DisplayName: Fate's Flames
+			FearBolt.DisplayName: Fear Bolt
+			FemurProj.DisplayName: Oversized Femur
+			FireBall.DisplayName: Fire Ball
+			FireBallHostile.DisplayName: Fire Ball Hostile
+			FlameTendril.DisplayName: Flame Tendril
+			GoblinFlask1.DisplayName: Alchemical Flask
+			GoblinFlask1F.DisplayName: Alchemical Flask
+			GoblinFlask2.DisplayName: Alchemical Flask
+			GoblinFlask2F.DisplayName: Alchemical Flask
+			GoblinFlask3.DisplayName: Alchemical Flask
+			GoblinFlask3F.DisplayName: Alchemical Flask
+			GoblinFlask4F.DisplayName: Alchemical Flask
+			GauntletSkull.DisplayName: Gauntlet Skull
+			GiantsDaggerProj.DisplayName: Giant's Dagger
+			GiantsHeadAnim.DisplayName: Giants Head
+			GoblinBomb.DisplayName: Goblin Rocket
+			GoblinRocket.DisplayName: Goblin Rocket
+			GraniteArrow.DisplayName: Granite Arrow
+			GraniteCanisterProj.DisplayName: Granite Canister Proj
+			GraniteMinion.DisplayName: Granite Elemental
+			GraniteRock1.DisplayName: Granite Rock
+			GraniteRock2.DisplayName: Granite Rock
+			GraniteRock3.DisplayName: Granite Rock
+			HarpoonBladeProj.DisplayName: Harpoon
+			HauntedRevolver.DisplayName: Haunted Revolver
+			HemisphereProj.DisplayName: Hemisphere Proj
+			HomingLeaf.DisplayName: Razor Leaf
+			HrP2.DisplayName: Ghastly Bolt
+			ChillDaggerProj.DisplayName: Chillsteel Dagger
+			ChillSword.DisplayName: Chillsteel Blade
+			FrostBoltSeeking.DisplayName: Frost Bolt
+			IceBomb.DisplayName: Ice Crystal
+			IceBomb2.DisplayName: Ice Crystal
+			InkShot.DisplayName: Ink Blast
+			InquisitionBlade.DisplayName: Inquisitor's Blade
+			ItemSwingVisual.DisplayName: Item Swing Visual
+			JoyuseProj.DisplayName: Joyuse Proj
+			LavaBlob.DisplayName: Magma Blob
+			LeafKunaiProj.DisplayName: LeafKunai
+			LightningArrow.DisplayName: Lightning Arrow
+			LightningBolt1.DisplayName: Lightning Bolt
+			LightningSetEffect.DisplayName: Lightning Bolt
+			PulsarFlailProj.DisplayName: Pulsar Flail
+			ZeusNeedleProj.DisplayName: Zeus' Needle
+			MagmaBlob.DisplayName: Magma Blob
+			MagmaBomb.DisplayName: Magma Bomb
+			MagmaShot.DisplayName: Magmous Buckshot
+			MarbleEnergy.DisplayName: Marble Energy
+			MarbleYoyoProj.DisplayName: Marble Yoyo Proj
+			MellowSlice.DisplayName: Mellow Slice
+			BigShroom.DisplayName: Enchanted Mushroom
+			BigShroom2.DisplayName: Enchanted Mushroom
+			EnchantedMushroom.DisplayName: Enchanted Mushroom
+			ExplodeMushroom.DisplayName: Explosive Mushroom
+			ExplodeMushroomEffect.DisplayName: Mushroom Gas
+			FlaskEnemyEffect.DisplayName: Mushroom Gas
+			FlaskTileEffect.DisplayName: Enchanted Mushroom
+			HelpfulSpore.DisplayName: Explosive Spore
+			MushDisc.DisplayName: Mush Disc
+			MushroomShard1.DisplayName: Mushard
+			MushroomShard2.DisplayName: Mushard
+			Shroomerang.DisplayName: Shroomerang
+			ShroomFlask.DisplayName: Shroomy Flask
+			ShroomNade2.DisplayName: Shroomnade
+			OsmiumSpike.DisplayName: Osmium Spike
+			PaintBall.DisplayName: Paint Ball
+			PinkSword.DisplayName: Pink Day's Blade
+			PiranhaProjectile.DisplayName: Piranha
+			plant1.DisplayName: AquaticPlant
+			plant2.DisplayName: AquaticPlant
+			plant3.DisplayName: AquaticPlant
+			PowPetal.DisplayName: Pow Petal
+			PrimalBomb.DisplayName: Primal Bomb
+			PrimalPike.DisplayName: Primal Pike
+			PrimalStaffProj.DisplayName: Purple Sphere
+			PuppetShot.DisplayName: Puppeteer's Buckshot
+			Rain.DisplayName: Rain
+			RainBlast.DisplayName: Sandstorm Blast
+			RedPixel.DisplayName: Red Pixel
+			SaltClump.DisplayName: Salt Clump
+			SandBlast.DisplayName: Sandstorm Blast
+			SandBlock.DisplayName: Stray Block
+			SandstormDagger.DisplayName: SandstormDagger
+			ScorchBlast.DisplayName: Scorch Blast
+			ScorchBlastHost.DisplayName: Scorch Blast
+			ScoriaKnife.DisplayName: Scoria Knife
+			SeashellArrow.DisplayName: Seaweed Arrow
+			SeashellBladeProj.DisplayName: Energy-Filled Rock
+			SeaStarProj.DisplayName: Sea Star
+			SeedBomb.DisplayName: SeedBomb
+			ShadowBallProj.DisplayName: Shadow Spikes
+			ShadowBolt.DisplayName: Shadow Bolt
+			ShadowBoltHostile.DisplayName: Shadow Bolt
+			BoneWhipProj.DisplayName: BoneWhip
+			SpineVineProj.DisplayName: Spine Vine
+			Splinter.DisplayName: Splinter
+			SporeFlame.DisplayName: Flaming Goo
+			StratosEnergy.DisplayName: Stratos Energy
+			StratosMeteor.DisplayName: Stratos Rock
+			StratosMeteorite.DisplayName: Stratos Rock
+			StratosMeteorite2.DisplayName: Stratos Rock
+			StratosRockMini.DisplayName: Stratos Rock
+			StratosSpark.DisplayName: Stratos Spark
+			StratosYoyoProj.DisplayName: Stratos Yoyo Proj
+			StratosPortalAnim.DisplayName: Stratos Portal
+			EmberTyrant.DisplayName: Ember Tyrant
+			ForestMinion.DisplayName: Primordial Spirit
+			SharkMinion.DisplayName: Depth Scrounger
+			TearEnemy.DisplayName: Tear Enemy
+			TerraBoltHost.DisplayName: Terra Bolt
+			ThermalBoltCold.DisplayName: Thermal Bolt
+			ThermalBoltHot.DisplayName: Thermal Bolt
+			TheWorldProj.DisplayName: The World Proj
+			TheWorldSecond.DisplayName: Phantasmal Yoyo
+			TideProj2.DisplayName: Water Bolt
+			TideProjOne.DisplayName: Tide Proj One
+			DVP2.DisplayName: Pine Needle
+			TrueBlueSword.DisplayName: Blue Day's Dlade
+			TruePinkSword.DisplayName: Pink Day's Blade
+			TrueHemisphereProj.DisplayName: True Hemisphere Proj
+			TrueHemisphereSecond.DisplayName: Cursed Yoyo
+			TrueJoyuse1.DisplayName: Holy Yoyo
+			TrueJoyuse2.DisplayName: Holy Yoyo
+			TrueJoyuseProj.DisplayName: True Joyuse Proj
+			AnastasiaP1.DisplayName: Twilight Spine
+			AnastasiaP2.DisplayName: Twilight Spine
+			LeechArrow.DisplayName: Leech Arrow
+			LeechEye.DisplayName: Leech Eye
+			LeechEyeP2.DisplayName: Leech Bolt
+			VibranceProj.DisplayName: Vermillion Blade
+			VineLeaf.DisplayName: Vine Leaf
+			VineLeaf2.DisplayName: Vine Leaf2
+			VulcanMeteor.DisplayName: Vulcan Meteor
+			VulcanRocket.DisplayName: Vulcan Rocket
+			Wave.DisplayName: Wave
+			WaveProj.DisplayName: Wave
+			ConiferociousProj.DisplayName: Coniferocious
+			HuntersSpearProj.DisplayName: Hunter's Spear
+			IceCannonball.DisplayName: Icicle
+			IceCrystal.DisplayName: Ice Crystal
+			IceShard.DisplayName: Ice Shard
+			IceShard2.DisplayName: Energy-Filled Rock
+			IceShardTiny.DisplayName: Ice Shard
+			IceSpike.DisplayName: Ice Spike
+			IceSpikePre.DisplayName: Ball
+			IcicleA.DisplayName: Icicle
+			IcicleB.DisplayName: Pine Needle
+			IcicleC.DisplayName: Sharp Icicle
+			Needle.DisplayName: Pine Needle
+			PineconeGrenade.DisplayName: Pinecone Grenade
+			YetiProjOne.DisplayName: Yeti Proj One
+		}
+
+		NPCs: {
+			BloomHoverer.DisplayName: Floral Skitter
+			CavernBelcher.DisplayName: Chasm Belcher
+			ChasmSkulker.DisplayName: Chasm Belcher
+			UnstableSlime.DisplayName: Unstable Slime
+			DemonBrain.DisplayName: Demon Brain
+			AridShellrunner.DisplayName: Arid Shellrunner
+			CarapaceCharger1.DisplayName: Carapace Charger
+			CarapaceCharger2.DisplayName: Carapage Charger
+			CarapaceCharger3.DisplayName: Carapage Charger
+			CarapaceChargerSmall1.DisplayName: Carapace Charger
+			CarapaceChargerSmall2.DisplayName: Carapage Charger
+			CarapaceChargerSmall3.DisplayName: Carapage Charger
+			DuneKing.DisplayName: Dune King
+			FishEnemy.DisplayName: Torrential Spearer
+			ForestSpirit.DisplayName: Forest Spirit
+			GoblinAlchemist.DisplayName: Goblin Alchemist
+			GoblinBattleRam.DisplayName: Goblin Battle Ram
+			GoblinGiant.DisplayName: Goblin Giant
+			GoblinRamCarrier.DisplayName: Goblin Carrier
+			GoblinSorceress.DisplayName: Goblin Sorceress
+			ChillsteelPaladin.DisplayName: Chillsteel Paladin
+			AgonyMask.DisplayName: Agony Mask
+			EocPuppet.DisplayName: Eye of Cthulhu Puppet
+			Inquisitor.DisplayName: The Inquisitor
+			DepthCharge.DisplayName: Depth Charge
+			TheKraken.DisplayName: The Kraken
+			Mushor.DisplayName: Mushor
+			MushorMinionExplode.DisplayName: Angry Mushroom
+			MushorMinionShield.DisplayName: Protective Spore
+			MushorMinionShoot.DisplayName: Angry Mushroom
+			SeaCrab.DisplayName: Crystacean
+			StormBoss.DisplayName: Tezlord
+			Duskhoof.DisplayName: Duskhoof
+			FlyingPolyp.DisplayName: Flying Polyp
+			PolypMinion.DisplayName: Polyp Eye
+			EmberTyrant.DisplayName: Ember Tyrant
+			EmberTyrantHead.DisplayName: Magmous Shield
+			ArcticBoar.DisplayName: Arctic Boar
+			Yeti.DisplayName: The Yeti
+			Yetiling.DisplayName: Yetiling
+			YetilingInit.DisplayName: Yetiling
+		}
+
+		Tiles: {
+			BloodCandleTile.MapEntry: Blood Candle
+			SeaCrystalTile.MapEntry: Sea Crystal
+			TwilightSapling.MapEntry: Sapling
+			MoltenOre.MapEntry: Magmous Ore
+			VolcanoChest.MapEntry: Magmous Chest
+		}
+	}
+}

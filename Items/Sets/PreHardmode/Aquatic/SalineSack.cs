@@ -32,8 +32,8 @@ namespace Emperia.Items.Sets.PreHardmode.Aquatic
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Saline Sack");
-			Tooltip.SetDefault("Launches clumps of salt");
+            // DisplayName.SetDefault("Saline Sack");
+			// Tooltip.SetDefault("Launches clumps of salt");
         }
     }
 }

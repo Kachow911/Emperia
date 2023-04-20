@@ -16,8 +16,8 @@ namespace Emperia.Buffs
     {
         public override void SetStaticDefaults()
         {
-			DisplayName.SetDefault("Bloodstained");
-			Description.SetDefault("Your next damage taken can be healed back");
+			// DisplayName.SetDefault("Bloodstained");
+			// Description.SetDefault("Your next damage taken can be healed back");
             Main.buffNoSave[Type] = true;
         }
     }
@@ -25,8 +25,8 @@ namespace Emperia.Buffs
     {
         public override void SetStaticDefaults()
         {
-			DisplayName.SetDefault("Rally!");
-			Description.SetDefault("Deal damage with sword strikes to rally back the damage taken!");
+			// DisplayName.SetDefault("Rally!");
+			// Description.SetDefault("Deal damage with sword strikes to rally back the damage taken!");
             Main.buffNoSave[Type] = true;
         }
 

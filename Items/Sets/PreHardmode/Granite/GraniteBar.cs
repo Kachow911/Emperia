@@ -22,8 +22,8 @@ namespace Emperia.Items.Sets.PreHardmode.Granite
 
     public override void SetStaticDefaults()
     {
-      DisplayName.SetDefault("Granite Bar");
-      Tooltip.SetDefault("â€™Energy flows through it like a living thingâ€™");
+      // DisplayName.SetDefault("Granite Bar");
+      // Tooltip.SetDefault("’Energy flows through it like a living thing’");
     }
 
 

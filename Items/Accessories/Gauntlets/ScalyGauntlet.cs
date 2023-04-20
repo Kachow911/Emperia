@@ -13,8 +13,8 @@ namespace Emperia.Items.Accessories.Gauntlets
     {
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Scaly Gauntlet");
-			Tooltip.SetDefault("While not in the ocean, you become 'Enraged'\nThis state makes you deal increased damage and have increased flight time and move speed ");
+			// DisplayName.SetDefault("Scaly Gauntlet");
+			// Tooltip.SetDefault("While not in the ocean, you become 'Enraged'\nThis state makes you deal increased damage and have increased flight time and move speed ");
 		}
         public override void SetDefaults()
         {

@@ -18,7 +18,7 @@ namespace Emperia.Projectiles.Desert
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Sandstone Spike");
+			// DisplayName.SetDefault("Sandstone Spike");
             ProjectileID.Sets.DontAttachHideToAlpha[Projectile.type] = true;
 		}
         public override void SetDefaults()
@@ -83,12 +83,12 @@ namespace Emperia.Projectiles.Desert
             }
             else return null;
 		}
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             NPC = target;
             NPC.GetGlobalNPC<MyNPC>().impaledDirection = NPC.direction;
 		}
-        public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection) {
+        public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers) {
             NPC = target;
             if (NPC.knockBackResist > 0f)
             {
