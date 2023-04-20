@@ -89,7 +89,7 @@ namespace Emperia.Npcs.Twilight
             }
 		}
 		private static int[] SpawnTiles = { };
-		public override float SpawnChance(NPCSpawnInfo spawnInfo)
+		/*public override float SpawnChance(NPCSpawnInfo spawnInfo)
 		{
 			if (SpawnTiles.Length == 0)
 			{
@@ -97,7 +97,7 @@ namespace Emperia.Npcs.Twilight
 				SpawnTiles = Tiles;
 			}
 			return SpawnTiles.Contains(Main.tile[spawnInfo.SpawnTileX, spawnInfo.SpawnTileY].TileType) && !spawnInfo.PlayerSafe && !spawnInfo.Invasion ? 2f : 0f;
-		}
+		}*/
 
 		public override void HitEffect(int hitDirection, double damage)
 		{

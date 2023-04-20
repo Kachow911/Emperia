@@ -19,6 +19,8 @@ namespace Emperia.Items.Accessories.Gauntlets
             //Sword strikes may empower you, letting you heal back the damage taken from one hit by attacking
             //Sword strikes may let you heal back the damage taken from your next hit by attacking
             //Sword strikes may let you lifesteal back the damage taken from one hit
+            //Sword strikes may let you steal back the damage taken from one hit
+
         }
         public override void SetDefaults()
         {

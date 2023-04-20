@@ -71,17 +71,17 @@ namespace Emperia
         {
             float value;
             value = (Main.MouseScreen.X / (float)(Main.screenWidth)); //varies from 0 to 1
-            value = ApplyMouseFloatParameters(value, haveNegatives, maxValue, print);
+            value = ApplyMouseFloatParameters(value, haveNegatives, maxValue, print, ref lastMouseFloatX);
             return value;
         }
         public static float MouseControlledFloatY(bool haveNegatives = false, int maxValue = 1, bool print = true)
         {
             float value;
             value = (Main.MouseScreen.Y / (float)(Main.screenHeight)); //varies from 0 to 1
-            value = ApplyMouseFloatParameters(value, haveNegatives, maxValue, print);
+            value = ApplyMouseFloatParameters(value, haveNegatives, maxValue, print, ref lastMouseFloatY);
             return value;
         }
-        internal static float ApplyMouseFloatParameters(float value, bool haveNegatives, int maxValue, bool print)
+        internal static float ApplyMouseFloatParameters(float value, bool haveNegatives, int maxValue, bool print, ref float? lastMouseFloat)
         {
             if (haveNegatives)
             {
@@ -89,9 +89,18 @@ namespace Emperia
                 value--;
             }
             value *= maxValue;
-            if (print) Main.NewText(value);
+            if (print)
+            {
+                if (lastMouseFloat == null || value != lastMouseFloat)
+                {
+                    lastMouseFloat = value;
+                    Main.NewText(value);
+                }
+            }
             return value;
         }
+        private static float? lastMouseFloatX = null;
+        private static float? lastMouseFloatY = null;
         public static void DrawPixel(Vector2 position, Color color)
         {
             //EmperiaSystem.pixels.Add((position, color));
@@ -156,6 +165,48 @@ namespace Emperia
             }
 
             return sb.ToString();
+        }
+        public Color HueToRGB(int hue)
+        {
+            int[] rgb = new int[3];
+
+            if (hue < 60)
+            {
+                rgb[0] = 255;
+                rgb[1] = hue * 255 / 60;
+                rgb[2] = 0;
+            }
+            else if (hue < 120)
+            {
+                rgb[0] = (120 - hue) * 255 / 60;
+                rgb[1] = 255;
+                rgb[2] = 0;
+            }
+            else if (hue < 180)
+            {
+                rgb[0] = 0;
+                rgb[1] = 255;
+                rgb[2] = (hue - 120) * 255 / 60;
+            }
+            else if (hue < 240)
+            {
+                rgb[0] = 0;
+                rgb[1] = (240 - hue) * 255 / 60;
+                rgb[2] = 255;
+            }
+            else if (hue < 300)
+            {
+                rgb[0] = (hue - 240) * 255 / 60;
+                rgb[1] = 0;
+                rgb[2] = 255;
+            }
+            else
+            {
+                rgb[0] = 255;
+                rgb[1] = 0;
+                rgb[2] = (360 - hue) * 255 / 60;
+            }
+            return new Color(rgb[0], rgb[1], rgb[2]);
         }
     }
     public class EmperiaMusic : ModSceneEffect
@@ -275,6 +326,55 @@ namespace Emperia
             RecipeGroup group = new RecipeGroup(() => Language.GetTextValue("LegacyMisc.37") + " " + name, members);
             RecipeGroup.RegisterGroup("Emperia:" + name.Replace(" ", string.Empty), group);
         }
+
+
+        public static List<int> emperiaMaterials = new List<int>();
+        public override void PostSetupRecipes()
+        {
+
+            for (int i = 1; i < ItemLoader.ItemCount; i++)
+            {
+                Item item = ContentSamples.ItemsByType[i];
+                if (IsMaterialInEmperia(item))
+                {
+                    Emperia.DebugInfo += item.Name + " ";
+                    emperiaMaterials.Add(item.type);
+                }
+            }
+
+
+
+            /*foreach (var item in Main.item) //what is Main.item. why is it 401 long
+            {
+                //if (IsMaterialInEmperia(item))
+                {
+                    Emperia.DebugInfo += item.type + " ";
+                    if (item.ModItem is not null) Emperia.DebugInfo += item.ModItem.DisplayName + " ";
+
+                    emperiaMaterials.Add(item.type);
+                }
+            }*/
+        }
+
+        private bool IsMaterialInEmperia(Item item) //can't check for members of recipegroups
+        {
+            if (item.ModItem is not null) return false; //TODO : && item.ModItem.Mod == Emperia.instance (only necessary if Emperia adds cross-mod crafting content)
+            for (int i = 0; i < Main.recipe.Length; i++)
+            {
+                if (Main.recipe[i] != null && Main.recipe[i].Mod == Emperia.instance &&
+                (Main.recipe[i].HasIngredient(item.type) || Main.recipe[i].acceptedGroups.Exists(x => GetRecipeGroup(x).ValidItems.Contains(item.type))))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+        private RecipeGroup GetRecipeGroup(int id)
+        {
+            if (RecipeGroup.recipeGroups.TryGetValue(id, out var value)) return value;
+            return null;
+        }
+
 
         public static List<(Rectangle, Color)> drawRectangles = new List<(Rectangle, Color)>();
         public override void PostDrawInterface(SpriteBatch spriteBatch)

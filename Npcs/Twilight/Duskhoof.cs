@@ -134,13 +134,13 @@ namespace Emperia.Npcs.Twilight
             move = toMove;
             this.counter = counter;
 		}
-		public override float SpawnChance(NPCSpawnInfo spawnInfo)
+		/*public override float SpawnChance(NPCSpawnInfo spawnInfo)
 		{
 			int x = spawnInfo.SpawnTileX;
 			int y = spawnInfo.SpawnTileY;
 			int tile = Main.tile[x, y].TileType;
 			return 0f;
-		}
+		}*/
 		
 
        

@@ -116,13 +116,13 @@ namespace Emperia.Npcs.GoblinArmy
 				NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X - 50, (int)NPC.Center.Y, NPCType<GoblinRamCarrier>());
 			}
 		}
-		public override float SpawnChance(NPCSpawnInfo spawnInfo)
+		/*public override float SpawnChance(NPCSpawnInfo spawnInfo)
 		{
 			int x = spawnInfo.SpawnTileX;
 			int y = spawnInfo.SpawnTileY;
 			int tile = Main.tile[x, y].TileType;
 			return Main.invasionType == 1 ? 0.08f : 0;
-		}
+		}*/
 
 
         /* private void SmoothMoveToPosition(Vector2 toPosition, float addSpeed, float maxSpeed, float slowRange = 64, float slowBy = .95f)

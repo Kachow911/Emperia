@@ -46,7 +46,7 @@ namespace Emperia.Tiles
 					int subTile = l + k * 2; //gives each of the 4 quadrants per tile a unique int value
 					if (lcdColors[subTile] == Color.Black) continue;
 
-					Rectangle subTileQuadrant = GetSubTileTextureFromType(FactorInSlopeForSubTileType(i, j, subTile, GetSubTileTypeFromTileFrame(i, j, subTile)));
+					Rectangle subTileQuadrant = GetSubTileTextureFromBorderType(AdjustedBorderTypeForSlope(i, j, (SubTile)subTile, GetBorderTypeFromTileFrame(i, j, subTile)));
 					if (subTileQuadrant.IsEmpty) continue;
 
 					Vector2 position = new Vector2(i * 16 + l * 8, j * 16 + k * 8);
@@ -56,85 +56,76 @@ namespace Emperia.Tiles
 				}
 			}
 		}
-		public Color HueToRGB(int hue)
+
+		public enum SubTile
         {
-			int[] rgb = new int[3];
-
-			if (hue < 60)
-			{
-			    rgb[0] = 255;
-			    rgb[1] = hue * 255 / 60;
-			    rgb[2] = 0;
-			}
-			else if (hue < 120)
-			{
-			    rgb[0] = (120 - hue) * 255 / 60;
-			    rgb[1] = 255;
-			    rgb[2] = 0;
-			}
-			else if (hue < 180)
-			{
-				rgb[0] = 0;
-				rgb[1] = 255;
-				rgb[2] = (hue - 120) * 255 / 60;
-			}
-			else if (hue < 240)
-			{
-				rgb[0] = 0;
-				rgb[1] = (240 - hue) * 255 / 60;
-				rgb[2] = 255;
-			}
-			else if (hue < 300)
-			{
-				rgb[0] = (hue - 240) * 255 / 60;
-				rgb[1] = 0;
-				rgb[2] = 255;
-			}
-			else
-			{
-				rgb[0] = 255;
-				rgb[1] = 0;
-				rgb[2] = (360 - hue) * 255 / 60;
-			}
-			return new Color(rgb[0], rgb[1], rgb[2]);
+			UpperLeft = 0,
+			UpperRight = 1,
+			LowerLeft = 2,
+			LowerRight = 3,
         }
-		public static Rectangle GetSubTileTextureFromType(int type)
-		{
-			if (type == -1) return Rectangle.Empty;
-			int posX;
-			int posY = 0;
-			while (type >= 4)
-            {
-				type -= 4;
-				posY += 10;
-            }
-			posX = type * 10;
 
-			return new Rectangle(posX, posY, 8, 8);
+		public enum BorderType //see LCDScreenTileSubTiles.png
+		{
+			Null = -1, 
+			Left = 0,
+			Top = 1,
+			Right = 2,
+			Bottom = 3,
+			TopLeft = 4,
+			TopRight = 5,
+			BottomLeft = 6,
+			BottomRight = 7,
+			None = 8,
+			TopAndBottom = 9,
+			BottomLeftAndTop = 10,
+			BottomRightAndTop = 11,
+			TriangularTopLeft = 12,
+			TriangularTopRight = 13,
+			TriangularBottomLeft = 14,
+			TriangularBottomRight = 15,
+			TriangularTopLeftAndRight = 16,
+			TriangularTopRightAndLeft = 17,
+			TriangularBottomLeftAndRight = 18,
+			TriangularBottomRightAndLeft = 19,
+			TriangularTopLeftAndBottom = 20,
+			TriangularTopRightAndBottom = 21,
+			TriangularBottomLeftAndTop = 22,
+			TriangularBottomRightAndTop = 23,
 		}
-		public static int FactorInSlopeForSubTileType(int i, int j, int subTile, int type)
+
+		public static Rectangle GetSubTileTextureFromBorderType(BorderType type)
+		{
+			if (type == BorderType.Null) return Rectangle.Empty;
+
+			int frameX = (int)type % 4;
+			int frameY = ((int)type - (int)type % 4) / 4;
+
+			return new Rectangle(frameX * 10, frameY * 10, 8, 8);
+		}
+		public static BorderType AdjustedBorderTypeForSlope(int i, int j, SubTile subTile, BorderType type)
         {
 			Tile tile = Main.tile[i, j];
 
-			if (!tile.IsHalfBlock) //changes upper half subtiles to blend with neighboring halfblocks
+			if (!tile.IsHalfBlock) //changes upper half subtile borders to cover exposed block sides if neighboring blocks are halfblocks
 			{ 
-				if (type == 1)
+				if (type == BorderType.Top)
 				{
-					if ((subTile == 0) && Main.tile[i - 1, j].IsHalfBlock)
+					if ((subTile == SubTile.UpperLeft) && Main.tile[i - 1, j].IsHalfBlock)
 					{
-						if (tile.Slope == SlopeType.SlopeDownLeft) return 17;
-						else return 4;
+						if (tile.Slope == SlopeType.SlopeDownLeft) return BorderType.TriangularTopRightAndLeft;
+						else return BorderType.TopLeft;
 					}
-					if ((subTile == 1) && Main.tile[i + 1, j].IsHalfBlock)
+					if ((subTile == SubTile.UpperRight) && Main.tile[i + 1, j].IsHalfBlock)
 					{
-						if (tile.Slope == SlopeType.SlopeDownRight) return 16;
-						else return 5;
+						if (tile.Slope == SlopeType.SlopeDownRight) return BorderType.TriangularTopLeftAndRight;
+						else return BorderType.TopRight;
 					}
 				}
-				else if (type == 8)
+				else if (type == BorderType.None)
 				{
-					if ((subTile == 0) && Main.tile[i - 1, j].IsHalfBlock) return 0;
-					if ((subTile == 1) && Main.tile[i + 1, j].IsHalfBlock) return 2;
+					if ((subTile == SubTile.UpperLeft) && Main.tile[i - 1, j].IsHalfBlock) return BorderType.Left;
+					if ((subTile == SubTile.UpperRight) && Main.tile[i + 1, j].IsHalfBlock) return BorderType.Right;
 				}
 			}
 
@@ -142,19 +133,19 @@ namespace Emperia.Tiles
 			{
 				switch (subTile)
 				{
-					case 0:
-					case 1:
-						return -1;
-					case 2:
-					case 3:
+					case SubTile.UpperLeft:
+					case SubTile.UpperRight:
+						return BorderType.Null;
+					case SubTile.LowerLeft:
+					case SubTile.LowerRight:
 						switch (type)
 						{
-							case 0: return 4; //basically, imagine this just finding the equivalent subtile with a border line drawn at the top
-							case 2: return 5;
-							case 3: return 9;
-							case 6: return 10;
-							case 7: return 11;
-							case 8: return 1;
+							case BorderType.Left: return BorderType.TopLeft; //basically, imagine this just finding the equivalent subtile with a border line drawn at the top
+							case BorderType.Right: return BorderType.TopRight;
+							case BorderType.Bottom: return BorderType.TopAndBottom;
+							case BorderType.BottomLeft: return BorderType.BottomLeftAndTop;
+							case BorderType.BottomRight: return BorderType.BottomRightAndTop;
+							case BorderType.None: return BorderType.Top;
 						}
 					break;
 				}
@@ -162,24 +153,31 @@ namespace Emperia.Tiles
 
 			switch (tile.Slope)
 			{
+				//For the purposes of this code, subTiles refer to fourths of a tile. Splitting a normal tile into 4 corners would just make 4 smaller squares.
+				//But for slopes, one subTile is empty air, so we will not draw it (return BorderType.Null;), one is an unchanged square, so we will draw it no differently, (break;) and the remaining two are slanted or triangular.
+				//The triangular subtiles must account for borderless variations, to blend with potential adjacent blocks, except in opposite directions, where a slope cannot connect.
+				//So for example, SlopeDownRight cannot connect to the block up above or to the left, and its triangular subtiles are TopRight and BottomLeft.
+				//The TopRight subtile /| must account for connecting to a tile to the right /|[], so we get t he equivalent subTile with no right border (Top). The BottomLeft subtile can connect underneath, which requires the equivalent variant with no bottom border (Left).
+				//WIP, im pretty sure this is not what i meant by the original comment below, mixing up subtile and bordertype
+
 				//Slopes in Terraria can be split into 4 corners, called subTiles for purposes here. Splitting a normal block into 4 corners would just make 4 smaller squares.
-				//But for slopes, one subTile is empty air, so we will not draw it (return -1;), one is an unchanged square, so we will draw it no differently, (break;) and the remaining two are slanted or triangular.
+				//But for slopes, one subTile is empty air, so we will not draw it (return BorderType.Null;), one is an unchanged square, so we will draw it no differently, (break;) and the remaining two are slanted or triangular.
 				//The triangular subtiles must account for borderless variations, to blend with potential adjacent blocks, except in opposite directions, where a slope cannot connect.
 				//So for example, SlopeDownRight cannot connect to the block up above or to the left, and its triangular subtiles are upper right (5) and bottom left (6).
-				//The upper right subtile /| can connect to the right /|[], meaning a variant with no right border (1). The bottom left subtile can connect underneath, meaning a variant with no bottom border (0).
+				//The upper right subtile /| can connect to the right /|[], so we get a variant with no right border (1). The bottom left subtile can connect underneath, meaning a variant with no bottom border (0).
 				case SlopeType.SlopeDownRight:
 					switch (subTile)
 					{
-						case 0: return -1;
-						case 3: break;
-						case 1:
-						case 2:
+						case SubTile.UpperLeft: return BorderType.Null;
+						case SubTile.LowerRight: break;
+						case SubTile.UpperRight:
+						case SubTile.LowerLeft:
 							switch (type)
 							{
-								case 0: return 12;
-								case 1: return 12;
-								case 5: return 16; 
-								case 6: return 20;
+								case BorderType.Left: return BorderType.TriangularTopLeft;
+								case BorderType.Top: return BorderType.TriangularTopLeft;
+								case BorderType.TopRight: return BorderType.TriangularTopLeftAndRight; 
+								case BorderType.BottomLeft: return BorderType.TriangularTopLeftAndBottom;
 							}
 						break;
 					}
@@ -187,16 +185,16 @@ namespace Emperia.Tiles
 				case SlopeType.SlopeDownLeft:
 					switch (subTile)
 					{
-						case 1: return -1;
-						case 2: break;
-						case 0:
-						case 3:
+						case SubTile.UpperRight: return BorderType.Null;
+						case SubTile.LowerLeft: break;
+						case SubTile.UpperLeft:
+						case SubTile.LowerRight:
 							switch (type)
 							{
-								case 1: return 13;
-								case 2: return 13;
-								case 4: return 17;
-								case 7: return 21;
+								case BorderType.Top: return BorderType.TriangularTopRight;
+								case BorderType.Right: return BorderType.TriangularTopRight;
+								case BorderType.TopLeft: return BorderType.TriangularTopRightAndLeft;
+								case BorderType.BottomRight: return BorderType.TriangularTopRightAndBottom;
 							}
 						break;
 					}
@@ -204,16 +202,16 @@ namespace Emperia.Tiles
 				case SlopeType.SlopeUpRight:
 					switch (subTile)
 					{
-						case 2: return -1;
-						case 1: break;
-						case 0:
-						case 3:
+						case SubTile.LowerLeft: return BorderType.Null;
+						case SubTile.UpperRight: break;
+						case SubTile.UpperLeft:
+						case SubTile.LowerRight:
 							switch (type)
 							{
-								case 0: return 14;
-								case 3: return 14;
-								case 4: return 22;
-								case 7: return 18;
+								case BorderType.Left: return BorderType.TriangularBottomLeft;
+								case BorderType.Bottom: return BorderType.TriangularBottomLeft;
+								case BorderType.TopLeft: return BorderType.TriangularBottomLeftAndTop;
+								case BorderType.BottomRight: return BorderType.TriangularBottomLeftAndRight;
 							}
 						break;
 					}
@@ -221,16 +219,16 @@ namespace Emperia.Tiles
 				case SlopeType.SlopeUpLeft:
 					switch (subTile)
 					{
-						case 0: break;
-						case 3: return -1;
-						case 1:
-						case 2:
+						case SubTile.UpperLeft: break;
+						case SubTile.LowerRight: return BorderType.Null;
+						case SubTile.UpperRight:
+						case SubTile.LowerLeft:
 							switch (type)
 							{
-								case 2: return 15;
-								case 3: return 15;
-								case 5: return 23;
-								case 6: return 19;
+								case BorderType.Right: return BorderType.TriangularBottomRight;
+								case BorderType.Bottom: return BorderType.TriangularBottomRight;
+								case BorderType.TopRight: return BorderType.TriangularBottomRightAndTop;
+								case BorderType.BottomLeft: return BorderType.TriangularBottomRightAndLeft;
 							}
 							break;
 					}
@@ -238,7 +236,7 @@ namespace Emperia.Tiles
 			}
 			return type;
         }
-		public static int GetSubTileTypeFromTileFrame(int i, int j, int subTile)
+		public static BorderType GetBorderTypeFromTileFrame(int i, int j, int subTile)
         {
 			Tile tile = Main.tile[i, j];
 			(int, int) frame = (tile.TileFrameX, tile.TileFrameY);
@@ -250,10 +248,10 @@ namespace Emperia.Tiles
 				case (0, 36):
 					switch (subTile)
                     {
-						case 0: return 0;
-						case 1: return 8;
-						case 2: return 0;
-						case 3: return 8;
+						case 0: return BorderType.Left;
+						case 1: return BorderType.None;
+						case 2: return BorderType.Left;
+						case 3: return BorderType.None;
                     }
 					break;
 
@@ -262,10 +260,10 @@ namespace Emperia.Tiles
 				case (54, 0):
 					switch (subTile)
 					{
-						case 0: return 1;
-						case 1: return 1;
-						case 2: return 8;
-						case 3: return 8;
+						case 0: return BorderType.Top;
+						case 1: return BorderType.Top;
+						case 2: return BorderType.None;
+						case 3: return BorderType.None;
 					}
 					break;
 
@@ -287,7 +285,7 @@ namespace Emperia.Tiles
 				case (198, 0):
 				case (198, 18):
 				case (198, 36):
-					return 8; //subtile with no borders
+					return BorderType.None;
 
 
 				case (18, 36):
@@ -295,10 +293,10 @@ namespace Emperia.Tiles
 				case (54, 36):
 					switch (subTile)
 					{
-						case 0: return 8;
-						case 1: return 8;
-						case 2: return 3;
-						case 3: return 3;
+						case 0: return BorderType.None;
+						case 1: return BorderType.None;
+						case 2: return BorderType.Bottom;
+						case 3: return BorderType.Bottom;
 					}
 					break;
 
@@ -307,10 +305,10 @@ namespace Emperia.Tiles
 				case (72, 36):
 					switch (subTile)
 					{
-						case 0: return 8;
-						case 1: return 2;
-						case 2: return 8;
-						case 3: return 2;
+						case 0: return BorderType.None;
+						case 1: return BorderType.Right;
+						case 2: return BorderType.None;
+						case 3: return BorderType.Right;
 					}
 					break;
 
@@ -319,10 +317,10 @@ namespace Emperia.Tiles
 				case (90, 36):
 					switch (subTile)
 					{
-						case 0: return 0;
-						case 1: return 2;
-						case 2: return 0;
-						case 3: return 2;
+						case 0: return BorderType.Left;
+						case 1: return BorderType.Right;
+						case 2: return BorderType.Left;
+						case 3: return BorderType.Right;
 					}
 					break;
 
@@ -331,10 +329,10 @@ namespace Emperia.Tiles
 				case (144, 0):
 					switch (subTile)
 					{
-						case 0: return 4;
-						case 1: return 5;
-						case 2: return 0;
-						case 3: return 2;
+						case 0: return BorderType.TopLeft;
+						case 1: return BorderType.TopRight;
+						case 2: return BorderType.Left;
+						case 3: return BorderType.Right;
 					}
 					break;
 
@@ -343,10 +341,10 @@ namespace Emperia.Tiles
 				case (144, 54):
 					switch (subTile)
 					{
-						case 0: return 0;
-						case 1: return 2;
-						case 2: return 6;
-						case 3: return 7;
+						case 0: return BorderType.Left;
+						case 1: return BorderType.Right;
+						case 2: return BorderType.BottomLeft;
+						case 3: return BorderType.BottomRight;
 					}
 					break; 
 
@@ -355,10 +353,10 @@ namespace Emperia.Tiles
 				case (144, 72):
 					switch (subTile)
 					{
-						case 0: return 1;
-						case 1: return 1;
-						case 2: return 3;
-						case 3: return 3;
+						case 0: return BorderType.Top;
+						case 1: return BorderType.Top;
+						case 2: return BorderType.Bottom;
+						case 3: return BorderType.Bottom;
 					}
 					break;
 
@@ -367,10 +365,10 @@ namespace Emperia.Tiles
 				case (162, 36):
 					switch (subTile)
 					{
-						case 0: return 4;
-						case 1: return 1;
-						case 2: return 6;
-						case 3: return 3;
+						case 0: return BorderType.TopLeft;
+						case 1: return BorderType.Top;
+						case 2: return BorderType.BottomLeft;
+						case 3: return BorderType.Bottom;
 					}
 					break;
 
@@ -379,10 +377,10 @@ namespace Emperia.Tiles
 				case (216, 36):
 					switch (subTile)
 					{
-						case 0: return 1;
-						case 1: return 5;
-						case 2: return 3;
-						case 3: return 7;
+						case 0: return BorderType.Top;
+						case 1: return BorderType.TopRight;
+						case 2: return BorderType.Bottom;
+						case 3: return BorderType.BottomRight;
 					}
 					break;
 
@@ -391,10 +389,10 @@ namespace Emperia.Tiles
 				case (198, 54):
 					switch (subTile)
 					{
-						case 0: return 4; //return 0;
-						case 1: return 5; //return 2;
-						case 2: return 6;
-						case 3: return 7;
+						case 0: return BorderType.TopLeft;
+						case 1: return BorderType.TopRight;
+						case 2: return BorderType.BottomLeft;
+						case 3: return BorderType.BottomRight;
 					}
 					break;
 
@@ -403,10 +401,10 @@ namespace Emperia.Tiles
 				case (72, 54):
 					switch (subTile)
 					{
-						case 0: return 4;
-						case 1: return 1;
-						case 2: return 0;
-						case 3: return 8;
+						case 0: return BorderType.TopLeft;
+						case 1: return BorderType.Top;
+						case 2: return BorderType.Left;
+						case 3: return BorderType.None;
 					}
 					break;
 
@@ -415,10 +413,10 @@ namespace Emperia.Tiles
 				case (90, 54):
 					switch (subTile)
 					{
-						case 0: return 1;
-						case 1: return 5;
-						case 2: return 8;
-						case 3: return 2;
+						case 0: return BorderType.Top;
+						case 1: return BorderType.TopRight;
+						case 2: return BorderType.None;
+						case 3: return BorderType.Right;
 					}
 					break;
 
@@ -427,10 +425,10 @@ namespace Emperia.Tiles
 				case (72, 72):
 					switch (subTile)
 					{
-						case 0: return 0;
-						case 1: return 8;
-						case 2: return 6;
-						case 3: return 3;
+						case 0: return BorderType.Left;
+						case 1: return BorderType.None;
+						case 2: return BorderType.BottomLeft;
+						case 3: return BorderType.Bottom;
 					}
 					break;
 
@@ -439,16 +437,16 @@ namespace Emperia.Tiles
 				case (90, 72):
 					switch (subTile)
 					{
-						case 0: return 8;
-						case 1: return 2;
-						case 2: return 3;
-						case 3: return 7;
+						case 0: return BorderType.None;
+						case 1: return BorderType.Right;
+						case 2: return BorderType.Bottom;
+						case 3: return BorderType.BottomRight;
 					}
 					break;
 			}
 
 			Main.NewText("Error: frame" + frame.ToString() + "not accounted for", Color.Red); //not an issue that's ever happened
-			return 8;
+			return BorderType.None;
 		}
 	}
 }

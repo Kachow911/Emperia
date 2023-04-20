@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using ReLogic.Content;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
@@ -8,6 +9,15 @@ namespace Emperia.Projectiles
 {
     public class ItemSwingVisual : ModProjectile
     {
+        public static ItemSwingVisual NewItemSwingVisual(Player player, Item item, string texturePath, OverlayType overlayType = null)
+        {
+            ItemSwingVisual newSwing = (Main.projectile[Projectile.NewProjectile(player.GetSource_ItemUse(item), player.Center.X, player.Center.Y, 0f, 0f, ModContent.ProjectileType<ItemSwingVisual>(), 0, 0, Main.myPlayer, 0, 0)].ModProjectile as ItemSwingVisual);
+            newSwing.useAnimationMax = newSwing.Projectile.timeLeft = item.useAnimation;
+            newSwing.overlayType = overlayType;
+            newSwing.texture = ModContent.Request<Texture2D>(texturePath, AssetRequestMode.ImmediateLoad).Value;
+            return newSwing;
+        }
+
         public override void SetDefaults()
         {
             Projectile.damage = 0;

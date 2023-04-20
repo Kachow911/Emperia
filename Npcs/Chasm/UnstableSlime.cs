@@ -74,13 +74,13 @@ namespace Emperia.Npcs.Chasm
 			//Eventually it will teleport in a zigzag pattern to the target as defined by the list
 		}
 		
-		public override float SpawnChance(NPCSpawnInfo spawnInfo)
+		/*public override float SpawnChance(NPCSpawnInfo spawnInfo)
 		{
 			int x = spawnInfo.SpawnTileX;
 			int y = spawnInfo.SpawnTileY;
 			int tile = Main.tile[x, y].TileType;
 			return (tile == ModContent.TileType<Tiles.AphoticStone>() || tile == ModContent.TileType<Tiles.GloomStone>()) ? 0.80f : 0;
-		}
+		}*/
 		
 		private void teleportRelative(float x, float y)
 		{

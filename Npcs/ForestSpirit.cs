@@ -79,13 +79,13 @@ namespace Emperia.Npcs
 			NPC.lifeMax = Convert.ToInt32(NPC.lifeMax * 1.4);
 			NPC.damage = Convert.ToInt32(NPC.damage * 1.4);
 		}
-		public override float SpawnChance(NPCSpawnInfo spawnInfo)
+		/*public override float SpawnChance(NPCSpawnInfo spawnInfo)
 		{
 			int x = spawnInfo.SpawnTileX;
 			int y = spawnInfo.SpawnTileY;
 			int tile = (int)Main.tile[x, y].TileType;
 			return (tile == TileID.Dirt || tile == TileID.Grass) && NPC.downedBoss2 ? 0.05f : 0f;
-		}
+		}*/
 		
 	}
 }

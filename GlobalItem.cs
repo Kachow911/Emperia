@@ -19,6 +19,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria.GameContent.Creative;
 using Terraria.GameContent.ItemDropRules;
 using static Emperia.EmperiaSystem;
+using System.Linq;
 
 namespace Emperia
 {
@@ -72,7 +73,7 @@ namespace Emperia
 				item.notAmmo = true;
 			}
 		}
-        public override void PickAmmo(Item weapon, Item ammo, Player player, ref int type, ref float speed, ref StatModifier damage, ref float knockback)
+		public override void PickAmmo(Item weapon, Item ammo, Player player, ref int type, ref float speed, ref StatModifier damage, ref float knockback)
         {
 			if (ammo.createTile != -1 && TileID.Sets.Platforms[ammo.createTile]) (weapon.ModItem as PlatformLayer).chosenPlatform = ammo; 
 		}
@@ -301,25 +302,25 @@ namespace Emperia
         {
 			if (!item.noMelee && item.damage > 0 && player.HasBuff(ModContent.BuffType<Goliath>())) scale *= 1.2f;
         }
-        public override void ModifyTooltips(Item Item, List<TooltipLine> tooltips)
+        public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
 			if (!Main.gameMenu) //i hope this works as intended but otherwise the mouseover on the main menu social media icons crashes
 			{
-				MyPlayer modPlayer = Main.player[Item.playerIndexTheItemIsReservedFor].GetModPlayer<MyPlayer>(); //because this is outside the index of the array
-				if (Item.GetGlobalItem<GItem>().gelPad)
+				MyPlayer modPlayer = Main.player[item.playerIndexTheItemIsReservedFor].GetModPlayer<MyPlayer>(); //because this is outside the index of the array
+				if (item.GetGlobalItem<GItem>().gelPad)
 				{
 					TooltipLine line = new TooltipLine(Mod, "x", "Gel Pad"); //no clue what the first string does here, gives the tooltip a name for other code to reference?
 					line.OverrideColor = new Color(150, 150, 255);
 					TooltipLine line2 = new TooltipLine(Mod, "x2", "Sword strikes on knockback-immune foes bounce you slightly back\nRight Click to detach");
 					tooltips.Add(line);
 					tooltips.Add(line2);
-					if (Item.type == ModContent.ItemType<GelGauntlet>())
+					if (item.type == ModContent.ItemType<GelGauntlet>())
 					{
 						TooltipLine line3 = new TooltipLine(Mod, "x3", "'Dear God... we're reaching levels of gel that shouldn't even be possible'");
 						tooltips.Add(line3);
 					}
 				}
-				if (Item.GetGlobalItem<GItem>().nightFlame)
+				if (item.GetGlobalItem<GItem>().nightFlame)
 				{
 					TooltipLine line = new TooltipLine(Mod, "x", "Nocturnal Flame"); //no clue what the first string does here, gives the tooltip a name for other code to reference?
 					line.OverrideColor = new Color(255, 200, 150);
@@ -327,12 +328,12 @@ namespace Emperia
 					tooltips.Add(line);
 					tooltips.Add(line2);
 				}
-				if (Item.type == 293 && modPlayer.warlockTorc)
+				if (item.type == 293 && modPlayer.warlockTorc)
 				{
 					TooltipLine line = new TooltipLine(Mod, "x", "[c/e65555:Cannot be consumed while wearing a torc]");
 					tooltips.Add(line);
 				}
-				if (Item.GetGlobalItem<GItem>().inactiveGauntlet)
+				if (item.GetGlobalItem<GItem>().inactiveGauntlet)
 				{
 					TooltipLine line = new TooltipLine(Mod, "x", "Currently granting no damage boost, gauntlet damage bonuses do not stack");
 					tooltips.Add(line);
@@ -342,12 +343,28 @@ namespace Emperia
 					TooltipLine line = new TooltipLine(Mod, "x", "This is platform ammo"); //no clue what the first string does here, gives the tooltip a name for other code to reference?
 					tooltips.Add(line);
 				}*/
+				
+				if (ModContent.GetInstance<EmperiaConfig>().EmperiaCraftingIndicator && tooltips.Exists(x => x.Name == "Material") && EmperiaSystem.emperiaMaterials.Contains(item.type))
+				{
+					TooltipLine line = tooltips.FirstOrDefault(x => x.Name == "Material");
+					line.Text += "    ";
+				} //TODO : SUPER HACKY AND SPAGHETTI CODE!!! custom chat tags ??
 			}
 		}
 		//public override bool NeedsSaving(Item Item)
 		//{
 		//	return gelPad;
 		//}
+
+		public override void PostDrawTooltipLine(Item item, DrawableTooltipLine line)
+        {
+			if (ModContent.GetInstance<EmperiaConfig>().EmperiaCraftingIndicator && line.Name == "Material" && EmperiaSystem.emperiaMaterials.Contains(item.type)) //IsMaterialInEmperia(item))
+			{
+				Texture2D texture = ModContent.Request<Texture2D>("Emperia/EmperiaCrownLogo", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+				Main.spriteBatch.Draw(texture, new Vector2(line.X + 72, line.Y - 1), null, Color.White, 0f, default(Vector2), 1f, SpriteEffects.None, 0f);
+			} //modifytooltips adds some spaces to ensure the tooltip box isn't too small on items like feathers that have a very small tooltip box
+        }
+
 		public override void SaveData(Item Item, TagCompound tag) {
 			//TagCompound saveData = new TagCompound();
 			//saveData.Add("gelPad", gelPad);

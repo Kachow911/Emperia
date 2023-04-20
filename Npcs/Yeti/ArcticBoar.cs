@@ -83,13 +83,13 @@ namespace Emperia.Npcs.Yeti
                 NPC.velocity *= slowBy;
             }
         }*/
-		public override float SpawnChance(NPCSpawnInfo spawnInfo)
+		/*public override float SpawnChance(NPCSpawnInfo spawnInfo)
 		{
 			int x = spawnInfo.SpawnTileX;
 			int y = spawnInfo.SpawnTileY;
 			int tile = Main.tile[x, y].TileType;
 			return spawnInfo.Player.ZoneSnow ? 0.05f : 0;
-		}
+		}*/
 		public override void ModifyNPCLoot(NPCLoot npcLoot)
 		{
 			Color rgb = new Color(160, 243, 255);

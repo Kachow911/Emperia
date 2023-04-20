@@ -171,13 +171,13 @@ namespace Emperia.Npcs.GoblinArmy
             move = toMove;
             this.counter = counter;
 		}
-		public override float SpawnChance(NPCSpawnInfo spawnInfo)
+		/*public override float SpawnChance(NPCSpawnInfo spawnInfo)
 		{
 			int x = spawnInfo.SpawnTileX;
 			int y = spawnInfo.SpawnTileY;
 			int tile = Main.tile[x, y].TileType;
 			return Main.invasionType == 1 ? 0.02f : 0;
-		}
+		}*/
 
         public override void OnKill()
         {

@@ -586,5 +586,18 @@ namespace Emperia
 			return true;
 		} //canbechasedby code:	if (base.active && this.chaseable && this.lifeMax > 5 && (!this.dontTakeDamage || ignoreDontTakeDamage) && !this.friendly) return !this.immortal;
 
-	}
+		/*public override void EditSpawnPool(IDictionary<int, float> pool, NPCSpawnInfo spawnInfo)
+		{
+			for (int i = 0; i < pool.Count; i++)
+			{
+				var npc = pool.ElementAt(i);
+				if (NPCLoader.GetNPC(npc.Key) is not null && NPCLoader.GetNPC(npc.Key).Mod == Emperia.instance)
+				{
+					pool[i] = 10000f;
+					Main.NewText(NPCLoader.GetNPC(npc.Key).Name);
+					Main.NewText(NPCLoader.GetNPC(npc.Key).SpawnChance(spawnInfo));
+				}
+			}
+		}*/
+    }
 }

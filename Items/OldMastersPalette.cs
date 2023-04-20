@@ -104,13 +104,7 @@ namespace Emperia.Items
         }
         public override bool? UseItem(Player player)
         {
-            if (player.itemAnimation == player.itemAnimationMax)
-            {
-                ItemSwingVisual p = (Main.projectile[Projectile.NewProjectile(player.GetSource_ItemUse(Item), player.Center.X, player.Center.Y, 0f, 0f, ModContent.ProjectileType<ItemSwingVisual>(), 0, 0, Main.myPlayer, 0, 0)].ModProjectile as ItemSwingVisual);
-                p.useAnimationMax = p.Projectile.timeLeft = Item.useAnimation;
-                p.overlayType = OverlayType_OldMastersPaletteBrush;
-                p.texture = ModContent.Request<Texture2D>("Emperia/Items/Palette/OldMastersPalette_Brush" + visualMode, ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
-            }
+            if (player.itemAnimation == player.itemAnimationMax) ItemSwingVisual.NewItemSwingVisual(player, Item, "Emperia/Items/Palette/OldMastersPalette_Brush", OverlayType_OldMastersPaletteBrush);
 
             if (Item.GetGlobalItem<GItem>().TileInRange(Item, player) == false) return false;
             if (player.itemAnimation % Item.useTime != 0 || !player.controlUseItem) return false;

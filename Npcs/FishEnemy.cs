@@ -30,10 +30,10 @@ namespace Emperia.Npcs
 			AnimationType = NPCID.Shark;
 		}
 
-		public override float SpawnChance(NPCSpawnInfo spawnInfo)
+		/*public override float SpawnChance(NPCSpawnInfo spawnInfo)
 		{
 			return SpawnCondition.OceanMonster.Chance * 0.2f;
-		}
+		}*/
 
 		public override void ModifyNPCLoot(NPCLoot npcLoot)
 		{
