@@ -21,8 +21,7 @@ namespace Emperia.Items
 			Item.width = 16;
 			Item.height = 16;
 			Item.rare = 3;
-			Item.maxStack = 1;
-			Item.noUseGraphic = true;
+						Item.noUseGraphic = true;
 			Item.useStyle = 4;
 			Item.value = Item.sellPrice(0, 0, 1, 0);
 			Item.useTime = Item.useAnimation = 20;

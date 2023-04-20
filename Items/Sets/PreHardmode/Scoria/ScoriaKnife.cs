@@ -28,8 +28,7 @@ namespace Emperia.Items.Sets.PreHardmode.Scoria
             Item.UseSound = SoundID.Item1;
             Item.autoReuse = true;
 			Item.consumable = true;
-			Item.maxStack = 999;
-        }
+			        }
 
         public override void SetStaticDefaults()
         {

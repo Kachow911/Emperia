@@ -29,7 +29,6 @@ namespace Emperia.Items.Sets.PreHardmode.Chillsteel
             Item.channel = true;
             Item.noMelee = true;
             Item.consumable = true;
-            Item.maxStack = 999;
             Item.shoot = ModContent.ProjectileType<ChillDaggerProj>();
             Item.useAnimation = 25;
             Item.useTime = 25;
@@ -40,7 +39,6 @@ namespace Emperia.Items.Sets.PreHardmode.Chillsteel
             Item.crit = 4;
             Item.rare = 2;
             Item.autoReuse = true;
-            Item.maxStack = 999;
             Item.consumable = true;
         }
     }

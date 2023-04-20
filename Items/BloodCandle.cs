@@ -16,8 +16,7 @@ namespace Emperia.Items
 		public override void SetDefaults() {
 			Item.width = 10;
 			Item.height = 10;
-			Item.maxStack = 99;
-			Item.useTurn = true;
+						Item.useTurn = true;
 			Item.autoReuse = true;
 			Item.useAnimation = 15;
 			Item.useTime = 15;

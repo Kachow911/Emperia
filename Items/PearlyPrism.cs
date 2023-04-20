@@ -14,8 +14,7 @@ namespace Emperia.Items
 		{
 			Item.width = 24;
 			Item.height = 22;
-			Item.maxStack = 999;
-			Item.value = 52000;
+						Item.value = 52000;
 			Item.rare = 4;
 		}
 

@@ -32,8 +32,7 @@ namespace Emperia.Items.Weapons
             Item.damage = 1; //0
             //Item.DamageType = DamageClass.Ranged;
             Item.consumable = true;
-            Item.maxStack = 999;
-            Item.shoot = ModContent.ProjectileType<CloudGrenadeProj>();
+                        Item.shoot = ModContent.ProjectileType<CloudGrenadeProj>();
             Item.shootSpeed = 8.0f;
             Item.knockBack = 10f;
 			Item.value = Item.sellPrice(0, 0, 1, 50);

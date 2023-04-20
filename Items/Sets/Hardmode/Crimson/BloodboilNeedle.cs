@@ -29,8 +29,7 @@ namespace Emperia.Items.Sets.Hardmode.Crimson
             Item.channel = true;
             Item.noMelee = true;
             Item.consumable = true;
-            Item.maxStack = 999;
-            Item.shoot = ModContent.ProjectileType<BloodNeedleProj>();
+                        Item.shoot = ModContent.ProjectileType<BloodNeedleProj>();
             Item.useAnimation = 25;
             Item.useTime = 25;
             Item.shootSpeed = 8.0f;
@@ -40,8 +39,7 @@ namespace Emperia.Items.Sets.Hardmode.Crimson
             Item.crit = 4;
             Item.rare = 4;
             Item.autoReuse = true;
-            Item.maxStack = 999;
-            Item.consumable = true;
+                        Item.consumable = true;
         }
         public override void AddRecipes()
         {

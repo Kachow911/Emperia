@@ -23,8 +23,7 @@ namespace Emperia.Items
             Item.useTime = 17;
             Item.useTurn = true;
             Item.UseSound = SoundID.Item3;
-            Item.maxStack = 30;
-            Item.consumable = true;
+                        Item.consumable = true;
             Item.rare = 1;
             Item.value = 200;
             Item.buffType = BuffID.WellFed;

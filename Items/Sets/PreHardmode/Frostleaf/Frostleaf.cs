@@ -14,8 +14,7 @@ namespace Emperia.Items.Sets.PreHardmode.Frostleaf
 		{
 			Item.width = 18;
 			Item.height = 18;
-			Item.maxStack = 999;
-			Item.value = 5750;
+						Item.value = 5750;
 			Item.rare = 1;
 		}
 	}

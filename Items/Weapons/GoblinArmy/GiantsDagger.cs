@@ -29,7 +29,6 @@ namespace Emperia.Items.Weapons.GoblinArmy
             Item.channel = true;
             Item.noMelee = true;
             Item.consumable = true;
-            Item.maxStack = 999;
             Item.shoot = ModContent.ProjectileType<GiantsDaggerProj>();
             Item.useAnimation = 32;
             Item.useTime = 32;
@@ -40,7 +39,6 @@ namespace Emperia.Items.Weapons.GoblinArmy
             Item.crit = 4;
             Item.rare = 2;
             Item.autoReuse = true;
-            Item.maxStack = 1;
             Item.consumable = false;
         }
     }

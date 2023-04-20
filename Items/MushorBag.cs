@@ -27,8 +27,7 @@ namespace Emperia.Items
 			Item.width = 20;
 			Item.height = 20;
 			Item.rare = -2;
-			Item.maxStack = 999;
-			Item.expert = true;
+						Item.expert = true;
 		}
 		public override bool CanRightClick()
 		{

@@ -30,8 +30,7 @@ public class PrimalPike : ModItem
 		Item.UseSound = SoundID.Item1;
 		Item.autoReuse = false;  //Dictates whether the weapon can be "auto-fired".
 		Item.height = 56;  //The height of the .png file in pixels divided by 2.
-		Item.maxStack = 1;
-		Item.value = 45000;  //Value is calculated in copper coins.
+				Item.value = 45000;  //Value is calculated in copper coins.
 		Item.rare = 4;  //Ranges from 1 to 11.
 		Item.shoot = ModContent.ProjectileType<Projectiles.PrimalPike>();
 		Item.shootSpeed = 8f;

@@ -13,8 +13,7 @@ namespace Emperia.Items.Sets.Hardmode.Jungle
 		{
 			Item.width = 20;
 			Item.height = 20;
-			Item.maxStack = 999;
-			Item.value = 100;
+						Item.value = 100;
 			Item.rare = 1;
 		}
 	}

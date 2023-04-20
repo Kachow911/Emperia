@@ -21,8 +21,7 @@ namespace Emperia.Items
         {
             Item.width = 36;
             Item.height = 36;
-            Item.maxStack = 999;
-            Item.rare = 3;
+                        Item.rare = 3;
             Item.useAnimation = 45;
             Item.useTime = 45;
             Item.useStyle = 4;

@@ -30,8 +30,7 @@ namespace Emperia.Items.Sets.Hardmode.Corrupt
             Item.channel = true;
             Item.noMelee = true;
             Item.consumable = true;
-            Item.maxStack = 999;
-            Item.shoot = ModContent.ProjectileType<RotDaggerProj>();
+                        Item.shoot = ModContent.ProjectileType<RotDaggerProj>();
             Item.useAnimation = 25;
             Item.useTime = 25;
             Item.shootSpeed = 12.0f;
@@ -41,8 +40,7 @@ namespace Emperia.Items.Sets.Hardmode.Corrupt
             Item.crit = 4;
             Item.rare = 4;
             Item.autoReuse = true;
-            Item.maxStack = 999;
-            Item.consumable = true;
+                        Item.consumable = true;
         }
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockBack)
 		{

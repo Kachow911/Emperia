@@ -20,8 +20,7 @@ namespace Emperia.Items
             Item.useTime = 17;
             Item.useTurn = true;
             Item.UseSound = SoundID.Item2;
-            Item.maxStack = 30;
-            Item.consumable = true;
+                        Item.consumable = true;
             Item.rare = 1;
             Item.value = 1750;
         	Item.healLife = 110;

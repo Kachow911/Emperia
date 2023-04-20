@@ -32,7 +32,6 @@ public class AlchemistFlask : ModItem
 		Item.UseSound = SoundID.Item106;
 		Item.autoReuse = true;  //Dictates whether the weapon can be "auto-fired".
 		Item.height = 16;  //The height of the .png file in pixels divided by 2.
-		Item.maxStack = 1;
 		Item.value = 60000;  //Value is calculated in copper coins.
 		Item.rare = 5;  //Ranges from 1 to 11.
 		Item.shoot = ModContent.ProjectileType<GoblinFlask1>();
