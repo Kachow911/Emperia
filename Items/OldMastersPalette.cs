@@ -2,16 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Emperia;
-using Microsoft.Xna.Framework.Graphics;
-using Terraria.UI;
-using Emperia.UI;
-using Terraria.GameContent;
-using static Terraria.Audio.SoundEngine;
 using Terraria.ModLoader.IO;
 using Emperia.Projectiles;
 
@@ -21,8 +15,6 @@ namespace Emperia.Items
     {
         public override void SetStaticDefaults()
         {
-            // DisplayName.SetDefault("Old Master's Palette");
-            // Tooltip.SetDefault("Allows ultimate control over paint!\nRight Click while holding to select paints and brush\n'The world is your canvas... literally!'");
             ItemID.Sets.SortingPriorityPainting[Item.type] = 101;
             //GamepadWholeScreenUseRange
             //GamepadExtraRange
@@ -42,13 +34,11 @@ namespace Emperia.Items
             Item.tileBoost = 3;
             Item.noUseGraphic = true;
             Item.paint = 0;
+            Item.paintCoating = 0;
         }
 
-        public static Rectangle[] paintPosition = { new Rectangle(16, 14, 34, 30), new Rectangle(10, 16, 34, 30), new Rectangle(4, 14, 34, 30), new Rectangle(0, 6, 34, 30), new Rectangle(2, 0, 34, 30) };
-        //public List<int> selectedColors = new List<int>();
         public List<int> selectedColors = new List<int> { 26, 3, 1, 5, 8 };
         public List<int> selectedColorsBackup = new List<int>();
-        //public Item[] specialPaintSlots = { null, null, null };
         public int[] unlockedSpecialPaints = { 0, 0, 0, 0 };
 
         public BrushMode brushMode = BrushMode.Brush;
@@ -98,7 +88,7 @@ namespace Emperia.Items
         private void SetItemPaintOrCoating(int paintOrCoatType)
         {
             if (paintOrCoatType < PaintID.Old_IlluminantPaint) Item.paint = (byte)paintOrCoatType;
-            else if (paintOrCoatType <= PaintCoatingID.Echo + 30) Item.paintCoating = (byte)(paintOrCoatType - 30);
+            //else if (paintOrCoatType <= PaintCoatingID.Echo + 30) Item.paintCoating = (byte)(paintOrCoatType - 30); can't do this because vanilla applycoating code decrements the stack without a check, unlike applypaint which checks consumeitem 
         }
         private void PaintOrCoatTile(int i, int j, int paintOrCoatType)
         {
@@ -113,6 +103,7 @@ namespace Emperia.Items
         public static void OverlayType_OldMastersPaletteBrush(Player player, ref Color lightColor, ref Texture2D overlayTexture, ref Vector2 position, ref Rectangle? rectangle, ref Color color, ref float rotation, ref Vector2 origin, ref float scale, ref SpriteEffects direction)
         {
             OldMastersPalette mastersPalette = player.HeldItem.ModItem as OldMastersPalette; //this can return an object reference not set to isntance of object error
+            color = lightColor;
             if (!mastersPalette.selectedColors.Any()) return;
             int paintType = mastersPalette.paintOrCoatType;
             if (paintType == 0 || mastersPalette.brushMode == BrushMode.Scraper) return;
@@ -125,7 +116,7 @@ namespace Emperia.Items
         }
         public override bool? UseItem(Player player)
         {
-            if (player.itemAnimation == player.itemAnimationMax) ItemSwingVisual.NewItemSwingVisual(player, Item, "Emperia/Items/Palette/OldMastersPalette_Brush", OverlayType_OldMastersPaletteBrush);
+            if (player.itemAnimation == player.itemAnimationMax) ItemSwingVisual.NewItemSwingVisual(player, Item, "Emperia/Items/Palette/OldMastersPalette_BrushBlank", OverlayType_OldMastersPaletteBrush);
 
             if (Item.GetGlobalItem<GItem>().TileInRange(Item, player) == false) return false;
             if (player.itemAnimation % Item.useTime != 0 || !player.controlUseItem) return false;
@@ -161,14 +152,11 @@ namespace Emperia.Items
             }
             return true;
         }
-        public override bool PreDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
-        {
-            return false;
-        }
+        public static Rectangle[] paintBlobPosition = { new Rectangle(16, 14, 34, 30), new Rectangle(10, 16, 34, 30), new Rectangle(4, 14, 34, 30), new Rectangle(0, 6, 34, 30), new Rectangle(2, 0, 34, 30) };
+        public override bool PreDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale) => false;
         public override void PostDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
         {
             Texture2D texture = ModContent.Request<Texture2D>("Emperia/Items/Palette/OldMastersPalette_Item" + visualMode, ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
-            //position -= new Vector2(2, 0);
             spriteBatch.Draw(texture, position, null, drawColor, 0f, texture.Size() / 2, Main.inventoryScale, SpriteEffects.None, 0f);
 
             if (selectedColors.Any())
@@ -181,7 +169,7 @@ namespace Emperia.Items
                     Texture2D paintTexture = GetPaintBlobTexture(paintType, i);
                     Color color = PaintToColor(paintType);
 
-                    spriteBatch.Draw(paintTexture, position, (Rectangle)paintPosition.GetValue(i), color, 0f, texture.Size() / 2, Main.inventoryScale, SpriteEffects.None, 0f);
+                    spriteBatch.Draw(paintTexture, position, paintBlobPosition[i], color, 0f, texture.Size() / 2, Main.inventoryScale, SpriteEffects.None, 0f);
                 }
                 {
                     int paintType = paintOrCoatType;
@@ -195,10 +183,7 @@ namespace Emperia.Items
                 }
             }
         }
-        public override bool PreDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, ref float rotation, ref float scale, int whoAmI)
-        {
-            return false;
-        }
+        public override bool PreDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, ref float rotation, ref float scale, int whoAmI) => false;
         public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
         {
             Texture2D texture = ModContent.Request<Texture2D>("Emperia/Items/Palette/OldMastersPalette_Item" + visualMode, ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
@@ -216,7 +201,7 @@ namespace Emperia.Items
                     Color color = PaintToColor(paintType);
 
                     if (paintType != 31) color = color.MultiplyRGB(lightColor);
-                    spriteBatch.Draw(paintTexture, position, (Rectangle)paintPosition.GetValue(i), color, rotation, texture.Size() * 0.5f, scale, SpriteEffects.None, 0f);
+                    spriteBatch.Draw(paintTexture, position, paintBlobPosition[i], color, rotation, texture.Size() * 0.5f, scale, SpriteEffects.None, 0f);
                 }
                 {
                     int paintType = paintOrCoatType;
@@ -264,6 +249,11 @@ namespace Emperia.Items
             else if (paintType == 32) return "Echo";
             else return "";
         }
+        public string SpecialVFXBucket(int paintType, bool noDeep = false)
+        {
+            if (paintType == 31 || paintType == 32) return "Coating";
+            else return SpecialVFX(paintType, noDeep);
+        }
         public Color PaintToColor(int paintType, bool noPitchBlack = false)
         {
             if (paintType == PaintID.NegativePaint || paintType == 32) return Color.White;
@@ -275,40 +265,12 @@ namespace Emperia.Items
             List<int> curatedColorList = new List<int>();
             if (selectedColors.Any())
             {
-                if (selectedColors.Count() > 5)
-                {
-                    for (int i = 0; i < 5; i++)
-                    {
-                        curatedColorList.Add(selectedColors[selectedColors.Count - 1 - (4 - i)]); //gets the last 5 colors
-                        //Main.NewText("f", PaintToColor(selectedColors[selectedColors.Count - 1 - (4 - i)]));
-                    }
-                }
+                if (selectedColors.Count() > 5) curatedColorList = selectedColors.AsEnumerable().Reverse().Take(5).Reverse().ToList();
                 else curatedColorList = selectedColors.ToList();
             }
             curatedColorList.Reverse();
             return curatedColorList;
         }
-        /*internal Item FindPaintItem(Player player, int paintType)
-        {
-            Item item = null;
-            for (int i = 54; i < 58; i++)
-            {
-                if (player.inventory[i].stack > 0 && player.inventory[i].paint == paintType && player.inventory[i].type != ModContent.ItemType<OldMastersPalette>())
-                {
-                    item = player.inventory[i];
-                    return item;
-                }
-            }
-            for (int j = 0; j < 58; j++)
-            {
-                if (player.inventory[j].stack > 0 && player.inventory[j].paint == paintType && player.inventory[j].type != ModContent.ItemType<OldMastersPalette>())
-                {
-                    item = player.inventory[j];
-                    return item;
-                }
-            }
-            return item;
-        }*/
         internal List<Item> FindPaintToSacrifice(Player player, int paintOrCoatType, ref bool fullStack)
         {
             List<Item> paintItems = new List<Item>();
@@ -349,20 +311,6 @@ namespace Emperia.Items
             if (item.stack > 0 && (item.paint == paintOrCoatType || item.paintCoating == 1 && paintOrCoatType == 31 || item.paintCoating == 2 && paintOrCoatType == 32) && item.type != ModContent.ItemType<OldMastersPalette>()) return true;
             return false;
         }
-        /*internal void TryConsumePaint(byte color, Player player)
-        {
-            if (color < 29) return;
-            Item item = specialPaintSlots[color - 29];
-            if (ItemLoader.ConsumeItem(item, player))
-            {
-                item.stack--;
-            }
-            if (item.stack <= 0)
-            {
-                item.SetDefaults();
-            }
-        }*/
-
         public static bool TilePaintOrCoatMatchesType(Tile tile, int paintOrCoatType, bool wall = false)
         {
             byte color = tile.TileColor;
@@ -468,10 +416,7 @@ namespace Emperia.Items
 
             recipe.Register();
         }
-        public override bool ConsumeItem(Player player)
-        {
-            return false;
-        }
+        public override bool ConsumeItem(Player player) => false;
         public override void SaveData(TagCompound tag)
         {
             tag["unlockedShadow"] = unlockedSpecialPaints[0] == 1;
@@ -513,8 +458,7 @@ namespace Emperia.Items
         {
             if (spectreUpgrade)
             {
-                TooltipLine line = new TooltipLine(Mod, "Upgrade", "Spectral Paint Kit"); //no clue what the first string does here, gives the tooltip a name for other code to reference?
-                //line.OverrideColor = new Color(95, 230, 255);
+                TooltipLine line = new TooltipLine(Mod, "Upgrade", "Spectral Paint Kit");
                 line.OverrideColor = new Color(130, 255, 255);
                 TooltipLine line2 = new TooltipLine(Mod, "UpgradeInfo", "Increased brush range and speed\nRight Click to detach");
                 tooltips.Add(line);
@@ -537,11 +481,6 @@ namespace Emperia.Items
                 Item.NewItem(player.GetSource_OpenItem(Item.type), player.getRect(), ModContent.ItemType<SpectrePaintKit>()); 
             }
         }
-        /*public override float UseSpeedMultiplier(Player player)
-        {
-            if (spectreUpgrade) return 2.5f;
-            return base.UseSpeedMultiplier(player);
-        }*/
     }
     public class OldMastersPaletteVisual : ModProjectile
     {
@@ -630,12 +569,6 @@ namespace Emperia.Items
     }
     public class SpectrePaintKit : ModItem
     {
-        public override void SetStaticDefaults()
-        {
-            // DisplayName.SetDefault("Spectral Paint Kit");
-            // Tooltip.SetDefault("Right Click while holding an Old Master's Palette to increase its range and speed");
-        }
-
         public override void SetDefaults()
         {
             Item.width = 16;
@@ -677,6 +610,23 @@ namespace Emperia.Items
             recipe.AddIngredient(ItemID.SpectrePaintScraper);
             recipe.AddTile(TileID.MythrilAnvil);
             recipe.Register();
+        }
+    }
+    public class PalettePlayer : ModPlayer
+    {
+        public override bool PreItemCheck()
+        {
+            if ((Player.cursorItemIconID != 0 || Player.inventory[58].type == ModContent.ItemType<OldMastersPalette>())
+                && UISystem.MyInterface?.CurrentState != null && UISystem.MyInterface?.CurrentState is UI.CursorUI cursorUI) cursorUI.TryDeactivate(); //spaghettiiiii
+            return base.PreItemCheck();
+        }
+        public override void ResetEffects()
+        {
+            //reseteffects runs almost immediately after vanilla smart cursor logic
+            if (Main.LocalPlayer.inventory[Main.LocalPlayer.selectedItem].type == ModContent.ItemType<OldMastersPalette>())
+            {
+                OldMastersPalette.SmartCursorLookup(Player, Main.LocalPlayer.inventory[Main.LocalPlayer.selectedItem]);
+            }
         }
     }
 }

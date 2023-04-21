@@ -141,8 +141,6 @@ namespace Emperia
 		public Vector2 hitboxEdge;
 		public float itemLength;
 		public bool noShieldSprite = false;
-		public bool scrollingInUI = false;
-
 		//public bool mouseOverUI = false;
 
 		public Item projItemOrigin = null;
@@ -218,19 +216,9 @@ namespace Emperia
 			projItemOrigin = null;
 			carapaceSet = null;
 			noShieldSprite = false;
-			scrollingInUI = false;
 
 
 			currentItemHitbox = Rectangle.Empty;
-
-			//reseteffects runs almost immediately after vanilla smart cursor logic
-			{
-				if (Main.LocalPlayer.inventory[Main.LocalPlayer.selectedItem].type == ModContent.ItemType<OldMastersPalette>())
-				{
-					OldMastersPalette.SmartCursorLookup(Player, Main.LocalPlayer.inventory[Main.LocalPlayer.selectedItem]);
-                }
-			}
-
 		}
 
         /*public override void CatchFish(FishingAttempt attempt, ref int itemDrop, ref int npcSpawn, ref AdvancedPopupRequest sonar, ref Vector2 sonarPosition)
@@ -675,8 +663,6 @@ namespace Emperia
         }
         public override void PreUpdate()
 		{
-			if (scrollingInUI) PlayerInput.ScrollWheelDelta = 0;
-
 			if (carapaceSet != null && poundTime == 0)
 			{
 				if (Main.rand.Next(20) < carapaceTime / 60)
@@ -1455,12 +1441,6 @@ namespace Emperia
 				gauntletBonus = strongestGauntlet.GetGlobalItem<GItem>().gauntletPower;
 			}
 		}
-        public override bool PreItemCheck()
-        {
-			if ((Player.cursorItemIconID != 0 || Player.inventory[58].type == ModContent.ItemType<OldMastersPalette>())
-				&& UISystem.MyInterface?.CurrentState != null && UISystem.MyInterface?.CurrentState is UI.CursorUI cursorUI) cursorUI.TryDeactivate(); //spaghettiiiii
-			return base.PreItemCheck();
-		}
         public override void LoadData(TagCompound tag)
         {
 			base.LoadData(tag);
@@ -1556,10 +1536,5 @@ namespace Emperia
 				}
 			}
 		}*/
-		/* public override bool CanUseItem(Item item)
-         {
-             if (mouseOverUI && item.type == ModContent.ItemType<OldMastersPalette>() && Player.altFunctionUse !=2 ) return false;
-             else return base.CanUseItem(item);
-         }*/
 	}
 }

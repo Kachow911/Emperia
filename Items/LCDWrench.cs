@@ -348,7 +348,7 @@ namespace Emperia.UI
 
             (Parent as LcdUI).canScroll = true; //this should probably not be here but you cant run update in the main PaintUI
             if (Main.mouseLeftRelease) (Parent as LcdUI).canClickBulbs = true;
-            Main.LocalPlayer.GetModPlayer<MyPlayer>().scrollingInUI = true;
+            Main.LocalPlayer.GetModPlayer<PlayerUIBehavior>().scrollingInUI = true;
 
             if (Vector2.Distance((Parent as LcdUI).activationPosition, Main.MouseScreen) < 19f)
             {

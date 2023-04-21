@@ -187,4 +187,17 @@ namespace Emperia
             }
         }
     }
+    public class PlayerUIBehavior : ModPlayer
+    {
+        public bool scrollingInUI;
+        public override void ResetEffects()
+        {
+            scrollingInUI = false;
+
+        }
+        public override void PreUpdate()
+        {
+            if (scrollingInUI) PlayerInput.ScrollWheelDelta = 0;
+        }
+    }
 }

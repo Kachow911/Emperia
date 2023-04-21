@@ -121,7 +121,7 @@ namespace Emperia.UI
 			GeneralUpdate();
 
 			(Parent as PaintUI).canScroll = true; //this should probably not be here but you cant run update in the main PaintUI
-			if (mastersPalette.curatedMode && mastersPalette.curatedColor != 0) Main.LocalPlayer.GetModPlayer<MyPlayer>().scrollingInUI = true;
+			if (mastersPalette.curatedMode && mastersPalette.curatedColor != 0) Main.LocalPlayer.GetModPlayer<PlayerUIBehavior>().scrollingInUI = true;
 
 			if (Vector2.Distance((Parent as PaintUI).activationPosition, Main.MouseScreen) < 19f)
 			{
@@ -349,7 +349,6 @@ namespace Emperia.UI
 				if (paintToScrollTo < 0) paintToScrollTo += mastersPalette.CuratedColorList(mastersPalette.selectedColors).Count;
 				mastersPalette.curatedColor = mastersPalette.CuratedColorList(mastersPalette.selectedColors)[paintToScrollTo];
 				(Parent as PaintUI).canScroll = false;
-				// PlayerInput.ScrollWheelDelta = 0; is set in ModPlayer PreUpdate()
 			}*/
 			UISystem.AddIconScrollWheelFunctionality(ref mastersPalette.curatedColor, paintType, mastersPalette.CuratedColorList(mastersPalette.selectedColors), iconIndex, ref (Parent as PaintUI).canScroll);
 
@@ -370,13 +369,6 @@ namespace Emperia.UI
 				mousedOver = false;
 				(Parent as PaintUI).mousedOverAny = false;
 			}
-
-			iconTexture = ModContent.Request<Texture2D>("Emperia/UI/Icon_" + iconType).Value;
-
-			string visuals = mastersPalette.SpecialVFX(paintType);
-			bucketTexture = ModContent.Request<Texture2D>("Emperia/UI/Bucket" + visuals).Value;
-			if (paintType == 29) visuals = "";
-			paintTexture = ModContent.Request<Texture2D>("Emperia/UI/PaintSplatter" + visuals).Value;
 		}
 		public override void Draw(SpriteBatch spriteBatch)
 		{
@@ -389,6 +381,14 @@ namespace Emperia.UI
 			else visible = false;
 
 			if (!visible) return;
+
+			iconTexture = ModContent.Request<Texture2D>("Emperia/UI/Icon_" + iconType).Value;
+
+			string bucketVisuals = mastersPalette.SpecialVFXBucket(paintType);
+			bucketTexture = ModContent.Request<Texture2D>("Emperia/UI/Bucket" + bucketVisuals).Value;
+			string splatterVisuals = mastersPalette.SpecialVFX(paintType);
+			if (paintType == PaintID.ShadowPaint) splatterVisuals = "";
+			paintTexture = ModContent.Request<Texture2D>("Emperia/UI/PaintSplatter" + splatterVisuals).Value;
 
 			base.Draw(spriteBatch);
 			Color brightness = new Color(255, 255, 255);
