@@ -213,7 +213,7 @@ namespace Emperia
 					int fourthOfMaxHP = (int)(player.statLife / (float)player.statLifeMax2 * 4);
 
 					int damage = fourthOfMaxHP + 1;
-					npc.SimpleStrikeNPC(damage, 0);
+					npc.SimpleStrikeNPC(damage + npc.defense / 2, 0);
 				}
 				if (crushFreeze)
 				{

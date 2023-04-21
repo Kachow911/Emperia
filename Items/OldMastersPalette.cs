@@ -49,11 +49,18 @@ namespace Emperia.Items
         public List<int> selectedColors = new List<int> { 26, 3, 1, 5, 8 };
         public List<int> selectedColorsBackup = new List<int>();
         //public Item[] specialPaintSlots = { null, null, null };
-        public int[] unlockedSpecialPaints = { 0, 0, 0 };
-        public int brushMode = 0;
+        public int[] unlockedSpecialPaints = { 0, 0, 0, 0 };
+
+        public BrushMode brushMode = BrushMode.Brush;
+        public enum BrushMode
+        {
+            Brush,
+            Roller,
+            Scraper
+        }
         public bool curatedMode = false;
         public int curatedColor = 0;
-        public byte color;
+        public int paintOrCoatType;
         public string visualMode;
         public bool spectreUpgrade = false;
 
@@ -71,8 +78,8 @@ namespace Emperia.Items
                     if (curatedColor == i) curatedColor = 0;
                 }
             }*/
-            color = (byte)selectedColors.LastOrDefault();
-            if (curatedMode) color = (byte)curatedColor;
+            paintOrCoatType = selectedColors.LastOrDefault();
+            if (curatedMode) paintOrCoatType = curatedColor;
             if (selectedColors.Any()) visualMode = "Blank";
 
             for (int i = 0; i < 251; ++i) //makes visual use sprite
@@ -86,15 +93,29 @@ namespace Emperia.Items
         {
             //paint sprayer compatability
             if (player.HeldItem.type == ItemID.Paintbrush || player.HeldItem.type == ItemID.SpectrePaintbrush || player.HeldItem.type == ItemID.PaintRoller || player.HeldItem.type == ItemID.SpectrePaintRoller) Item.paint = 0;
-            else Item.paint = color;
+            else SetItemPaintOrCoating(paintOrCoatType);
         }
-
+        private void SetItemPaintOrCoating(int paintOrCoatType)
+        {
+            if (paintOrCoatType < PaintID.Old_IlluminantPaint) Item.paint = (byte)paintOrCoatType;
+            else if (paintOrCoatType <= PaintCoatingID.Echo + 30) Item.paintCoating = (byte)(paintOrCoatType - 30);
+        }
+        private void PaintOrCoatTile(int i, int j, int paintOrCoatType)
+        {
+            if (paintOrCoatType < PaintID.Old_IlluminantPaint) WorldGen.paintTile(i, j, (byte)paintOrCoatType);
+            else if (paintOrCoatType <= PaintCoatingID.Echo + 30) WorldGen.paintCoatTile(i, j, (byte)(paintOrCoatType - 30));
+        }
+        private void PaintOrCoatWall(int i, int j, int paintOrCoatType)
+        {
+            if (paintOrCoatType < PaintID.Old_IlluminantPaint) WorldGen.paintWall(i, j, (byte)paintOrCoatType);
+            else if (paintOrCoatType <= PaintCoatingID.Echo + 30) WorldGen.paintCoatWall(i, j, (byte)(paintOrCoatType - 30));
+        }
         public static void OverlayType_OldMastersPaletteBrush(Player player, ref Color lightColor, ref Texture2D overlayTexture, ref Vector2 position, ref Rectangle? rectangle, ref Color color, ref float rotation, ref Vector2 origin, ref float scale, ref SpriteEffects direction)
         {
             OldMastersPalette mastersPalette = player.HeldItem.ModItem as OldMastersPalette; //this can return an object reference not set to isntance of object error
             if (!mastersPalette.selectedColors.Any()) return;
-            int paintType = mastersPalette.color;
-            if (paintType == 0 || mastersPalette.brushMode == 2) return;
+            int paintType = mastersPalette.paintOrCoatType;
+            if (paintType == 0 || mastersPalette.brushMode == BrushMode.Scraper) return;
 
             overlayTexture = mastersPalette.GetPaintBlobTexture(paintType, 0, true);
             color = mastersPalette.PaintToColor(paintType);
@@ -111,29 +132,32 @@ namespace Emperia.Items
 
             int i = Player.tileTargetX;
             int j = Player.tileTargetY;
-            if (color != 0)
+            Tile tile = Framing.GetTileSafely(i, j);
+            if (paintOrCoatType != 0)
             {
-                if (brushMode == 0)
+                if (brushMode == BrushMode.Brush)
                 {
-                    if (Framing.GetTileSafely(i, j).TileColor != color)
+                    //if (tile.TileColor != paintOrCoatType)
                     {
-                        WorldGen.paintTile(i, j, color);
+                        PaintOrCoatTile(i, j, paintOrCoatType);
                         //TryConsumePaint(color, player);
                     }
                 }
-                if (brushMode == 1)
+                if (brushMode == BrushMode.Roller)
                 {
-                    if (Framing.GetTileSafely(i, j).WallColor != color)
+                    //if (tile.WallColor != paintOrCoatType)
                     {
-                        WorldGen.paintWall(i, j, color);
+                        PaintOrCoatWall(i, j, paintOrCoatType);
                         //TryConsumePaint(color, player);
                     }
                 }
             }
-            if (brushMode == 2)
+            if (brushMode == BrushMode.Scraper)
             {
-                if (Framing.GetTileSafely(i, j).HasTile && Framing.GetTileSafely(i, j).TileColor != 0) WorldGen.paintTile(i, j, 0);
-                else if (Framing.GetTileSafely(i, j).WallType != 0 && Framing.GetTileSafely(i, j).WallColor != 0) WorldGen.paintWall(i, j, 0);
+                if (tile.HasTile && tile.TileColor != 0) WorldGen.paintTile(i, j, 0);
+                else if (tile.HasTile && (tile.IsTileFullbright || tile.IsTileInvisible)) WorldGen.paintCoatTile(i, j, 0);
+                else if (tile.WallType != 0 && tile.WallColor != 0) WorldGen.paintWall(i, j, 0);
+                else if (tile.WallType != 0 && (tile.IsWallFullbright || tile.IsWallInvisible)) WorldGen.paintCoatWall(i, j, 0);
             }
             return true;
         }
@@ -160,7 +184,7 @@ namespace Emperia.Items
                     spriteBatch.Draw(paintTexture, position, (Rectangle)paintPosition.GetValue(i), color, 0f, texture.Size() / 2, Main.inventoryScale, SpriteEffects.None, 0f);
                 }
                 {
-                    int paintType = color;
+                    int paintType = paintOrCoatType;
                     if (paintType != 0)
                     {
                         Texture2D paintTexture = GetPaintBlobTexture(paintType, 0, true);
@@ -195,7 +219,7 @@ namespace Emperia.Items
                     spriteBatch.Draw(paintTexture, position, (Rectangle)paintPosition.GetValue(i), color, rotation, texture.Size() * 0.5f, scale, SpriteEffects.None, 0f);
                 }
                 {
-                    int paintType = color;
+                    int paintType = paintOrCoatType;
                     if (paintType != 0)
                     {
                         Texture2D paintTexture = GetPaintBlobTexture(paintType, 0, true);
@@ -237,12 +261,13 @@ namespace Emperia.Items
             if (!noDeep && (paintType >= 13 && paintType <= 24 || paintType == 29)) return "Deep";
             else if (paintType == 30) return "Neg";
             else if (paintType == 31) return "Illum";
+            else if (paintType == 32) return "Echo";
             else return "";
         }
         public Color PaintToColor(int paintType, bool noPitchBlack = false)
         {
-            if (paintType == 30) return Color.White;
-            if (paintType == 29 && noPitchBlack) return WorldGen.paintColor(25);
+            if (paintType == PaintID.NegativePaint || paintType == 32) return Color.White;
+            if (paintType == PaintID.ShadowPaint && noPitchBlack) return WorldGen.paintColor(PaintID.BlackPaint);
             else return WorldGen.paintColor(paintType);
         }
         public List<int> CuratedColorList(List<int> selectedColors)
@@ -284,16 +309,18 @@ namespace Emperia.Items
             }
             return item;
         }*/
-        internal List<Item> FindPaintToSacrifice(Player player, int paintType, ref bool fullStack)
+        internal List<Item> FindPaintToSacrifice(Player player, int paintOrCoatType, ref bool fullStack)
         {
             List<Item> paintItems = new List<Item>();
             int paintCount = 0;
             for (int i = 54; i < 58; i++)
             {
-                if (player.inventory[i].stack > 0 && player.inventory[i].paint == paintType && player.inventory[i].type != ModContent.ItemType<OldMastersPalette>())
+                Item item = player.inventory[i];
+
+                if (IsMatchingPaintOrCoatItem(item, paintOrCoatType))
                 {
-                    paintItems.Add(player.inventory[i]);
-                    paintCount += player.inventory[i].stack;
+                    paintItems.Add(item);
+                    paintCount += item.stack;
                     if (paintCount >= 999)
                     {
                         fullStack = true;
@@ -301,12 +328,13 @@ namespace Emperia.Items
                     }
                 }
             }
-            for (int j = 0; j < 58; j++)
+            for (int j = 0; j < 54; j++)
             {
-                if (player.inventory[j].stack > 0 && player.inventory[j].paint == paintType && player.inventory[j].type != ModContent.ItemType<OldMastersPalette>())
+                Item item = player.inventory[j];
+                if (IsMatchingPaintOrCoatItem(item, paintOrCoatType))
                 {
-                    paintItems.Add(player.inventory[j]);
-                    paintCount += player.inventory[j].stack;
+                    paintItems.Add(item);
+                    paintCount += item.stack;
                     if (paintCount >= 999)
                     {
                         fullStack = true;
@@ -315,6 +343,11 @@ namespace Emperia.Items
                 }
             }
             return paintItems;
+        }
+        internal bool IsMatchingPaintOrCoatItem(Item item, int paintOrCoatType)
+        {
+            if (item.stack > 0 && (item.paint == paintOrCoatType || item.paintCoating == 1 && paintOrCoatType == 31 || item.paintCoating == 2 && paintOrCoatType == 32) && item.type != ModContent.ItemType<OldMastersPalette>()) return true;
+            return false;
         }
         /*internal void TryConsumePaint(byte color, Player player)
         {
@@ -329,11 +362,29 @@ namespace Emperia.Items
                 item.SetDefaults();
             }
         }*/
+
+        public static bool TilePaintOrCoatMatchesType(Tile tile, int paintOrCoatType, bool wall = false)
+        {
+            byte color = tile.TileColor;
+            bool fullbright = tile.IsTileFullbright;
+            bool invisible = tile.IsTileInvisible;
+            if (wall)
+            {
+                color = tile.WallColor;
+                fullbright = tile.IsWallFullbright;
+                invisible = tile.IsWallInvisible;
+            }
+
+            if (paintOrCoatType < PaintID.Old_IlluminantPaint) return (color == paintOrCoatType);
+            else if (paintOrCoatType == 31) return (fullbright);
+            else if (paintOrCoatType == 32) return (invisible);
+            else return false;
+        }
         public static void SmartCursorLookup(Player player, Item item) //ayyyyy i can barely comprehend what some of this does and im shocked it works, thanks vanilla source and gadgetbox mod open source
         {
             OldMastersPalette mastersPalette = Main.LocalPlayer.HeldItem.ModItem as OldMastersPalette;
 
-            if (mastersPalette.color == 0 && mastersPalette.brushMode != 2 || !Main.SmartCursorIsUsed) return;
+            if (mastersPalette.paintOrCoatType == 0 && mastersPalette.brushMode != BrushMode.Scraper || !Main.SmartCursorIsUsed) return;
 
             int reachableStartX = (int)(player.position.X / 16f) - Player.tileRangeX - item.tileBoost + 1;
             int reachableEndX = (int)((player.position.X + player.width) / 16f) + Player.tileRangeX + item.tileBoost - 1;
@@ -357,9 +408,9 @@ namespace Emperia.Items
                     bool tileIsSuitable = false;
                     switch (mastersPalette.brushMode)
                     {
-                        case 0: if (tile.HasTile && tile.TileColor != mastersPalette.color) tileIsSuitable = true; break;
-                        case 1: if (tile.WallType > 0 && tile.WallColor != mastersPalette.color && (!tile.HasTile || !Main.tileSolid[tile.TileType] || Main.tileSolidTop[tile.TileType])) tileIsSuitable = true; break;
-                        case 2: if ((tile.HasTile && tile.TileColor > 0) || (tile.WallType > 0 && tile.WallColor > 0)) tileIsSuitable = true; break;
+                        case BrushMode.Brush: if (tile.HasTile && !TilePaintOrCoatMatchesType(tile, mastersPalette.paintOrCoatType)) tileIsSuitable = true; break;
+                        case BrushMode.Roller: if (tile.WallType > 0 && !TilePaintOrCoatMatchesType(tile, mastersPalette.paintOrCoatType, true) && (!tile.HasTile || !Main.tileSolid[tile.TileType] || Main.tileSolidTop[tile.TileType])) tileIsSuitable = true; break;
+                        case BrushMode.Scraper: if ((tile.HasTile && (tile.TileColor > 0 || tile.IsTileFullbright || tile.IsTileInvisible)) || (tile.WallType > 0 && (tile.WallColor > 0 || tile.IsWallFullbright || tile.IsWallInvisible))) tileIsSuitable = true; break;
                     }
                     if (tileIsSuitable)
                     {
@@ -426,6 +477,7 @@ namespace Emperia.Items
             tag["unlockedShadow"] = unlockedSpecialPaints[0] == 1;
             tag["unlockedNeg"] = unlockedSpecialPaints[1] == 1;
             tag["unlockedIllum"] = unlockedSpecialPaints[2] == 1;
+            tag["unlockedEcho"] = unlockedSpecialPaints[3] == 1;
 
             tag["selectedColors"] = selectedColors.ToArray();
 
@@ -439,11 +491,13 @@ namespace Emperia.Items
             else unlockedSpecialPaints[1] = 0;
             if (tag.GetBool("unlockedIllum")) unlockedSpecialPaints[2] = 1;
             else unlockedSpecialPaints[2] = 0;
+            if (tag.GetBool("unlockedEcho")) unlockedSpecialPaints[3] = 1;
+            else unlockedSpecialPaints[3] = 0;
 
             selectedColors = tag.GetIntArray("selectedColors").ToList();
 
-            color = (byte)selectedColors.LastOrDefault();
-            Item.paint = color;
+            paintOrCoatType = (byte)selectedColors.LastOrDefault();
+            SetItemPaintOrCoating(paintOrCoatType);
             visualMode = "Blank";
 
             spectreUpgrade = tag.GetBool("spectreUpgrade");

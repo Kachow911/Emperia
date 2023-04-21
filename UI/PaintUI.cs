@@ -10,6 +10,7 @@ using static Emperia.UISystem;
 using Emperia.Items;
 using Terraria.ID;
 using Terraria.GameInput;
+using static Emperia.Items.OldMastersPalette;
 
 namespace Emperia.UI
 {
@@ -129,7 +130,7 @@ namespace Emperia.UI
 				{
 					if (Main.mouseLeft && canBeClicked)
 					{
-						mastersPalette.brushMode = (mastersPalette.brushMode + 1) % 3;
+						mastersPalette.brushMode = (BrushMode)(((int)mastersPalette.brushMode + 1) % 3);
 						canBeClicked = false;
 					}
 				}
@@ -149,7 +150,7 @@ namespace Emperia.UI
 		{
 			base.Draw(spriteBatch);
 			spriteBatch.Draw(iconTexture, position, null, Color.White);
-			Texture2D brushTexture = ModContent.Request<Texture2D>("Emperia/UI/Brush_" + mastersPalette.brushMode, AssetRequestMode.ImmediateLoad).Value;
+			Texture2D brushTexture = ModContent.Request<Texture2D>("Emperia/UI/Brush_" + (int)mastersPalette.brushMode, AssetRequestMode.ImmediateLoad).Value;
 			spriteBatch.Draw(brushTexture, position, null, Color.White);
 		}
 	}
@@ -160,8 +161,15 @@ namespace Emperia.UI
 			iconIndex = index;
 			position = pos;
         }
-		int paintType;
-		static int[] paintForPosition = new int[] { 28, 13, 14, 15, 16, 17, 27, 1, 2, 3, 4, 18, 25, 12, 5, 29, 26, 11, 6, 31, 24, 10, 9, 8, 7, 30, 23, 22, 21, 20, 19, 0 };
+		int paintOrCoatType;
+		static int[] paintForPosition = new int[] { 
+			PaintID.BrownPaint, PaintID.DeepRedPaint, PaintID.DeepOrangePaint, PaintID.DeepYellowPaint, PaintID.DeepLimePaint, PaintID.DeepGreenPaint,
+			PaintID.GrayPaint, PaintID.RedPaint, PaintID.OrangePaint, PaintID.YellowPaint, PaintID.LimePaint, PaintID.DeepTealPaint,
+			PaintID.BlackPaint, PaintID.PinkPaint, PaintID.GreenPaint, PaintID.ShadowPaint,
+			PaintID.WhitePaint, PaintID.VioletPaint, PaintID.TealPaint, PaintID.NegativePaint,
+			PaintID.DeepPinkPaint, PaintID.PurplePaint, PaintID.BluePaint, PaintID.SkyBluePaint, PaintID.CyanPaint, PaintID.Old_IlluminantPaint,
+			PaintID.DeepVioletPaint, PaintID.DeepPurplePaint, PaintID.DeepBluePaint, PaintID.DeepSkyBluePaint, PaintID.DeepCyanPaint, 32
+		};
 		Texture2D paintTexture;
 		bool locked = false;
 		bool showSacrificeInfo = false;
@@ -171,9 +179,9 @@ namespace Emperia.UI
 		public override void OnInitialize()
 		{
 			iconTexture = ModContent.Request<Texture2D>("Emperia/UI/IconSmall_0", AssetRequestMode.ImmediateLoad).Value;
-			paintType = (int)paintForPosition.GetValue(iconIndex);
-			if (!Main.gameMenu && paintType >= 29) locked = (mastersPalette.unlockedSpecialPaints[paintType - 29] == 0);
-			paintTexture = ModContent.Request<Texture2D>("Terraria/Images/Item_" + PaintToItemID(paintType)).Value;
+			paintOrCoatType = (int)paintForPosition.GetValue(iconIndex);
+			if (!Main.gameMenu && paintOrCoatType >= 29) locked = (mastersPalette.unlockedSpecialPaints[paintOrCoatType - 29] == 0);
+			paintTexture = ModContent.Request<Texture2D>("Terraria/Images/Item_" + PaintToItemID(paintOrCoatType)).Value;
 			if (!Main.gameMenu && mastersPalette.curatedMode) visible = false;
 		}
 		public override void Update(GameTime gameTime)
@@ -181,10 +189,10 @@ namespace Emperia.UI
 			if (!visible) return;
 			GeneralUpdate();
 
-			if (paintType >= 29 && mastersPalette.unlockedSpecialPaints[paintType - 29] == 0)
+			if (paintOrCoatType >= 29 && mastersPalette.unlockedSpecialPaints[paintOrCoatType - 29] == 0)
 			{
 				locked = true;
-				if (mastersPalette.FindPaintToSacrifice(Main.LocalPlayer, paintType, ref canSacrifice).Any()) showSacrificeInfo = true;
+				if (mastersPalette.FindPaintToSacrifice(Main.LocalPlayer, paintOrCoatType, ref canSacrifice).Any()) showSacrificeInfo = true;
 				else showSacrificeInfo = false;
 			}
 			if ((!locked || showSacrificeInfo) && Main.MouseScreen.X >= position.X && Main.MouseScreen.X <= position.X + iconTexture.Width && Main.MouseScreen.Y >= position.Y && Main.MouseScreen.Y <= position.Y + +iconTexture.Height)
@@ -195,10 +203,10 @@ namespace Emperia.UI
 				{
 					if (!showSacrificeInfo)
 					{
-						if (paintType > 0)
+						if (paintOrCoatType > 0)
 						{
-							if (!mastersPalette.selectedColors.Contains(paintType)) mastersPalette.selectedColors.Add(paintType);
-							else mastersPalette.selectedColors.Remove(paintType);
+							if (!mastersPalette.selectedColors.Contains(paintOrCoatType)) mastersPalette.selectedColors.Add(paintOrCoatType);
+							else mastersPalette.selectedColors.Remove(paintOrCoatType);
 						}
 						else
 						{
@@ -214,7 +222,7 @@ namespace Emperia.UI
                     else if (canSacrifice)
                     {
 						int requiredPaint = 999;
-						foreach (Item paint in mastersPalette.FindPaintToSacrifice(Main.LocalPlayer, paintType, ref canSacrifice))
+						foreach (Item paint in mastersPalette.FindPaintToSacrifice(Main.LocalPlayer, paintOrCoatType, ref canSacrifice))
                         {
 							if (ItemLoader.ConsumeItem(paint, Main.LocalPlayer))
 							{
@@ -232,7 +240,7 @@ namespace Emperia.UI
 						locked = false;
 						showSacrificeInfo = false;
 						canSacrifice = false;
-						mastersPalette.unlockedSpecialPaints[paintType - 29] = 1;
+						mastersPalette.unlockedSpecialPaints[paintOrCoatType - 29] = 1;
 					}
 					canBeClicked = false;
 				}
@@ -241,7 +249,7 @@ namespace Emperia.UI
 			{
 				mousedOver = false;
 				(Parent as PaintUI).mousedOverAny = false;
-				if (paintType == 0) canBeClicked = false;
+				if (paintOrCoatType == 0) canBeClicked = false;
 			}
 			iconTexture = ModContent.Request<Texture2D>("Emperia/UI/IconSmall_" + iconType).Value;
 		}
@@ -251,7 +259,7 @@ namespace Emperia.UI
 
 			base.Draw(spriteBatch);
 			Color brightness = new Color(255, 255, 255);
-			if (!mastersPalette.selectedColors.Contains(paintType) && (paintType != 0 || mastersPalette.selectedColors.Any() || !mastersPalette.selectedColorsBackup.Any()))
+			if (!mastersPalette.selectedColors.Contains(paintOrCoatType) && (paintOrCoatType != 0 || mastersPalette.selectedColors.Any() || !mastersPalette.selectedColorsBackup.Any()))
 			{
 				brightness = new Color(150, 150, 150);
 				if (!mousedOver) brightness = new Color(80, 80, 80);
@@ -267,13 +275,13 @@ namespace Emperia.UI
 			}
 			else spriteBatch.Draw(ModContent.Request<Texture2D>("Emperia/UI/LockedPaint_0", AssetRequestMode.ImmediateLoad).Value, position, null, brightness);
 
-			if (paintType == 0)
+			if (paintOrCoatType == 0)
             {
 				Texture2D trashTexture = ModContent.Request<Texture2D>("Emperia/UI/Trash", AssetRequestMode.ImmediateLoad).Value;
 				spriteBatch.Draw(trashTexture, position, null, brightness);
 			}
 
-			if (mastersPalette.selectedColors.LastOrDefault() == paintType && paintType != 0)
+			if (mastersPalette.selectedColors.LastOrDefault() == paintOrCoatType && paintOrCoatType != 0)
             {
 				Texture2D ribbonTexture = ModContent.Request<Texture2D>("Emperia/UI/SelectedIconRibbon_" + iconType, AssetRequestMode.ImmediateLoad).Value;
 				spriteBatch.Draw(ribbonTexture, position, null, Color.White);
@@ -289,7 +297,7 @@ namespace Emperia.UI
 					//Texture2D paintTexture = ModContent.Request<Texture2D>("Terraria/Images/Item_" + PaintToItemID(paintType)).Value;
 					//spriteBatch.Draw(paintTexture, Main.MouseScreen + new Vector2(24, 0), null, Color.White);
 					Item item = new Item();
-					item.SetDefaults(PaintToItemID(paintType));
+					item.SetDefaults(PaintToItemID(paintOrCoatType));
 					if (canSacrifice) Main.hoverItemName = $"Click to unlock!\nConsumes 999 {item.Name}";
 					else Main.hoverItemName = $"Click while holding 999 {item.Name} to unlock";
 				}
@@ -299,9 +307,10 @@ namespace Emperia.UI
         {
 			if (PaintID > 0)
 			{
-				if (PaintID < 28) return PaintID + 1072;
-				else if (PaintID < 31) return PaintID + 1938;
-				else if (PaintID == 31) return 4668;
+				if (PaintID < 28) return (PaintID - 1) + ItemID.RedPaint;
+				else if (PaintID < 31) return (PaintID - 28) + ItemID.BrownPaint;
+				else if (PaintID == 31) return ItemID.GlowPaint;
+				else if (PaintID == 32) return ItemID.EchoCoating;
 			}
 			return 0;
         }
@@ -468,12 +477,12 @@ namespace Emperia.UI
 		}
 		public override void Draw(SpriteBatch spriteBatch)
         {
-			Texture2D cursorTexture = ModContent.Request<Texture2D>("Emperia/UI/CursorBrush_" + mastersPalette.brushMode).Value;
+			Texture2D cursorTexture = ModContent.Request<Texture2D>("Emperia/UI/CursorBrush_" + (int)mastersPalette.brushMode).Value;
 			spriteBatch.Draw(cursorTexture, Main.MouseScreen + new Vector2(16, 16), null, Color.White * alpha);
-			if (mastersPalette.brushMode != 2 && mastersPalette.color != 0)
+			if (mastersPalette.brushMode != BrushMode.Scraper && mastersPalette.paintOrCoatType != 0)
 			{
-				Color color = mastersPalette.PaintToColor(mastersPalette.color);
-				Texture2D paintTexture = ModContent.Request<Texture2D>("Emperia/UI/CursorBrushPaint_" + mastersPalette.brushMode + mastersPalette.SpecialVFX(mastersPalette.color)).Value;
+				Color color = mastersPalette.PaintToColor(mastersPalette.paintOrCoatType);
+				Texture2D paintTexture = ModContent.Request<Texture2D>("Emperia/UI/CursorBrushPaint_" + (int)mastersPalette.brushMode + mastersPalette.SpecialVFX(mastersPalette.paintOrCoatType)).Value;
 				spriteBatch.Draw(paintTexture, Main.MouseScreen + new Vector2(16, 16), null, color * alpha);
 			}
 		}

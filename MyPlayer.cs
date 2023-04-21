@@ -670,10 +670,10 @@ namespace Emperia
 		}
         public override bool FreeDodge(Player.HurtInfo info)
         {
-			if (dashDelay <= 70) return true;
-			return false;
-		}
-		public override void PreUpdate()
+            if (dashDelay > 70) return true;
+            return false;
+        }
+        public override void PreUpdate()
 		{
 			if (scrollingInUI) PlayerInput.ScrollWheelDelta = 0;
 
