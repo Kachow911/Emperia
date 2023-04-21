@@ -88,6 +88,7 @@ namespace Emperia.Items
         private void SetItemPaintOrCoating(int paintOrCoatType)
         {
             if (paintOrCoatType < PaintID.Old_IlluminantPaint) Item.paint = (byte)paintOrCoatType;
+            else if (paintOrCoatType <= PaintCoatingID.Echo + 30) Item.paint = 0;
             //else if (paintOrCoatType <= PaintCoatingID.Echo + 30) Item.paintCoating = (byte)(paintOrCoatType - 30); can't do this because vanilla applycoating code decrements the stack without a check, unlike applypaint which checks consumeitem 
         }
         private void PaintOrCoatTile(int i, int j, int paintOrCoatType)
