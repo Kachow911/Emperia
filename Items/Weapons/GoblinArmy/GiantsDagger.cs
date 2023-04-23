@@ -30,6 +30,7 @@ namespace Emperia.Items.Weapons.GoblinArmy
             Item.noMelee = true;
             Item.consumable = true;
             Item.shoot = ModContent.ProjectileType<GiantsDaggerProj>();
+            Item.maxStack = Terraria.Item.CommonMaxStack;
             Item.useAnimation = 32;
             Item.useTime = 32;
             Item.shootSpeed = 8.0f;

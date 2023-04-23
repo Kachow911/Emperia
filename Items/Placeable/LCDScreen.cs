@@ -15,12 +15,13 @@ namespace Emperia.Items.Placeable
 		{
 			Item.width = 16;
 			Item.height = 16;
-						Item.rare = ItemRarityID.White;
-			Item.useTurn = true;
-            Item.autoReuse = true;
+			Item.rare = ItemRarityID.White;
+			Item.maxStack = Terraria.Item.CommonMaxStack;
+			Item.autoReuse = true;
             Item.useAnimation = 15;
             Item.useTime = 15;
-            Item.useStyle = ItemUseStyleID.Swing;
+			Item.useTurn = true;
+			Item.useStyle = ItemUseStyleID.Swing;
             Item.consumable = true;
             Item.createTile = ModContent.TileType<Tiles.LCDScreenTile>();
 		}

@@ -28,6 +28,7 @@ namespace Emperia.Items
                         Item.consumable = true;
             Item.rare = ItemRarityID.Blue;
             Item.value = 1000;
+            Item.maxStack = Terraria.Item.CommonMaxStack;
             Item.buffType = (ModContent.BuffType<Goliath>());
             Item.buffTime = 21600;
         }

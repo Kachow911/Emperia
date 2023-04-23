@@ -21,7 +21,7 @@ namespace Emperia.Items
 			Item.width = 16;
 			Item.height = 16;
 			Item.rare = ItemRarityID.Orange;
-						Item.noUseGraphic = true;
+			Item.noUseGraphic = true;
 			Item.useStyle = ItemUseStyleID.HoldUp;
 			Item.value = Item.sellPrice(0, 0, 1, 0);
 			Item.useTime = Item.useAnimation = 20;

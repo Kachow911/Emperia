@@ -33,6 +33,7 @@ namespace Emperia.Items.Weapons
             //Item.DamageType = DamageClass.Ranged;
             Item.consumable = true;
                         Item.shoot = ModContent.ProjectileType<CloudGrenadeProj>();
+            Item.maxStack = Terraria.Item.CommonMaxStack;
             Item.shootSpeed = 8.0f;
             Item.knockBack = 10f;
 			Item.value = Item.sellPrice(0, 0, 1, 50);

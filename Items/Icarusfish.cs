@@ -13,8 +13,9 @@ namespace Emperia.Items
 		{
 			Item.width = 34;
 			Item.height = 34;
-						Item.value = 1500;
+			Item.value = 1500;
 			Item.rare = ItemRarityID.Blue;
+			Item.maxStack = Terraria.Item.CommonMaxStack;
 		}
 	}
 }

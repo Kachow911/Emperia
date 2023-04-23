@@ -21,7 +21,6 @@ namespace Emperia.Items
 			Item.width = 16;
 			Item.height = 14;
 
-			
 			Item.useStyle = ItemUseStyleID.Swing;
 			Item.useTime = 10;
 			Item.useAnimation = 15;

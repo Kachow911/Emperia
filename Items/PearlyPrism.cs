@@ -14,10 +14,10 @@ namespace Emperia.Items
 		{
 			Item.width = 24;
 			Item.height = 22;
-						Item.value = 52000;
+			Item.value = 52000;
 			Item.rare = ItemRarityID.LightRed;
+			Item.maxStack = Terraria.Item.CommonMaxStack;
 		}
-
 	public override void AddRecipes()
 		{
 			Recipe recipe = CreateRecipe();

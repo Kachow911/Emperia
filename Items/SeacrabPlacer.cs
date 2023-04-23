@@ -14,9 +14,11 @@ namespace Emperia.Items
 			Item.width = 20;
 			Item.height = 20;
 						Item.value = 1000;
+			Item.value = 1000;
 			Item.rare = ItemRarityID.Blue;
 			Item.useTurn = true;
-            Item.autoReuse = true;
+			Item.maxStack = Terraria.Item.CommonMaxStack;
+			Item.autoReuse = true;
             Item.useAnimation = 15;
             Item.useTime = 10;
             Item.useStyle = ItemUseStyleID.Swing;

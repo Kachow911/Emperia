@@ -39,7 +39,7 @@ namespace Emperia.Items.Weapons.Mushor
             Item.autoReuse = true;
             Item.useTurn = true;    
             Item.noMelee = true;
-                        Item.shoot = ModContent.ProjectileType<MushDisc>();
+            Item.shoot = ModContent.ProjectileType<MushDisc>();
             Item.shootSpeed = 7f;
         }
     }

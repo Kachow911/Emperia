@@ -14,8 +14,9 @@ namespace Emperia.Items.Sets.PreHardmode.Frostleaf
 		{
 			Item.width = 18;
 			Item.height = 18;
-						Item.value = 5750;
+			Item.value = 5750;
 			Item.rare = ItemRarityID.Blue;
+			Item.maxStack = Terraria.Item.CommonMaxStack;
 		}
 	}
 }

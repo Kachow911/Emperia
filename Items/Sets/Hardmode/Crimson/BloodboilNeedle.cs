@@ -29,7 +29,7 @@ namespace Emperia.Items.Sets.Hardmode.Crimson
             Item.channel = true;
             Item.noMelee = true;
             Item.consumable = true;
-                        Item.shoot = ModContent.ProjectileType<BloodNeedleProj>();
+            Item.maxStack = Terraria.Item.CommonMaxStack;
             Item.useAnimation = 25;
             Item.useTime = 25;
             Item.shootSpeed = 8.0f;
@@ -40,7 +40,7 @@ namespace Emperia.Items.Sets.Hardmode.Crimson
             Item.rare = ItemRarityID.LightRed;
             Item.autoReuse = true;
                         Item.consumable = true;
-        }
+            Item.maxStack = Terraria.Item.CommonMaxStack;        }
         public override void AddRecipes()
         {
             Recipe recipe = CreateRecipe();

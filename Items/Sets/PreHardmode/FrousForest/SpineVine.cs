@@ -30,6 +30,7 @@ namespace Emperia.Items.Sets.PreHardmode.FrousForest
             Item.noMelee = true;
             Item.consumable = true;
                         Item.shoot = ModContent.ProjectileType<SpineVineProj>();
+            Item.maxStack = Terraria.Item.CommonMaxStack;
             Item.useAnimation = 36;
             Item.useTime = 36;
             Item.shootSpeed = 6.0f;
@@ -39,7 +40,7 @@ namespace Emperia.Items.Sets.PreHardmode.FrousForest
             Item.crit = 4;
             Item.rare = ItemRarityID.Green;
             Item.autoReuse = true;
-                        Item.consumable = true;
+            Item.consumable = true;
         }
     }
 }

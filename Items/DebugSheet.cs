@@ -15,7 +15,6 @@ namespace Emperia.Items
 		{
 			Item.width = 20;
 			Item.height = 20;
-			Item.maxStack = 1;
 			Item.rare = ItemRarityID.Blue;
 		}
         public override void ModifyTooltips(List<TooltipLine> tooltips)

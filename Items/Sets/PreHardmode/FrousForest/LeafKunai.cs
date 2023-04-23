@@ -31,6 +31,7 @@ namespace Emperia.Items.Sets.PreHardmode.FrousForest
             Item.noMelee = true;
             Item.consumable = true;
                         Item.shoot = ModContent.ProjectileType<LeafKunaiProj>();
+            Item.maxStack = Terraria.Item.CommonMaxStack;
             Item.useAnimation = 25;
             Item.useTime = 25;
             Item.shootSpeed = 8.0f;
@@ -40,7 +41,7 @@ namespace Emperia.Items.Sets.PreHardmode.FrousForest
             Item.crit = 4;
             Item.rare = ItemRarityID.Green;
             Item.autoReuse = true;
-                        Item.consumable = true;
+            Item.consumable = true;
         }
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockBack)
 		{

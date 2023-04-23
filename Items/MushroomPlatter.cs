@@ -20,10 +20,11 @@ namespace Emperia.Items
             Item.useTime = 17;
             Item.useTurn = true;
             Item.UseSound = SoundID.Item2;
-                        Item.consumable = true;
+            Item.consumable = true;
             Item.rare = ItemRarityID.Blue;
             Item.value = 1750;
-        	Item.healLife = 110;
+            Item.maxStack = Terraria.Item.CommonMaxStack;
+            Item.healLife = 110;
             Item.potion = true;
         }
 

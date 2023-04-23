@@ -15,7 +15,7 @@ namespace Emperia.Items.Sets.PreHardmode.Scoria
             Item.noUseGraphic = true;
             Item.useTime = 22;
             Item.useAnimation = 22;
-			//Item.thrown = true;
+            //Item.thrown = true;
             Item.DamageType = DamageClass.Ranged;
             Item.width = 18;
             Item.height = 40;
@@ -27,9 +27,9 @@ namespace Emperia.Items.Sets.PreHardmode.Scoria
             Item.rare = ItemRarityID.Orange;
             Item.UseSound = SoundID.Item1;
             Item.autoReuse = true;
-			Item.consumable = true;
-			        }
-
+            Item.consumable = true;
+            Item.maxStack = Terraria.Item.CommonMaxStack;
+        }
         public override void SetStaticDefaults()
         {
             // DisplayName.SetDefault("Scoria Knife");

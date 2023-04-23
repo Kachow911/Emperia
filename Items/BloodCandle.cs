@@ -17,6 +17,7 @@ namespace Emperia.Items
 			Item.width = 10;
 			Item.height = 10;
 						Item.useTurn = true;
+			Item.maxStack = Terraria.Item.CommonMaxStack;
 			Item.autoReuse = true;
 			Item.useAnimation = 15;
 			Item.useTime = 15;

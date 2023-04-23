@@ -28,6 +28,7 @@ namespace Emperia.Items
 			Item.height = 20;
 			Item.rare = -2;
 						Item.expert = true;
+			Item.maxStack = Terraria.Item.CommonMaxStack;
 		}
 		public override bool CanRightClick()
 		{

@@ -20,9 +20,10 @@ namespace Emperia.Items
         {
             Item.width = 36;
             Item.height = 36;
-                        Item.rare = ItemRarityID.Green;
-            Item.useAnimation = 45;
+            Item.rare = ItemRarityID.Green;
+            Item.maxStack = Terraria.Item.CommonMaxStack;
             Item.useTime = 45;
+            Item.useAnimation = 45;
             Item.useStyle = ItemUseStyleID.HoldUp;
             Item.UseSound = SoundID.Item44;
             Item.consumable = true;

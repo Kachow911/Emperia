@@ -27,6 +27,7 @@ namespace Emperia.Items
                         Item.consumable = true;
             Item.rare = ItemRarityID.Blue;
             Item.value = 750;
+            Item.maxStack = Terraria.Item.CommonMaxStack;
             Item.healLife = 50;
             Item.potion = true;
 

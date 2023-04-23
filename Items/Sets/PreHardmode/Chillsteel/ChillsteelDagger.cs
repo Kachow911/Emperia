@@ -30,6 +30,7 @@ namespace Emperia.Items.Sets.PreHardmode.Chillsteel
             Item.noMelee = true;
             Item.consumable = true;
             Item.shoot = ModContent.ProjectileType<ChillDaggerProj>();
+            Item.maxStack = Terraria.Item.CommonMaxStack;
             Item.useAnimation = 25;
             Item.useTime = 25;
             Item.shootSpeed = 8.0f;
