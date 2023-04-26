@@ -381,11 +381,15 @@ namespace Emperia
         {
             foreach (var rect in drawRectangles)
             {
-                var rectOffset = rect.Item1;
-                rectOffset.X -= (int)Main.screenPosition.X;
-                rectOffset.Y -= (int)Main.screenPosition.Y;
-
-                Main.spriteBatch.Draw(TextureAssets.MagicPixel.Value, rectOffset, rect.Item2);
+                var rectangle = rect.Item1;
+                rectangle.X -= (int)Main.screenPosition.X;
+                rectangle.Y -= (int)Main.screenPosition.Y;
+                if (Main.LocalPlayer.gravDir == -1f)
+                {
+                    int screenOffset = rectangle.Y * 2 - Main.screenHeight;
+                    rectangle.Y -= screenOffset + rectangle.Height;
+                }
+                Main.spriteBatch.Draw(TextureAssets.MagicPixel.Value, rectangle, rect.Item2);
                 //Main.spriteBatch.Draw(TextureAssets.MagicPixel.Value, new Rectangle((int)(rect.Item1.X - Main.screenPosition.X), (int)(rect.Item1.Y - Main.screenPosition.Y), rect.Item1.Width, rect.Item1.Height), rect.Item2);
             }
             drawRectangles.Clear();
