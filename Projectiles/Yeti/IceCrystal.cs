@@ -44,7 +44,7 @@ namespace Emperia.Projectiles.Yeti
 			int index2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.BlueCrystalShard, (float) Projectile.velocity.X, (float) Projectile.velocity.Y, 0, rgb, 0.9f);
 			Main.dust[index2].noGravity = true;
 		}
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
         {
 			Terraria.Audio.SoundEngine.PlaySound(SoundID.Item27, Projectile.Center);  
 			for (int i = 0; i < 6; i++)

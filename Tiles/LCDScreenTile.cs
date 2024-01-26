@@ -18,7 +18,6 @@ namespace Emperia.Tiles
 			Main.tileSolid[Type] = true;
 			//Main.tileMergeDirt[Type] = true;
 			Main.tileBlockLight[Type] = true;
-			ItemDrop = ModContent.ItemType<Items.Placeable.LCDScreen>();
 			AddMapEntry(new Color(50, 50, 50));
 			MineResist = 0.8f;
 			//SoundType = 21;

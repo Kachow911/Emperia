@@ -54,7 +54,7 @@ namespace Emperia.Projectiles
 			Projectile.velocity = Projectile.velocity.RotatedByRandom(1);
 			Projectile.velocity *= .98f;
 		}
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
         {
 			//
 		}

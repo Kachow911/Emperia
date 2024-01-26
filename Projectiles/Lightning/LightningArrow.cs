@@ -30,7 +30,7 @@ namespace Emperia.Projectiles.Lightning
 		}
 		
 		
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			/*Terraria.Audio.SoundEngine.PlaySound(2, (int)Projectile.position.X, (int)Projectile.position.Y, 10);
 			Player player = Main.player[Projectile.owner];

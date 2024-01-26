@@ -25,7 +25,7 @@ namespace Emperia.Projectiles
             // DisplayName.SetDefault("Inquisitor's Blade");
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             int num622 = Dust.NewDust(new Vector2(Projectile.position.X, (float)((double)Projectile.position.Y + (double)Projectile.height - 16.0)), Projectile.width, 16, DustID.GoldCoin, 0.0f, 0.0f, 0, new Color(), 1f);
         }

@@ -17,7 +17,6 @@ namespace Emperia.Tiles
 			Main.tileBlendAll[this.Type] = true;
 			Main.tileBlockLight[Type] = true;
 			Main.tileLighted[Type] = true;
-			ItemDrop = ModContent.ItemType<Items.Grotto.GrottoWood>();
 			AddMapEntry(new Color(74, 107, 140));
 			DustType = 121;
 		}

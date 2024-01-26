@@ -58,7 +58,7 @@ namespace Emperia.Projectiles.Ice
 				init = true;
 			}
 		}
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
         {
 			Terraria.Audio.SoundEngine.PlaySound(SoundID.Dig, Projectile.Center);
 			for (int i = 0; i < 360; i += 36)

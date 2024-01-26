@@ -1,9 +1,10 @@
+using Emperia.Tiles;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace Emperia.Items
 {
-	public class Aetherium : ModItem
+	public class AetheriumItem : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
@@ -16,6 +17,7 @@ namespace Emperia.Items
 			Item.value = 1000;
 			Item.maxStack = Terraria.Item.CommonMaxStack;
 			Item.rare = ItemRarityID.Blue;
+			Item.createTile = ModContent.TileType<Aetherium>();
 		}
 	}
 }

@@ -49,7 +49,7 @@ namespace Emperia.Projectiles.Yeti
             Projectile.NewProjectile(Projectile.InheritSource(Projectile), Projectile.Center.X, Projectile.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, ModContent.ProjectileType<IceShardTiny>(), Projectile.damage / 3 , 0, Main.myPlayer, 0, 0);
 
 		}
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
 		{
 			for (int i = 0; i < 3; i++)
 			{

@@ -47,7 +47,7 @@ namespace Emperia.Projectiles
             Main.dust[dust].position.Y = Projectile.Center.Y + (float)Main.rand.Next(-2, 3);
             Main.dust[dust].noGravity = true;
 		}
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
         {
 			//
 		}

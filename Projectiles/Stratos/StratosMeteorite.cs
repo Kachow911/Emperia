@@ -88,7 +88,7 @@ namespace Emperia.Projectiles.Stratos
             }
         }
 		
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
         {
 			Terraria.Audio.SoundEngine.PlaySound(SoundID.Dig, Projectile.Center);
         	for (int i = 0; i < 108; i += 36)

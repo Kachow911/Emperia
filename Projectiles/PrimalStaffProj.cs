@@ -33,7 +33,7 @@ namespace Emperia.Projectiles
 			Projectile.velocity.X *= 0.99f;
 			Projectile.velocity.Y *= 0.99f;
 		}
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
         {
 			//
 		}

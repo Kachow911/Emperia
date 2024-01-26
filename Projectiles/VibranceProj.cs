@@ -87,7 +87,7 @@ namespace Emperia.Projectiles
 			 //target.StrikeNPC(Projectile.damage, 0f, 0, false, false, false);
 
 		}
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
         {
 
         	 for (int i = 0; i < 360; i += 5)

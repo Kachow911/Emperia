@@ -34,7 +34,7 @@ namespace Emperia.Tiles
 			TileObjectData.addTile(Type);
 
 			DustType = 60;
-			ItemDrop = ModContent.ItemType<Items.BloodCandle>();
+			//TODO: might need registeritemdrop for the lit variant or else it won't drop anything!
 			LocalizedText name = CreateMapEntryName();
 			// name.SetDefault("Blood Candle");
 			AddMapEntry(new Color(255, 80, 80), name);

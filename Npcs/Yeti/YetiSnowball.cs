@@ -39,7 +39,7 @@ namespace Emperia.Npcs.Yeti
 		   if (Main.rand.NextBool(20))
 			    Dust.NewDust(Projectile.Center + Projectile.velocity, Main.rand.Next(1, 7), Main.rand.Next(1, 7), DustID.SnowBlock, 0, 0);
 		}
-		 public override void Kill(int timeLeft)
+		 public override void OnKill(int timeLeft)
         {
             Projectile.velocity.Y += .03f;
 			Terraria.Audio.SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);

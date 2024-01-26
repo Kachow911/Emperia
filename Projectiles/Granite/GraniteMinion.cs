@@ -239,7 +239,7 @@ namespace Emperia.Projectiles.Granite
 		{
 			return true;
 		}
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			if (NPC != -1) Main.npc[NPC].GetGlobalNPC<MyNPC>().graniteMinID = -1;
 			for (int i = 0; i < 3; ++i)

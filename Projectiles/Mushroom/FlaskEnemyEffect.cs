@@ -46,7 +46,7 @@ namespace Emperia.Projectiles.Mushroom
 			
 		}
 
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
         {
 			//
 		}

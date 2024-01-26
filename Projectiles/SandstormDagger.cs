@@ -26,7 +26,7 @@ namespace Emperia.Projectiles
 			// DisplayName.SetDefault("SandstormDagger");
 		}
 		
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			//if (Main.rand.Next(4) == 0 && Projectile.noDropItem == false)
         	//{

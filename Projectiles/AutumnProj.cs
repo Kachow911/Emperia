@@ -65,7 +65,7 @@ namespace Emperia.Projectiles
 			if (Main.rand.Next(3) == 0)
 			 target.AddBuff(BuffID.Poisoned, 240);
 		}
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
         {
 			for (int i = -15; i <= 15; i+= 15)
 			{

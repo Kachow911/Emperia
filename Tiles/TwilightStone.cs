@@ -15,7 +15,6 @@ namespace Emperia.Tiles
 			Main.tileMerge[Type][TileType<Tiles.TwilightGrass>()] = true;
 			Main.tileBlendAll[this.Type] = true;
 			Main.tileBlockLight[Type] = true;
-			ItemDrop = ModContent.ItemType<Items.Grotto.GrottoStone>();
 			AddMapEntry(new Color(51, 75, 102));
 			MineResist = 2f;
 			HitSound = SoundID.Tink;

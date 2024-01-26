@@ -1822,6 +1822,11 @@ Mods: {
 				DisplayName: Treasure Bag (Yeti)
 				Tooltip: Right Click to open
 			}
+
+			AetheriumItem: {
+				Tooltip: ""
+				DisplayName: Aetherium Item
+			}
 		}
 
 		Projectiles: {
@@ -2075,6 +2080,17 @@ Mods: {
 			TwilightSapling.MapEntry: Sapling
 			MoltenOre.MapEntry: Magmous Ore
 			VolcanoChest.MapEntry: Magmous Chest
+		}
+
+		Configs: {
+			EmperiaConfig: {
+				EmperiaCraftingIndicator: {
+					Tooltip: Displays a crown symbol in the tooltip of vanilla items if they are used for crafting recipes added by Emperia
+					Label: Indicate Items with Added Recipes
+				}
+
+				DisplayName: Emperia Config
+			}
 		}
 	}
 }

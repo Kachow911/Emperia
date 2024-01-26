@@ -59,7 +59,7 @@ namespace Emperia.Projectiles.Yeti
             }
             else return null;
 		}
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			Terraria.Audio.SoundEngine.PlaySound(SoundID.Item27, Projectile.Center);  
 			Color rgb = new Color(135,206,250);

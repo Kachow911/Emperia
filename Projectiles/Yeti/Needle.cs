@@ -49,7 +49,7 @@ namespace Emperia.Projectiles.Yeti
                 PlaySound(SoundID.Item7 with { Pitch = 0.2f, Volume = 0.8f, MaxInstances = 4}, Projectile.position);
             }
         }
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
         {
             for (int i = 0; i < 4; ++i)
             {

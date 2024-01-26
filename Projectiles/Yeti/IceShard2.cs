@@ -38,7 +38,7 @@ namespace Emperia.Projectiles.Yeti
             Main.dust[index2].noGravity = true;
             Main.dust[index2].velocity = Projectile.velocity * 0.5f;
         }
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
         {
 			//
 		}

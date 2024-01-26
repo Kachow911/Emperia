@@ -17,7 +17,6 @@ namespace Emperia.Tiles
 			Main.tileNoAttach[Type] = true;
 			Main.tileLavaDeath[Type] = true;
 			Main.tileLighted[Type] = true;
-			ItemDrop = ModContent.ItemType<Items.MoonPedestalItem>();
 
 			TileObjectData.newTile.CopyFrom(TileObjectData.Style1x2);
 			TileObjectData.newTile.Origin = new Point16(0, 1);

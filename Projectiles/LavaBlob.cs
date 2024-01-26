@@ -52,7 +52,7 @@ namespace Emperia.Projectiles
 			return false;
 		}
 
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
             Projectile.NewProjectile(Projectile.InheritSource(Projectile), Projectile.position.X, Projectile.position.Y, 0, 0, ModContent.ProjectileType<FireBall>(), Projectile.damage, 0f, Main.player[Projectile.owner].whoAmI);
            

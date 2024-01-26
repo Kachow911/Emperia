@@ -36,7 +36,7 @@ namespace Emperia.Projectiles
 			Main.dust[dust].velocity *= 0f;
 
         }
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
         {
 			for (int i = 0; i < Main.player.Length; i++)
             {

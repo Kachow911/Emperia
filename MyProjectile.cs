@@ -136,7 +136,7 @@ namespace Emperia
             return false;
         }
 
-        public override void Kill(Projectile Projectile, int timeLeft)
+        public override void OnKill(Projectile Projectile, int timeLeft)
         {
             if (scoriaExplosion)
             {

@@ -37,7 +37,7 @@ namespace Emperia.Projectiles.Granite
 				modifiers.SourceDamage *= 1.75f;
 			}
 		}
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			Player player = Main.player[Projectile.owner];
 			MyPlayer modPlayer = player.GetModPlayer<MyPlayer>();

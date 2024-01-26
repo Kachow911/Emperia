@@ -71,7 +71,7 @@ namespace Emperia.Projectiles
             else return false;
 		}
 
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
         {
             for (int i = 1; i < 5; ++i){
                 Vector2 dustPosition = new Vector2(Projectile.position.X, Projectile.position.Y);                

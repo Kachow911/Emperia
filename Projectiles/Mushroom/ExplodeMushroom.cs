@@ -39,7 +39,7 @@ namespace Emperia.Projectiles.Mushroom
 			}*/
 			
         }
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
 			Projectile.NewProjectile(Projectile.InheritSource(Projectile), Projectile.Center.X, Projectile.Center.Y, 0, 0, ModContent.ProjectileType<ExplodeMushroomEffect>(), Projectile.damage, Projectile.knockBack, Projectile.owner, 0f, 0f);
 		}

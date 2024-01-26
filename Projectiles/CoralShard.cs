@@ -39,7 +39,7 @@ namespace Emperia.Projectiles
             }
         
         }
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
             Terraria.Audio.SoundEngine.PlaySound(SoundID.Item10, Projectile.position);
 			for (int i = 0; i < 5; i++)

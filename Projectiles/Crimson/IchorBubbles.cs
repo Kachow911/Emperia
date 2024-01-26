@@ -40,7 +40,7 @@ namespace Emperia.Projectiles.Crimson
             if (Main.rand.Next(2) == 0)
                 target.AddBuff(BuffID.Ichor, 600);
         }
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             PlaySound(SoundID.Item54, Projectile.Center);
             for (int i = 0; i < 2; i++)
@@ -90,7 +90,7 @@ namespace Emperia.Projectiles.Crimson
             if (Main.rand.Next(3) == 0)
                 target.AddBuff(BuffID.Ichor, 300);
         }
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             PlaySound(SoundID.Item54, Projectile.Center);
             for (int i = 0; i < 2; i++)
@@ -140,7 +140,7 @@ namespace Emperia.Projectiles.Crimson
             if (Main.rand.Next(5) == 0)
                 target.AddBuff(BuffID.Ichor, 300);
         }
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             PlaySound(SoundID.Item54, Projectile.Center);
             for (int i = 0; i < 360; i++)

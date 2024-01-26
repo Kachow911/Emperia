@@ -16,7 +16,6 @@ namespace Emperia.Tiles
 			Main.tileMergeDirt[Type] = true;
 			Main.tileBlockLight[Type] = true;
 			Main.tileOreFinderPriority[Type] = 275;
-			ItemDrop = ModContent.ItemType<Items.Osmium>();
 			AddMapEntry(new Color(142, 156, 171));
 			MineResist = 4f;
 			//SoundType = 21;

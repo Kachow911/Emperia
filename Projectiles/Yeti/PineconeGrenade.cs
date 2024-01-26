@@ -26,7 +26,7 @@ namespace Emperia.Projectiles.Yeti
             Projectile.ignoreWater = false;
             Projectile.aiStyle = 2;
         }
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
             for (int i = 0; i < 7; i++)
             {

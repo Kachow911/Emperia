@@ -12,7 +12,6 @@ namespace Emperia.Tiles
 			Main.tileSolid[Type] = true;
 			Main.tileMergeDirt[Type] = true;
 			Main.tileBlockLight[Type] = true;
-			ItemDrop = ModContent.ItemType<Items.Grotto.GrottoBrick>();
 			AddMapEntry(new Color(77, 98, 148));
 			MineResist = 1f;
 			//SoundType = 21;

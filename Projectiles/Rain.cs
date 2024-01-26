@@ -51,7 +51,7 @@ namespace Emperia.Projectiles
             Main.dust[index2].noGravity = true;
             Main.dust[index2].velocity = Projectile.velocity * 0.5f;
         }
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
         {
             Terraria.Audio.SoundEngine.PlaySound(SoundID.Dig, Projectile.position);
             for (int index1 = 0; index1 < 10; ++index1)

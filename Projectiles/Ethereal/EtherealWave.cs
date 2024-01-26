@@ -45,7 +45,7 @@ namespace Emperia.Projectiles.Ethereal
 			target.GetGlobalNPC<MyNPC>().etherealCounts.Add(2);
             target.GetGlobalNPC<MyNPC>().etherealSource = Projectile;
         }
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
 			//
 		}

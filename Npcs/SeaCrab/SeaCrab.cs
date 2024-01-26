@@ -41,12 +41,8 @@ namespace Emperia.Npcs.SeaCrab
 		{
 			// DisplayName.SetDefault("Crystacean");
 			Main.npcFrameCount[NPC.type] = 7;
-			NPCDebuffImmunityData debuffData = new NPCDebuffImmunityData
-			{
-				SpecificallyImmuneTo = new int[] { BuffID.Frostburn, } //frostburn arrows just make this boss comparatively easy lol
-			};
-			NPCID.Sets.DebuffImmunitySets.Add(Type, debuffData);
-			NPCID.Sets.CantTakeLunchMoney[Type] = true;
+			NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Frostburn] = true; //frostburn arrows just make this boss comparatively easy lol
+            NPCID.Sets.CantTakeLunchMoney[Type] = true;
 			//NPCID.Sets.ShouldBeCountedAsBoss[Type] = true;
 			NPCID.Sets.NPCBestiaryDrawModifiers drawModifiers = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
 			{

@@ -47,7 +47,7 @@ namespace Emperia.Projectiles.Ice
 			target.GetGlobalNPC<MyNPC>().chillStacks += 1;
 			target.AddBuff(ModContent.BuffType<CrushingFreeze>(), 300);
 		}
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
         {
 			Terraria.Audio.SoundEngine.PlaySound(SoundID.Item107, Projectile.Center);
 			for (int i = 0; i < Main.npc.Length; i++)

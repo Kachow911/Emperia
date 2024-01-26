@@ -43,7 +43,7 @@ namespace Emperia.Projectiles.Mushroom
 					Projectile.NewProjectile(Projectile.InheritSource(Projectile), Projectile.Center.X + Main.rand.Next(-20, 20), Projectile.Center.Y + 10, 0, -1, ModContent.ProjectileType<EnchantedMushroom>(), 24, 1.5f, Projectile.owner, 0f, 0f);
 			}
 		}
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
         {
 			//
 		}

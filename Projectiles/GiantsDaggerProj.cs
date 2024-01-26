@@ -69,7 +69,7 @@ namespace Emperia.Projectiles
                 // NPC.StrikeNPCNoInteraction(2 * NPC.GetGlobalNPC<MyNPC>().spineCount, 0, 0, false, false, false);
             }
         }
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             Terraria.Audio.SoundEngine.PlaySound(SoundID.Dig, Projectile.position);
             for (int i = 0; i < 5; i++)

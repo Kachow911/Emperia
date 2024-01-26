@@ -57,7 +57,7 @@ namespace Emperia.Projectiles.Ethereal
             target.GetGlobalNPC<MyNPC>().etherealCounts.Add(2);
             target.GetGlobalNPC<MyNPC>().etherealSource = Projectile;
         }
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
 			Terraria.Audio.SoundEngine.PlaySound(SoundID.Item10, Projectile.position);
             for (int index1 = 4; index1 < 31; ++index1)

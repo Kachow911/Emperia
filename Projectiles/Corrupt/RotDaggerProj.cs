@@ -44,7 +44,7 @@ namespace Emperia.Projectiles.Corrupt
 			if (Main.rand.Next(3) == 0)
 			 target.AddBuff(BuffID.CursedInferno, 240);
 		}
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
         {
             Terraria.Audio.SoundEngine.PlaySound(SoundID.Dig, Projectile.Center);
             Projectile.NewProjectile(Projectile.InheritSource(Projectile), Projectile.Center.X, Projectile.Center.Y, 0, 0, ModContent.ProjectileType<FireBallCursed>(), Projectile.damage, 1, Main.myPlayer, 0, 0);

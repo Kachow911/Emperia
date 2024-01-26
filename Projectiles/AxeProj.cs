@@ -52,7 +52,7 @@ namespace Emperia.Projectiles
             target.AddBuff(ModContent.BuffType<MoreDamage>(), 240);
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
 		{
             Terraria.Audio.SoundEngine.PlaySound(SoundID.Dig, Projectile.position);
             if (Main.rand.Next(0, 4) == 0)

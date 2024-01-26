@@ -40,7 +40,7 @@ namespace Emperia.Projectiles
 			Projectile.velocity.Y *= 0.99f;
 		}
 		
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
         {
 			for (int i = 0; i < Main.npc.Length; i++)
             {

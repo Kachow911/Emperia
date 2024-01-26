@@ -56,7 +56,7 @@ namespace Emperia.Projectiles.Mushroom
         {
             Projectile.Kill();
         }
-		public override void Kill(int timeLeft) 
+		public override void OnKill(int timeLeft) 
 		{
 			MyPlayer modPlayer = Main.player[Projectile.owner].GetModPlayer<MyPlayer>();
 			modPlayer.sporeCount--;

@@ -118,7 +118,7 @@ namespace Emperia.Projectiles.Yeti
 			    target.AddBuff(BuffID.Frostburn, 240);
             }
 		}
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
 		{
             Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.BlueCrystalShard, (float) Projectile.velocity.X / 10, (float) Projectile.velocity.Y / 10, 0, default(Color), 0.7f);
 		}

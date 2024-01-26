@@ -23,7 +23,7 @@ namespace Emperia.Items
 	public override void AddRecipes()
 		{
 			Recipe recipe = CreateRecipe();
-			recipe.AddIngredient(null, "Aetherium", 3);
+			recipe.AddIngredient(null, "AetheriumItem", 3);
 			recipe.AddTile(TileID.SkyMill);  
 			recipe.Register();
 

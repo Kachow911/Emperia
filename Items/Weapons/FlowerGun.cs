@@ -50,7 +50,7 @@ namespace Emperia.Items.Weapons
             Projectile.NewProjectile(Projectile.InheritSource(Projectile), Projectile.position, Vector2.Zero, ModContent.ProjectileType<FlowerGunBlossom>(), 0, 0, Projectile.owner);
             return true;
         }
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             for (int i = 0; i < 8; i++)
             {
@@ -119,7 +119,7 @@ namespace Emperia.Items.Weapons
             //Main.NewText(target.velocity.Y);
             return true;
         }
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             for (int i = 0; i < 20; i++)
             {

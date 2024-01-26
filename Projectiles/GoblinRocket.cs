@@ -46,7 +46,7 @@ namespace Emperia.Projectiles
 			Main.dust[dust2].scale = 1.9f;
 			Main.dust[dust].scale = 1.9f;
 		}
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
         {
 			Terraria.Audio.SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
 			for (int i = 0; i < Main.player.Length; i++)

@@ -83,7 +83,7 @@ namespace Emperia.Projectiles
 			}
 		}
 
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
         {
 			if (Projectile.penetrate == 0)
 			{

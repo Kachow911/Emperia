@@ -99,7 +99,7 @@ namespace Emperia.Items.Weapons
             }
             if (Projectile.velocity.Y > 11) Projectile.velocity.Y = 11;
         }
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             for (int i = 0; i < 40; i++)
             {

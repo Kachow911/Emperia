@@ -21,8 +21,8 @@ namespace Emperia.Tiles
 			Main.tileBlockLight[Type] = true;
 			Main.tileLighted[Type] = false;
 			TileObjectData.addTile(Type);
-			ItemDrop = ModContent.ItemType<Items.Accessories.VitalityCrystal>();
-			TileObjectData.newTile.CoordinateHeights = new int[]
+            RegisterItemDrop(ModContent.ItemType<Items.Accessories.VitalityCrystal>());
+            TileObjectData.newTile.CoordinateHeights = new int[]
 			{
 				16,
 				16

@@ -13,7 +13,6 @@ namespace Emperia.Tiles
 			Main.tileSolid[Type] = true;
 			Main.tileMergeDirt[Type] = true;
 			Main.tileBlockLight[Type] = true;
-			ItemDrop = ModContent.ItemType<Items.Aetherium>();
 			AddMapEntry(new Color(117, 241, 255));
 			MineResist = 5f;
 			MinPick = 60;
